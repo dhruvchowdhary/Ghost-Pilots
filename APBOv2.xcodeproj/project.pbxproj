@@ -15,6 +15,7 @@
 		74C3CFBB253F3BE900757586 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74C3CFB9253F3BE900757586 /* Main.storyboard */; };
 		74C3CFBD253F3BED00757586 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74C3CFBC253F3BED00757586 /* Assets.xcassets */; };
 		74C3CFC0253F3BED00757586 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74C3CFBE253F3BED00757586 /* LaunchScreen.storyboard */; };
+		74C3CFC8253F3E3D00757586 /* Starfield.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74C3CFC7253F3E3D00757586 /* Starfield.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		74C3CFBC253F3BED00757586 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74C3CFBF253F3BED00757586 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		74C3CFC1253F3BED00757586 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		74C3CFC7253F3E3D00757586 /* Starfield.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Starfield.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				74C3CFB9253F3BE900757586 /* Main.storyboard */,
 				74C3CFBC253F3BED00757586 /* Assets.xcassets */,
 				74C3CFBE253F3BED00757586 /* LaunchScreen.storyboard */,
+				74C3CFC7253F3E3D00757586 /* Starfield.sks */,
 				74C3CFC1253F3BED00757586 /* Info.plist */,
 			);
 			path = APBOv2;
@@ -131,6 +134,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74C3CFC8253F3E3D00757586 /* Starfield.sks in Resources */,
 				74C3CFBB253F3BE900757586 /* Main.storyboard in Resources */,
 				74C3CFB2253F3BE900757586 /* GameScene.sks in Resources */,
 				74C3CFBD253F3BED00757586 /* Assets.xcassets in Resources */,
