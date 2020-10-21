@@ -24,7 +24,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         
     player.name = "apbo"
-    player.position.x = frame.minX+300
+    player.position = CGPoint(x: size.width/2, y: size.height/2)
     player.zPosition = 1
     addChild(player)
 
@@ -33,7 +33,7 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
        player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
         player.physicsBody?.isDynamic = false
                
-        let moveBottomLeft = SKAction.move(to: CGPoint(x: 100,y: 100), duration:3.0)
+        let moveBottomLeft = SKAction.move(to: CGPoint(x: 100,y: 100), duration:1.0)
            player.run(moveBottomLeft)
     }
 }
