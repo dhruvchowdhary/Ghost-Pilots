@@ -16,7 +16,7 @@ case playerWeapon = 2
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-     
+    let turnButton = SKSpriteNode(imageNamed: "button")
     let motionManager = CMMotionManager()
     let player = SKSpriteNode(imageNamed: "apbo")
     
@@ -29,10 +29,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //        particles.advanceSimulationTime(60)
                 particles.zPosition = -1
                 addChild(particles)
-    player.name = "apbo"
-    player.position = CGPoint(x: size.width/2, y: size.height/2)
-    player.zPosition = 1
-    addChild(player)
+                
+                player.name = "apbo"
+                player.position = CGPoint(x: size.width/2, y: size.height/2)
+                player.zPosition = 1
+                addChild(player)
+                
+                turnButton.name = "btn"
+                turnButton.size.height = 100
+                turnButton.size.width = 100
+                turnButton.position = CGPoint(x: self.frame.midX,y: self.frame.midY)
+                self.addChild(turnButton)
 
     
 player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.texture!.size())
