@@ -33,8 +33,12 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
        player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
         player.physicsBody?.isDynamic = false
                
-        let moveBottomLeft = SKAction.move(to: CGPoint(x: 100,y: 100), duration:1.0)
-           player.run(moveBottomLeft)
+        
+        let moveRight = SKAction.moveBy(x: 50, y:0, duration:3.0)
+ 
+        let endless = SKAction.repeatForever(moveRight)
+        player.run(endless)
+ 
     }
 }
 
