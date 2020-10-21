@@ -31,5 +31,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
 player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.texture!.size())
        player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
+        player.physicsBody?.isDynamic = false
+               
+        
     }
 }
+
+func movement() {
+    
+}
+
