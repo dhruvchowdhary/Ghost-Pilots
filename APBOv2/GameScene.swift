@@ -61,8 +61,11 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
 
      if let name = touchedNode.name {
          if name == "btn" {
-            //put code to rotate
-        }
+            
+            let rotate = SKAction.rotate(byAngle: -1, duration: 3)
+            player.run(rotate)
+            
+            }
         }
     }
 
