@@ -38,7 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 turnButton.name = "btn"
                 turnButton.size.height = 100
                 turnButton.size.width = 100
-                turnButton.position = CGPoint(x: self.frame.midX,y: self.frame.midY)
+                turnButton.position = CGPoint(x: frame.maxX-75,y: frame.midY)
                 self.addChild(turnButton)
 
     
