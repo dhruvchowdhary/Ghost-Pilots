@@ -22,7 +22,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
        var isPlayerAlive = true
     override func didMove(to view: SKView) {
-        
+            physicsWorld.gravity = .zero
+            physicsWorld.contactDelegate = self
+            if let particles = SKEmitterNode(fileNamed: "Starfield") {
+                particles.position = CGPoint(x: 500, y: 100)
+        //        particles.advanceSimulationTime(60)
+                particles.zPosition = -1
+                addChild(particles)
     player.name = "apbo"
     player.position = CGPoint(x: size.width/2, y: size.height/2)
     player.zPosition = 1
@@ -47,3 +53,4 @@ func movement() {
 
 }
 
+}
