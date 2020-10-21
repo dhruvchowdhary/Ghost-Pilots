@@ -54,6 +54,17 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
  
     }
 }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+       let touch = touches.first
+        let positionInScene = touch!.location(in: self)
+        let touchedNode = self.atPoint(positionInScene)
+
+     if let name = touchedNode.name {
+         if name == "btn" {
+            //put code to rotate
+        }
+        }
+    }
 
 func movement() {
    
