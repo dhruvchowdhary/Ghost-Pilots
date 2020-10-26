@@ -19,6 +19,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let turnButton = SKSpriteNode(imageNamed: "button")
     let motionManager = CMMotionManager()
     let player = SKSpriteNode(imageNamed: "apbo")
+    var count = 0;
     
        var isPlayerAlive = true
     override func didMove(to view: SKView) {
@@ -38,7 +39,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 turnButton.name = "btn"
                 turnButton.size.height = 100
                 turnButton.size.width = 100
-                turnButton.position = CGPoint(x: frame.maxX-75,y: frame.midY)
+                turnButton.position = CGPoint(x: self.frame.maxX*0.9,y: self.frame.midY)
                 self.addChild(turnButton)
 
     
@@ -47,28 +48,47 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
         player.physicsBody?.isDynamic = false
                
         
-        let moveRight = SKAction.moveBy(x: 50, y:0, duration:3.0)
+        let moveRight = SKAction.moveBy(x: 50, y:0, duration:5.0)
  
         let endless = SKAction.repeatForever(moveRight)
         player.run(endless)
  
     }
 }
+ let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
+ 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-       let touch = touches.first
+        let touch = touches.first
         let positionInScene = touch!.location(in: self)
         let touchedNode = self.atPoint(positionInScene)
 
      if let name = touchedNode.name {
-         if name == "btn" {
-            
-            let rotate = SKAction.rotate(byAngle: -1, duration: 3)
-            player.run(rotate)
-            
-            }
-        }
-    }
+            if name == "btn" {
 
+            let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
+            let rotateEndless = SKAction.repeatForever(rotate)
+        player.run(rotateEndless)
+                count=1;
+            }
+       } else {
+               count=0;
+       }
+    }
+ 
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+
+        if count==1 {
+            let rotate = SKAction.rotate(byAngle: 1, duration: 0.5)
+            let rotateEndless = SKAction.repeatForever(rotate)
+                player.run(rotateEndless)
+        }
+
+            
+            
+        }
+    
+    
+    
 func movement() {
    
 
