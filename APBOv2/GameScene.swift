@@ -64,10 +64,10 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
 
      if let name = touchedNode.name {
             if name == "btn" {
-
-            let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
-            let rotateEndless = SKAction.repeatForever(rotate)
-        player.run(rotateEndless)
+                player.zRotation=player.zRotation+0.1
+    //        let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
+   //         let rotateEndless = SKAction.repeatForever(rotate)
+  //      player.run(rotateEndless)
                 count=1;
             }
        } else {
@@ -77,12 +77,12 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
  
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 
-        if count==1 {
+   /*     if count==1 {
             let rotate = SKAction.rotate(byAngle: 1, duration: 0.5)
             let rotateEndless = SKAction.repeatForever(rotate)
                 player.run(rotateEndless)
         }
-
+*/
             
             
         }
