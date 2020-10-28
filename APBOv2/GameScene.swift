@@ -71,14 +71,7 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
      if let name = touchedNode.name {
             if name == "btn" {
                 count=1;
-      //          while 1==1 {
                 direction = 0.1
-       
-     //               }
-    //        let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
-   //         let rotateEndless = SKAction.repeatForever(rotate)
-  //      player.run(rotateEndless)
-         //       }
             }
        } else {
                count=0;
@@ -103,14 +96,6 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
 
         if count==1 {
             direction = 0
-   //                     }
-  //          while 1==1 {
-    //        player.zRotation = player.zRotation-0.1
-        /*    let rotate = SKAction.rotate(byAngle: 1, duration: 0.5)
-            let rotateEndless = SKAction.repeatForever(rotate)
-                player.run(rotateEndless)
-             */
-    //        }
         }
 
             
