@@ -92,7 +92,7 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
                    
                    
                        
-                        let movement = SKAction.moveBy(x: 500 * cos(player.zRotation), y: 500 * sin(player.zRotation), duration: 0.5)
+                        let movement = SKAction.moveBy(x: 500 * cos(player.zRotation), y: 500 * sin(player.zRotation), duration: 0.9)
                    
                    
                        let sequence = SKAction.sequence([movement, .removeFromParent()])
