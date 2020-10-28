@@ -52,11 +52,13 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
  
         let endless = SKAction.repeatForever(moveRight)
         player.run(endless)
- 
+                let timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { (timer) in
+                self.player.zRotation = self.player.zRotation + CGFloat(self.direction);
+                }
     }
 }
  let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
- 
+    var direction = 0.0
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         let positionInScene = touch!.location(in: self)
@@ -64,11 +66,15 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
 
      if let name = touchedNode.name {
             if name == "btn" {
-                player.zRotation=player.zRotation+0.1
+                count=1;
+      //          while 1==1 {
+                direction = 0.1
+       
+     //               }
     //        let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
    //         let rotateEndless = SKAction.repeatForever(rotate)
   //      player.run(rotateEndless)
-                count=1;
+         //       }
             }
        } else {
                count=0;
@@ -77,12 +83,18 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
  
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 
-   /*     if count==1 {
-            let rotate = SKAction.rotate(byAngle: 1, duration: 0.5)
+        if count==1 {
+            direction = 0
+   //                     }
+  //          while 1==1 {
+    //        player.zRotation = player.zRotation-0.1
+        /*    let rotate = SKAction.rotate(byAngle: 1, duration: 0.5)
             let rotateEndless = SKAction.repeatForever(rotate)
                 player.run(rotateEndless)
+             */
+    //        }
         }
-*/
+
             
             
         }
