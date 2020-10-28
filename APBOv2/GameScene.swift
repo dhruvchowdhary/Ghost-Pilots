@@ -42,13 +42,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 turnButton.name = "btn"
                 turnButton.size.height = 100
                 turnButton.size.width = 100
-                turnButton.position = CGPoint(x: self.frame.maxX*0.9,y: self.frame.midY)
+                turnButton.position = CGPoint(x: self.frame.maxX-110,y: self.frame.minY+70)
                 self.addChild(turnButton)
                 
                 shootButton.name = "shoot"
                 shootButton.size.height = 100
                 shootButton.size.width = 100
-                shootButton.position = CGPoint(x: self.frame.midX,y: self.frame.midY)
+                shootButton.position = CGPoint(x: self.frame.minX+110 ,y: self.frame.minY+70)
                 self.addChild(shootButton)
            
     
@@ -115,17 +115,18 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
         player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 2.5 ,y:player.position.y + sin(player.zRotation) * 2.5)
        
         
-        if player.position.y < frame.minY + 40 {
-            player.position.y = frame.minY + 40
-        } else if player.position.y > frame.maxY-40 {
-            player.position.y = frame.maxY - 40
+        if player.position.y < frame.minY + 35 {
+            player.position.y = frame.minY + 35
+        } else if player.position.y > frame.maxY-35 {
+            player.position.y = frame.maxY - 35
         }
         
-        if player.position.x < frame.minX + 40 {
-            player.position.x = frame.minX + 40
-        } else if player.position.x > frame.maxX-40 {
-            player.position.x = frame.maxX - 40 //hi
-        }
+        if player.position.x < frame.minX + 80 {
+            player.position.x = frame.minX + 80
+        } else if player.position.x > frame.maxX-80 {
+            player.position.x = frame.maxX - 80
+
+                    }
         
 
 
