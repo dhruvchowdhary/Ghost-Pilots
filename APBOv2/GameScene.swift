@@ -11,7 +11,7 @@ import CoreMotion
 
 enum CollisionType: UInt32 {
 case player = 1
-case playerWeapon = 2
+case bullet = 2
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -77,6 +77,20 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
        } else {
                count=0;
        }
+        let shot = SKSpriteNode(imageNamed: "bullet")
+                       shot.name = "bullet"
+                       shot.position = player.position
+                       shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
+                       shot.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
+                       addChild(shot)
+                   
+                   
+                       
+                        let movement = SKAction.moveBy(x: 500 * cos(player.zRotation), y: 500 * sin(player.zRotation), duration: 0.5)
+                   
+                   
+                       let sequence = SKAction.sequence([movement, .removeFromParent()])
+                       shot.run(sequence)
     }
  
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
