@@ -104,7 +104,7 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
         if player.position.x < frame.minX + 40 {
             player.position.x = frame.minX + 40
         } else if player.position.x > frame.maxX-40 {
-            player.position.x = frame.maxX - 40
+            player.position.x = frame.maxX - 40 //hi
         }
         
 
