@@ -17,6 +17,7 @@ case bullet = 2
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let turnButton = SKSpriteNode(imageNamed: "button")
+    let shootButton = SKSpriteNode(imageNamed: "button")
     let motionManager = CMMotionManager()
     let player = SKSpriteNode(imageNamed: "apbo")
     var count = 0;
@@ -44,7 +45,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 turnButton.position = CGPoint(x: self.frame.maxX*0.9,y: self.frame.midY)
                 self.addChild(turnButton)
                 
-                
+                shootButton.name = "shoot"
+                shootButton.size.height = 100
+                shootButton.size.width = 100
+                shootButton.position = CGPoint(x: self.frame.midX,y: self.frame.midY)
+                self.addChild(shootButton)
            
     
 player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.texture!.size())
@@ -76,6 +81,8 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
        } else {
                count=0;
        }
+        if let name = touchedNode.name {
+        if name == "shoot" {
         let shot = SKSpriteNode(imageNamed: "bullet")
                        shot.name = "bullet"
                        shot.position = player.position
@@ -90,6 +97,8 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
                    
                        let sequence = SKAction.sequence([movement, .removeFromParent()])
                        shot.run(sequence)
+            }
+        }
     }
  
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
