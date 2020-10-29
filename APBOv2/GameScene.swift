@@ -86,8 +86,8 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
         
        // let moveRight = SKAction.moveBy(x: 50, y:0, duration:5.0)
  
-        let endless = SKAction.repeatForever(moveRight)
-        player.run(endless)
+        //let endless = SKAction.repeatForever(moveRight)
+       // player.run(endless)
                 let timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
                 self.player.zRotation = self.player.zRotation + CGFloat(self.direction);
                 }
