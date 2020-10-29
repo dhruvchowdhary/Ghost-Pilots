@@ -37,6 +37,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var isPlayerAlive = true
     
     override func didMove(to view: SKView) {
+        size = view.bounds.size
         
         backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)
         
@@ -54,9 +55,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 cannonSprite.position = CGPoint(x: size.width/2, y: size.height/2)
                 addChild(cannonSprite)
+                cannonSprite.zPosition = 1
                 
                 turretSprite.position = CGPoint(x: size.width/2, y: size.height/2)
                 addChild(turretSprite)
+                turretSprite.zPosition = 2
               
                 player.zPosition = 1
                 addChild(player)
@@ -81,7 +84,7 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
         player.physicsBody?.isDynamic = false
                 
         
-        let moveRight = SKAction.moveBy(x: 50, y:0, duration:5.0)
+       // let moveRight = SKAction.moveBy(x: 50, y:0, duration:5.0)
  
         let endless = SKAction.repeatForever(moveRight)
         player.run(endless)
@@ -116,6 +119,7 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
         let shot = SKSpriteNode(imageNamed: "bullet")
                        shot.name = "bullet"
                        shot.position = player.position
+                       shot.zPosition = 1
                        shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
                        shot.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
                        addChild(shot)
