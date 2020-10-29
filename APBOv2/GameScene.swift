@@ -21,6 +21,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let motionManager = CMMotionManager()
     let player = SKSpriteNode(imageNamed: "apbo")
     var count = 0;
+    var doubleTap = 0;
     
        var isPlayerAlive = true
     override func didMove(to view: SKView) {
@@ -79,6 +80,11 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
             if name == "btn" {
                 count=1;
                 direction = 0.1
+                if (doubleTap==1) {
+                    self.player.zRotation = self.player.zRotation + 1.0;
+                } else {
+                    doubleTap = 1;
+                }
             }
        } else {
                count=0;
@@ -107,6 +113,9 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
 
         if count==1 {
             direction = 0
+            let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (timer) in
+                self.doubleTap = 0;
+            }
         }
 
             
