@@ -16,6 +16,8 @@ case bullet = 2
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+     
+    
     let turnButton = SKSpriteNode(imageNamed: "button")
     let shootButton = SKSpriteNode(imageNamed: "button")
     let motionManager = CMMotionManager()
@@ -23,8 +25,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var count = 0;
     var doubleTap = 0;
     
-       var isPlayerAlive = true
+    var isPlayerAlive = true
+    
     override func didMove(to view: SKView) {
+        
+        backgroundColor = SKColor(red: 94.0/255, green: 63.0/255, blue: 157.0/255, alpha: 1)
+        
             physicsWorld.gravity = .zero
             physicsWorld.contactDelegate = self
             if let particles = SKEmitterNode(fileNamed: "Starfield") {
