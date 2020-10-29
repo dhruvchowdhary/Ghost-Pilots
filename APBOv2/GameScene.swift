@@ -27,7 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             physicsWorld.gravity = .zero
             physicsWorld.contactDelegate = self
             if let particles = SKEmitterNode(fileNamed: "Starfield") {
-                particles.position = CGPoint(x: 500, y: 100)
+                particles.position = CGPoint(x: frame.midX, y: frame.midY)
         //      particles.advanceSimulationTime(60)
                 particles.zPosition = -1
                 addChild(particles)
@@ -42,12 +42,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 turnButton.name = "btn"
                 turnButton.size.height = 100
                 turnButton.size.width = 100
+                turnButton.zPosition = 2
                 turnButton.position = CGPoint(x: self.frame.maxX-110,y: self.frame.minY+70)
                 self.addChild(turnButton)
                 
                 shootButton.name = "shoot"
                 shootButton.size.height = 100
                 shootButton.size.width = 100
+                shootButton.zPosition = 2
                 shootButton.position = CGPoint(x: self.frame.minX+110 ,y: self.frame.minY+70)
                 self.addChild(shootButton)
            
@@ -55,7 +57,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.texture!.size())
        player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
         player.physicsBody?.isDynamic = false
-               
+                
         
         let moveRight = SKAction.moveBy(x: 50, y:0, duration:5.0)
  
@@ -92,7 +94,7 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
                    
                    
                        
-                        let movement = SKAction.moveBy(x: 500 * cos(player.zRotation), y: 500 * sin(player.zRotation), duration: 0.9)
+            let movement = SKAction.moveBy(x: 700 * cos(player.zRotation), y: 700 * sin(player.zRotation), duration: 1.26)
                    
                    
                        let sequence = SKAction.sequence([movement, .removeFromParent()])
