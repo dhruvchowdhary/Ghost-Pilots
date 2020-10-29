@@ -29,7 +29,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         
-        backgroundColor = SKColor(red: 94.0/255, green: 63.0/255, blue: 157.0/255, alpha: 1)
+        backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)
         
             physicsWorld.gravity = .zero
             physicsWorld.contactDelegate = self
