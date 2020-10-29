@@ -9,6 +9,9 @@
 import SpriteKit
 import CoreMotion
 
+let degreesToRadians = CGFloat.pi / 180
+let radiansToDegrees = 180 / CGFloat.pi
+
 enum CollisionType: UInt32 {
 case player = 1
 case bullet = 2
@@ -20,8 +23,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     let turnButton = SKSpriteNode(imageNamed: "button")
     let shootButton = SKSpriteNode(imageNamed: "button")
-    let motionManager = CMMotionManager()
+    let turretSprite = SKSpriteNode(imageNamed: "turretshooter")
+    let cannonSprite = SKSpriteNode(imageNamed: "turretbase")
     let player = SKSpriteNode(imageNamed: "apbo")
+    
+    let motionManager = CMMotionManager()
+    
+    
+     var lastUpdateTime: CFTimeInterval = 0
     var count = 0;
     var doubleTap = 0;
     
@@ -42,6 +51,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 player.name = "apbo"
                 player.position.x = size.width/2
                 player.position.y = size.height/2
+                
+                cannonSprite.position = CGPoint(x: size.width/2, y: size.height/2)
+                addChild(cannonSprite)
+                
+                turretSprite.position = CGPoint(x: size.width/2, y: size.height/2)
+                addChild(turretSprite)
               
                 player.zPosition = 1
                 addChild(player)
@@ -88,6 +103,7 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
                 direction = 0.1
                 if (doubleTap==1) {
                     self.player.zRotation = self.player.zRotation + 1.0;
+                    
                 } else {
                     doubleTap = 1;
                 }
@@ -119,7 +135,7 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
 
         if count==1 {
             direction = 0
-            let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (timer) in
+            let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
                 self.doubleTap = 0;
             }
         }
@@ -129,6 +145,18 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
         }
     
     override func update(_ currentTime: TimeInterval) {
+        
+        
+        let deltaTime = max(1.0/30, currentTime - lastUpdateTime)
+          lastUpdateTime = currentTime
+          
+        updatePlayer(deltaTime)
+          updateTurret(deltaTime)
+        
+    }
+    
+    func updatePlayer(_ dt: CFTimeInterval) {
+        
         player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 2.5 ,y:player.position.y + sin(player.zRotation) * 2.5)
        
         
@@ -146,7 +174,15 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
                     }
         
 
-
+    }
+    
+    
+    func updateTurret(_ dt: CFTimeInterval) {
+      let deltaX = player.position.x - turretSprite.position.x
+      let deltaY = player.position.y - turretSprite.position.y
+      let angle = atan2(deltaY, deltaX)
+      
+      turretSprite.zRotation = angle - 270 * degreesToRadians
     }
     
     
