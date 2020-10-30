@@ -55,11 +55,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 cannonSprite.position = CGPoint(x: size.width/2, y: size.height/2)
                 addChild(cannonSprite)
-                cannonSprite.zPosition = 1
+                cannonSprite.zPosition = 2
                 
                 turretSprite.position = CGPoint(x: size.width/2, y: size.height/2)
                 addChild(turretSprite)
-                turretSprite.zPosition = 2
+                turretSprite.zPosition = 3
               
                 player.zPosition = 1
                 addChild(player)
@@ -102,6 +102,8 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
 
      if let name = touchedNode.name {
             if name == "btn" {
+                let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
+                turnButton.run(fadeAlpha)
                 count=1;
                 direction = 0.1
                 if (doubleTap==1) {
@@ -117,10 +119,14 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
        }
         if let name = touchedNode.name {
         if name == "shoot" {
+            
+            let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
+            shootButton.run(fadeAlpha)
+            
         let shot = SKSpriteNode(imageNamed: "bullet")
                        shot.name = "bullet"
                        shot.position = player.position
-                       shot.zPosition = 1
+                       shot.zPosition = 0
                        shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
                        shot.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
                        addChild(shot)
@@ -144,7 +150,9 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
                 self.doubleTap = 0;
             }
         }
-
+        let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
+        turnButton.run(fadeAlpha)
+        shootButton.run(fadeAlpha)
             
             
         }
