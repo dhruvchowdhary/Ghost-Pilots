@@ -106,7 +106,8 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
                 direction = 0.1
                 if (doubleTap==1) {
                     self.player.zRotation = self.player.zRotation + 1.0;
-                    
+                    let movement = SKAction.moveBy(x: 50 * cos(player.zRotation), y: 50 * sin(player.zRotation), duration: 0.2)
+                               player.run(movement)
                 } else {
                     doubleTap = 1;
                 }
