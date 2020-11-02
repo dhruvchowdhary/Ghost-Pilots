@@ -42,7 +42,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var count = 0;
         var doubleTap = 0;
         var isPlayerAlive = true
-
+        let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
     override func didMove(to view: SKView) {
         size = view.bounds.size
         
@@ -113,6 +113,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         shootButton.position = CGPoint(x: self.frame.minX+110 ,y: self.frame.minY+70)
         self.addChild(shootButton)
            
+        thruster1?.position = player.position
+        thruster1?.zPosition = 2
+        addChild(thruster1!)
     
         player.physicsBody = SKPhysicsBody(texture: player.texture!, size:player.texture!.size())
         player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
@@ -227,7 +230,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             player.position.x = frame.maxX - 80
 
                     }
-        
+        thruster1?.position = player.position
+        thruster1?.zRotation = player.zRotation
 
     }
     
