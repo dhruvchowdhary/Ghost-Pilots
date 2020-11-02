@@ -11,90 +11,131 @@ import CoreMotion
 
 let degreesToRadians = CGFloat.pi / 180
 let radiansToDegrees = 180 / CGFloat.pi
+let maxHealth = 100
+let healthBarWidth: CGFloat = 40
+let healthBarHeight: CGFloat = 4
+let cannonCollisionRadius: CGFloat = 70
+let playerCollisionRadius: CGFloat = 10
+let shotCollisionRadius: CGFloat = 20
+
 
 enum CollisionType: UInt32 {
 case player = 1
-case bullet = 2
+case shot = 2
+case cannon = 4
+case turretWeapon = 8
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-     
-    
-    let turnButton = SKSpriteNode(imageNamed: "button")
-    let shootButton = SKSpriteNode(imageNamed: "button")
-    let turretSprite = SKSpriteNode(imageNamed: "turretshooter")
-    let cannonSprite = SKSpriteNode(imageNamed: "turretbase")
-    let player = SKSpriteNode(imageNamed: "apbo")
-    
-    let motionManager = CMMotionManager()
-    
-    
-     var lastUpdateTime: CFTimeInterval = 0
-    var count = 0;
-    var doubleTap = 0;
-    
-    var isPlayerAlive = true
-    
+        let playerHealthBar = SKSpriteNode()
+        let cannonHealthBar = SKSpriteNode()
+        var playerHP = maxHealth
+        var cannonHP = maxHealth
+        let turnButton = SKSpriteNode(imageNamed: "button")
+        let shootButton = SKSpriteNode(imageNamed: "button")
+        let turretSprite = SKSpriteNode(imageNamed: "turretshooter")
+        let cannonSprite = SKSpriteNode(imageNamed: "turretbase")
+        let player = SKSpriteNode(imageNamed: "apbo")
+        let shot = SKSpriteNode(imageNamed: "bullet")
+        var lastUpdateTime: CFTimeInterval = 0
+        var count = 0;
+        var doubleTap = 0;
+        var isPlayerAlive = true
+
     override func didMove(to view: SKView) {
         size = view.bounds.size
         
         backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)
         
-            physicsWorld.gravity = .zero
-            physicsWorld.contactDelegate = self
-            if let particles = SKEmitterNode(fileNamed: "Starfield") {
+     
+            
+        physicsWorld.gravity = .zero
+        physicsWorld.contactDelegate = self
+        
+        if let particles = SKEmitterNode(fileNamed: "Starfield") {
                 particles.position = CGPoint(x: frame.midX, y: frame.midY)
         //      particles.advanceSimulationTime(60)
                 particles.zPosition = -1
                 addChild(particles)
+        }
                 
-                player.name = "apbo"
-                player.position.x = size.width/2
-                player.position.y = size.height/2
+        
+        
+        shot.name = "bullet"
+           shot.position = player.position
+           shot.zPosition = 0
+           shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
+           shot.physicsBody?.categoryBitMask = CollisionType.shot.rawValue
+           addChild(shot)
+        
+     
+             shot.physicsBody?.collisionBitMask = CollisionType.cannon.rawValue | CollisionType.turretWeapon.rawValue
+             shot.physicsBody?.contactTestBitMask = CollisionType.cannon.rawValue | CollisionType.turretWeapon.rawValue
+        
+        
+        player.name = "apbo"
+        player.position.x = size.width/2
+        player.position.y = size.height/2
+        player.zPosition = 1
+        addChild(player)
+        
+        player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
+         player.physicsBody?.collisionBitMask = CollisionType.cannon.rawValue | CollisionType.turretWeapon.rawValue
+         player.physicsBody?.contactTestBitMask = CollisionType.cannon.rawValue | CollisionType.turretWeapon.rawValue
+         player.physicsBody?.isDynamic = false
                 
-                cannonSprite.position = CGPoint(x: size.width/2, y: size.height/2)
-                addChild(cannonSprite)
-                cannonSprite.zPosition = 2
+        cannonSprite.position = CGPoint(x: size.width/2, y: size.height/2)
+        addChild(cannonSprite)
+        cannonSprite.zPosition = 2
+        
+        cannonSprite.physicsBody?.categoryBitMask = CollisionType.cannon.rawValue
+         cannonSprite.physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.shot.rawValue
+         player.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.shot.rawValue
+         player.physicsBody?.isDynamic = false
                 
-                turretSprite.position = CGPoint(x: size.width/2, y: size.height/2)
-                addChild(turretSprite)
-                turretSprite.zPosition = 3
+        turretSprite.position = CGPoint(x: size.width/2, y: size.height/2)
+        addChild(turretSprite)
+        turretSprite.zPosition = 3
               
-                player.zPosition = 1
-                addChild(player)
+      
+        turnButton.name = "btn"
+        turnButton.size.height = 100
+        turnButton.size.width = 100
+        turnButton.zPosition = 2
+        turnButton.position = CGPoint(x: self.frame.maxX-110,y: self.frame.minY+70)
+        self.addChild(turnButton)
                 
-                turnButton.name = "btn"
-                turnButton.size.height = 100
-                turnButton.size.width = 100
-                turnButton.zPosition = 2
-                turnButton.position = CGPoint(x: self.frame.maxX-110,y: self.frame.minY+70)
-                self.addChild(turnButton)
-                
-                shootButton.name = "shoot"
-                shootButton.size.height = 100
-                shootButton.size.width = 100
-                shootButton.zPosition = 2
-                shootButton.position = CGPoint(x: self.frame.minX+110 ,y: self.frame.minY+70)
-                self.addChild(shootButton)
+        shootButton.name = "shoot"
+        shootButton.size.height = 100
+        shootButton.size.width = 100
+        shootButton.zPosition = 2
+        shootButton.position = CGPoint(x: self.frame.minX+110 ,y: self.frame.minY+70)
+        self.addChild(shootButton)
            
     
-player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.texture!.size())
-       player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
+        player.physicsBody = SKPhysicsBody(texture: player.texture!, size:player.texture!.size())
+        player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
         player.physicsBody?.isDynamic = false
                 
         
-       // let moveRight = SKAction.moveBy(x: 50, y:0, duration:5.0)
- 
-        //let endless = SKAction.repeatForever(moveRight)
-       // player.run(endless)
-                let timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
-                self.player.zRotation = self.player.zRotation + CGFloat(self.direction);
-                }
+        addChild(cannonHealthBar)
+               cannonHealthBar.position = CGPoint(
+                 x: cannonSprite.position.x,
+                 y: cannonSprite.position.y - cannonSprite.size.height/2 - 10
+               )
+               
+               updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
+        
+        let timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
+        self.player.zRotation = self.player.zRotation + CGFloat(self.direction);
+                
     }
 }
- let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
+    let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
     var direction = 0.0
+    
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         let positionInScene = touch!.location(in: self)
@@ -122,13 +163,13 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
             
             let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
             shootButton.run(fadeAlpha)
-            
-        let shot = SKSpriteNode(imageNamed: "bullet")
-                       shot.name = "bullet"
+           
+            let shot = SKSpriteNode(imageNamed: "bullet")
+                    shot.name = "bullet"
                        shot.position = player.position
                        shot.zPosition = 0
                        shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-                       shot.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
+                       shot.physicsBody?.categoryBitMask = CollisionType.shot.rawValue
                        addChild(shot)
                    
                    
@@ -159,12 +200,13 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
     
     override func update(_ currentTime: TimeInterval) {
         
-        
         let deltaTime = max(1.0/30, currentTime - lastUpdateTime)
-          lastUpdateTime = currentTime
-          
+        lastUpdateTime = currentTime
+        
         updatePlayer(deltaTime)
-          updateTurret(deltaTime)
+        updateTurret(deltaTime)
+        checkShipCannonCollision()
+        checkShotCannonCollision()
         
     }
     
@@ -198,10 +240,77 @@ player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.textur
       turretSprite.zRotation = angle - 270 * degreesToRadians
     }
     
+    func updateHealthBar(_ node: SKSpriteNode, withHealthPoints hp: Int) {
+      let barSize = CGSize(width: healthBarWidth, height: healthBarHeight);
+      
+      let fillColor = UIColor(red: 113.0/255, green: 202.0/255, blue: 53.0/255, alpha:1)
+      let borderColor = UIColor(red: 35.0/255, green: 28.0/255, blue: 40.0/255, alpha:1)
+      
+      // create drawing context
+      UIGraphicsBeginImageContextWithOptions(barSize, false, 0)
+      guard let context = UIGraphicsGetCurrentContext() else { return }
+      
+      // draw the outline for the health bar
+      borderColor.setStroke()
+      let borderRect = CGRect(origin: CGPoint.zero, size: barSize)
+      context.stroke(borderRect, width: 1)
+      
+      // draw the health bar with a colored rectangle
+      fillColor.setFill()
+      let barWidth = (barSize.width - 1) * CGFloat(hp) / CGFloat(maxHealth)
+      let barRect = CGRect(x: 0.5, y: 0.5, width: barWidth, height: barSize.height - 1)
+      context.fill(barRect)
+      
+      // extract image
+      guard let spriteImage = UIGraphicsGetImageFromCurrentImageContext() else { return }
+      UIGraphicsEndImageContext()
+      
+      // set sprite texture and size
+      node.texture = SKTexture(image: spriteImage)
+      node.size = barSize
+    }
     
-func movement() {
-   
+    func checkShipCannonCollision() {
+       let deltaX = player.position.x - turretSprite.position.x
+       let deltaY = player.position.y - turretSprite.position.y
+       
+       let distance = sqrt(deltaX * deltaX + deltaY * deltaY)
+       guard distance <= cannonCollisionRadius + playerCollisionRadius else { return }
+      
+       
+       let offsetDistance = cannonCollisionRadius + playerCollisionRadius - distance
+       let offsetX = deltaX / distance * offsetDistance
+       let offsetY = deltaY / distance * offsetDistance
+       player.position = CGPoint(
+         x: player.position.x + offsetX,
+         y: player.position.y + offsetY
+       )
+       
+    
 
-}
+       updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
+  
+     }
+    func checkShotCannonCollision() {
+         let deltaX = shot.position.x - turretSprite.position.x
+         let deltaY = shot.position.y - turretSprite.position.y
+         
+         let distance = sqrt(deltaX * deltaX + deltaY * deltaY)
+         guard distance <= cannonCollisionRadius + shotCollisionRadius else { return }
+        
+         
+         let offsetDistance = cannonCollisionRadius + shotCollisionRadius - distance
+         let offsetX = deltaX / distance * offsetDistance
+         let offsetY = deltaY / distance * offsetDistance
+         shot.position = CGPoint(
+           x: shot.position.x + offsetX,
+           y: shot.position.y + offsetY
+         )
+         
+        shot.removeFromParent()
+         cannonHP = max(0, cannonHP - 20)
 
+         updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
+    
+       }
 }
