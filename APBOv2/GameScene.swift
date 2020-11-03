@@ -62,16 +62,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
         
         
-        shot.name = "bullet"
-           shot.position = player.position
-           shot.zPosition = 0
-           shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-           shot.physicsBody?.categoryBitMask = CollisionType.shot.rawValue
-           addChild(shot)
         
-     
-             shot.physicsBody?.collisionBitMask = CollisionType.cannon.rawValue | CollisionType.turretWeapon.rawValue
-             shot.physicsBody?.contactTestBitMask = CollisionType.cannon.rawValue | CollisionType.turretWeapon.rawValue
         
         
         player.name = "apbo"
@@ -85,15 +76,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
          player.physicsBody?.contactTestBitMask = CollisionType.cannon.rawValue | CollisionType.turretWeapon.rawValue
          player.physicsBody?.isDynamic = false
                 
+        
+        
         cannonSprite.position = CGPoint(x: size.width/2, y: size.height/2)
-        addChild(cannonSprite)
+      
         cannonSprite.zPosition = 2
         
         cannonSprite.physicsBody?.categoryBitMask = CollisionType.cannon.rawValue
          cannonSprite.physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.shot.rawValue
-         player.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.shot.rawValue
-         player.physicsBody?.isDynamic = false
+         cannonSprite.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.shot.rawValue
+         cannonSprite.physicsBody?.isDynamic = false
+          addChild(cannonSprite)
                 
+        
+        
         turretSprite.position = CGPoint(x: size.width/2, y: size.height/2)
         addChild(turretSprite)
         turretSprite.zPosition = 3
@@ -168,12 +164,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             shootButton.run(fadeAlpha)
            
             let shot = SKSpriteNode(imageNamed: "bullet")
-                    shot.name = "bullet"
-                       shot.position = player.position
-                       shot.zPosition = 0
-                       shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-                       shot.physicsBody?.categoryBitMask = CollisionType.shot.rawValue
-                       addChild(shot)
+            
+            shot.name = "bullet"
+                  shot.position = player.position
+                  shot.zPosition = 0
+                  shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
+                  shot.physicsBody?.categoryBitMask = CollisionType.shot.rawValue
+                  shot.physicsBody?.collisionBitMask = CollisionType.cannon.rawValue | CollisionType.turretWeapon.rawValue
+                  shot.physicsBody?.contactTestBitMask = CollisionType.cannon.rawValue | CollisionType.turretWeapon.rawValue
+                  addChild(shot)
+                     
+            
                    
                    
                        
@@ -310,11 +311,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
            x: shot.position.x + offsetX,
            y: shot.position.y + offsetY
          )
-         
-        shot.removeFromParent()
+   
          cannonHP = max(0, cannonHP - 20)
 
          updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
+        
+          shot.removeFromParent()
     
        }
 }
