@@ -17,7 +17,7 @@ let healthBarHeight: CGFloat = 4
 let cannonCollisionRadius: CGFloat = 70
 let playerCollisionRadius: CGFloat = 10
 let shotCollisionRadius: CGFloat = 20
-
+let playAgain = SKLabelNode(text: "Tap to Play Again")
 
 enum CollisionType: UInt32 {
 case player = 1
@@ -42,8 +42,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var count = 0;
         var doubleTap = 0;
         var isPlayerAlive = true
+        var playerShields = 3
         let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
 
+        let playAgain = SKLabelNode(text: "Tap to Play Again")
     
     override func didMove(to view: SKView) {
         size = view.bounds.size
@@ -82,7 +84,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         cannonSprite.position = CGPoint(x: size.width/2, y: size.height/2)
       
-        cannonSprite.zPosition = 2
+        cannonSprite.zPosition = 1
         
         cannonSprite.physicsBody?.categoryBitMask = CollisionType.cannon.rawValue
          cannonSprite.physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.shot.rawValue
@@ -176,7 +178,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             shot.name = "bullet"
                   shot.position = player.position
-                  shot.zPosition = 0
+                  shot.zPosition = 1
                   shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
                   shot.physicsBody?.categoryBitMask = CollisionType.shot.rawValue
                   shot.physicsBody?.collisionBitMask = CollisionType.cannon.rawValue | CollisionType.turretWeapon.rawValue
@@ -332,4 +334,59 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           shot.removeFromParent()
     
        }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        guard let nodeA = contact.bodyA.node else { return }
+        guard let nodeB = contact.bodyB.node else { return }
+        
+        let sortedNodes = [nodeA, nodeB].sorted { $0.name ?? "" < $1.name ?? "" }
+        
+        let firstNode = sortedNodes[0]
+        let secondNode = sortedNodes[1]
+        
+        if secondNode.name == "player" {
+            guard isPlayerAlive else { return }
+            
+            if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+                explosion.position = firstNode.position
+                addChild(explosion)
+            }
+            
+            playerShields -= 1
+            if playerShields == 0 {
+                gameOver()
+                secondNode.removeFromParent()
+            }
+            
+            firstNode.removeFromParent()
+        } else if let enemy = firstNode as? EnemyNode {
+            enemy.shields -= 1
+            
+            if enemy.shields == 0 {
+                enemy.removeFromParent()
+            }
+
+            secondNode.removeFromParent()
+        } else {
+            firstNode.removeFromParent()
+            secondNode.removeFromParent()
+        }
+    }
+    
+    func gameOver() {
+        isPlayerAlive = false
+        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 140)
+        playAgain.fontColor = UIColor.white
+        playAgain.fontSize = 60
+        addChild(playAgain)
+        
+        if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+            explosion.position = player.position
+            addChild(explosion)
+        }
+        
+        let gameOver = SKSpriteNode(imageNamed: "gameOver")
+            addChild(gameOver)
+    }
+
 }
