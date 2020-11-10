@@ -74,22 +74,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.position.y = size.height/2
         player.zPosition = 1
         addChild(player)
-        
-        player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
-         player.physicsBody?.collisionBitMask = CollisionType.cannon.rawValue | CollisionType.turretWeapon.rawValue
-         player.physicsBody?.contactTestBitMask = CollisionType.cannon.rawValue | CollisionType.turretWeapon.rawValue
-         player.physicsBody?.isDynamic = false
-                
-        
+
         
         cannonSprite.position = CGPoint(x: size.width/2, y: size.height/2)
       
         cannonSprite.zPosition = 1
         
-        cannonSprite.physicsBody?.categoryBitMask = CollisionType.cannon.rawValue
-         cannonSprite.physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.shot.rawValue
-         cannonSprite.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.shot.rawValue
-         cannonSprite.physicsBody?.isDynamic = false
+        
           addChild(cannonSprite)
                 
         
@@ -124,9 +115,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
        // addChild(thruster1!)
 
     
-        player.physicsBody = SKPhysicsBody(texture: player.texture!, size:player.texture!.size())
-        player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
-        player.physicsBody?.isDynamic = false
+    
                 
         
         addChild(cannonHealthBar)
@@ -175,16 +164,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             shootButton.run(fadeAlpha)
            
             let shot = SKSpriteNode(imageNamed: "bullet")
-            
-            shot.name = "bullet"
-                  shot.position = player.position
-                  shot.zPosition = 1
-                  shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-                  shot.physicsBody?.categoryBitMask = CollisionType.shot.rawValue
-                  shot.physicsBody?.collisionBitMask = CollisionType.cannon.rawValue | CollisionType.turretWeapon.rawValue
-                  shot.physicsBody?.contactTestBitMask = CollisionType.cannon.rawValue | CollisionType.turretWeapon.rawValue
-                  addChild(shot)
-                     
+
             
                    
                    
