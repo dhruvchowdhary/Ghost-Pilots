@@ -23,10 +23,10 @@ class EnemyNode: SKSpriteNode {
         super.init(texture: texture, color: .white, size: texture.size())
         
         physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
-        physicsBody?.categoryBitMask = CollisionType.cannon.rawValue
-        physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.shot.rawValue
-        physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.shot.rawValue
-        name = "cannon"
+        physicsBody?.categoryBitMask = CollisionType.enemy.rawValue
+        physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
+        physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
+        name = "enemy"
         position = CGPoint(x: startPosition.x + xOffset, y: startPosition.y)
         
    //     configureMovement(moveStright)

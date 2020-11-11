@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 749EBC0D25599D84003EA0B3 /* Explosion.sks */; };
 		749EBC1025599EF3003EA0B3 /* enemy-types.json in Resources */ = {isa = PBXBuildFile; fileRef = 749EBC0F25599EF3003EA0B3 /* enemy-types.json */; };
+		749EBC58255AF9E7003EA0B3 /* waves.json in Resources */ = {isa = PBXBuildFile; fileRef = 749EBC57255AF9E7003EA0B3 /* waves.json */; };
+		749EBC5A255AFA34003EA0B3 /* Wave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749EBC59255AFA34003EA0B3 /* Wave.swift */; };
+		749EBC5C255AFA58003EA0B3 /* Bundle-Decoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749EBC5B255AFA58003EA0B3 /* Bundle-Decoding.swift */; };
 		74C3CFB0253F3BE900757586 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3CFAF253F3BE900757586 /* AppDelegate.swift */; };
 		74C3CFB2253F3BE900757586 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74C3CFB1253F3BE900757586 /* GameScene.sks */; };
 		74C3CFB4253F3BE900757586 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74C3CFB3253F3BE900757586 /* Actions.sks */; };
@@ -27,6 +30,9 @@
 /* Begin PBXFileReference section */
 		749EBC0D25599D84003EA0B3 /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
 		749EBC0F25599EF3003EA0B3 /* enemy-types.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "enemy-types.json"; sourceTree = "<group>"; };
+		749EBC57255AF9E7003EA0B3 /* waves.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = waves.json; sourceTree = "<group>"; };
+		749EBC59255AFA34003EA0B3 /* Wave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wave.swift; sourceTree = "<group>"; };
+		749EBC5B255AFA58003EA0B3 /* Bundle-Decoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle-Decoding.swift"; sourceTree = "<group>"; };
 		74C3CFAC253F3BE900757586 /* APBOv2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APBOv2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74C3CFAF253F3BE900757586 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74C3CFB1253F3BE900757586 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -78,13 +84,16 @@
 				74C3CFAF253F3BE900757586 /* AppDelegate.swift */,
 				74C3CFB1253F3BE900757586 /* GameScene.sks */,
 				74C3CFB3253F3BE900757586 /* Actions.sks */,
+				749EBC5B255AFA58003EA0B3 /* Bundle-Decoding.swift */,
 				74C3CFB5253F3BE900757586 /* GameScene.swift */,
 				74C3CFB7253F3BE900757586 /* GameViewController.swift */,
 				74C3CFB9253F3BE900757586 /* Main.storyboard */,
 				74C3CFDA2553100100757586 /* EnemyNode.swift */,
 				74C3CFDC2553109000757586 /* EnemyType.swift */,
 				749EBC0F25599EF3003EA0B3 /* enemy-types.json */,
+				749EBC57255AF9E7003EA0B3 /* waves.json */,
 				74C3CFBC253F3BED00757586 /* Assets.xcassets */,
+				749EBC59255AFA34003EA0B3 /* Wave.swift */,
 				74C3CFBE253F3BED00757586 /* LaunchScreen.storyboard */,
 				74C3CFC1253F3BED00757586 /* Info.plist */,
 			);
@@ -170,6 +179,7 @@
 				74C3CFD325506D0300757586 /* Assets.xcassets in Resources */,
 				74C3CFB4253F3BE900757586 /* Actions.sks in Resources */,
 				749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */,
+				749EBC58255AF9E7003EA0B3 /* waves.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,9 +190,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				749EBC5A255AFA34003EA0B3 /* Wave.swift in Sources */,
 				74C3CFB6253F3BE900757586 /* GameScene.swift in Sources */,
 				74C3CFDD2553109000757586 /* EnemyType.swift in Sources */,
 				74C3CFB8253F3BE900757586 /* GameViewController.swift in Sources */,
+				749EBC5C255AFA58003EA0B3 /* Bundle-Decoding.swift in Sources */,
 				74C3CFDB2553100200757586 /* EnemyNode.swift in Sources */,
 				74C3CFB0253F3BE900757586 /* AppDelegate.swift in Sources */,
 			);
