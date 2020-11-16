@@ -37,7 +37,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playerShields = 1
     var waveNumber = 0
     var levelNumber = 0
-
+    var gameStarted = false;
     
         let turnButton = SKSpriteNode(imageNamed: "button")
         let shootButton = SKSpriteNode(imageNamed: "button")
@@ -154,6 +154,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
      if let name = touchedNode.name {
             if name == "btn" {
+                if !gameStarted {
+                    gameStarted = true
+                    createWave()
+                }
                 let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
                 turnButton.run(fadeAlpha)
                 turnPressed = true
@@ -233,6 +237,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let activeEnemies = children.compactMap { $0 as? EnemyNode }
                 
                 if activeEnemies.isEmpty {
+                    gameStarted = true
                     createWave()
                 }
                 
