@@ -203,7 +203,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
         turnButton.run(fadeAlpha)
         shootButton.run(fadeAlpha)
-            //hi
+            //hi7
             
         }
     
