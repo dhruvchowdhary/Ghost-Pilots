@@ -16,10 +16,10 @@ class EnemyNode: SKSpriteNode {
     
     init(type: EnemyType, startPosition: CGPoint, xOffset: CGFloat, moveStright: Bool) {
         self.type = type
-        shields = 1
-        scoreinc = 10
+        shields = type.shields
+        scoreinc = type.scoreinc
         
-        let texture = SKTexture(imageNamed: "turretbase")
+        let texture = SKTexture(imageNamed: type.name)
         super.init(texture: texture, color: .white, size: texture.size())
         
         physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
@@ -29,13 +29,13 @@ class EnemyNode: SKSpriteNode {
         name = "enemy"
         position = CGPoint(x: startPosition.x + xOffset, y: startPosition.y)
         
-   //     configureMovement(moveStright)
+        configureMovement(moveStright)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("LOL NO")
     }
-    /*
+    
     func configureMovement(_ moveStright: Bool) {
         let path = UIBezierPath()
         path.move(to: .zero)
@@ -50,8 +50,8 @@ class EnemyNode: SKSpriteNode {
         let sequence = SKAction.sequence([movement, .removeFromParent()])
         run(sequence)
     }
- */
-    /*
+ 
+    
     func fire() {
         let weaponType = "\(type.name)Weapon"
         
@@ -77,5 +77,5 @@ class EnemyNode: SKSpriteNode {
         
         
     }
- */
+ 
 }
