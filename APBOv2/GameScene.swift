@@ -281,7 +281,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       //  thruster1?.position = CGPoint(x:player.position.x + 25 , y:player.position.y - 25 )
     
       //  thruster1?.zRotation = player.zRotation
-        //hi
+        //hi2
     
     }
     
