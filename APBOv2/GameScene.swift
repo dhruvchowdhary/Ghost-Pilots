@@ -37,7 +37,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playerShields = 1
     var waveNumber = 0
     var levelNumber = 0
-    var gameStarted = false;
     
         let turnButton = SKSpriteNode(imageNamed: "button")
         let shootButton = SKSpriteNode(imageNamed: "button")
@@ -49,7 +48,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let player = SKSpriteNode(imageNamed: "player")
         let shot = SKSpriteNode(imageNamed: "bullet")
         var lastUpdateTime: CFTimeInterval = 0
-    var turnPressed = false;
+    var count = 0
         var doubleTap = 0;
         let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
 
@@ -68,7 +67,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
                 
         player.name = "player"
-        player.position.x = frame.midX
+        player.position.x = frame.midX-400
         player.position.y = frame.midY-80
         player.zPosition = 1
         addChild(player)
@@ -83,24 +82,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         cannonSprite.zPosition = 1
           addChild(cannonSprite)
                 
-        
         turretSprite.position = CGPoint(x: size.width/2, y: size.height/2)
         addChild(turretSprite)
         turretSprite.zPosition = 3
  */
       
         turnButton.name = "btn"
-        turnButton.size.height = 100
-        turnButton.size.width = 100
+        turnButton.size.height = 125
+        turnButton.size.width = 125
         turnButton.zPosition = 2
-        turnButton.position = CGPoint(x: self.frame.midX-30,y: self.frame.midY-30)
+        turnButton.position = CGPoint(x: self.frame.midX+400,y: self.frame.midY-195)
         self.addChild(turnButton)
                 
         shootButton.name = "shoot"
-        shootButton.size.height = 100
-        shootButton.size.width = 100
+        shootButton.size.height = 125
+        shootButton.size.width = 125
         shootButton.zPosition = 2
-        shootButton.position = CGPoint(x: self.frame.midX+30 ,y: self.frame.midY-30)
+        shootButton.position = CGPoint(x: self.frame.midX-410 ,y: self.frame.midY-195)
         self.addChild(shootButton)
            
      //   thruster1?.position = player.position
@@ -131,7 +129,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if (!isPlayerAlive) {
            if let newScene = SKScene(fileNamed: "GameScene") {
-            newScene.scaleMode = .fill
+            newScene.scaleMode = .aspectFill
             let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
             view?.presentScene(newScene, transition: reveal)
             }
@@ -144,17 +142,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
      if let name = touchedNode.name {
             if name == "btn" {
-                if !gameStarted {
-                    gameStarted = true
-                    createWave()
-                }
+
                 let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
                 turnButton.run(fadeAlpha)
-                turnPressed = true
+                count = 1
                 direction = 0.1
                 if (doubleTap==1) {
                     self.player.zRotation = self.player.zRotation + 1.0;
-                    let movement = SKAction.moveBy(x: 50 * cos(player.zRotation), y: 50 * sin(player.zRotation), duration: 0.2)
+                    let movement = SKAction.moveBy(x: 55 * cos(player.zRotation), y: 55 * sin(player.zRotation), duration: 0.2)
                                player.run(movement)
                     doubleTap = 0
                 } else {
@@ -162,7 +157,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         }
  
             } else {
-                turnPressed = false
+                count = 0
             }
        }
         if let name = touchedNode.name {
@@ -187,11 +182,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
  
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 
-        if turnPressed {
+        if count==1 {
             direction = 0
-            turnPressed = false
+            count = 0
             let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
-                self.doubleTap = 0;
+                self.doubleTap = 0
             }
         }
         let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
@@ -226,7 +221,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let activeEnemies = children.compactMap { $0 as? EnemyNode }
                 
                 if activeEnemies.isEmpty {
-                    gameStarted = true
                     createWave()
                 }
                 
