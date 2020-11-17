@@ -19,7 +19,7 @@ class EnemyNode: SKSpriteNode {
         shields = type.shields
         scoreinc = type.scoreinc
         // hi
-        let texture = SKTexture(imageNamed: type.name)
+        let texture = SKTexture(imageNamed: "turretshooter")
         super.init(texture: texture, color: .white, size: texture.size())
         
         physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
@@ -67,7 +67,7 @@ class EnemyNode: SKSpriteNode {
         weapon.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
         weapon.physicsBody?.mass = 0.001
         
-        let speed: CGFloat = 1
+        let speed: CGFloat = 0.7
         let adjustedRotation = zRotation + (CGFloat.pi / 2)
         
         let dx = speed * cos(adjustedRotation)
