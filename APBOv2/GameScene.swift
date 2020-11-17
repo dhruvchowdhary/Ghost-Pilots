@@ -222,7 +222,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let activeEnemies = children.compactMap { $0 as? EnemyNode }
                 
                 if activeEnemies.isEmpty {
-     //               createWave()
+                    createWave()
                 }
                 
                 for enemy in activeEnemies {
