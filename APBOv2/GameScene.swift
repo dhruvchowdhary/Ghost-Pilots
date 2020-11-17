@@ -142,7 +142,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
      if let name = touchedNode.name {
             if name == "btn" {
-
                 let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
                 turnButton.run(fadeAlpha)
                 count = 1
@@ -185,8 +184,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if count==1 {
             direction = 0
             count = 0
+            if doubleTap == 1 {
             let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
                 self.doubleTap = 0
+            }
             }
         }
         let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
@@ -221,7 +222,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let activeEnemies = children.compactMap { $0 as? EnemyNode }
                 
                 if activeEnemies.isEmpty {
-                    createWave()
+     //               createWave()
                 }
                 
                 for enemy in activeEnemies {
