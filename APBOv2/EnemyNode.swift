@@ -19,7 +19,7 @@ class EnemyNode: SKSpriteNode {
         shields = type.shields
         scoreinc = type.scoreinc
         // hi
-        let texture = SKTexture(imageNamed: "turretshooter")
+        let texture = SKTexture(imageNamed: type.name)
         super.init(texture: texture, color: .white, size: texture.size())
         
         physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
