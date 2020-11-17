@@ -80,13 +80,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.isDynamic = false
         
 /*        cannonSprite.position = CGPoint(x: size.width/2, y: size.height/2)
-      
         cannonSprite.zPosition = 1
-        
-        
           addChild(cannonSprite)
                 
-        
         
         turretSprite.position = CGPoint(x: size.width/2, y: size.height/2)
         addChild(turretSprite)
@@ -107,9 +103,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         shootButton.position = CGPoint(x: self.frame.midX+30 ,y: self.frame.midY-30)
         self.addChild(shootButton)
            
-        
-        
-        
      //   thruster1?.position = player.position
        // thruster1?.zPosition = 1
         thruster1?.targetNode = self
@@ -117,9 +110,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.addChild(thruster1!)
        // addChild(thruster1!)
 
-    
-    
-                
    /*
         addChild(cannonHealthBar)
                cannonHealthBar.position = CGPoint(
@@ -197,18 +187,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
  
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 
-        if turnPressed == true {
+        if turnPressed {
             direction = 0
+            turnPressed = false
             let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
                 self.doubleTap = 0;
-                self.turnPressed = false
             }
         }
         let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
         turnButton.run(fadeAlpha)
         shootButton.run(fadeAlpha)
-            //hi7
-            
         }
     
     override func update(_ currentTime: TimeInterval) {
