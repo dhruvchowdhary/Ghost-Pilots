@@ -162,7 +162,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 turnButton.run(fadeAlpha)
                 turnPressed = true
                 direction = 0.1
- /*               if (doubleTap==1) {
+                if (doubleTap==1) {
                     self.player.zRotation = self.player.zRotation + 1.0;
                     let movement = SKAction.moveBy(x: 50 * cos(player.zRotation), y: 50 * sin(player.zRotation), duration: 0.2)
                                player.run(movement)
@@ -170,7 +170,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 } else {
                     doubleTap = 1
                         }
- */
+ 
             } else {
                 turnPressed = false
             }
@@ -225,6 +225,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 player.position.x = frame.minX + 80
             } else if player.position.x > frame.maxX-80 {
                 player.position.x = frame.maxX - 80
+            }
                 
                 for child in children {
                     if child.frame.maxX < 0 {
@@ -262,7 +263,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         checkShipCannonCollision()
         checkShotCannonCollision()
      */
-    }
+    
    /*
     func updatePlayer(_ dt: CFTimeInterval) {
         
