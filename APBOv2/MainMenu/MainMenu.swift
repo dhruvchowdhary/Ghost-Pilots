@@ -22,7 +22,7 @@ var buttonPlay: MSButtonNode!
                 addChild(particles)
         }
         /* Set UI connections */
-        buttonPlay = self.childNode(withName: "buttonPlay") as? MSButtonNode
+        buttonPlay = self.childNode(withName: "soloButton") as? MSButtonNode
         buttonPlay.selectedHandler = {
             self.loadGame()
         }
