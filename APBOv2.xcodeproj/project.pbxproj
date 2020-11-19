@@ -77,6 +77,18 @@
 			path = MainMenu;
 			sourceTree = "<group>";
 		};
+		748CEDB02566F215005DF246 /* Enemies */ = {
+			isa = PBXGroup;
+			children = (
+				74C3CFDA2553100100757586 /* EnemyNode.swift */,
+				74C3CFDC2553109000757586 /* EnemyType.swift */,
+				749EBC59255AFA34003EA0B3 /* Wave.swift */,
+				749EBC0F25599EF3003EA0B3 /* enemy-types.json */,
+				749EBC57255AF9E7003EA0B3 /* waves.json */,
+			);
+			path = Enemies;
+			sourceTree = "<group>";
+		};
 		74C3CFA3253F3BE900757586 = {
 			isa = PBXGroup;
 			children = (
@@ -98,20 +110,16 @@
 			children = (
 				748CEDAC256581E5005DF246 /* MainMenu */,
 				74C3CFCF25506CEA00757586 /* Particles */,
-				74C3CFAF253F3BE900757586 /* AppDelegate.swift */,
-				74C3CFB1253F3BE900757586 /* GameScene.sks */,
-				74C3CFB3253F3BE900757586 /* Actions.sks */,
-				749EBC5B255AFA58003EA0B3 /* Bundle-Decoding.swift */,
+				748CEDB02566F215005DF246 /* Enemies */,
 				74C3CFB5253F3BE900757586 /* GameScene.swift */,
 				74C3CFB7253F3BE900757586 /* GameViewController.swift */,
-				74C3CFB9253F3BE900757586 /* Main.storyboard */,
-				74C3CFDA2553100100757586 /* EnemyNode.swift */,
-				74C3CFDC2553109000757586 /* EnemyType.swift */,
-				749EBC0F25599EF3003EA0B3 /* enemy-types.json */,
-				749EBC57255AF9E7003EA0B3 /* waves.json */,
+				74C3CFB1253F3BE900757586 /* GameScene.sks */,
+				74C3CFB3253F3BE900757586 /* Actions.sks */,
 				74C3CFBC253F3BED00757586 /* Assets.xcassets */,
-				749EBC59255AFA34003EA0B3 /* Wave.swift */,
+				74C3CFB9253F3BE900757586 /* Main.storyboard */,
 				74C3CFBE253F3BED00757586 /* LaunchScreen.storyboard */,
+				74C3CFAF253F3BE900757586 /* AppDelegate.swift */,
+				749EBC5B255AFA58003EA0B3 /* Bundle-Decoding.swift */,
 				74C3CFC1253F3BED00757586 /* Info.plist */,
 			);
 			path = APBOv2;

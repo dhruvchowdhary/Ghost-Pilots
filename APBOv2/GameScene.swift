@@ -27,7 +27,7 @@ enum CollisionType: UInt32 {
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    
+    var buttonPlay: MSButtonNode!
     let playerHealthBar = SKSpriteNode()
     let cannonHealthBar = SKSpriteNode()
     var playerHP = maxHealth
@@ -96,7 +96,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         shootButton.zPosition = 2
         shootButton.position = CGPoint(x: self.frame.minX+300,y: self.frame.minY+120)
         self.addChild(shootButton)
-           
+        
+        buttonPlay = self.childNode(withName: "pause") as? MSButtonNode
+        buttonPlay.selectedHandler = {
+            //Add here to somehow pause
+        }
+
      //   thruster1?.position = player.position
        // thruster1?.zPosition = 1
         
@@ -440,12 +445,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playAgain.fontSize = 60
         addChild(playAgain)
         
+        turnButton.removeFromParent()
+        shootButton.removeFromParent()
+        
         if let explosion = SKEmitterNode(fileNamed: "Explosion") {
             explosion.position = player.position
             addChild(explosion)
         }
         
         let gameOver = SKSpriteNode(imageNamed: "gameOver")
+        gameOver.size = CGSize(width: 1104, height: 298)
             addChild(gameOver)
     }
 

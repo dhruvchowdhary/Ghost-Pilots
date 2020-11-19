@@ -33,6 +33,12 @@ let title = SKLabelNode(text: "APBO")
         buttonPlay.selectedHandler = {
             self.loadGame()
         }
+ /*
+        buttonPlay = self.childNode(withName: "onlineButton") as? MSButtonNode
+        buttonPlay.selectedHandler = {
+           // Add new screen for online and load here
+        }
+ */
     }
     
     func loadGame() {
