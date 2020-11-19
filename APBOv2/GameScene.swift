@@ -198,17 +198,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 2.5 ,y:player.position.y + sin(player.zRotation) * 2.5)
            
-            
             if player.position.y < frame.minY + 35 {
                 player.position.y = frame.minY + 35
-            } else if player.position.y > frame.maxY-35 {
+            } else if player.position.y > frame.maxY - 35 {
                 player.position.y = frame.maxY - 35
             }
             
-            if player.position.x < frame.minX + 80 {
-                player.position.x = frame.minX + 80
-            } else if player.position.x > frame.maxX-80 {
-                player.position.x = frame.maxX - 80
+            if player.position.x < frame.minX + 35  {
+                player.position.x = frame.minX + 35
+            } else if player.position.x > frame.maxX - 35 {
+                player.position.x = frame.maxX - 35
             }
                 
                 for child in children {
@@ -220,7 +219,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 
                 let activeEnemies = children.compactMap { $0 as? EnemyNode }
-                
                 if activeEnemies.isEmpty {
                     createWave()
                 }
@@ -289,7 +287,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let enemyType = Int.random(in: 0..<maximumEnemyType)
         
         let enemyOffsetX: CGFloat = 100
-        let enemyStartX = 600
+        let enemyStartX = 800
         
         if currentWave.enemies.isEmpty {
             for(index, position) in positions.shuffled().enumerated() {
