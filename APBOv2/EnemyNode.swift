@@ -29,7 +29,7 @@ class EnemyNode: SKSpriteNode {
         name = "enemy"
         position = CGPoint(x: startPosition.x + xOffset, y: startPosition.y)
         
-     //   configureMovement(moveStright)
+        configureMovement(moveStright)
     }
     
     required init?(coder aDecoder: NSCoder) {
