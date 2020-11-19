@@ -12,10 +12,16 @@ class MainMenu: SKScene {
 
 /* UI Connections */
 var buttonPlay: MSButtonNode!
-let playAgain = SKLabelNode(text: "APBO")
+let title = SKLabelNode(text: "APBO")
     
     override func didMove(to view: SKView) {
         /* Setup your scene here */
+        title.position = CGPoint(x: frame.midX, y: frame.midY + 200)
+        title.fontColor = UIColor.white
+    //    title.fontName =
+        title.fontSize = 200
+        addChild(title)
+        
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
                 particles.position = CGPoint(x: frame.midX, y: frame.midY)
         //      particles.advanceSimulationTime(60)

@@ -64,7 +64,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
                 
         player.name = "player"
-        player.position.x = frame.midX-400
+        player.position.x = frame.midX-700
         player.position.y = frame.midY-80
         player.zPosition = 1
         addChild(player)
@@ -84,17 +84,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         turretSprite.zPosition = 3
  */
         turnButton.name = "btn"
-        turnButton.size.height = 125
-        turnButton.size.width = 125
+        turnButton.size.height = 175
+        turnButton.size.width = 175
         turnButton.zPosition = 2
-        turnButton.position = CGPoint(x: self.frame.midX+400,y: self.frame.midY-195)
+        turnButton.position = CGPoint(x: self.frame.midX+750,y: self.frame.midY-300)
         self.addChild(turnButton)
                 
         shootButton.name = "shoot"
-        shootButton.size.height = 125
-        shootButton.size.width = 125
+        shootButton.size.height = 175
+        shootButton.size.width = 175
         shootButton.zPosition = 2
-        shootButton.position = CGPoint(x: self.frame.midX-410 ,y: self.frame.midY-195)
+        shootButton.position = CGPoint(x: self.frame.midX-750 ,y: self.frame.midY-300)
         self.addChild(shootButton)
            
      //   thruster1?.position = player.position
