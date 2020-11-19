@@ -28,36 +28,33 @@ enum CollisionType: UInt32 {
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-        let playerHealthBar = SKSpriteNode()
-        let cannonHealthBar = SKSpriteNode()
-        var playerHP = maxHealth
-        var cannonHP = maxHealth
-    
+    let playerHealthBar = SKSpriteNode()
+    let cannonHealthBar = SKSpriteNode()
+    var playerHP = maxHealth
+    var cannonHP = maxHealth
     var isPlayerAlive = true
     var playerShields = 1
     var waveNumber = 0
     var levelNumber = 0
-    
-        let turnButton = SKSpriteNode(imageNamed: "button")
-        let shootButton = SKSpriteNode(imageNamed: "button")
+    let turnButton = SKSpriteNode(imageNamed: "button")
+    let shootButton = SKSpriteNode(imageNamed: "button")
     //    let turretSprite = SKSpriteNode(imageNamed: "turretshooter")
     //    let cannonSprite = SKSpriteNode(imageNamed: "turretbase")
     let waves = Bundle.main.decode([Wave].self, from: "waves.json")
     let enemyTypes = Bundle.main.decode([EnemyType].self, from: "enemy-types.json")
     let positions = Array(stride(from: -320, through: 320, by: 80))
-        let player = SKSpriteNode(imageNamed: "player")
-        let shot = SKSpriteNode(imageNamed: "bullet")
-        var lastUpdateTime: CFTimeInterval = 0
+    let player = SKSpriteNode(imageNamed: "player")
+    let shot = SKSpriteNode(imageNamed: "bullet")
+    var lastUpdateTime: CFTimeInterval = 0
     var count = 0
-        var doubleTap = 0;
-        let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
-
-        let playAgain = SKLabelNode(text: "Tap to Play Again")
+    var doubleTap = 0;
+    let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
+    let playAgain = SKLabelNode(text: "Tap to Play Again")
     
     override func didMove(to view: SKView) {
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
-      //  size = view.bounds.size
+        //size = view.bounds.size
         backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
                 particles.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -86,7 +83,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(turretSprite)
         turretSprite.zPosition = 3
  */
-      
         turnButton.name = "btn"
         turnButton.size.height = 125
         turnButton.size.width = 125
@@ -103,7 +99,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
            
      //   thruster1?.position = player.position
        // thruster1?.zPosition = 1
-        thruster1?.targetNode = self
+        
+        thruster1?.position = CGPoint(x: -30, y: 0)
+        thruster1?.targetNode = self.scene
 
         player.addChild(thruster1!)
        // addChild(thruster1!)
@@ -140,7 +138,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let positionInScene = touch!.location(in: self)
         let touchedNode = self.atPoint(positionInScene)
 
-     if let name = touchedNode.name {
+        if let name = touchedNode.name {
             if name == "btn" {
                 let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
                 turnButton.run(fadeAlpha)
@@ -151,30 +149,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     let movement = SKAction.moveBy(x: 55 * cos(player.zRotation), y: 55 * sin(player.zRotation), duration: 0.2)
                                player.run(movement)
                     doubleTap = 0
-                } else {
+                }
+                else {
                     doubleTap = 1
-                        }
- 
-            } else {
+                }
+            }
+            else {
                 count = 0
             }
        }
         if let name = touchedNode.name {
-        if name == "shoot" {
-            let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
-            shootButton.run(fadeAlpha)
-    
-            let shot = SKSpriteNode(imageNamed: "bullet")
-            shot.name = "playerWeapon"
-            shot.position = player.position
-            shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-            shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
-            shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-            shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-            addChild(shot)
-            let movement = SKAction.moveBy(x: 1024 * cos(player.zRotation), y: 1024 * sin(player.zRotation), duration: 1.8432)
-            let sequence = SKAction.sequence([movement, .removeFromParent()])
-                shot.run(sequence)
+            if name == "shoot" {
+                let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
+                    shootButton.run(fadeAlpha)
+        
+                let shot = SKSpriteNode(imageNamed: "bullet")
+                shot.name = "playerWeapon"
+                shot.position = player.position
+                shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
+                shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
+                shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+                shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+                addChild(shot)
+                let movement = SKAction.moveBy(x: 1024 * cos(player.zRotation), y: 1024 * sin(player.zRotation), duration: 1.8432)
+                let sequence = SKAction.sequence([movement, .removeFromParent()])
+                    shot.run(sequence)
             }
         }
     }
@@ -187,7 +186,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if doubleTap == 1 {
             let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
                 self.doubleTap = 0
-            }
+                }
             }
         }
         let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
