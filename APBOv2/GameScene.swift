@@ -50,6 +50,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var doubleTap = 0;
     let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
     let playAgain = SKLabelNode(text: "Tap to Play Again")
+    let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
+    var direction = 0.0
+
     
     override func didMove(to view: SKView) {
         physicsWorld.gravity = .zero
@@ -104,48 +107,52 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         buttonPlay = self.childNode(withName: "turnButton") as? MSButtonNode
         buttonPlay.selectedHandler = {
-                let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
+            let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
+            let squishBig = SKAction.scale(to: 2.05, duration: 0.1)
             self.turnButton.run(fadeAlpha)
+            self.turnButton.run(squishBig)
+            
             self.count = 1
             self.direction = 0.1
+            
             if (self.doubleTap==1) {
-                    self.player.zRotation = self.player.zRotation + 1.0;
+                self.player.zRotation = self.player.zRotation + 1.0;
                 let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
                 self.player.run(movement)
+                
                 self.doubleTap = 0
                 }
                 else {
                 self.doubleTap = 1
                 }
             
+            
         }
         
         buttonPlay = self.childNode(withName: "shootButton") as? MSButtonNode
         buttonPlay.selectedHandler = {
-                    let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
+            let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
+            let squishBig = SKAction.scale(to: 2.05, duration: 0.1)
             self.shootButton.run(fadeAlpha)
+            self.shootButton.run(squishBig)
             
-                    let shot = SKSpriteNode(imageNamed: "bullet")
-                    shot.name = "playerWeapon"
+            let shot = SKSpriteNode(imageNamed: "bullet")
+            shot.name = "playerWeapon"
             shot.position = self.player.position
-                    shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-                    shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
-                    shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-                    shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+            shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
+            shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
+            shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+            shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
             self.addChild(shot)
             let movement = SKAction.moveBy(x: 1024 * cos(self.player.zRotation), y: 1024 * sin(self.player.zRotation), duration: 1.8432)
-                    let sequence = SKAction.sequence([movement, .removeFromParent()])
-                        shot.run(sequence)
+            let sequence = SKAction.sequence([movement, .removeFromParent()])
+            shot.run(sequence)
         }
-
-     //   thruster1?.position = player.position
-       // thruster1?.zPosition = 1
         
         thruster1?.position = CGPoint(x: -30, y: 0)
         thruster1?.targetNode = self.scene
-
         player.addChild(thruster1!)
-       // addChild(thruster1!)
+      
 
    /*
         addChild(cannonHealthBar)
@@ -161,8 +168,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
     }
 }
-    let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
-    var direction = 0.0
+
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -231,8 +237,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
+        let squishNormal = SKAction.scale(to: 1.0, duration: 0.05)
         turnButton.run(fadeAlpha)
+        turnButton.run(squishNormal)
         shootButton.run(fadeAlpha)
+        shootButton.run(squishNormal)
         }
     
     override func update(_ currentTime: TimeInterval) {
