@@ -91,20 +91,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         turnButton.size.width = 175
         turnButton.zPosition = 2
         turnButton.position = CGPoint(x: self.frame.maxX-300,y: self.frame.minY+120)
-     //   self.addChild(turnButton)
+    //    self.addChild(turnButton)
                 
         shootButton.name = "shoot"
         shootButton.size.height = 175
         shootButton.size.width = 175
         shootButton.zPosition = 2
         shootButton.position = CGPoint(x: self.frame.minX+300,y: self.frame.minY+120)
-     //   self.addChild(shootButton)
+  //      self.addChild(shootButton)
         
         buttonPlay = self.childNode(withName: "pause") as? MSButtonNode
         buttonPlay.selectedHandler = {
             //Add here to somehow pause
         }
-        
+   
         buttonPlay = self.childNode(withName: "turnButton") as? MSButtonNode
         buttonPlay.selectedHandler = {
             let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
@@ -127,6 +127,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             
             
+        }
+        buttonPlay.selectedHandlers = {
+            self.direction = 0
         }
         
         buttonPlay = self.childNode(withName: "shootButton") as? MSButtonNode
@@ -181,7 +184,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         guard isPlayerAlive else { return }
 
-  /*      let touch = touches.first
+        let touch = touches.first
         let positionInScene = touch!.location(in: self)
         let touchedNode = self.atPoint(positionInScene)
 
@@ -202,7 +205,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
             else {
-                count = 0
+         //       count = 0
             }
        }
         if let name = touchedNode.name {
@@ -222,20 +225,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let sequence = SKAction.sequence([movement, .removeFromParent()])
                     shot.run(sequence)
             }
-        }*/
+        }
     }
  
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 
-        if count==1 {
-            direction = 0
-            count = 0
             if doubleTap == 1 {
             let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
                 self.doubleTap = 0
                 }
             }
-        }
+        
         let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
         let squishNormal = SKAction.scale(to: 1.0, duration: 0.05)
         turnButton.run(fadeAlpha)
