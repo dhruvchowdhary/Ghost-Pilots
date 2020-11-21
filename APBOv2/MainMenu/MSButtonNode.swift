@@ -15,7 +15,7 @@ class MSButtonNode: SKSpriteNode {
     
     /* Setup a dummy action closure */
     var selectedHandler: () -> Void = { print("No button action set") }
-    
+    var selectedHandlers: () -> Void = { print("No button action set") }
     /* Button state management */
     var state: MSButtonNodeState = .MSButtonNodeStateActive {
         didSet {
@@ -54,11 +54,12 @@ class MSButtonNode: SKSpriteNode {
     
     // MARK: - Touch handling
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        selectedHandler()
         state = .MSButtonNodeStateSelected
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        selectedHandler()
+        selectedHandlers()
         state = .MSButtonNodeStateActive
     }
     
