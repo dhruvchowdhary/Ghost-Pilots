@@ -88,18 +88,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         turnButton.size.width = 175
         turnButton.zPosition = 2
         turnButton.position = CGPoint(x: self.frame.maxX-300,y: self.frame.minY+120)
-        self.addChild(turnButton)
+     //   self.addChild(turnButton)
                 
         shootButton.name = "shoot"
         shootButton.size.height = 175
         shootButton.size.width = 175
         shootButton.zPosition = 2
         shootButton.position = CGPoint(x: self.frame.minX+300,y: self.frame.minY+120)
-        self.addChild(shootButton)
+     //   self.addChild(shootButton)
         
         buttonPlay = self.childNode(withName: "pause") as? MSButtonNode
         buttonPlay.selectedHandler = {
             //Add here to somehow pause
+        }
+        
+        buttonPlay = self.childNode(withName: "turnButton") as? MSButtonNode
+        buttonPlay.selectedHandler = {
+                let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
+            self.turnButton.run(fadeAlpha)
+            self.count = 1
+            self.direction = 0.1
+            if (self.doubleTap==1) {
+                    self.player.zRotation = self.player.zRotation + 1.0;
+                let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
+                self.player.run(movement)
+                self.doubleTap = 0
+                }
+                else {
+                self.doubleTap = 1
+                }
+            
+        }
+        
+        buttonPlay = self.childNode(withName: "shootButton") as? MSButtonNode
+        buttonPlay.selectedHandler = {
+                    let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
+            self.shootButton.run(fadeAlpha)
+            
+                    let shot = SKSpriteNode(imageNamed: "bullet")
+                    shot.name = "playerWeapon"
+            shot.position = self.player.position
+                    shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
+                    shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
+                    shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+                    shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+            self.addChild(shot)
+            let movement = SKAction.moveBy(x: 1024 * cos(self.player.zRotation), y: 1024 * sin(self.player.zRotation), duration: 1.8432)
+                    let sequence = SKAction.sequence([movement, .removeFromParent()])
+                        shot.run(sequence)
         }
 
      //   thruster1?.position = player.position
@@ -139,7 +175,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         guard isPlayerAlive else { return }
 
-        let touch = touches.first
+  /*      let touch = touches.first
         let positionInScene = touch!.location(in: self)
         let touchedNode = self.atPoint(positionInScene)
 
@@ -180,7 +216,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let sequence = SKAction.sequence([movement, .removeFromParent()])
                     shot.run(sequence)
             }
-        }
+        }*/
     }
  
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
