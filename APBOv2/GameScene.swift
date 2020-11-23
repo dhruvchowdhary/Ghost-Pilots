@@ -95,13 +95,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         shootButton.size.width = 175
         shootButton.zPosition = 2
         shootButton.position = CGPoint(x: self.frame.minX+300,y: self.frame.minY+120)
-  //      self.addChild(shootButton)
+  //      self.addChild(shootButton)d
         
         buttonPlay = self.childNode(withName: "pause") as? MSButtonNode
         buttonPlay.selectedHandler = {
             //Add here to somehow pause
         }
-   
+   // sds
+        
         buttonPlay = self.childNode(withName: "turnButton") as? MSButtonNode
         buttonPlay.selectedHandler = {
                 let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
