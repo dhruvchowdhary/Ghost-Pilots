@@ -10,6 +10,8 @@
 		748CEDA125657B65005DF246 /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748CEDA025657B65005DF246 /* MainMenu.sks */; };
 		748CEDAB25657F2E005DF246 /* MSButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748CEDAA25657F2E005DF246 /* MSButtonNode.swift */; };
 		748CEDAE25658207005DF246 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748CEDAD25658207005DF246 /* MainMenu.swift */; };
+		748CEDB4256C151F005DF246 /* SoloMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748CEDB3256C151F005DF246 /* SoloMenu.swift */; };
+		748CEDB6256C1568005DF246 /* SoloMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748CEDB5256C1568005DF246 /* SoloMenu.sks */; };
 		749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 749EBC0D25599D84003EA0B3 /* Explosion.sks */; };
 		749EBC1025599EF3003EA0B3 /* enemy-types.json in Resources */ = {isa = PBXBuildFile; fileRef = 749EBC0F25599EF3003EA0B3 /* enemy-types.json */; };
 		749EBC58255AF9E7003EA0B3 /* waves.json in Resources */ = {isa = PBXBuildFile; fileRef = 749EBC57255AF9E7003EA0B3 /* waves.json */; };
@@ -34,6 +36,8 @@
 		748CEDA025657B65005DF246 /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		748CEDAA25657F2E005DF246 /* MSButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSButtonNode.swift; sourceTree = "<group>"; };
 		748CEDAD25658207005DF246 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
+		748CEDB3256C151F005DF246 /* SoloMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoloMenu.swift; sourceTree = "<group>"; };
+		748CEDB5256C1568005DF246 /* SoloMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SoloMenu.sks; sourceTree = "<group>"; };
 		749EBC0D25599D84003EA0B3 /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
 		749EBC0F25599EF3003EA0B3 /* enemy-types.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "enemy-types.json"; sourceTree = "<group>"; };
 		749EBC57255AF9E7003EA0B3 /* waves.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = waves.json; sourceTree = "<group>"; };
@@ -118,6 +122,8 @@
 		74C3CFAE253F3BE900757586 /* APBOv2 */ = {
 			isa = PBXGroup;
 			children = (
+				748CEDB3256C151F005DF246 /* SoloMenu.swift */,
+				748CEDB5256C1568005DF246 /* SoloMenu.sks */,
 				748CEDAC256581E5005DF246 /* MainMenu */,
 				74C3CFCF25506CEA00757586 /* Particles */,
 				748CEDB02566F215005DF246 /* Enemies */,
@@ -213,6 +219,7 @@
 				74C3CFD325506D0300757586 /* Assets.xcassets in Resources */,
 				74C3CFB4253F3BE900757586 /* Actions.sks in Resources */,
 				749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */,
+				748CEDB6256C1568005DF246 /* SoloMenu.sks in Resources */,
 				749EBC58255AF9E7003EA0B3 /* waves.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -231,6 +238,7 @@
 				74C3CFB8253F3BE900757586 /* GameViewController.swift in Sources */,
 				749EBC5C255AFA58003EA0B3 /* Bundle-Decoding.swift in Sources */,
 				74C3CFDB2553100200757586 /* EnemyNode.swift in Sources */,
+				748CEDB4256C151F005DF246 /* SoloMenu.swift in Sources */,
 				74C3CFB0253F3BE900757586 /* AppDelegate.swift in Sources */,
 				748CEDAB25657F2E005DF246 /* MSButtonNode.swift in Sources */,
 			);
