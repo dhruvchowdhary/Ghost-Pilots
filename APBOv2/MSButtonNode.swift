@@ -54,13 +54,13 @@ class MSButtonNode: SKSpriteNode {
     
     // MARK: - Touch handling
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        selectedHandler()
         state = .MSButtonNodeStateSelected
+        selectedHandler()
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        selectedHandlers()
         state = .MSButtonNodeStateActive
+        selectedHandlers()
     }
     
 }

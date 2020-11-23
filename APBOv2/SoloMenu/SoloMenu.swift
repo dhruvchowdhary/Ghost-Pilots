@@ -1,26 +1,21 @@
 //
-//  MainMenu.swift
+//  SoloMenu.swift
 //  APBOv2
 //
-//  Created by 90306670 on 11/18/20.
+//  Created by 90306670 on 11/23/20.
 //  Copyright © 2020 Dhruv Chowdhary. All rights reserved.
 //
 
 import SpriteKit
 
-class MainMenu: SKScene {
+class SoloMenu: SKScene {
 
 /* UI Connections */
 var buttonPlay: MSButtonNode!
-let title = SKLabelNode(text: "APBO")
+
     
     override func didMove(to view: SKView) {
         /* Setup your scene here */
-        title.position = CGPoint(x: frame.midX, y: frame.midY + 200)
-        title.fontColor = UIColor.white
-    //    title.fontName =
-        title.fontSize = 200
-        addChild(title)
         
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
                 particles.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -28,20 +23,22 @@ let title = SKLabelNode(text: "APBO")
                 particles.zPosition = -1
                 addChild(particles)
         }
+ 
         /* Set UI connections */
-        buttonPlay = self.childNode(withName: "soloButton") as? MSButtonNode
+        buttonPlay = self.childNode(withName: "back") as? MSButtonNode
         buttonPlay.selectedHandler = {
-            self.loadSoloMenu()
+            self.loadMainMenu()
+     //       skView.presentScene(scene)
         }
- /*
-        buttonPlay = self.childNode(withName: "onlineButton") as? MSButtonNode
+        
+        buttonPlay = self.childNode(withName: "startButton") as? MSButtonNode
         buttonPlay.selectedHandler = {
-           // Add new screen for online and load here
+            self.loadGame()
         }
- */
+ 
     }
     
-    func loadSoloMenu() {
+    func loadGame() {
         /* 1) Grab reference to our SpriteKit view */
         guard let skView = self.view as SKView? else {
             print("Could not get Skview")
@@ -49,7 +46,32 @@ let title = SKLabelNode(text: "APBO")
         }
 
         /* 2) Load Game scene */
-        guard let scene = SKScene(fileNamed:"SoloMenu") else {
+        guard let scene = GameScene(fileNamed:"GameScene") else {
+            print("Could not make GameScene, check the name is spelled correctly")
+            return
+        }
+
+        /* 3) Ensure correct aspect mode */
+        scene.scaleMode = .aspectFill
+
+        /* Show debug */
+        skView.showsPhysics = true
+        skView.showsDrawCount = true
+        skView.showsFPS = true
+
+        /* 4) Start game scene */
+        skView.presentScene(scene)
+    }
+    
+    func loadMainMenu() {
+        /* 1) Grab reference to our SpriteKit view */
+        guard let skView = self.view as SKView? else {
+            print("Could not get Skview")
+            return
+        }
+
+        /* 2) Load Menu scene */
+        guard let scene = GameScene(fileNamed:"MainMenu") else {
             print("Could not make GameScene, check the name is spelled correctly")
             return
         }
