@@ -31,7 +31,7 @@ var buttonPlay: MSButtonNode!
      //       skView.presentScene(scene)
         }
         
-        buttonPlay = self.childNode(withName: "startButton") as? MSButtonNode
+        buttonPlay = self.childNode(withName: "endlessButton") as? MSButtonNode
         buttonPlay.selectedHandler = {
             self.loadGame()
         }
