@@ -12,6 +12,8 @@
 		748CEDAE25658207005DF246 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748CEDAD25658207005DF246 /* MainMenu.swift */; };
 		748CEDB4256C151F005DF246 /* SoloMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748CEDB3256C151F005DF246 /* SoloMenu.swift */; };
 		748CEDB6256C1568005DF246 /* SoloMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748CEDB5256C1568005DF246 /* SoloMenu.sks */; };
+		748CEDBE256D6EF8005DF246 /* TurretBoss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748CEDBD256D6EF8005DF246 /* TurretBoss.swift */; };
+		748CEDC1256D6F24005DF246 /* TurretBoss.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748CEDC0256D6F24005DF246 /* TurretBoss.sks */; };
 		749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 749EBC0D25599D84003EA0B3 /* Explosion.sks */; };
 		749EBC1025599EF3003EA0B3 /* enemy-types.json in Resources */ = {isa = PBXBuildFile; fileRef = 749EBC0F25599EF3003EA0B3 /* enemy-types.json */; };
 		749EBC58255AF9E7003EA0B3 /* waves.json in Resources */ = {isa = PBXBuildFile; fileRef = 749EBC57255AF9E7003EA0B3 /* waves.json */; };
@@ -38,6 +40,8 @@
 		748CEDAD25658207005DF246 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		748CEDB3256C151F005DF246 /* SoloMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoloMenu.swift; sourceTree = "<group>"; };
 		748CEDB5256C1568005DF246 /* SoloMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SoloMenu.sks; sourceTree = "<group>"; };
+		748CEDBD256D6EF8005DF246 /* TurretBoss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBoss.swift; sourceTree = "<group>"; };
+		748CEDC0256D6F24005DF246 /* TurretBoss.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TurretBoss.sks; sourceTree = "<group>"; };
 		749EBC0D25599D84003EA0B3 /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
 		749EBC0F25599EF3003EA0B3 /* enemy-types.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "enemy-types.json"; sourceTree = "<group>"; };
 		749EBC57255AF9E7003EA0B3 /* waves.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = waves.json; sourceTree = "<group>"; };
@@ -111,6 +115,15 @@
 			path = SoloMenu;
 			sourceTree = "<group>";
 		};
+		748CEDBF256D6F04005DF246 /* TurretBoss */ = {
+			isa = PBXGroup;
+			children = (
+				748CEDBD256D6EF8005DF246 /* TurretBoss.swift */,
+				748CEDC0256D6F24005DF246 /* TurretBoss.sks */,
+			);
+			path = TurretBoss;
+			sourceTree = "<group>";
+		};
 		74C3CFA3253F3BE900757586 = {
 			isa = PBXGroup;
 			children = (
@@ -131,13 +144,14 @@
 			isa = PBXGroup;
 			children = (
 				748CEDB7256C1AD4005DF246 /* SoloMenu */,
+				748CEDBF256D6F04005DF246 /* TurretBoss */,
 				748CEDAC256581E5005DF246 /* MainMenu */,
 				74C3CFCF25506CEA00757586 /* Particles */,
 				748CEDB02566F215005DF246 /* Enemies */,
 				748CEDAA25657F2E005DF246 /* MSButtonNode.swift */,
 				74C3CFB5253F3BE900757586 /* GameScene.swift */,
-				74C3CFB7253F3BE900757586 /* GameViewController.swift */,
 				74C3CFB1253F3BE900757586 /* GameScene.sks */,
+				74C3CFB7253F3BE900757586 /* GameViewController.swift */,
 				74C3CFB3253F3BE900757586 /* Actions.sks */,
 				74C3CFBC253F3BED00757586 /* Assets.xcassets */,
 				74C3CFC1253F3BED00757586 /* Info.plist */,
@@ -216,6 +230,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				748CEDC1256D6F24005DF246 /* TurretBoss.sks in Resources */,
 				74C3CFC8253F3E3D00757586 /* Starfield.sks in Resources */,
 				748CEDA125657B65005DF246 /* MainMenu.sks in Resources */,
 				74C3CFBB253F3BE900757586 /* Main.storyboard in Resources */,
@@ -246,6 +261,7 @@
 				74C3CFB8253F3BE900757586 /* GameViewController.swift in Sources */,
 				749EBC5C255AFA58003EA0B3 /* Bundle-Decoding.swift in Sources */,
 				74C3CFDB2553100200757586 /* EnemyNode.swift in Sources */,
+				748CEDBE256D6EF8005DF246 /* TurretBoss.swift in Sources */,
 				748CEDB4256C151F005DF246 /* SoloMenu.swift in Sources */,
 				74C3CFB0253F3BE900757586 /* AppDelegate.swift in Sources */,
 				748CEDAB25657F2E005DF246 /* MSButtonNode.swift in Sources */,
