@@ -178,7 +178,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if (!isPlayerAlive) {
            if let newScene = SKScene(fileNamed: "GameScene") {
-            newScene.scaleMode = .aspectFill
+            newScene.scaleMode = .aspectFit
             let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
             view?.presentScene(newScene, transition: reveal)
             }

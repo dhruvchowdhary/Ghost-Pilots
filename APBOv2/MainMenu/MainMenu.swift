@@ -55,7 +55,7 @@ let title = SKLabelNode(text: "APBO")
         }
 
         /* 3) Ensure correct aspect mode */
-        scene.scaleMode = .aspectFill
+        scene.scaleMode = .aspectFit
 
         /* Show debug */
         skView.showsPhysics = false
