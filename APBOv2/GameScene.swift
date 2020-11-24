@@ -161,6 +161,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.shootButton.run(fadeAlpha)
             self.shootButton.run(squishBig)
             
+            if self.isPlayerAlive {
             let shot = SKSpriteNode(imageNamed: "bullet")
             shot.name = "playerWeapon"
             shot.position = self.player.position
@@ -172,6 +173,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let movement = SKAction.moveBy(x: 1024 * cos(self.player.zRotation), y: 1024 * sin(self.player.zRotation), duration: 3)
             let sequence = SKAction.sequence([movement, .removeFromParent()])
             shot.run(sequence)
+            }
         }
         
         thruster1?.position = CGPoint(x: -30, y: 0)
@@ -507,13 +509,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func gameOver() {
         isPlayerAlive = false
-        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 140)
+        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 100)
         playAgain.fontColor = UIColor.white
+        playAgain.fontName = "AvenirNext-Bold"
         playAgain.fontSize = 60
         addChild(playAgain)
         
-        turnButton.removeFromParent()
-        shootButton.removeFromParent()
         
         if let explosion = SKEmitterNode(fileNamed: "Explosion") {
             explosion.position = player.position
@@ -521,7 +522,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         let gameOver = SKSpriteNode(imageNamed: "gameOver")
-        gameOver.size = CGSize(width: 1104, height: 298)
+        gameOver.position = CGPoint(x: frame.midY, y: frame.midY + 100)
+        gameOver.size = CGSize(width: 900, height: 243)
             addChild(gameOver)
     }
 
