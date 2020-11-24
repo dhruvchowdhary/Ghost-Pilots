@@ -26,13 +26,13 @@ var buttonPlay: MSButtonNode!
  
         /* Set UI connections */
         buttonPlay = self.childNode(withName: "back") as? MSButtonNode
-        buttonPlay.selectedHandler = {
+        buttonPlay.selectedHandlers = {
             self.loadMainMenu()
      //       skView.presentScene(scene)
         }
         
         buttonPlay = self.childNode(withName: "endlessButton") as? MSButtonNode
-        buttonPlay.selectedHandler = {
+        buttonPlay.selectedHandlers = {
             self.loadGame()
         }
  

@@ -102,7 +102,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   //      self.addChild(shootButton)d
         
         buttonPlay = self.childNode(withName: "pause") as? MSButtonNode
-        buttonPlay.selectedHandler = {
+        buttonPlay.selectedHandlers = {
     
             
             if self.scene?.view?.isPaused == true {

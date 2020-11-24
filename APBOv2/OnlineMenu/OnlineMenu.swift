@@ -27,7 +27,7 @@ let playAgain = SKLabelNode(text: "The online version is currently under develop
  
         /* Set UI connections */
         buttonPlay = self.childNode(withName: "back") as? MSButtonNode
-        buttonPlay.selectedHandler = {
+        buttonPlay.selectedHandlers = {
             self.loadMainMenu()
         }
  

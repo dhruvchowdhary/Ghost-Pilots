@@ -30,12 +30,12 @@ let title = SKLabelNode(text: "APBO")
         }
         /* Set UI connections */
         buttonPlay = self.childNode(withName: "soloButton") as? MSButtonNode
-        buttonPlay.selectedHandler = {
+        buttonPlay.selectedHandlers = {
             self.loadGame()
         }
  
         buttonPlay = self.childNode(withName: "onlineButton") as? MSButtonNode
-        buttonPlay.selectedHandler = {
+        buttonPlay.selectedHandlers = {
            self.loadOnlineMenu()
         }
  
