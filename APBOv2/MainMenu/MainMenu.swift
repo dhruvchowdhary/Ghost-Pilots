@@ -31,7 +31,7 @@ let title = SKLabelNode(text: "APBO")
         /* Set UI connections */
         buttonPlay = self.childNode(withName: "soloButton") as? MSButtonNode
         buttonPlay.selectedHandler = {
-            self.loadSoloMenu()
+            self.loadGame()
         }
  /*
         buttonPlay = self.childNode(withName: "onlineButton") as? MSButtonNode
@@ -41,7 +41,7 @@ let title = SKLabelNode(text: "APBO")
  */
     }
     
-    func loadSoloMenu() {
+    func loadGame() {
         /* 1) Grab reference to our SpriteKit view */
         guard let skView = self.view as SKView? else {
             print("Could not get Skview")
@@ -49,16 +49,16 @@ let title = SKLabelNode(text: "APBO")
         }
 
         /* 2) Load Game scene */
-        guard let scene = SKScene(fileNamed:"SoloMenu") else {
+        guard let scene = GameScene(fileNamed:"GameScene") else {
             print("Could not make GameScene, check the name is spelled correctly")
             return
         }
 
         /* 3) Ensure correct aspect mode */
-        scene.scaleMode = .aspectFill
+        scene.scaleMode = .aspectFit
 
         /* Show debug */
-        skView.showsPhysics = true
+        skView.showsPhysics = false
         skView.showsDrawCount = true
         skView.showsFPS = true
 
