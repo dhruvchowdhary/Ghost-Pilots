@@ -52,6 +52,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let playAgain = SKLabelNode(text: "Tap to Play Again")
     let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
     var direction = 0.0
+    let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 2000, height: 1000) )
 
     
     override func didMove(to view: SKView) {
@@ -102,7 +103,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         buttonPlay = self.childNode(withName: "pause") as? MSButtonNode
         buttonPlay.selectedHandler = {
-            //Add here to somehow pause
+    
+            
+            if self.scene?.view?.isPaused == true {
+                self.scene?.view?.isPaused = false
+                self.children.map{($0 as SKNode).isPaused = false}
+              //  self.dimPanel.removeFromParent()
+                
+            }
+            else {
+                self.scene?.view?.isPaused = true
+                self.children.map{($0 as SKNode).isPaused = true}
+                /*
+                self.dimPanel.alpha = 0.75
+                self.dimPanel.zPosition = 100
+                self.dimPanel.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+                self.addChild(self.dimPanel)
+ */
+            }
+      
+        
+            
         }
    // sds
         
@@ -148,7 +169,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
             shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
             self.addChild(shot)
-            let movement = SKAction.moveBy(x: 1024 * cos(self.player.zRotation), y: 1024 * sin(self.player.zRotation), duration: 1.8432)
+            let movement = SKAction.moveBy(x: 1024 * cos(self.player.zRotation), y: 1024 * sin(self.player.zRotation), duration: 3)
             let sequence = SKAction.sequence([movement, .removeFromParent()])
             shot.run(sequence)
         }
@@ -174,7 +195,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 }
 
     
-    
+ 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if (!isPlayerAlive) {
            if let newScene = SKScene(fileNamed: "GameScene") {
