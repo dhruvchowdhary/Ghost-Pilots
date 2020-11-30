@@ -33,6 +33,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playerHP = maxHealth
     var cannonHP = maxHealth
     var isPlayerAlive = true
+    var varisPaused = 1
     var playerShields = 1
     var waveNumber = 0
     var levelNumber = 0
@@ -106,12 +107,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
             
             if self.scene?.view?.isPaused == true {
+                self.varisPaused = 1
                 self.scene?.view?.isPaused = false
                 self.children.map{($0 as SKNode).isPaused = false}
               //  self.dimPanel.removeFromParent()
                 
             }
             else {
+                self.varisPaused = 0
                 self.scene?.view?.isPaused = true
                 self.children.map{($0 as SKNode).isPaused = true}
                 /*
@@ -128,6 +131,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
    // sds
         
         buttonPlay = self.childNode(withName: "turnButton") as? MSButtonNode
+        if varisPaused==1 {
         buttonPlay.selectedHandler = {
             
             let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
@@ -153,6 +157,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         buttonPlay.selectedHandlers = {
             self.direction = 0
+        }
         }
         
         buttonPlay = self.childNode(withName: "shootButton") as? MSButtonNode
