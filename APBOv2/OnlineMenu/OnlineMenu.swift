@@ -12,7 +12,7 @@ class OnlineMenu: SKScene {
 
 /* UI Connections */
 var buttonPlay: MSButtonNode!
-let playAgain = SKLabelNode(text: "The online version is currently under development!")
+let notDoneLabel = SKLabelNode(text: "The online version of this game is currently under development!")
 
     
     override func didMove(to view: SKView) {
@@ -24,7 +24,12 @@ let playAgain = SKLabelNode(text: "The online version is currently under develop
                 particles.zPosition = -1
                 addChild(particles)
         }
- 
+        
+        notDoneLabel.position = CGPoint(x: frame.midX, y: frame.midY + 250)
+        notDoneLabel.fontColor = UIColor.white
+        notDoneLabel.fontSize = 60
+        addChild(notDoneLabel)
+        
         /* Set UI connections */
         buttonPlay = self.childNode(withName: "back") as? MSButtonNode
         buttonPlay.selectedHandlers = {
