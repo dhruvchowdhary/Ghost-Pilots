@@ -129,6 +129,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         buttonPlay = self.childNode(withName: "turnButton") as? MSButtonNode
         buttonPlay.selectedHandler = {
+            
             let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
             let squishBig = SKAction.scale(to: 2.05, duration: 0.1)
             self.turnButton.run(fadeAlpha)
