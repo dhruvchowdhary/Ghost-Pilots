@@ -33,7 +33,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playerHP = maxHealth
     var cannonHP = maxHealth
     var isPlayerAlive = true
-    var varisPaused = 1
+    var varisPaused = 1 //1 is false
     var playerShields = 1
     var waveNumber = 0
     var levelNumber = 0
@@ -100,85 +100,114 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         shootButton.size.width = 175
         shootButton.zPosition = 2
         shootButton.position = CGPoint(x: self.frame.minX+300,y: self.frame.minY+120)
-  //      self.addChild(shootButton)d
+  //      self.addChild(shootButton)
+        
+        buttonPlay = self.childNode(withName: "backButton") as? MSButtonNode
+        buttonPlay.selectedHandlers = {
+            /* 1) Grab reference to our SpriteKit view */
+            guard let skView = self.view as SKView? else {
+                print("Could not get Skview")
+                return
+            }
+
+            /* 2) Load Menu scene */
+            guard let scene = SoloMenu(fileNamed:"SoloMenu") else {
+                print("Could not make GameScene, check the name is spelled correctly")
+                return
+            }
+
+            /* 3) Ensure correct aspect mode */
+            scene.scaleMode = .aspectFit
+
+            /* Show debug */
+            skView.showsPhysics = true
+            skView.showsDrawCount = true
+            skView.showsFPS = true
+
+            /* 4) Start game scene */
+            skView.presentScene(scene)
+        }
         
         buttonPlay = self.childNode(withName: "pause") as? MSButtonNode
         buttonPlay.selectedHandlers = {
-    
-            
-            if self.scene?.view?.isPaused == true {
-                self.varisPaused = 1
-                self.scene?.view?.isPaused = false
-                self.children.map{($0 as SKNode).isPaused = false}
-              //  self.dimPanel.removeFromParent()
+            if self.isPlayerAlive {
+                if self.scene?.view?.isPaused == true {
+                    self.buttonPlay.isHidden = true
+                    self.varisPaused = 1
+                    self.scene?.view?.isPaused = false
+                    self.children.map{($0 as SKNode).isPaused = false}
+            //        self.dimPanel.removeFromParent()
+                }
+                else {
+                    self.buttonPlay.isHidden = false
+                    self.varisPaused = 0
+                    self.scene?.view?.isPaused = true
+                    self.children.map{($0 as SKNode).isPaused = true}
                 
-            }
-            else {
-                self.varisPaused = 0
-                self.scene?.view?.isPaused = true
-                self.children.map{($0 as SKNode).isPaused = true}
-                /*
-                self.dimPanel.alpha = 0.75
-                self.dimPanel.zPosition = 100
+          /*      self.dimPanel.alpha = 0.1
+                self.dimPanel.zPosition = -1
                 self.dimPanel.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
                 self.addChild(self.dimPanel)
  */
             }
       
-        
+            }
             
         }
-   // sds
+
         
         buttonPlay = self.childNode(withName: "turnButton") as? MSButtonNode
-        if varisPaused==1 {
         buttonPlay.selectedHandler = {
+            if self.varisPaused==1 && self.isPlayerAlive {
+                let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
+                let squishBig = SKAction.scale(to: 2.05, duration: 0.1)
+                self.turnButton.run(fadeAlpha)
+                self.turnButton.run(squishBig)
             
-            let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
-            let squishBig = SKAction.scale(to: 2.05, duration: 0.1)
-            self.turnButton.run(fadeAlpha)
-            self.turnButton.run(squishBig)
+                self.count = 1
+                self.direction = 0.1
             
-            self.count = 1
-            self.direction = 0.1
-            
-            if (self.doubleTap==1) {
-                self.player.zRotation = self.player.zRotation + 1.0;
-                let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
-                self.player.run(movement)
+                if (self.doubleTap==1) {
+                    self.player.zRotation = self.player.zRotation + 1.0;
+                    let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
+                    self.player.run(movement)
                 
-                self.doubleTap = 0
-                }
-                else {
-                self.doubleTap = 1
-                }
+                    self.doubleTap = 0
+                    }
+                    else {
+                        self.doubleTap = 1
+                    }
             
-            
+            }
         }
         buttonPlay.selectedHandlers = {
-            self.direction = 0
+            if self.varisPaused==1 && self.isPlayerAlive {
+                self.direction = 0
+            }
         }
-        }
+        
         
         buttonPlay = self.childNode(withName: "shootButton") as? MSButtonNode
         buttonPlay.selectedHandler = {
-            let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
-            let squishBig = SKAction.scale(to: 2.05, duration: 0.1)
-            self.shootButton.run(fadeAlpha)
-            self.shootButton.run(squishBig)
+            if self.varisPaused==1 && self.isPlayerAlive {
+                let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
+                let squishBig = SKAction.scale(to: 2.05, duration: 0.1)
+                self.shootButton.run(fadeAlpha)
+                self.shootButton.run(squishBig)
             
-            if self.isPlayerAlive {
-            let shot = SKSpriteNode(imageNamed: "bullet")
-            shot.name = "playerWeapon"
-            shot.position = self.player.position
-            shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-            shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
-            shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-            shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-            self.addChild(shot)
-            let movement = SKAction.moveBy(x: 1024 * cos(self.player.zRotation), y: 1024 * sin(self.player.zRotation), duration: 3)
-            let sequence = SKAction.sequence([movement, .removeFromParent()])
-            shot.run(sequence)
+                if self.isPlayerAlive {
+                    let shot = SKSpriteNode(imageNamed: "bullet")
+                    shot.name = "playerWeapon"
+                    shot.position = self.player.position
+                    shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
+                    shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
+                    shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+                    shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+                    self.addChild(shot)
+                    let movement = SKAction.moveBy(x: 1024 * cos(self.player.zRotation), y: 1024 * sin(self.player.zRotation), duration: 2.6)
+                    let sequence = SKAction.sequence([movement, .removeFromParent()])
+                    shot.run(sequence)
+                }
             }
         }
         
