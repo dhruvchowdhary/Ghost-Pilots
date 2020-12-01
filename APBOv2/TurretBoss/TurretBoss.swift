@@ -44,6 +44,8 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 particles.zPosition = -1
                 addChild(particles)
         }
+        
+        
         addChild(cannonHealthBar)
         
         
@@ -64,10 +66,23 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         cannonSprite.zPosition = 1
           addChild(cannonSprite)
                 
+        
+        
+        
+        
+        
+        turretSprite.physicsBody = SKPhysicsBody(texture: turretSprite.texture!, size: turretSprite.texture!.size())
+
         turretSprite.position = CGPoint(x: frame.midX, y: frame.midY)
         addChild(turretSprite)
         turretSprite.zPosition = 3
+     
+        turretSprite.physicsBody?.categoryBitMask = CollisionType.enemy.rawValue
+        turretSprite.physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
+        turretSprite.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
  
+        
+        
         turnButton.name = "btn"
         turnButton.size.height = 175
         turnButton.size.width = 175
@@ -309,6 +324,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
          let deltaY = player.position.y - turretSprite.position.y
          let angle = atan2(deltaY, deltaX)
     
+        
                               
          turretSprite.zRotation = angle - 270 * degreesToRadians
            }
