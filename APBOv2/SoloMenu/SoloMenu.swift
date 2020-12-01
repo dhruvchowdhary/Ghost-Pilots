@@ -60,7 +60,7 @@ var buttonPlay: MSButtonNode!
         scene.scaleMode = .aspectFit
 
         /* Show debug */
-        skView.showsPhysics = true
+        skView.showsPhysics = false
         skView.showsDrawCount = true
         skView.showsFPS = true
 
@@ -76,7 +76,7 @@ var buttonPlay: MSButtonNode!
         }
 
         /* 2) Load Game scene */
-        guard let scene = SKScene(fileNamed:"TurretBoss") else {
+        guard let scene = TurretBossScene(fileNamed:"TurretBoss") else {
             print("Could not make GameScene, check the name is spelled correctly")
             return
         }
@@ -85,7 +85,7 @@ var buttonPlay: MSButtonNode!
         scene.scaleMode = .aspectFit
 
         /* Show debug */
-        skView.showsPhysics = true
+        skView.showsPhysics = false
         skView.showsDrawCount = true
         skView.showsFPS = true
 
@@ -110,7 +110,7 @@ var buttonPlay: MSButtonNode!
         scene.scaleMode = .aspectFit
 
         /* Show debug */
-        skView.showsPhysics = true
+        skView.showsPhysics = false
         skView.showsDrawCount = true
         skView.showsFPS = true
 

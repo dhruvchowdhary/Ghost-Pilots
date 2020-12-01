@@ -55,7 +55,7 @@ let notDoneLabel = SKLabelNode(text: "The online version of this game is current
         scene.scaleMode = .aspectFit
 
         /* Show debug */
-        skView.showsPhysics = true
+        skView.showsPhysics = false
         skView.showsDrawCount = true
         skView.showsFPS = true
 
