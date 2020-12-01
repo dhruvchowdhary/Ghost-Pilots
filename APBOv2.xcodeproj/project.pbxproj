@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7451FF782576FE8F0074CC2E /* Spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7451FF772576FE8F0074CC2E /* Spark.sks */; };
 		748CEDA125657B65005DF246 /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748CEDA025657B65005DF246 /* MainMenu.sks */; };
 		748CEDAB25657F2E005DF246 /* MSButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748CEDAA25657F2E005DF246 /* MSButtonNode.swift */; };
 		748CEDAE25658207005DF246 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748CEDAD25658207005DF246 /* MainMenu.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7451FF772576FE8F0074CC2E /* Spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Spark.sks; sourceTree = "<group>"; };
 		748CEDA025657B65005DF246 /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		748CEDAA25657F2E005DF246 /* MSButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSButtonNode.swift; sourceTree = "<group>"; };
 		748CEDAD25658207005DF246 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				749EBC0D25599D84003EA0B3 /* Explosion.sks */,
+				7451FF772576FE8F0074CC2E /* Spark.sks */,
 				74C3CFD025506D0300757586 /* Thrusters.sks */,
 				74C3CFC7253F3E3D00757586 /* Starfield.sks */,
 				74C3CFD125506D0300757586 /* Assets.xcassets */,
@@ -262,6 +265,7 @@
 				749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */,
 				748CEDB6256C1568005DF246 /* SoloMenu.sks in Resources */,
 				749EBC58255AF9E7003EA0B3 /* waves.json in Resources */,
+				7451FF782576FE8F0074CC2E /* Spark.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
