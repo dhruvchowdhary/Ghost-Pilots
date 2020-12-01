@@ -305,7 +305,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         
         shot.position = turretSprite.position
   
-   //     addChild(shot)
+        addChild(shot)
         let movement = SKAction.moveBy(x: 1024 * cos(turretSprite.zRotation-90 * degreesToRadians), y: 1024 * sin(turretSprite.zRotation-90 * degreesToRadians), duration: 1.8432)
         let sequence = SKAction.sequence([movement, .removeFromParent()])
         shot.run(sequence)
