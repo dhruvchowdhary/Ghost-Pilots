@@ -476,6 +476,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     func gameOver() {
         isPlayerAlive = false
         playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 100)
+        playAgain.zPosition = 100
         playAgain.fontColor = UIColor.white
         playAgain.fontName = "AvenirNext-Bold"
         playAgain.fontSize = 60
@@ -489,6 +490,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         
         let gameOver = SKSpriteNode(imageNamed: "gameOver")
         gameOver.position = CGPoint(x: frame.midY, y: frame.midY + 100)
+        gameOver.zPosition = 100
         gameOver.size = CGSize(width: 900, height: 243)
             addChild(gameOver)
     }
