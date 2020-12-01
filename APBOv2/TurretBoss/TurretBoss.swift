@@ -1,32 +1,7 @@
-//
-//  GameScene.swift
-//  APBOv2
-//
-//  Created by 90306670 on 10/20/20.
-//  Copyright © 2020 Dhruv Chowdhary. All rights reserved.
-//
-
 import SpriteKit
 import CoreMotion
 
-let degreesToRadians = CGFloat.pi / 180
-let radiansToDegrees = 180 / CGFloat.pi
-let maxHealth = 100
-let healthBarWidth: CGFloat = 40
-let healthBarHeight: CGFloat = 4
-let cannonCollisionRadius: CGFloat = 70
-let playerCollisionRadius: CGFloat = 10
-let shotCollisionRadius: CGFloat = 20
-let playAgain = SKLabelNode(text: "Tap to Play Again")
-
-enum CollisionType: UInt32 {
-    case player = 1
-    case playerWeapon = 2
-    case enemy = 4
-    case enemyWeapon = 8
-}
-
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     var buttonPlay: MSButtonNode!
     let playerHealthBar = SKSpriteNode()
     let cannonHealthBar = SKSpriteNode()
@@ -39,8 +14,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var levelNumber = 0
     let turnButton = SKSpriteNode(imageNamed: "button")
     let shootButton = SKSpriteNode(imageNamed: "button")
-    //    let turretSprite = SKSpriteNode(imageNamed: "turretshooter")
-    //    let cannonSprite = SKSpriteNode(imageNamed: "turretbase")
+    let turretSprite = SKSpriteNode(imageNamed: "turretshooter")
+    let cannonSprite = SKSpriteNode(imageNamed: "turretbase")
     let waves = Bundle.main.decode([Wave].self, from: "waves.json")
     let enemyTypes = Bundle.main.decode([EnemyType].self, from: "enemy-types.json")
     let positions = Array(stride(from: -320, through: 320, by: 80))
@@ -54,6 +29,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
     var direction = 0.0
     let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 2000, height: 1000) )
+    
+    var lastFireTime: Double = 0
 
     
     override func didMove(to view: SKView) {
@@ -67,7 +44,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 particles.zPosition = -1
                 addChild(particles)
         }
-                
+        
+        
+        addChild(cannonHealthBar)
+        
+        
         player.name = "player"
         player.position.x = frame.midX-700
         player.position.y = frame.midY-80
@@ -80,14 +61,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
         player.physicsBody?.isDynamic = false
         
-/*        cannonSprite.position = CGPoint(x: size.width/2, y: size.height/2)
+        
+        cannonSprite.position = CGPoint(x: frame.midX, y: frame.midY)
         cannonSprite.zPosition = 1
           addChild(cannonSprite)
                 
-        turretSprite.position = CGPoint(x: size.width/2, y: size.height/2)
+        
+        //hi
+        
+        
+        
+        turretSprite.physicsBody = SKPhysicsBody(texture: turretSprite.texture!, size: turretSprite.texture!.size())
+
+        turretSprite.position = CGPoint(x: frame.midX, y: frame.midY)
         addChild(turretSprite)
         turretSprite.zPosition = 3
- */
+     
+        turretSprite.physicsBody?.categoryBitMask = CollisionType.enemy.rawValue
+        turretSprite.physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
+        turretSprite.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
+ 
+        
+        
         turnButton.name = "btn"
         turnButton.size.height = 175
         turnButton.size.width = 175
@@ -100,7 +95,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         shootButton.size.width = 175
         shootButton.zPosition = 2
         shootButton.position = CGPoint(x: self.frame.minX+300,y: self.frame.minY+120)
-  //      self.addChild(shootButton)d
+  //      self.addChild(shootButton)
+        
+        
         
         buttonPlay = self.childNode(withName: "pause") as? MSButtonNode
         buttonPlay.selectedHandlers = {
@@ -129,6 +126,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         }
    // sds
+ 
+ 
         
         buttonPlay = self.childNode(withName: "turnButton") as? MSButtonNode
         if varisPaused==1 {
@@ -203,10 +202,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 }
 
     
+    
+    
  
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if (!isPlayerAlive) {
-           if let newScene = SKScene(fileNamed: "GameScene") {
+           if let newScene = TurretBossScene(fileNamed: "TurretBoss") {
             newScene.scaleMode = .aspectFit
             let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
             view?.presentScene(newScene, transition: reveal)
@@ -275,6 +276,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     
     override func update(_ currentTime: TimeInterval) {
+        
+        let deltaTime = max(1.0/30, currentTime - lastUpdateTime)
+              lastUpdateTime = currentTime
+              
+
+              updateTurret(deltaTime)
+        
         player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 2.5 ,y:player.position.y + sin(player.zRotation) * 2.5)
            
             if player.position.y < frame.minY + 35 {
@@ -289,6 +297,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 player.position.x = frame.maxX - 35
             }
                 
+        if lastFireTime + 1 < currentTime {
+                              lastFireTime = currentTime
+                              
+                              if Int.random(in: 0...2) == 0 || Int.random(in: 0...2) == 1 {
+                                  shootTurret()
+                                    }
+        }
+  
                 for child in children {
                     if child.frame.maxX < 0 {
                         if !frame.intersects(child.frame) {
@@ -297,97 +313,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     }
                 }
                 
-                let activeEnemies = children.compactMap { $0 as? EnemyNode }
+                let activeEnemies = children.compactMap { $0 as? TurretNode }
                 if activeEnemies.isEmpty {
-                    createWave()
+                  //  createWave()
                 }
-                
-                for enemy in activeEnemies {
-                    guard frame.intersects(enemy.frame) else { continue }
-                    
-                    if enemy.lastFireTime + 1 < currentTime {
-                        enemy.lastFireTime = currentTime
-                        
-                        if Int.random(in: 0...2) == 0 || Int.random(in: 0...2) == 1 {
-                            enemy.fire()
-                        }
-                    }
-                }
-        
-     /*
-        let deltaTime = max(1.0/30, currentTime - lastUpdateTime)
-        lastUpdateTime = currentTime
-        
-        updatePlayer(deltaTime)
-        updateTurret(deltaTime)
-        checkShipCannonCollision()
-        checkShotCannonCollision()
-     */
-    
-   /*
-    func updatePlayer(_ dt: CFTimeInterval) {
-        
-        player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 2.5 ,y:player.position.y + sin(player.zRotation) * 2.5)
-       
-        
-        if player.position.y < frame.minY + 35 {
-            player.position.y = frame.minY + 35
-        } else if player.position.y > frame.maxY-35 {
-            player.position.y = frame.maxY - 35
-        }
-        
-        if player.position.x < frame.minX + 80 {
-            player.position.x = frame.minX + 80
-        } else if player.position.x > frame.maxX-80 {
-            player.position.x = frame.maxX - 80
-
-                    }
-      */
-        
-      //  thruster1?.position = CGPoint(x:player.position.x + 25 , y:player.position.y - 25 )
-    
-      //  thruster1?.zRotation = player.zRotation
-        //hi2
-    
     }
     
-    func createWave() {
-        guard isPlayerAlive else { return }
+       func updateTurret(_ dt: CFTimeInterval) {
+         let deltaX = player.position.x - turretSprite.position.x
+         let deltaY = player.position.y - turretSprite.position.y
+         let angle = atan2(deltaY, deltaX)
+    
         
-        if waveNumber == waves.count {
-            levelNumber += 1
-            waveNumber = 0
-        }
+                              
+         turretSprite.zRotation = angle - 270 * degreesToRadians
+           }
+    
+    func shootTurret() {
+        let shot = SKSpriteNode(imageNamed: "enemy2Weapon")
+                      shot.name = "TurretWeapon"
+        shot.zRotation = turretSprite.zRotation
+        shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
+         shot.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
+         shot.physicsBody?.collisionBitMask = CollisionType.player.rawValue
+         shot.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
+         shot.physicsBody?.mass = 0.001
         
-        let currentWave = waves[waveNumber]
-        waveNumber += 1
         
-        let maximumEnemyType = min(enemyTypes.count, levelNumber + 1)
-        let enemyType = Int.random(in: 0..<maximumEnemyType)
-        
-        let enemyOffsetX: CGFloat = 100
-        let enemyStartX = 800
-        
-        if currentWave.enemies.isEmpty {
-            for(index, position) in positions.shuffled().enumerated() {
-                let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: position), xOffset: enemyOffsetX * CGFloat(index * 3), moveStright: true)
-                addChild(enemy)
-            }
-        } else {
-            for enemy in currentWave.enemies {
-                let node = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: positions[enemy.position]), xOffset: enemyOffsetX * enemy.xOffset, moveStright: enemy.moveStraight)
-                addChild(node)
-            }
-        }
-    }
-   
- /*   func updateTurret(_ dt: CFTimeInterval) {
-      let deltaX = player.position.x - turretSprite.position.x
-      let deltaY = player.position.y - turretSprite.position.y
-      let angle = atan2(deltaY, deltaX)
-      
-      turretSprite.zRotation = angle - 270 * degreesToRadians
-    }
+        shot.position = turretSprite.position
+  
+                      addChild(shot)
+                      let movement = SKAction.moveBy(x: 1024 * cos(turretSprite.zRotation-90 * degreesToRadians), y: 1024 * sin(turretSprite.zRotation-90 * degreesToRadians), duration: 1.8432)
+                      let sequence = SKAction.sequence([movement, .removeFromParent()])
+                          shot.run(sequence)
+                  }
+    
     
     func updateHealthBar(_ node: SKSpriteNode, withHealthPoints hp: Int) {
       let barSize = CGSize(width: healthBarWidth, height: healthBarHeight);
@@ -463,7 +423,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           shot.removeFromParent()
     
        }
-  */
+  
     func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }
@@ -488,7 +448,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             
             firstNode.removeFromParent()
-        } else if let enemy = firstNode as? EnemyNode {
+        } else if let enemy = firstNode as? TurretNode {
             enemy.shields -= 1
             
             if enemy.shields == 0 {
