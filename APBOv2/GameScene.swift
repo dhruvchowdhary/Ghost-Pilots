@@ -28,6 +28,7 @@ enum CollisionType: UInt32 {
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     var buttonPlay: MSButtonNode!
+    var backButton: MSButtonNode!
     let playerHealthBar = SKSpriteNode()
     let cannonHealthBar = SKSpriteNode()
     var playerHP = maxHealth
@@ -102,8 +103,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         shootButton.position = CGPoint(x: self.frame.minX+300,y: self.frame.minY+120)
   //      self.addChild(shootButton)
         
-        buttonPlay = self.childNode(withName: "backButton") as? MSButtonNode
-        buttonPlay.selectedHandlers = {
+        backButton = self.childNode(withName: "backButton") as? MSButtonNode
+        backButton.alpha = 0
+        backButton.selectedHandlers = {
             /* 1) Grab reference to our SpriteKit view */
             guard let skView = self.view as SKView? else {
                 print("Could not get Skview")
@@ -131,18 +133,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         buttonPlay = self.childNode(withName: "pause") as? MSButtonNode
         buttonPlay.selectedHandlers = {
             if self.isPlayerAlive {
-                if self.scene?.view?.isPaused == true {
-                    self.buttonPlay.isHidden = true
+                if self.varisPaused == 0 {
                     self.varisPaused = 1
                     self.scene?.view?.isPaused = false
                     self.children.map{($0 as SKNode).isPaused = false}
+                    self.backButton.alpha = 0
+
             //        self.dimPanel.removeFromParent()
                 }
                 else {
-                    self.buttonPlay.isHidden = false
+                    self.backButton.alpha = 1
                     self.varisPaused = 0
-                    self.scene?.view?.isPaused = true
-                    self.children.map{($0 as SKNode).isPaused = true}
+                    let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
+                        if self.backButton.alpha == 1
+                        {
+                            self.scene?.view?.isPaused = true
+                            self.children.map{($0 as SKNode).isPaused = true}
+                        }
+                                
+                    }
+
                 
           /*      self.dimPanel.alpha = 0.1
                 self.dimPanel.zPosition = -1
