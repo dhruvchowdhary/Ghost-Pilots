@@ -185,6 +185,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
                     self.addChild(shot)
                     
+                    //hi
                     
                     let movement = SKAction.moveBy(x: 1500 * cos(self.player.zRotation), y: 1500 * sin(self.player.zRotation), duration: 2.6)
                     let sequence = SKAction.sequence([movement, .removeFromParent()])
