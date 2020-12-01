@@ -84,8 +84,8 @@
 		748CEDAC256581E5005DF246 /* MainMenu */ = {
 			isa = PBXGroup;
 			children = (
-				748CEDA025657B65005DF246 /* MainMenu.sks */,
 				748CEDAD25658207005DF246 /* MainMenu.swift */,
+				748CEDA025657B65005DF246 /* MainMenu.sks */,
 			);
 			path = MainMenu;
 			sourceTree = "<group>";

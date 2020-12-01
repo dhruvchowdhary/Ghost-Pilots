@@ -145,10 +145,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if self.varisPaused==1 && self.isPlayerAlive {
             
                 self.count = 1
-                self.direction = 0.1
+                self.direction = -0.1
             
                 if (self.doubleTap==1) {
-                    self.player.zRotation = self.player.zRotation + 1.0;
+                    self.player.zRotation = self.player.zRotation - 1.0;
                     let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
                     self.player.run(movement)
                 
@@ -156,12 +156,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     }
                     else {
                         self.doubleTap = 1
+                        let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
+                            self.doubleTap = 0
+                        }
                     }
             
             }
         }
         buttonPlay.selectedHandlers = {
-            if self.varisPaused==1 && self.isPlayerAlive {
+            if self.varisPaused == 1 && self.isPlayerAlive {
                 self.direction = 0
             }
         }
@@ -175,7 +178,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     
                     let shot = SKSpriteNode(imageNamed: "bullet")
                     shot.name = "playerWeapon"
-                    shot.position = self.player.position
+                    shot.position = CGPoint(x: self.player.position.x + cos(self.player.zRotation)*40, y: self.player.position.y + sin(self.player.zRotation)*40)
                     shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
                     shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
                     shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
@@ -274,13 +277,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
  
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-
-            if doubleTap == 1 {
-            let turnTimer2 = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
-                self.doubleTap = 0
-                }
-            }
-        
         let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
         let squishNormal = SKAction.scale(to: 1.0, duration: 0.05)
         turnButton.run(fadeAlpha)

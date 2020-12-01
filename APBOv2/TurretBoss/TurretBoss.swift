@@ -104,7 +104,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             scene.scaleMode = .aspectFit
 
             /* Show debug */
-            skView.showsPhysics = true
+            skView.showsPhysics = false
             skView.showsDrawCount = true
             skView.showsFPS = true
 
@@ -122,6 +122,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                     self.backButtonNode.alpha = 0
                     self.dimPanel.alpha = 0
 
+            //        self.dimPanel.removeFromParent()
                 }
                 else {
                     self.backButtonNode.alpha = 1
@@ -140,34 +141,35 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
         }
 
+        
         buttonPlay = self.childNode(withName: "turnButton") as? MSButtonNode
-        if varisPaused==1 {
-        buttonPlay.selectedHandler = {
+        if varisPaused == 1 {
+            buttonPlay.selectedHandler = {
             
-            let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
-            let squishBig = SKAction.scale(to: 2.05, duration: 0.1)
-            self.turnButton.run(fadeAlpha)
-            self.turnButton.run(squishBig)
+                let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
+                let squishBig = SKAction.scale(to: 2.05, duration: 0.1)
+                self.turnButton.run(fadeAlpha)
+                self.turnButton.run(squishBig)
             
-            self.count = 1
-            self.direction = 0.1
+                self.count = 1
+                self.direction = -0.1
             
-            if (self.doubleTap==1) {
-                self.player.zRotation = self.player.zRotation + 1.0;
-                let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
-                self.player.run(movement)
-                
-                self.doubleTap = 0
+                if (self.doubleTap == 1) {
+                    self.player.zRotation = self.player.zRotation - 1.0;
+                    let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
+                    self.player.run(movement)
+                    self.doubleTap = 0
                 }
                 else {
-                self.doubleTap = 1
+                    self.doubleTap = 1
+                    let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
+                        self.doubleTap = 0
+                    }
                 }
-            
-            
-        }
-        buttonPlay.selectedHandlers = {
-            self.direction = 0
-        }
+            }
+            buttonPlay.selectedHandlers = {
+                self.direction = 0
+            }
         }
         
         buttonPlay = self.childNode(withName: "shootButton") as? MSButtonNode
@@ -214,6 +216,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     }
 }
 
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if (!isPlayerAlive) {
            if let newScene = TurretBossScene(fileNamed: "TurretBoss") {
@@ -231,13 +234,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     }
  
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-
-            if doubleTap == 1 {
-            let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
-                self.doubleTap = 0
-                }
-            }
-        
         let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
         let squishNormal = SKAction.scale(to: 1.0, duration: 0.05)
         turnButton.run(fadeAlpha)
