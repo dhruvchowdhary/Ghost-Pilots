@@ -28,7 +28,8 @@ enum CollisionType: UInt32 {
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     var buttonPlay: MSButtonNode!
-    var backButton: MSButtonNode!
+    var backButtonNode: MSButtonNode!
+    var pauseButtonNode: MSButtonNode!
     let playerHealthBar = SKSpriteNode()
     let cannonHealthBar = SKSpriteNode()
     var playerHP = maxHealth
@@ -103,9 +104,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         shootButton.position = CGPoint(x: self.frame.minX+300,y: self.frame.minY+120)
   //      self.addChild(shootButton)
         
-        backButton = self.childNode(withName: "backButton") as? MSButtonNode
-        backButton.alpha = 0
-        backButton.selectedHandlers = {
+        backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
+        backButtonNode.alpha = 0
+        backButtonNode.selectedHandlers = {
             /* 1) Grab reference to our SpriteKit view */
             guard let skView = self.view as SKView? else {
                 print("Could not get Skview")
@@ -130,22 +131,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             skView.presentScene(scene)
         }
         
-        buttonPlay = self.childNode(withName: "pause") as? MSButtonNode
-        buttonPlay.selectedHandlers = {
+        pauseButtonNode = self.childNode(withName: "pause") as? MSButtonNode
+        pauseButtonNode.selectedHandlers = {
             if self.isPlayerAlive {
                 if self.varisPaused == 0 {
                     self.varisPaused = 1
                     self.scene?.view?.isPaused = false
                     self.children.map{($0 as SKNode).isPaused = false}
-                    self.backButton.alpha = 0
+                    self.backButtonNode.alpha = 0
 
             //        self.dimPanel.removeFromParent()
                 }
                 else {
-                    self.backButton.alpha = 1
+                    self.backButtonNode.alpha = 1
                     self.varisPaused = 0
                     let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
-                        if self.backButton.alpha == 1
+                        if self.backButtonNode.alpha == 1
                         {
                             self.scene?.view?.isPaused = true
                             self.children.map{($0 as SKNode).isPaused = true}
@@ -560,7 +561,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playAgain.fontName = "AvenirNext-Bold"
         playAgain.fontSize = 60
         addChild(playAgain)
-        
+        self.pauseButtonNode.alpha = 0
         
         if let explosion = SKEmitterNode(fileNamed: "Explosion") {
             explosion.position = player.position

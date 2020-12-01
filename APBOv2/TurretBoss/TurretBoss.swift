@@ -3,6 +3,8 @@ import CoreMotion
 
 class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     var buttonPlay: MSButtonNode!
+    var backButtonNode: MSButtonNode!
+    var pauseButtonNode: MSButtonNode!
     let playerHealthBar = SKSpriteNode()
     let cannonHealthBar = SKSpriteNode()
     var playerHP = maxHealth
@@ -99,27 +101,29 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         
         
         
-        buttonPlay = self.childNode(withName: "pause") as? MSButtonNode
-        buttonPlay.selectedHandlers = {
-    
-            
-            if self.scene?.view?.isPaused == true {
-                self.varisPaused = 1
-                self.scene?.view?.isPaused = false
-                self.children.map{($0 as SKNode).isPaused = false}
-              //  self.dimPanel.removeFromParent()
-                
+        pauseButtonNode = self.childNode(withName: "pause") as? MSButtonNode
+        pauseButtonNode.selectedHandlers = {
+            if self.isPlayerAlive {
+                if self.varisPaused == 0 {
+                    self.varisPaused = 1
+                    self.scene?.view?.isPaused = false
+                    self.children.map{($0 as SKNode).isPaused = false}
+                    self.backButtonNode.alpha = 0
+
+            //        self.dimPanel.removeFromParent()
+                }
+                else {
+                    self.backButtonNode.alpha = 1
+                    self.varisPaused = 0
+                    let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
+                        if self.backButtonNode.alpha == 1
+                        {
+                            self.scene?.view?.isPaused = true
+                            self.children.map{($0 as SKNode).isPaused = true}
+                        }
+                                
+                    }
             }
-            else {
-                self.varisPaused = 0
-                self.scene?.view?.isPaused = true
-                self.children.map{($0 as SKNode).isPaused = true}
-                /*
-                self.dimPanel.alpha = 0.75
-                self.dimPanel.zPosition = 100
-                self.dimPanel.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
-                self.addChild(self.dimPanel)
- */
             }
       
         
@@ -481,7 +485,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         playAgain.fontName = "AvenirNext-Bold"
         playAgain.fontSize = 60
         addChild(playAgain)
-        
+        self.pauseButtonNode.alpha = 0
         
         if let explosion = SKEmitterNode(fileNamed: "Explosion") {
             explosion.position = player.position
