@@ -69,9 +69,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
           addChild(cannonSprite)
                 
         
-        //hi
-        
-        
         self.dimPanel.zPosition = 50
          self.dimPanel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
          self.addChild(self.dimPanel)
@@ -87,9 +84,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         turretSprite.physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
         turretSprite.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
  
-        
-        
-        
+
         
         backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
         backButtonNode.alpha = 0
@@ -110,7 +105,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             scene.scaleMode = .aspectFit
 
             /* Show debug */
-            skView.showsPhysics = true
+            skView.showsPhysics = false
             skView.showsDrawCount = true
             skView.showsFPS = true
 
@@ -128,7 +123,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                     self.backButtonNode.alpha = 0
                     self.dimPanel.alpha = 0
 
-
             //        self.dimPanel.removeFromParent()
                 }
                 else {
@@ -143,46 +137,40 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                             self.scene?.view?.isPaused = true
                             self.children.map{($0 as SKNode).isPaused = true}
                         }
-                                
                     }
+                }
             }
-            }
-      
-        
-            
         }
-   // sds
- 
- 
+
         
         buttonPlay = self.childNode(withName: "turnButton") as? MSButtonNode
-        if varisPaused==1 {
-        buttonPlay.selectedHandler = {
+        if varisPaused == 1 {
+            buttonPlay.selectedHandler = {
             
-            let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
-            let squishBig = SKAction.scale(to: 2.05, duration: 0.1)
-            self.turnButton.run(fadeAlpha)
-            self.turnButton.run(squishBig)
+                let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
+                let squishBig = SKAction.scale(to: 2.05, duration: 0.1)
+                self.turnButton.run(fadeAlpha)
+                self.turnButton.run(squishBig)
             
-            self.count = 1
-            self.direction = 0.1
+                self.count = 1
+                self.direction = -0.1
             
-            if (self.doubleTap==1) {
-                self.player.zRotation = self.player.zRotation + 1.0;
-                let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
-                self.player.run(movement)
-                
-                self.doubleTap = 0
+                if (self.doubleTap == 1) {
+                    self.player.zRotation = self.player.zRotation - 1.0;
+                    let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
+                    self.player.run(movement)
+                    self.doubleTap = 0
                 }
                 else {
-                self.doubleTap = 1
+                    self.doubleTap = 1
+                    let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
+                        self.doubleTap = 0
+                    }
                 }
-            
-            
-        }
-        buttonPlay.selectedHandlers = {
-            self.direction = 0
-        }
+            }
+            buttonPlay.selectedHandlers = {
+                self.direction = 0
+            }
         }
         
         buttonPlay = self.childNode(withName: "shootButton") as? MSButtonNode
@@ -192,21 +180,21 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             self.shootButton.run(fadeAlpha)
             self.shootButton.run(squishBig)
             
-            if self.isPlayerAlive {
-            let shot = SKSpriteNode(imageNamed: "bullet")
-            shot.name = "playerWeapon"
-            shot.position = CGPoint(x: self.player.position.x + cos(self.player.zRotation)*40, y: self.player.position.y + sin(self.player.zRotation)*40)
-                //self.player.position
-            shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-            shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
-            shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-            shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-            self.addChild(shot)
-            let movement = SKAction.moveBy(x: 1500 * cos(self.player.zRotation), y: 1500 * sin(self.player.zRotation), duration: 2.6)
-            let sequence = SKAction.sequence([movement, .removeFromParent()])
-            shot.run(sequence)
+                if self.isPlayerAlive {
+                    let shot = SKSpriteNode(imageNamed: "bullet")
+                    shot.name = "playerWeapon"
+                    shot.position = CGPoint(x: self.player.position.x + cos(self.player.zRotation)*40, y: self.player.position.y + sin(self.player.zRotation)*40)
+                    //self.player.position
+                    shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
+                    shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
+                    shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+                    shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+                    self.addChild(shot)
+                    let movement = SKAction.moveBy(x: 1500 * cos(self.player.zRotation), y: 1500 * sin(self.player.zRotation), duration: 2.6)
+                    let sequence = SKAction.sequence([movement, .removeFromParent()])
+                    shot.run(sequence)
                 
-            self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.3*cos(self.player.zRotation), dy: 1.3*sin(self.player.zRotation)), shakeDuration: 0.05)
+                    self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.3*cos(self.player.zRotation), dy: 1.3*sin(self.player.zRotation)), shakeDuration: 0.05)
             }
         }
         
@@ -214,7 +202,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         thruster1?.targetNode = self.scene
         player.addChild(thruster1!)
       
-
    /*
         addChild(cannonHealthBar)
                cannonHealthBar.position = CGPoint(
@@ -230,10 +217,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     }
 }
 
-    
-    
-    
- 
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if (!isPlayerAlive) {
            if let newScene = TurretBossScene(fileNamed: "TurretBoss") {
@@ -243,59 +227,9 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         guard isPlayerAlive else { return }
-
-        let touch = touches.first
-        let positionInScene = touch!.location(in: self)
-        let touchedNode = self.atPoint(positionInScene)
-
-        if let name = touchedNode.name {
-            if name == "btn" {
-                let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
-                turnButton.run(fadeAlpha)
-                count = 1
-                direction = 0.1
-                if (doubleTap==1) {
-                    self.player.zRotation = self.player.zRotation + 1.0;
-                    let movement = SKAction.moveBy(x: 55 * cos(player.zRotation), y: 55 * sin(player.zRotation), duration: 0.2)
-                               player.run(movement)
-                    doubleTap = 0
-                }
-                else {
-                    doubleTap = 1
-                }
-            }
-            else {
-         //       count = 0
-            }
-       }
-        if let name = touchedNode.name {
-            if name == "shoot" {
-                let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
-                    shootButton.run(fadeAlpha)
-        
-                let shot = SKSpriteNode(imageNamed: "bullet")
-                shot.name = "playerWeapon"
-                shot.position = player.position
-                shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-                shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
-                shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-                shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-                addChild(shot)
-                let movement = SKAction.moveBy(x: 1024 * cos(player.zRotation), y: 1024 * sin(player.zRotation), duration: 1.8432)
-                let sequence = SKAction.sequence([movement, .removeFromParent()])
-                    shot.run(sequence)
-            }
-        }
     }
  
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-
-            if doubleTap == 1 {
-            let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
-                self.doubleTap = 0
-                }
-            }
-        
         let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
         let squishNormal = SKAction.scale(to: 1.0, duration: 0.05)
         turnButton.run(fadeAlpha)
@@ -312,7 +246,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
 
               updateTurret(deltaTime)
         
-        player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.2 ,y:player.position.y + sin(player.zRotation) * 3.2)
+        player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.6 ,y:player.position.y + sin(player.zRotation) * 3.6)
            
             if player.position.y < frame.minY + 35 {
                 player.position.y = frame.minY + 35
@@ -371,7 +305,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         
         shot.position = turretSprite.position
   
-        addChild(shot)
+   //     addChild(shot)
         let movement = SKAction.moveBy(x: 1024 * cos(turretSprite.zRotation-90 * degreesToRadians), y: 1024 * sin(turretSprite.zRotation-90 * degreesToRadians), duration: 1.8432)
         let sequence = SKAction.sequence([movement, .removeFromParent()])
         shot.run(sequence)
