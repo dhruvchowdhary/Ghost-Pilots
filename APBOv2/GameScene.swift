@@ -236,7 +236,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                
                updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
        */
-        let timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
+        let turnTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
         self.player.zRotation = self.player.zRotation + CGFloat(self.direction);
                 
     }
@@ -264,7 +264,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 turnButton.run(fadeAlpha)
                 count = 1
                 direction = 0.1
-                if (doubleTap==1) {
+                if (doubleTap == 1) {
                     self.player.zRotation = self.player.zRotation + 1.0;
                     let movement = SKAction.moveBy(x: 55 * cos(player.zRotation), y: 55 * sin(player.zRotation), duration: 0.2)
                                player.run(movement)
@@ -301,7 +301,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 
             if doubleTap == 1 {
-            let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
+            let turnTimer2 = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
                 self.doubleTap = 0
                 }
             }

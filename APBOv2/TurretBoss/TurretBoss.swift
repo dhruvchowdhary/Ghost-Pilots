@@ -100,6 +100,32 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
   //      self.addChild(shootButton)
         
         
+        backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
+        backButtonNode.alpha = 0
+        backButtonNode.selectedHandlers = {
+            /* 1) Grab reference to our SpriteKit view */
+            guard let skView = self.view as SKView? else {
+                print("Could not get Skview")
+                return
+            }
+
+            /* 2) Load Menu scene */
+            guard let scene = SoloMenu(fileNamed:"SoloMenu") else {
+                print("Could not make GameScene, check the name is spelled correctly")
+                return
+            }
+
+            /* 3) Ensure correct aspect mode */
+            scene.scaleMode = .aspectFit
+
+            /* Show debug */
+            skView.showsPhysics = true
+            skView.showsDrawCount = true
+            skView.showsFPS = true
+
+            /* 4) Start game scene */
+            skView.presentScene(scene)
+        }
         
         pauseButtonNode = self.childNode(withName: "pause") as? MSButtonNode
         pauseButtonNode.selectedHandlers = {
