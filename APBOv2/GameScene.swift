@@ -86,28 +86,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
         player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
         player.physicsBody?.isDynamic = false
-        
-/*        cannonSprite.position = CGPoint(x: size.width/2, y: size.height/2)
-        cannonSprite.zPosition = 1
-          addChild(cannonSprite)
-                
-        turretSprite.position = CGPoint(x: size.width/2, y: size.height/2)
-        addChild(turretSprite)
-        turretSprite.zPosition = 3
- */
-        turnButton.name = "btn"
-        turnButton.size.height = 175
-        turnButton.size.width = 175
-        turnButton.zPosition = 2
-        turnButton.position = CGPoint(x: self.frame.maxX-300,y: self.frame.minY+120)
-    //    self.addChild(turnButton)
-                
-        shootButton.name = "shoot"
-        shootButton.size.height = 175
-        shootButton.size.width = 175
-        shootButton.zPosition = 2
-        shootButton.position = CGPoint(x: self.frame.minX+300,y: self.frame.minY+120)
-  //      self.addChild(shootButton)
+
         
         backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
         backButtonNode.alpha = 0
@@ -142,11 +121,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if self.varisPaused == 0 {
                     self.varisPaused = 1
                     self.scene?.view?.isPaused = false
-                    self.children.map{($0 as SKNode).isPaused = false}
                     self.backButtonNode.alpha = 0
                     self.dimPanel.alpha = 0
 
-            //        self.dimPanel.removeFromParent()
                 }
                 else {
                     self.backButtonNode.alpha = 1
@@ -156,31 +133,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         if self.backButtonNode.alpha == 1
                         {
                             self.scene?.view?.isPaused = true
-                            self.children.map{($0 as SKNode).isPaused = true}
                         }
-                                
                     }
-
-                
-          /*      self.dimPanel.alpha = 0.1
-                self.dimPanel.zPosition = -1
-                self.dimPanel.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
-                self.addChild(self.dimPanel)
- */
+                }
             }
-      
-            }
-            
         }
 
         
         buttonPlay = self.childNode(withName: "turnButton") as? MSButtonNode
         buttonPlay.selectedHandler = {
             if self.varisPaused==1 && self.isPlayerAlive {
-                let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
-                let squishBig = SKAction.scale(to: 2.05, duration: 0.1)
-                self.turnButton.run(fadeAlpha)
-                self.turnButton.run(squishBig)
             
                 self.count = 1
                 self.direction = 0.1
@@ -208,12 +170,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         buttonPlay = self.childNode(withName: "shootButton") as? MSButtonNode
         buttonPlay.selectedHandler = {
             if self.varisPaused==1 && self.isPlayerAlive {
-                let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
-                let squishBig = SKAction.scale(to: 2.05, duration: 0.1)
-                self.shootButton.run(fadeAlpha)
-                self.shootButton.run(squishBig)
-            
                 if self.isPlayerAlive {
+                    
+                    
                     let shot = SKSpriteNode(imageNamed: "bullet")
                     shot.name = "playerWeapon"
                     shot.position = self.player.position
@@ -222,11 +181,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
                     shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
                     self.addChild(shot)
+                    
+                    
                     let movement = SKAction.moveBy(x: 1500 * cos(self.player.zRotation), y: 1500 * sin(self.player.zRotation), duration: 2.6)
                     let sequence = SKAction.sequence([movement, .removeFromParent()])
                     shot.run(sequence)
                     
-                    self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.3*cos(self.player.zRotation), dy: 1.3*sin(self.player.zRotation)), shakeDuration: 0.05)
+                    let recoil = SKAction.moveBy(x: -8 * cos(self.player.zRotation), y: -8 * sin(self.player.zRotation), duration: 0.01)
+                    
+                    self.player.run(recoil)
+                
+                    
+                    /*
+ self.player.position = CGPoint(x:self.player.position.x - cos(self.player.zRotation) * 50 ,y:self.player.position.y - sin(self.player.zRotation) * 50)
+                    
+                    */
+                    
+                    self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.2*cos(self.player.zRotation), dy: 1.2*sin(self.player.zRotation)), shakeDuration: 0.04)
                 }
             }
         }
@@ -235,18 +206,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         thruster1?.targetNode = self.scene
         player.addChild(thruster1!)
       
-
-   /*
-        addChild(cannonHealthBar)
-               cannonHealthBar.position = CGPoint(
-                 x: cannonSprite.position.x,
-                 y: cannonSprite.position.y - cannonSprite.size.height/2 - 10
-               )
-               
-               updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
-       */
         let turnTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
-        self.player.zRotation = self.player.zRotation + CGFloat(self.direction);
+            self.player.zRotation = self.player.zRotation + 1.2 * CGFloat(self.direction);
                 
     }
 }
@@ -267,6 +228,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let positionInScene = touch!.location(in: self)
         let touchedNode = self.atPoint(positionInScene)
 
+        
+        /*
+         
+        
         if let name = touchedNode.name {
             if name == "btn" {
                 let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
@@ -305,6 +270,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     shot.run(sequence)
             }
         }
+ */
     }
  
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -324,7 +290,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     
     override func update(_ currentTime: TimeInterval) {
-        player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.2 ,y:player.position.y + sin(player.zRotation) * 3.2)
+        
+        
+        player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.5 ,y:player.position.y + sin(player.zRotation) * 3.5)
            
             if player.position.y < frame.minY + 35 {
                 player.position.y = frame.minY + 35
