@@ -74,11 +74,12 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
          self.addChild(self.dimPanel)
          self.dimPanel.alpha = 0
         
+        turretSprite.name = "turretSprite"
         turretSprite.physicsBody = SKPhysicsBody(texture: turretSprite.texture!, size: turretSprite.texture!.size())
 
         turretSprite.position = CGPoint(x: frame.midX, y: frame.midY)
         addChild(turretSprite)
-        turretSprite.zPosition = 3
+        turretSprite.zPosition = 4
      
         turretSprite.physicsBody?.categoryBitMask = CollisionType.enemy.rawValue
         turretSprite.physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
@@ -193,6 +194,10 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             let sequence = SKAction.sequence([movement, .removeFromParent()])
             shot.run(sequence)
                 
+            let recoil = SKAction.moveBy(x: -8 * cos(self.player.zRotation), y: -8 * sin(self.player.zRotation), duration: 0.01)
+            self.player.run(recoil)
+                
+                
             self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.2*cos(self.player.zRotation), dy: 1.2*sin(self.player.zRotation)), shakeDuration: 0.04)
             }
         }
@@ -304,7 +309,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         shot.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
         shot.physicsBody?.mass = 0.001
         
-        
+        shot.zPosition = 3
         shot.position = turretSprite.position
   
         addChild(shot)
@@ -315,9 +320,9 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     
     
     func updateHealthBar(_ node: SKSpriteNode, withHealthPoints hp: Int) {
-      let barSize = CGSize(width: healthBarWidth, height: healthBarHeight);
+      let barSize = CGSize(width: 250, height: 20);
       
-      let fillColor = UIColor(red: 113.0/255, green: 202.0/255, blue: 53.0/255, alpha:1)
+      let fillColor = UIColor(red: 113.0/255, green: 202.0/255, blue: 73.0/255, alpha:1)
       let borderColor = UIColor(red: 35.0/255, green: 28.0/255, blue: 40.0/255, alpha:1)
       
       // create drawing context
@@ -344,51 +349,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
       node.size = barSize
     }
     
-    func checkShipCannonCollision() {
-       let deltaX = player.position.x - turretSprite.position.x
-       let deltaY = player.position.y - turretSprite.position.y
-       
-       let distance = sqrt(deltaX * deltaX + deltaY * deltaY)
-       guard distance <= cannonCollisionRadius + playerCollisionRadius else { return }
-      
-       
-       let offsetDistance = cannonCollisionRadius + playerCollisionRadius - distance
-       let offsetX = deltaX / distance * offsetDistance
-       let offsetY = deltaY / distance * offsetDistance
-       player.position = CGPoint(
-         x: player.position.x + offsetX,
-         y: player.position.y + offsetY
-       )
-       
-  
-
-       updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
-  
-     }
-    func checkShotCannonCollision() {
-         let deltaX = shot.position.x - turretSprite.position.x
-         let deltaY = shot.position.y - turretSprite.position.y
-         
-         let distance = sqrt(deltaX * deltaX + deltaY * deltaY)
-         guard distance <= cannonCollisionRadius + shotCollisionRadius else { return }
-        
-         
-         let offsetDistance = cannonCollisionRadius + shotCollisionRadius - distance
-         let offsetX = deltaX / distance * offsetDistance
-         let offsetY = deltaY / distance * offsetDistance
-         shot.position = CGPoint(
-           x: shot.position.x + offsetX,
-           y: shot.position.y + offsetY
-         )
-   
-         cannonHP = max(0, cannonHP - 20)
-
-         updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
-        
-          shot.removeFromParent()
-    
-       }
-  
     func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }
@@ -407,21 +367,48 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
             
             playerShields -= 1
+               
             if playerShields == 0 {
                 gameOver()
                 secondNode.removeFromParent()
             }
             
             firstNode.removeFromParent()
-        } else if let enemy = firstNode as? TurretNode {
+        
+        }
+        if secondNode.name == "turretSprite" {
+            guard isPlayerAlive else { return }
+            
+            if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+                explosion.position = firstNode.position
+                addChild(explosion)
+            }
+            
+            
+            cannonHP = max(0, cannonHP - 100)
+                       updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
+                       shot.removeFromParent()
+            firstNode.removeFromParent()
+                        
+       
+            
+        }
+        
+        if cannonHP == 0 {
+            gameOver()
+        }
+        
+        /*
+ else if let enemy = firstNode as? EnemyNode {
             enemy.shields -= 1
             
             if enemy.shields == 0 {
-                if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+
+               if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                     explosion.position = enemy.position
                     addChild(explosion)
-                }
-                enemy.removeFromParent()
+               }
+           //     enemy.removeFromParent()
             }
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = enemy.position
@@ -433,9 +420,10 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 explosion.position = secondNode.position
                 addChild(explosion)
             }
-            firstNode.removeFromParent()
+       //     firstNode.removeFromParent()
             secondNode.removeFromParent()
         }
+        */
     }
     
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
