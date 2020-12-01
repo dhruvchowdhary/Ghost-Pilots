@@ -33,7 +33,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 2000, height: 1000) )
     
     var lastFireTime: Double = 0
-
+    
     
     override func didMove(to view: SKView) {
         physicsWorld.gravity = .zero
@@ -89,19 +89,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
  
         
         
-        turnButton.name = "btn"
-        turnButton.size.height = 175
-        turnButton.size.width = 175
-        turnButton.zPosition = 2
-        turnButton.position = CGPoint(x: self.frame.maxX-300,y: self.frame.minY+120)
-    //    self.addChild(turnButton)
-                
-        shootButton.name = "shoot"
-        shootButton.size.height = 175
-        shootButton.size.width = 175
-        shootButton.zPosition = 2
-        shootButton.position = CGPoint(x: self.frame.minX+300,y: self.frame.minY+120)
-  //      self.addChild(shootButton)
         
         
         backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
@@ -208,15 +195,18 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             if self.isPlayerAlive {
             let shot = SKSpriteNode(imageNamed: "bullet")
             shot.name = "playerWeapon"
-            shot.position = self.player.position
+            shot.position = CGPoint(x: self.player.position.x + cos(self.player.zRotation)*40, y: self.player.position.y + sin(self.player.zRotation)*40)
+                //self.player.position
             shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
             shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
             shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
             shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
             self.addChild(shot)
-            let movement = SKAction.moveBy(x: 1024 * cos(self.player.zRotation), y: 1024 * sin(self.player.zRotation), duration: 3)
+            let movement = SKAction.moveBy(x: 1500 * cos(self.player.zRotation), y: 1500 * sin(self.player.zRotation), duration: 2.6)
             let sequence = SKAction.sequence([movement, .removeFromParent()])
             shot.run(sequence)
+                
+            self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.3*cos(self.player.zRotation), dy: 1.3*sin(self.player.zRotation)), shakeDuration: 0.05)
             }
         }
         
@@ -322,7 +312,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
 
               updateTurret(deltaTime)
         
-        player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 2.5 ,y:player.position.y + sin(player.zRotation) * 2.5)
+        player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.2 ,y:player.position.y + sin(player.zRotation) * 3.2)
            
             if player.position.y < frame.minY + 35 {
                 player.position.y = frame.minY + 35
@@ -373,19 +363,19 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                       shot.name = "TurretWeapon"
         shot.zRotation = turretSprite.zRotation
         shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-         shot.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
-         shot.physicsBody?.collisionBitMask = CollisionType.player.rawValue
-         shot.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
-         shot.physicsBody?.mass = 0.001
+        shot.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
+        shot.physicsBody?.collisionBitMask = CollisionType.player.rawValue
+        shot.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
+        shot.physicsBody?.mass = 0.001
         
         
         shot.position = turretSprite.position
   
-                      addChild(shot)
-                      let movement = SKAction.moveBy(x: 1024 * cos(turretSprite.zRotation-90 * degreesToRadians), y: 1024 * sin(turretSprite.zRotation-90 * degreesToRadians), duration: 1.8432)
-                      let sequence = SKAction.sequence([movement, .removeFromParent()])
-                          shot.run(sequence)
-                  }
+        addChild(shot)
+        let movement = SKAction.moveBy(x: 1024 * cos(turretSprite.zRotation-90 * degreesToRadians), y: 1024 * sin(turretSprite.zRotation-90 * degreesToRadians), duration: 1.8432)
+        let sequence = SKAction.sequence([movement, .removeFromParent()])
+        shot.run(sequence)
+    }
     
     
     func updateHealthBar(_ node: SKSpriteNode, withHealthPoints hp: Int) {
@@ -512,9 +502,22 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
+      let sceneView = self.scene!.view! as UIView
+      let shakeAnimation = CABasicAnimation(keyPath: "position")
+      shakeAnimation.duration = shakeDuration / Double(shakeCount)
+      shakeAnimation.repeatCount = Float(shakeCount)
+      shakeAnimation.autoreverses = true
+      shakeAnimation.fromValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x - intensity.dx, y: sceneView.center.y - intensity.dy))
+      shakeAnimation.toValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x + intensity.dx, y: sceneView.center.y + intensity.dy))
+      sceneView.layer.add(shakeAnimation, forKey: "position")
+    }
+    
     func gameOver() {
         isPlayerAlive = false
-        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 100)
+        self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
+        
+        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 200)
         playAgain.zPosition = 100
         playAgain.fontColor = UIColor.white
         playAgain.fontName = "AvenirNext-Bold"

@@ -25,9 +25,10 @@ let notDoneLabel = SKLabelNode(text: "The online version of this game is current
                 addChild(particles)
         }
         
-        notDoneLabel.position = CGPoint(x: frame.midX, y: frame.midY + 250)
+        notDoneLabel.position = CGPoint(x: frame.midX, y: frame.midY + 270)
         notDoneLabel.fontColor = UIColor.white
-        notDoneLabel.fontSize = 60
+        notDoneLabel.fontSize = 50
+        notDoneLabel.fontName = notDoneLabel.fontName! + "-Bold"
         addChild(notDoneLabel)
         
         /* Set UI connections */

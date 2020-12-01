@@ -222,9 +222,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
                     shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
                     self.addChild(shot)
-                    let movement = SKAction.moveBy(x: 1024 * cos(self.player.zRotation), y: 1024 * sin(self.player.zRotation), duration: 2.6)
+                    let movement = SKAction.moveBy(x: 1500 * cos(self.player.zRotation), y: 1500 * sin(self.player.zRotation), duration: 2.6)
                     let sequence = SKAction.sequence([movement, .removeFromParent()])
                     shot.run(sequence)
+                    
+                    self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.3*cos(self.player.zRotation), dy: 1.3*sin(self.player.zRotation)), shakeDuration: 0.05)
                 }
             }
         }
@@ -322,7 +324,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     
     override func update(_ currentTime: TimeInterval) {
-        player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 2.5 ,y:player.position.y + sin(player.zRotation) * 2.5)
+        player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.2 ,y:player.position.y + sin(player.zRotation) * 3.2)
            
             if player.position.y < frame.minY + 35 {
                 player.position.y = frame.minY + 35
@@ -560,9 +562,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
+      let sceneView = self.scene!.view! as UIView
+      let shakeAnimation = CABasicAnimation(keyPath: "position")
+      shakeAnimation.duration = shakeDuration / Double(shakeCount)
+      shakeAnimation.repeatCount = Float(shakeCount)
+      shakeAnimation.autoreverses = true
+      shakeAnimation.fromValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x - intensity.dx, y: sceneView.center.y - intensity.dy))
+      shakeAnimation.toValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x + intensity.dx, y: sceneView.center.y + intensity.dy))
+      sceneView.layer.add(shakeAnimation, forKey: "position")
+    }
+    
     func gameOver() {
         isPlayerAlive = false
-        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 100)
+        self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
+        
+        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 200)
         playAgain.zPosition = 100
         playAgain.fontColor = UIColor.white
         playAgain.fontName = "AvenirNext-Bold"
