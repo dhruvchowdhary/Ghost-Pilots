@@ -69,6 +69,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 particles.zPosition = -1
                 addChild(particles)
         }
+        
+        self.dimPanel.zPosition = 50
+        self.dimPanel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        self.addChild(self.dimPanel)
+        self.dimPanel.alpha = 0
                 
         player.name = "player"
         player.position.x = frame.midX-700
@@ -139,11 +144,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.scene?.view?.isPaused = false
                     self.children.map{($0 as SKNode).isPaused = false}
                     self.backButtonNode.alpha = 0
+                    self.dimPanel.alpha = 0
 
             //        self.dimPanel.removeFromParent()
                 }
                 else {
                     self.backButtonNode.alpha = 1
+                    self.dimPanel.alpha = 0.3
                     self.varisPaused = 0
                     let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
                         if self.backButtonNode.alpha == 1
