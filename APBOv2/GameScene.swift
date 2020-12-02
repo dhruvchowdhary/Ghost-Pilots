@@ -68,6 +68,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let ammo = SKLabelNode(text: "3")
     let ammoLabel = SKLabelNode(text: "Ammo")
     
+     let scaleAction = SKAction.scale(to: 2.2, duration: 0.4)
+    
+    
+    let bullet1 = SKSpriteNode(imageNamed: "bullet")
+     let bullet2 = SKSpriteNode(imageNamed: "bullet")
+     let bullet3 = SKSpriteNode(imageNamed: "bullet")
+    
+    
+    
     override func didMove(to view: SKView) {
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
@@ -79,6 +88,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 particles.zPosition = -1
                 addChild(particles)
         }
+        
+        
+        addChild(bullet1)
+              addChild(bullet2)
+              addChild(bullet3)
         
         self.dimPanel.zPosition = 50
         self.dimPanel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
@@ -259,6 +273,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if (!isPlayerAlive) {
            if let newScene = SKScene(fileNamed: "GameScene") {
             newScene.scaleMode = .aspectFit
+            self.dimPanel.alpha = 0
             let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
             view?.presentScene(newScene, transition: reveal)
             }
@@ -326,8 +341,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         
         
+        
+        
         player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.5 ,y:player.position.y + sin(player.zRotation) * 3.5)
            
+        
+        let revolve1 = SKAction.moveBy(x: CGFloat(50 * cos(2 * currentTime)), y: CGFloat(50 * sin(2 * currentTime)), duration: 0.1)
+        
+         let revolve2 = SKAction.moveBy(x: CGFloat(50 * cos(2 * currentTime + 120)), y: CGFloat(50 * sin(2 * currentTime + 120)), duration: 0.1)
+        
+        let revolve3 = SKAction.moveBy(x: CGFloat(50 * cos(2 * currentTime + 240)), y: CGFloat(50 * sin(2 * currentTime + 240)), duration: 0.1)
+
+        
+        bullet1.run(revolve1)
+        bullet2.run(revolve2)
+        bullet3.run(revolve3)
+        
             if player.position.y < frame.minY + 35 {
                 player.position.y = frame.minY + 35
             } else if player.position.y > frame.maxY - 35 {
@@ -592,7 +621,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         isPlayerAlive = false
         self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         
-        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 200)
+        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 300)
         playAgain.zPosition = 100
         playAgain.fontColor = UIColor.white
         playAgain.fontName = "AvenirNext-Bold"
@@ -609,8 +638,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         let gameOver = SKSpriteNode(imageNamed: "gameOver")
+        self.dimPanel.alpha = 0.3
         gameOver.zPosition = 100
-        gameOver.position = CGPoint(x: frame.midY, y: frame.midY + 150)
+        gameOver.run(scaleAction)
+        gameOver.position = CGPoint(x: frame.midY, y: frame.midY)
        // gameOver.size = CGSize(width: 900, height: 243)
             addChild(gameOver)
     }
