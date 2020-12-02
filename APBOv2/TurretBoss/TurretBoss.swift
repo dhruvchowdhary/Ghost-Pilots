@@ -2,9 +2,11 @@ import SpriteKit
 import CoreMotion
 
 class TurretBossScene: SKScene, SKPhysicsContactDelegate {
-    var buttonPlay: MSButtonNode!
     var backButtonNode: MSButtonNode!
     var pauseButtonNode: MSButtonNode!
+    var turnButtonNode: MSButtonNode!
+    var shootButtonNode: MSButtonNode!
+    
     let playerHealthBar = SKSpriteNode()
     let cannonHealthBar = SKSpriteNode()
     var playerHP = maxHealth
@@ -143,9 +145,9 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         }
 
         
-        buttonPlay = self.childNode(withName: "turnButton") as? MSButtonNode
+        turnButtonNode = self.childNode(withName: "turnButton") as? MSButtonNode
         if varisPaused == 1 {
-            buttonPlay.selectedHandler = {
+            turnButtonNode.selectedHandler = {
             
                 let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
                 let squishBig = SKAction.scale(to: 2.05, duration: 0.1)
@@ -168,13 +170,13 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                     }
                 }
             }
-            buttonPlay.selectedHandlers = {
+            turnButtonNode.selectedHandlers = {
                 self.direction = 0
             }
         }
         
-        buttonPlay = self.childNode(withName: "shootButton") as? MSButtonNode
-        buttonPlay.selectedHandler = {
+        shootButtonNode = self.childNode(withName: "shootButton") as? MSButtonNode
+        shootButtonNode.selectedHandler = {
             let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
             let squishBig = SKAction.scale(to: 2.05, duration: 0.1)
             self.shootButton.run(fadeAlpha)
@@ -447,6 +449,8 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         playAgain.fontSize = 60
         addChild(playAgain)
         self.pauseButtonNode.alpha = 0
+        self.turnButtonNode.alpha = 0
+        self.shootButtonNode.alpha = 0
         self.backButtonNode.alpha = 1
         
         if let explosion = SKEmitterNode(fileNamed: "Explosion") {
