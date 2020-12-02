@@ -65,8 +65,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var numAmmo = 3
     var regenAmmo = false
-    let ammo = SKLabelNode(text: "3")
-    let ammoLabel = SKLabelNode(text: "Ammo")
     
      let scaleAction = SKAction.scale(to: 2.2, duration: 0.4)
     
@@ -111,19 +109,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pointsLabel.fontSize = 45
         pointsLabel.fontName = "Menlo Regular-Bold"
         addChild(pointsLabel)
-        
-        ammo.position = CGPoint(x: frame.minX+400, y: frame.maxY-135)
-        ammo.zPosition = 2
-        ammo.fontColor = UIColor.green
-        ammo.fontSize = 70
-        ammo.fontName = "Menlo Regular-Bold"
-        addChild(ammo)
-        ammoLabel.position = CGPoint(x: frame.minX+400, y: frame.maxY-70)
-        ammoLabel.zPosition = 2
-        ammoLabel.fontColor = UIColor.green
-        ammoLabel.fontSize = 45
-        ammoLabel.fontName = "Menlo Regular-Bold"
-        addChild(ammoLabel)
         
         player.name = "player"
         player.position.x = frame.midX-700
@@ -251,7 +236,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         shot.run(sequence)
                         
                         self.numAmmo = self.numAmmo - 1
-                        self.ammo.text = "\(self.numAmmo)"
                     
                         let recoil = SKAction.moveBy(x: -8 * cos(self.player.zRotation), y: -8 * sin(self.player.zRotation), duration: 0.01)
                     
@@ -357,15 +341,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.5 ,y:player.position.y + sin(player.zRotation) * 3.5)
         
         
-        bullet1.position = player.position
-                       bullet2.position = player.position
-                       bullet3.position = player.position
+      //  bullet1.position = player.position
+       //                bullet2.position = player.position
+       //                bullet3.position = player.position
         
-               let revolve1 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime )), y: -CGFloat(50 * sin(2 * currentTime)), duration: 0.1)
+               let revolve1 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime )), y: -CGFloat(50 * sin(2 * currentTime)), duration: 0.000001)
                
-                let revolve2 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 2.0944)), y: -CGFloat(50 * sin(2 * currentTime + 2.0944)), duration: 0.1)
+                let revolve2 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 2.0944)), y: -CGFloat(50 * sin(2 * currentTime + 2.0944)), duration: 0.000001)
                
-               let revolve3 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 4.18879)), y: -CGFloat(50 * sin(2 * currentTime + 4.18879)), duration: 0.1)
+        let revolve3 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 4.18879)), y: -CGFloat(50 * sin(2 * currentTime + 4.18879)), duration: 0.000001)
                
                
            
@@ -373,6 +357,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                bullet2.run(revolve2)
               bullet3.run(revolve3)
                
+        bullet1.position = player.position
+        bullet2.position = player.position
+        bullet3.position = player.position
         
             if player.position.y < frame.minY + 35 {
                 player.position.y = frame.minY + 35
@@ -403,7 +390,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                              self.addChild(self.bullet1)
                      }
                    
-                     self.ammo.text = "\(self.numAmmo)"
                      self.regenAmmo = false
                  }
              }
@@ -650,7 +636,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         isPlayerAlive = false
         self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         
-        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 300)
+        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 250)
         playAgain.zPosition = 100
         playAgain.fontColor = UIColor.white
         playAgain.fontName = "AvenirNext-Bold"
@@ -660,9 +646,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.turnButtonNode.alpha = 0
         self.shootButtonNode.alpha = 0
         self.backButtonNode.alpha = 1
-        self.bullet1.removeFromParent()
-                 self.bullet2.removeFromParent()
-                 self.bullet3.removeFromParent()
+        self.bullet1.alpha = 0
+        self.bullet2.alpha = 0
+        self.bullet3.alpha = 0
         
         if let explosion = SKEmitterNode(fileNamed: "Explosion") {
             explosion.position = player.position
@@ -674,7 +660,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameOver.zPosition = 100
         gameOver.run(scaleAction)
         gameOver.position = CGPoint(x: frame.midY, y: frame.midY)
-       // gameOver.size = CGSize(width: 900, height: 243)
+        gameOver.size = CGSize(width: 619, height: 118)
             addChild(gameOver)
     }
 

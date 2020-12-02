@@ -26,7 +26,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     let player = SKSpriteNode(imageNamed: "player")
     let shot = SKSpriteNode(imageNamed: "bullet")
     var lastUpdateTime: CFTimeInterval = 0
-    var count = 0
     var doubleTap = 0;
     let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
     let playAgain = SKLabelNode(text: "Tap to Play Again")
@@ -41,8 +40,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     
     var numAmmo = 3
     var regenAmmo = false
-    let ammo = SKLabelNode(text: "3")
-    let ammoLabel = SKLabelNode(text: "Ammo")
+
     let scaleAction = SKAction.scale(to: 2.2, duration: 0.4)
     
     let bullet1 = SKSpriteNode(imageNamed: "bullet")
@@ -61,19 +59,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 particles.zPosition = -1
                 addChild(particles)
         }
-        
-        ammo.position = CGPoint(x: frame.minX+400, y: frame.maxY-135)
-        ammo.zPosition = 2
-        ammo.fontColor = UIColor.green
-        ammo.fontSize = 70
-        ammo.fontName = "Menlo Regular-Bold"
-        addChild(ammo)
-        ammoLabel.position = CGPoint(x: frame.minX+400, y: frame.maxY-70)
-        ammoLabel.zPosition = 2
-        ammoLabel.fontColor = UIColor.green
-        ammoLabel.fontSize = 45
-        ammoLabel.fontName = "Menlo Regular-Bold"
-        addChild(ammoLabel)
  
         player.name = "player"
         player.position.x = frame.midX-700
@@ -183,7 +168,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 self.turnButton.run(fadeAlpha)
                 self.turnButton.run(squishBig)
             
-                self.count = 1
                 self.direction = -0.1
             
                 if (self.doubleTap == 1) {
@@ -237,7 +221,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             shot.run(sequence)
                     
                     self.numAmmo = self.numAmmo - 1
-                    self.ammo.text = "\(self.numAmmo)"
                 
                     let recoil = SKAction.moveBy(x: -8 * cos(self.player.zRotation), y: -8 * sin(self.player.zRotation), duration: 0.01)
                     self.player.run(recoil)
@@ -315,11 +298,11 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         
         
        
-        let revolve1 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime )), y: -CGFloat(50 * sin(2 * currentTime)), duration: 0.1)
+        let revolve1 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime )), y: -CGFloat(50 * sin(2 * currentTime)), duration: 0.000001)
         
-         let revolve2 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 2.0944)), y: -CGFloat(50 * sin(2 * currentTime + 2.0944)), duration: 0.1)
+         let revolve2 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 2.0944)), y: -CGFloat(50 * sin(2 * currentTime + 2.0944)), duration: 0.000001)
         
-        let revolve3 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 4.18879)), y: -CGFloat(50 * sin(2 * currentTime + 4.18879)), duration: 0.1)
+        let revolve3 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 4.18879)), y: -CGFloat(50 * sin(2 * currentTime + 4.18879)), duration: 0.000001)
         
         
     
@@ -359,7 +342,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                             self.addChild(self.bullet1)
                     }
                   
-                    self.ammo.text = "\(self.numAmmo)"
                     self.regenAmmo = false
                 }
             }
@@ -378,11 +360,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                         }
                     }
                 }
-                
-                let activeEnemies = children.compactMap { $0 as? TurretNode }
-                if activeEnemies.isEmpty {
-                  //  createWave()
-                }
     }
     
        func updateTurret(_ dt: CFTimeInterval) {
@@ -394,21 +371,23 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
            }
     
     func shootTurret() {
-        let shot = SKSpriteNode(imageNamed: "enemy2Weapon")
-        shot.name = "TurretWeapon"
-        shot.zRotation = turretSprite.zRotation
-        shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-        shot.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
-        shot.physicsBody?.collisionBitMask = CollisionType.player.rawValue
-        shot.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
-        shot.physicsBody?.mass = 0.001
-        shot.zPosition = 1
-        shot.position = turretSprite.position
+        if isPlayerAlive{
+            let shot = SKSpriteNode(imageNamed: "enemy2Weapon")
+            shot.name = "TurretWeapon"
+            shot.zRotation = turretSprite.zRotation
+            shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
+            shot.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
+            shot.physicsBody?.collisionBitMask = CollisionType.player.rawValue
+            shot.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
+            shot.physicsBody?.mass = 0.001
+            shot.zPosition = 1
+            shot.position = turretSprite.position
   
-        addChild(shot)
-        let movement = SKAction.moveBy(x: 1024 * cos(turretSprite.zRotation-90 * degreesToRadians), y: 1024 * sin(turretSprite.zRotation-90 * degreesToRadians), duration: 1.8432)
-        let sequence = SKAction.sequence([movement, .removeFromParent()])
-        shot.run(sequence)
+            addChild(shot)
+            let movement = SKAction.moveBy(x: 1024 * cos(turretSprite.zRotation-90 * degreesToRadians), y: 1024 * sin(turretSprite.zRotation-90 * degreesToRadians), duration: 1.8432)
+            let sequence = SKAction.sequence([movement, .removeFromParent()])
+            shot.run(sequence)
+        }
     }
     
     
@@ -529,7 +508,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         isPlayerAlive = false
         self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         
-        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 300)
+        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 250)
         playAgain.zPosition = 100
         playAgain.fontColor = UIColor.white
         playAgain.fontName = "AvenirNext-Bold"
@@ -537,11 +516,13 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         addChild(playAgain)
         self.pauseButtonNode.alpha = 0
         self.backButtonNode.alpha = 1
+        self.turnButtonNode.alpha = 0
+        self.shootButtonNode.alpha = 0
          self.dimPanel.alpha = 0.3
         
-        self.bullet1.removeFromParent()
-        self.bullet2.removeFromParent()
-        self.bullet3.removeFromParent()
+        self.bullet1.alpha = 0
+        self.bullet2.alpha = 0
+        self.bullet3.alpha = 0
         
         if let explosion = SKEmitterNode(fileNamed: "Explosion") {
             explosion.position = player.position
@@ -551,14 +532,15 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         
         gameOver.position = CGPoint(x: frame.midX, y: frame.midY)
         gameOver.zPosition = 100
-    //gameOver.size = CGSize(width: 900, height: 243)
+        gameOver.size = CGSize(width: 619, height: 118)
             addChild(gameOver)
     }
     func victoryScreen() {
         isPlayerAlive = false
+        direction = -0.1
         self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         
-        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 300)
+        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 250)
         playAgain.zPosition = 100
         playAgain.fontColor = UIColor.white
         playAgain.fontName = "AvenirNext-Bold"
@@ -575,15 +557,15 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             addChild(explosion)
         }
         
-           self.bullet1.removeFromParent()
-           self.bullet2.removeFromParent()
-           self.bullet3.removeFromParent()
+           self.bullet1.alpha = 0
+           self.bullet2.alpha = 0
+           self.bullet3.alpha = 0
         
         victory.run(scaleAction)
 
         victory.position = CGPoint(x: frame.midX, y: frame.midY)
         victory.zPosition = 100
-       // gameOver.size = CGSize(width: 900, height: 243)
+        gameOver.size = CGSize(width: 619, height: 118)
             addChild(victory)
     }
 
