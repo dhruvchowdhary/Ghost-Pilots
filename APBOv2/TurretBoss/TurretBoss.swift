@@ -476,7 +476,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 explosion.position = firstNode.position
                 addChild(explosion)
             }
-            cannonHP = max(0, cannonHP - 100)
+            cannonHP = max(0, cannonHP - 10)
             updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
             shot.removeFromParent()
             firstNode.removeFromParent()
