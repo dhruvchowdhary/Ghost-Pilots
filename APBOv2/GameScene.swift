@@ -62,7 +62,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let points = SKLabelNode(text: "0")
     var numPoints = 0
     let pointsLabel = SKLabelNode(text: "Points")
-
+    
+    var numAmmo = 3
+    var regenAmmo = false
+    let ammo = SKLabelNode(text: "3")
+    let ammoLabel = SKLabelNode(text: "Ammo")
     
     override func didMove(to view: SKView) {
         physicsWorld.gravity = .zero
@@ -81,14 +85,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(self.dimPanel)
         self.dimPanel.alpha = 0
                 
-        points.position = CGPoint(x: frame.midX, y: frame.maxY*0.7)
+        points.position = CGPoint(x: frame.midX, y: frame.maxY-135)
+        points.zPosition = 2
         points.fontColor = UIColor.white
-        points.fontSize = 80
+        points.fontSize = 70
+        points.fontName = "Menlo Regular-Bold"
         addChild(points)
-        pointsLabel.position = CGPoint(x: frame.midX, y: frame.maxY*0.9)
+        pointsLabel.position = CGPoint(x: frame.midX, y: frame.maxY-70)
+        pointsLabel.zPosition = 2
         pointsLabel.fontColor = UIColor.white
-        pointsLabel.fontSize = 40
+        pointsLabel.fontSize = 45
+        pointsLabel.fontName = "Menlo Regular-Bold"
         addChild(pointsLabel)
+        
+        ammo.position = CGPoint(x: frame.minX+400, y: frame.maxY-135)
+        ammo.zPosition = 2
+        ammo.fontColor = UIColor.green
+        ammo.fontSize = 70
+        ammo.fontName = "Menlo Regular-Bold"
+        addChild(ammo)
+        ammoLabel.position = CGPoint(x: frame.minX+400, y: frame.maxY-70)
+        ammoLabel.zPosition = 2
+        ammoLabel.fontColor = UIColor.green
+        ammoLabel.fontSize = 45
+        ammoLabel.fontName = "Menlo Regular-Bold"
+        addChild(ammoLabel)
         
         player.name = "player"
         player.position.x = frame.midX-700
@@ -189,34 +210,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         shootButtonNode.selectedHandler = {
             if self.varisPaused==1 && self.isPlayerAlive {
                 if self.isPlayerAlive {
+                    if self.numAmmo > 0 {
                     
+                        let shot = SKSpriteNode(imageNamed: "bullet")
+                        shot.name = "playerWeapon"
+                        shot.position = CGPoint(x: self.player.position.x + cos(self.player.zRotation)*40, y: self.player.position.y + sin(self.player.zRotation)*40)
+                        shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
+                        shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
+                        shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+                        shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+                        self.addChild(shot)
                     
-                    let shot = SKSpriteNode(imageNamed: "bullet")
-                    shot.name = "playerWeapon"
-                    shot.position = CGPoint(x: self.player.position.x + cos(self.player.zRotation)*40, y: self.player.position.y + sin(self.player.zRotation)*40)
-                    shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-                    shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
-                    shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-                    shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-                    self.addChild(shot)
+                        let movement = SKAction.moveBy(x: 1500 * cos(self.player.zRotation), y: 1500 * sin(self.player.zRotation), duration: 2.6)
+                        let sequence = SKAction.sequence([movement, .removeFromParent()])
+                        shot.run(sequence)
+                        
+                        self.numAmmo = self.numAmmo - 1
+                        self.ammo.text = "\(self.numAmmo)"
                     
-                    //hi
+                        let recoil = SKAction.moveBy(x: -8 * cos(self.player.zRotation), y: -8 * sin(self.player.zRotation), duration: 0.01)
                     
-                    let movement = SKAction.moveBy(x: 1500 * cos(self.player.zRotation), y: 1500 * sin(self.player.zRotation), duration: 2.6)
-                    let sequence = SKAction.sequence([movement, .removeFromParent()])
-                    shot.run(sequence)
-                    
-                    let recoil = SKAction.moveBy(x: -8 * cos(self.player.zRotation), y: -8 * sin(self.player.zRotation), duration: 0.01)
-                    
-                    self.player.run(recoil)
+                        self.player.run(recoil)
                 
-                    
                     /*
  self.player.position = CGPoint(x:self.player.position.x - cos(self.player.zRotation) * 50 ,y:self.player.position.y - sin(self.player.zRotation) * 50)
                     
                     */
                     
-                    self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.2*cos(self.player.zRotation), dy: 1.2*sin(self.player.zRotation)), shakeDuration: 0.04)
+                        self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.2*cos(self.player.zRotation), dy: 1.2*sin(self.player.zRotation)), shakeDuration: 0.04)
+                        
+                    }
                 }
             }
         }
@@ -227,8 +250,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       
         let turnTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
             self.player.zRotation = self.player.zRotation + 1.2 * CGFloat(self.direction);
-                
-    }
+        }
 }
 
     
@@ -317,6 +339,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else if player.position.x > frame.maxX - 35 {
                 player.position.x = frame.maxX - 35
             }
+        
+        if self.numAmmo < 3 {
+            if !self.regenAmmo {
+                self.regenAmmo = true
+                let ammoTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { (timer) in
+                    self.numAmmo = self.numAmmo + 1
+                    self.ammo.text = "\(self.numAmmo)"
+                    self.regenAmmo = false
+                }
+            }
+        }
                 
                 for child in children {
                     if child.frame.maxX < 0 {

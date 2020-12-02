@@ -36,6 +36,10 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     
     var lastFireTime: Double = 0
     
+    var numAmmo = 3
+    var regenAmmo = false
+    let ammo = SKLabelNode(text: "3")
+    let ammoLabel = SKLabelNode(text: "Ammo")
     
     override func didMove(to view: SKView) {
         physicsWorld.gravity = .zero
@@ -49,7 +53,18 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 addChild(particles)
         }
         
-        
+        ammo.position = CGPoint(x: frame.minX+400, y: frame.maxY-135)
+        ammo.zPosition = 2
+        ammo.fontColor = UIColor.green
+        ammo.fontSize = 70
+        ammo.fontName = "Menlo Regular-Bold"
+        addChild(ammo)
+        ammoLabel.position = CGPoint(x: frame.minX+400, y: frame.maxY-70)
+        ammoLabel.zPosition = 2
+        ammoLabel.fontColor = UIColor.green
+        ammoLabel.fontSize = 45
+        ammoLabel.fontName = "Menlo Regular-Bold"
+        addChild(ammoLabel)
  
         player.name = "player"
         player.position.x = frame.midX-700
@@ -183,24 +198,30 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             self.shootButton.run(squishBig)
             
             if self.isPlayerAlive {
-            let shot = SKSpriteNode(imageNamed: "bullet")
-            shot.name = "playerWeapon"
-            shot.position = CGPoint(x: self.player.position.x + cos(self.player.zRotation)*40, y: self.player.position.y + sin(self.player.zRotation)*40)
+                if self.numAmmo > 0 {
+                    let shot = SKSpriteNode(imageNamed: "bullet")
+                    shot.name = "playerWeapon"
+                    shot.position = CGPoint(x: self.player.position.x + cos(self.player.zRotation)*40, y: self.player.position.y + sin(self.player.zRotation)*40)
          
-            shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-            shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
-            shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-            shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-            self.addChild(shot)
-            let movement = SKAction.moveBy(x: 1500 * cos(self.player.zRotation), y: 1500 * sin(self.player.zRotation), duration: 2.6)
-            let sequence = SKAction.sequence([movement, .removeFromParent()])
+                    shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
+                    shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
+                    shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+                    shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+                    self.addChild(shot)
+                    
+                    let movement = SKAction.moveBy(x: 1500 * cos(self.player.zRotation), y: 1500 * sin(self.player.zRotation), duration: 2.6)
+                    let sequence = SKAction.sequence([movement, .removeFromParent()])
             shot.run(sequence)
+                    
+                    self.numAmmo = self.numAmmo - 1
+                    self.ammo.text = "\(self.numAmmo)"
                 
-            let recoil = SKAction.moveBy(x: -8 * cos(self.player.zRotation), y: -8 * sin(self.player.zRotation), duration: 0.01)
-            self.player.run(recoil)
+                    let recoil = SKAction.moveBy(x: -8 * cos(self.player.zRotation), y: -8 * sin(self.player.zRotation), duration: 0.01)
+                    self.player.run(recoil)
                 
-                
-            self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.2*cos(self.player.zRotation), dy: 1.2*sin(self.player.zRotation)), shakeDuration: 0.04)
+            
+                    self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.2*cos(self.player.zRotation), dy: 1.2*sin(self.player.zRotation)), shakeDuration: 0.04)
+                }
             }
         }
         
@@ -269,6 +290,17 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             } else if player.position.x > frame.maxX - 35 {
                 player.position.x = frame.maxX - 35
             }
+        
+        if self.numAmmo < 3 {
+            if !self.regenAmmo {
+                self.regenAmmo = true
+                let ammoTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { (timer) in
+                    self.numAmmo = self.numAmmo + 1
+                    self.ammo.text = "\(self.numAmmo)"
+                    self.regenAmmo = false
+                }
+            }
+        }
                 
         if lastFireTime + 1 < currentTime {
                 lastFireTime = currentTime
@@ -449,8 +481,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         playAgain.fontSize = 60
         addChild(playAgain)
         self.pauseButtonNode.alpha = 0
-        self.turnButtonNode.alpha = 0
-        self.shootButtonNode.alpha = 0
         self.backButtonNode.alpha = 1
         
         if let explosion = SKEmitterNode(fileNamed: "Explosion") {
