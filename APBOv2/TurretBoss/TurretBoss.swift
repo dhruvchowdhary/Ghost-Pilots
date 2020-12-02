@@ -539,6 +539,10 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         self.backButtonNode.alpha = 1
          self.dimPanel.alpha = 0.3
         
+        self.bullet1.removeFromParent()
+        self.bullet2.removeFromParent()
+        self.bullet3.removeFromParent()
+        
         if let explosion = SKEmitterNode(fileNamed: "Explosion") {
             explosion.position = player.position
             addChild(explosion)
@@ -571,6 +575,9 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             addChild(explosion)
         }
         
+           self.bullet1.removeFromParent()
+           self.bullet2.removeFromParent()
+           self.bullet3.removeFromParent()
         
         victory.run(scaleAction)
 

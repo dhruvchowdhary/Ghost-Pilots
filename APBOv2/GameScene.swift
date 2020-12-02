@@ -90,7 +90,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         
-        addChild(bullet1)
+            addChild(bullet1)
               addChild(bullet2)
               addChild(bullet3)
         
@@ -226,6 +226,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if self.isPlayerAlive {
                     if self.numAmmo > 0 {
                     
+                        
+                        if self.numAmmo == 3 {
+                                    self.bullet1.removeFromParent()
+                                    }
+                                    else if self.numAmmo == 2 {
+                                          self.bullet2.removeFromParent()
+                                    }
+                                    else if self.numAmmo == 1 {
+                                        self.bullet3.removeFromParent()
+                                    }
+                        
                         let shot = SKSpriteNode(imageNamed: "bullet")
                         shot.name = "playerWeapon"
                         shot.position = CGPoint(x: self.player.position.x + cos(self.player.zRotation)*40, y: self.player.position.y + sin(self.player.zRotation)*40)
@@ -344,18 +355,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.5 ,y:player.position.y + sin(player.zRotation) * 3.5)
+        
+        
+        bullet1.position = player.position
+                       bullet2.position = player.position
+                       bullet3.position = player.position
+        
+               let revolve1 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime )), y: -CGFloat(50 * sin(2 * currentTime)), duration: 0.1)
+               
+                let revolve2 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 2.0944)), y: -CGFloat(50 * sin(2 * currentTime + 2.0944)), duration: 0.1)
+               
+               let revolve3 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 4.18879)), y: -CGFloat(50 * sin(2 * currentTime + 4.18879)), duration: 0.1)
+               
+               
            
-        
-        let revolve1 = SKAction.moveBy(x: CGFloat(50 * cos(2 * currentTime)), y: CGFloat(50 * sin(2 * currentTime)), duration: 0.1)
-        
-         let revolve2 = SKAction.moveBy(x: CGFloat(50 * cos(2 * currentTime + 120)), y: CGFloat(50 * sin(2 * currentTime + 120)), duration: 0.1)
-        
-        let revolve3 = SKAction.moveBy(x: CGFloat(50 * cos(2 * currentTime + 240)), y: CGFloat(50 * sin(2 * currentTime + 240)), duration: 0.1)
-
-        
-        bullet1.run(revolve1)
-        bullet2.run(revolve2)
-        bullet3.run(revolve3)
+               bullet1.run(revolve1)
+               bullet2.run(revolve2)
+              bullet3.run(revolve3)
+               
         
             if player.position.y < frame.minY + 35 {
                 player.position.y = frame.minY + 35
@@ -369,16 +386,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 player.position.x = frame.maxX - 35
             }
         
-        if self.numAmmo < 3 {
-            if !self.regenAmmo {
-                self.regenAmmo = true
-                let ammoTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { (timer) in
-                    self.numAmmo = self.numAmmo + 1
-                    self.ammo.text = "\(self.numAmmo)"
-                    self.regenAmmo = false
-                }
-            }
-        }
+               if self.numAmmo < 3 {
+             if !self.regenAmmo {
+                 self.regenAmmo = true
+                 let ammoTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { (timer) in
+                     self.numAmmo = self.numAmmo + 1
+                     
+                     
+                     if self.numAmmo == 1 {
+                             self.addChild(self.bullet3)
+                     }
+                     else if self.numAmmo == 2 {
+                             self.addChild(self.bullet2)
+                     }
+                     else if self.numAmmo == 3 {
+                             self.addChild(self.bullet1)
+                     }
+                   
+                     self.ammo.text = "\(self.numAmmo)"
+                     self.regenAmmo = false
+                 }
+             }
+         }
                 
                 for child in children {
                     if child.frame.maxX < 0 {
@@ -631,6 +660,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.turnButtonNode.alpha = 0
         self.shootButtonNode.alpha = 0
         self.backButtonNode.alpha = 1
+        self.bullet1.removeFromParent()
+                 self.bullet2.removeFromParent()
+                 self.bullet3.removeFromParent()
         
         if let explosion = SKEmitterNode(fileNamed: "Explosion") {
             explosion.position = player.position
