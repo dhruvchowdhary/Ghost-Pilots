@@ -610,8 +610,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let gameOver = SKSpriteNode(imageNamed: "gameOver")
         gameOver.zPosition = 100
-        gameOver.position = CGPoint(x: frame.midY, y: frame.midY + 100)
-        gameOver.size = CGSize(width: 900, height: 243)
+        gameOver.position = CGPoint(x: frame.midY, y: frame.midY + 150)
+       // gameOver.size = CGSize(width: 900, height: 243)
             addChild(gameOver)
     }
 

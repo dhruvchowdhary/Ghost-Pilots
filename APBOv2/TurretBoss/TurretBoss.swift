@@ -33,6 +33,9 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
     var direction = 0.0
     let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 2000, height: 1000) )
+     let victory = SKSpriteNode(imageNamed: "victory")
+
+    let gameOver = SKSpriteNode(imageNamed: "gameOver")
     
     var lastFireTime: Double = 0
     
@@ -80,7 +83,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         
         
         cannonSprite.position = CGPoint(x: frame.midX, y: frame.midY)
-        cannonSprite.zPosition = 1
+        cannonSprite.zPosition = 0
           addChild(cannonSprite)
                 
         
@@ -202,7 +205,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                     let shot = SKSpriteNode(imageNamed: "bullet")
                     shot.name = "playerWeapon"
                     shot.position = CGPoint(x: self.player.position.x + cos(self.player.zRotation)*40, y: self.player.position.y + sin(self.player.zRotation)*40)
-         
+                    
                     shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
                     shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
                     shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
@@ -342,7 +345,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         shot.physicsBody?.collisionBitMask = CollisionType.player.rawValue
         shot.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
         shot.physicsBody?.mass = 0.001
-        shot.zPosition = 3
+        shot.zPosition = 1
         shot.position = turretSprite.position
   
         addChild(shot)
@@ -402,7 +405,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             playerShields -= 1
                
             if playerShields == 0 {
-                gameOver()
+                gameOverScreen()
                 secondNode.removeFromParent()
             }
             
@@ -428,7 +431,8 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if cannonHP == 0 {
-            gameOver()
+                victoryScreen()
+            
         }
         
         /*
@@ -470,7 +474,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
       sceneView.layer.add(shakeAnimation, forKey: "position")
     }
     
-    func gameOver() {
+    func gameOverScreen() {
         isPlayerAlive = false
         self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         
@@ -488,11 +492,37 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             addChild(explosion)
         }
         
-        let gameOver = SKSpriteNode(imageNamed: "gameOver")
-        gameOver.position = CGPoint(x: frame.midY, y: frame.midY + 100)
+        gameOver.position = CGPoint(x: frame.midY, y: frame.midY + 200)
         gameOver.zPosition = 100
-        gameOver.size = CGSize(width: 900, height: 243)
+    //gameOver.size = CGSize(width: 900, height: 243)
             addChild(gameOver)
     }
+    func victoryScreen() {
+        isPlayerAlive = false
+        self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
+        
+        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 200)
+        playAgain.zPosition = 100
+        playAgain.fontColor = UIColor.white
+        playAgain.fontName = "AvenirNext-Bold"
+        playAgain.fontSize = 60
+        addChild(playAgain)
+        self.pauseButtonNode.alpha = 0
+        self.turnButtonNode.alpha = 0
+        self.shootButtonNode.alpha = 0
+        self.backButtonNode.alpha = 1
+        
+        if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+            explosion.position = turretSprite.position
+            addChild(explosion)
+        }
+        
+       
+        victory.position = CGPoint(x: frame.midY, y: frame.midY + 200)
+        victory.zPosition = 100
+       // gameOver.size = CGSize(width: 900, height: 243)
+            addChild(victory)
+    }
+
 
 }
