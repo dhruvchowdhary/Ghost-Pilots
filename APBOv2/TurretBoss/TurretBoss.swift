@@ -447,6 +447,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         playAgain.fontSize = 60
         addChild(playAgain)
         self.pauseButtonNode.alpha = 0
+        self.backButtonNode.alpha = 1
         
         if let explosion = SKEmitterNode(fileNamed: "Explosion") {
             explosion.position = player.position

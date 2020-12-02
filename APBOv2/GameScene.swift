@@ -56,6 +56,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
     var direction = 0.0
     let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 2000, height: 1000) )
+    
+    let points = SKLabelNode(text: "0")
+    var numPoints = 0
+    let pointsLabel = SKLabelNode(text: "Points")
 
     
     override func didMove(to view: SKView) {
@@ -75,6 +79,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(self.dimPanel)
         self.dimPanel.alpha = 0
                 
+        points.position = CGPoint(x: frame.midX, y: frame.maxY*0.7)
+        points.fontColor = UIColor.white
+        points.fontSize = 80
+        addChild(points)
+        pointsLabel.position = CGPoint(x: frame.midX, y: frame.maxY*0.9)
+        pointsLabel.fontColor = UIColor.white
+        pointsLabel.fontSize = 40
+        addChild(pointsLabel)
+        
         player.name = "player"
         player.position.x = frame.midX-700
         player.position.y = frame.midY-80
@@ -511,6 +524,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     addChild(explosion)
                 }
                 enemy.removeFromParent()
+                numPoints += enemy.scoreinc
+                points.text = "\(numPoints)"
             }
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = enemy.position
@@ -549,6 +564,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playAgain.fontSize = 60
         addChild(playAgain)
         self.pauseButtonNode.alpha = 0
+        self.backButtonNode.alpha = 1
         
         if let explosion = SKEmitterNode(fileNamed: "Explosion") {
             explosion.position = player.position
