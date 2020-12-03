@@ -187,7 +187,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                                    self.doubleTap = 0
                                }
                            }
-                   
                    }
                }
                turnButtonNode.selectedHandlers = {
@@ -231,7 +230,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                     
                     let movement = SKAction.moveBy(x: 1500 * cos(self.player.zRotation), y: 1500 * sin(self.player.zRotation), duration: 2.6)
                     let sequence = SKAction.sequence([movement, .removeFromParent()])
-            shot.run(sequence)
+                    shot.run(sequence)
                     
                     self.numAmmo = self.numAmmo - 1
                 
@@ -297,23 +296,17 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         
-            let deltaTime = max(1.0/30, currentTime - lastUpdateTime)
-            lastUpdateTime = currentTime
+        let deltaTime = max(1.0/30, currentTime - lastUpdateTime)
+        lastUpdateTime = currentTime
               
-            updateTurret(deltaTime)
+        updateTurret(deltaTime)
         
-            player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.5 ,y:player.position.y + sin(player.zRotation) * 3.5)
+        player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.5 ,y:player.position.y + sin(player.zRotation) * 3.5)
         
-                bullet1.position = player.position
-                bullet2.position = player.position
-                bullet3.position = player.position
+        bullet1.position = player.position
+        bullet2.position = player.position
+        bullet3.position = player.position
                 
-        
-            //CGPoint(x:player.position.x + cos(player.zRotation) * 50 ,y:player.position.y + sin(player.zRotation) * 50)
-        
-
-        
-        
         
        
         let revolve1 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime )), y: -CGFloat(50 * sin(2 * currentTime)), duration: 0.000001)
@@ -484,32 +477,32 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 victoryScreen()
         }
         
-        /*
- else if let enemy = firstNode as? EnemyNode {
+        
+        else if let enemy = firstNode as? EnemyNode {
             enemy.shields -= 1
-            
+             gameOverScreen()
             if enemy.shields == 0 {
 
                if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                     explosion.position = enemy.position
                     addChild(explosion)
                }
-           //     enemy.removeFromParent()
+               // enemy.removeFromParent()
             }
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = enemy.position
                 addChild(explosion)
             }
-            secondNode.removeFromParent()
+      //      secondNode.removeFromParent()
         } else {
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = secondNode.position
                 addChild(explosion)
             }
-       //     firstNode.removeFromParent()
-            secondNode.removeFromParent()
+         //  firstNode.removeFromParent()
+          ///  secondNode.removeFromParent()
         }
-        */
+        
     }
     
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
