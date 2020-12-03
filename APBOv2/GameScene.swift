@@ -178,12 +178,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         turnButtonNode = self.childNode(withName: "turnButton") as? MSButtonNode
         turnButtonNode.selectedHandler = {
             if self.varisPaused==1 && self.isPlayerAlive {
-            
+                self.turnButtonNode.alpha = 0.6
                 self.count = 1
-                self.direction = -0.1
+                self.direction = -0.07
             
                 if (self.doubleTap==1) {
-                    self.player.zRotation = self.player.zRotation - 1.0;
+                    self.player.zRotation = self.player.zRotation - 1.5708;
                     let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
                     self.player.run(movement)
                 
@@ -199,6 +199,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         turnButtonNode.selectedHandlers = {
+            self.turnButtonNode.alpha = 0.8
             if self.varisPaused == 1 && self.isPlayerAlive {
                 self.direction = 0
             }
@@ -207,6 +208,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         shootButtonNode = self.childNode(withName: "shootButton") as? MSButtonNode
         shootButtonNode.selectedHandler = {
+            
+            self.shootButtonNode.alpha = 0.6
+            
             if self.varisPaused==1 && self.isPlayerAlive {
                 if self.isPlayerAlive {
                     if self.numAmmo > 0 {
@@ -251,6 +255,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     }
                 }
             }
+        }
+        
+        shootButtonNode.selectedHandlers = {
+    
+            self.shootButtonNode.alpha = 0.8
+             
         }
         
         thruster1?.position = CGPoint(x: -30, y: 0)
