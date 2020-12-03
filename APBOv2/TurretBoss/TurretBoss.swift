@@ -167,11 +167,12 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 let squishBig = SKAction.scale(to: 2.05, duration: 0.1)
                 self.turnButton.run(fadeAlpha)
                 self.turnButton.run(squishBig)
+                self.turnButtonNode.alpha = 0.6
             
-                self.direction = -0.1
+                self.direction = -0.07
             
                 if (self.doubleTap == 1) {
-                    self.player.zRotation = self.player.zRotation - 1.0;
+                      self.player.zRotation = self.player.zRotation - 1.5708;
                     let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
                     self.player.run(movement)
                     self.doubleTap = 0
@@ -185,12 +186,13 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
             turnButtonNode.selectedHandlers = {
                 self.direction = 0
+                self.turnButtonNode.alpha = 0.8
             }
         }
         
         shootButtonNode = self.childNode(withName: "shootButton") as? MSButtonNode
         shootButtonNode.selectedHandler = {
-            
+            self.shootButtonNode.alpha = 0.6
             
             if self.isPlayerAlive {
                 if self.numAmmo > 0 {
@@ -230,6 +232,11 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
+        shootButtonNode.selectedHandlers = {
+                      self.direction = 0
+                      self.shootButtonNode.alpha = 0.8
+                  }
+        
         
         thruster1?.position = CGPoint(x: -30, y: 0)
         thruster1?.targetNode = self.scene
