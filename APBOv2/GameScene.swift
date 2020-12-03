@@ -186,11 +186,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.player.zRotation = self.player.zRotation - 1.5708;
                     let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
                     self.player.run(movement)
-                
+                    self.thruster1?.particleColorSequence = nil
+                    self.thruster1?.particleColorBlendFactor = 1.0
+                    
+          
+                            self.thruster1?.particleColor = UIColor(red: 240.0/255, green: 50.0/255, blue: 53.0/255, alpha:1)
+                                
+                    
                     self.doubleTap = 0
                     }
                     else {
                         self.doubleTap = 1
+                       //  self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
                         let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
                             self.doubleTap = 0
                         }
@@ -199,7 +206,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         turnButtonNode.selectedHandlers = {
+            
             self.turnButtonNode.alpha = 0.8
+            let timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { (timer) in
+          self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
+            }
             if self.varisPaused == 1 && self.isPlayerAlive {
                 self.direction = 0
             }

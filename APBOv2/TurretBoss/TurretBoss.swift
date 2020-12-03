@@ -26,6 +26,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     let player = SKSpriteNode(imageNamed: "player")
     let shot = SKSpriteNode(imageNamed: "bullet")
     var lastUpdateTime: CFTimeInterval = 0
+    var count = 0
     var doubleTap = 0;
     let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
     let playAgain = SKLabelNode(text: "Tap to Play Again")
@@ -159,36 +160,46 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         }
 
         
-        turnButtonNode = self.childNode(withName: "turnButton") as? MSButtonNode
-        if varisPaused == 1 {
-            turnButtonNode.selectedHandler = {
-            
-                let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
-                let squishBig = SKAction.scale(to: 2.05, duration: 0.1)
-                self.turnButton.run(fadeAlpha)
-                self.turnButton.run(squishBig)
-                self.turnButtonNode.alpha = 0.6
-            
-                self.direction = -0.07
-            
-                if (self.doubleTap == 1) {
-                      self.player.zRotation = self.player.zRotation - 1.5708;
-                    let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
-                    self.player.run(movement)
-                    self.doubleTap = 0
-                }
-                else {
-                    self.doubleTap = 1
-                    let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
-                        self.doubleTap = 0
-                    }
-                }
-            }
-            turnButtonNode.selectedHandlers = {
-                self.direction = 0
-                self.turnButtonNode.alpha = 0.8
-            }
-        }
+       turnButtonNode = self.childNode(withName: "turnButton") as? MSButtonNode
+               turnButtonNode.selectedHandler = {
+                   if self.varisPaused==1 && self.isPlayerAlive {
+                       self.turnButtonNode.alpha = 0.6
+                       self.count = 1
+                       self.direction = -0.07
+                   
+                       if (self.doubleTap==1) {
+                           self.player.zRotation = self.player.zRotation - 1.5708;
+                           let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
+                           self.player.run(movement)
+                           self.thruster1?.particleColorSequence = nil
+                           self.thruster1?.particleColorBlendFactor = 1.0
+                           
+                 
+                                   self.thruster1?.particleColor = UIColor(red: 240.0/255, green: 50.0/255, blue: 53.0/255, alpha:1)
+                                       
+                           
+                           self.doubleTap = 0
+                           }
+                           else {
+                               self.doubleTap = 1
+                              //  self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
+                               let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
+                                   self.doubleTap = 0
+                               }
+                           }
+                   
+                   }
+               }
+               turnButtonNode.selectedHandlers = {
+                   
+                   self.turnButtonNode.alpha = 0.8
+                   let timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { (timer) in
+                 self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
+                   }
+                   if self.varisPaused == 1 && self.isPlayerAlive {
+                       self.direction = 0
+                   }
+               }
         
         shootButtonNode = self.childNode(withName: "shootButton") as? MSButtonNode
         shootButtonNode.selectedHandler = {
