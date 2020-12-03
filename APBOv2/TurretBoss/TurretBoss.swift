@@ -375,6 +375,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             let shot = SKSpriteNode(imageNamed: "enemy2Weapon")
             shot.name = "TurretWeapon"
             shot.zRotation = turretSprite.zRotation
+            
             shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
             shot.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
             shot.physicsBody?.collisionBitMask = CollisionType.player.rawValue
