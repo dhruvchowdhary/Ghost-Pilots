@@ -6,6 +6,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     var pauseButtonNode: MSButtonNode!
     var turnButtonNode: MSButtonNode!
     var shootButtonNode: MSButtonNode!
+    var restartButtonNode: MSButtonNode!
     
     let playerHealthBar = SKSpriteNode()
     let cannonHealthBar = SKSpriteNode()
@@ -130,6 +131,33 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             skView.presentScene(scene)
         }
         
+        restartButtonNode = self.childNode(withName: "restartButton") as? MSButtonNode
+        restartButtonNode.alpha = 0
+        restartButtonNode.selectedHandlers = {
+            /* 1) Grab reference to our SpriteKit view */
+            guard let skView = self.view as SKView? else {
+                print("Could not get Skview")
+                return
+            }
+
+            /* 2) Load Menu scene */
+            guard let scene = TurretBossScene(fileNamed:"TurretBoss") else {
+                print("Could not make GameScene, check the name is spelled correctly")
+                return
+            }
+
+            /* 3) Ensure correct aspect mode */
+            scene.scaleMode = .aspectFit
+
+            /* Show debug */
+            skView.showsPhysics = false
+            skView.showsDrawCount = false
+            skView.showsFPS = false
+
+            /* 4) Start game scene */
+            skView.presentScene(scene)
+        }
+        
         pauseButtonNode = self.childNode(withName: "pause") as? MSButtonNode
         pauseButtonNode.selectedHandlers = {
             if self.isPlayerAlive {
@@ -138,12 +166,14 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                     self.scene?.view?.isPaused = false
                     self.children.map{($0 as SKNode).isPaused = false}
                     self.backButtonNode.alpha = 0
+                    self.restartButtonNode.alpha = 0
                     self.dimPanel.alpha = 0
 
             //        self.dimPanel.removeFromParent()
                 }
                 else {
                     self.backButtonNode.alpha = 1
+                    self.restartButtonNode.alpha = 1
                     self.dimPanel.alpha = 0.3
 
                     self.varisPaused = 0
@@ -165,7 +195,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                    if self.varisPaused==1 && self.isPlayerAlive {
                        self.turnButtonNode.alpha = 0.6
                        self.count = 1
-                       self.direction = -0.07
+                       self.direction = -0.08
                    
                        if (self.doubleTap==1) {
                            self.player.zRotation = self.player.zRotation - 1.5708;
