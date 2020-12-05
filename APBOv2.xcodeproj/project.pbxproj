@@ -35,6 +35,7 @@
 		74C3CFD325506D0300757586 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74C3CFD125506D0300757586 /* Assets.xcassets */; };
 		74C3CFDB2553100200757586 /* EnemyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3CFDA2553100100757586 /* EnemyNode.swift */; };
 		74C3CFDD2553109000757586 /* EnemyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3CFDC2553109000757586 /* EnemyType.swift */; };
+		74CF6842257C2EA8000C4E47 /* ShipExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF6841257C2EA8000C4E47 /* ShipExplosion.sks */; };
 		8100B1832575524900AA8A1F /* TurretBossNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8100B1822575524900AA8A1F /* TurretBossNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,7 @@
 		74C3CFD125506D0300757586 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74C3CFDA2553100100757586 /* EnemyNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyNode.swift; sourceTree = "<group>"; };
 		74C3CFDC2553109000757586 /* EnemyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyType.swift; sourceTree = "<group>"; };
+		74CF6841257C2EA8000C4E47 /* ShipExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ShipExplosion.sks; sourceTree = "<group>"; };
 		8100B1822575524900AA8A1F /* TurretBossNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBossNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -185,6 +187,7 @@
 			children = (
 				749EBC0D25599D84003EA0B3 /* Explosion.sks */,
 				7451FF772576FE8F0074CC2E /* Spark.sks */,
+				74CF6841257C2EA8000C4E47 /* ShipExplosion.sks */,
 				74C3CFD025506D0300757586 /* Thrusters.sks */,
 				74C3CFC7253F3E3D00757586 /* Starfield.sks */,
 				74C3CFD125506D0300757586 /* Assets.xcassets */,
@@ -265,6 +268,7 @@
 				749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */,
 				748CEDB6256C1568005DF246 /* SoloMenu.sks in Resources */,
 				749EBC58255AF9E7003EA0B3 /* waves.json in Resources */,
+				74CF6842257C2EA8000C4E47 /* ShipExplosion.sks in Resources */,
 				7451FF782576FE8F0074CC2E /* Spark.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
