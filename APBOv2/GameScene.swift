@@ -59,7 +59,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var count = 0
     var doubleTap = 0;
     let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
-    let playAgain = SKLabelNode(text: "Tap to Play Again")
     let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
     var direction = 0.0
     let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 2000, height: 1000) )
@@ -402,7 +401,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         if isPlayerAlive {
             player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.5 ,y:player.position.y + sin(player.zRotation) * 3.5)
-        
+            pilotDirection = player.zRotation - 3.141592/2
             let revolve1 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime )), y: -CGFloat(50 * sin(2 * currentTime)), duration: 0.000001)
                
             let revolve2 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 2.0944)), y: -CGFloat(50 * sin(2 * currentTime + 2.0944)), duration: 0.000001)
@@ -728,12 +727,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         isGameOver = true
         self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         
+        let playAgain = SKLabelNode(text: "Tap to Play Again")
         playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 250)
         playAgain.zPosition = 100
         playAgain.fontColor = UIColor.white
         playAgain.fontName = "AvenirNext-Bold"
         playAgain.fontSize = 60
         addChild(playAgain)
+        
         self.pauseButtonNode.alpha = 0
         self.turnButtonNode.alpha = 0
         self.shootButtonNode.alpha = 0
