@@ -59,6 +59,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var count = 0
     var doubleTap = 0;
     let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
+    let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
     let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
     var direction = 0.0
     let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 2000, height: 1000) )
@@ -308,6 +309,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             } else {
                 self.pilotForward = true
+                self.pilotThrust1?.particleLifetime = 0.5
             }
         }
         
@@ -315,12 +317,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.pilotDirection = self.pilot.zRotation
             self.shootButtonNode.alpha = 0.8
             self.pilotForward = false
+            self.pilotThrust1?.particleLifetime = 0
         }
         
         thruster1?.position = CGPoint(x: -30, y: 0)
         thruster1?.targetNode = self.scene
         player.addChild(thruster1!)
-      
+        
+        pilotThrust1?.position = CGPoint(x: 0, y: -20)
+        pilotThrust1?.targetNode = self.scene
+        pilotThrust1?.particleLifetime = 0
+        pilot.addChild(pilotThrust1!)
+        
         let turnTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
             self.player.zRotation = self.player.zRotation + 1.2 * CGFloat(self.direction)
             self.pilot.zRotation = self.pilot.zRotation + 1.2 * CGFloat(self.direction)
