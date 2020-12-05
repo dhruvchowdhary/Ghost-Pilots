@@ -463,7 +463,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if self.pilotForward {
                 pilot.position = CGPoint(x:pilot.position.x + cos(pilot.zRotation+3.141592/2) * 2 ,y:pilot.position.y + sin(pilot.zRotation+3.141592/2) * 2)
             } else {
-                pilot.position = CGPoint(x:pilot.position.x + cos(pilotDirection + 3.141592/2) * 0.5 ,y:pilot.position.y + sin(pilotDirection + 3.141592/2) * 0.5)
+                pilot.position = CGPoint(x:pilot.position.x + cos(pilotDirection + 3.141592/2) * 0.9 ,y:pilot.position.y + sin(pilotDirection + 3.141592/2) * 0.9)
             }
             
             if pilot.position.y < frame.minY + 20 {
