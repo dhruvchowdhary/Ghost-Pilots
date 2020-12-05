@@ -17,10 +17,10 @@ let healthBarHeight: CGFloat = 4
 let cannonCollisionRadius: CGFloat = 70
 let playerCollisionRadius: CGFloat = 10
 let shotCollisionRadius: CGFloat = 20
-let playAgain = SKLabelNode(text: "Tap to Play Again")
 
 enum CollisionType: UInt32 {
     case player = 1
+    case pilot = 16
     case playerWeapon = 2
     case enemy = 4
     case enemyWeapon = 8
@@ -126,6 +126,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
         player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
         player.physicsBody?.isDynamic = false
+        
+        pilot.physicsBody = SKPhysicsBody(texture: pilot.texture!, size: pilot.texture!.size())
+        pilot.physicsBody?.categoryBitMask = CollisionType.pilot.rawValue
+        pilot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+        pilot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+        pilot.physicsBody?.isDynamic = false
 
         
         backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
@@ -448,7 +454,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bullet3.removeFromParent()
             
             if self.pilotForward {
-                pilot.position = CGPoint(x:pilot.position.x + cos(pilot.zRotation+3.141592/2) * 3.5 ,y:pilot.position.y + sin(pilot.zRotation+3.141592/2) * 3.5)
+                pilot.position = CGPoint(x:pilot.position.x + cos(pilot.zRotation+3.141592/2) * 2 ,y:pilot.position.y + sin(pilot.zRotation+3.141592/2) * 2)
             } else {
                 pilot.position = CGPoint(x:pilot.position.x + cos(pilotDirection + 3.141592/2) * 0.5 ,y:pilot.position.y + sin(pilotDirection + 3.141592/2) * 0.5)
             }
@@ -670,7 +676,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             
             firstNode.removeFromParent()
-        } else if let enemy = firstNode as? EnemyNode {
+        } else if secondNode.name == "pilot" {
+            if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+                explosion.position = pilot.position
+                addChild(explosion)
+            }
+            gameOver()
+            secondNode.removeFromParent()
+        }
+            
+            else if let enemy = firstNode as? EnemyNode {
             enemy.shields -= 1
             
             if enemy.shields == 0 {
@@ -726,11 +741,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.bullet1.alpha = 0
         self.bullet2.alpha = 0
         self.bullet3.alpha = 0
-        
-        if let explosion = SKEmitterNode(fileNamed: "Explosion") {
-            explosion.position = player.position
-            addChild(explosion)
-        }
         
         let gameOver = SKSpriteNode(imageNamed: "gameOver")
         self.dimPanel.alpha = 0.3
