@@ -37,6 +37,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     var doubleTap = 0;
     let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
     let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
+    var rotation = CGFloat(0)
     var direction = 0.0
     let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 2000, height: 1000) )
 
@@ -200,22 +201,21 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                    if self.varisPaused==1 && self.isPlayerAlive {
                        self.turnButtonNode.alpha = 0.6
                        self.count = 1
-                       self.direction = -0.08
                    
                        if (self.doubleTap==1) {
-                           self.player.zRotation = self.player.zRotation - 1.5708;
+                           self.player.zRotation = self.player.zRotation - 3.141592/2 + self.rotation
                            let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
                            self.player.run(movement)
                            self.thruster1?.particleColorSequence = nil
                            self.thruster1?.particleColorBlendFactor = 1.0
                            
-                 
-                                   self.thruster1?.particleColor = UIColor(red: 240.0/255, green: 50.0/255, blue: 53.0/255, alpha:1)
+                            self.thruster1?.particleColor = UIColor(red: 240.0/255, green: 50.0/255, blue: 53.0/255, alpha:1)
                                        
-                           
+                        self.rotation = 0
                            self.doubleTap = 0
                            }
                            else {
+                        self.direction = -0.08
                                self.doubleTap = 1
                               //  self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
                                let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
@@ -315,9 +315,14 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                
                updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
 
-        let timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
-            self.player.zRotation = self.player.zRotation + 1.2*CGFloat(self.direction);
+        let turnTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
+            self.player.zRotation = self.player.zRotation + 1.2*CGFloat(self.direction)
             self.pilot.zRotation = self.pilot.zRotation + 1.2 * CGFloat(self.direction)
+            if self.doubleTap == 1 {
+                self.rotation = self.rotation - 1.2 * CGFloat(self.direction)
+            } else {
+                self.rotation = 0
+            }
     }
 }
 
@@ -349,20 +354,18 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         }
     
     override func update(_ currentTime: TimeInterval) {
-        if isPlayerAlive {
+
         let deltaTime = max(1.0/30, currentTime - lastUpdateTime)
         lastUpdateTime = currentTime
               
         updateTurret(deltaTime)
-        
+            if isPlayerAlive {
         player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.5 ,y:player.position.y + sin(player.zRotation) * 3.5)
         
         bullet1.position = player.position
         bullet2.position = player.position
         bullet3.position = player.position
                 
-        
-       
         let revolve1 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime )), y: -CGFloat(50 * sin(2 * currentTime)), duration: 0.000001)
         
          let revolve2 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 2.0944)), y: -CGFloat(50 * sin(2 * currentTime + 2.0944)), duration: 0.000001)

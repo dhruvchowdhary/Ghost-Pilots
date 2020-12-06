@@ -68,7 +68,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let points = SKLabelNode(text: "0")
     var numPoints = 0
     let pointsLabel = SKLabelNode(text: "Points")
-    
+    var rotation = CGFloat(0)
     var numAmmo = 3
     var regenAmmo = false
     
@@ -221,10 +221,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if self.varisPaused==1 && self.isPlayerAlive {
                 self.turnButtonNode.alpha = 0.6
                 self.count = 1
-                self.direction = -0.08
             
                 if (self.doubleTap==1) {
-                    self.player.zRotation = self.player.zRotation - 1;
+                    self.player.zRotation = self.player.zRotation - 3.141592/2 + self.rotation
                     let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
                     self.player.run(movement)
                     self.thruster1?.particleColorSequence = nil
@@ -233,10 +232,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           
                             self.thruster1?.particleColor = UIColor(red: 240.0/255, green: 50.0/255, blue: 53.0/255, alpha:1)
                                 
-                    
+                    self.rotation = 0
                     self.doubleTap = 0
                     }
                     else {
+                    self.direction = -0.08
                         self.doubleTap = 1
                        //  self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
                         let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
@@ -339,6 +339,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let turnTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
             self.player.zRotation = self.player.zRotation + 1.2 * CGFloat(self.direction)
             self.pilot.zRotation = self.pilot.zRotation + 1.2 * CGFloat(self.direction)
+            if self.doubleTap == 1 {
+                self.rotation = self.rotation - 1.2 * CGFloat(self.direction)
+            } else {
+                self.rotation = 0
+            }
         }
 }
 
