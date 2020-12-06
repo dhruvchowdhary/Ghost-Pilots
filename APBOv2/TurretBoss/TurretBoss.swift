@@ -460,27 +460,27 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 let angle = atan2(deltaY, deltaX)
                 turretSprite.zRotation = angle - 270 * degreesToRadians
             } else {
-                let deltaX = pilot.position.x - turretSprite.position.x
-                let deltaY = pilot.position.y - turretSprite.position.y
-                let angle = atan2(deltaY, deltaX)
-                turretSprite.zRotation = angle - 270 * degreesToRadians
+                let deltaX1 = pilot.position.x - turretSprite.position.x
+                let deltaY1 = pilot.position.y - turretSprite.position.y
+                let angle1 = atan2(deltaY1, deltaX1)
+                turretSprite.zRotation = angle1 - 270 * degreesToRadians
             }
         }
            }
     
     func shootTurret() {
         if !isGameOver {
-            let shot = SKSpriteNode(imageNamed: "enemy2Weapon")
-            shot.name = "TurretWeapon"
-            shot.zRotation = turretSprite.zRotation
+            let shot1 = SKSpriteNode(imageNamed: "enemy2Weapon")
+            shot1.name = "TurretWeapon"
+            shot1.zRotation = turretSprite.zRotation
             
-            shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-            shot.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
-            shot.physicsBody?.collisionBitMask = CollisionType.player.rawValue
-            shot.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
-            shot.physicsBody?.mass = 0.001
-            shot.zPosition = 1
-            shot.position = turretSprite.position
+            shot1.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
+            shot1.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
+            shot1.physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
+            shot1.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
+            shot1.physicsBody?.mass = 0.001
+            shot1.zPosition = 1
+            shot1.position = turretSprite.position
   
             addChild(shot)
             let movement = SKAction.moveBy(x: 1024 * cos(turretSprite.zRotation-90 * degreesToRadians), y: 1024 * sin(turretSprite.zRotation-90 * degreesToRadians), duration: 1.8432)
