@@ -562,6 +562,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             playerShields -= 1
                
             if playerShields == 0 {
+                isPlayerAlive = false
                 secondNode.removeFromParent()
             }
             
