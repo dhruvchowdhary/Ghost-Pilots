@@ -262,7 +262,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         shootButtonNode = self.childNode(withName: "shootButton") as? MSButtonNode
         shootButtonNode.selectedHandler = {
-            
             self.shootButtonNode.alpha = 0.6
             
             if self.varisPaused==1 && self.isPlayerAlive {
@@ -331,8 +330,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pilot.addChild(pilotThrust1!)
         
         spark1?.position = CGPoint(x: 0, y: 0)
-              spark1?.targetNode = self.scene
-              spark1?.particleLifetime = 0
+        spark1?.targetNode = self.scene
+        spark1?.particleLifetime = 0
         pilot.addChild(spark1!)
               
         
@@ -535,16 +534,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
                 secondNode.removeFromParent()
                 let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in //5 sec delay
-                                     self.spark1?.particleLifetime = 2
+                        self.spark1?.particleLifetime = 2
                          let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
-                            
-                            self.spark1?.particleLifetime = 0
-                           self.player.position = self.pilot.position
-                           self.isPlayerAlive = true
-                            self.addChild(self.player)
-                            self.pilot.removeFromParent()
+                            if !self.isGameOver {
+                                self.spark1?.particleLifetime = 0
+                                self.player.position = self.pilot.position
+                                self.isPlayerAlive = true
+                                self.addChild(self.player)
+                                self.pilot.removeFromParent()
                           
-                           self.playerShields += 1
+                                self.playerShields += 1
+                            }
                        }
                                           }
             }

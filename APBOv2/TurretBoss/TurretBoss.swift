@@ -13,6 +13,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     var playerHP = maxHealth
     var cannonHP = maxHealth
     var isPlayerAlive = true
+    var isGameOver = false
     var varisPaused = 1
     var playerShields = 1
     var waveNumber = 0
@@ -35,13 +36,10 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     var count = 0
     var doubleTap = 0;
     let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
-    let playAgain = SKLabelNode(text: "Tap to Play Again")
     let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
     var direction = 0.0
     let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 2000, height: 1000) )
-     let victory = SKSpriteNode(imageNamed: "victory")
 
-    let gameOver = SKSpriteNode(imageNamed: "gameOver")
     
     var lastFireTime: Double = 0
     
@@ -169,7 +167,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         
         pauseButtonNode = self.childNode(withName: "pause") as? MSButtonNode
         pauseButtonNode.selectedHandlers = {
-            if self.isPlayerAlive {
+            if !self.isGameOver {
                 if self.varisPaused == 0 {
                     self.varisPaused = 1
                     self.scene?.view?.isPaused = false
@@ -184,9 +182,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                     self.backButtonNode.alpha = 1
                     self.restartButtonNode.alpha = 1
                     self.dimPanel.alpha = 0.3
-
                     self.varisPaused = 0
-                    
                     let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
                         if self.backButtonNode.alpha == 1
                         {
@@ -226,7 +222,9 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                                    self.doubleTap = 0
                                }
                            }
-                   }
+                   } else if !self.isPlayerAlive {
+                        self.direction = -0.08
+                    }
                }
                turnButtonNode.selectedHandlers = {
                    
@@ -234,7 +232,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                    let timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { (timer) in
                  self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
                    }
-                   if self.varisPaused == 1 && self.isPlayerAlive {
+                   if self.varisPaused == 1 {
                        self.direction = 0
                    }
                }
@@ -243,7 +241,8 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         shootButtonNode.selectedHandler = {
             self.shootButtonNode.alpha = 0.6
             
-            if self.isPlayerAlive {
+            if self.varisPaused==1 && self.isPlayerAlive {
+                if self.isPlayerAlive {
                 if self.numAmmo > 0 {
                     
                     
@@ -279,12 +278,18 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             
                     self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.2*cos(self.player.zRotation), dy: 1.2*sin(self.player.zRotation)), shakeDuration: 0.04)
                 }
-            }
+                }
+            } else {
+                           self.pilotForward = true
+                           self.pilotThrust1?.particleLifetime = 0.5
+                       }
         }
         shootButtonNode.selectedHandlers = {
-                      self.direction = 0
-                      self.shootButtonNode.alpha = 0.8
-                  }
+            self.pilotDirection = self.pilot.zRotation
+            self.shootButtonNode.alpha = 0.8
+            self.pilotForward = false
+            self.pilotThrust1?.particleLifetime = 0
+        }
         
         
         thruster1?.position = CGPoint(x: -30, y: 0)
@@ -312,13 +317,13 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
 
         let timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
             self.player.zRotation = self.player.zRotation + 1.2*CGFloat(self.direction);
-                
+            self.pilot.zRotation = self.pilot.zRotation + 1.2 * CGFloat(self.direction)
     }
 }
 
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if (!isPlayerAlive) {
+        if isGameOver {
            if let newScene = TurretBossScene(fileNamed: "TurretBoss") {
             newScene.scaleMode = .aspectFit
              self.dimPanel.alpha = 0
@@ -326,7 +331,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             view?.presentScene(newScene, transition: reveal)
             }
         }
-        guard isPlayerAlive else { return }
+        guard isGameOver else { return }
 
         let touch = touches.first
         let positionInScene = touch!.location(in: self)
@@ -344,7 +349,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         }
     
     override func update(_ currentTime: TimeInterval) {
-        
+        if isPlayerAlive {
         let deltaTime = max(1.0/30, currentTime - lastUpdateTime)
         lastUpdateTime = currentTime
               
@@ -406,6 +411,31 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
+        } else {
+                   bullet1.removeFromParent()
+                   bullet2.removeFromParent()
+                   bullet3.removeFromParent()
+                   
+          
+                   
+                   
+                   if self.pilotForward {
+                       pilot.position = CGPoint(x:pilot.position.x + cos(pilot.zRotation+3.141592/2) * 2 ,y:pilot.position.y + sin(pilot.zRotation+3.141592/2) * 2)
+                   } else {
+                       pilot.position = CGPoint(x:pilot.position.x + cos(pilotDirection + 3.141592/2) * 0.9 ,y:pilot.position.y + sin(pilotDirection + 3.141592/2) * 0.9)
+                   }
+                   
+                   if pilot.position.y < frame.minY + 20 {
+                       pilot.position.y = frame.minY + 20
+                   } else if pilot.position.y > frame.maxY - 20 {
+                       pilot.position.y = frame.maxY - 20
+                   }
+                   if pilot.position.x < frame.minX + 20  {
+                       pilot.position.x = frame.minX + 20
+                   } else if player.position.x > frame.maxX - 20 {
+                       pilot.position.x = frame.maxX - 20
+                   }
+               }
                 
         if lastFireTime + 1 < currentTime {
                 lastFireTime = currentTime
@@ -423,15 +453,23 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     }
     
        func updateTurret(_ dt: CFTimeInterval) {
-         let deltaX = player.position.x - turretSprite.position.x
-         let deltaY = player.position.y - turretSprite.position.y
-         let angle = atan2(deltaY, deltaX)
-                    
-         turretSprite.zRotation = angle - 270 * degreesToRadians
+        if !isGameOver {
+            if isPlayerAlive {
+                let deltaX = player.position.x - turretSprite.position.x
+                let deltaY = player.position.y - turretSprite.position.y
+                let angle = atan2(deltaY, deltaX)
+                turretSprite.zRotation = angle - 270 * degreesToRadians
+            } else {
+                let deltaX = pilot.position.x - turretSprite.position.x
+                let deltaY = pilot.position.y - turretSprite.position.y
+                let angle = atan2(deltaY, deltaX)
+                turretSprite.zRotation = angle - 270 * degreesToRadians
+            }
+        }
            }
     
     func shootTurret() {
-        if isPlayerAlive{
+        if !isGameOver {
             let shot = SKSpriteNode(imageNamed: "enemy2Weapon")
             shot.name = "TurretWeapon"
             shot.zRotation = turretSprite.zRotation
@@ -524,7 +562,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             playerShields -= 1
                
             if playerShields == 0 {
-                gameOverScreen()
                 secondNode.removeFromParent()
             }
             
@@ -535,7 +572,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 explosion.position = pilot.position
                 addChild(explosion)
             }
-            gameOver()
+            gameOverScreen()
             secondNode.removeFromParent()
         }
         else if secondNode.name == "turretSprite" {
@@ -596,8 +633,10 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     
     func gameOverScreen() {
         isPlayerAlive = false
+        isGameOver = true
         self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         
+        let playAgain = SKLabelNode(text: "Tap to Play Again")
         playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 250)
         playAgain.zPosition = 100
         playAgain.fontColor = UIColor.white
@@ -618,6 +657,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             explosion.position = player.position
             addChild(explosion)
         }
+        let gameOver = SKSpriteNode(imageNamed: "gameOver")
         gameOver.run(scaleAction)
         
         gameOver.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -627,9 +667,11 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     }
     func victoryScreen() {
         isPlayerAlive = false
+        isGameOver = true
         direction = -0.1
         self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         
+        let playAgain = SKLabelNode(text: "Tap to Play Again")
         playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 250)
         playAgain.zPosition = 100
         playAgain.fontColor = UIColor.white
@@ -651,11 +693,10 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
            self.bullet2.alpha = 0
            self.bullet3.alpha = 0
         
+        let victory = SKSpriteNode(imageNamed: "victory")
         victory.run(scaleAction)
-
         victory.position = CGPoint(x: frame.midX, y: frame.midY)
         victory.zPosition = 100
-        gameOver.size = CGSize(width: 619, height: 118)
             addChild(victory)
     }
 
