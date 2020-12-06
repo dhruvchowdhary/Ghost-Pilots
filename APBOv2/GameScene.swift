@@ -60,6 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var doubleTap = 0;
     let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
     let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
+    let spark1 = SKEmitterNode(fileNamed: "Spark")
     let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
     var direction = 0.0
     let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 2000, height: 1000) )
@@ -329,6 +330,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pilotThrust1?.particleLifetime = 0
         pilot.addChild(pilotThrust1!)
         
+        spark1?.position = CGPoint(x: 0, y: 0)
+              spark1?.targetNode = self.scene
+              spark1?.particleLifetime = 0
+        pilot.addChild(spark1!)
+              
+        
+        
         let turnTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
             self.player.zRotation = self.player.zRotation + 1.2 * CGFloat(self.direction)
             self.pilot.zRotation = self.pilot.zRotation + 1.2 * CGFloat(self.direction)
@@ -353,48 +361,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let touchedNode = self.atPoint(positionInScene)
 
         
-        /*
-         
-        
-        if let name = touchedNode.name {
-            if name == "btn" {
-                let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
-                turnButton.run(fadeAlpha)
-                count = 1
-                direction = 0.1
-                if (doubleTap == 1) {
-                    self.player.zRotation = self.player.zRotation + 1.0;
-                    let movement = SKAction.moveBy(x: 55 * cos(player.zRotation), y: 55 * sin(player.zRotation), duration: 0.2)
-                               player.run(movement)
-                    doubleTap = 0
-                }
-                else {
-                    doubleTap = 1
-                }
-            }
-            else {
-         //       count = 0
-            }
-       }
-        if let name = touchedNode.name {
-            if name == "shoot" {
-                let fadeAlpha = SKAction.fadeAlpha(to: 0.8 , duration: 0.1)
-                    shootButton.run(fadeAlpha)
-        
-                let shot = SKSpriteNode(imageNamed: "bullet")
-                shot.name = "playerWeapon"
-                shot.position = player.position
-                shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-                shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
-                shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-                shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-                addChild(shot)
-                let movement = SKAction.moveBy(x: 1024 * cos(player.zRotation), y: 1024 * sin(player.zRotation), duration: 1.8432)
-                let sequence = SKAction.sequence([movement, .removeFromParent()])
-                    shot.run(sequence)
-            }
-        }
- */
+
     }
  
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -460,6 +427,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bullet2.removeFromParent()
             bullet3.removeFromParent()
             
+   
+            
+            
             if self.pilotForward {
                 pilot.position = CGPoint(x:pilot.position.x + cos(pilot.zRotation+3.141592/2) * 2 ,y:pilot.position.y + sin(pilot.zRotation+3.141592/2) * 2)
             } else {
@@ -501,41 +471,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         }
                     }
                 }
-        
-     /*
-        let deltaTime = max(1.0/30, currentTime - lastUpdateTime)
-        lastUpdateTime = currentTime
-        
-        updatePlayer(deltaTime)
-        updateTurret(deltaTime)
-        checkShipCannonCollision()
-        checkShotCannonCollision()
-     */
-    
-   /*
-    func updatePlayer(_ dt: CFTimeInterval) {
-        
-        player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 2.5 ,y:player.position.y + sin(player.zRotation) * 2.5)
-       
-        
-        if player.position.y < frame.minY + 35 {
-            player.position.y = frame.minY + 35
-        } else if player.position.y > frame.maxY-35 {
-            player.position.y = frame.maxY - 35
-        }
-        
-        if player.position.x < frame.minX + 80 {
-            player.position.x = frame.minX + 80
-        } else if player.position.x > frame.maxX-80 {
-            player.position.x = frame.maxX - 80
-
-                    }
-      */
-        
-      //  thruster1?.position = CGPoint(x:player.position.x + 25 , y:player.position.y - 25 )
-    
-      //  thruster1?.zRotation = player.zRotation
-        //hi2
+   
     
     }
     
@@ -569,89 +505,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
    
- /*   func updateTurret(_ dt: CFTimeInterval) {
-      let deltaX = player.position.x - turretSprite.position.x
-      let deltaY = player.position.y - turretSprite.position.y
-      let angle = atan2(deltaY, deltaX)
-      
-      turretSprite.zRotation = angle - 270 * degreesToRadians
-    }
-    
-    func updateHealthBar(_ node: SKSpriteNode, withHealthPoints hp: Int) {
-      let barSize = CGSize(width: healthBarWidth, height: healthBarHeight);
-      
-      let fillColor = UIColor(red: 113.0/255, green: 202.0/255, blue: 53.0/255, alpha:1)
-      let borderColor = UIColor(red: 35.0/255, green: 28.0/255, blue: 40.0/255, alpha:1)
-      
-      // create drawing context
-      UIGraphicsBeginImageContextWithOptions(barSize, false, 0)
-      guard let context = UIGraphicsGetCurrentContext() else { return }
-      
-      // draw the outline for the health bar
-      borderColor.setStroke()
-      let borderRect = CGRect(origin: CGPoint.zero, size: barSize)
-      context.stroke(borderRect, width: 1)
-      
-      // draw the health bar with a colored rectangle
-      fillColor.setFill()
-      let barWidth = (barSize.width - 1) * CGFloat(hp) / CGFloat(maxHealth)
-      let barRect = CGRect(x: 0.5, y: 0.5, width: barWidth, height: barSize.height - 1)
-      context.fill(barRect)
-      
-      // extract image
-      guard let spriteImage = UIGraphicsGetImageFromCurrentImageContext() else { return }
-      UIGraphicsEndImageContext()
-      
-      // set sprite texture and size
-      node.texture = SKTexture(image: spriteImage)
-      node.size = barSize
-    }
-    
-    func checkShipCannonCollision() {
-       let deltaX = player.position.x - turretSprite.position.x
-       let deltaY = player.position.y - turretSprite.position.y
-       
-       let distance = sqrt(deltaX * deltaX + deltaY * deltaY)
-       guard distance <= cannonCollisionRadius + playerCollisionRadius else { return }
-      
-       
-       let offsetDistance = cannonCollisionRadius + playerCollisionRadius - distance
-       let offsetX = deltaX / distance * offsetDistance
-       let offsetY = deltaY / distance * offsetDistance
-       player.position = CGPoint(
-         x: player.position.x + offsetX,
-         y: player.position.y + offsetY
-       )
-       
-  
-
-       updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
-  
-     }
-    func checkShotCannonCollision() {
-         let deltaX = shot.position.x - turretSprite.position.x
-         let deltaY = shot.position.y - turretSprite.position.y
-         
-         let distance = sqrt(deltaX * deltaX + deltaY * deltaY)
-         guard distance <= cannonCollisionRadius + shotCollisionRadius else { return }
-        
-         
-         let offsetDistance = cannonCollisionRadius + shotCollisionRadius - distance
-         let offsetX = deltaX / distance * offsetDistance
-         let offsetY = deltaY / distance * offsetDistance
-         shot.position = CGPoint(
-           x: shot.position.x + offsetX,
-           y: shot.position.y + offsetY
-         )
-   
-         cannonHP = max(0, cannonHP - 20)
-
-         updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
-        
-          shot.removeFromParent()
-    
-       }
-  */
     func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }
@@ -679,7 +532,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 pilot.zPosition = 1
                 addChild(pilot)
     //            gameOver()
+            
                 secondNode.removeFromParent()
+                let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in //5 sec delay
+                                     self.spark1?.particleLifetime = 2
+                         let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+                            
+                            self.spark1?.particleLifetime = 0
+                           self.player.position = self.pilot.position
+                           self.isPlayerAlive = true
+                            self.addChild(self.player)
+                            self.pilot.removeFromParent()
+                          
+                           self.playerShields += 1
+                       }
+                                          }
             }
             
             firstNode.removeFromParent()
