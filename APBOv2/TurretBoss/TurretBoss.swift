@@ -25,6 +25,11 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     let enemyTypes = Bundle.main.decode([EnemyType].self, from: "enemy-types.json")
     let positions = Array(stride(from: -320, through: 320, by: 80))
     let player = SKSpriteNode(imageNamed: "player")
+    let pilot = SKSpriteNode(imageNamed: "pilot")
+    var pilotForward = false
+    var pilotDirection = CGFloat(0.000)
+    let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
+    let spark1 = SKEmitterNode(fileNamed: "Spark")
     let shot = SKSpriteNode(imageNamed: "bullet")
     var lastUpdateTime: CFTimeInterval = 0
     var count = 0
@@ -85,7 +90,11 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
           addChild(cannonSprite)
                 
         
-
+        pilot.physicsBody = SKPhysicsBody(texture: pilot.texture!, size: pilot.texture!.size())
+              pilot.physicsBody?.categoryBitMask = CollisionType.pilot.rawValue
+              pilot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+              pilot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+              pilot.physicsBody?.isDynamic = false
         
         self.dimPanel.zPosition = 50
          self.dimPanel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
@@ -281,6 +290,16 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         thruster1?.position = CGPoint(x: -30, y: 0)
         thruster1?.targetNode = self.scene
         player.addChild(thruster1!)
+        
+        pilotThrust1?.position = CGPoint(x: 0, y: -20)
+              pilotThrust1?.targetNode = self.scene
+              pilotThrust1?.particleLifetime = 0
+              pilot.addChild(pilotThrust1!)
+              
+              spark1?.position = CGPoint(x: 0, y: 0)
+                    spark1?.targetNode = self.scene
+                    spark1?.particleLifetime = 0
+              pilot.addChild(spark1!)
       
 
         addChild(cannonHealthBar)
@@ -479,6 +498,28 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 explosion.position = firstNode.position
                 addChild(explosion)
             }
+            pilot.name = "pilot"
+                         pilot.size = CGSize(width: 40, height: 40)
+                         pilot.zRotation = player.zRotation - 3.141592/2
+                         pilot.position = player.position
+                         pilot.zPosition = 1
+                         addChild(pilot)
+             //            gameOver()
+                     
+                         secondNode.removeFromParent()
+                         let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in //5 sec delay
+                                              self.spark1?.particleLifetime = 2
+                                  let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+                                     
+                                     self.spark1?.particleLifetime = 0
+                                    self.player.position = self.pilot.position
+                                    self.isPlayerAlive = true
+                                     self.addChild(self.player)
+                                     self.pilot.removeFromParent()
+                                   
+                                    self.playerShields += 1
+                                }
+                                                   }
             
             playerShields -= 1
                
@@ -489,8 +530,15 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             
             firstNode.removeFromParent()
         
+        } else if secondNode.name == "pilot" {
+            if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+                explosion.position = pilot.position
+                addChild(explosion)
+            }
+            gameOver()
+            secondNode.removeFromParent()
         }
-        if secondNode.name == "turretSprite" {
+        else if secondNode.name == "turretSprite" {
             guard isPlayerAlive else { return }
             
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {

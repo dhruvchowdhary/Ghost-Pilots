@@ -224,7 +224,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.direction = -0.08
             
                 if (self.doubleTap==1) {
-                    self.player.zRotation = self.player.zRotation - 1.5708;
+                    self.player.zRotation = self.player.zRotation - 1;
                     let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
                     self.player.run(movement)
                     self.thruster1?.particleColorSequence = nil
