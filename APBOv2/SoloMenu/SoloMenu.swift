@@ -60,7 +60,7 @@ var buttonPlay: MSButtonNode!
         scene.scaleMode = .aspectFit
 
         /* Show debug */
-        skView.showsPhysics = false
+        skView.showsPhysics = true
         skView.showsDrawCount = false
         skView.showsFPS = false
 

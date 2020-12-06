@@ -128,7 +128,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
         player.physicsBody?.isDynamic = false
         
-        pilot.physicsBody = SKPhysicsBody(texture: pilot.texture!, size: pilot.texture!.size())
+        pilot.size = CGSize(width: 40, height: 40)
+        pilot.physicsBody = SKPhysicsBody(texture: pilot.texture!, size: pilot.size)
         pilot.physicsBody?.categoryBitMask = CollisionType.pilot.rawValue
         pilot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
         pilot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue

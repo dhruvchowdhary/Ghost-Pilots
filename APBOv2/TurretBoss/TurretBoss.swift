@@ -88,8 +88,8 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         cannonSprite.zPosition = 0
           addChild(cannonSprite)
                 
-        
-        pilot.physicsBody = SKPhysicsBody(texture: pilot.texture!, size: pilot.texture!.size())
+        pilot.size = CGSize(width: 40, height: 40)
+        pilot.physicsBody = SKPhysicsBody(texture: pilot.texture!, size: pilot.size)
               pilot.physicsBody?.categoryBitMask = CollisionType.pilot.rawValue
               pilot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
               pilot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
