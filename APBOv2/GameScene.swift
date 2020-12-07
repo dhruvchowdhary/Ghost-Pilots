@@ -431,8 +431,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bullet2.removeFromParent()
             bullet3.removeFromParent()
             
-   
-            
             
             if self.pilotForward {
                 pilot.position = CGPoint(x:pilot.position.x + cos(pilot.zRotation+3.141592/2) * 2 ,y:pilot.position.y + sin(pilot.zRotation+3.141592/2) * 2)
