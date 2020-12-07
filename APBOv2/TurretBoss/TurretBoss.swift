@@ -545,8 +545,8 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         if secondNode.name == "player" {
             
             
-            if let explosion = SKEmitterNode(fileNamed: "Explosion") {
-                explosion.position = firstNode.position
+            if let explosion = SKEmitterNode(fileNamed: "ShipExplosion") {
+                explosion.position = secondNode.position
                 addChild(explosion)
             }
             pilot.name = "pilot"
@@ -614,40 +614,41 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 victoryScreen()
         }
         
-            /*
+            
         
                   else if let enemy = firstNode as? EnemyNode {
             enemy.shields -= 1
             
             if enemy.shields == 0 {
-                if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+   /*             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                     explosion.position = enemy.position
                     addChild(explosion)
                     print("a")
                 }
                 enemy.removeFromParent()
                 print("1")
-   
+   */
             }
-            if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+    /*        if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = enemy.position
                 addChild(explosion)
                 print("b")
             }
             secondNode.removeFromParent()
-            print("2")
+            print("2")*/
         } else {
-            if let explosion = SKEmitterNode(fileNamed: "Explosion") {
-                explosion.position = secondNode.position
-                addChild(explosion)
-                print("c")
-            }
             firstNode.removeFromParent()
-         //   secondNode.removeFromParent()
-    
+            if secondNode.name == "playerWeapon" {
+                if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+                    explosion.position = secondNode.position
+                    addChild(explosion)
+                }
+                secondNode.removeFromParent()
+                print("a")
+            }
             print("d")
         }
-        */
+        
         
     }
     
@@ -684,10 +685,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         self.bullet2.alpha = 0
         self.bullet3.alpha = 0
         
-        if let explosion = SKEmitterNode(fileNamed: "Explosion") {
-            explosion.position = player.position
-            addChild(explosion)
-        }
         let gameOver = SKSpriteNode(imageNamed: "gameOver")
         gameOver.run(scaleAction)
         
@@ -715,10 +712,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         self.backButtonNode.alpha = 1
          self.dimPanel.alpha = 0.3
         
-        if let explosion = SKEmitterNode(fileNamed: "Explosion") {
-            explosion.position = turretSprite.position
-            addChild(explosion)
-        }
         
            self.bullet1.alpha = 0
            self.bullet2.alpha = 0
