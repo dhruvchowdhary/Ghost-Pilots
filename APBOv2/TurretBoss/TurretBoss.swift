@@ -176,6 +176,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                     self.backButtonNode.alpha = 0
                     self.restartButtonNode.alpha = 0
                     self.dimPanel.alpha = 0
+                   
 
             //        self.dimPanel.removeFromParent()
                 }
@@ -297,15 +298,9 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         thruster1?.targetNode = self.scene
         player.addChild(thruster1!)
         
-        pilotThrust1?.position = CGPoint(x: 0, y: -20)
-              pilotThrust1?.targetNode = self.scene
-              pilotThrust1?.particleAlpha = 0
-              pilot.addChild(pilotThrust1!)
+ 
               
-              spark1?.position = CGPoint(x: 0, y: 0)
-                    spark1?.targetNode = self.scene
-                    spark1?.particleAlpha = 0
-              pilot.addChild(spark1!)
+              
       
 
         addChild(cannonHealthBar)
@@ -538,6 +533,15 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         if firstNode.name == "player" && secondNode.name == "turretSprite" {
             
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+                           explosion.position = player.position
+                           addChild(explosion)
+            }
+            gameOverScreen()
+        }
+        
+        if firstNode.name == "pilot" && secondNode.name == "turretSprite" {
+            
+            if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                            explosion.position = pilot.position
                            addChild(explosion)
             }
@@ -558,13 +562,53 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                          addChild(pilot)
              //            gameOver()
                             
+            pilotThrust1?.position = CGPoint(x: 0, y: -20)
+                   pilotThrust1?.targetNode = self.scene
+                   pilotThrust1?.particleAlpha = 0
+                   pilot.addChild(pilotThrust1!)
                             
                           firstNode.removeFromParent()
                          secondNode.removeFromParent()
             
+                            let wait = SKAction.wait(forDuration:7)
+                            let action = SKAction.run {
+                                self.spark1?.position = CGPoint(x: 0, y: 0)
+                                self.spark1?.targetNode = self.scene
+                                self.spark1?.particleAlpha = 1
+                                self.pilot.addChild(self.spark1!)
+                                self.spark1?.particleAlpha = 1
+                                self.spark1?.particleLifetime = 1
+                                
+                                
+                                let wait1 = SKAction.wait(forDuration:1)
+                                                               let action1 = SKAction.run {
+                                                                      if !self.isGameOver {
+                                                                        self.spark1?.removeFromParent()
+                                                                         self.pilotThrust1?.particleAlpha = 0
+                                                                             //   self.spark1?.particleLifetime = 0
+                                                                               self.player.position = self.pilot.position
+                                                                               self.isPlayerAlive = true
+                                                                               self.addChild(self.player)
+                                                                        self.pilotThrust1?.removeFromParent()
+                                                                               self.pilot.removeFromParent()
+                                                                                               
+                                                                               self.playerShields += 1
+                                                                               self.numAmmo = 3
+                                                                               self.addChild(self.bullet1)
+                                                                               self.addChild(self.bullet2)
+                                                                               self.addChild(self.bullet3)
+                                                               }
+                                                           }
+                                self.run(SKAction.sequence([wait1,action1]))
+                            }
+                            run(SKAction.sequence([wait,action]))
+            
+                             self.spark1?.particleAlpha = 0
+            
+            /*
             
                          let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in //5 sec delay
-                            self.spark1?.particleAlpha = 1
+                           
                                   let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
                                     if !self.isGameOver {
                                      self.spark1?.particleAlpha = 0
@@ -581,6 +625,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                                     }
                                 }
                                                    }
+ */
             
             playerShields -= 1
                

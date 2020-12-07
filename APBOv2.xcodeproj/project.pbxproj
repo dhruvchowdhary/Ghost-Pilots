@@ -47,7 +47,7 @@
 		748CEDAD25658207005DF246 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		748CEDB3256C151F005DF246 /* SoloMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoloMenu.swift; sourceTree = "<group>"; };
 		748CEDB5256C1568005DF246 /* SoloMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SoloMenu.sks; sourceTree = "<group>"; };
-		748CEDBD256D6EF8005DF246 /* TurretBoss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBoss.swift; sourceTree = "<group>"; };
+		748CEDBD256D6EF8005DF246 /* TurretBoss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBoss.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		748CEDC0256D6F24005DF246 /* TurretBoss.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TurretBoss.sks; sourceTree = "<group>"; };
 		748CEDC3256D7362005DF246 /* OnlineMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineMenu.swift; sourceTree = "<group>"; };
 		748CEDC5256D737B005DF246 /* OnlineMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OnlineMenu.sks; sourceTree = "<group>"; };
