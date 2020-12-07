@@ -108,8 +108,8 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         turretSprite.zPosition = 4
      
         turretSprite.physicsBody?.categoryBitMask = CollisionType.enemy.rawValue
-        turretSprite.physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
-        turretSprite.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
+        turretSprite.physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue | CollisionType.pilot.rawValue
+        turretSprite.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue | CollisionType.pilot.rawValue
  
  
         backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
@@ -532,8 +532,17 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         let firstNode = sortedNodes[0]
         let secondNode = sortedNodes[1]
         
+        
+        if firstNode.name == "player" && secondNode.name == "turretSprite" {
+            
+            if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+                           explosion.position = pilot.position
+                           addChild(explosion)
+            }
+            gameOverScreen()
+        }
         if secondNode.name == "player" {
-            guard !isGameOver else { return }
+            
             
             playerShields -= 1
             if playerShields == 0 {
@@ -551,8 +560,12 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                          pilot.zPosition = 1
                          addChild(pilot)
              //            gameOver()
-                     
+                            
+                            
+                          firstNode.removeFromParent()
                          secondNode.removeFromParent()
+            
+            
                          let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in //5 sec delay
                                               self.spark1?.particleLifetime = 2
                                   let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
@@ -567,19 +580,26 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                                 }
                                                    }
             
+            playerShields -= 1
+               
+            if playerShields == 0 {
+                isPlayerAlive = false
+                self.player.removeFromParent()
+            }
             
-            firstNode.removeFromParent()
+            //firstNode.removeFromParent()
         
         } else if secondNode.name == "pilot" {
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = pilot.position
                 addChild(explosion)
+                //shot.removeFromParent()
             }
             gameOverScreen()
             secondNode.removeFromParent()
         }
         else if secondNode.name == "turretSprite" {
-            guard isPlayerAlive else { return }
+      
             
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = firstNode.position
@@ -589,39 +609,50 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
             shot.removeFromParent()
             firstNode.removeFromParent()
+            
+            print("hi")
+            //gameOverScreen()
         }
         
         if cannonHP == 0 {
                 victoryScreen()
         }
         
+            /*
         
-        else if let enemy = firstNode as? EnemyNode {
+                  else if let enemy = firstNode as? EnemyNode {
             enemy.shields -= 1
-             gameOverScreen()
+            
             if enemy.shields == 0 {
-
-      /*         if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+                if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                     explosion.position = enemy.position
                     addChild(explosion)
-               }*/
-       //         enemy.removeFromParent()
+                    print("a")
+                }
+                enemy.removeFromParent()
+                print("1")
+   
             }
   /*          if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = enemy.position
                 addChild(explosion)
-            }*/
-  //          secondNode.removeFromParent()
+                print("b")
+            }
+            secondNode.removeFromParent()
+            print("2")
         } else {
             if isPlayerAlive {
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = secondNode.position
                 addChild(explosion)
+                print("c")
             }
-           firstNode.removeFromParent()
-      //      secondNode.removeFromParent()
-            }
+            firstNode.removeFromParent()
+         //   secondNode.removeFromParent()
+    
+            print("d")
         }
+        */
         
     }
     
