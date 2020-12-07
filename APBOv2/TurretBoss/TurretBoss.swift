@@ -202,9 +202,9 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                        self.turnButtonNode.alpha = 0.6
                        self.count = 1
                    
-                       if (self.doubleTap==1) {
-                           self.player.zRotation = self.player.zRotation - 3.141592/2 + self.rotation
-                           let movement = SKAction.moveBy(x: 55 * cos(self.player.zRotation), y: 55 * sin(self.player.zRotation), duration: 0.2)
+                       if (self.doubleTap == 1) {
+                        self.player.zRotation = self.player.zRotation - 3.141592/2 + self.rotation + 0.24
+                           let movement = SKAction.moveBy(x: 60 * cos(self.player.zRotation), y: 60 * sin(self.player.zRotation), duration: 0.15)
                            self.player.run(movement)
                            self.thruster1?.particleColorSequence = nil
                            self.thruster1?.particleColorBlendFactor = 1.0
@@ -212,7 +212,8 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                             self.thruster1?.particleColor = UIColor(red: 240.0/255, green: 50.0/255, blue: 53.0/255, alpha:1)
                                        
                         self.rotation = 0
-                           self.doubleTap = 0
+                        self.doubleTap = 0
+                        self.direction = -0.08
                            }
                            else {
                         self.direction = -0.08
@@ -281,14 +282,14 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 }
             } else {
                            self.pilotForward = true
-                           self.pilotThrust1?.particleLifetime = 0.5
+                           self.pilotThrust1?.particleAlpha = 1
                        }
         }
         shootButtonNode.selectedHandlers = {
             self.pilotDirection = self.pilot.zRotation
             self.shootButtonNode.alpha = 0.8
             self.pilotForward = false
-            self.pilotThrust1?.particleLifetime = 0
+            self.pilotThrust1?.particleAlpha = 0
         }
         
         
@@ -298,12 +299,12 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         
         pilotThrust1?.position = CGPoint(x: 0, y: -20)
               pilotThrust1?.targetNode = self.scene
-              pilotThrust1?.particleLifetime = 0
+              pilotThrust1?.particleAlpha = 0
               pilot.addChild(pilotThrust1!)
               
               spark1?.position = CGPoint(x: 0, y: 0)
                     spark1?.targetNode = self.scene
-                    spark1?.particleLifetime = 0
+                    spark1?.particleAlpha = 0
               pilot.addChild(spark1!)
       
 
@@ -360,7 +361,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
               
         updateTurret(deltaTime)
             if isPlayerAlive {
-        player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.5 ,y:player.position.y + sin(player.zRotation) * 3.5)
+        player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.7 ,y:player.position.y + sin(player.zRotation) * 3.7)
                 pilotDirection = player.zRotation - 3.141592/2
         
         bullet1.position = player.position
@@ -544,7 +545,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         }
         if secondNode.name == "player" {
             
-            
+            self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
             if let explosion = SKEmitterNode(fileNamed: "ShipExplosion") {
                 explosion.position = secondNode.position
                 addChild(explosion)
@@ -564,15 +565,21 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             
                          let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in //5 sec delay
                                               self.spark1?.particleLifetime = 2
+                            self.spark1?.particleAlpha = 1
                                   let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
-                                     
-                                     self.spark1?.particleLifetime = 0
+                                    if !self.isGameOver {
+                                     self.spark1?.particleAlpha = 0
                                     self.player.position = self.pilot.position
                                     self.isPlayerAlive = true
                                      self.addChild(self.player)
                                      self.pilot.removeFromParent()
                                    
                                     self.playerShields += 1
+                                        self.numAmmo = 3
+                                        self.addChild(self.bullet1)
+                                        self.addChild(self.bullet2)
+                                        self.addChild(self.bullet3)
+                                    }
                                 }
                                                    }
             
@@ -666,7 +673,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     func gameOverScreen() {
         isPlayerAlive = false
         isGameOver = true
-        self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         
         let playAgain = SKLabelNode(text: "Tap to Play Again")
         playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 250)
