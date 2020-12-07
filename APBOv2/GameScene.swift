@@ -522,7 +522,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if secondNode.name == "player" {
             guard !isGameOver else { return }
             
-            
             playerShields -= 1
             if playerShields == 0 {
                 isPlayerAlive = false
