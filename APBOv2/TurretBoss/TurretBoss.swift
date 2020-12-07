@@ -564,7 +564,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             
             
                          let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in //5 sec delay
-                                              self.spark1?.particleLifetime = 2
                             self.spark1?.particleAlpha = 1
                                   let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
                                     if !self.isGameOver {
