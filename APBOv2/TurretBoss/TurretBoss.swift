@@ -536,7 +536,9 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                            explosion.position = player.position
                            addChild(explosion)
             }
-            gameOverScreen()
+            if !isGameOver {
+                gameOverScreen()
+            }
         }
         
         if firstNode.name == "pilot" && secondNode.name == "turretSprite" {
@@ -545,7 +547,9 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                            explosion.position = pilot.position
                            addChild(explosion)
             }
-            gameOverScreen()
+            if !isGameOver {
+                gameOverScreen()
+            }
         }
         if secondNode.name == "player" {
             
@@ -642,8 +646,10 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 addChild(explosion)
                 //shot.removeFromParent()
             }
-            gameOverScreen()
-            secondNode.removeFromParent()
+            if !isGameOver {
+                gameOverScreen()
+                secondNode.removeFromParent()
+            }
         }
         else if secondNode.name == "turretSprite" {
       
@@ -662,7 +668,9 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if cannonHP == 0 {
+            if !isGameOver {
                 victoryScreen()
+            }
         }
         
             
