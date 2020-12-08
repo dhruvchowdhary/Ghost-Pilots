@@ -663,7 +663,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             shot.removeFromParent()
             firstNode.removeFromParent()
             
-            print("hi")
+            //print("hi")
             //gameOverScreen()
         }
         
