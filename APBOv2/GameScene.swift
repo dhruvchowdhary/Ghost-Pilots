@@ -596,7 +596,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                        self.player.removeFromParent()
                    }
         } else if secondNode.name == "pilot" {
-            if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+            if let explosion = SKEmitterNode(fileNamed: "PilotBlood") {
                 explosion.position = pilot.position
                 addChild(explosion)
             }

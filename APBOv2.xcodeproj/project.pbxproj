@@ -37,6 +37,7 @@
 		74C3CFDD2553109000757586 /* EnemyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3CFDC2553109000757586 /* EnemyType.swift */; };
 		74CF6842257C2EA8000C4E47 /* ShipExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF6841257C2EA8000C4E47 /* ShipExplosion.sks */; };
 		74CF6846257C4E26000C4E47 /* PilotThrust.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF6845257C4E26000C4E47 /* PilotThrust.sks */; };
+		74CF6848257FDF30000C4E47 /* PilotBlood.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF6847257FDF30000C4E47 /* PilotBlood.sks */; };
 		8100B1832575524900AA8A1F /* TurretBossNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8100B1822575524900AA8A1F /* TurretBossNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +74,7 @@
 		74C3CFDC2553109000757586 /* EnemyType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyType.swift; sourceTree = "<group>"; };
 		74CF6841257C2EA8000C4E47 /* ShipExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ShipExplosion.sks; sourceTree = "<group>"; };
 		74CF6845257C4E26000C4E47 /* PilotThrust.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PilotThrust.sks; sourceTree = "<group>"; };
+		74CF6847257FDF30000C4E47 /* PilotBlood.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PilotBlood.sks; sourceTree = "<group>"; };
 		8100B1822575524900AA8A1F /* TurretBossNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBossNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -189,6 +191,7 @@
 			children = (
 				749EBC0D25599D84003EA0B3 /* Explosion.sks */,
 				7451FF772576FE8F0074CC2E /* Spark.sks */,
+				74CF6847257FDF30000C4E47 /* PilotBlood.sks */,
 				74CF6841257C2EA8000C4E47 /* ShipExplosion.sks */,
 				74C3CFD025506D0300757586 /* Thrusters.sks */,
 				74CF6845257C4E26000C4E47 /* PilotThrust.sks */,
@@ -266,6 +269,7 @@
 				749EBC1025599EF3003EA0B3 /* enemy-types.json in Resources */,
 				74C3CFD225506D0300757586 /* Thrusters.sks in Resources */,
 				74C3CFC0253F3BED00757586 /* LaunchScreen.storyboard in Resources */,
+				74CF6848257FDF30000C4E47 /* PilotBlood.sks in Resources */,
 				74CF6846257C4E26000C4E47 /* PilotThrust.sks in Resources */,
 				74C3CFD325506D0300757586 /* Assets.xcassets in Resources */,
 				74C3CFB4253F3BE900757586 /* Actions.sks in Resources */,

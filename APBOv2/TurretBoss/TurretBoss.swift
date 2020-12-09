@@ -641,7 +641,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             //firstNode.removeFromParent()
         
         } else if secondNode.name == "pilot" {
-            if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+            if let explosion = SKEmitterNode(fileNamed: "pilotBlood") {
                 explosion.position = pilot.position
                 addChild(explosion)
                 //shot.removeFromParent()
