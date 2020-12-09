@@ -8,16 +8,16 @@
 	},
 	{
 		"name": "enemy2",
-		"shields": 3,
+		"shields": 2,
 		"speed": 200,
 		"powerUpChance": 5,
-        "scoreinc": 3,
+        "scoreinc": 2,
 	},
 	{
 		"name": "enemy3",
-		"shields": 5,
+		"shields": 3,
 		"speed": 100,
 		"powerUpChance": 2,
-        "scoreinc": 5,
+        "scoreinc": 3,
 	}
 ]
