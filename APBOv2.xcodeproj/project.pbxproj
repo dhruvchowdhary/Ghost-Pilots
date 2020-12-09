@@ -56,7 +56,7 @@
 		749EBC57255AF9E7003EA0B3 /* waves.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = waves.json; sourceTree = "<group>"; };
 		749EBC59255AFA34003EA0B3 /* Wave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wave.swift; sourceTree = "<group>"; };
 		749EBC5B255AFA58003EA0B3 /* Bundle-Decoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle-Decoding.swift"; sourceTree = "<group>"; };
-		74C3CFAC253F3BE900757586 /* APBO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APBO.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		74C3CFAC253F3BE900757586 /* Ghost Pilots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ghost Pilots.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74C3CFAF253F3BE900757586 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74C3CFB1253F3BE900757586 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		74C3CFB3253F3BE900757586 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 		74C3CFAD253F3BE900757586 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				74C3CFAC253F3BE900757586 /* APBO.app */,
+				74C3CFAC253F3BE900757586 /* Ghost Pilots.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -215,7 +215,7 @@
 			);
 			name = APBOv2;
 			productName = APBOv2;
-			productReference = 74C3CFAC253F3BE900757586 /* APBO.app */;
+			productReference = 74C3CFAC253F3BE900757586 /* Ghost Pilots.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -450,7 +450,7 @@
 				);
 				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.astroparty;
-				PRODUCT_NAME = APBO;
+				PRODUCT_NAME = "Ghost Pilots";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -470,7 +470,7 @@
 				);
 				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.astroparty;
-				PRODUCT_NAME = APBO;
+				PRODUCT_NAME = "Ghost Pilots";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
