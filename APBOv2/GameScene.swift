@@ -71,12 +71,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var numAmmo = 3
     var regenAmmo = false
     
-     let scaleAction = SKAction.scale(to: 2.2, duration: 0.4)
+    let scaleAction = SKAction.scale(to: 2.2, duration: 0.4)
     
     
     let bullet1 = SKSpriteNode(imageNamed: "bullet")
-     let bullet2 = SKSpriteNode(imageNamed: "bullet")
-     let bullet3 = SKSpriteNode(imageNamed: "bullet")
+    let bullet2 = SKSpriteNode(imageNamed: "bullet")
+    let bullet3 = SKSpriteNode(imageNamed: "bullet")
     
     
     
@@ -86,22 +86,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //size = view.bounds.size
         backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
-                particles.position = CGPoint(x: frame.midX, y: frame.midY)
-        //      particles.advanceSimulationTime(60)
-                particles.zPosition = -1
-                addChild(particles)
+            particles.position = CGPoint(x: frame.midX, y: frame.midY)
+            //      particles.advanceSimulationTime(60)
+            particles.zPosition = -1
+            addChild(particles)
         }
         
         
-            addChild(bullet1)
-            addChild(bullet2)
-            addChild(bullet3)
+        addChild(bullet1)
+        addChild(bullet2)
+        addChild(bullet3)
         
         self.dimPanel.zPosition = 50
         self.dimPanel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         self.addChild(self.dimPanel)
         self.dimPanel.alpha = 0
-                
+        
         points.position = CGPoint(x: frame.midX, y: frame.maxY-135)
         points.zPosition = 2
         points.fontColor = UIColor.white
@@ -120,7 +120,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.position.y = frame.midY-80
         player.zPosition = 1
         addChild(player)
-
+        
         player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.texture!.size())
         player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
         player.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
@@ -133,7 +133,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pilot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
         pilot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
         pilot.physicsBody?.isDynamic = false
-
+        
         
         backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
         backButtonNode.alpha = 0
@@ -143,21 +143,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 print("Could not get Skview")
                 return
             }
-
+            
             /* 2) Load Menu scene */
             guard let scene = SoloMenu(fileNamed:"SoloMenu") else {
                 print("Could not make GameScene, check the name is spelled correctly")
                 return
             }
-
+            
             /* 3) Ensure correct aspect mode */
             scene.scaleMode = .aspectFit
-
+            
             /* Show debug */
             skView.showsPhysics = false
             skView.showsDrawCount = false
             skView.showsFPS = false
-
+            
             /* 4) Start game scene */
             skView.presentScene(scene)
         }
@@ -170,21 +170,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 print("Could not get Skview")
                 return
             }
-
+            
             /* 2) Load Menu scene */
             guard let scene = GameScene(fileNamed:"GameScene") else {
                 print("Could not make GameScene, check the name is spelled correctly")
                 return
             }
-
+            
             /* 3) Ensure correct aspect mode */
             scene.scaleMode = .aspectFit
-
+            
             /* Show debug */
             skView.showsPhysics = false
             skView.showsDrawCount = false
             skView.showsFPS = false
-
+            
             /* 4) Start game scene */
             skView.presentScene(scene)
         }
@@ -198,7 +198,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.backButtonNode.alpha = 0
                     self.restartButtonNode.alpha = 0
                     self.dimPanel.alpha = 0
-
+                    
                 }
                 else {
                     self.backButtonNode.alpha = 1
@@ -214,7 +214,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
-
+        
         
         turnButtonNode = self.childNode(withName: "turnButton") as? MSButtonNode
         turnButtonNode.selectedHandler = {
@@ -228,22 +228,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.thruster1?.particleColorSequence = nil
                     self.thruster1?.particleColorBlendFactor = 1.0
                     
-          
-                            self.thruster1?.particleColor = UIColor(red: 240.0/255, green: 50.0/255, blue: 53.0/255, alpha:1)
-                                
+                    
+                    self.thruster1?.particleColor = UIColor(red: 240.0/255, green: 50.0/255, blue: 53.0/255, alpha:1)
+                    
                     self.rotation = 0
                     self.doubleTap = 0
                     self.direction = -0.08
-                    }
-                    else {
+                }
+                else {
                     self.direction = -0.08
-                        self.doubleTap = 1
-                       //  self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
-                        let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
-                            self.doubleTap = 0
-                        }
+                    self.doubleTap = 1
+                    //  self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
+                    let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
+                        self.doubleTap = 0
                     }
-            
+                }
+                
             } else if !self.isPlayerAlive {
                 self.direction = -0.08
             }
@@ -252,7 +252,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             self.turnButtonNode.alpha = 0.8
             let timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { (timer) in
-          self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
+                self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
             }
             if self.varisPaused == 1 {
                 self.direction = 0
@@ -267,17 +267,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if self.varisPaused==1 && self.isPlayerAlive {
                 if self.isPlayerAlive {
                     if self.numAmmo > 0 {
-                    
+                        
                         
                         if self.numAmmo == 3 {
-                                    self.bullet1.removeFromParent()
-                                    }
-                                    else if self.numAmmo == 2 {
-                                          self.bullet2.removeFromParent()
-                                    }
-                                    else if self.numAmmo == 1 {
-                                        self.bullet3.removeFromParent()
-                                    }
+                            self.bullet1.removeFromParent()
+                        }
+                        else if self.numAmmo == 2 {
+                            self.bullet2.removeFromParent()
+                        }
+                        else if self.numAmmo == 1 {
+                            self.bullet3.removeFromParent()
+                        }
                         
                         let shot = SKSpriteNode(imageNamed: "bullet")
                         shot.name = "playerWeapon"
@@ -287,22 +287,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
                         shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
                         self.addChild(shot)
-                    
+                        
                         let movement = SKAction.moveBy(x: 1500 * cos(self.player.zRotation), y: 1500 * sin(self.player.zRotation), duration: 2.6)
                         let sequence = SKAction.sequence([movement, .removeFromParent()])
                         shot.run(sequence)
                         
                         self.numAmmo = self.numAmmo - 1
-                    
+                        
                         let recoil = SKAction.moveBy(x: -8 * cos(self.player.zRotation), y: -8 * sin(self.player.zRotation), duration: 0.01)
-                    
+                        
                         self.player.run(recoil)
-                
-                    /*
- self.player.position = CGPoint(x:self.player.position.x - cos(self.player.zRotation) * 50 ,y:self.player.position.y - sin(self.player.zRotation) * 50)
-                    
-                    */
-                    
+                        
+                        /*
+                         self.player.position = CGPoint(x:self.player.position.x - cos(self.player.zRotation) * 50 ,y:self.player.position.y - sin(self.player.zRotation) * 50)
+                         
+                         */
+                        
                         self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.2*cos(self.player.zRotation), dy: 1.2*sin(self.player.zRotation)), shakeDuration: 0.04)
                         
                     }
@@ -324,9 +324,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         thruster1?.targetNode = self.scene
         player.addChild(thruster1!)
         
- 
-   
-              
+        
+        
+        
         
         
         let turnTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
@@ -338,29 +338,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.rotation = 0
             }
         }
-}
-
+    }
     
- 
+    
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if (isGameOver) {
-           if let newScene = SKScene(fileNamed: "GameScene") {
-            newScene.scaleMode = .aspectFit
-            self.dimPanel.alpha = 0
-            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-            view?.presentScene(newScene, transition: reveal)
+            if let newScene = SKScene(fileNamed: "GameScene") {
+                newScene.scaleMode = .aspectFit
+                self.dimPanel.alpha = 0
+                let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+                view?.presentScene(newScene, transition: reveal)
             }
         }
         guard isGameOver else { return }
-
+        
         let touch = touches.first
         let positionInScene = touch!.location(in: self)
         let touchedNode = self.atPoint(positionInScene)
-
         
-
+        
+        
     }
- 
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
         let squishNormal = SKAction.scale(to: 1.0, duration: 0.05)
@@ -375,19 +375,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.7 ,y:player.position.y + sin(player.zRotation) * 3.7)
             pilotDirection = player.zRotation - 3.141592/2
             let revolve1 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime )), y: -CGFloat(50 * sin(2 * currentTime)), duration: 0.000001)
-               
+            
             let revolve2 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 2.0944)), y: -CGFloat(50 * sin(2 * currentTime + 2.0944)), duration: 0.000001)
-               
+            
             let revolve3 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 4.18879)), y: -CGFloat(50 * sin(2 * currentTime + 4.18879)), duration: 0.000001)
-               
+            
             bullet1.run(revolve1)
             bullet2.run(revolve2)
             bullet3.run(revolve3)
-               
+            
             bullet1.position = player.position
             bullet2.position = player.position
             bullet3.position = player.position
-        
+            
             if player.position.y < frame.minY + 35 {
                 player.position.y = frame.minY + 35
             } else if player.position.y > frame.maxY - 35 {
@@ -398,23 +398,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else if player.position.x > frame.maxX - 35 {
                 player.position.x = frame.maxX - 35
             }
-        
+            
             if self.numAmmo < 3 {
                 if !self.regenAmmo {
                     self.regenAmmo = true
                     let ammoTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { (timer) in
-                    self.numAmmo = self.numAmmo + 1
-                     
+                        self.numAmmo = self.numAmmo + 1
+                        
                         if self.numAmmo == 1 {
-                             self.addChild(self.bullet3)
+                            self.addChild(self.bullet3)
                         }
                         else if self.numAmmo == 2 {
-                             self.addChild(self.bullet2)
+                            self.addChild(self.bullet2)
                         }
                         else if self.numAmmo == 3 {
-                             self.addChild(self.bullet1)
+                            self.addChild(self.bullet1)
                         }
-                   
+                        
                         self.regenAmmo = false
                     }
                 }
@@ -442,32 +442,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 pilot.position.x = frame.maxX - 20
             }
         }
-                for child in children {
-                    if child.frame.maxX < 0 {
-                        if !frame.intersects(child.frame) {
-                            child.removeFromParent()
-                        }
-                    }
+        for child in children {
+            if child.frame.maxX < 0 {
+                if !frame.intersects(child.frame) {
+                    child.removeFromParent()
                 }
+            }
+        }
+        
+        let activeEnemies = children.compactMap { $0 as? EnemyNode }
+        if activeEnemies.isEmpty {
+            createWave()
+        }
+        
+        for enemy in activeEnemies {
+            guard frame.intersects(enemy.frame) else { continue }
+            
+            if enemy.lastFireTime + 1 < currentTime {
+                enemy.lastFireTime = currentTime
                 
-                let activeEnemies = children.compactMap { $0 as? EnemyNode }
-                if activeEnemies.isEmpty {
-                    createWave()
+                if Int.random(in: 0...2) == 0 || Int.random(in: 0...2) == 1 {
+                    enemy.fire()
                 }
-                
-                for enemy in activeEnemies {
-                    guard frame.intersects(enemy.frame) else { continue }
-                    
-                    if enemy.lastFireTime + 1 < currentTime {
-                        enemy.lastFireTime = currentTime
-                        
-                        if Int.random(in: 0...2) == 0 || Int.random(in: 0...2) == 1 {
-                            enemy.fire()
-                        }
-                    }
-                }
-   
-    
+            }
+        }
+        
+        
     }
     
     func createWave() {
@@ -499,7 +499,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
-   
+    
     func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }
@@ -509,92 +509,95 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let firstNode = sortedNodes[0]
         let secondNode = sortedNodes[1]
         
-          if secondNode.name == "player" {
-                   
-                   self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
-                   if let explosion = SKEmitterNode(fileNamed: "ShipExplosion") {
-                       explosion.position = secondNode.position
-                       addChild(explosion)
-                   }
-                   pilot.name = "pilot"
-                                pilot.size = CGSize(width: 40, height: 40)
-                                pilot.zRotation = player.zRotation - 3.141592/2
-                                pilot.position = player.position
-                                pilot.zPosition = 1
-                                addChild(pilot)
-                    //            gameOver()
-                                   
-                   pilotThrust1?.position = CGPoint(x: 0, y: -20)
-                          pilotThrust1?.targetNode = self.scene
-                          pilotThrust1?.particleAlpha = 0
-                          pilot.addChild(pilotThrust1!)
-                                   
-                                 firstNode.removeFromParent()
-                                secondNode.removeFromParent()
-                   
-                                   let wait = SKAction.wait(forDuration:7)
-                                   let action = SKAction.run {
-                                       self.spark1?.position = CGPoint(x: 0, y: 0)
-                                       self.spark1?.targetNode = self.scene
-                                       self.spark1?.particleAlpha = 1
-                                       self.pilot.addChild(self.spark1!)
-                                       self.spark1?.particleAlpha = 1
-                                       self.spark1?.particleLifetime = 1
-                                       
-                                       
-                                       let wait1 = SKAction.wait(forDuration:1)
-                                                                      let action1 = SKAction.run {
-                                                                             if !self.isGameOver {
-                                                                               self.spark1?.removeFromParent()
-                                                                                self.pilotThrust1?.particleAlpha = 0
-                                                                                    //   self.spark1?.particleLifetime = 0
-                                                                                      self.player.position = self.pilot.position
-                                                                                      self.isPlayerAlive = true
-                                                                                      self.addChild(self.player)
-                                                                               self.pilotThrust1?.removeFromParent()
-                                                                                      self.pilot.removeFromParent()
-                                                                                                      
-                                                                                      self.playerShields += 1
-                                                                                      self.numAmmo = 3
-                                                                                      self.addChild(self.bullet1)
-                                                                                      self.addChild(self.bullet2)
-                                                                                      self.addChild(self.bullet3)
-                                                                      }
-                                                                  }
-                                       self.run(SKAction.sequence([wait1,action1]))
-                                   }
-                                   run(SKAction.sequence([wait,action]))
-                   
-                                    self.spark1?.particleAlpha = 0
-                   
-                   /*
-                   
-                                let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in //5 sec delay
-                                  
-                                         let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
-                                           if !self.isGameOver {
-                                            self.spark1?.particleAlpha = 0
-                                           self.player.position = self.pilot.position
-                                           self.isPlayerAlive = true
-                                            self.addChild(self.player)
-                                            self.pilot.removeFromParent()
-                                          
-                                           self.playerShields += 1
-                                               self.numAmmo = 3
-                                               self.addChild(self.bullet1)
-                                               self.addChild(self.bullet2)
-                                               self.addChild(self.bullet3)
-                                           }
-                                       }
-                                                          }
-        */
-                   
-                   playerShields -= 1
-                      
-                   if playerShields == 0 {
-                       isPlayerAlive = false
-                       self.player.removeFromParent()
-                   }
+        if secondNode.name == "player" {
+            
+            self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
+            if let explosion = SKEmitterNode(fileNamed: "ShipExplosion") {
+                explosion.position = secondNode.position
+                addChild(explosion)
+            }
+            pilot.name = "pilot"
+            pilot.size = CGSize(width: 40, height: 40)
+            pilot.zRotation = player.zRotation - 3.141592/2
+            pilot.position = player.position
+            pilot.zPosition = 1
+            addChild(pilot)
+            //            gameOver()
+            
+            pilotThrust1?.position = CGPoint(x: 0, y: -20)
+            pilotThrust1?.targetNode = self.scene
+            pilotThrust1?.particleAlpha = 0
+            pilot.addChild(pilotThrust1!)
+            
+            firstNode.removeFromParent()
+            secondNode.removeFromParent()
+            
+            let wait = SKAction.wait(forDuration:7)
+            let action = SKAction.run {
+                self.spark1?.position = CGPoint(x: 0, y: 0)
+                self.spark1?.targetNode = self.scene
+                self.spark1?.particleAlpha = 1
+                self.pilot.addChild(self.spark1!)
+                self.spark1?.particleAlpha = 1
+                self.spark1?.particleLifetime = 1
+                
+                
+                let wait1 = SKAction.wait(forDuration:1)
+                let action1 = SKAction.run {
+                    if !self.isGameOver {
+                        self.spark1?.removeFromParent()
+                        self.pilotThrust1?.particleAlpha = 0
+                        //   self.spark1?.particleLifetime = 0
+                        self.player.position = self.pilot.position
+                        self.isPlayerAlive = true
+                        self.addChild(self.player)
+                        self.pilotThrust1?.removeFromParent()
+                        self.pilot.removeFromParent()
+                        
+                        self.playerShields += 1
+                        self.numAmmo = 3
+                        self.bullet1.position = self.player.position
+                        self.bullet2.position = self.player.position
+                        self.bullet3.position = self.player.position
+                        self.addChild(self.bullet1)
+                        self.addChild(self.bullet2)
+                        self.addChild(self.bullet3)
+                    }
+                }
+                self.run(SKAction.sequence([wait1,action1]))
+            }
+            run(SKAction.sequence([wait,action]))
+            
+            self.spark1?.particleAlpha = 0
+            
+            /*
+             
+             let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in //5 sec delay
+             
+             let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+             if !self.isGameOver {
+             self.spark1?.particleAlpha = 0
+             self.player.position = self.pilot.position
+             self.isPlayerAlive = true
+             self.addChild(self.player)
+             self.pilot.removeFromParent()
+             
+             self.playerShields += 1
+             self.numAmmo = 3
+             self.addChild(self.bullet1)
+             self.addChild(self.bullet2)
+             self.addChild(self.bullet3)
+             }
+             }
+             }
+             */
+            
+            playerShields -= 1
+            
+            if playerShields == 0 {
+                isPlayerAlive = false
+                self.player.removeFromParent()
+            }
         } else if secondNode.name == "pilot" {
             if let explosion = SKEmitterNode(fileNamed: "PilotBlood") {
                 explosion.position = pilot.position
@@ -604,7 +607,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             secondNode.removeFromParent()
         }
             
-            else if let enemy = firstNode as? EnemyNode {
+        else if let enemy = firstNode as? EnemyNode {
             enemy.shields -= 1
             
             if enemy.shields == 0 {
@@ -632,14 +635,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
-      let sceneView = self.scene!.view! as UIView
-      let shakeAnimation = CABasicAnimation(keyPath: "position")
-      shakeAnimation.duration = shakeDuration / Double(shakeCount)
-      shakeAnimation.repeatCount = Float(shakeCount)
-      shakeAnimation.autoreverses = true
-      shakeAnimation.fromValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x - intensity.dx, y: sceneView.center.y - intensity.dy))
-      shakeAnimation.toValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x + intensity.dx, y: sceneView.center.y + intensity.dy))
-      sceneView.layer.add(shakeAnimation, forKey: "position")
+        let sceneView = self.scene!.view! as UIView
+        let shakeAnimation = CABasicAnimation(keyPath: "position")
+        shakeAnimation.duration = shakeDuration / Double(shakeCount)
+        shakeAnimation.repeatCount = Float(shakeCount)
+        shakeAnimation.autoreverses = true
+        shakeAnimation.fromValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x - intensity.dx, y: sceneView.center.y - intensity.dy))
+        shakeAnimation.toValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x + intensity.dx, y: sceneView.center.y + intensity.dy))
+        sceneView.layer.add(shakeAnimation, forKey: "position")
     }
     
     func gameOver() {
@@ -668,7 +671,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameOver.run(scaleAction)
         gameOver.position = CGPoint(x: frame.midY, y: frame.midY)
         gameOver.size = CGSize(width: 619, height: 118)
-            addChild(gameOver)
+        addChild(gameOver)
     }
-
+    
 }
