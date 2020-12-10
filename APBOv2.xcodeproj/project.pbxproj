@@ -53,6 +53,7 @@
 		74CF686F25829A28000C4E47 /* Laser2new.wav in Resources */ = {isa = PBXBuildFile; fileRef = 74CF686E25829A28000C4E47 /* Laser2new.wav */; };
 		74CF687125829DB7000C4E47 /* miniLasernew.wav in Resources */ = {isa = PBXBuildFile; fileRef = 74CF687025829DB7000C4E47 /* miniLasernew.wav */; };
 		74CF687325829F9C000C4E47 /* revivenew.wav in Resources */ = {isa = PBXBuildFile; fileRef = 74CF687225829F9C000C4E47 /* revivenew.wav */; };
+		74CF68752582CF37000C4E47 /* EnemyThruster.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF68742582CF37000C4E47 /* EnemyThruster.sks */; };
 		8100B1832575524900AA8A1F /* TurretBossNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8100B1822575524900AA8A1F /* TurretBossNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -107,6 +108,7 @@
 		74CF686E25829A28000C4E47 /* Laser2new.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Laser2new.wav; sourceTree = "<group>"; };
 		74CF687025829DB7000C4E47 /* miniLasernew.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = miniLasernew.wav; sourceTree = "<group>"; };
 		74CF687225829F9C000C4E47 /* revivenew.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = revivenew.wav; sourceTree = "<group>"; };
+		74CF68742582CF37000C4E47 /* EnemyThruster.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EnemyThruster.sks; sourceTree = "<group>"; };
 		8100B1822575524900AA8A1F /* TurretBossNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBossNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -227,6 +229,7 @@
 				7451FF772576FE8F0074CC2E /* Spark.sks */,
 				74CF6847257FDF30000C4E47 /* PilotBlood.sks */,
 				74CF6841257C2EA8000C4E47 /* ShipExplosion.sks */,
+				74CF68742582CF37000C4E47 /* EnemyThruster.sks */,
 				74C3CFD025506D0300757586 /* Thrusters.sks */,
 				74CF6845257C4E26000C4E47 /* PilotThrust.sks */,
 				74C3CFC7253F3E3D00757586 /* Starfield.sks */,
@@ -351,6 +354,7 @@
 				74CF685E25828DB8000C4E47 /* Laser1new.wav in Resources */,
 				74C3CFB4253F3BE900757586 /* Actions.sks in Resources */,
 				749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */,
+				74CF68752582CF37000C4E47 /* EnemyThruster.sks in Resources */,
 				748CEDB6256C1568005DF246 /* SoloMenu.sks in Resources */,
 				74CF685525820076000C4E47 /* pilotSquish2.wav in Resources */,
 				74CF68502581F781000C4E47 /* menuThump.wav in Resources */,

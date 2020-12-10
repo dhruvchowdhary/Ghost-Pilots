@@ -542,7 +542,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.spark1?.particleLifetime = 1
                 self.run(SKAction.playSoundFileNamed("revivenew", waitForCompletion: false))
                 
-                let wait1 = SKAction.wait(forDuration:1)
+                let wait1 = SKAction.wait(forDuration:1.5)
                 let action1 = SKAction.run {
                     if !self.isGameOver {
                         self.spark1?.removeFromParent()
@@ -566,8 +566,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 self.run(SKAction.sequence([wait1,action1]))
             }
-            run(SKAction.sequence([wait,action]))
-            
+            if !self.isGameOver {
+                run(SKAction.sequence([wait,action]))
+            }
             self.spark1?.particleAlpha = 0
             
             /*
