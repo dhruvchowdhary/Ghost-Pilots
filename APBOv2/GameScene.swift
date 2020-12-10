@@ -88,7 +88,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
             //      particles.advanceSimulationTime(60)
-            particles.zPosition = -1
             addChild(particles)
         }
         
@@ -600,6 +599,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         } else if secondNode.name == "pilot" {
             if let explosion = SKEmitterNode(fileNamed: "PilotBlood") {
+                explosion.numParticlesToEmit = 8
                 explosion.position = pilot.position
                 addChild(explosion)
             }

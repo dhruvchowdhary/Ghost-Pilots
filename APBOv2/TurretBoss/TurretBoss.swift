@@ -61,8 +61,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
-            
-            particles.zPosition = -1
             addChild(particles)
         }
         
@@ -645,6 +643,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             
         } else if secondNode.name == "pilot" {
             if let explosion = SKEmitterNode(fileNamed: "PilotBlood") {
+                explosion.numParticlesToEmit = 8
                 explosion.position = pilot.position
                 addChild(explosion)
                 //shot.removeFromParent()
