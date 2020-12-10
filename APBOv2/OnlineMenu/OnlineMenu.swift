@@ -17,7 +17,7 @@ let notDoneLabel = SKLabelNode(text: "The online version of this game is current
     
     override func didMove(to view: SKView) {
         /* Setup your scene here */
-        
+        self.sceneShake(shakeCount: 4, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
                 particles.position = CGPoint(x: frame.midX, y: frame.midY)
         //      particles.advanceSimulationTime(60)
@@ -37,6 +37,17 @@ let notDoneLabel = SKLabelNode(text: "The online version of this game is current
             self.loadMainMenu()
         }
  
+    }
+    
+    func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
+        let sceneView = self.scene!.view! as UIView
+        let shakeAnimation = CABasicAnimation(keyPath: "position")
+        shakeAnimation.duration = shakeDuration / Double(shakeCount)
+        shakeAnimation.repeatCount = Float(shakeCount)
+        shakeAnimation.autoreverses = true
+        shakeAnimation.fromValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x - intensity.dx, y: sceneView.center.y - intensity.dy))
+        shakeAnimation.toValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x + intensity.dx, y: sceneView.center.y + intensity.dy))
+        sceneView.layer.add(shakeAnimation, forKey: "position")
     }
     
     func loadMainMenu() {
