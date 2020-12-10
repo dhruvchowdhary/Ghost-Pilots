@@ -431,12 +431,13 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 pilot.position.x = frame.maxX - 20
             }
         }
-        
-        if lastFireTime + 1 < currentTime {
-            lastFireTime = currentTime
-            if Int.random(in: 0...2) == 0 || Int.random(in: 0...2) == 1 {
-                shootTurret()
-                self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
+        if !isGameOver {
+            if lastFireTime + 1 < currentTime {
+                lastFireTime = currentTime
+                if Int.random(in: 0...2) == 0 || Int.random(in: 0...2) == 1 {
+                    shootTurret()
+                    self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
+                }
             }
         }
         for child in children {
@@ -578,7 +579,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 self.pilot.addChild(self.spark1!)
                 self.spark1?.particleAlpha = 1
                 self.spark1?.particleLifetime = 1
-                
+                self.run(SKAction.playSoundFileNamed("revivenew", waitForCompletion: false))
                 
                 let wait1 = SKAction.wait(forDuration:1)
                 let action1 = SKAction.run {

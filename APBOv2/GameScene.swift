@@ -540,7 +540,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.pilot.addChild(self.spark1!)
                 self.spark1?.particleAlpha = 1
                 self.spark1?.particleLifetime = 1
-                
+                self.run(SKAction.playSoundFileNamed("revivenew", waitForCompletion: false))
                 
                 let wait1 = SKAction.wait(forDuration:1)
                 let action1 = SKAction.run {
