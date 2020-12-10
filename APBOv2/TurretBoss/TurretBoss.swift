@@ -7,7 +7,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     var turnButtonNode: MSButtonNode!
     var shootButtonNode: MSButtonNode!
     var restartButtonNode: MSButtonNode!
-    
+
     let playerHealthBar = SKSpriteNode()
     let cannonHealthBar = SKSpriteNode()
     var playerHP = maxHealth
@@ -63,7 +63,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
             addChild(particles)
         }
-        
         player.name = "player"
         player.position.x = frame.midX-700
         player.position.y = frame.midY-80
@@ -642,6 +641,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             //firstNode.removeFromParent()
             
         } else if secondNode.name == "pilot" {
+            self.run(SKAction.playSoundFileNamed("pilotSquish3", waitForCompletion: false))
             if let explosion = SKEmitterNode(fileNamed: "PilotBlood") {
                 explosion.numParticlesToEmit = 8
                 explosion.position = pilot.position

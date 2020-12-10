@@ -23,7 +23,7 @@ var buttonPlay: MSButtonNode!
                 particles.zPosition = -1
                 addChild(particles)
         }
- 
+        self.run(SKAction.playSoundFileNamed("menuThump", waitForCompletion: false))
         /* Set UI connections */
         buttonPlay = self.childNode(withName: "back") as? MSButtonNode
         buttonPlay.selectedHandlers = {

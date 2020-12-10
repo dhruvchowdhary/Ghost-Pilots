@@ -598,6 +598,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.player.removeFromParent()
             }
         } else if secondNode.name == "pilot" {
+            self.run(SKAction.playSoundFileNamed("pilotSquish4", waitForCompletion: false))
             if let explosion = SKEmitterNode(fileNamed: "PilotBlood") {
                 explosion.numParticlesToEmit = 8
                 explosion.position = pilot.position

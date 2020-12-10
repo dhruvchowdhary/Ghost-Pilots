@@ -24,7 +24,7 @@ let notDoneLabel = SKLabelNode(text: "The online version of this game is current
                 particles.zPosition = -1
                 addChild(particles)
         }
-        
+        self.run(SKAction.playSoundFileNamed("menuThump", waitForCompletion: false))
         notDoneLabel.position = CGPoint(x: frame.midX, y: frame.midY + 270)
         notDoneLabel.fontColor = UIColor.white
         notDoneLabel.fontSize = 50
