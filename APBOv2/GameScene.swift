@@ -266,7 +266,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if self.varisPaused==1 && self.isPlayerAlive {
                 if self.isPlayerAlive {
                     if self.numAmmo > 0 {
-                        self.run(SKAction.playSoundFileNamed("Laser1", waitForCompletion: false))
+                        self.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
                         
                         if self.numAmmo == 3 {
                             self.bullet1.removeFromParent()
@@ -598,7 +598,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.player.removeFromParent()
             }
         } else if secondNode.name == "pilot" {
-            self.run(SKAction.playSoundFileNamed("pilotSquish4", waitForCompletion: false))
+            self.run(SKAction.playSoundFileNamed("pilotSquish3", waitForCompletion: false))
             if let explosion = SKEmitterNode(fileNamed: "PilotBlood") {
                 explosion.numParticlesToEmit = 8
                 explosion.position = pilot.position

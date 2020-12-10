@@ -45,6 +45,8 @@
 		74CF685525820076000C4E47 /* pilotSquish2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 74CF685425820076000C4E47 /* pilotSquish2.wav */; };
 		74CF6857258201BA000C4E47 /* pilotSquish3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 74CF6856258201BA000C4E47 /* pilotSquish3.wav */; };
 		74CF685925820277000C4E47 /* pilotSquish4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 74CF685825820277000C4E47 /* pilotSquish4.wav */; };
+		74CF685E25828DB8000C4E47 /* Laser1new.wav in Resources */ = {isa = PBXBuildFile; fileRef = 74CF685D25828DB8000C4E47 /* Laser1new.wav */; };
+		74CF686025828E80000C4E47 /* menuThumpnew.wav in Resources */ = {isa = PBXBuildFile; fileRef = 74CF685F25828E80000C4E47 /* menuThumpnew.wav */; };
 		8100B1832575524900AA8A1F /* TurretBossNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8100B1822575524900AA8A1F /* TurretBossNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +91,9 @@
 		74CF685425820076000C4E47 /* pilotSquish2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pilotSquish2.wav; sourceTree = "<group>"; };
 		74CF6856258201BA000C4E47 /* pilotSquish3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pilotSquish3.wav; sourceTree = "<group>"; };
 		74CF685825820277000C4E47 /* pilotSquish4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pilotSquish4.wav; sourceTree = "<group>"; };
+		74CF685B258289A0000C4E47 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		74CF685D25828DB8000C4E47 /* Laser1new.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Laser1new.wav; sourceTree = "<group>"; };
+		74CF685F25828E80000C4E47 /* menuThumpnew.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = menuThumpnew.wav; sourceTree = "<group>"; };
 		8100B1822575524900AA8A1F /* TurretBossNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBossNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -167,6 +172,7 @@
 			children = (
 				74C3CFAE253F3BE900757586 /* APBOv2 */,
 				74C3CFAD253F3BE900757586 /* Products */,
+				74CF685A258289A0000C4E47 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -224,10 +230,20 @@
 				74CF6856258201BA000C4E47 /* pilotSquish3.wav */,
 				74CF685825820277000C4E47 /* pilotSquish4.wav */,
 				74CF684F2581F781000C4E47 /* menuThump.wav */,
+				74CF685F25828E80000C4E47 /* menuThumpnew.wav */,
 				74CF684B2581EF11000C4E47 /* Laser1.wav */,
+				74CF685D25828DB8000C4E47 /* Laser1new.wav */,
 				74CF684D2581EF1D000C4E47 /* Laser2.wav */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		74CF685A258289A0000C4E47 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				74CF685B258289A0000C4E47 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,6 +309,7 @@
 				748CEDA125657B65005DF246 /* MainMenu.sks in Resources */,
 				74C3CFBB253F3BE900757586 /* Main.storyboard in Resources */,
 				74CF6857258201BA000C4E47 /* pilotSquish3.wav in Resources */,
+				74CF686025828E80000C4E47 /* menuThumpnew.wav in Resources */,
 				74C3CFB2253F3BE900757586 /* GameScene.sks in Resources */,
 				74C3CFBD253F3BED00757586 /* Assets.xcassets in Resources */,
 				74CF68532581FE64000C4E47 /* pilotSquish.wav in Resources */,
@@ -305,6 +322,7 @@
 				74CF6848257FDF30000C4E47 /* PilotBlood.sks in Resources */,
 				74CF6846257C4E26000C4E47 /* PilotThrust.sks in Resources */,
 				74C3CFD325506D0300757586 /* Assets.xcassets in Resources */,
+				74CF685E25828DB8000C4E47 /* Laser1new.wav in Resources */,
 				74C3CFB4253F3BE900757586 /* Actions.sks in Resources */,
 				749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */,
 				748CEDB6256C1568005DF246 /* SoloMenu.sks in Resources */,
