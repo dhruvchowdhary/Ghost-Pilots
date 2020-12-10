@@ -51,6 +51,8 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     let bullet1 = SKSpriteNode(imageNamed: "bullet")
     let bullet2 = SKSpriteNode(imageNamed: "bullet")
     let bullet3 = SKSpriteNode(imageNamed: "bullet")
+    let particles = SKEmitterNode(fileNamed: "Starfield")
+    
     
     override func didMove(to view: SKView) {
         
@@ -58,14 +60,16 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         //size = view.bounds.size
         backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)
-        if let particles = SKEmitterNode(fileNamed: "Starfield") {
-            particles.position = CGPoint(x: frame.midX, y: frame.midY)
-            addChild(particles)
-        }
+
+        particles?.position = CGPoint(x: frame.midX, y: frame.midY)
+        particles?.zPosition = 1
+        addChild(particles!)
+        
         player.name = "player"
         player.position.x = frame.midX-700
         player.position.y = frame.midY-80
-        player.zPosition = 1
+        player.zPosition = 5
+        
         addChild(player)
         
         addChild(bullet1)
@@ -80,7 +84,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         
         
         cannonSprite.position = CGPoint(x: frame.midX, y: frame.midY)
-        cannonSprite.zPosition = 0
+        cannonSprite.zPosition = 3
         addChild(cannonSprite)
         
         pilot.size = CGSize(width: 40, height: 40)
@@ -100,7 +104,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         
         turretSprite.position = CGPoint(x: frame.midX, y: frame.midY)
         addChild(turretSprite)
-        turretSprite.zPosition = 4
+        turretSprite.zPosition = 6
         
         turretSprite.physicsBody?.categoryBitMask = CollisionType.enemy.rawValue
         turretSprite.physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue | CollisionType.pilot.rawValue
@@ -476,7 +480,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             shot.physicsBody?.collisionBitMask = CollisionType.player.rawValue
             shot.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
             shot.physicsBody?.mass = 0.001
-            shot.zPosition = 1
+            shot.zPosition = 4
             shot.position = turretSprite.position
             
             addChild(shot)
@@ -559,7 +563,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             pilot.size = CGSize(width: 40, height: 40)
             pilot.zRotation = player.zRotation - 3.141592/2
             pilot.position = player.position
-            pilot.zPosition = 1
+            pilot.zPosition = 5
             addChild(pilot)
             //            gameOver()
             

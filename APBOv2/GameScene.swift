@@ -88,6 +88,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
             //      particles.advanceSimulationTime(60)
+            particles.zPosition = 1
             addChild(particles)
         }
         
@@ -117,7 +118,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.name = "player"
         player.position.x = frame.midX-700
         player.position.y = frame.midY-80
-        player.zPosition = 1
+        player.zPosition = 5
         addChild(player)
         
         player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.texture!.size())
@@ -520,7 +521,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             pilot.size = CGSize(width: 40, height: 40)
             pilot.zRotation = player.zRotation - 3.141592/2
             pilot.position = player.position
-            pilot.zPosition = 1
+            pilot.zPosition = 5
             addChild(pilot)
             //            gameOver()
             
