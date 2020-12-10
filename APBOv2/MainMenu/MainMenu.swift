@@ -12,7 +12,7 @@ class MainMenu: SKScene {
 
 /* UI Connections */
 var buttonPlay: MSButtonNode!
-let title = SKLabelNode(text: "APBO")
+let title = SKLabelNode(text: "GHOST PILOT")
     
     override func didMove(to view: SKView) {
         /* Setup your scene here */

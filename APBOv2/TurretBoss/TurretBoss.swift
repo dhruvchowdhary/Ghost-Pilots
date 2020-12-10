@@ -61,8 +61,15 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         //size = view.bounds.size
         backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)
 
-        particles?.position = CGPoint(x: frame.midX, y: frame.midY)
-        particles?.zPosition = 1
+        
+        
+        thruster1?.position = CGPoint(x: -30, y: 0)
+        thruster1?.targetNode = self.scene
+        player.addChild(thruster1!)
+        
+        
+        particles!.position = CGPoint(x: frame.midX, y: frame.midY)
+        particles!.targetNode = self.scene
         addChild(particles!)
         
         player.name = "player"
@@ -292,15 +299,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             self.pilotThrust1?.particleAlpha = 0
         }
         
-        
-        thruster1?.position = CGPoint(x: -30, y: 0)
-        thruster1?.targetNode = self.scene
-        player.addChild(thruster1!)
-        
-        
-        
-        
-        
+   
         
         addChild(cannonHealthBar)
         cannonHealthBar.position = CGPoint(
