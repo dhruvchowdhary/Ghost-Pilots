@@ -38,7 +38,8 @@
 		74CF6842257C2EA8000C4E47 /* ShipExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF6841257C2EA8000C4E47 /* ShipExplosion.sks */; };
 		74CF6846257C4E26000C4E47 /* PilotThrust.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF6845257C4E26000C4E47 /* PilotThrust.sks */; };
 		74CF6848257FDF30000C4E47 /* PilotBlood.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF6847257FDF30000C4E47 /* PilotBlood.sks */; };
-		74CF684A2581E60A000C4E47 /* laserSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 74CF68492581E60A000C4E47 /* laserSound.wav */; };
+		74CF684C2581EF11000C4E47 /* Laser1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 74CF684B2581EF11000C4E47 /* Laser1.wav */; };
+		74CF684E2581EF1D000C4E47 /* Laser2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 74CF684D2581EF1D000C4E47 /* Laser2.wav */; };
 		8100B1832575524900AA8A1F /* TurretBossNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8100B1822575524900AA8A1F /* TurretBossNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -76,7 +77,8 @@
 		74CF6841257C2EA8000C4E47 /* ShipExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ShipExplosion.sks; sourceTree = "<group>"; };
 		74CF6845257C4E26000C4E47 /* PilotThrust.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PilotThrust.sks; sourceTree = "<group>"; };
 		74CF6847257FDF30000C4E47 /* PilotBlood.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PilotBlood.sks; sourceTree = "<group>"; };
-		74CF68492581E60A000C4E47 /* laserSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laserSound.wav; sourceTree = "<group>"; };
+		74CF684B2581EF11000C4E47 /* Laser1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Laser1.wav; sourceTree = "<group>"; };
+		74CF684D2581EF1D000C4E47 /* Laser2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Laser2.wav; sourceTree = "<group>"; };
 		8100B1822575524900AA8A1F /* TurretBossNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBossNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -199,7 +201,8 @@
 				74CF6845257C4E26000C4E47 /* PilotThrust.sks */,
 				74C3CFC7253F3E3D00757586 /* Starfield.sks */,
 				74C3CFD125506D0300757586 /* Assets.xcassets */,
-				74CF68492581E60A000C4E47 /* laserSound.wav */,
+				74CF684B2581EF11000C4E47 /* Laser1.wav */,
+				74CF684D2581EF1D000C4E47 /* Laser2.wav */,
 			);
 			path = Particles;
 			sourceTree = "<group>";
@@ -264,14 +267,15 @@
 			files = (
 				748CEDC1256D6F24005DF246 /* TurretBoss.sks in Resources */,
 				74C3CFC8253F3E3D00757586 /* Starfield.sks in Resources */,
-				74CF684A2581E60A000C4E47 /* laserSound.wav in Resources */,
 				748CEDA125657B65005DF246 /* MainMenu.sks in Resources */,
 				74C3CFBB253F3BE900757586 /* Main.storyboard in Resources */,
 				74C3CFB2253F3BE900757586 /* GameScene.sks in Resources */,
 				74C3CFBD253F3BED00757586 /* Assets.xcassets in Resources */,
 				748CEDC6256D737B005DF246 /* OnlineMenu.sks in Resources */,
+				74CF684C2581EF11000C4E47 /* Laser1.wav in Resources */,
 				749EBC1025599EF3003EA0B3 /* enemy-types.json in Resources */,
 				74C3CFD225506D0300757586 /* Thrusters.sks in Resources */,
+				74CF684E2581EF1D000C4E47 /* Laser2.wav in Resources */,
 				74C3CFC0253F3BED00757586 /* LaunchScreen.storyboard in Resources */,
 				74CF6848257FDF30000C4E47 /* PilotBlood.sks in Resources */,
 				74CF6846257C4E26000C4E47 /* PilotThrust.sks in Resources */,

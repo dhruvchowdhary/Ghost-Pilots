@@ -266,7 +266,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if self.varisPaused==1 && self.isPlayerAlive {
                 if self.isPlayerAlive {
                     if self.numAmmo > 0 {
-                        self.run(SKAction.playSoundFileNamed("laserSound", waitForCompletion: false))
+                        self.run(SKAction.playSoundFileNamed("Laser1", waitForCompletion: false))
                         
                         if self.numAmmo == 3 {
                             self.bullet1.removeFromParent()
