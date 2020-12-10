@@ -435,7 +435,8 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         if lastFireTime + 1 < currentTime {
             lastFireTime = currentTime
             if Int.random(in: 0...2) == 0 || Int.random(in: 0...2) == 1 {
-   //             shootTurret()
+                shootTurret()
+                self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
             }
         }
         for child in children {

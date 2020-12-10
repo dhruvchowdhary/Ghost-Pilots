@@ -462,6 +462,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 if Int.random(in: 0...2) == 0 || Int.random(in: 0...2) == 1 {
                     enemy.fire()
+                    self.run(SKAction.playSoundFileNamed("miniLasernew", waitForCompletion: false))
                 }
             }
         }
