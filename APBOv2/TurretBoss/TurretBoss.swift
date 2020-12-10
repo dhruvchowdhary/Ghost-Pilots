@@ -7,6 +7,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     var turnButtonNode: MSButtonNode!
     var shootButtonNode: MSButtonNode!
     var restartButtonNode: MSButtonNode!
+    var playAgainButtonNode: MSButtonNode!
 
     let playerHealthBar = SKSpriteNode()
     let cannonHealthBar = SKSpriteNode()
@@ -172,6 +173,34 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             skView.presentScene(scene)
         }
         
+        playAgainButtonNode = self.childNode(withName: "playAgainButton") as? MSButtonNode
+        playAgainButtonNode.alpha = 0
+        playAgainButtonNode.selectedHandlers = {
+            /* 1) Grab reference to our SpriteKit view */
+            guard let skView = self.view as SKView? else {
+                print("Could not get Skview")
+                return
+            }
+            
+            /* 2) Load Menu scene */
+            guard let scene = GameScene(fileNamed:"TurretBoss") else {
+                print("Could not make GameScene, check the name is spelled correctly")
+                return
+            }
+            
+            /* 3) Ensure correct aspect mode */
+            scene.scaleMode = .aspectFit
+            
+            /* Show debug */
+            skView.showsPhysics = false
+            skView.showsDrawCount = false
+            skView.showsFPS = false
+            
+            /* 4) Start game scene */
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            skView.presentScene(scene, transition: reveal)
+        }
+        
         pauseButtonNode = self.childNode(withName: "pause") as? MSButtonNode
         pauseButtonNode.selectedHandlers = {
             if !self.isGameOver {
@@ -320,24 +349,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if isGameOver {
-            if let newScene = TurretBossScene(fileNamed: "TurretBoss") {
-                newScene.scaleMode = .aspectFit
-                self.dimPanel.alpha = 0
-                let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-                view?.presentScene(newScene, transition: reveal)
-            }
-        }
-        guard isGameOver else { return }
-        
-        let touch = touches.first
-        let positionInScene = touch!.location(in: self)
-        let touchedNode = self.atPoint(positionInScene)
-        
-    }
-    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
         let squishNormal = SKAction.scale(to: 1.0, duration: 0.05)
@@ -470,7 +481,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     
     func shootTurret() {
         if !isGameOver {
-            let shot = SKSpriteNode(imageNamed: "enemy2Weapon")
+            let shot = SKSpriteNode(imageNamed: "turretWeapon")
             shot.name = "TurretWeapon"
             shot.zRotation = turretSprite.zRotation
             
@@ -582,7 +593,9 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 self.pilot.addChild(self.spark1!)
                 self.spark1?.particleAlpha = 1
                 self.spark1?.particleLifetime = 1
-                self.run(SKAction.playSoundFileNamed("revivenew", waitForCompletion: false))
+                if !self.isGameOver {
+                    self.run(SKAction.playSoundFileNamed("revivenew", waitForCompletion: false))
+                }
                 
                 let wait1 = SKAction.wait(forDuration:1.5)
                 let action1 = SKAction.run {
@@ -608,9 +621,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 }
                 self.run(SKAction.sequence([wait1,action1]))
             }
-            if !self.isGameOver {
-                run(SKAction.sequence([wait,action]))
-            }
+            run(SKAction.sequence([wait,action]))
             
             self.spark1?.particleAlpha = 0
             
@@ -728,17 +739,11 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         isPlayerAlive = false
         isGameOver = true
         
-        let playAgain = SKLabelNode(text: "Tap to Play Again")
-        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 250)
-        playAgain.zPosition = 100
-        playAgain.fontColor = UIColor.white
-        playAgain.fontName = "AvenirNext-Bold"
-        playAgain.fontSize = 60
-        addChild(playAgain)
         self.pauseButtonNode.alpha = 0
         self.backButtonNode.alpha = 1
         self.turnButtonNode.alpha = 0
         self.shootButtonNode.alpha = 0
+        self.playAgainButtonNode.alpha = 1
         self.dimPanel.alpha = 0.3
         
         self.bullet1.alpha = 0
@@ -760,17 +765,11 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         direction = -0.1
         self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         
-        let playAgain = SKLabelNode(text: "Tap to Play Again")
-        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 250)
-        playAgain.zPosition = 100
-        playAgain.fontColor = UIColor.white
-        playAgain.fontName = "AvenirNext-Bold"
-        playAgain.fontSize = 60
-        addChild(playAgain)
         self.pauseButtonNode.alpha = 0
         self.turnButtonNode.alpha = 0
         self.shootButtonNode.alpha = 0
         self.backButtonNode.alpha = 1
+        self.playAgainButtonNode.alpha = 1
         self.dimPanel.alpha = 0.3
         
         

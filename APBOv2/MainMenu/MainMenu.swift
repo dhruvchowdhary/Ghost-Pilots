@@ -17,14 +17,10 @@ let title = SKLabelNode(text: "GHOST PILOT")
     override func didMove(to view: SKView) {
         /* Setup your scene here */
         
-       
         title.fontName = "AvenirNext-Bold"
-        
-        title.position = CGPoint(x: frame.midX, y: frame.midY + 200)
+        title.position = CGPoint(x: frame.midX, y: frame.midY + 195)
         title.fontColor = UIColor.white
-
-    //    title.fontName =
-        title.fontSize = 200
+        title.fontSize = 160
         addChild(title)
         
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -43,7 +39,6 @@ let title = SKLabelNode(text: "GHOST PILOT")
         buttonPlay.selectedHandlers = {
            self.loadOnlineMenu()
         }
- 
     }
     
     func loadGame() {

@@ -32,6 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var turnButtonNode: MSButtonNode!
     var shootButtonNode: MSButtonNode!
     var restartButtonNode: MSButtonNode!
+    var playAgainButtonNode: MSButtonNode!
     
     let playerHealthBar = SKSpriteNode()
     let cannonHealthBar = SKSpriteNode()
@@ -103,13 +104,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.dimPanel.alpha = 0
         
         points.position = CGPoint(x: frame.midX, y: frame.maxY-135)
-        points.zPosition = 2
+        points.zPosition = 10
         points.fontColor = UIColor.white
         points.fontSize = 70
         points.fontName = "Menlo Regular-Bold"
         addChild(points)
         pointsLabel.position = CGPoint(x: frame.midX, y: frame.maxY-70)
-        pointsLabel.zPosition = 2
+        pointsLabel.zPosition = 10
         pointsLabel.fontColor = UIColor.white
         pointsLabel.fontSize = 45
         pointsLabel.fontName = "Menlo Regular-Bold"
@@ -187,6 +188,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             /* 4) Start game scene */
             skView.presentScene(scene)
+        }
+        
+        playAgainButtonNode = self.childNode(withName: "playAgainButton") as? MSButtonNode
+        playAgainButtonNode.alpha = 0
+        playAgainButtonNode.selectedHandlers = {
+            /* 1) Grab reference to our SpriteKit view */
+            guard let skView = self.view as SKView? else {
+                print("Could not get Skview")
+                return
+            }
+            
+            /* 2) Load Menu scene */
+            guard let scene = GameScene(fileNamed:"GameScene") else {
+                print("Could not make GameScene, check the name is spelled correctly")
+                return
+            }
+            
+            /* 3) Ensure correct aspect mode */
+            scene.scaleMode = .aspectFit
+            
+            /* Show debug */
+            skView.showsPhysics = false
+            skView.showsDrawCount = false
+            skView.showsFPS = false
+            
+            /* 4) Start game scene */
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            skView.presentScene(scene, transition: reveal)
         }
         
         pauseButtonNode = self.childNode(withName: "pause") as? MSButtonNode
@@ -342,7 +371,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+  /*  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if (isGameOver) {
             if let newScene = SKScene(fileNamed: "GameScene") {
                 newScene.scaleMode = .aspectFit
@@ -359,7 +388,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         
-    }
+    }*/
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
@@ -541,7 +570,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.pilot.addChild(self.spark1!)
                 self.spark1?.particleAlpha = 1
                 self.spark1?.particleLifetime = 1
-                self.run(SKAction.playSoundFileNamed("revivenew", waitForCompletion: false))
+                if !self.isGameOver {
+                    self.run(SKAction.playSoundFileNamed("revivenew", waitForCompletion: false))
+                }
                 
                 let wait1 = SKAction.wait(forDuration:1.5)
                 let action1 = SKAction.run {
@@ -565,11 +596,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         self.addChild(self.bullet3)
                     }
                 }
-                self.run(SKAction.sequence([wait1,action1]))
+                    self.run(SKAction.sequence([wait1,action1]))
             }
-            if !self.isGameOver {
-                run(SKAction.sequence([wait,action]))
-            }
+            run(SKAction.sequence([wait,action]))
             self.spark1?.particleAlpha = 0
             
             /*
@@ -653,13 +682,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         isPlayerAlive = false
         isGameOver = true
         
-        let playAgain = SKLabelNode(text: "Tap to Play Again")
+  /*      let playAgain = SKLabelNode(text: "Tap to Play Again")
         playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 250)
         playAgain.zPosition = 100
         playAgain.fontColor = UIColor.white
         playAgain.fontName = "AvenirNext-Bold"
         playAgain.fontSize = 60
         addChild(playAgain)
+       */
+        self.playAgainButtonNode.alpha = 1
         
         self.pauseButtonNode.alpha = 0
         self.turnButtonNode.alpha = 0
