@@ -17,14 +17,14 @@ let notDoneLabel = SKLabelNode(text: "The online version of this game is current
     
     override func didMove(to view: SKView) {
         /* Setup your scene here */
-        self.sceneShake(shakeCount: 4, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
                 particles.position = CGPoint(x: frame.midX, y: frame.midY)
         //      particles.advanceSimulationTime(60)
                 particles.zPosition = -1
                 addChild(particles)
         }
-        self.run(SKAction.playSoundFileNamed("menuThump", waitForCompletion: false))
+        self.sceneShake(shakeCount: 4, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
+        self.run(SKAction.playSoundFileNamed("menuThumpnew", waitForCompletion: false))
         notDoneLabel.position = CGPoint(x: frame.midX, y: frame.midY + 270)
         notDoneLabel.fontColor = UIColor.white
         notDoneLabel.fontSize = 50

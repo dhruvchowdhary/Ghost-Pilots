@@ -266,7 +266,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if self.varisPaused==1 && self.isPlayerAlive {
                 if self.isPlayerAlive {
                     if self.numAmmo > 0 {
-                        self.run(SKAction.playSoundFileNamed("Laser1", waitForCompletion: false))
+                        self.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
                         
                         if self.numAmmo == 3 {
                             self.bullet1.removeFromParent()
@@ -462,6 +462,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 if Int.random(in: 0...2) == 0 || Int.random(in: 0...2) == 1 {
                     enemy.fire()
+                    self.run(SKAction.playSoundFileNamed("miniLasernew", waitForCompletion: false))
                 }
             }
         }
@@ -539,7 +540,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.pilot.addChild(self.spark1!)
                 self.spark1?.particleAlpha = 1
                 self.spark1?.particleLifetime = 1
-                
+                self.run(SKAction.playSoundFileNamed("revivenew", waitForCompletion: false))
                 
                 let wait1 = SKAction.wait(forDuration:1)
                 let action1 = SKAction.run {
@@ -598,7 +599,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.player.removeFromParent()
             }
         } else if secondNode.name == "pilot" {
-            self.run(SKAction.playSoundFileNamed("pilotSquish4", waitForCompletion: false))
+            self.run(SKAction.playSoundFileNamed("pilotSquish3", waitForCompletion: false))
             if let explosion = SKEmitterNode(fileNamed: "PilotBlood") {
                 explosion.numParticlesToEmit = 8
                 explosion.position = pilot.position

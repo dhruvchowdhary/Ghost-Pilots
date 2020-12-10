@@ -41,7 +41,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     var direction = 0.0
     let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 2000, height: 1000) )
     
-    
     var lastFireTime: Double = 0
     
     var numAmmo = 3
@@ -72,7 +71,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         addChild(bullet1)
         addChild(bullet2)
         addChild(bullet3)
-        
         
         player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.texture!.size())
         player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
@@ -243,7 +241,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             if self.varisPaused==1 && self.isPlayerAlive {
                 if self.isPlayerAlive {
                     if self.numAmmo > 0 {
-                        self.run(SKAction.playSoundFileNamed("Laser1", waitForCompletion: false))
+                        self.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
                         
                         if self.numAmmo == 3 {
                             self.bullet1.removeFromParent()
@@ -433,11 +431,13 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 pilot.position.x = frame.maxX - 20
             }
         }
-        
-        if lastFireTime + 1 < currentTime {
-            lastFireTime = currentTime
-            if Int.random(in: 0...2) == 0 || Int.random(in: 0...2) == 1 {
-                shootTurret()
+        if !isGameOver {
+            if lastFireTime + 1 < currentTime {
+                lastFireTime = currentTime
+                if Int.random(in: 0...2) == 0 || Int.random(in: 0...2) == 1 {
+                    shootTurret()
+                    self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
+                }
             }
         }
         for child in children {
@@ -579,7 +579,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 self.pilot.addChild(self.spark1!)
                 self.spark1?.particleAlpha = 1
                 self.spark1?.particleLifetime = 1
-                
+                self.run(SKAction.playSoundFileNamed("revivenew", waitForCompletion: false))
                 
                 let wait1 = SKAction.wait(forDuration:1)
                 let action1 = SKAction.run {
