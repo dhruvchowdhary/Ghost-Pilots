@@ -97,22 +97,22 @@ class MainMenu: SKScene {
     func randomParticle(party: SKEmitterNode) {
         let randomNum = Int.random(in: 0...4)
         if randomNum == 1 {
-            party.position = CGPoint(x: 0, y: 499)
+            party.position = CGPoint(x: 0, y: 519)
             party.particlePositionRange = CGVector(dx: 896, dy: 0)
             party.emissionAngle = 3*3.141592/2
             party.emissionAngleRange = 3.141592/2
         } else if randomNum == 2 {
-            party.position = CGPoint(x: -981, y: 0)
+            party.position = CGPoint(x: -991, y: 0)
             party.particlePositionRange = CGVector(dx: 0, dy: 414)
             party.emissionAngle = 0
             party.emissionAngleRange = 3.141592/2
         } else if randomNum == 3 {
-            party.position = CGPoint(x: 0, y: -499)
+            party.position = CGPoint(x: 0, y: -519)
             party.particlePositionRange = CGVector(dx: 896, dy: 0)
             party.emissionAngle = 3.141592/2
             party.emissionAngleRange = 3.141592/2
         } else if randomNum == 4 {
-            party.position = CGPoint(x: 981, y: 0)
+            party.position = CGPoint(x: 991, y: 0)
             party.particlePositionRange = CGVector(dx: 0, dy: 414)
             party.emissionAngle = 3.141592
             party.emissionAngleRange = 3.141592/2.4

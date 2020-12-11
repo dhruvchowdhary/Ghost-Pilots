@@ -551,7 +551,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let secondNode = sortedNodes[1]
         
         if secondNode.name == "player" {
-            
+            self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
             if let explosion = SKEmitterNode(fileNamed: "ShipExplosion") {
                 explosion.position = secondNode.position
@@ -655,6 +655,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             enemy.shields -= 1
             
             if enemy.shields == 0 {
+                self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
                 if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                     explosion.position = enemy.position
                     addChild(explosion)

@@ -574,7 +574,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         if secondNode.name == "player" {
-            
+            self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
             if let explosion = SKEmitterNode(fileNamed: "ShipExplosion") {
                 explosion.position = secondNode.position
@@ -685,6 +685,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 explosion.position = firstNode.position
                 addChild(explosion)
             }
+            self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             cannonHP = max(0, cannonHP - 10)
             updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
             shot.removeFromParent()
