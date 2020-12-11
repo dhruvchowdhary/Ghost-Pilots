@@ -280,13 +280,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         turnButtonNode.selectedHandlers = {
-            
-            self.turnButtonNode.alpha = 0.8
-            let timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { (timer) in
-                self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
-            }
-            if self.varisPaused == 1 {
-                self.direction = 0
+            if !self.isGameOver {
+                self.turnButtonNode.alpha = 0.8
+                let timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { (timer) in
+                    self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
+                }
+                if self.varisPaused == 1 {
+                    self.direction = 0
+                }
             }
         }
         
@@ -345,10 +346,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         shootButtonNode.selectedHandlers = {
-            self.pilotDirection = self.pilot.zRotation
-            self.shootButtonNode.alpha = 0.8
-            self.pilotForward = false
-            self.pilotThrust1?.particleAlpha = 0
+            if !self.isGameOver {
+                self.pilotDirection = self.pilot.zRotation
+                self.shootButtonNode.alpha = 0.8
+                self.pilotForward = false
+                self.pilotThrust1?.particleAlpha = 0
+            }
         }
         
         thruster1?.position = CGPoint(x: -30, y: 0)
