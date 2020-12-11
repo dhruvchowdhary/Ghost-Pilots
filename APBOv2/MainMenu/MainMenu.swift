@@ -111,6 +111,10 @@ class MainMenu: SKScene {
         
         let randomNum3 = Int.random(in: -15...15)
         party.particleSpeed = CGFloat(55 + randomNum3)
+        
+        let randomNum4 = CGFloat.random(in: 1...3.5)
+        party.particleScale = randomNum4
+        self.ghostParticles?.particleScale = 1
     }
     
     func loadGame() {
