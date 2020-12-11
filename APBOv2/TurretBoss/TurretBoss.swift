@@ -80,6 +80,9 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         
         addChild(player)
         
+        bullet1.zPosition = 5
+        bullet2.zPosition = 5
+        bullet3.zPosition = 5
         addChild(bullet1)
         addChild(bullet2)
         addChild(bullet3)
@@ -335,7 +338,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             x: cannonSprite.position.x,
             y: cannonSprite.position.y - cannonSprite.size.height/2 - 10
         )
-        
+        cannonHealthBar.zPosition = 4
         updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
         
         let turnTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
@@ -367,7 +370,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         if isPlayerAlive {
             player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.7 ,y:player.position.y + sin(player.zRotation) * 3.7)
             pilotDirection = player.zRotation - 3.141592/2
-            
+
             bullet1.position = player.position
             bullet2.position = player.position
             bullet3.position = player.position
@@ -460,6 +463,10 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                     child.removeFromParent()
                 }
             }
+        }
+        
+        if isGameOver {
+            direction = -0.1
         }
     }
     
@@ -587,13 +594,13 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             
             let wait = SKAction.wait(forDuration:7)
             let action = SKAction.run {
+                if !self.isGameOver {
                 self.spark1?.position = CGPoint(x: 0, y: 0)
                 self.spark1?.targetNode = self.scene
                 self.spark1?.particleAlpha = 1
                 self.pilot.addChild(self.spark1!)
                 self.spark1?.particleAlpha = 1
                 self.spark1?.particleLifetime = 1
-                if !self.isGameOver {
                     self.run(SKAction.playSoundFileNamed("revivenew", waitForCompletion: false))
                 }
                 
@@ -716,9 +723,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                     addChild(explosion)
                 }
                 secondNode.removeFromParent()
-                print("a")
             }
-            print("d")
         }
         
         
@@ -760,9 +765,8 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func victoryScreen() {
-        isPlayerAlive = false
+   //     isPlayerAlive = false
         isGameOver = true
-        direction = -0.1
         self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         
         self.pauseButtonNode.alpha = 0

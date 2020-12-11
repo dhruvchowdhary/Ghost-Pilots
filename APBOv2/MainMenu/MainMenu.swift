@@ -52,7 +52,7 @@ class MainMenu: SKScene {
         addChild(blueParticles!)
         addChild(greenParticles!)
         addChild(yellowParticles!)
-        let timer = Timer.scheduledTimer(withTimeInterval: 25, repeats: true) { (timer) in
+        let timer = Timer.scheduledTimer(withTimeInterval: 31, repeats: true) { (timer) in
             self.randomParticle(party: self.playerParticles!)
             self.randomParticle(party: self.ghostParticles!)
             self.randomParticle(party: self.enemyParticles!)
@@ -86,31 +86,36 @@ class MainMenu: SKScene {
     func randomParticle(party: SKEmitterNode) {
         let randomNum = Int.random(in: 0...4)
         if randomNum == 1 {
-            party.position = CGPoint(x: 0, y: 424)
+            party.position = CGPoint(x: 0, y: 499)
             party.particlePositionRange = CGVector(dx: 896, dy: 0)
             party.emissionAngle = 3*3.141592/2
             party.emissionAngleRange = 3.141592/2
         } else if randomNum == 2 {
-            party.position = CGPoint(x: -906, y: 0)
+            party.position = CGPoint(x: -981, y: 0)
             party.particlePositionRange = CGVector(dx: 0, dy: 414)
             party.emissionAngle = 0
             party.emissionAngleRange = 3.141592/2
         } else if randomNum == 3 {
-            party.position = CGPoint(x: 0, y: -424)
+            party.position = CGPoint(x: 0, y: -499)
             party.particlePositionRange = CGVector(dx: 896, dy: 0)
             party.emissionAngle = 3.141592/2
             party.emissionAngleRange = 3.141592/2
         } else if randomNum == 4 {
-            party.position = CGPoint(x: 906, y: 0)
+            party.position = CGPoint(x: 981, y: 0)
             party.particlePositionRange = CGVector(dx: 0, dy: 414)
             party.emissionAngle = 3.141592
             party.emissionAngleRange = 3.141592/2.4
         }
-        let randomNum2 = Int.random(in: -4...4)
+        let randomNum2 = Int.random(in: -5...5)
         party.particleRotationSpeed = 3.141592/2 + CGFloat(randomNum2)/5 - 1
         
-        let randomNum3 = Int.random(in: -15...15)
-        party.particleSpeed = CGFloat(55 + randomNum3)
+        if randomNum == 2 || randomNum == 4 {
+            let randomNum3 = Int.random(in: 0...20)
+            party.particleSpeed = CGFloat(75 + randomNum3)
+        } else {
+            let randomNum3 = Int.random(in: -15...15)
+            party.particleSpeed = CGFloat(55 + randomNum3)
+        }
         
         let randomNum4 = CGFloat.random(in: 1...3.5)
         party.particleScale = randomNum4

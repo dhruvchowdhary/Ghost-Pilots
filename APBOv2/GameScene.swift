@@ -93,7 +93,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             addChild(particles)
         }
         
-        
+        bullet1.zPosition = 5
+        bullet2.zPosition = 5
+        bullet3.zPosition = 5
         addChild(bullet1)
         addChild(bullet2)
         addChild(bullet3)
