@@ -61,6 +61,8 @@
 		74CF688025830C99000C4E47 /* greenPlayer.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF687F25830C99000C4E47 /* greenPlayer.sks */; };
 		74CF688225830CA0000C4E47 /* yellowPlayer.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF688125830CA0000C4E47 /* yellowPlayer.sks */; };
 		74CF68842583CAE1000C4E47 /* swishnew.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 74CF68832583CAE0000C4E47 /* swishnew.mp3 */; };
+		74CF688625840398000C4E47 /* enemy2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF688525840398000C4E47 /* enemy2.sks */; };
+		74CF6888258403B3000C4E47 /* enemy3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF6887258403B3000C4E47 /* enemy3.sks */; };
 		8100B1832575524900AA8A1F /* TurretBossNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8100B1822575524900AA8A1F /* TurretBossNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -123,6 +125,8 @@
 		74CF687F25830C99000C4E47 /* greenPlayer.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = greenPlayer.sks; sourceTree = "<group>"; };
 		74CF688125830CA0000C4E47 /* yellowPlayer.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = yellowPlayer.sks; sourceTree = "<group>"; };
 		74CF68832583CAE0000C4E47 /* swishnew.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swishnew.mp3; sourceTree = "<group>"; };
+		74CF688525840398000C4E47 /* enemy2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = enemy2.sks; sourceTree = "<group>"; };
+		74CF6887258403B3000C4E47 /* enemy3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = enemy3.sks; sourceTree = "<group>"; };
 		8100B1822575524900AA8A1F /* TurretBossNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBossNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -291,6 +295,8 @@
 				74CF68762582F889000C4E47 /* Player.sks */,
 				74CF687925830AD6000C4E47 /* ghost.sks */,
 				74CF687B25830BB7000C4E47 /* enemy.sks */,
+				74CF688525840398000C4E47 /* enemy2.sks */,
+				74CF6887258403B3000C4E47 /* enemy3.sks */,
 				74CF687D25830C93000C4E47 /* bluePlayer.sks */,
 				74CF687F25830C99000C4E47 /* greenPlayer.sks */,
 				74CF688125830CA0000C4E47 /* yellowPlayer.sks */,
@@ -374,6 +380,7 @@
 				74C3CFB2253F3BE900757586 /* GameScene.sks in Resources */,
 				74C3CFBD253F3BED00757586 /* Assets.xcassets in Resources */,
 				74CF68532581FE64000C4E47 /* pilotSquish.wav in Resources */,
+				74CF688625840398000C4E47 /* enemy2.sks in Resources */,
 				748CEDC6256D737B005DF246 /* OnlineMenu.sks in Resources */,
 				74CF684C2581EF11000C4E47 /* Laser1.wav in Resources */,
 				749EBC1025599EF3003EA0B3 /* enemy-types.json in Resources */,
@@ -385,6 +392,7 @@
 				74CF6848257FDF30000C4E47 /* PilotBlood.sks in Resources */,
 				74CF687125829DB7000C4E47 /* miniLasernew.wav in Resources */,
 				74CF6846257C4E26000C4E47 /* PilotThrust.sks in Resources */,
+				74CF6888258403B3000C4E47 /* enemy3.sks in Resources */,
 				74C3CFD325506D0300757586 /* Assets.xcassets in Resources */,
 				74CF688025830C99000C4E47 /* greenPlayer.sks in Resources */,
 				74CF685E25828DB8000C4E47 /* Laser1new.wav in Resources */,
