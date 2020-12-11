@@ -27,6 +27,9 @@ enum CollisionType: UInt32 {
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    let EnemyThruster = SKEmitterNode(fileNamed: "EnemyThruster")
+    
     var backButtonNode: MSButtonNode!
     var pauseButtonNode: MSButtonNode!
     var turnButtonNode: MSButtonNode!
@@ -526,6 +529,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             for(index, position) in positions.shuffled().enumerated() {
                 let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: position), xOffset: enemyOffsetX * CGFloat(index * 3), moveStright: true)
                 addChild(enemy)
+                
+          
+                
             }
         } else {
             for enemy in currentWave.enemies {

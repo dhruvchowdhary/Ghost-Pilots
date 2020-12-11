@@ -14,6 +14,9 @@ class EnemyNode: SKSpriteNode {
     var shields: Int
     var scoreinc: Int
     
+    let EnemyThruster = SKEmitterNode(fileNamed: "EnemyThruster")
+    
+    
     init(type: EnemyType, startPosition: CGPoint, xOffset: CGFloat, moveStright: Bool) {
         self.type = type
         shields = type.shields
@@ -29,6 +32,11 @@ class EnemyNode: SKSpriteNode {
         name = "enemy"
         position = CGPoint(x: startPosition.x + xOffset, y: startPosition.y)
         zPosition = 5
+        
+        EnemyThruster?.position = CGPoint(x: 0, y: -35)
+               EnemyThruster?.targetNode = self.scene
+               addChild(EnemyThruster!)
+        
         configureMovement(moveStright)
     }
     
