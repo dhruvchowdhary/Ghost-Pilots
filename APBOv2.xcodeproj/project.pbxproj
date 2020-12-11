@@ -60,6 +60,7 @@
 		74CF687E25830C93000C4E47 /* bluePlayer.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF687D25830C93000C4E47 /* bluePlayer.sks */; };
 		74CF688025830C99000C4E47 /* greenPlayer.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF687F25830C99000C4E47 /* greenPlayer.sks */; };
 		74CF688225830CA0000C4E47 /* yellowPlayer.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF688125830CA0000C4E47 /* yellowPlayer.sks */; };
+		74CF68842583CAE1000C4E47 /* swishnew.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 74CF68832583CAE0000C4E47 /* swishnew.mp3 */; };
 		8100B1832575524900AA8A1F /* TurretBossNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8100B1822575524900AA8A1F /* TurretBossNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -121,6 +122,7 @@
 		74CF687D25830C93000C4E47 /* bluePlayer.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = bluePlayer.sks; sourceTree = "<group>"; };
 		74CF687F25830C99000C4E47 /* greenPlayer.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = greenPlayer.sks; sourceTree = "<group>"; };
 		74CF688125830CA0000C4E47 /* yellowPlayer.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = yellowPlayer.sks; sourceTree = "<group>"; };
+		74CF68832583CAE0000C4E47 /* swishnew.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swishnew.mp3; sourceTree = "<group>"; };
 		8100B1822575524900AA8A1F /* TurretBossNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBossNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -259,6 +261,7 @@
 				74CF6856258201BA000C4E47 /* pilotSquish3.wav */,
 				74CF684F2581F781000C4E47 /* menuThump.wav */,
 				74CF685F25828E80000C4E47 /* menuThumpnew.wav */,
+				74CF68832583CAE0000C4E47 /* swishnew.mp3 */,
 				74CF686325829655000C4E47 /* chargeLaser.ogg */,
 				74CF686425829691000C4E47 /* chargeLaser2.mp3 */,
 				74CF6866258296A8000C4E47 /* revive.wav */,
@@ -363,6 +366,7 @@
 				748CEDA125657B65005DF246 /* MainMenu.sks in Resources */,
 				74CF686525829691000C4E47 /* chargeLaser2.mp3 in Resources */,
 				74C3CFBB253F3BE900757586 /* Main.storyboard in Resources */,
+				74CF68842583CAE1000C4E47 /* swishnew.mp3 in Resources */,
 				74CF6857258201BA000C4E47 /* pilotSquish3.wav in Resources */,
 				74CF687E25830C93000C4E47 /* bluePlayer.sks in Resources */,
 				74CF686025828E80000C4E47 /* menuThumpnew.wav in Resources */,

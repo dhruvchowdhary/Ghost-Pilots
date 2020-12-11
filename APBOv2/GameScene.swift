@@ -261,9 +261,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.player.run(movement)
                     self.thruster1?.particleColorSequence = nil
                     self.thruster1?.particleColorBlendFactor = 1.0
-                    
-                    
                     self.thruster1?.particleColor = UIColor(red: 240.0/255, green: 50.0/255, blue: 53.0/255, alpha:1)
+                    
+                    self.run(SKAction.playSoundFileNamed("swishnew", waitForCompletion: false))
                     
                     self.rotation = 0
                     self.doubleTap = 0
