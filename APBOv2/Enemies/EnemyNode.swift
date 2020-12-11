@@ -28,7 +28,7 @@ class EnemyNode: SKSpriteNode {
         physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
         name = "enemy"
         position = CGPoint(x: startPosition.x + xOffset, y: startPosition.y)
-        
+        zPosition = 5
         configureMovement(moveStright)
     }
     
@@ -59,6 +59,7 @@ class EnemyNode: SKSpriteNode {
         weapon.name = "enemyWeapon"
         weapon.position = position
         weapon.zRotation = zRotation
+        weapon.zPosition = 4
         parent?.addChild(weapon)
         
         weapon.physicsBody = SKPhysicsBody(rectangleOf: weapon.size)
