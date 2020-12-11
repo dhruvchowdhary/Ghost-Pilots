@@ -118,7 +118,12 @@ class MainMenu: SKScene {
             party.emissionAngleRange = 3.141592/2.4
         }
         let randomNum2 = Int.random(in: -5...5)
-        party.particleRotationSpeed = 3.141592/2 + CGFloat(randomNum2)/5 - 1
+        let rotationDirection = Int.random(in: 0...1)
+        if rotationDirection == 0 {
+            party.particleRotationSpeed = -(3.141592/2 + CGFloat(randomNum2)/5 - 1)
+        } else {
+            party.particleRotationSpeed = 3.141592/2 + CGFloat(randomNum2)/5 - 1
+        }
         
         if randomNum == 2 || randomNum == 4 {
             let randomNum3 = Int.random(in: 0...15)
