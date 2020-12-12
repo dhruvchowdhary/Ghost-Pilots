@@ -64,6 +64,7 @@
 		74CF6888258403B3000C4E47 /* enemy3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF6887258403B3000C4E47 /* enemy3.sks */; };
 		74CF688A25843DA9000C4E47 /* explosionnew.wav in Resources */ = {isa = PBXBuildFile; fileRef = 74CF688925843DA9000C4E47 /* explosionnew.wav */; };
 		74CF688C25843F26000C4E47 /* miniLasernew.wav in Resources */ = {isa = PBXBuildFile; fileRef = 74CF688B25843F26000C4E47 /* miniLasernew.wav */; };
+		74CF688E25849F2E000C4E47 /* shotgunnew.wav in Resources */ = {isa = PBXBuildFile; fileRef = 74CF688D25849F2E000C4E47 /* shotgunnew.wav */; };
 		8100B1832575524900AA8A1F /* TurretBossNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8100B1822575524900AA8A1F /* TurretBossNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -129,6 +130,7 @@
 		74CF6887258403B3000C4E47 /* enemy3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = enemy3.sks; sourceTree = "<group>"; };
 		74CF688925843DA9000C4E47 /* explosionnew.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosionnew.wav; sourceTree = "<group>"; };
 		74CF688B25843F26000C4E47 /* miniLasernew.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = miniLasernew.wav; sourceTree = "<group>"; };
+		74CF688D25849F2E000C4E47 /* shotgunnew.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shotgunnew.wav; sourceTree = "<group>"; };
 		8100B1822575524900AA8A1F /* TurretBossNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBossNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -279,6 +281,7 @@
 				74CF685D25828DB8000C4E47 /* Laser1new.wav */,
 				74CF684D2581EF1D000C4E47 /* Laser2.wav */,
 				74CF686E25829A28000C4E47 /* Laser2new.wav */,
+				74CF688D25849F2E000C4E47 /* shotgunnew.wav */,
 				74CF688925843DA9000C4E47 /* explosionnew.wav */,
 			);
 			path = Sounds;
@@ -369,6 +372,7 @@
 				748CEDC1256D6F24005DF246 /* TurretBoss.sks in Resources */,
 				74CF687A25830AD6000C4E47 /* ghost.sks in Resources */,
 				74CF68772582F889000C4E47 /* Player.sks in Resources */,
+				74CF688E25849F2E000C4E47 /* shotgunnew.wav in Resources */,
 				74CF687C25830BB7000C4E47 /* enemy.sks in Resources */,
 				74CF688225830CA0000C4E47 /* yellowPlayer.sks in Resources */,
 				74C3CFC8253F3E3D00757586 /* Starfield.sks in Resources */,

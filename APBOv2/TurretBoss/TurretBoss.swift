@@ -458,17 +458,17 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         if !isGameOver {
             if lastFireTime + 1 < currentTime {
                 lastFireTime = currentTime
-                if Int.random(in: 0...4) == 0 {
+                var randomInt = Int.random(in: 0...4)
+                if randomInt == 0 {
                     scatterTurret()
-                     self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
+                    self.run(SKAction.playSoundFileNamed("shotgunnew", waitForCompletion: false))
                 }
-                if Int.random(in: 0...4) == 1 {
+                if randomInt == 1 {
                     shootTurret()
                     self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
                 }
-                if Int.random(in: 0...4) == 2 {
+                if randomInt == 2 {
                     lineTurret()
-                   
                 }
             }
         }
@@ -622,18 +622,19 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                shot3.position = turretSprite.position
                
                 
-               addChild(shot1)
-             self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
+            addChild(shot1)
+            self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
             
-               let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (timer) in
+            let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
                 self.addChild(shot2)
-                 self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
-                               }
-               
-                let timer1 = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (timer) in
+                self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
+                let timer1 = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
                     self.addChild(shot3)
-                     self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
-                                             }
+                    self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
+                }
+            }
+               
+                
                let movement1 = SKAction.moveBy(x: 1024 * cos(turretSprite.zRotation-90 * degreesToRadians), y: 1024 * sin(turretSprite.zRotation-90 * degreesToRadians), duration: 3)
                let sequence1 = SKAction.sequence([movement1, .removeFromParent()])
                
