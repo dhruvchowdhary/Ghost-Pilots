@@ -461,7 +461,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 var randomInt = Int.random(in: 0...4)
                 if randomInt == 0 {
                     scatterTurret()
-                    self.run(SKAction.playSoundFileNamed("shotgunnew", waitForCompletion: false))
+                    self.run(SKAction.playSoundFileNamed("shotgun1new", waitForCompletion: false))
                 }
                 if randomInt == 1 {
                     shootTurret()
