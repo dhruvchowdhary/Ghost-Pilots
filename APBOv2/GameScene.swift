@@ -111,19 +111,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         points.zPosition = 10
         points.fontColor = UIColor.white
         points.fontSize = 70
-        points.fontName = "Menlo Regular-Bold"
+        points.fontName = "AvenirNext-Bold"
         addChild(points)
         pointsLabel.position = CGPoint(x: frame.midX, y: frame.maxY-70)
         pointsLabel.zPosition = 10
         pointsLabel.fontColor = UIColor.white
         pointsLabel.fontSize = 45
-        pointsLabel.fontName = "Menlo Regular-Bold"
+        pointsLabel.fontName = "AvenirNext-Bold"
         addChild(pointsLabel)
         
         enemyPoints.zPosition = 2
-        enemyPoints.fontColor = UIColor.green
-        enemyPoints.fontSize = 60
-        enemyPoints.fontName = "Menlo Regular-Bold"
+        enemyPoints.fontColor = UIColor.white
+        enemyPoints.fontSize = 55
+        enemyPoints.fontName = "AvenirNext-Bold"
         enemyPoints.alpha = 0
         addChild(enemyPoints)
         
@@ -491,8 +491,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if enemyPoints.alpha > 0 {
-            let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (timer) in
-                self.enemyPoints.alpha = self.enemyPoints.alpha - 0.02
+            let timer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { (timer) in
+                self.enemyPoints.alpha = self.enemyPoints.alpha - 0.016
             }
         }
         
