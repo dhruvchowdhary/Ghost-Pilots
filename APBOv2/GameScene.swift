@@ -72,7 +72,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let points = SKLabelNode(text: "0")
     let pointsLabel = SKLabelNode(text: "Points")
     var enemyPoints = SKLabelNode(text: "+1")
-    let highScoreLabel = SKLabelNode(text: "Highscore")
+    let highScoreLabel = SKLabelNode(text: "High Score")
     let highScorePoints = SKLabelNode(text: "0")
     var numPoints = 0
     var highScore = 0
