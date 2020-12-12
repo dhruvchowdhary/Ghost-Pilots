@@ -253,6 +253,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         turnButtonNode = self.childNode(withName: "turnButton") as? MSButtonNode
         turnButtonNode.selectedHandler = {
             if self.varisPaused==1 && self.isPlayerAlive {
+                self.turnButtonNode.setScale(1.1)
                 self.turnButtonNode.alpha = 0.6
                 self.count = 1
                 if (self.doubleTap==1) {
@@ -283,6 +284,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         turnButtonNode.selectedHandlers = {
+            self.turnButtonNode.setScale(1)
             if !self.isGameOver {
                 self.turnButtonNode.alpha = 0.8
                 let timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { (timer) in
@@ -350,6 +352,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         shootButtonNode.selectedHandlers = {
+            self.shootButtonNode.setScale(1)
             if !self.isGameOver {
                 self.pilotDirection = self.pilot.zRotation
                 self.shootButtonNode.alpha = 0.8
