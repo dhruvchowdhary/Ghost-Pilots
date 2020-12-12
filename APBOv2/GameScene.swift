@@ -71,17 +71,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let points = SKLabelNode(text: "0")
     var numPoints = 0
     let pointsLabel = SKLabelNode(text: "Points")
+    var enemyPoints = SKLabelNode(text: "+1")
     var rotation = CGFloat(0)
     var numAmmo = 3
     var regenAmmo = false
     
     let scaleAction = SKAction.scale(to: 2.2, duration: 0.4)
     
-    
     let bullet1 = SKSpriteNode(imageNamed: "bullet")
     let bullet2 = SKSpriteNode(imageNamed: "bullet")
     let bullet3 = SKSpriteNode(imageNamed: "bullet")
-    
     
     
     override func didMove(to view: SKView) {
@@ -120,6 +119,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pointsLabel.fontSize = 45
         pointsLabel.fontName = "Menlo Regular-Bold"
         addChild(pointsLabel)
+        
+        enemyPoints.zPosition = 2
+        enemyPoints.fontColor = UIColor.green
+        enemyPoints.fontSize = 60
+        enemyPoints.fontName = "Menlo Regular-Bold"
+        enemyPoints.alpha = 0
+        addChild(enemyPoints)
         
         player.name = "player"
         player.position.x = frame.midX-700
@@ -483,6 +489,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 pilot.position.x = frame.maxX - 20
             }
         }
+        
+        if enemyPoints.alpha > 0 {
+            let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { (timer) in
+                self.enemyPoints.alpha = self.enemyPoints.alpha - 0.02
+            }
+        }
+        
         for child in children {
             if child.frame.maxX < 0 {
                 if !frame.intersects(child.frame) {
@@ -657,13 +670,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         else if let enemy = firstNode as? EnemyNode {
             enemy.shields -= 1
-            
+            self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             if enemy.shields == 0 {
-                self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
+                
                 if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                     explosion.position = enemy.position
                     addChild(explosion)
                 }
+                enemyPoints.position = enemy.position
+                enemyPoints.text = "+" + "\(enemy.scoreinc)"
+                enemyPoints.alpha = 1
                 enemy.removeFromParent()
                 numPoints += enemy.scoreinc
                 points.text = "\(numPoints)"
@@ -674,6 +690,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             secondNode.removeFromParent()
         } else {
+            self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = secondNode.position
                 addChild(explosion)
@@ -698,14 +715,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         isPlayerAlive = false
         isGameOver = true
         
-  /*      let playAgain = SKLabelNode(text: "Tap to Play Again")
-        playAgain.position = CGPoint(x: frame.midX, y: frame.midY - 250)
-        playAgain.zPosition = 100
-        playAgain.fontColor = UIColor.white
-        playAgain.fontName = "AvenirNext-Bold"
-        playAgain.fontSize = 60
-        addChild(playAgain)
-       */
         self.playAgainButtonNode.alpha = 1
         
         self.pauseButtonNode.alpha = 0

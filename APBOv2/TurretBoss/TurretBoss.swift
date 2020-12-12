@@ -724,6 +724,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
              secondNode.removeFromParent()
              print("2")*/
         } else {
+            self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             firstNode.removeFromParent()
             if secondNode.name == "playerWeapon" {
                 if let explosion = SKEmitterNode(fileNamed: "Explosion") {

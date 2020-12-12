@@ -126,8 +126,8 @@ class MainMenu: SKScene {
         }
         
         if randomNum == 2 || randomNum == 4 {
-            let randomNum3 = Int.random(in: 0...15)
-            party.particleSpeed = CGFloat(80 + randomNum3)
+            let randomNum3 = Int.random(in: 5...15)
+            party.particleSpeed = CGFloat(88 + randomNum3)
         } else {
             let randomNum3 = Int.random(in: -15...15)
             party.particleSpeed = CGFloat(55 + randomNum3)
