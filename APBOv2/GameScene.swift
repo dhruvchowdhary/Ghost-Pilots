@@ -298,6 +298,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         shootButtonNode = self.childNode(withName: "shootButton") as? MSButtonNode
         shootButtonNode.selectedHandler = {
             self.shootButtonNode.alpha = 0.6
+            self.shootButtonNode.setScale(1.1)
             
             if self.varisPaused==1 && self.isPlayerAlive {
                 if self.isPlayerAlive {

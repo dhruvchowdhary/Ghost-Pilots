@@ -237,6 +237,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         
         turnButtonNode = self.childNode(withName: "turnButton") as? MSButtonNode
         turnButtonNode.selectedHandler = {
+             self.turnButtonNode.setScale(1.1)
             if self.varisPaused==1 && self.isPlayerAlive {
                 self.turnButtonNode.alpha = 0.6
                 self.count = 1
@@ -268,6 +269,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         turnButtonNode.selectedHandlers = {
+            self.turnButtonNode.setScale(1)
             if !self.isGameOver {
             self.turnButtonNode.alpha = 0.8
             let timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { (timer) in
@@ -282,7 +284,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         shootButtonNode = self.childNode(withName: "shootButton") as? MSButtonNode
         shootButtonNode.selectedHandler = {
             self.shootButtonNode.alpha = 0.6
-            
+             self.shootButtonNode.setScale(1.1)
             if self.varisPaused==1 && self.isPlayerAlive {
                 if self.isPlayerAlive {
                     if self.numAmmo > 0 {
@@ -327,6 +329,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         shootButtonNode.selectedHandlers = {
+             self.shootButtonNode.setScale(1)
             if !self.isGameOver {
                 self.pilotDirection = self.pilot.zRotation
                 self.shootButtonNode.alpha = 0.8
