@@ -68,10 +68,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
     var direction = 0.0
     let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 2000, height: 1000) )
+    
     let points = SKLabelNode(text: "0")
-    var numPoints = 0
     let pointsLabel = SKLabelNode(text: "Points")
     var enemyPoints = SKLabelNode(text: "+1")
+    let highScoreLabel = SKLabelNode(text: "Highscore")
+    let highScorePoints = SKLabelNode(text: "0")
+    var numPoints = 0
+    var highScore = 0
+    
     var rotation = CGFloat(0)
     var numAmmo = 3
     var regenAmmo = false
@@ -84,6 +89,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func didMove(to view: SKView) {
+        
+        let highScoreDefaults = UserDefaults.standard
+        if (highScoreDefaults.value(forKey: "highScore") != nil) {
+            highScore = highScoreDefaults.value(forKey: "highScore") as! NSInteger
+            highScorePoints.text = "\(highScore)"
+        }
+        
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         //size = view.bounds.size
@@ -107,18 +119,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(self.dimPanel)
         self.dimPanel.alpha = 0
         
-        points.position = CGPoint(x: frame.midX, y: frame.maxY-135)
+        points.position = CGPoint(x: frame.midX+130, y: frame.maxY-135)
         points.zPosition = 10
         points.fontColor = UIColor.white
         points.fontSize = 70
         points.fontName = "AvenirNext-Bold"
         addChild(points)
-        pointsLabel.position = CGPoint(x: frame.midX, y: frame.maxY-70)
+        pointsLabel.position = CGPoint(x: frame.midX+130, y: frame.maxY-70)
         pointsLabel.zPosition = 10
         pointsLabel.fontColor = UIColor.white
         pointsLabel.fontSize = 45
         pointsLabel.fontName = "AvenirNext-Bold"
         addChild(pointsLabel)
+        
+        highScorePoints.position = CGPoint(x: frame.midX-130, y: frame.maxY-135)
+        highScorePoints.zPosition = 10
+        highScorePoints.fontColor = UIColor.white
+        highScorePoints.fontSize = 70
+        highScorePoints.fontName = "AvenirNext-Bold"
+        addChild(highScorePoints)
+        highScoreLabel.position = CGPoint(x: frame.midX-130, y: frame.maxY-70)
+        highScoreLabel.zPosition = 10
+        highScoreLabel.fontColor = UIColor.white
+        highScoreLabel.fontSize = 45
+        highScoreLabel.fontName = "AvenirNext-Bold"
+        addChild(highScoreLabel)
         
         enemyPoints.zPosition = 2
         enemyPoints.fontColor = UIColor.white
@@ -683,6 +708,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 enemy.removeFromParent()
                 numPoints += enemy.scoreinc
                 points.text = "\(numPoints)"
+                if numPoints > highScore {
+                    highScore = numPoints
+                    highScorePoints.text = "\(highScore)"
+                    var highScoreDefaults = UserDefaults.standard
+                    highScoreDefaults.setValue(highScore, forKey: "highScore")
+                    highScoreDefaults.synchronize()
+                }
             }
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = enemy.position

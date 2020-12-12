@@ -12,9 +12,9 @@ class SoloMenu: SKScene {
 
 /* UI Connections */
 var buttonPlay: MSButtonNode!
-
     
     override func didMove(to view: SKView) {
+        
         /* Setup your scene here */
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
                 particles.position = CGPoint(x: frame.midX, y: frame.midY)
