@@ -458,7 +458,10 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         if !isGameOver {
             if lastFireTime + 1 < currentTime {
                 lastFireTime = currentTime
-                if Int.random(in: 0...2) == 0 || Int.random(in: 0...2) == 1 {
+                if Int.random(in: 0...2) == 0 {
+                    scatterTurret()
+                }
+                if Int.random(in: 0...2) == 1 {
                     shootTurret()
                     self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
                 }
@@ -492,25 +495,86 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
-    
     func shootTurret() {
         if !isGameOver {
-            let shot = SKSpriteNode(imageNamed: "turretWeapon")
-            shot.name = "TurretWeapon"
-            shot.zRotation = turretSprite.zRotation
+            let shot1 = SKSpriteNode(imageNamed: "turretWeapon")
+            shot1.name = "TurretWeapon"
+            shot1.zRotation = turretSprite.zRotation
             
-            shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-            shot.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
-            shot.physicsBody?.collisionBitMask = CollisionType.player.rawValue
-            shot.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
-            shot.physicsBody?.mass = 0.001
-            shot.zPosition = 4
-            shot.position = turretSprite.position
+            shot1.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
+            shot1.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
+            shot1.physicsBody?.collisionBitMask = CollisionType.player.rawValue
+            shot1.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
+            shot1.physicsBody?.mass = 0.001
+            shot1.zPosition = 4
+            shot1.position = turretSprite.position
             
-            addChild(shot)
-            let movement = SKAction.moveBy(x: 1024 * cos(turretSprite.zRotation-90 * degreesToRadians), y: 1024 * sin(turretSprite.zRotation-90 * degreesToRadians), duration: 1.8432)
-            let sequence = SKAction.sequence([movement, .removeFromParent()])
-            shot.run(sequence)
+       
+            addChild(shot1)
+         
+            let movement1 = SKAction.moveBy(x: 1024 * cos(turretSprite.zRotation-90 * degreesToRadians), y: 1024 * sin(turretSprite.zRotation-90 * degreesToRadians), duration: 1.8432)
+            let sequence1 = SKAction.sequence([movement1, .removeFromParent()])
+            
+          
+            shot1.run(sequence1)
+
+        }
+    }
+    func scatterTurret() {
+        if !isGameOver {
+            let shot1 = SKSpriteNode(imageNamed: "turretWeapon")
+            shot1.name = "TurretWeapon"
+            shot1.zRotation = turretSprite.zRotation
+            
+            shot1.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
+            shot1.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
+            shot1.physicsBody?.collisionBitMask = CollisionType.player.rawValue
+            shot1.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
+            shot1.physicsBody?.mass = 0.001
+            shot1.zPosition = 4
+            shot1.position = turretSprite.position
+            
+            let shot2 = SKSpriteNode(imageNamed: "turretWeapon")
+            shot2.name = "TurretWeapon"
+            shot2.zRotation = turretSprite.zRotation
+            
+            shot2.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
+            shot2.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
+            shot2.physicsBody?.collisionBitMask = CollisionType.player.rawValue
+            shot2.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
+            shot2.physicsBody?.mass = 0.001
+            shot2.zPosition = 4
+            shot2.position = turretSprite.position
+            
+            let shot3 = SKSpriteNode(imageNamed: "turretWeapon")
+            shot3.name = "TurretWeapon"
+            shot3.zRotation = turretSprite.zRotation
+            
+            shot3.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
+            shot3.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
+            shot3.physicsBody?.collisionBitMask = CollisionType.player.rawValue
+            shot3.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
+            shot3.physicsBody?.mass = 0.001
+            shot3.zPosition = 4
+            shot3.position = turretSprite.position
+            
+            addChild(shot1)
+            addChild(shot2)
+            addChild(shot3)
+            let movement1 = SKAction.moveBy(x: 1024 * cos(turretSprite.zRotation-90 * degreesToRadians), y: 1024 * sin(turretSprite.zRotation-90 * degreesToRadians), duration: 1.8432)
+            let sequence1 = SKAction.sequence([movement1, .removeFromParent()])
+            
+            
+            let movement2 = SKAction.moveBy(x: 1024 * cos(turretSprite.zRotation-80 * degreesToRadians), y: 1024 * sin(turretSprite.zRotation-80 * degreesToRadians), duration: 1.8432)
+            let sequence2 = SKAction.sequence([movement2, .removeFromParent()])
+            
+            let movement3 = SKAction.moveBy(x: 1024 * cos(turretSprite.zRotation-100 * degreesToRadians), y: 1024 * sin(turretSprite.zRotation-100 * degreesToRadians), duration: 1.8432)
+            let sequence3 = SKAction.sequence([movement3, .removeFromParent()])
+            
+            
+            shot1.run(sequence1)
+            shot2.run(sequence2)
+            shot3.run(sequence3)
         }
     }
     
