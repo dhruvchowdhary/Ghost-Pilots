@@ -519,7 +519,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         let barSize = CGSize(width: 250, height: 20);
         
         let fillColor = UIColor(red: 113.0/255, green: 202.0/255, blue: 73.0/255, alpha:1)
-        let borderColor = UIColor(red: 35.0/255, green: 28.0/255, blue: 40.0/255, alpha:1)
+        let borderColor = UIColor(red: 255.0/255, green: 255.0/255, blue: 255.0/255, alpha:1)
         
         // create drawing context
         UIGraphicsBeginImageContextWithOptions(barSize, false, 0)
@@ -528,7 +528,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         // draw the outline for the health bar
         borderColor.setStroke()
         let borderRect = CGRect(origin: CGPoint.zero, size: barSize)
-        context.stroke(borderRect, width: 1)
+        context.stroke(borderRect, width: 3)
         
         // draw the health bar with a colored rectangle
         fillColor.setFill()
