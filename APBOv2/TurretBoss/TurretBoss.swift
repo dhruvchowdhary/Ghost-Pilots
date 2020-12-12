@@ -458,15 +458,15 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         if !isGameOver {
             if lastFireTime + 1 < currentTime {
                 lastFireTime = currentTime
-                if Int.random(in: 0...3) == 0 {
+                if Int.random(in: 0...4) == 0 {
                     scatterTurret()
                      self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
                 }
-                if Int.random(in: 0...3) == 1 {
+                if Int.random(in: 0...4) == 1 {
                     shootTurret()
                     self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
                 }
-                if Int.random(in: 0...3) == 2 {
+                if Int.random(in: 0...4) == 2 {
                     lineTurret()
                    
                 }
