@@ -1,6 +1,10 @@
 import SpriteKit
 import CoreMotion
 
+
+
+
+   
 class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     
     let cameraNode =  SKCameraNode()
@@ -56,8 +60,20 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     let bullet3 = SKSpriteNode(imageNamed: "bullet")
     let particles = SKEmitterNode(fileNamed: "Starfield")
     
+    let shape = SKShapeNode()
+    
+   
+    
     
     override func didMove(to view: SKView) {
+        
+        shape.path = UIBezierPath(roundedRect: CGRect(x: -800 + 50, y: -800 + 160, width: 1600 - 100, height: 1600 - 320), cornerRadius: 64).cgPath
+           shape.position = CGPoint(x: frame.midX, y: frame.midY)
+        shape.fillColor = .clear
+           shape.strokeColor = UIColor.white
+           shape.lineWidth = 10
+           addChild(shape)
+           
         
         addChild(cameraNode)
         camera = cameraNode
@@ -361,7 +377,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         addChild(cannonHealthBar)
         cannonHealthBar.position = CGPoint(
             x: cannonSprite.position.x,
-            y: cannonSprite.position.y - cannonSprite.size.height/2 - 10
+            y: cannonSprite.position.y - cannonSprite.size.height/2 - 20
         )
         cannonHealthBar.zPosition = 4
         updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
@@ -430,16 +446,17 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             bullet2.run(revolve2)
             bullet3.run(revolve3)
             
-            if player.position.y < frame.minY + 160 {
-                player.position.y = frame.minY + 160
-            } else if player.position.y > frame.maxY - 160 {
-                player.position.y = frame.maxY - 160
+            
+            if player.position.y < frame.minY + 190 {
+                player.position.y = frame.minY + 190
+            } else if player.position.y > frame.maxY - 190 {
+                player.position.y = frame.maxY - 190
             }
             
-            if player.position.x < frame.minX + 50  {
-                player.position.x = frame.minX + 50
-            } else if player.position.x > frame.maxX - 50 {
-                player.position.x = frame.maxX - 50
+            if player.position.x < frame.minX + 80  {
+                player.position.x = frame.minX + 80
+            } else if player.position.x > frame.maxX - 80 {
+                player.position.x = frame.maxX - 80
             }
             
             
