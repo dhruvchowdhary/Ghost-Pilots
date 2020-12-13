@@ -386,6 +386,23 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         shootButton.run(squishNormal)
     }
     
+    func followCamera() {
+        shootButtonNode.position.x = cameraNode.position.x - 700
+        shootButtonNode.position.y =  cameraNode.position.y - 250
+        
+        pauseButtonNode.position.x = cameraNode.position.x + 650
+        pauseButtonNode.position.y =  cameraNode.position.y + 300
+        
+        backButtonNode.position.x = cameraNode.position.x - 600
+        backButtonNode.position.y =  cameraNode.position.y + 300
+        
+        restartButtonNode.position.x = cameraNode.position.x + 500
+        restartButtonNode.position.y =  cameraNode.position.y + 300
+        
+        turnButtonNode.position.x = cameraNode.position.x + 700
+        turnButtonNode.position.y = cameraNode.position.y - 250
+    }
+    
     override func update(_ currentTime: TimeInterval) {
         
         let deltaTime = max(1.0/30, currentTime - lastUpdateTime)
@@ -393,28 +410,10 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         updateTurret(deltaTime)
         
         if isPlayerAlive {
-            //ho
-//hii
             
-            shootButtonNode.position.x = cameraNode.position.x - 700
-            shootButtonNode.position.y =  cameraNode.position.y - 250
-            
-            pauseButtonNode.position.x = cameraNode.position.x + 650
-            pauseButtonNode.position.y =  cameraNode.position.y + 300
-            
-            backButtonNode.position.x = cameraNode.position.x - 600
-            backButtonNode.position.y =  cameraNode.position.y + 300
-            
-            restartButtonNode.position.x = cameraNode.position.x + 500
-            restartButtonNode.position.y =  cameraNode.position.y + 300
-            
-            
-            turnButtonNode.position.x = cameraNode.position.x + 700
-            turnButtonNode.position.y = cameraNode.position.y - 250
- 
-             
             cameraNode.position.x = (player.position.x + turretSprite.position.x) / 2
             cameraNode.position.y = (player.position.y + turretSprite.position.y) / 2
+            followCamera()
             
             player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.7 ,y:player.position.y + sin(player.zRotation) * 3.7)
             pilotDirection = player.zRotation - 3.141592/2
@@ -424,17 +423,12 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             bullet3.position = player.position
             
             let revolve1 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime )), y: -CGFloat(50 * sin(2 * currentTime)), duration: 0.000001)
-            
             let revolve2 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 2.0944)), y: -CGFloat(50 * sin(2 * currentTime + 2.0944)), duration: 0.000001)
-            
             let revolve3 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 4.18879)), y: -CGFloat(50 * sin(2 * currentTime + 4.18879)), duration: 0.000001)
-            
-            
             
             bullet1.run(revolve1)
             bullet2.run(revolve2)
             bullet3.run(revolve3)
-            
             
             if player.position.y < frame.minY + 160 {
                 player.position.y = frame.minY + 160
@@ -472,12 +466,15 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         } else {
+            if !isGameOver {
+                cameraNode.position.x = (pilot.position.x + turretSprite.position.x) / 2
+                cameraNode.position.y = (pilot.position.y + turretSprite.position.y) / 2
+                followCamera()
+            }
+            
             bullet1.removeFromParent()
             bullet2.removeFromParent()
             bullet3.removeFromParent()
-            
-            
-            
             
             if self.pilotForward {
                 pilot.position = CGPoint(x:pilot.position.x + cos(pilot.zRotation+3.141592/2) * 2 ,y:pilot.position.y + sin(pilot.zRotation+3.141592/2) * 2)
@@ -485,15 +482,15 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 pilot.position = CGPoint(x:pilot.position.x + cos(pilotDirection + 3.141592/2) * 0.9 ,y:pilot.position.y + sin(pilotDirection + 3.141592/2) * 0.9)
             }
             
-            if pilot.position.y < frame.minY + 20 {
-                pilot.position.y = frame.minY + 20
-            } else if pilot.position.y > frame.maxY - 20 {
-                pilot.position.y = frame.maxY - 20
+            if pilot.position.y < frame.minY + 160 {
+                pilot.position.y = frame.minY + 160
+            } else if pilot.position.y > frame.maxY - 160 {
+                pilot.position.y = frame.maxY - 160
             }
-            if pilot.position.x < frame.minX + 20  {
-                pilot.position.x = frame.minX + 20
-            } else if player.position.x > frame.maxX - 20 {
-                pilot.position.x = frame.maxX - 20
+            if pilot.position.x < frame.minX + 50  {
+                pilot.position.x = frame.minX + 50
+            } else if player.position.x > frame.maxX - 50 {
+                pilot.position.x = frame.maxX - 50
             }
         }
         if !isGameOver {
