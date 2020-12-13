@@ -336,6 +336,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if self.varisPaused == 1 {
                     self.direction = 0
                 }
+            } else {
+                self.turnButtonNode.alpha = 0
             }
         }
         
@@ -407,6 +409,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.shootButtonNode.alpha = 0.8
                 self.pilotForward = false
                 self.pilotThrust1?.particleAlpha = 0
+            } else {
+                self.shootButtonNode.alpha = 0
             }
         }
         
