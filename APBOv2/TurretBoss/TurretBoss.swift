@@ -392,21 +392,21 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             
 
             
-            shootButtonNode.position.x = cameraNode.position.x - 400
-            shootButtonNode.position.y =  cameraNode.position.y - 300
+            shootButtonNode.position.x = cameraNode.position.x - 700
+            shootButtonNode.position.y =  cameraNode.position.y - 250
             
-            pauseButtonNode.position.x = cameraNode.position.x + 600
-            pauseButtonNode.position.y =  cameraNode.position.y + 600
+            pauseButtonNode.position.x = cameraNode.position.x + 650
+            pauseButtonNode.position.y =  cameraNode.position.y + 300
             
             backButtonNode.position.x = cameraNode.position.x - 600
-            backButtonNode.position.y =  cameraNode.position.y + 600
+            backButtonNode.position.y =  cameraNode.position.y + 300
             
             restartButtonNode.position.x = cameraNode.position.x + 500
-            restartButtonNode.position.y =  cameraNode.position.y + 600
+            restartButtonNode.position.y =  cameraNode.position.y + 300
             
             
-            turnButtonNode.position.x = cameraNode.position.x + 400
-            turnButtonNode.position.y = cameraNode.position.y - 300
+            turnButtonNode.position.x = cameraNode.position.x + 700
+            turnButtonNode.position.y = cameraNode.position.y - 250
  
              
             cameraNode.position.x = (player.position.x + turretSprite.position.x) / 2
@@ -432,16 +432,16 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             bullet3.run(revolve3)
             
             
-            if player.position.y < frame.minY + 35 {
-                player.position.y = frame.minY + 35
-            } else if player.position.y > frame.maxY - 35 {
-                player.position.y = frame.maxY - 35
+            if player.position.y < frame.minY + 160 {
+                player.position.y = frame.minY + 160
+            } else if player.position.y > frame.maxY - 160 {
+                player.position.y = frame.maxY - 160
             }
             
-            if player.position.x < frame.minX + 35  {
-                player.position.x = frame.minX + 35
-            } else if player.position.x > frame.maxX - 35 {
-                player.position.x = frame.maxX - 35
+            if player.position.x < frame.minX + 50  {
+                player.position.x = frame.minX + 50
+            } else if player.position.x > frame.maxX - 50 {
+                player.position.x = frame.maxX - 50
             }
             
             
