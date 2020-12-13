@@ -391,7 +391,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         if isPlayerAlive {
             //ho
 //hii
-            
+            /*
             shootButtonNode.position.x = cameraNode.position.x - 700
             shootButtonNode.position.y =  cameraNode.position.y - 250
             
@@ -411,7 +411,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
              
             cameraNode.position.x = (player.position.x + turretSprite.position.x) / 2
             cameraNode.position.y = (player.position.y + turretSprite.position.y) / 2
-            
+            */
             player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.7 ,y:player.position.y + sin(player.zRotation) * 3.7)
             pilotDirection = player.zRotation - 3.141592/2
 
