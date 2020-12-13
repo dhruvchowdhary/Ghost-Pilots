@@ -389,7 +389,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         updateTurret(deltaTime)
         
         if isPlayerAlive {
-            
+            //ho
 //hi
             
             shootButtonNode.position.x = cameraNode.position.x - 700
