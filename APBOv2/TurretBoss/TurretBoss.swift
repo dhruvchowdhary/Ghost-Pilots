@@ -2,6 +2,8 @@ import SpriteKit
 import CoreMotion
 
 class TurretBossScene: SKScene, SKPhysicsContactDelegate {
+    
+    let cameraNode =  SKCameraNode()
     var backButtonNode: MSButtonNode!
     var pauseButtonNode: MSButtonNode!
     var turnButtonNode: MSButtonNode!
@@ -40,7 +42,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
     var rotation = CGFloat(0)
     var direction = 0.0
-    let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 2000, height: 1000) )
+    let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 20000, height: 10000) )
     
     var lastFireTime: Double = 0
     
@@ -56,6 +58,12 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func didMove(to view: SKView) {
+        
+        addChild(cameraNode)
+        camera = cameraNode
+        cameraNode.position.x = frame.width / 2
+        cameraNode.position.y = frame.height / 2
+        
         
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
@@ -138,7 +146,8 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
             
             /* 3) Ensure correct aspect mode */
-            scene.scaleMode = .aspectFit
+            scene.scaleMode = .aspectFill
+            
             
             /* Show debug */
             skView.showsPhysics = false
@@ -165,7 +174,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
             
             /* 3) Ensure correct aspect mode */
-            scene.scaleMode = .aspectFit
+            scene.scaleMode = .aspectFill
             
             /* Show debug */
             skView.showsPhysics = false
@@ -192,7 +201,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
             
             /* 3) Ensure correct aspect mode */
-            scene.scaleMode = .aspectFit
+            scene.scaleMode = .aspectFill
             
             /* Show debug */
             skView.showsPhysics = false
@@ -236,6 +245,8 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         
         
         turnButtonNode = self.childNode(withName: "turnButton") as? MSButtonNode
+ 
+        
         turnButtonNode.selectedHandler = {
              self.turnButtonNode.setScale(1.1)
             if self.varisPaused==1 && self.isPlayerAlive {
@@ -282,6 +293,9 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         }
         
         shootButtonNode = self.childNode(withName: "shootButton") as? MSButtonNode
+        
+
+        
         shootButtonNode.selectedHandler = {
             self.shootButtonNode.alpha = 0.6
              self.shootButtonNode.setScale(1.1)
@@ -375,6 +389,29 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         updateTurret(deltaTime)
         
         if isPlayerAlive {
+            //ho
+//hii
+            
+            shootButtonNode.position.x = cameraNode.position.x - 700
+            shootButtonNode.position.y =  cameraNode.position.y - 250
+            
+            pauseButtonNode.position.x = cameraNode.position.x + 650
+            pauseButtonNode.position.y =  cameraNode.position.y + 300
+            
+            backButtonNode.position.x = cameraNode.position.x - 600
+            backButtonNode.position.y =  cameraNode.position.y + 300
+            
+            restartButtonNode.position.x = cameraNode.position.x + 500
+            restartButtonNode.position.y =  cameraNode.position.y + 300
+            
+            
+            turnButtonNode.position.x = cameraNode.position.x + 700
+            turnButtonNode.position.y = cameraNode.position.y - 250
+ 
+             
+            cameraNode.position.x = (player.position.x + turretSprite.position.x) / 2
+            cameraNode.position.y = (player.position.y + turretSprite.position.y) / 2
+            
             player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.7 ,y:player.position.y + sin(player.zRotation) * 3.7)
             pilotDirection = player.zRotation - 3.141592/2
 
@@ -395,16 +432,16 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             bullet3.run(revolve3)
             
             
-            if player.position.y < frame.minY + 35 {
-                player.position.y = frame.minY + 35
-            } else if player.position.y > frame.maxY - 35 {
-                player.position.y = frame.maxY - 35
+            if player.position.y < frame.minY + 160 {
+                player.position.y = frame.minY + 160
+            } else if player.position.y > frame.maxY - 160 {
+                player.position.y = frame.maxY - 160
             }
             
-            if player.position.x < frame.minX + 35  {
-                player.position.x = frame.minX + 35
-            } else if player.position.x > frame.maxX - 35 {
-                player.position.x = frame.maxX - 35
+            if player.position.x < frame.minX + 50  {
+                player.position.x = frame.minX + 50
+            } else if player.position.x > frame.maxX - 50 {
+                player.position.x = frame.maxX - 50
             }
             
             
@@ -472,6 +509,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
+        /*
         for child in children {
             if child.frame.maxX < 0 {
                 if !frame.intersects(child.frame) {
@@ -479,6 +517,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
+ */
         
         if isGameOver {
             direction = -0.1

@@ -9,6 +9,8 @@
 import SpriteKit
 import CoreMotion
 
+
+
 let degreesToRadians = CGFloat.pi / 180
 let radiansToDegrees = 180 / CGFloat.pi
 let maxHealth = 100
@@ -27,6 +29,8 @@ enum CollisionType: UInt32 {
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    
     
     let EnemyThruster = SKEmitterNode(fileNamed: "EnemyThruster")
     
@@ -89,6 +93,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func didMove(to view: SKView) {
+        
+        /*
+        let borderBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: 0, y: 0, width: 80, height: 80))
+
+        borderBody.friction = 0
+
+        self.physicsBody = borderBody
+ */
         
         let highScoreDefaults = UserDefaults.standard
         if (highScoreDefaults.value(forKey: "highScore") != nil) {
@@ -329,6 +341,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         shootButtonNode = self.childNode(withName: "shootButton") as? MSButtonNode
+        
+        /*
+        shootButtonNode.position.x = frame.minX + 100
+         shootButtonNode.position.y = frame.minY + 100
+        */
+        
         shootButtonNode.selectedHandler = {
             self.shootButtonNode.alpha = 0.6
             self.shootButtonNode.setScale(1.1)
