@@ -538,7 +538,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 pauseButtonNode.position.x = cameraNode.position.x + 650
                 pauseButtonNode.position.y =  cameraNode.position.y + 300
                 
-                backButtonNode.position.x = cameraNode.position.x - 600
+                backButtonNode.position.x = cameraNode.position.x - 660
                 backButtonNode.position.y =  cameraNode.position.y + 300
                 
                 restartButtonNode.position.x = cameraNode.position.x + 500
@@ -547,38 +547,48 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
                 playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
             } else if UIScreen.main.bounds.width > 567 {
-                turnButtonNode.position.x = cameraNode.position.x + 660
-                turnButtonNode.position.y = cameraNode.position.y - 320
+                turnButtonNode.size = CGSize(width: 200, height: 184.038)
+                turnButtonNode.position.x = cameraNode.position.x + 620
+                turnButtonNode.position.y = cameraNode.position.y - 300
                 
-                shootButtonNode.position.x = cameraNode.position.x - 660
-                shootButtonNode.position.y =  cameraNode.position.y - 320
+                shootButtonNode.size = CGSize(width: 200, height: 184.038)
+                shootButtonNode.position.x = cameraNode.position.x - 620
+                shootButtonNode.position.y =  cameraNode.position.y - 300
                 
-                pauseButtonNode.position.x = cameraNode.position.x + 660
-                pauseButtonNode.position.y =  cameraNode.position.y + 350
+                pauseButtonNode.size = CGSize(width: 75, height: 93.75)
+                pauseButtonNode.position.x = cameraNode.position.x + 620
+                pauseButtonNode.position.y =  cameraNode.position.y + 330
                 
-                backButtonNode.position.x = cameraNode.position.x - 660
-                backButtonNode.position.y =  cameraNode.position.y + 350
+                backButtonNode.size = CGSize(width: 131.25, height: 93.75)
+                backButtonNode.position.x = cameraNode.position.x - 620
+                backButtonNode.position.y =  cameraNode.position.y + 330
                 
-                restartButtonNode.position.x = cameraNode.position.x + 510
-                restartButtonNode.position.y =  cameraNode.position.y + 350
+                restartButtonNode.size = CGSize(width: 87.188, height: 93.75)
+                restartButtonNode.position.x = cameraNode.position.x + 470
+                restartButtonNode.position.y =  cameraNode.position.y + 330
                 
                 playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
                 playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
             } else {
-                turnButtonNode.position.x = cameraNode.position.x + 660
-                turnButtonNode.position.y = cameraNode.position.y - 320
+                turnButtonNode.size = CGSize(width: 200, height: 184.038)
+                turnButtonNode.position.x = cameraNode.position.x + 620
+                turnButtonNode.position.y = cameraNode.position.y - 300
                 
-                shootButtonNode.position.x = cameraNode.position.x - 660
-                shootButtonNode.position.y =  cameraNode.position.y - 320
+                shootButtonNode.size = CGSize(width: 200, height: 184.038)
+                shootButtonNode.position.x = cameraNode.position.x - 620
+                shootButtonNode.position.y =  cameraNode.position.y - 300
                 
-                pauseButtonNode.position.x = cameraNode.position.x + 660
-                pauseButtonNode.position.y =  cameraNode.position.y + 350
+                pauseButtonNode.size = CGSize(width: 75, height: 93.75)
+                pauseButtonNode.position.x = cameraNode.position.x + 620
+                pauseButtonNode.position.y =  cameraNode.position.y + 330
                 
-                backButtonNode.position.x = cameraNode.position.x - 660
-                backButtonNode.position.y =  cameraNode.position.y + 350
+                backButtonNode.size = CGSize(width: 131.25, height: 93.75)
+                backButtonNode.position.x = cameraNode.position.x - 620
+                backButtonNode.position.y =  cameraNode.position.y + 330
                 
-                restartButtonNode.position.x = cameraNode.position.x + 510
-                restartButtonNode.position.y =  cameraNode.position.y + 350
+                restartButtonNode.size = CGSize(width: 87.188, height: 93.75)
+                restartButtonNode.position.x = cameraNode.position.x + 470
+                restartButtonNode.position.y =  cameraNode.position.y + 330
                 
                 playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
                 playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200

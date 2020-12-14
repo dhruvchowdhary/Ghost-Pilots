@@ -26,10 +26,10 @@ let notDoneLabel = SKLabelNode(text: "The online version of this game is current
         }
         self.sceneShake(shakeCount: 4, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         self.run(SKAction.playSoundFileNamed("menuThumpnew", waitForCompletion: false))
-        notDoneLabel.position = CGPoint(x: frame.midX, y: frame.midY - 370)
+        notDoneLabel.position = CGPoint(x: frame.midX, y: frame.midY - 345)
         notDoneLabel.fontColor = UIColor.white
-        notDoneLabel.fontSize = 50
-        notDoneLabel.fontName = notDoneLabel.fontName! + "-Bold"
+        notDoneLabel.fontSize = 42
+        notDoneLabel.fontName = "AvenirNext-Bold"
         addChild(notDoneLabel)
         
         /* Set UI connections */

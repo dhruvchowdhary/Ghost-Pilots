@@ -369,7 +369,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 self.pilotForward = false
                 self.pilotThrust1?.particleAlpha = 0
             } else {
-                self.shootButtonNode.alpha = 0.8
+                self.shootButtonNode.alpha = 0
             }
         }
         
