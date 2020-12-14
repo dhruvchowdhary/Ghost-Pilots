@@ -412,6 +412,8 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             //ho
 //hii
             
+        
+            
             shootButtonNode.position.x = cameraNode.position.x - 700
             shootButtonNode.position.y =  cameraNode.position.y - 250
             
