@@ -2,8 +2,6 @@ import SpriteKit
 import CoreMotion
 
 
-
-
    
 class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     
@@ -63,7 +61,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     let shape = SKShapeNode()
     
    
-    
     
     override func didMove(to view: SKView) {
         
@@ -432,23 +429,61 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             playAgainButtonNode.position.y = cameraNode.position.y - 224
             playAgainButtonNode.setScale(1.25)
         } else {
-            turnButtonNode.position.x = cameraNode.position.x + 660
-            turnButtonNode.position.y = cameraNode.position.y - 250
-            
-            shootButtonNode.position.x = cameraNode.position.x - 660
-            shootButtonNode.position.y =  cameraNode.position.y - 250
-            
-            pauseButtonNode.position.x = cameraNode.position.x + 650
-            pauseButtonNode.position.y =  cameraNode.position.y + 300
-            
-            backButtonNode.position.x = cameraNode.position.x - 600
-            backButtonNode.position.y =  cameraNode.position.y + 300
-            
-            restartButtonNode.position.x = cameraNode.position.x + 500
-            restartButtonNode.position.y =  cameraNode.position.y + 300
-            
-            playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
-            playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
+            if UIScreen.main.bounds.width > 779 {
+                turnButtonNode.position.x = cameraNode.position.x + 660
+                turnButtonNode.position.y = cameraNode.position.y - 250
+                
+                shootButtonNode.position.x = cameraNode.position.x - 660
+                shootButtonNode.position.y =  cameraNode.position.y - 250
+                
+                pauseButtonNode.position.x = cameraNode.position.x + 650
+                pauseButtonNode.position.y =  cameraNode.position.y + 300
+                
+                backButtonNode.position.x = cameraNode.position.x - 600
+                backButtonNode.position.y =  cameraNode.position.y + 300
+                
+                restartButtonNode.position.x = cameraNode.position.x + 500
+                restartButtonNode.position.y =  cameraNode.position.y + 300
+                
+                playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
+                playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
+            } else if UIScreen.main.bounds.width > 567 {
+                turnButtonNode.position.x = cameraNode.position.x + 660
+                turnButtonNode.position.y = cameraNode.position.y - 320
+                
+                shootButtonNode.position.x = cameraNode.position.x - 660
+                shootButtonNode.position.y =  cameraNode.position.y - 320
+                
+                pauseButtonNode.position.x = cameraNode.position.x + 660
+                pauseButtonNode.position.y =  cameraNode.position.y + 350
+                
+                backButtonNode.position.x = cameraNode.position.x - 660
+                backButtonNode.position.y =  cameraNode.position.y + 350
+                
+                restartButtonNode.position.x = cameraNode.position.x + 510
+                restartButtonNode.position.y =  cameraNode.position.y + 350
+                
+                playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
+                playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
+            } else {
+                turnButtonNode.position.x = cameraNode.position.x + 660
+                turnButtonNode.position.y = cameraNode.position.y - 320
+                
+                shootButtonNode.position.x = cameraNode.position.x - 660
+                shootButtonNode.position.y =  cameraNode.position.y - 320
+                
+                pauseButtonNode.position.x = cameraNode.position.x + 660
+                pauseButtonNode.position.y =  cameraNode.position.y + 350
+                
+                backButtonNode.position.x = cameraNode.position.x - 660
+                backButtonNode.position.y =  cameraNode.position.y + 350
+                
+                restartButtonNode.position.x = cameraNode.position.x + 510
+                restartButtonNode.position.y =  cameraNode.position.y + 350
+                
+                playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
+                playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
+            }
         }
     }
     
