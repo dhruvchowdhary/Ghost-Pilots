@@ -502,31 +502,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        
+        let scale = 1.2
         if UIDevice.current.userInterfaceIdiom == .pad {
-            turnButtonNode.position.x = cameraNode.position.x + 640 + 160
-            turnButtonNode.position.y = cameraNode.position.y - 410 - 140
-            turnButtonNode.setScale(1.25)
+            turnButtonNode.position.x = (cameraNode.position.x + 640) * CGFloat(scale)
+            turnButtonNode.position.y = (cameraNode.position.y - 410) * CGFloat(scale)
+            turnButtonNode.setScale(CGFloat(1.25 * scale))
             
-            shootButtonNode.position.x = cameraNode.position.x - 640 - 160
-            shootButtonNode.position.y =  cameraNode.position.y - 410 - 140
-            shootButtonNode.setScale(1.25)
+            shootButtonNode.position.x = (cameraNode.position.x - 640) * CGFloat(scale)
+            shootButtonNode.position.y =  (cameraNode.position.y - 410) * CGFloat(scale)
+            shootButtonNode.setScale(CGFloat(1.25 * scale))
             
-            pauseButtonNode.position.x = cameraNode.position.x + 640 + 180
-            pauseButtonNode.position.y =  cameraNode.position.y + 430 + 100
-            pauseButtonNode.setScale(1.25)
+            pauseButtonNode.position.x = (cameraNode.position.x + 640) * CGFloat(scale)
+            pauseButtonNode.position.y =  (cameraNode.position.y + 430) * CGFloat(scale)
+            pauseButtonNode.setScale(CGFloat(1.25 * scale))
             
-            backButtonNode.position.x = cameraNode.position.x - 640 - 180
-            backButtonNode.position.y = cameraNode.position.y + 430 + 100
-            backButtonNode.setScale(1.25)
+            backButtonNode.position.x = (cameraNode.position.x - 640) * CGFloat(scale)
+            backButtonNode.position.y = (cameraNode.position.y + 430) *  CGFloat(scale)
+            backButtonNode.setScale(CGFloat(1.25 * scale))
             
-            restartButtonNode.position.x = cameraNode.position.x + 480 + 180
-            restartButtonNode.position.y =  cameraNode.position.y + 430 + 100
-            restartButtonNode.setScale(1.25)
+            restartButtonNode.position.x = (cameraNode.position.x + 480) * CGFloat(scale)
+            restartButtonNode.position.y =  (cameraNode.position.y + 430) * CGFloat(scale)
+            restartButtonNode.setScale(CGFloat(1.25 * scale))
             
             playAgainButtonNode.position.x = cameraNode.position.x
-            playAgainButtonNode.position.y = cameraNode.position.y - 224
-            playAgainButtonNode.setScale(1.25)
+            playAgainButtonNode.position.y = (cameraNode.position.y - 224) * CGFloat(scale)
+            playAgainButtonNode.setScale(CGFloat(1.25 * scale))
         } else {
             if UIScreen.main.bounds.width > 779 {
                 turnButtonNode.position.x = cameraNode.position.x + 660
