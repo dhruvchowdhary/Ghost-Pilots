@@ -119,7 +119,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         }
         */
-        shape.path = UIBezierPath(roundedRect: CGRect(x: -1792/2-1000, y: -828/2, width: 1792+2000, height: 828), cornerRadius: 64).cgPath
+        shape.path = UIBezierPath(roundedRect: CGRect(x: -1792/2-1000, y: -828/2, width: 1792+2000, height: 828), cornerRadius: 40).cgPath
            shape.position = CGPoint(x: frame.midX, y: frame.midY)
         shape.fillColor = .clear
            shape.strokeColor = UIColor.white
