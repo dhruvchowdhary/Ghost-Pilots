@@ -30,7 +30,7 @@ enum CollisionType: UInt32 {
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    
+
     
     let EnemyThruster = SKEmitterNode(fileNamed: "EnemyThruster")
     
@@ -90,9 +90,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let bullet1 = SKSpriteNode(imageNamed: "bullet")
     let bullet2 = SKSpriteNode(imageNamed: "bullet")
     let bullet3 = SKSpriteNode(imageNamed: "bullet")
+    let shape = SKShapeNode()
+    
+    
     
     
     override func didMove(to view: SKView) {
+        
+        
+        shape.path = UIBezierPath(roundedRect: CGRect(x: -1792/2, y: -828/2, width: 1792, height: 828), cornerRadius: 64).cgPath
+           shape.position = CGPoint(x: frame.midX, y: frame.midY)
+        shape.fillColor = .clear
+           shape.strokeColor = UIColor.white
+           shape.lineWidth = 10
+           addChild(shape)
+        
         
         /*
         let borderBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: 0, y: 0, width: 80, height: 80))

@@ -426,7 +426,28 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         updateTurret(deltaTime)
         
         if isPlayerAlive {
+            //ho
+//hii
             
+        
+            
+            shootButtonNode.position.x = cameraNode.position.x - 700
+            shootButtonNode.position.y =  cameraNode.position.y - 250
+            
+            pauseButtonNode.position.x = cameraNode.position.x + 650
+            pauseButtonNode.position.y =  cameraNode.position.y + 300
+            
+            backButtonNode.position.x = cameraNode.position.x - 600
+            backButtonNode.position.y =  cameraNode.position.y + 300
+            
+            restartButtonNode.position.x = cameraNode.position.x + 500
+            restartButtonNode.position.y =  cameraNode.position.y + 300
+            
+            
+            turnButtonNode.position.x = cameraNode.position.x + 700
+            turnButtonNode.position.y = cameraNode.position.y - 250
+ 
+             
             cameraNode.position.x = (player.position.x + turretSprite.position.x) / 2
             cameraNode.position.y = (player.position.y + turretSprite.position.y) / 2
             followCamera()
