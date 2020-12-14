@@ -86,9 +86,7 @@ class EnemyNode: SKSpriteNode {
         
         weapon.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
         
-        if !frame.intersects(weapon.frame) {
-                           weapon.removeFromParent()
-                       }
+     
     }
  
 }

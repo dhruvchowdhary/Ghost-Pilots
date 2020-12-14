@@ -29,8 +29,23 @@ class TurretNode: SKSpriteNode {
         name = "enemy"
         position = CGPoint(x: startPosition.x + xOffset, y: startPosition.y)
         
-        //configureMovement(moveStright)
+        configureMovement(moveStright)
     }
+    
+    func configureMovement(_ moveStright: Bool) {
+         let path = UIBezierPath()
+         path.move(to: .zero)
+         
+         if moveStright {
+             path.addLine(to: CGPoint(x: -10000, y: 0))
+         } else {
+             path.addCurve(to: CGPoint(x: -3500, y: 0), controlPoint1: CGPoint(x: 0, y: -position.y*4), controlPoint2: CGPoint(x: -1000, y: -position.y))
+         }
+         
+         let movement = SKAction.follow(path.cgPath, asOffset: true, orientToPath: true, speed: type.speed)
+         let sequence = SKAction.sequence([movement, .removeFromParent()])
+         run(sequence)
+     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("LOL NO")
