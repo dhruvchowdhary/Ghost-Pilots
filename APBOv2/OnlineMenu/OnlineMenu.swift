@@ -64,7 +64,11 @@ let notDoneLabel = SKLabelNode(text: "The online version of this game is current
         }
 
         /* 3) Ensure correct aspect mode */
-        scene.scaleMode = .aspectFit
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            scene.scaleMode = .aspectFit
+        } else {
+            scene.scaleMode = .aspectFill
+        }
 
         /* Show debug */
         skView.showsPhysics = false

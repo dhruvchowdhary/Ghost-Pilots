@@ -162,7 +162,11 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
             
             /* 3) Ensure correct aspect mode */
-            scene.scaleMode = .aspectFill
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                scene.scaleMode = .aspectFit
+            } else {
+                scene.scaleMode = .aspectFill
+            }
             
             
             /* Show debug */
@@ -403,35 +407,35 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func followCamera() {
-        shootButtonNode.position.x = cameraNode.position.x - 700
-        shootButtonNode.position.y =  cameraNode.position.y - 250
-        
-        pauseButtonNode.position.x = cameraNode.position.x + 650
-        pauseButtonNode.position.y =  cameraNode.position.y + 300
-        
-        backButtonNode.position.x = cameraNode.position.x - 600
-        backButtonNode.position.y =  cameraNode.position.y + 300
-        
-        restartButtonNode.position.x = cameraNode.position.x + 500
-        restartButtonNode.position.y =  cameraNode.position.y + 300
-        
-        turnButtonNode.position.x = cameraNode.position.x + 700
-        turnButtonNode.position.y = cameraNode.position.y - 250
-    }
-    
-    override func update(_ currentTime: TimeInterval) {
-        
-        let deltaTime = max(1.0/30, currentTime - lastUpdateTime)
-        lastUpdateTime = currentTime
-        updateTurret(deltaTime)
-        
-        if isPlayerAlive {
-            //ho
-//hii
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            turnButtonNode.position.x = cameraNode.position.x + 640
+            turnButtonNode.position.y = cameraNode.position.y - 410
+            turnButtonNode.setScale(1.25)
             
-        
+            shootButtonNode.position.x = cameraNode.position.x - 640
+            shootButtonNode.position.y =  cameraNode.position.y - 410
+            shootButtonNode.setScale(1.25)
             
-            shootButtonNode.position.x = cameraNode.position.x - 700
+            pauseButtonNode.position.x = cameraNode.position.x + 640
+            pauseButtonNode.position.y =  cameraNode.position.y + 430
+            pauseButtonNode.setScale(1.25)
+            
+            backButtonNode.position.x = cameraNode.position.x - 640
+            backButtonNode.position.y =  cameraNode.position.y + 430
+            backButtonNode.setScale(1.25)
+            
+            restartButtonNode.position.x = cameraNode.position.x + 480
+            restartButtonNode.position.y =  cameraNode.position.y + 430
+            restartButtonNode.setScale(1.25)
+            
+            playAgainButtonNode.position.x = cameraNode.position.x
+            playAgainButtonNode.position.y = cameraNode.position.y - 224
+            playAgainButtonNode.setScale(1.25)
+        } else {
+            turnButtonNode.position.x = cameraNode.position.x + 660
+            turnButtonNode.position.y = cameraNode.position.y - 250
+            
+            shootButtonNode.position.x = cameraNode.position.x - 660
             shootButtonNode.position.y =  cameraNode.position.y - 250
             
             pauseButtonNode.position.x = cameraNode.position.x + 650
@@ -443,11 +447,19 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             restartButtonNode.position.x = cameraNode.position.x + 500
             restartButtonNode.position.y =  cameraNode.position.y + 300
             
-            
-            turnButtonNode.position.x = cameraNode.position.x + 700
-            turnButtonNode.position.y = cameraNode.position.y - 250
- 
-             
+            playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
+            playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
+        }
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        
+        let deltaTime = max(1.0/30, currentTime - lastUpdateTime)
+        lastUpdateTime = currentTime
+        updateTurret(deltaTime)
+        
+        if isPlayerAlive {
+  
             cameraNode.position.x = (player.position.x + turretSprite.position.x) / 2
             cameraNode.position.y = (player.position.y + turretSprite.position.y) / 2
             followCamera()
@@ -976,7 +988,8 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         let gameOver = SKSpriteNode(imageNamed: "gameOver")
         gameOver.run(scaleAction)
         
-        gameOver.position = CGPoint(x: frame.midX, y: frame.midY)
+        gameOver.position.x = cameraNode.position.x
+        gameOver.position.y = cameraNode.position.y + 50
         gameOver.zPosition = 100
         gameOver.size = CGSize(width: 619, height: 118)
         addChild(gameOver)
@@ -1001,7 +1014,8 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         
         let victory = SKSpriteNode(imageNamed: "victory")
         victory.run(scaleAction)
-        victory.position = CGPoint(x: frame.midX, y: frame.midY)
+        victory.position.x = cameraNode.position.x
+        victory.position.y = cameraNode.position.y + 50
         victory.zPosition = 100
         addChild(victory)
     }
