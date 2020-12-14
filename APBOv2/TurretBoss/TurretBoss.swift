@@ -64,7 +64,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         
-        shape.path = UIBezierPath(roundedRect: CGRect(x: -800 + 50, y: -800 + 160, width: 1600 - 100, height: 1600 - 320), cornerRadius: 64).cgPath
+        shape.path = UIBezierPath(roundedRect: CGRect(x: -800 + 50, y: -800 + 160, width: 1600 - 100, height: 1600 - 320), cornerRadius: 40).cgPath
            shape.position = CGPoint(x: frame.midX, y: frame.midY)
         shape.fillColor = .clear
            shape.strokeColor = UIColor.white
@@ -567,15 +567,15 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 pilot.position = CGPoint(x:pilot.position.x + cos(pilotDirection + 3.141592/2) * 0.9 ,y:pilot.position.y + sin(pilotDirection + 3.141592/2) * 0.9)
             }
             
-            if pilot.position.y < frame.minY + 160 {
-                pilot.position.y = frame.minY + 160
-            } else if pilot.position.y > frame.maxY - 160 {
-                pilot.position.y = frame.maxY - 160
+            if pilot.position.y < frame.minY + 185 {
+                pilot.position.y = frame.minY + 185
+            } else if pilot.position.y > frame.maxY - 185 {
+                pilot.position.y = frame.maxY - 185
             }
-            if pilot.position.x < frame.minX + 50  {
-                pilot.position.x = frame.minX + 50
-            } else if player.position.x > frame.maxX - 50 {
-                pilot.position.x = frame.maxX - 50
+            if pilot.position.x < frame.minX + 75  {
+                pilot.position.x = frame.minX + 75
+            } else if player.position.x > frame.maxX - 75 {
+                pilot.position.x = frame.maxX - 75
             }
         }
         if !isGameOver {
