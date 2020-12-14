@@ -402,7 +402,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         shootButton.run(fadeAlpha)
         shootButton.run(squishNormal)
     }
-    //hi
+    //hi 
     func followCamera() {
         if UIDevice.current.userInterfaceIdiom == .pad {
             turnButtonNode.position.x = cameraNode.position.x + 640
