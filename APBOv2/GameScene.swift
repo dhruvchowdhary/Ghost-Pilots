@@ -112,12 +112,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         cameraNode.run(zoomInActionipad)
                
         }
+      /*
         else {
              cameraNode.run(zoomInActioniphone)
             
             
         }
-        
+        */
         shape.path = UIBezierPath(roundedRect: CGRect(x: -1792/2-1000, y: -828/2, width: 1792+2000, height: 828), cornerRadius: 64).cgPath
            shape.position = CGPoint(x: frame.midX, y: frame.midY)
         shape.fillColor = .clear
@@ -501,6 +502,90 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            turnButtonNode.position.x = cameraNode.position.x + 640 + 160
+            turnButtonNode.position.y = cameraNode.position.y - 410 - 140
+            turnButtonNode.setScale(1.25)
+            
+            shootButtonNode.position.x = cameraNode.position.x - 640 - 160
+            shootButtonNode.position.y =  cameraNode.position.y - 410 - 140
+            shootButtonNode.setScale(1.25)
+            
+            pauseButtonNode.position.x = cameraNode.position.x + 640 + 180
+            pauseButtonNode.position.y =  cameraNode.position.y + 430 + 100
+            pauseButtonNode.setScale(1.25)
+            
+            backButtonNode.position.x = cameraNode.position.x - 640 - 180
+            backButtonNode.position.y = cameraNode.position.y + 430 + 100
+            backButtonNode.setScale(1.25)
+            
+            restartButtonNode.position.x = cameraNode.position.x + 480 + 180
+            restartButtonNode.position.y =  cameraNode.position.y + 430 + 100
+            restartButtonNode.setScale(1.25)
+            
+            playAgainButtonNode.position.x = cameraNode.position.x
+            playAgainButtonNode.position.y = cameraNode.position.y - 224
+            playAgainButtonNode.setScale(1.25)
+        } else {
+            if UIScreen.main.bounds.width > 779 {
+                turnButtonNode.position.x = cameraNode.position.x + 660
+                turnButtonNode.position.y = cameraNode.position.y - 250
+                
+                shootButtonNode.position.x = cameraNode.position.x - 660
+                shootButtonNode.position.y =  cameraNode.position.y - 250
+                
+                pauseButtonNode.position.x = cameraNode.position.x + 650
+                pauseButtonNode.position.y =  cameraNode.position.y + 300
+                
+                backButtonNode.position.x = cameraNode.position.x - 600
+                backButtonNode.position.y =  cameraNode.position.y + 300
+                
+                restartButtonNode.position.x = cameraNode.position.x + 500
+                restartButtonNode.position.y =  cameraNode.position.y + 300
+                
+                playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
+                playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
+            } else if UIScreen.main.bounds.width > 567 {
+                turnButtonNode.position.x = cameraNode.position.x + 660
+                turnButtonNode.position.y = cameraNode.position.y - 320
+                
+                shootButtonNode.position.x = cameraNode.position.x - 660
+                shootButtonNode.position.y =  cameraNode.position.y - 320
+                
+                pauseButtonNode.position.x = cameraNode.position.x + 660
+                pauseButtonNode.position.y =  cameraNode.position.y + 350
+                
+                backButtonNode.position.x = cameraNode.position.x - 660
+                backButtonNode.position.y =  cameraNode.position.y + 350
+                
+                restartButtonNode.position.x = cameraNode.position.x + 510
+                restartButtonNode.position.y =  cameraNode.position.y + 350
+                
+                playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
+                playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
+            } else {
+                turnButtonNode.position.x = cameraNode.position.x + 660
+                turnButtonNode.position.y = cameraNode.position.y - 320
+                
+                shootButtonNode.position.x = cameraNode.position.x - 660
+                shootButtonNode.position.y =  cameraNode.position.y - 320
+                
+                pauseButtonNode.position.x = cameraNode.position.x + 660
+                pauseButtonNode.position.y =  cameraNode.position.y + 350
+                
+                backButtonNode.position.x = cameraNode.position.x - 660
+                backButtonNode.position.y =  cameraNode.position.y + 350
+                
+                restartButtonNode.position.x = cameraNode.position.x + 510
+                restartButtonNode.position.y =  cameraNode.position.y + 350
+                
+                playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
+                playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
+            }
+        }
+        
+        
         if isPlayerAlive {
             player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.7 ,y:player.position.y + sin(player.zRotation) * 3.7)
             pilotDirection = player.zRotation - 3.141592/2
@@ -528,6 +613,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else if shot.position.x > frame.maxX - 35 {
                 shot.removeFromParent()
             }
+
             
             
             if player.position.y < frame.minY + 35 {
@@ -591,13 +677,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        for child in children {
-            if child.frame.maxX < 0 {
-                if !frame.intersects(child.frame) {
-                    child.removeFromParent()
-                }
-            }
+        for enemy in children {
+            
+
         }
+            /*
+            if enemy.frame.maxX < 0 {
+                if !frame.intersects(enemy.frame) {
+                    enemy.removeFromParent()
+                }
+ */
+            
+        
+ 
         
         let activeEnemies = children.compactMap { $0 as? EnemyNode }
         if activeEnemies.isEmpty {
@@ -607,6 +699,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for enemy in activeEnemies {
             guard frame.intersects(enemy.frame) else { continue }
             
+            
+            
+            if enemy.position.x < frame.minX - 20 {
+                enemy.removeFromParent()
+            }
             if enemy.lastFireTime + 1 < currentTime {
                 enemy.lastFireTime = currentTime
                 
@@ -642,13 +739,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: position), xOffset: enemyOffsetX * CGFloat(index * 3), moveStright: true)
                 addChild(enemy)
                 
-          
+                
                 
             }
         } else {
             for enemy in currentWave.enemies {
                 let node = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: positions[enemy.position]), xOffset: enemyOffsetX * enemy.xOffset, moveStright: enemy.moveStraight)
                 addChild(node)
+   
             }
         }
     }
@@ -669,88 +767,89 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 explosion.position = secondNode.position
                 addChild(explosion)
             }
-            pilot.name = "pilot"
-            pilot.size = CGSize(width: 40, height: 40)
-            pilot.zRotation = player.zRotation - 3.141592/2
-            pilot.position = player.position
-            pilot.zPosition = 5
-            addChild(pilot)
-            //            gameOver()
-            
-            pilotThrust1?.position = CGPoint(x: 0, y: -20)
-            pilotThrust1?.targetNode = self.scene
-            pilotThrust1?.particleAlpha = 0
-            pilot.addChild(pilotThrust1!)
-            
-            firstNode.removeFromParent()
-            secondNode.removeFromParent()
-            
-            let wait = SKAction.wait(forDuration:7)
-            let action = SKAction.run {
-                self.spark1?.position = CGPoint(x: 0, y: 0)
-                self.spark1?.targetNode = self.scene
-                self.spark1?.particleAlpha = 1
-                self.pilot.addChild(self.spark1!)
-                self.spark1?.particleAlpha = 1
-                self.spark1?.particleLifetime = 1
-                if !self.isGameOver {
-                    self.run(SKAction.playSoundFileNamed("revivenew", waitForCompletion: false))
-                }
-                
-                let wait1 = SKAction.wait(forDuration:1.5)
-                let action1 = SKAction.run {
-                    if !self.isGameOver {
-                        self.spark1?.removeFromParent()
-                        self.pilotThrust1?.particleAlpha = 0
-                        //   self.spark1?.particleLifetime = 0
-                        self.player.position = self.pilot.position
-                        self.isPlayerAlive = true
-                        self.addChild(self.player)
-                        self.pilotThrust1?.removeFromParent()
-                        self.pilot.removeFromParent()
-                        
-                        self.playerShields += 1
-                        self.numAmmo = 3
-                        self.bullet1.position = self.player.position
-                        self.bullet2.position = self.player.position
-                        self.bullet3.position = self.player.position
-                        self.addChild(self.bullet1)
-                        self.addChild(self.bullet2)
-                        self.addChild(self.bullet3)
-                    }
-                }
-                    self.run(SKAction.sequence([wait1,action1]))
-            }
-            run(SKAction.sequence([wait,action]))
-            self.spark1?.particleAlpha = 0
-            
-            /*
-             
-             let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in //5 sec delay
-             
-             let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
-             if !self.isGameOver {
-             self.spark1?.particleAlpha = 0
-             self.player.position = self.pilot.position
-             self.isPlayerAlive = true
-             self.addChild(self.player)
-             self.pilot.removeFromParent()
-             
-             self.playerShields += 1
-             self.numAmmo = 3
-             self.addChild(self.bullet1)
-             self.addChild(self.bullet2)
-             self.addChild(self.bullet3)
-             }
-             }
-             }
-             */
-            
+          
             playerShields -= 1
             
             if playerShields == 0 {
                 isPlayerAlive = false
-                self.player.removeFromParent()
+                pilot.name = "pilot"
+                          pilot.size = CGSize(width: 40, height: 40)
+                          pilot.zRotation = player.zRotation - 3.141592/2
+                          pilot.position = player.position
+                          pilot.zPosition = 5
+                          addChild(pilot)
+                          //            gameOver()
+                          
+                          pilotThrust1?.position = CGPoint(x: 0, y: -20)
+                          pilotThrust1?.targetNode = self.scene
+                          pilotThrust1?.particleAlpha = 0
+                          pilot.addChild(pilotThrust1!)
+                          
+                          firstNode.removeFromParent()
+                          secondNode.removeFromParent()
+                          
+                          let wait = SKAction.wait(forDuration:7)
+                          let action = SKAction.run {
+                              self.spark1?.position = CGPoint(x: 0, y: 0)
+                              self.spark1?.targetNode = self.scene
+                              self.spark1?.particleAlpha = 1
+                              self.pilot.addChild(self.spark1!)
+                              self.spark1?.particleAlpha = 1
+                              self.spark1?.particleLifetime = 1
+                              if !self.isGameOver {
+                                  self.run(SKAction.playSoundFileNamed("revivenew", waitForCompletion: false))
+                              }
+                              
+                              let wait1 = SKAction.wait(forDuration:1.5)
+                              let action1 = SKAction.run {
+                                  if !self.isGameOver {
+                                      self.spark1?.removeFromParent()
+                                      self.pilotThrust1?.particleAlpha = 0
+                                      //   self.spark1?.particleLifetime = 0
+                                      self.player.position = self.pilot.position
+                                      self.isPlayerAlive = true
+                                      self.addChild(self.player)
+                                      self.pilotThrust1?.removeFromParent()
+                                      self.pilot.removeFromParent()
+                                      
+                                      self.playerShields += 1
+                                      self.numAmmo = 3
+                                      self.bullet1.position = self.player.position
+                                      self.bullet2.position = self.player.position
+                                      self.bullet3.position = self.player.position
+                                      self.addChild(self.bullet1)
+                                      self.addChild(self.bullet2)
+                                      self.addChild(self.bullet3)
+                                  }
+                              }
+                                  self.run(SKAction.sequence([wait1,action1]))
+                          }
+                          run(SKAction.sequence([wait,action]))
+                          self.spark1?.particleAlpha = 0
+                          
+                          /*
+                           
+                           let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in //5 sec delay
+                           
+                           let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+                           if !self.isGameOver {
+                           self.spark1?.particleAlpha = 0
+                           self.player.position = self.pilot.position
+                           self.isPlayerAlive = true
+                           self.addChild(self.player)
+                           self.pilot.removeFromParent()
+                           
+                           self.playerShields += 1
+                           self.numAmmo = 3
+                           self.addChild(self.bullet1)
+                           self.addChild(self.bullet2)
+                           self.addChild(self.bullet3)
+                           }
+                           }
+                           }
+                           */
+                          
+            
             }
         } else if secondNode.name == "pilot" {
             self.run(SKAction.playSoundFileNamed("pilotSquish3", waitForCompletion: false))
