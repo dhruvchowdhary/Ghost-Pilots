@@ -30,6 +30,9 @@ enum CollisionType: UInt32 {
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    
+    let cameraNode =  SKCameraNode()
+    
 
     
     let EnemyThruster = SKEmitterNode(fileNamed: "EnemyThruster")
@@ -71,7 +74,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let spark1 = SKEmitterNode(fileNamed: "Spark")
     let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
     var direction = 0.0
-    let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 2000, height: 1000) )
+    let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 20000, height: 10000) )
     
     let points = SKLabelNode(text: "0")
     let pointsLabel = SKLabelNode(text: "Points")
@@ -97,8 +100,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         
+        addChild(cameraNode)
+              camera = cameraNode
+              cameraNode.position.x = 0
+              cameraNode.position.y = 0
         
-        shape.path = UIBezierPath(roundedRect: CGRect(x: -1792/2, y: -828/2, width: 1792, height: 828), cornerRadius: 64).cgPath
+        let zoomInActionipad = SKAction.scale(to: 1.7, duration: 0.01)
+        
+         let zoomInActioniphone = SKAction.scale(to: 1.06, duration: 0.01)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+                        cameraNode.run(zoomInActionipad)
+               
+        }
+        else {
+             cameraNode.run(zoomInActioniphone)
+            
+            
+        }
+        
+        shape.path = UIBezierPath(roundedRect: CGRect(x: -1792/2-1000, y: -828/2, width: 1792+2000, height: 828), cornerRadius: 64).cgPath
            shape.position = CGPoint(x: frame.midX, y: frame.midY)
         shape.fillColor = .clear
            shape.strokeColor = UIColor.white
@@ -243,7 +263,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             
             /* 3) Ensure correct aspect mode */
-            scene.scaleMode = .aspectFit
+            scene.scaleMode = .aspectFill
             
             /* Show debug */
             skView.showsPhysics = false
@@ -270,7 +290,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             
             /* 3) Ensure correct aspect mode */
-            scene.scaleMode = .aspectFit
+            scene.scaleMode = .aspectFill
             
             /* Show debug */
             skView.showsPhysics = false
@@ -560,7 +580,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         for child in children {
-            if child.frame.maxX < 0 {
+            if child.frame.maxX < 100 {
                 if !frame.intersects(child.frame) {
                     child.removeFromParent()
                 }

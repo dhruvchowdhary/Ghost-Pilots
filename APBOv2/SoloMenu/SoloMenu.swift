@@ -68,7 +68,7 @@ var buttonPlay: MSButtonNode!
         }
 
         /* 3) Ensure correct aspect mode */
-        scene.scaleMode = .aspectFit
+        scene.scaleMode = .aspectFill
 
         /* Show debug */
         skView.showsPhysics = false

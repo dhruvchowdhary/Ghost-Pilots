@@ -76,6 +76,8 @@ class EnemyNode: SKSpriteNode {
         weapon.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
         weapon.physicsBody?.mass = 0.001
         
+        
+        
         let speed: CGFloat = 0.7
         let adjustedRotation = zRotation + (CGFloat.pi / 2)
         
@@ -84,7 +86,9 @@ class EnemyNode: SKSpriteNode {
         
         weapon.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
         
-        
+        if !frame.intersects(weapon.frame) {
+                           weapon.removeFromParent()
+                       }
     }
  
 }
