@@ -413,9 +413,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
                         self.addChild(shot)
                         
-                        let movement = SKAction.moveBy(x: 1500 * cos(self.player.zRotation), y: 1500 * sin(self.player.zRotation), duration: 2.6)
-                        let sequence = SKAction.sequence([movement, .removeFromParent()])
-                        shot.run(sequence)
+                        let movement = SKAction.moveBy(x: 15000 * cos(self.player.zRotation), y: 15000 * sin(self.player.zRotation), duration: 26)
+                  //      let sequence = SKAction.sequence([movement, .removeFromParent()])
+                        shot.run(movement)
                         
                         self.numAmmo = self.numAmmo - 1
                         
@@ -518,16 +518,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bullet2.position = player.position
             bullet3.position = player.position
             
+            if shot.position.y < frame.minY + 35 {
+                shot.removeFromParent()
+            } else if shot.position.y > frame.maxY - 35 {
+                shot.removeFromParent()
+            }
+            if shot.position.x < frame.minX + 35  {
+                shot.removeFromParent()
+            } else if shot.position.x > frame.maxX - 35 {
+                shot.removeFromParent()
+            }
+            
+            
             if player.position.y < frame.minY + 35 {
-                player.position.y = frame.minY + 35
-            } else if player.position.y > frame.maxY - 35 {
-                player.position.y = frame.maxY - 35
-            }
-            if player.position.x < frame.minX + 35  {
-                player.position.x = frame.minX + 35
-            } else if player.position.x > frame.maxX - 35 {
-                player.position.x = frame.maxX - 35
-            }
+                     player.position.y = frame.minY + 35
+                 } else if player.position.y > frame.maxY - 35 {
+                     player.position.y = frame.maxY - 35
+                 }
+                 if player.position.x < frame.minX + 35  {
+                     player.position.x = frame.minX + 35
+                 } else if player.position.x > frame.maxX - 35 {
+                     player.position.x = frame.maxX - 35
+                 }
             
             if self.numAmmo < 3 {
                 if !self.regenAmmo {
@@ -580,7 +592,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         for child in children {
-            if child.frame.maxX < 100 {
+            if child.frame.maxX < 0 {
                 if !frame.intersects(child.frame) {
                     child.removeFromParent()
                 }
