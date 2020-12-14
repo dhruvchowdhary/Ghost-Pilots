@@ -402,7 +402,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         shootButton.run(fadeAlpha)
         shootButton.run(squishNormal)
     }
-// hi   
+
     func followCamera() {
         if UIDevice.current.userInterfaceIdiom == .pad {
             turnButtonNode.position.x = cameraNode.position.x + 640
@@ -437,13 +437,13 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 shootButtonNode.position.y =  cameraNode.position.y - 250
                 
                 pauseButtonNode.position.x = cameraNode.position.x + 650
-                pauseButtonNode.position.y =  cameraNode.position.y + 300
+                pauseButtonNode.position.y =  cameraNode.position.y + 290
                 
-                backButtonNode.position.x = cameraNode.position.x - 600
-                backButtonNode.position.y =  cameraNode.position.y + 300
+                backButtonNode.position.x = cameraNode.position.x - 660
+                backButtonNode.position.y =  cameraNode.position.y + 290
                 
                 restartButtonNode.position.x = cameraNode.position.x + 500
-                restartButtonNode.position.y =  cameraNode.position.y + 300
+                restartButtonNode.position.y =  cameraNode.position.y + 290
                 
                 playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
                 playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200

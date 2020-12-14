@@ -12,6 +12,7 @@ class SoloMenu: SKScene {
 
 /* UI Connections */
 var buttonPlay: MSButtonNode!
+var backButtonNode: MSButtonNode!
     
     override func didMove(to view: SKView) {
         
@@ -25,10 +26,17 @@ var buttonPlay: MSButtonNode!
         self.sceneShake(shakeCount: 4, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         self.run(SKAction.playSoundFileNamed("menuThumpnew", waitForCompletion: false))
         /* Set UI connections */
-        buttonPlay = self.childNode(withName: "back") as? MSButtonNode
-        buttonPlay.selectedHandlers = {
+        backButtonNode = self.childNode(withName: "back") as? MSButtonNode
+        backButtonNode.selectedHandlers = {
             self.loadMainMenu()
      //       skView.presentScene(scene)
+        }
+        
+        if UIDevice.current.userInterfaceIdiom != .pad {
+            if UIScreen.main.bounds.width < 779 {
+                backButtonNode.position.x = -600
+                backButtonNode.position.y =  300
+            }
         }
         
         buttonPlay = self.childNode(withName: "endlessButton") as? MSButtonNode

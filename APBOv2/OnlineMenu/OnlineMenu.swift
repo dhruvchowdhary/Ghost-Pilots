@@ -12,6 +12,7 @@ class OnlineMenu: SKScene {
 
 /* UI Connections */
 var buttonPlay: MSButtonNode!
+var backButtonNode: MSButtonNode!
 let notDoneLabel = SKLabelNode(text: "The online version of this game is currently under development!")
 
     
@@ -32,9 +33,16 @@ let notDoneLabel = SKLabelNode(text: "The online version of this game is current
         addChild(notDoneLabel)
         
         /* Set UI connections */
-        buttonPlay = self.childNode(withName: "back") as? MSButtonNode
-        buttonPlay.selectedHandlers = {
+        backButtonNode = self.childNode(withName: "back") as? MSButtonNode
+        backButtonNode.selectedHandlers = {
             self.loadMainMenu()
+        }
+        
+        if UIDevice.current.userInterfaceIdiom != .pad {
+            if UIScreen.main.bounds.width < 779 {
+                backButtonNode.position.x = -600
+                backButtonNode.position.y =  300
+            }
         }
  
     }
