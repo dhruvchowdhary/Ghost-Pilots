@@ -473,24 +473,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     
-  /*  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if (isGameOver) {
-            if let newScene = SKScene(fileNamed: "GameScene") {
-                newScene.scaleMode = .aspectFit
-                self.dimPanel.alpha = 0
-                let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-                view?.presentScene(newScene, transition: reveal)
-            }
-        }
-        guard isGameOver else { return }
-        
-        let touch = touches.first
-        let positionInScene = touch!.location(in: self)
-        let touchedNode = self.atPoint(positionInScene)
-        
-        
-        
-    }*/
+    /*  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+     if (isGameOver) {
+     if let newScene = SKScene(fileNamed: "GameScene") {
+     newScene.scaleMode = .aspectFit
+     self.dimPanel.alpha = 0
+     let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+     view?.presentScene(newScene, transition: reveal)
+     }
+     }
+     guard isGameOver else { return }
+     
+     let touch = touches.first
+     let positionInScene = touch!.location(in: self)
+     let touchedNode = self.atPoint(positionInScene)
+     
+     
+     
+     }*/
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
@@ -504,6 +504,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(_ currentTime: TimeInterval) {
         let scale = 1.2
         if UIDevice.current.userInterfaceIdiom == .pad {
+            if player.position.y < frame.minY + 35 {
+                player.position.y = frame.minY + 35
+            } else if player.position.y > frame.maxY - 35 {
+                player.position.y = frame.maxY - 35
+            }
+            if player.position.x < frame.minX - 5  {
+                player.position.x = frame.minX - 5
+            } else if player.position.x > frame.maxX + 5 {
+                player.position.x = frame.maxX + 5
+            }
+            
+            if pilot.position.y < frame.minY + 20 {
+                pilot.position.y = frame.minY + 20
+            } else if pilot.position.y > frame.maxY - 20 {
+                pilot.position.y = frame.maxY - 20
+            }
+            if pilot.position.x < frame.minX - 20 {
+                pilot.position.x = frame.minX - 20
+            } else if player.position.x > frame.maxX + 20 {
+                pilot.position.x = frame.maxX + 20
+            }
+            
             turnButtonNode.position.x = (cameraNode.position.x + 640) * CGFloat(scale)
             turnButtonNode.position.y = (cameraNode.position.y - 410) * CGFloat(scale)
             turnButtonNode.setScale(CGFloat(1.25 * scale))
@@ -529,6 +551,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             playAgainButtonNode.setScale(CGFloat(1.25 * scale))
         } else {
             if UIScreen.main.bounds.width > 779 {
+                if player.position.y < frame.minY + 35 {
+                    player.position.y = frame.minY + 35
+                } else if player.position.y > frame.maxY - 35 {
+                    player.position.y = frame.maxY - 35
+                }
+                if player.position.x < frame.minX + 35  {
+                    player.position.x = frame.minX + 35
+                } else if player.position.x > frame.maxX - 35 {
+                    player.position.x = frame.maxX - 35
+                }
+                
+                if pilot.position.y < frame.minY + 20 {
+                    pilot.position.y = frame.minY + 20
+                } else if pilot.position.y > frame.maxY - 20 {
+                    pilot.position.y = frame.maxY - 20
+                }
+                if pilot.position.x < frame.minX + 20  {
+                    pilot.position.x = frame.minX + 20
+                } else if player.position.x > frame.maxX - 20 {
+                    pilot.position.x = frame.maxX - 20
+                }
                 turnButtonNode.size = CGSize(width: 240, height: 220.84507)
                 turnButtonNode.position.x = cameraNode.position.x + 720
                 turnButtonNode.position.y = cameraNode.position.y - 290
@@ -553,29 +596,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
             } else if UIScreen.main.bounds.width > 567 {
                 
+                if player.position.y < frame.minY + 35 {
+                    player.position.y = frame.minY + 35
+                } else if player.position.y > frame.maxY - 35 {
+                    player.position.y = frame.maxY - 35
+                }
+                if player.position.x < frame.minX + 135 + 60 {
+                    player.position.x = frame.minX + 135 + 60
+                } else if player.position.x > frame.maxX - 135 - 60{
+                    player.position.x = frame.maxX - 135 - 60
+                }
                 
-                             if player.position.y < frame.minY + 35 {
-                                                player.position.y = frame.minY + 35
-                                            } else if player.position.y > frame.maxY - 35 {
-                                                player.position.y = frame.maxY - 35
-                                            }
-                                            if player.position.x < frame.minX + 135 + 60 {
-                                                player.position.x = frame.minX + 135 + 60
-                                            } else if player.position.x > frame.maxX - 135 - 60{
-                                                player.position.x = frame.maxX - 135 - 60
-                                            }
-                                       
-                             if pilot.position.y < frame.minY + 20 {
-                                          pilot.position.y = frame.minY + 20
-                                      } else if pilot.position.y > frame.maxY - 20 {
-                                          pilot.position.y = frame.maxY - 20
-                                      }
-                                      if pilot.position.x < frame.minX + 120 + 60 {
-                                          pilot.position.x = frame.minX + 120 + 60
-                                      } else if player.position.x > frame.maxX - 120 - 60 {
-                                          pilot.position.x = frame.maxX - 120 - 60
-                                      }
-                             
+                if pilot.position.y < frame.minY + 20 {
+                    pilot.position.y = frame.minY + 20
+                } else if pilot.position.y > frame.maxY - 20 {
+                    pilot.position.y = frame.maxY - 20
+                }
+                if pilot.position.x < frame.minX + 120 + 60 {
+                    pilot.position.x = frame.minX + 120 + 60
+                } else if player.position.x > frame.maxX - 120 - 60 {
+                    pilot.position.x = frame.maxX - 120 - 60
+                }
+                
                 
                 turnButtonNode.size = CGSize(width: 200, height: 184.038)
                 turnButtonNode.position.x = cameraNode.position.x + 620
@@ -600,6 +642,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
                 playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
             } else {
+                if player.position.y < frame.minY + 35 {
+                    player.position.y = frame.minY + 35
+                } else if player.position.y > frame.maxY - 35 {
+                    player.position.y = frame.maxY - 35
+                }
+                if player.position.x < frame.minX + 135 + 60 {
+                    player.position.x = frame.minX + 135 + 60
+                } else if player.position.x > frame.maxX - 135 - 60{
+                    player.position.x = frame.maxX - 135 - 60
+                }
+                
+                if pilot.position.y < frame.minY + 20 {
+                    pilot.position.y = frame.minY + 20
+                } else if pilot.position.y > frame.maxY - 20 {
+                    pilot.position.y = frame.maxY - 20
+                }
+                if pilot.position.x < frame.minX + 120 + 60 {
+                    pilot.position.x = frame.minX + 120 + 60
+                } else if player.position.x > frame.maxX - 120 - 60 {
+                    pilot.position.x = frame.maxX - 120 - 60
+                }
+                
                 turnButtonNode.size = CGSize(width: 200, height: 184.038)
                 turnButtonNode.position.x = cameraNode.position.x + 620
                 turnButtonNode.position.y = cameraNode.position.y - 300
@@ -654,16 +718,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 shot.removeFromParent()
             }
             
-            if player.position.y < frame.minY + 35 {
-                     player.position.y = frame.minY + 35
-                 } else if player.position.y > frame.maxY - 35 {
-                     player.position.y = frame.maxY - 35
-                 }
-                 if player.position.x < frame.minX + 35  {
-                     player.position.x = frame.minX + 35
-                 } else if player.position.x > frame.maxX - 35 {
-                     player.position.x = frame.maxX - 35
-                 }
+
             
             if self.numAmmo < 3 {
                 if !self.regenAmmo {
@@ -697,16 +752,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 pilot.position = CGPoint(x:pilot.position.x + cos(pilotDirection + 3.141592/2) * 0.9 ,y:pilot.position.y + sin(pilotDirection + 3.141592/2) * 0.9)
             }
             
-            if pilot.position.y < frame.minY + 20 {
-                pilot.position.y = frame.minY + 20
-            } else if pilot.position.y > frame.maxY - 20 {
-                pilot.position.y = frame.maxY - 20
-            }
-            if pilot.position.x < frame.minX + 20  {
-                pilot.position.x = frame.minX + 20
-            } else if player.position.x > frame.maxX - 20 {
-                pilot.position.x = frame.maxX - 20
-            }
+            
         }
         
         if enemyPoints.alpha > 0 {
@@ -738,10 +784,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             guard frame.intersects(enemy.frame) else { continue }
             
             
-            
-            if enemy.position.x < frame.minX - 20 {
-                enemy.removeFromParent()
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                if enemy.position.x < frame.minX - 25 {
+                    enemy.removeFromParent()
+                }
+            } else {
+                if enemy.position.x < frame.minX - 20 {
+                    enemy.removeFromParent()
+                }
             }
+            
             if enemy.lastFireTime + 1 < currentTime {
                 enemy.lastFireTime = currentTime
                 
