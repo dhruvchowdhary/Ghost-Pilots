@@ -529,19 +529,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             playAgainButtonNode.setScale(CGFloat(1.25 * scale))
         } else {
             if UIScreen.main.bounds.width > 779 {
-                turnButtonNode.position.x = cameraNode.position.x + 660
-                turnButtonNode.position.y = cameraNode.position.y - 250
+                turnButtonNode.size = CGSize(width: 240, height: 220.84507)
+                turnButtonNode.position.x = cameraNode.position.x + 720
+                turnButtonNode.position.y = cameraNode.position.y - 290
                 
-                shootButtonNode.position.x = cameraNode.position.x - 660
-                shootButtonNode.position.y =  cameraNode.position.y - 250
+                shootButtonNode.size = CGSize(width: 240, height: 220.84507)
+                shootButtonNode.position.x = cameraNode.position.x - 720
+                shootButtonNode.position.y =  cameraNode.position.y - 290
                 
-                pauseButtonNode.position.x = cameraNode.position.x + 650
+                pauseButtonNode.size = CGSize(width: 90.141, height: 112.676)
+                pauseButtonNode.position.x = cameraNode.position.x + 720
                 pauseButtonNode.position.y =  cameraNode.position.y + 300
                 
-                backButtonNode.position.x = cameraNode.position.x - 660
+                backButtonNode.size = CGSize(width: 157.746, height: 112.676)
+                backButtonNode.position.x = cameraNode.position.x - 720
                 backButtonNode.position.y =  cameraNode.position.y + 300
                 
-                restartButtonNode.position.x = cameraNode.position.x + 500
+                restartButtonNode.size = CGSize(width: 104.7893, height: 112.676)
+                restartButtonNode.position.x = cameraNode.position.x + 570
                 restartButtonNode.position.y =  cameraNode.position.y + 300
                 
                 playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
