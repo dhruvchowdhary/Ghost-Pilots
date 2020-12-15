@@ -552,6 +552,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
                 playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
             } else if UIScreen.main.bounds.width > 567 {
+                
+                
+                             if player.position.y < frame.minY + 35 {
+                                                player.position.y = frame.minY + 35
+                                            } else if player.position.y > frame.maxY - 35 {
+                                                player.position.y = frame.maxY - 35
+                                            }
+                                            if player.position.x < frame.minX + 135 + 60 {
+                                                player.position.x = frame.minX + 135 + 60
+                                            } else if player.position.x > frame.maxX - 135 - 60{
+                                                player.position.x = frame.maxX - 135 - 60
+                                            }
+                                       
+                             if pilot.position.y < frame.minY + 20 {
+                                          pilot.position.y = frame.minY + 20
+                                      } else if pilot.position.y > frame.maxY - 20 {
+                                          pilot.position.y = frame.maxY - 20
+                                      }
+                                      if pilot.position.x < frame.minX + 120 + 60 {
+                                          pilot.position.x = frame.minX + 120 + 60
+                                      } else if player.position.x > frame.maxX - 120 - 60 {
+                                          pilot.position.x = frame.maxX - 120 - 60
+                                      }
+                             
+                
                 turnButtonNode.size = CGSize(width: 200, height: 184.038)
                 turnButtonNode.position.x = cameraNode.position.x + 620
                 turnButtonNode.position.y = cameraNode.position.y - 300
