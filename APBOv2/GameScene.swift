@@ -653,8 +653,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else if shot.position.x > frame.maxX - 35 {
                 shot.removeFromParent()
             }
-
-            
             
             if player.position.y < frame.minY + 35 {
                      player.position.y = frame.minY + 35
