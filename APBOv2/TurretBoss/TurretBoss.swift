@@ -493,6 +493,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         lastUpdateTime = currentTime
         updateTurret(deltaTime)
         
+        
         if isPlayerAlive {
   
             cameraNode.position.x = (player.position.x + turretSprite.position.x) / 2
@@ -535,7 +536,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                     let ammoTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { (timer) in
                         self.numAmmo = self.numAmmo + 1
                         
-                        
                         if self.numAmmo == 1 {
                             self.addChild(self.bullet3)
                         }
@@ -545,7 +545,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                         else if self.numAmmo == 3 {
                             self.addChild(self.bullet1)
                         }
-                        
                         self.regenAmmo = false
                     }
                 }
@@ -574,7 +573,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
             if pilot.position.x < frame.minX + 75  {
                 pilot.position.x = frame.minX + 75
-            } else if player.position.x > frame.maxX - 75 {
+            } else if pilot.position.x > frame.maxX - 75 {
                 pilot.position.x = frame.maxX - 75
             }
         }
@@ -604,7 +603,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
         }
  */
-        
         if isGameOver {
             direction = -0.1
         }

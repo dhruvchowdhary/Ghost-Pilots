@@ -167,7 +167,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         points.position = CGPoint(x: frame.midX+130, y: frame.maxY-135)
         points.zPosition = 10
         points.fontColor = UIColor.white
-        points.fontSize = 70
+        points.fontSize = 65
         points.fontName = "AvenirNext-Bold"
         addChild(points)
         pointsLabel.position = CGPoint(x: frame.midX+130, y: frame.maxY-70)
@@ -180,7 +180,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         highScorePoints.position = CGPoint(x: frame.midX-130, y: frame.maxY-135)
         highScorePoints.zPosition = 10
         highScorePoints.fontColor = UIColor.white
-        highScorePoints.fontSize = 70
+        highScorePoints.fontSize = 65
         highScorePoints.fontName = "AvenirNext-Bold"
         addChild(highScorePoints)
         highScoreLabel.position = CGPoint(x: frame.midX-130, y: frame.maxY-70)
@@ -192,7 +192,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         enemyPoints.zPosition = 2
         enemyPoints.fontColor = UIColor.white
-        enemyPoints.fontSize = 55
+        enemyPoints.fontSize = 45
         enemyPoints.fontName = "AvenirNext-Bold"
         enemyPoints.alpha = 0
         addChild(enemyPoints)
@@ -569,7 +569,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 if pilot.position.x < frame.minX + 20  {
                     pilot.position.x = frame.minX + 20
-                } else if player.position.x > frame.maxX - 20 {
+                } else if pilot.position.x > frame.maxX - 20 {
                     pilot.position.x = frame.maxX - 20
                 }
                 turnButtonNode.size = CGSize(width: 240, height: 220.84507)

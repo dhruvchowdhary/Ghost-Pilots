@@ -20,7 +20,7 @@ class EnemyNode: SKSpriteNode {
     init(type: EnemyType, startPosition: CGPoint, xOffset: CGFloat, moveStright: Bool) {
         self.type = type
         shields = type.shields
-        scoreinc = type.scoreinc
+        scoreinc = type.scoreinc*100
         // hi
         let texture = SKTexture(imageNamed: type.name)
         super.init(texture: texture, color: .white, size: texture.size())
