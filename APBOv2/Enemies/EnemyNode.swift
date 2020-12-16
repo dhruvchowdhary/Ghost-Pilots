@@ -33,7 +33,18 @@ class EnemyNode: SKSpriteNode {
         position = CGPoint(x: startPosition.x + xOffset, y: startPosition.y)
         zPosition = 5
         
-        EnemyThruster?.position = CGPoint(x: 0, y: -35)
+      
+        if type.name == "enemy3" {
+                  EnemyThruster?.position = CGPoint(x: 0, y: -55)
+            EnemyThruster?.particleScale = 0.5
+              }
+        else if type.name == "enemy2" {
+             EnemyThruster?.position = CGPoint(x: 0, y: -40)
+        }
+              else {
+                  EnemyThruster?.position = CGPoint(x: 0, y: -35)
+              }
+        
                EnemyThruster?.targetNode = self.scene
                addChild(EnemyThruster!)
         

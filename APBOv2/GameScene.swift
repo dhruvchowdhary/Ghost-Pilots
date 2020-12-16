@@ -10,7 +10,6 @@ import SpriteKit
 import CoreMotion
 
 
-
 let degreesToRadians = CGFloat.pi / 180
 let radiansToDegrees = 180 / CGFloat.pi
 let maxHealth = 100
@@ -818,8 +817,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let currentWave = waves[waveNumber]
         waveNumber += 1
         
+       var rng = SystemRandomNumberGenerator()
+
         let maximumEnemyType = min(enemyTypes.count, levelNumber + 1)
-        let enemyType = Int.random(in: 0..<maximumEnemyType)
+        let enemyType = Int.random(in: 0..<maximumEnemyType, using: &rng)
+        //print(enemyTypes[enemyType])
         
         let enemyOffsetX: CGFloat = 100
         let enemyStartX = 800
