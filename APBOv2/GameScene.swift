@@ -29,11 +29,8 @@ enum CollisionType: UInt32 {
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    
     let cameraNode =  SKCameraNode()
-    
 
-    
     let EnemyThruster = SKEmitterNode(fileNamed: "EnemyThruster")
     
     var backButtonNode: MSButtonNode!

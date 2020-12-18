@@ -20,7 +20,7 @@ var useCount = UserDefaults.standard.integer(forKey: "useCount")
         
         useCount += 1 //Increment the useCount
         UserDefaults.standard.set(useCount, forKey: "useCount")
-          if useCount == 5{
+          if useCount == 5 {
              SKStoreReviewController.requestReview() //Request the review.
            }
         /* Setup your scene here */

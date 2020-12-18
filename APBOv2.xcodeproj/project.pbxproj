@@ -66,6 +66,8 @@
 		74CF688C25843F26000C4E47 /* miniLasernew.wav in Resources */ = {isa = PBXBuildFile; fileRef = 74CF688B25843F26000C4E47 /* miniLasernew.wav */; };
 		74CF688E25849F2E000C4E47 /* shotgunnew.wav in Resources */ = {isa = PBXBuildFile; fileRef = 74CF688D25849F2E000C4E47 /* shotgunnew.wav */; };
 		74CF68922584A44B000C4E47 /* shotgun1new.wav in Resources */ = {isa = PBXBuildFile; fileRef = 74CF68912584A44B000C4E47 /* shotgun1new.wav */; };
+		74CF6895258D787C000C4E47 /* Tutorial.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF6894258D787C000C4E47 /* Tutorial.sks */; };
+		74CF6899258D78E2000C4E47 /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CF6898258D78E2000C4E47 /* Tutorial.swift */; };
 		8100B1832575524900AA8A1F /* TurretBossNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8100B1822575524900AA8A1F /* TurretBossNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -133,6 +135,8 @@
 		74CF688B25843F26000C4E47 /* miniLasernew.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = miniLasernew.wav; sourceTree = "<group>"; };
 		74CF688D25849F2E000C4E47 /* shotgunnew.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shotgunnew.wav; sourceTree = "<group>"; };
 		74CF68912584A44B000C4E47 /* shotgun1new.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shotgun1new.wav; sourceTree = "<group>"; };
+		74CF6894258D787C000C4E47 /* Tutorial.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Tutorial.sks; sourceTree = "<group>"; };
+		74CF6898258D78E2000C4E47 /* Tutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
 		8100B1822575524900AA8A1F /* TurretBossNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBossNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -226,6 +230,7 @@
 		74C3CFAE253F3BE900757586 /* APBOv2 */ = {
 			isa = PBXGroup;
 			children = (
+				74CF6893258D7833000C4E47 /* Tutorial */,
 				748CEDC2256D7342005DF246 /* OnlineMenu */,
 				748CEDB7256C1AD4005DF246 /* SoloMenu */,
 				748CEDBF256D6F04005DF246 /* TurretBoss */,
@@ -313,6 +318,15 @@
 			path = MainMenu;
 			sourceTree = "<group>";
 		};
+		74CF6893258D7833000C4E47 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				74CF6898258D78E2000C4E47 /* Tutorial.swift */,
+				74CF6894258D787C000C4E47 /* Tutorial.sks */,
+			);
+			path = Tutorial;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -386,6 +400,7 @@
 				74CF68842583CAE1000C4E47 /* swishnew.mp3 in Resources */,
 				74CF688C25843F26000C4E47 /* miniLasernew.wav in Resources */,
 				74CF6857258201BA000C4E47 /* pilotSquish3.wav in Resources */,
+				74CF6895258D787C000C4E47 /* Tutorial.sks in Resources */,
 				74CF687E25830C93000C4E47 /* bluePlayer.sks in Resources */,
 				74CF686025828E80000C4E47 /* menuThumpnew.wav in Resources */,
 				74CF687325829F9C000C4E47 /* revivenew.wav in Resources */,
@@ -433,6 +448,7 @@
 				74C3CFB6253F3BE900757586 /* GameScene.swift in Sources */,
 				8100B1832575524900AA8A1F /* TurretBossNode.swift in Sources */,
 				74C3CFDD2553109000757586 /* EnemyType.swift in Sources */,
+				74CF6899258D78E2000C4E47 /* Tutorial.swift in Sources */,
 				74C3CFB8253F3BE900757586 /* GameViewController.swift in Sources */,
 				749EBC5C255AFA58003EA0B3 /* Bundle-Decoding.swift in Sources */,
 				74C3CFDB2553100200757586 /* EnemyNode.swift in Sources */,
