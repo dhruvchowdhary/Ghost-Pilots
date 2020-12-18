@@ -14,13 +14,13 @@ class SoloMenu: SKScene {
 /* UI Connections */
 var buttonPlay: MSButtonNode!
 var backButtonNode: MSButtonNode!
-     var useCount = UserDefaults.standard.integer(forKey: "useCount")
+var useCount = UserDefaults.standard.integer(forKey: "useCount")
     
     override func didMove(to view: SKView) {
         
         useCount += 1 //Increment the useCount
         UserDefaults.standard.set(useCount, forKey: "useCount")
-          if useCount >= 2{
+          if useCount == 5{
              SKStoreReviewController.requestReview() //Request the review.
            }
         /* Setup your scene here */
