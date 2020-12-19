@@ -11,6 +11,8 @@ import CoreMotion
 
 class Tutorial: SKScene, SKPhysicsContactDelegate {
     
+    
+  
     let cameraNode =  SKCameraNode()
     var backButtonNode: MSButtonNode!
     var pauseButtonNode: MSButtonNode!
@@ -20,6 +22,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
     var playAgainButtonNode: MSButtonNode!
 
     let turnLabel = SKLabelNode(text: "Press the turn button to rotate your ship!")
+    let dashLabel = SKLabelNode(text: "Double-tap the turn button to activate Dash!")
     let shootLabel = SKLabelNode(text: "Press the fire button to shoot some bullets!")
     
     var isPlayerAlive = true
@@ -28,6 +31,11 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
     var playerShields = 1
     var waveNumber = 0
     var levelNumber = 0
+    
+    
+    let turnArrow = SKSpriteNode(imageNamed: "back")
+    let shootArrow = SKSpriteNode(imageNamed: "back")
+    
     let turnButton = SKSpriteNode(imageNamed: "button")
     let shootButton = SKSpriteNode(imageNamed: "button")
     let turretSprite = SKSpriteNode(imageNamed: "turretshooter")
@@ -88,15 +96,32 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
         //size = view.bounds.size
         backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)
 
-        turnLabel.position = CGPoint(x: frame.midX+130, y: frame.maxY-70)
-        turnLabel.zPosition = 100
+       
+        
+        dashLabel.zPosition = 101
+        dashLabel.alpha = 0
+        dashLabel.fontColor = UIColor.white
+        dashLabel.fontSize = 55
+        dashLabel.fontName = "AvenirNext-Bold"
+        addChild(turnLabel)
+        
+        turnLabel.zPosition = 101
         turnLabel.alpha = 1
         turnLabel.fontColor = UIColor.white
         turnLabel.fontSize = 55
         turnLabel.fontName = "AvenirNext-Bold"
         addChild(turnLabel)
         
-        shootLabel.position = CGPoint(x: frame.midX+130, y: frame.maxY-70)
+       
+        turnArrow.name = "turnArrow"
+              
+               turnArrow.alpha = 1
+               turnArrow.zPosition = 101
+        turnArrow.zRotation = 135 * radiansToDegrees
+        
+        addChild(turnArrow)
+        
+       
         shootLabel.zPosition = 100
         shootLabel.alpha = 0
         shootLabel.fontColor = UIColor.white
@@ -104,15 +129,32 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
         shootLabel.fontName = "AvenirNext-Bold"
         addChild(shootLabel)
         
-        let timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { (timer) in
+         shootArrow.name = "shootArrow"
+        shootArrow.alpha = 0
+        shootArrow.zRotation = 45 * radiansToDegrees
+     
+        shootArrow.zPosition = 101
+        addChild(shootArrow)
+        let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in
             self.turnLabel.alpha = 0
             self.shootLabel.alpha = 1
             self.turnButtonNode.zPosition = 0
             self.shootButtonNode.zPosition = 100
-            let timer2 = Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { (timer) in
-                self.shootLabel.alpha = 0
-                self.turnButtonNode.zPosition = 100
-                self.shootButtonNode.zPosition = 100
+            self.shootArrow.alpha = 1
+            
+            let timer2 = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in
+                self.dashLabel.alpha = 1
+                let timer3 = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in
+                               self.shootLabel.alpha = 0
+                               self.turnButtonNode.zPosition = 100
+                               self.shootButtonNode.zPosition = 100
+                               self.shootArrow.alpha = 0
+                               self.turnArrow.alpha = 0
+                               self.dimPanel.removeFromParent()
+                    self.dashLabel.alpha = 0
+
+                      }
+           
             }
         }
         
@@ -325,6 +367,9 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
             turnButtonNode.position.y = cameraNode.position.y - 410
             turnButtonNode.setScale(1.25)
             
+            
+            
+            
             shootButtonNode.position.x = cameraNode.position.x - 640
             shootButtonNode.position.y =  cameraNode.position.y - 410
             shootButtonNode.setScale(1.25)
@@ -344,8 +389,29 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
             playAgainButtonNode.position.x = cameraNode.position.x
             playAgainButtonNode.position.y = cameraNode.position.y - 224
             playAgainButtonNode.setScale(1.25)
+            
+            turnArrow.position.x = turnButtonNode.position.x - 150
+                                 turnArrow.position.y = turnButtonNode.position.y + 110
+                   turnLabel.position.x = cameraNode.position.x
+                          turnLabel.position.y = cameraNode.position.y - 100
+                   shootLabel.position.x = cameraNode.position.x
+                   shootLabel.position.y = cameraNode.position.y - 100
+            shootArrow.position.x = shootButtonNode.position.x + 150
+                 shootArrow.position.y = shootButtonNode.position.y + 110
+            
+            
         } else {
             if UIScreen.main.bounds.width > 779 {
+                
+                turnArrow.position.x = turnButtonNode.position.x - 150
+                                     turnArrow.position.y = turnButtonNode.position.y + 110
+                       turnLabel.position.x = cameraNode.position.x
+                              turnLabel.position.y = cameraNode.position.y - 100
+                       shootLabel.position.x = cameraNode.position.x
+                       shootLabel.position.y = cameraNode.position.y - 100
+                shootArrow.position.x = shootButtonNode.position.x + 150
+                     shootArrow.position.y = shootButtonNode.position.y + 110
+                
                 turnButtonNode.position.x = cameraNode.position.x + 660
                 turnButtonNode.position.y = cameraNode.position.y - 250
                 
@@ -356,6 +422,16 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
                 backButtonNode.position.y =  cameraNode.position.y + 290
                 
             } else if UIScreen.main.bounds.width > 567 {
+                
+                shootArrow.position.x = shootButtonNode.position.x + 150
+                     shootArrow.position.y = shootButtonNode.position.y + 110
+                turnArrow.position.x = turnButtonNode.position.x - 150
+                                     turnArrow.position.y = turnButtonNode.position.y + 110
+                       turnLabel.position.x = cameraNode.position.x
+                              turnLabel.position.y = cameraNode.position.y - 100
+                       shootLabel.position.x = cameraNode.position.x
+                       shootLabel.position.y = cameraNode.position.y - 100
+                
                 turnButtonNode.position.x = cameraNode.position.x + 660
                 turnButtonNode.position.y = cameraNode.position.y - 320
                 
@@ -366,6 +442,15 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
                 backButtonNode.position.y =  cameraNode.position.y + 350
 
             } else {
+                shootArrow.position.x = shootButtonNode.position.x + 150
+                     shootArrow.position.y = shootButtonNode.position.y + 110
+                turnArrow.position.x = turnButtonNode.position.x - 150
+                                     turnArrow.position.y = turnButtonNode.position.y + 110
+                       turnLabel.position.x = cameraNode.position.x
+                              turnLabel.position.y = cameraNode.position.y - 100
+                       shootLabel.position.x = cameraNode.position.x
+                       shootLabel.position.y = cameraNode.position.y - 100
+                
                 turnButtonNode.position.x = cameraNode.position.x + 660
                 turnButtonNode.position.y = cameraNode.position.y - 320
                 
@@ -386,7 +471,8 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
         
         
         if isPlayerAlive {
-  
+            
+            
             cameraNode.position.x = player.position.x
             cameraNode.position.y = player.position.y
             followCamera()

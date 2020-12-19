@@ -79,15 +79,15 @@ class MainMenu: SKScene {
         }
         
         /* Set UI connections */
-        buttonPlay = self.childNode(withName: "soloButton") as? MSButtonNode
+        buttonPlay = self.childNode(withName: "playButton") as? MSButtonNode
         buttonPlay.selectedHandlers = {
             self.loadGame()
         }
         
-        buttonPlay = self.childNode(withName: "onlineButton") as? MSButtonNode
+        buttonPlay = self.childNode(withName: "tutorial") as? MSButtonNode
         buttonPlay.alpha = 1
         buttonPlay.selectedHandlers = {
-            self.loadOnlineMenu()
+            self.tutorial()
         }
     }
     
@@ -176,7 +176,7 @@ class MainMenu: SKScene {
         skView.presentScene(scene)
     }
     
-    func loadOnlineMenu() {
+    func tutorial() {
         /* 1) Grab reference to our SpriteKit view */
         guard let skView = self.view as SKView? else {
             print("Could not get Skview")
