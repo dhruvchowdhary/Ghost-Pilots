@@ -14,7 +14,6 @@ class MainMenu: SKScene {
     var lastUpdateTime: CFTimeInterval = 0
     var buttonPlay: MSButtonNode!
     let title = SKLabelNode(text: "GHOST PILOTS")
-    
     let playerParticles = SKEmitterNode(fileNamed: "Player")
     let ghostParticles = SKEmitterNode(fileNamed: "ghost")
     let enemyParticles = SKEmitterNode(fileNamed: "enemy")

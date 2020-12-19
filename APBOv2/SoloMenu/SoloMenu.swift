@@ -20,7 +20,9 @@ var useCount = UserDefaults.standard.integer(forKey: "useCount")
         
         useCount += 1 //Increment the useCount
         UserDefaults.standard.set(useCount, forKey: "useCount")
-          if useCount == 5 {
+        if useCount == 1 {
+            loadTutorial()
+        } else if useCount == 5 {
              SKStoreReviewController.requestReview() //Request the review.
            }
         /* Setup your scene here */
@@ -104,6 +106,31 @@ var useCount = UserDefaults.standard.integer(forKey: "useCount")
         /* 2) Load Game scene */
         guard let scene = TurretBossScene(fileNamed:"TurretBoss") else {
             print("Could not make GameScene, check the name is spelled correctly")
+            return
+        }
+
+        /* 3) Ensure correct aspect mode */
+        scene.scaleMode = .aspectFill
+
+        /* Show debug */
+        skView.showsPhysics = false
+        skView.showsDrawCount = false
+        skView.showsFPS = false
+
+        /* 4) Start game scene */
+        skView.presentScene(scene)
+    }
+    
+    func loadTutorial() {
+        /* 1) Grab reference to our SpriteKit view */
+        guard let skView = self.view as SKView? else {
+            print("Could not get Skview")
+            return
+        }
+
+        /* 2) Load Game scene */
+        guard let scene = Tutorial(fileNamed:"Tutorial") else {
+            print("Could not make Tutorial, check the name is spelled correctly")
             return
         }
 

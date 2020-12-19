@@ -103,7 +103,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
         dashLabel.fontColor = UIColor.white
         dashLabel.fontSize = 55
         dashLabel.fontName = "AvenirNext-Bold"
-        addChild(turnLabel)
+        addChild(dashLabel)
         
         turnLabel.zPosition = 101
         turnLabel.alpha = 1
