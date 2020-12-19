@@ -13,6 +13,8 @@ class MainMenu: SKScene {
     /* UI Connections */
     var lastUpdateTime: CFTimeInterval = 0
     var buttonPlay: MSButtonNode!
+    var tutorialButtonNode: MSButtonNode!
+    
     let title = SKLabelNode(text: "GHOST PILOTS")
     let playerParticles = SKEmitterNode(fileNamed: "Player")
     let ghostParticles = SKEmitterNode(fileNamed: "ghost")
@@ -40,6 +42,7 @@ class MainMenu: SKScene {
             particles.zPosition = -1
             addChild(particles)
         }
+        
         
         randomParticle(party: playerParticles!)
         randomParticle(party: ghostParticles!)
@@ -83,9 +86,21 @@ class MainMenu: SKScene {
             self.loadGame()
         }
         
-        buttonPlay = self.childNode(withName: "tutorial") as? MSButtonNode
-        buttonPlay.alpha = 1
-        buttonPlay.selectedHandlers = {
+        tutorialButtonNode = self.childNode(withName: "tutorial") as? MSButtonNode
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let scale = 1.2
+            tutorialButtonNode.position.x = (frame.midX - 640) * CGFloat(scale)
+            tutorialButtonNode.position.y =  (frame.midY - 410) * CGFloat(scale)
+            tutorialButtonNode.setScale(CGFloat(1.25 * scale))
+        } else if UIScreen.main.bounds.width > 779 {
+            tutorialButtonNode.position.x = frame.midX - 720
+            tutorialButtonNode.position.y =  frame.midY - 290
+        } else {
+            tutorialButtonNode.position.x = frame.midX - 620
+            tutorialButtonNode.position.y =  frame.midY - 300
+        }
+        tutorialButtonNode.alpha = 1
+        tutorialButtonNode.selectedHandlers = {
             self.tutorial()
         }
     }
