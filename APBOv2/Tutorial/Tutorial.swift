@@ -101,14 +101,14 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
         dashLabel.zPosition = 101
         dashLabel.alpha = 0
         dashLabel.fontColor = UIColor.white
-        dashLabel.fontSize = 55
+        dashLabel.fontSize = 60
         dashLabel.fontName = "AvenirNext-Bold"
         addChild(dashLabel)
         
         turnLabel.zPosition = 101
         turnLabel.alpha = 1
         turnLabel.fontColor = UIColor.white
-        turnLabel.fontSize = 55
+        turnLabel.fontSize = 60
         turnLabel.fontName = "AvenirNext-Bold"
         addChild(turnLabel)
         
@@ -125,7 +125,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
         shootLabel.zPosition = 100
         shootLabel.alpha = 0
         shootLabel.fontColor = UIColor.white
-        shootLabel.fontSize = 55
+        shootLabel.fontSize = 60
         shootLabel.fontName = "AvenirNext-Bold"
         addChild(shootLabel)
         

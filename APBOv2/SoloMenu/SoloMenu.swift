@@ -10,11 +10,11 @@ import SpriteKit
 import StoreKit
 
 class SoloMenu: SKScene {
-
-/* UI Connections */
-var buttonPlay: MSButtonNode!
-var backButtonNode: MSButtonNode!
-var useCount = UserDefaults.standard.integer(forKey: "useCount")
+    
+    /* UI Connections */
+    var buttonPlay: MSButtonNode!
+    var backButtonNode: MSButtonNode!
+    var useCount = UserDefaults.standard.integer(forKey: "useCount")
     
     override func didMove(to view: SKView) {
         
@@ -22,42 +22,43 @@ var useCount = UserDefaults.standard.integer(forKey: "useCount")
         UserDefaults.standard.set(useCount, forKey: "useCount")
         if useCount == 1 {
             loadTutorial()
-        } else if useCount == 5 {
-             SKStoreReviewController.requestReview() //Request the review.
-           }
-        /* Setup your scene here */
-        if let particles = SKEmitterNode(fileNamed: "Starfield") {
+        } else {
+            if useCount == 6 {
+                SKStoreReviewController.requestReview() //Request the review.
+            }
+            /* Setup your scene here */
+            if let particles = SKEmitterNode(fileNamed: "Starfield") {
                 particles.position = CGPoint(x: frame.midX, y: frame.midY)
-        //      particles.advanceSimulationTime(60)
+                //      particles.advanceSimulationTime(60)
                 particles.zPosition = -1
                 addChild(particles)
-        }
-        self.sceneShake(shakeCount: 4, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
-        self.run(SKAction.playSoundFileNamed("menuThumpnew", waitForCompletion: false))
-        /* Set UI connections */
-        backButtonNode = self.childNode(withName: "back") as? MSButtonNode
-        backButtonNode.selectedHandlers = {
-            self.loadMainMenu()
-     //       skView.presentScene(scene)
-        }
-        
-        if UIDevice.current.userInterfaceIdiom != .pad {
-            if UIScreen.main.bounds.width < 779 {
-                backButtonNode.position.x = -600
-                backButtonNode.position.y =  300
+            }
+            self.sceneShake(shakeCount: 4, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
+            self.run(SKAction.playSoundFileNamed("menuThumpnew", waitForCompletion: false))
+            /* Set UI connections */
+            backButtonNode = self.childNode(withName: "back") as? MSButtonNode
+            backButtonNode.selectedHandlers = {
+                self.loadMainMenu()
+                //       skView.presentScene(scene)
+            }
+            
+            if UIDevice.current.userInterfaceIdiom != .pad {
+                if UIScreen.main.bounds.width < 779 {
+                    backButtonNode.position.x = -600
+                    backButtonNode.position.y =  300
+                }
+            }
+            
+            buttonPlay = self.childNode(withName: "endlessButton") as? MSButtonNode
+            buttonPlay.selectedHandlers = {
+                self.loadGame()
+            }
+            
+            buttonPlay = self.childNode(withName: "turretbossButton") as? MSButtonNode
+            buttonPlay.selectedHandlers = {
+                self.loadTurretBoss()
             }
         }
-        
-        buttonPlay = self.childNode(withName: "endlessButton") as? MSButtonNode
-        buttonPlay.selectedHandlers = {
-            self.loadGame()
-        }
-        
-        buttonPlay = self.childNode(withName: "turretbossButton") as? MSButtonNode
-        buttonPlay.selectedHandlers = {
-            self.loadTurretBoss()
-        }
- 
     }
     
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
