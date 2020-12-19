@@ -85,7 +85,7 @@ class MainMenu: SKScene {
         }
         
         buttonPlay = self.childNode(withName: "onlineButton") as? MSButtonNode
-        buttonPlay.alpha = 0
+        buttonPlay.alpha = 1
         buttonPlay.selectedHandlers = {
             self.loadOnlineMenu()
         }
@@ -184,18 +184,18 @@ class MainMenu: SKScene {
         }
         
         /* 2) Load Game scene */
-        guard let scene = OnlineMenu(fileNamed:"OnlineMenu") else {
+        guard let scene = Tutorial(fileNamed:"Tutorial") else {
             
             print("Could not make OnlineMenu, check the name is spelled correctly")
             return
         }
         
         /* 3) Ensure correct aspect mode */
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            scene.scaleMode = .aspectFit
-        } else {
+  //      if UIDevice.current.userInterfaceIdiom == .pad {
+    //        scene.scaleMode = .aspectFit
+      //  } else {
             scene.scaleMode = .aspectFill
-        }
+        //}
         
         /* Show debug */
         skView.showsPhysics = false
