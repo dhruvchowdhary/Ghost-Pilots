@@ -111,7 +111,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
         turnLabel.fontSize = 60
         turnLabel.fontName = "AvenirNext-Bold"
         addChild(turnLabel)
-       //
+       
        
         turnArrow.name = "turnArrow"
               
