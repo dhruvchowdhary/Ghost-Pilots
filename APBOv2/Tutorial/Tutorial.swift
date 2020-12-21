@@ -10,9 +10,6 @@ import SpriteKit
 import CoreMotion
 
 class Tutorial: SKScene, SKPhysicsContactDelegate {
-    
-    
-  
     let cameraNode =  SKCameraNode()
     var backButtonNode: MSButtonNode!
     var pauseButtonNode: MSButtonNode!

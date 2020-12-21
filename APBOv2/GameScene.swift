@@ -28,7 +28,9 @@ enum CollisionType: UInt32 {
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    
+    private var pilot = SKSpriteNode()
+       private var pilotWalkingFrames: [SKTexture] = []
+       
     let cameraNode =  SKCameraNode()
 
     let EnemyThruster = SKEmitterNode(fileNamed: "EnemyThruster")
@@ -58,7 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let enemyTypes = Bundle.main.decode([EnemyType].self, from: "enemy-types.json")
     let positions = Array(stride(from: -320, through: 320, by: 80))
     let player = SKSpriteNode(imageNamed: "player")
-    let pilot = SKSpriteNode(imageNamed: "pilot")
+   // let pilot = SKSpriteNode(imageNamed: "pilot")
     let shot = SKSpriteNode(imageNamed: "bullet")
     var pilotForward = false
     var pilotDirection = CGFloat(0.000)
@@ -95,7 +97,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func didMove(to view: SKView) {
-        
+
         addChild(cameraNode)
               camera = cameraNode
               cameraNode.position.x = 0
@@ -205,12 +207,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
         player.physicsBody?.isDynamic = false
         
-        pilot.size = CGSize(width: 40, height: 40)
-        pilot.physicsBody = SKPhysicsBody(texture: pilot.texture!, size: pilot.size)
-        pilot.physicsBody?.categoryBitMask = CollisionType.pilot.rawValue
-        pilot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-        pilot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-        pilot.physicsBody?.isDynamic = false
+      
         
         
         backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
@@ -487,6 +484,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
      
      
      }*/
+    
+      func buildPilot() {
+        let pilotAnimatedAtlas = SKTextureAtlas(named: "pilotImages")
+        var walkFrames: [SKTexture] = []
+
+        let numImages = pilotAnimatedAtlas.textureNames.count
+        for i in 1...numImages {
+          let pilotTextureName = "ghostpilots\(i)"
+          walkFrames.append(pilotAnimatedAtlas.textureNamed(pilotTextureName))
+        }
+        pilotWalkingFrames = walkFrames
+          
+          let firstFrameTexture = pilotWalkingFrames[0]
+          pilot = SKSpriteNode(texture: firstFrameTexture)
+           pilot.zRotation = player.zRotation - 3.141592/2
+          pilot.size = CGSize(width: 40, height: 40)
+          
+          pilot.physicsBody = SKPhysicsBody.init(rectangleOf: pilot.size)
+        //  pilot.physicsBody = SKPhysicsBody(texture: firstFrameTexture , size: pilot.size)
+           pilot.physicsBody?.categoryBitMask = CollisionType.pilot.rawValue
+           pilot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+           pilot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+           pilot.physicsBody?.isDynamic = false
+           pilot.position = player.position
+          pilot.name = "pilot"
+          addChild(pilot)
+          
+      }
+      
+      func animatePilot() {
+        pilot.run(SKAction.repeatForever(
+          SKAction.animate(with: pilotWalkingFrames,
+                           timePerFrame: 0.1,
+                           resize: false,
+                           restore: true)),
+          withKey:"walkingInPlacepilot")
+      }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
@@ -866,7 +900,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                           pilot.zRotation = player.zRotation - 3.141592/2
                           pilot.position = player.position
                           pilot.zPosition = 5
-                          addChild(pilot)
+                                     buildPilot()
+                           animatePilot()
                           //            gameOver()
                           
                           pilotThrust1?.position = CGPoint(x: 0, y: -20)

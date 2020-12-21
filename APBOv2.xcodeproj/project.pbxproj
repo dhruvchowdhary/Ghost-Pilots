@@ -69,6 +69,7 @@
 		74CF6895258D787C000C4E47 /* Tutorial.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74CF6894258D787C000C4E47 /* Tutorial.sks */; };
 		74CF6899258D78E2000C4E47 /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CF6898258D78E2000C4E47 /* Tutorial.swift */; };
 		8100B1832575524900AA8A1F /* TurretBossNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8100B1822575524900AA8A1F /* TurretBossNode.swift */; };
+		815799E52591079800734A45 /* pilotImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 815799E42591079800734A45 /* pilotImages.atlas */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -138,6 +139,7 @@
 		74CF6894258D787C000C4E47 /* Tutorial.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Tutorial.sks; sourceTree = "<group>"; };
 		74CF6898258D78E2000C4E47 /* Tutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
 		8100B1822575524900AA8A1F /* TurretBossNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBossNode.swift; sourceTree = "<group>"; };
+		815799E42591079800734A45 /* pilotImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = pilotImages.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +232,7 @@
 		74C3CFAE253F3BE900757586 /* APBOv2 */ = {
 			isa = PBXGroup;
 			children = (
+				815799E42591079800734A45 /* pilotImages.atlas */,
 				74CF6893258D7833000C4E47 /* Tutorial */,
 				748CEDC2256D7342005DF246 /* OnlineMenu */,
 				748CEDB7256C1AD4005DF246 /* SoloMenu */,
@@ -423,6 +426,7 @@
 				74C3CFD325506D0300757586 /* Assets.xcassets in Resources */,
 				74CF688025830C99000C4E47 /* greenPlayer.sks in Resources */,
 				74CF685E25828DB8000C4E47 /* Laser1new.wav in Resources */,
+				815799E52591079800734A45 /* pilotImages.atlas in Resources */,
 				74C3CFB4253F3BE900757586 /* Actions.sks in Resources */,
 				749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */,
 				74CF68752582CF37000C4E47 /* EnemyThruster.sks in Resources */,
