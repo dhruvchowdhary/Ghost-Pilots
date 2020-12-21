@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		74235B1E2590FCFC00AC4675 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74235B1D2590FCFC00AC4675 /* GameKit.framework */; };
 		7451FF782576FE8F0074CC2E /* Spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7451FF772576FE8F0074CC2E /* Spark.sks */; };
 		748CEDA125657B65005DF246 /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748CEDA025657B65005DF246 /* MainMenu.sks */; };
 		748CEDAB25657F2E005DF246 /* MSButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748CEDAA25657F2E005DF246 /* MSButtonNode.swift */; };
@@ -73,6 +74,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		74235B1D2590FCFC00AC4675 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		7451FF772576FE8F0074CC2E /* Spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Spark.sks; sourceTree = "<group>"; };
 		748CEDA025657B65005DF246 /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		748CEDAA25657F2E005DF246 /* MSButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSButtonNode.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74235B1E2590FCFC00AC4675 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +304,7 @@
 		74CF685A258289A0000C4E47 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				74235B1D2590FCFC00AC4675 /* GameKit.framework */,
 				74CF685B258289A0000C4E47 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
