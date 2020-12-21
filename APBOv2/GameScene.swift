@@ -516,7 +516,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       func animatePilot() {
         pilot.run(SKAction.repeatForever(
           SKAction.animate(with: pilotWalkingFrames,
-                           timePerFrame: 0.1,
+                           timePerFrame: 0.2,
                            resize: false,
                            restore: true)),
           withKey:"walkingInPlacepilot")

@@ -71,6 +71,7 @@
 		74CF6899258D78E2000C4E47 /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CF6898258D78E2000C4E47 /* Tutorial.swift */; };
 		8100B1832575524900AA8A1F /* TurretBossNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8100B1822575524900AA8A1F /* TurretBossNode.swift */; };
 		815799E52591079800734A45 /* pilotImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 815799E42591079800734A45 /* pilotImages.atlas */; };
+		815799E72591136900734A45 /* RespawnExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 815799E62591136900734A45 /* RespawnExplosion.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -142,6 +143,7 @@
 		74CF6898258D78E2000C4E47 /* Tutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
 		8100B1822575524900AA8A1F /* TurretBossNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBossNode.swift; sourceTree = "<group>"; };
 		815799E42591079800734A45 /* pilotImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = pilotImages.atlas; sourceTree = "<group>"; };
+		815799E62591136900734A45 /* RespawnExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RespawnExplosion.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +265,7 @@
 				74CF687825830AA1000C4E47 /* MainMenu */,
 				749EBC0D25599D84003EA0B3 /* Explosion.sks */,
 				7451FF772576FE8F0074CC2E /* Spark.sks */,
+				815799E62591136900734A45 /* RespawnExplosion.sks */,
 				74CF6847257FDF30000C4E47 /* PilotBlood.sks */,
 				74CF6841257C2EA8000C4E47 /* ShipExplosion.sks */,
 				74CF68742582CF37000C4E47 /* EnemyThruster.sks */,
@@ -436,6 +439,7 @@
 				74CF68752582CF37000C4E47 /* EnemyThruster.sks in Resources */,
 				748CEDB6256C1568005DF246 /* SoloMenu.sks in Resources */,
 				74CF685525820076000C4E47 /* pilotSquish2.wav in Resources */,
+				815799E72591136900734A45 /* RespawnExplosion.sks in Resources */,
 				74CF68502581F781000C4E47 /* menuThump.wav in Resources */,
 				749EBC58255AF9E7003EA0B3 /* waves.json in Resources */,
 				74CF6842257C2EA8000C4E47 /* ShipExplosion.sks in Resources */,
