@@ -77,8 +77,12 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         shape.fillColor = .clear
            shape.strokeColor = UIColor.white
            shape.lineWidth = 10
+        shape.name = "border"
+        shape.physicsBody = SKPhysicsBody(edgeChainFrom: shape.path!)
            addChild(shape)
            
+        
+
         
         addChild(cameraNode)
         camera = cameraNode
@@ -859,7 +863,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        if firstNode.name == "pilot" && secondNode.name == "turretSprite" {
+        else if firstNode.name == "pilot" && secondNode.name == "turretSprite" {
             
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = pilot.position
@@ -869,6 +873,18 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 gameOverScreen()
             }
         }
+        
+        else if firstNode.name == "TurretWeapon" && secondNode.name == "playerWeapon" {
+                   
+           self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
+                             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+                                 explosion.position = secondNode.position
+                                 addChild(explosion)
+                             }
+                             firstNode.removeFromParent()
+                             secondNode.removeFromParent()
+            
+               }
         if secondNode.name == "player" {
          
            
@@ -1011,7 +1027,38 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
              }
              secondNode.removeFromParent()
              print("2")*/
-        } else {
+        }
+        else if firstNode.name == "border" && secondNode.name == "playerWeapon" {
+           
+            
+            if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
+                BulletExplosion.position = secondNode.position
+                
+              /*
+                var angle = CGFloat(3.14159)
+                
+                if secondNode.position.x > frame.maxX - 100 {
+                    angle = CGFloat(3.14159)
+                }
+                else if secondNode.position.x < frame.minX + 100 {
+                    angle = CGFloat(0)
+                }
+ */
+                
+                BulletExplosion.particleRotation = angle
+                secondNode.removeFromParent()
+                addChild(BulletExplosion)
+            }
+
+            
+        }
+        
+        else if firstNode.name == "TurretWeapon" && secondNode.name == "border" {
+            firstNode.removeFromParent()
+        }
+            
+            /*
+        else {
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             firstNode.removeFromParent()
             if secondNode.name == "playerWeapon" {
@@ -1022,6 +1069,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 secondNode.removeFromParent()
             }
         }
+        */
         
         
     }
