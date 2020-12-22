@@ -1034,7 +1034,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
                 BulletExplosion.position = secondNode.position
                 
-              /*
+              
                 var angle = CGFloat(3.14159)
                 
                 if secondNode.position.x > frame.maxX - 100 {
@@ -1043,9 +1043,15 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                 else if secondNode.position.x < frame.minX + 100 {
                     angle = CGFloat(0)
                 }
- */
+                else if secondNode.position.y > frame.maxY - 200 {
+                    angle = CGFloat(-3.14 / 2)
+                }
+                else if secondNode.position.y < frame.minY + 200 {
+                    angle = CGFloat(3.14 / 2)
+                }
+ 
                 
-                BulletExplosion.particleRotation = angle
+                BulletExplosion.emissionAngle = angle
                 secondNode.removeFromParent()
                 addChild(BulletExplosion)
             }
@@ -1054,7 +1060,30 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
         }
         
         else if firstNode.name == "TurretWeapon" && secondNode.name == "border" {
-            firstNode.removeFromParent()
+               if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
+                           BulletExplosion.position = firstNode.position
+                           
+                         
+                           var angle = CGFloat(3.14159)
+                           
+                           if firstNode.position.x > frame.maxX - 100 {
+                               angle = CGFloat(3.14159)
+                           }
+                           else if firstNode.position.x < frame.minX + 100 {
+                               angle = CGFloat(0)
+                           }
+                           else if firstNode.position.y > frame.maxY - 200 {
+                               angle = CGFloat(-3.14 / 2)
+                           }
+                           else if firstNode.position.y < frame.minY + 200 {
+                               angle = CGFloat(3.14 / 2)
+                           }
+            
+                           
+                           BulletExplosion.emissionAngle = angle
+                           firstNode.removeFromParent()
+                           addChild(BulletExplosion)
+                       }
         }
             
             /*
