@@ -115,7 +115,7 @@ class SoloMenu: SKScene {
 
         /* Show debug */
         skView.showsPhysics = false
-        skView.showsDrawCount = false
+        skView.showsDrawCount = true
         skView.showsFPS = false
 
         /* 4) Start game scene */
