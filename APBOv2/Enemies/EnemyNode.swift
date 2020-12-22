@@ -13,11 +13,11 @@ class EnemyNode: SKSpriteNode {
     var lastFireTime: Double = 0
     var shields: Int
     var scoreinc: Int
-    
+
     let EnemyThruster = SKEmitterNode(fileNamed: "EnemyThruster")
     
     
-    init(type: EnemyType, startPosition: CGPoint, xOffset: CGFloat, moveStright: Bool) {
+    init(type: EnemyType, startPosition: CGPoint, xOffset: CGFloat, moveStright: Bool, speeds: Int) {
         self.type = type
         shields = type.shields
         scoreinc = type.scoreinc*100
@@ -32,7 +32,6 @@ class EnemyNode: SKSpriteNode {
         name = "enemy"
         position = CGPoint(x: startPosition.x + xOffset, y: startPosition.y)
         zPosition = 5
-        
       
         if type.name == "enemy3" {
                   EnemyThruster?.position = CGPoint(x: 0, y: -55)
@@ -48,14 +47,14 @@ class EnemyNode: SKSpriteNode {
                EnemyThruster?.targetNode = self.scene
                addChild(EnemyThruster!)
         
-        configureMovement(moveStright)
+        configureMovement(moveStright, speeds: speeds)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("LOL NO")
     }
     
-    func configureMovement(_ moveStright: Bool) {
+    func configureMovement(_ moveStright: Bool, speeds: Int) {
         let path = UIBezierPath()
         path.move(to: .zero)
         
@@ -64,8 +63,7 @@ class EnemyNode: SKSpriteNode {
         } else {
             path.addCurve(to: CGPoint(x: -3500, y: 0), controlPoint1: CGPoint(x: 0, y: -position.y*4), controlPoint2: CGPoint(x: -1000, y: -position.y))
         }
-        
-        let movement = SKAction.follow(path.cgPath, asOffset: true, orientToPath: true, speed: type.speed)
+        let movement = SKAction.follow(path.cgPath, asOffset: true, orientToPath: true, speed: CGFloat(speeds))
         let sequence = SKAction.sequence([movement, .removeFromParent()])
         run(sequence)
     }

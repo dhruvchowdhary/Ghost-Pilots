@@ -379,8 +379,6 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        
-        
         addChild(cannonHealthBar)
         cannonHealthBar.position = CGPoint(
             x: cannonSprite.position.x,
@@ -926,13 +924,13 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
                         self.pilotThrust1?.particleAlpha = 0
                         
                         
-                        self.run(SKAction.playSoundFileNamed("revivenew", waitForCompletion: false))
+                 //       self.run(SKAction.playSoundFileNamed("revivenew", waitForCompletion: false))
                     }
                     
                     let wait1 = SKAction.wait(forDuration:1)
                     let action1 = SKAction.run {
                         if !self.isGameOver {
-                            
+                            self.run(SKAction.playSoundFileNamed("revivenew", waitForCompletion: false))
                             
                             if let respawnExplosion = SKEmitterNode(fileNamed: "RespawnExplosion") {
                                 respawnExplosion.position = self.pilot.position

@@ -849,18 +849,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let currentWave = waves[waveNumber]
         waveNumber += 1
         
-       var rng = SystemRandomNumberGenerator()
+  //     var rng = SystemRandomNumberGenerator()
 
         let maximumEnemyType = min(enemyTypes.count, levelNumber + 1)
-        let enemyType = Int.random(in: 0..<maximumEnemyType, using: &rng)
+        let enemyType = Int.random(in: 0...maximumEnemyType-1)
+      //      , using: &rng)
         //print(enemyTypes[enemyType])
         
         let enemyOffsetX: CGFloat = 100
         let enemyStartX = 800
-        
         if currentWave.enemies.isEmpty {
             for(index, position) in positions.shuffled().enumerated() {
-                let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: position), xOffset: enemyOffsetX * CGFloat(index * 3), moveStright: true)
+                let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: position), xOffset: enemyOffsetX * CGFloat(index * 3), moveStright: true, speeds: (4-enemyType)*100 + waveNumber*100)
+                print((4-enemyType)*100 + waveNumber*100)
+                // 4th wave ^
                 addChild(enemy)
                 
                 
@@ -868,7 +870,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         } else {
             for enemy in currentWave.enemies {
-                let node = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: positions[enemy.position]), xOffset: enemyOffsetX * enemy.xOffset, moveStright: enemy.moveStraight)
+                let node = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: positions[enemy.position]), xOffset: enemyOffsetX * enemy.xOffset, moveStright: enemy.moveStraight, speeds: (4-enemyType)*100 + waveNumber*100)
+                print((4-enemyType)*100 + waveNumber*100)
+                // waves 1-3 ^
                 addChild(node)
    
             }
