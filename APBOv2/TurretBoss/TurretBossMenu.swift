@@ -1,20 +1,13 @@
-//
-//  SoloMenu.swift
-//  APBOv2
-//
-//  Created by 90306670 on 11/23/20.
-//  Copyright © 2020 Dhruv Chowdhary. All rights reserved.
-//
-
 import SpriteKit
 import StoreKit
 
-class SoloMenu: SKScene {
+class TurretBossMenu: SKScene {
     
     /* UI Connections */
     var buttonPlay: MSButtonNode!
     var backButtonNode: MSButtonNode!
     var useCount = UserDefaults.standard.integer(forKey: "useCount")
+    var difficulty = UserDefaults.standard.integer(forKey: "difficulty")
     
     override func didMove(to view: SKView) {
     
@@ -49,13 +42,30 @@ class SoloMenu: SKScene {
                 }
             }
             
-            buttonPlay = self.childNode(withName: "endlessButton") as? MSButtonNode
-            buttonPlay.selectedHandlers = {
-                self.loadGame()
-            }
+    
             
-            buttonPlay = self.childNode(withName: "turretbossButton") as? MSButtonNode
+            buttonPlay = self.childNode(withName: "easy") as? MSButtonNode
             buttonPlay.selectedHandlers = {
+                difficulty = 1
+               UserDefaults.standard.set(difficulty, forKey: "difficulty")
+                self.loadTurretBoss()
+            }
+            buttonPlay = self.childNode(withName: "medium") as? MSButtonNode
+            buttonPlay.selectedHandlers = {
+                 difficulty = 2
+                 UserDefaults.standard.set(difficulty, forKey: "difficulty")
+                self.loadTurretBoss()
+            }
+            buttonPlay = self.childNode(withName: "hard") as? MSButtonNode
+            buttonPlay.selectedHandlers = {
+                difficulty = 3
+                 UserDefaults.standard.set(difficulty, forKey: "difficulty")
+                self.loadTurretBoss()
+            }
+            buttonPlay = self.childNode(withName: "expert") as? MSButtonNode
+            buttonPlay.selectedHandlers = {
+                difficulty = 4
+                 UserDefaults.standard.set(difficulty, forKey: "difficulty")
                 self.loadTurretBoss()
             }
         }
@@ -105,7 +115,7 @@ class SoloMenu: SKScene {
         }
 
         /* 2) Load Game scene */
-        guard let scene = TurretBossMenu(fileNamed:"TurretBossMenu") else {
+        guard let scene = TurretBoss(fileNamed:"TurretBoss") else {
             print("Could not make GameScene, check the name is spelled correctly")
             return
         }

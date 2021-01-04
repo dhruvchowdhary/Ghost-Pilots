@@ -4,7 +4,7 @@ import CoreMotion
 
 
 
-class TurretBossScene: SKScene, SKPhysicsContactDelegate {
+class TurretBoss: SKScene, SKPhysicsContactDelegate {
     
     
     private var pilot = SKSpriteNode()
@@ -181,6 +181,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             skView.presentScene(scene)
         }
         
+        
         restartButtonNode = self.childNode(withName: "restartButton") as? MSButtonNode
         restartButtonNode.alpha = 0
         restartButtonNode.selectedHandlers = {
@@ -191,7 +192,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
             
             /* 2) Load Menu scene */
-            guard let scene = TurretBossScene(fileNamed:"TurretBoss") else {
+            guard let scene = TurretBoss(fileNamed:"TurretBoss") else {
                 print("Could not make GameScene, check the name is spelled correctly")
                 return
             }
@@ -218,7 +219,7 @@ class TurretBossScene: SKScene, SKPhysicsContactDelegate {
             }
             
             /* 2) Load Menu scene */
-            guard let scene = GameScene(fileNamed:"TurretBoss") else {
+            guard let scene = TurretBoss(fileNamed:"TurretBoss") else {
                 print("Could not make GameScene, check the name is spelled correctly")
                 return
             }

@@ -21,6 +21,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
     let turnLabel = SKLabelNode(text: "Press the turn button to rotate your ship!")
     let dashLabel = SKLabelNode(text: "Double-tap the turn button to dash!")
     let shootLabel = SKLabelNode(text: "Press the fire button to shoot some bullets!")
+    let exitLabel = SKLabelNode(text: "Exit Tutorial")
     
     var isPlayerAlive = true
     var isGameOver = false
@@ -101,6 +102,14 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
         dashLabel.fontSize = 60
         dashLabel.fontName = "AvenirNext-Bold"
         addChild(dashLabel)
+        
+        exitLabel.zPosition = 101
+        exitLabel.alpha = 1
+        exitLabel.fontColor = UIColor.white
+        exitLabel.fontSize = 60
+        exitLabel.fontName = "AvenirNext-Bold"
+        addChild(exitLabel)
+        
         
         turnLabel.zPosition = 101
         turnLabel.alpha = 1
@@ -212,6 +221,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
         backButtonNode.zPosition = 100
         backButtonNode.alpha = 1
         backButtonNode.selectedHandlers = {
+            self.exitLabel.alpha = 0.7
             /* 1) Grab reference to our SpriteKit view */
             guard let skView = self.view as SKView? else {
                 print("Could not get Skview")
@@ -388,6 +398,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
                                       shootLabel.position.y = cameraNode.position.y + 150
             
             
+            
             turnButtonNode.position.x = cameraNode.position.x + 640
             turnButtonNode.position.y = cameraNode.position.y - 410
             turnButtonNode.setScale(1.25)
@@ -406,6 +417,9 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
             backButtonNode.position.x = cameraNode.position.x - 640
             backButtonNode.position.y =  cameraNode.position.y + 430
             backButtonNode.setScale(1.25)
+            
+            exitLabel.position.x = backButtonNode.position.x + 260
+            exitLabel.position.y = backButtonNode.position.y - 20
             
             restartButtonNode.position.x = cameraNode.position.x + 480
             restartButtonNode.position.y =  cameraNode.position.y + 430
@@ -443,9 +457,13 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
                 
                 shootButtonNode.position.x = cameraNode.position.x - 660
                 shootButtonNode.position.y =  cameraNode.position.y - 250
+                
 
                 backButtonNode.position.x = cameraNode.position.x - 660
                 backButtonNode.position.y =  cameraNode.position.y + 290
+                
+                exitLabel.position.x = backButtonNode.position.x + 260
+                exitLabel.position.y = backButtonNode.position.y - 20
                 
             } else if UIScreen.main.bounds.width > 567 {
                 
@@ -471,6 +489,9 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
                 
                 backButtonNode.position.x = cameraNode.position.x - 660
                 backButtonNode.position.y =  cameraNode.position.y + 350
+                
+                exitLabel.position.x = backButtonNode.position.x + 260
+                exitLabel.position.y = backButtonNode.position.y - 20
 
             } else {
                 turnArrow.position.x = cameraNode.position.x + 550
@@ -494,6 +515,10 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
                 
                 backButtonNode.position.x = cameraNode.position.x - 660
                 backButtonNode.position.y =  cameraNode.position.y + 350
+                
+                exitLabel.position.x = backButtonNode.position.x + 260
+                exitLabel.position.y = backButtonNode.position.y - 20
+                
 
             }
         }
