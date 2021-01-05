@@ -12,7 +12,8 @@ import StoreKit
 class SoloMenu: SKScene {
     
     /* UI Connections */
-    var buttonPlay: MSButtonNode!
+    var endlessButtonNode: MSButtonNode!
+    var turretBossButtonNode: MSButtonNode!
     var backButtonNode: MSButtonNode!
     var useCount = UserDefaults.standard.integer(forKey: "useCount")
     
@@ -49,14 +50,23 @@ class SoloMenu: SKScene {
                 }
             }
             
-            buttonPlay = self.childNode(withName: "endlessButton") as? MSButtonNode
-            buttonPlay.selectedHandlers = {
-                self.loadGame()
+            endlessButtonNode = self.childNode(withName: "endlessButton") as? MSButtonNode
+            endlessButtonNode.selectedHandler = {
+                self.endlessButtonNode.alpha = 0.7
             }
             
-            buttonPlay = self.childNode(withName: "turretbossButton") as? MSButtonNode
-            buttonPlay.selectedHandlers = {
+            endlessButtonNode.selectedHandlers = {
+                self.loadGame()
+                //self.buttonPlay.alpha = 0.7
+            }
+            
+            turretBossButtonNode = self.childNode(withName: "turretbossButton") as? MSButtonNode
+            turretBossButtonNode.selectedHandler = {
+                           self.turretBossButtonNode.alpha = 0.7
+                       }
+            turretBossButtonNode.selectedHandlers = {
                 self.loadTurretBoss()
+               // self.buttonPlay.alpha = 0.7
             }
         }
     }
