@@ -52,6 +52,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var varisPaused = 1 //1 is false
     var playerShields = 1
     var waveNumber = 0
+    var waveCounter = 0
     var levelNumber = 0
     let turnButton = SKSpriteNode(imageNamed: "button")
     let shootButton = SKSpriteNode(imageNamed: "button")
@@ -829,7 +830,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 enemy.lastFireTime = currentTime
                 
                 if Int.random(in: 0...2) == 0 || Int.random(in: 0...2) == 1 {
-                    enemy.fire()
+                    enemy.fire(numPoints: numPoints)
                     self.run(SKAction.playSoundFileNamed("miniLasernew", waitForCompletion: false))
                 }
             }
@@ -848,30 +849,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let currentWave = waves[waveNumber]
         waveNumber += 1
-        
+        waveCounter += 1
   //     var rng = SystemRandomNumberGenerator()
 
         let maximumEnemyType = min(enemyTypes.count, levelNumber + 1)
         let enemyType = Int.random(in: 0...maximumEnemyType-1)
+        let speedChange = (4-enemyType)*100 + numPoints/25
       //      , using: &rng)
-        //print(enemyTypes[enemyType])
         
         let enemyOffsetX: CGFloat = 100
         let enemyStartX = 800
         if currentWave.enemies.isEmpty {
             for(index, position) in positions.shuffled().enumerated() {
-                let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: position), xOffset: enemyOffsetX * CGFloat(index * 3), moveStright: true, speeds: (4-enemyType)*100 + waveNumber*100)
-                print((4-enemyType)*100 + waveNumber*100)
+                let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: position), xOffset: enemyOffsetX * CGFloat(index * 3), moveStright: true, speeds: speedChange)
+                print(speedChange)
                 // 4th wave ^
                 addChild(enemy)
-                
-                
                 
             }
         } else {
             for enemy in currentWave.enemies {
-                let node = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: positions[enemy.position]), xOffset: enemyOffsetX * enemy.xOffset, moveStright: enemy.moveStraight, speeds: (4-enemyType)*100 + waveNumber*100)
-                print((4-enemyType)*100 + waveNumber*100)
+                let node = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: positions[enemy.position]), xOffset: enemyOffsetX * enemy.xOffset, moveStright: enemy.moveStraight, speeds: speedChange)
+                print("enemyType:" + "\(enemyType)")
+                print("waveCounter:" + "\(waveCounter)")
+                print("speed:" + "\(speedChange)")
                 // waves 1-3 ^
                 addChild(node)
    

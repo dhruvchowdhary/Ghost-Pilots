@@ -46,26 +46,26 @@ class TurretBossMenu: SKScene {
             
             buttonPlay = self.childNode(withName: "easy") as? MSButtonNode
             buttonPlay.selectedHandlers = {
-                difficulty = 1
-               UserDefaults.standard.set(difficulty, forKey: "difficulty")
+                self.difficulty = 1
+                UserDefaults.standard.set(self.difficulty, forKey: "difficulty")
                 self.loadTurretBoss()
             }
             buttonPlay = self.childNode(withName: "medium") as? MSButtonNode
             buttonPlay.selectedHandlers = {
-                 difficulty = 2
-                 UserDefaults.standard.set(difficulty, forKey: "difficulty")
+                self.difficulty = 2
+                UserDefaults.standard.set(self.difficulty, forKey: "difficulty")
                 self.loadTurretBoss()
             }
             buttonPlay = self.childNode(withName: "hard") as? MSButtonNode
             buttonPlay.selectedHandlers = {
-                difficulty = 3
-                 UserDefaults.standard.set(difficulty, forKey: "difficulty")
+                self.difficulty = 3
+                UserDefaults.standard.set(self.difficulty, forKey: "difficulty")
                 self.loadTurretBoss()
             }
             buttonPlay = self.childNode(withName: "expert") as? MSButtonNode
             buttonPlay.selectedHandlers = {
-                difficulty = 4
-                 UserDefaults.standard.set(difficulty, forKey: "difficulty")
+                self.difficulty = 4
+                UserDefaults.standard.set(self.difficulty, forKey: "difficulty")
                 self.loadTurretBoss()
             }
         }
@@ -115,7 +115,7 @@ class TurretBossMenu: SKScene {
         }
 
         /* 2) Load Game scene */
-        guard let scene = TurretBoss(fileNamed:"TurretBoss") else {
+        guard let scene = GameScene(fileNamed:"TurretBoss") else {
             print("Could not make GameScene, check the name is spelled correctly")
             return
         }
