@@ -86,6 +86,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let highScorePoints = SKLabelNode(text: "0")
     var numPoints = 0
     var highScore = 0
+    var speedAdd = 0
     
     var rotation = CGFloat(0)
     var numAmmo = 3
@@ -978,7 +979,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 enemy.lastFireTime = currentTime
                 
                 if Int.random(in: 0...2) == 0 || Int.random(in: 0...2) == 1 {
-                    enemy.fire(numPoints: numPoints)
+                    enemy.fire(numPoints: speedAdd*25)
                     self.run(SKAction.playSoundFileNamed("miniLasernew", waitForCompletion: false))
                 }
             }
@@ -1002,7 +1003,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         let maximumEnemyType = min(enemyTypes.count, levelNumber + 1)
         let enemyType = Int.random(in: 0...maximumEnemyType-1)
-        let speedChange = (4-enemyType)*100 + numPoints/25
+        if numPoints < 5000 {
+            speedAdd = numPoints/25
+        } else {
+            speedAdd = 5000/25
+        }
+        let speedChange = (4-enemyType)*100 + speedAdd
       //      , using: &rng)
         
         let enemyOffsetX: CGFloat = 100

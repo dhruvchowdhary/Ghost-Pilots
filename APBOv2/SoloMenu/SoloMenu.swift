@@ -121,7 +121,11 @@ class SoloMenu: SKScene {
         }
 
         /* 3) Ensure correct aspect mode */
-        scene.scaleMode = .aspectFill
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            scene.scaleMode = .aspectFit
+        } else {
+            scene.scaleMode = .aspectFill
+        }
 
         /* Show debug */
         skView.showsPhysics = false

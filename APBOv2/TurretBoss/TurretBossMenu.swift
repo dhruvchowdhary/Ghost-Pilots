@@ -14,7 +14,7 @@ class TurretBossMenu: SKScene {
         useCount += 1 //Increment the useCount
         UserDefaults.standard.set(useCount, forKey: "useCount")
         if useCount == 1 {
-            loadTutorial()
+ //           loadTutorial()
         } else {
             if useCount == 6 {
                 SKStoreReviewController.requestReview() //Request the review.
@@ -82,31 +82,6 @@ class TurretBossMenu: SKScene {
         sceneView.layer.add(shakeAnimation, forKey: "position")
     }
     
-    func loadGame() {
-        /* 1) Grab reference to our SpriteKit view */
-        guard let skView = self.view as SKView? else {
-            print("Could not get Skview")
-            return
-        }
-
-        /* 2) Load Game scene */
-        guard let scene = GameScene(fileNamed:"GameScene") else {
-            print("Could not make GameScene, check the name is spelled correctly")
-            return
-        }
-
-        /* 3) Ensure correct aspect mode */
-        scene.scaleMode = .aspectFill
-
-        /* Show debug */
-        skView.showsPhysics = false
-        skView.showsDrawCount = false
-        skView.showsFPS = false
-
-        /* 4) Start game scene */
-        skView.presentScene(scene)
-    }
-    
     func loadTurretBoss() {
         /* 1) Grab reference to our SpriteKit view */
         guard let skView = self.view as SKView? else {
@@ -115,7 +90,7 @@ class TurretBossMenu: SKScene {
         }
 
         /* 2) Load Game scene */
-        guard let scene = GameScene(fileNamed:"TurretBoss") else {
+        guard let scene = TurretBoss(fileNamed:"TurretBoss") else {
             print("Could not make GameScene, check the name is spelled correctly")
             return
         }
@@ -165,7 +140,7 @@ class TurretBossMenu: SKScene {
         }
 
         /* 2) Load Menu scene */
-        guard let scene = GameScene(fileNamed:"MainMenu") else {
+        guard let scene = GameScene(fileNamed:"SoloMenu") else {
             print("Could not make GameScene, check the name is spelled correctly")
             return
         }
