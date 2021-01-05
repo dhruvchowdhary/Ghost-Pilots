@@ -410,9 +410,10 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
             shootButtonNode.position.y =  cameraNode.position.y - 410
             shootButtonNode.setScale(1.25)
             
-            pauseButtonNode.position.x = cameraNode.position.x + 640
+     /*       pauseButtonNode.position.x = cameraNode.position.x + 640
             pauseButtonNode.position.y =  cameraNode.position.y + 430
             pauseButtonNode.setScale(1.25)
+ */
             
             backButtonNode.position.x = cameraNode.position.x - 640
             backButtonNode.position.y =  cameraNode.position.y + 430
@@ -421,7 +422,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
             exitLabel.position.x = backButtonNode.position.x + 260
             exitLabel.position.y = backButtonNode.position.y - 20
             
-            restartButtonNode.position.x = cameraNode.position.x + 480
+       /*     restartButtonNode.position.x = cameraNode.position.x + 480
             restartButtonNode.position.y =  cameraNode.position.y + 430
             restartButtonNode.setScale(1.25)
             
@@ -429,7 +430,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
             playAgainButtonNode.position.y = cameraNode.position.y - 224
             playAgainButtonNode.setScale(1.25)
             
-            
+            */
             
            
            

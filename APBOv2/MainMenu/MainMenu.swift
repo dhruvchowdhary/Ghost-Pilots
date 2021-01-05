@@ -91,7 +91,7 @@ class MainMenu: SKScene {
         
         tutorialButtonNode = self.childNode(withName: "tutorial") as? MSButtonNode
         if UIDevice.current.userInterfaceIdiom == .pad {
-            let scale = 1.2
+   //         let scale = 1.2
    //         tutorialButtonNode.position.x = (frame.midX - 640) * CGFloat(scale)
      //       tutorialButtonNode.position.y =  (frame.midY - 410) * CGFloat(scale)
      //       tutorialButtonNode.setScale(CGFloat(1.25 * scale))
