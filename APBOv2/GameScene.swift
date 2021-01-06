@@ -1034,12 +1034,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 print(speedChange)
                 // 4th wave ^
                 addChild(enemy)
-                enemy.name = "enemy"
+            //    enemy.name = "enemy"
+               // enemyShipNode = self.childNode(withName: "enemy") as? MSButtonNode
                 
             }
         } else {
             for enemy in currentWave.enemies {
                 let node = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: positions[enemy.position]), xOffset: enemyOffsetX * enemy.xOffset, moveStright: enemy.moveStraight, speeds: speedChange)
+                
+                node.name = "enemy"
                 print("enemyType:" + "\(enemyType)")
                 print("waveCounter:" + "\(waveCounter)")
                 print("speed:" + "\(speedChange)")
@@ -1116,6 +1119,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             }
         }
+            else if firstNode.name == "enemy" && secondNode.name == "pilot" {
+            if isPhase == true { //in control of enemy ship
+                firstNode.removeFromParent()
+            }
+            
+            
+            
+        }
             
             else if firstNode.name == "border" && secondNode.name == "playerWeapon" {
                        
@@ -1172,18 +1183,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
             }
             
-
+            else if firstNode.name == "border" {
+            secondNode.removeFromParent()
+        }
+            
+            
         else if let enemy = firstNode as? EnemyNode {
-            if secondNode.name == "pilot" {
-                print("1")
-                          if isPhase == true {
-                              firstNode.removeFromParent()
-                              print("hi")
-                }
-            }
-            else {
-                
-            }
             enemy.shields -= 1
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             if enemy.shields == 0 {
