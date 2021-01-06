@@ -254,6 +254,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.ejectButtonNode.alpha = 0
                      self.phaseButtonNode.alpha = 1
                     self.playerShields = 1
+                
                     
                  }
              }
@@ -614,6 +615,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                       pilotThrust1?.particleAlpha = 0
                       pilot.addChild(pilotThrust1!)
                       
+            
+            let movement = SKAction.moveBy(x: 60 * cos(3.14159 / 2 + self.pilot.zRotation), y: 60 * sin(3.14159 / 2 + self.pilot.zRotation), duration: 0.5)
+                             self.pilot.run(movement)
                       player.removeFromParent()
                   //    secondNode.removeFromParent()
                       
