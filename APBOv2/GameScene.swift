@@ -1189,6 +1189,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             
         else if let enemy = firstNode as? EnemyNode {
+            if secondNode.name == "pilot" {
+                print("1")
+                          if isPhase == true {
+                              firstNode.removeFromParent()
+                              print("hi")
+                }
+            }
+            else {
+                
+            }
             enemy.shields -= 1
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             if enemy.shields == 0 {
