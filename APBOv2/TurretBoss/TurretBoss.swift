@@ -73,6 +73,47 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         
+        
+        if difficulty == 1 {
+        let turretspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretshootereasy"), resize: true)
+        turretSprite.run(turretspritecolor)
+            
+            
+            
+            let cannonspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretbaseeasy"), resize: true)
+            cannonSprite.run(cannonspritecolor)
+        }
+        else if difficulty == 2 {
+              let turretspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretshootermedium"), resize: true)
+              turretSprite.run(turretspritecolor)
+                  
+                  
+                  
+                  let cannonspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretbasemedium"), resize: true)
+                  cannonSprite.run(cannonspritecolor)
+
+              }
+        else if difficulty == 3 {
+                     let turretspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretshooterhard"), resize: true)
+                     turretSprite.run(turretspritecolor)
+                         
+                         
+                         
+                         let cannonspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretbasehard"), resize: true)
+                         cannonSprite.run(cannonspritecolor)
+
+                     }
+        else if difficulty == 4 {
+                     let turretspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretshooterexpert"), resize: true)
+                     turretSprite.run(turretspritecolor)
+                         
+                         
+                         
+                         let cannonspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretbaseexpert"), resize: true)
+                         cannonSprite.run(cannonspritecolor)
+
+                     }
+        
         shape.path = UIBezierPath(roundedRect: CGRect(x: -800 + 50, y: -800 + 160, width: 1600 - 100, height: 1600 - 320), cornerRadius: 40).cgPath
         shape.position = CGPoint(x: frame.midX, y: frame.midY)
         shape.fillColor = .clear

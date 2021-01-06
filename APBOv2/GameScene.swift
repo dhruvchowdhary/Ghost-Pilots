@@ -31,7 +31,8 @@ enum CollisionType: UInt32 {
 class GameScene: SKScene, SKPhysicsContactDelegate {
     private var pilot = SKSpriteNode()
        private var pilotWalkingFrames: [SKTexture] = []
-       
+       let fadeOut = SKAction.fadeOut(withDuration: 1)
+          let fadeIn = SKAction.fadeIn(withDuration: 0.5)
     let cameraNode =  SKCameraNode()
 
     let EnemyThruster = SKEmitterNode(fileNamed: "EnemyThruster")
@@ -64,7 +65,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let waves = Bundle.main.decode([Wave].self, from: "waves.json")
     let enemyTypes = Bundle.main.decode([EnemyType].self, from: "enemy-types.json")
     let positions = Array(stride(from: -320, through: 320, by: 80))
-    let player = SKSpriteNode(imageNamed: "player")
+    var player = SKSpriteNode(imageNamed: "player")
    // let pilot = SKSpriteNode(imageNamed: "pilot")
     let shot = SKSpriteNode(imageNamed: "bullet")
     var pilotForward = false
@@ -1120,9 +1121,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
             else if firstNode.name == "enemy" && secondNode.name == "pilot" {
-            if isPhase == true { //in control of enemy ship
-                firstNode.removeFromParent()
-            }
+              if isPhase == true { //takeOver
+                          firstNode.removeFromParent()
+                          addChild(self.player)
+                               self.player.position = firstNode.position
+                          let enemy1pic = SKAction.setTexture(SKTexture(imageNamed: "enemy1blue"), resize: true)
+                player.run(enemy1pic)
+                
+                          secondNode.removeFromParent()
+                          isPlayerAlive = true
+                                                     self.pilotThrust1?.removeFromParent()
+
+                                                     
+                                                     self.playerShields += 1
+                                                     self.numAmmo = 3
+                                                     self.bullet1.position = self.player.position
+                                                     self.bullet2.position = self.player.position
+                                                     self.bullet3.position = self.player.position
+                                                     
+                                                     self.addChild(self.bullet1)
+                                                     self.addChild(self.bullet2)
+                                                     self.addChild(self.bullet3)
+                                                     
+                                                     self.bullet1.alpha = 0
+                                                     self.bullet1.run(self.fadeIn)
+                                                     self.bullet2.alpha = 0
+                                                     self.bullet2.run(self.fadeIn)
+                                                     self.bullet3.alpha = 0
+                                                     self.bullet3.run(self.fadeIn)
+                                                 }
             
             
             
