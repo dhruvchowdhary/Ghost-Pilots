@@ -18,6 +18,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
     var restartButtonNode: MSButtonNode!
     var playAgainButtonNode: MSButtonNode!
     
+    var difficulty = UserDefaults.standard.integer(forKey: "difficulty")
     let playerHealthBar = SKSpriteNode()
     let cannonHealthBar = SKSpriteNode()
     var playerHP = maxHealth
@@ -80,9 +81,6 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
         shape.name = "border"
         shape.physicsBody = SKPhysicsBody(edgeChainFrom: shape.path!)
         addChild(shape)
-        
-        
-        
         
         addChild(cameraNode)
         camera = cameraNode
@@ -601,17 +599,51 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
         if !isGameOver {
             if lastFireTime + 1 < currentTime {
                 lastFireTime = currentTime
-                var randomInt = Int.random(in: 0...4)
-                if randomInt == 0 {
-                    scatterTurret()
-                    self.run(SKAction.playSoundFileNamed("shotgun1new", waitForCompletion: false))
-                }
-                if randomInt == 1 {
-                    shootTurret()
-                    self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
-                }
-                if randomInt == 2 {
-                    lineTurret()
+                if difficulty == 1 {
+                    let randomInt = Int.random(in: 0...3)
+                    if randomInt < 2 {
+                        shootTurret()
+                        self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
+                    }
+                } else if difficulty == 2 {
+                    let randomInt = Int.random(in: 0...4)
+                    if randomInt == 0 {
+                        scatterTurret()
+                        self.run(SKAction.playSoundFileNamed("shotgun1new", waitForCompletion: false))
+                    }
+                    if randomInt == 1 {
+                        shootTurret()
+                        self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
+                    }
+                    if randomInt == 2 {
+                        lineTurret()
+                    }
+                } else if difficulty == 3 {
+                    let randomInt = Int.random(in: 0...3)
+                    if randomInt == 0 {
+                        scatterTurret()
+                        self.run(SKAction.playSoundFileNamed("shotgun1new", waitForCompletion: false))
+                    }
+                    if randomInt == 1 {
+                        shootTurret()
+                        self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
+                    }
+                    if randomInt == 2 {
+                        lineTurret()
+                    }
+                } else if difficulty == 4 {
+                    let randomInt = Int.random(in: 0...2)
+                    if randomInt == 0 {
+                        scatterTurret()
+                        self.run(SKAction.playSoundFileNamed("shotgun1new", waitForCompletion: false))
+                    }
+                    if randomInt == 1 {
+                        shootTurret()
+                        self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
+                    }
+                    if randomInt == 2 {
+                        lineTurret()
+                    }
                 }
             }
         }
