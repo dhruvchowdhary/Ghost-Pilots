@@ -828,10 +828,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 
                 phaseButtonNode.position.x = turnButtonNode.position.x - 140
-                phaseButtonNode.position.y = turnButtonNode.position.y + 95
+                phaseButtonNode.position.y = turnButtonNode.position.y + 90
                 
                 ejectButtonNode.position.x = turnButtonNode.position.x - 140
-                              ejectButtonNode.position.y = turnButtonNode.position.y + 95
+                              ejectButtonNode.position.y = turnButtonNode.position.y + 90
                 
             } else {
                 if player.position.y < frame.minY + 35 {

@@ -132,12 +132,14 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
         addChild(cannonSprite)
         
         
+        
+        
         self.dimPanel.zPosition = 50
         self.dimPanel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         self.addChild(self.dimPanel)
         self.dimPanel.alpha = 0
         
-        turretSprite.name = "turretSprite"
+        turretSprite.name = "turretshooter"
         turretSprite.physicsBody = SKPhysicsBody(texture: turretSprite.texture!, size: turretSprite.texture!.size())
         
         turretSprite.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -929,7 +931,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
         let secondNode = sortedNodes[1]
         
         
-        if firstNode.name == "player" && secondNode.name == "turretSprite" {
+        if firstNode.name == "player" && secondNode.name == "turretshooter" {
             
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = player.position
@@ -940,7 +942,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             }
         }
             
-        else if firstNode.name == "pilot" && secondNode.name == "turretSprite" {
+        else if firstNode.name == "pilot" && secondNode.name == "turretshooter" {
             
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = pilot.position
@@ -1062,7 +1064,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
                 secondNode.removeFromParent()
             }
         }
-        else if secondNode.name == "turretSprite" {
+        else if secondNode.name == "turretshooter" {
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = firstNode.position
                 addChild(explosion)

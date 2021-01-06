@@ -29,7 +29,7 @@ class TurretBossMenu: SKScene {
             self.sceneShake(shakeCount: 4, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
             self.run(SKAction.playSoundFileNamed("menuThumpnew", waitForCompletion: false))
             /* Set UI connections */
-            backButtonNode = self.childNode(withName: "back") as? MSButtonNode
+            backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
             backButtonNode.selectedHandlers = {
                 self.loadMainMenu()
                 //       skView.presentScene(scene)
