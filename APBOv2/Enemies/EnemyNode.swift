@@ -60,9 +60,12 @@ class EnemyNode: SKSpriteNode {
         
         if moveStright {
             path.addLine(to: CGPoint(x: -10000, y: 0))
-        } else {
-            path.addCurve(to: CGPoint(x: -3500, y: 0), controlPoint1: CGPoint(x: 0, y: -position.y*4), controlPoint2: CGPoint(x: -1000, y: -position.y))
         }
+        /*
+        else {
+            path.addCurve(to: CGPoint(x: -3500, y: 0), controlPoint1: CGPoint(x: 0, y: -position.y*4), controlPoint2: CGPoint(x: -1000, y: -position.y))
+ */
+ //       }
         let movement = SKAction.follow(path.cgPath, asOffset: true, orientToPath: true, speed: CGFloat(speeds))
         let sequence = SKAction.sequence([movement, .removeFromParent()])
         run(sequence)

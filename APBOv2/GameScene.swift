@@ -710,7 +710,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             if pilot.position.x < frame.minX - 20 {
                 pilot.position.x = frame.minX - 20
-            } else if player.position.x > frame.maxX + 20 {
+            } else if pilot.position.x > frame.maxX + 20 {
                 pilot.position.x = frame.maxX + 20
             }
             
@@ -802,7 +802,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 if pilot.position.x < frame.minX + 120 + 60 {
                     pilot.position.x = frame.minX + 120 + 60
-                } else if player.position.x > frame.maxX - 120 - 60 {
+                } else if pilot.position.x > frame.maxX - 120 - 60 {
                     pilot.position.x = frame.maxX - 120 - 60
                 }
                 
@@ -856,7 +856,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 if pilot.position.x < frame.minX + 120 + 60 {
                     pilot.position.x = frame.minX + 120 + 60
-                } else if player.position.x > frame.maxX - 120 - 60 {
+                } else if pilot.position.x > frame.maxX - 120 - 60 {
                     pilot.position.x = frame.maxX - 120 - 60
                 }
                 
@@ -1034,6 +1034,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 print(speedChange)
                 // 4th wave ^
                 addChild(enemy)
+                enemy.name = "enemy"
                 
             }
         } else {
@@ -1171,7 +1172,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
             }
             
+
         else if let enemy = firstNode as? EnemyNode {
+            if secondNode.name == "pilot" {
+                print("1")
+                          if isPhase == true {
+                              firstNode.removeFromParent()
+                              print("hi")
+                }
+            }
+            else {
+                
+            }
             enemy.shields -= 1
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             if enemy.shields == 0 {
