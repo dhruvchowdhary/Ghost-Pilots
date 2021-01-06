@@ -1171,17 +1171,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         
         }
-            else if secondNode.name == "playerWeapon" {
-                
-                self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
-                if let explosion = SKEmitterNode(fileNamed: "Explosion") {
-                    explosion.position = secondNode.position
-                    addChild(explosion)
-                }
-                firstNode.removeFromParent()
-                secondNode.removeFromParent()
-                
-            }
             
             else if firstNode.name == "border" {
             secondNode.removeFromParent()
@@ -1189,6 +1178,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             
         else if let enemy = firstNode as? EnemyNode {
+            print("hi")
             enemy.shields -= 1
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             if enemy.shields == 0 {
@@ -1217,6 +1207,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             secondNode.removeFromParent()
         }
+        else  {
+            
+            self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
+            if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+                explosion.position = secondNode.position
+                addChild(explosion)
+            }
+            firstNode.removeFromParent()
+            secondNode.removeFromParent()
+            
+        }
+        
         
         /* miscellans collision
          else  {
