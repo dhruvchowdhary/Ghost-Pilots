@@ -104,6 +104,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
 
+        
+        
+        
+        
         addChild(cameraNode)
               camera = cameraNode
               cameraNode.position.x = 0
@@ -123,12 +127,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         }
         */
+
+        
+        
         shape.path = UIBezierPath(roundedRect: CGRect(x: -1792/2-1000, y: -828/2, width: 1792+2000, height: 828), cornerRadius: 40).cgPath
-           shape.position = CGPoint(x: frame.midX, y: frame.midY)
+        shape.position = CGPoint(x: frame.midX, y: frame.midY)
         shape.fillColor = .clear
-           shape.strokeColor = UIColor.white
-           shape.lineWidth = 10
-           addChild(shape)
+        shape.strokeColor = UIColor.white
+        shape.lineWidth = 10
+        shape.name = "border"
+        shape.physicsBody = SKPhysicsBody(edgeChainFrom: shape.path!)
+        addChild(shape)
+        
+        
         
         
         /*
@@ -1099,6 +1110,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                           
             
             }
+        }
+            
+            else if firstNode.name == "border" && secondNode.name == "playerWeapon" {
+                       
+                       
+                       if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
+                           BulletExplosion.position = secondNode.position
+                           
+                           
+                           var angle = CGFloat(3.14159)
+                           
+                           if secondNode.position.x > frame.maxX - 100 {
+                               angle = CGFloat(3.14159)
+                           }
+                           else if secondNode.position.x < frame.minX + 100 {
+                               angle = CGFloat(0)
+                           }
+                           else if secondNode.position.y > frame.maxY - 200 {
+                               angle = CGFloat(-3.14 / 2)
+                           }
+                           else if secondNode.position.y < frame.minY + 200 {
+                               angle = CGFloat(3.14 / 2)
+                           }
+                           
+                           
+                           BulletExplosion.emissionAngle = angle
+                           secondNode.removeFromParent()
+                           addChild(BulletExplosion)
+                       }
+                       
+                       
+                
         } else if secondNode.name == "pilot" {
             if isPhase == false {
                 self.run(SKAction.playSoundFileNamed("pilotSquish3", waitForCompletion: false))
@@ -1112,6 +1155,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         
         }
+            else if secondNode.name == "playerWeapon" {
+                
+                self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
+                if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+                    explosion.position = secondNode.position
+                    addChild(explosion)
+                }
+                firstNode.removeFromParent()
+                secondNode.removeFromParent()
+                
+            }
             
         else if let enemy = firstNode as? EnemyNode {
             enemy.shields -= 1
@@ -1141,7 +1195,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 addChild(explosion)
             }
             secondNode.removeFromParent()
-        } else {
+        }
+        
+        /* miscellans collision
+         else  {
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = secondNode.position
@@ -1150,6 +1207,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             firstNode.removeFromParent()
             secondNode.removeFromParent()
         }
+ */
     }
     
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
@@ -1176,6 +1234,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.bullet1.alpha = 0
         self.bullet2.alpha = 0
         self.bullet3.alpha = 0
+        self.phaseButtonNode.alpha = 0
         
         let gameOver = SKSpriteNode(imageNamed: "gameOver")
         self.dimPanel.alpha = 0.3
