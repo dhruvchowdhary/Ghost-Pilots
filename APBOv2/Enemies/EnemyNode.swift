@@ -35,7 +35,7 @@ class EnemyNode: SKSpriteNode {
       
         if type.name == "enemy3" {
                   EnemyThruster?.position = CGPoint(x: 0, y: -55)
-            EnemyThruster?.particleScale = 0.5
+            EnemyThruster?.particleScale = 0.3
               }
         else if type.name == "enemy2" {
              EnemyThruster?.position = CGPoint(x: 0, y: -40)

@@ -54,7 +54,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var isGameOver = false
     var isPhase = false
     var varisPaused = 1 //1 is false
-    var playerShields = 2
+    var playerShields = 1
     var waveNumber = 0
     var waveCounter = 0
     var levelNumber = 0
@@ -254,7 +254,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                  if self.isPlayerAlive == true {
                     self.ejectButtonNode.alpha = 0
                      self.phaseButtonNode.alpha = 1
-                    self.playerShields = 1
+                    self.playerShields = -1
                 
                     
                  }
@@ -592,7 +592,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         
-        if playerShields == 1 {
+        if playerShields == -1 {
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
                       self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
                       if let explosion = SKEmitterNode(fileNamed: "ShipExplosion") {
@@ -600,7 +600,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                           addChild(explosion)
                       }
             
-            playerShields = 2
+            playerShields = 1
             isPlayerAlive = false
             pilot.name = "pilot"
                       pilot.size = CGSize(width: 40, height: 40)
@@ -1043,7 +1043,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             for enemy in currentWave.enemies {
                 let node = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: positions[enemy.position]), xOffset: enemyOffsetX * enemy.xOffset, moveStright: enemy.moveStraight, speeds: speedChange)
                 
-                node.name = "enemy"
+                node.name = "\(enemyType)"
                 print("enemyType:" + "\(enemyType)")
                 print("waveCounter:" + "\(waveCounter)")
                 print("speed:" + "\(speedChange)")
@@ -1071,7 +1071,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 addChild(explosion)
             }
           
-            playerShields = 0
+            playerShields -= 1
             
             if playerShields == 0 {
                 phaseButtonNode.alpha = 1
@@ -1120,20 +1120,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             }
         }
-            else if firstNode.name == "enemy" && secondNode.name == "pilot" {
+            else if (firstNode.name == "0"||firstNode.name == "1" || firstNode.name == "2" ) && secondNode.name == "pilot" {
               if isPhase == true { //takeOver
                           firstNode.removeFromParent()
                           addChild(self.player)
                                self.player.position = firstNode.position
+                
+                if firstNode.name == "0" {
                           let enemy1pic = SKAction.setTexture(SKTexture(imageNamed: "enemy1blue"), resize: true)
                 player.run(enemy1pic)
+                    self.playerShields = 1
                 
+                }
+                else if firstNode.name == "1" {
+                          let enemy2pic = SKAction.setTexture(SKTexture(imageNamed: "enemy2blue"), resize: true)
+                player.run(enemy2pic)
+                self.playerShields = 2
+                }
+                else if firstNode.name == "2" {
+                          let enemy2pic = SKAction.setTexture(SKTexture(imageNamed: "enemy3blue"), resize: true)
+                player.run(enemy2pic)
+                    self.playerShields = 3
+                
+                }
                           secondNode.removeFromParent()
                           isPlayerAlive = true
                                                      self.pilotThrust1?.removeFromParent()
 
                                                      
-                                                     self.playerShields += 1
+                                                     
                                                      self.numAmmo = 3
                                                      self.bullet1.position = self.player.position
                                                      self.bullet2.position = self.player.position
