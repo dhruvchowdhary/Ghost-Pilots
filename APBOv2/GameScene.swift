@@ -570,6 +570,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
            pilot.physicsBody?.isDynamic = false
            pilot.position = player.position
           pilot.name = "pilot"
+        pilot.zPosition = 5
           addChild(pilot)
           
       }
@@ -608,7 +609,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                       pilot.size = CGSize(width: 40, height: 40)
                       pilot.zRotation = player.zRotation - 3.141592/2
                       pilot.position = player.position
-                      pilot.zPosition = 5
                                  buildPilot()
                        animatePilot()
                       //            gameOver()
