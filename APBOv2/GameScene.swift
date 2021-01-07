@@ -1044,7 +1044,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else {
             speedAdd = 5000/25
         }
-        let speedChange = (4-enemyType)*100 + speedAdd
+        let speedChange = (3-enemyType)*100 + speedAdd
       //      , using: &rng)
         
         let enemyOffsetX: CGFloat = 100
