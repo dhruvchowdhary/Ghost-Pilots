@@ -46,6 +46,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var phaseButtonNode: MSButtonNode!
     var ejectButtonNode: MSButtonNode!
     
+    
+    var currentShip = "player1"
     let playerHealthBar = SKSpriteNode()
     let cannonHealthBar = SKSpriteNode()
     var playerHP = maxHealth
@@ -892,15 +894,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.7 ,y:player.position.y + sin(player.zRotation) * 3.7)
             pilotDirection = player.zRotation - 3.141592/2
+            
+            if currentShip == "enemy3" {
+                let revolve1 = SKAction.moveBy(x: -CGFloat(70 * cos(2 * currentTime )), y: -CGFloat(50 * sin(2 * currentTime)), duration: 0.000001)
+                           
+                           let revolve2 = SKAction.moveBy(x: -CGFloat(70 * cos(2 * currentTime + 2.0944)), y: -CGFloat(50 * sin(2 * currentTime + 2.0944)), duration: 0.000001)
+                           
+                           let revolve3 = SKAction.moveBy(x: -CGFloat(70 * cos(2 * currentTime + 4.18879)), y: -CGFloat(50 * sin(2 * currentTime + 4.18879)), duration: 0.000001)
+                
+                bullet1.run(revolve1)
+                          bullet2.run(revolve2)
+                          bullet3.run(revolve3)
+            }
+            else {
             let revolve1 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime )), y: -CGFloat(50 * sin(2 * currentTime)), duration: 0.000001)
             
             let revolve2 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 2.0944)), y: -CGFloat(50 * sin(2 * currentTime + 2.0944)), duration: 0.000001)
             
             let revolve3 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 4.18879)), y: -CGFloat(50 * sin(2 * currentTime + 4.18879)), duration: 0.000001)
+                
+                bullet1.run(revolve1)
+                          bullet2.run(revolve2)
+                          bullet3.run(revolve3)
+            }
             
-            bullet1.run(revolve1)
-            bullet2.run(revolve2)
-            bullet3.run(revolve3)
+          
             
             bullet1.position = player.position
             bullet2.position = player.position
@@ -1131,18 +1149,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                           let enemy1pic = SKAction.setTexture(SKTexture(imageNamed: "enemy1blue"), resize: true)
                 player.run(enemy1pic)
                     self.playerShields = 1
+                    currentShip = "enemy1"
                 
                 }
                 else if firstNode.name == "1" {
                           let enemy2pic = SKAction.setTexture(SKTexture(imageNamed: "enemy2blue"), resize: true)
                 player.run(enemy2pic)
                 self.playerShields = 2
+                    
+                    currentShip = "enemy2"
                 }
                 else if firstNode.name == "2" {
                           let enemy2pic = SKAction.setTexture(SKTexture(imageNamed: "enemy3blue"), resize: true)
                 player.run(enemy2pic)
                     self.playerShields = 3
-                
+                currentShip = "enemy3"
                 }
                 
                 
