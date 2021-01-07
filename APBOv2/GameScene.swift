@@ -888,6 +888,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         if isPlayerAlive {
+            
+            
             player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.7 ,y:player.position.y + sin(player.zRotation) * 3.7)
             pilotDirection = player.zRotation - 3.141592/2
             let revolve1 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime )), y: -CGFloat(50 * sin(2 * currentTime)), duration: 0.000001)
@@ -1122,10 +1124,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
             else if (firstNode.name == "0"||firstNode.name == "1" || firstNode.name == "2" ) && secondNode.name == "pilot" {
               if isPhase == true { //takeOver
-                          firstNode.removeFromParent()
-                          addChild(self.player)
-                               self.player.position = firstNode.position
-                
+                          
+           
+             
                 if firstNode.name == "0" {
                           let enemy1pic = SKAction.setTexture(SKTexture(imageNamed: "enemy1blue"), resize: true)
                 player.run(enemy1pic)
@@ -1143,8 +1144,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.playerShields = 3
                 
                 }
+                
+                
+                player.position = firstNode.position
+                player.zRotation = pilot.zRotation + 3.14159 / 2
+                                  //        self.isPlayerAlive = true
+                                          self.addChild(self.player)
                           secondNode.removeFromParent()
                           isPlayerAlive = true
+                
+                             firstNode.removeFromParent()
+                             ejectButtonNode.alpha = 1
+                phaseButtonNode.alpha = 0
+                
                                                      self.pilotThrust1?.removeFromParent()
 
                                                      
