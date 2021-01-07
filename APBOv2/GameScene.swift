@@ -386,6 +386,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         turnButtonNode = self.childNode(withName: "turnButton") as? MSButtonNode
         turnButtonNode.selectedHandler = {
+            
+            self.turnButtonNode.alpha = 0.6
+            self.turnButtonNode.setScale(1.1)
+            
             if self.varisPaused==1 && self.isPlayerAlive {
                 self.turnButtonNode.setScale(1.1)
                 self.turnButtonNode.alpha = 0.6
@@ -1004,6 +1008,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if UIDevice.current.userInterfaceIdiom == .pad {
                 if enemy.position.x < frame.minX - 25 {
                     enemy.removeFromParent()
+                
+                    
                 }
             } else {
                 if enemy.position.x < frame.minX - 20 {
@@ -1052,7 +1058,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if currentWave.enemies.isEmpty {
             for(index, position) in positions.shuffled().enumerated() {
                 let enemy = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: position), xOffset: enemyOffsetX * CGFloat(index * 3), moveStright: true, speeds: speedChange)
-                print(speedChange)
+            //    print(speedChange)
                 // 4th wave ^
                 addChild(enemy)
             //    enemy.name = "enemy"
@@ -1064,9 +1070,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let node = EnemyNode(type: enemyTypes[enemyType], startPosition: CGPoint(x: enemyStartX, y: positions[enemy.position]), xOffset: enemyOffsetX * enemy.xOffset, moveStright: enemy.moveStraight, speeds: speedChange)
                 
                 node.name = "\(enemyType)"
-                print("enemyType:" + "\(enemyType)")
-                print("waveCounter:" + "\(waveCounter)")
-                print("speed:" + "\(speedChange)")
+             ///   print("enemyType:" + "\(enemyType)")
+              //  print("waveCounter:" + "\(waveCounter)")
+               // print("speed:" + "\(speedChange)")
                 // waves 1-3 ^
                 addChild(node)
    
@@ -1142,7 +1148,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
             else if (firstNode.name == "0"||firstNode.name == "1" || firstNode.name == "2" ) && secondNode.name == "pilot" {
               if isPhase == true { //takeOver
-                          
+                          isPhase = false
            
              
                 if firstNode.name == "0" {
@@ -1257,13 +1263,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         }
             
-            else if firstNode.name == "border" {
+        else if firstNode.name == "border" && secondNode.name == "enemyWeapon" {
+            print("hi")
             secondNode.removeFromParent()
         }
             
+            else if firstNode.name == "playerWeapon" && secondNode.name == "enemyWeapon" {
+                      print("bye")
+            firstNode.removeFromParent()
+                      secondNode.removeFromParent()
+                  }
             
         else if let enemy = firstNode as? EnemyNode {
-            print("hi")
+           // print("hi")
             enemy.shields -= 1
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             if enemy.shields == 0 {
@@ -1292,6 +1304,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             secondNode.removeFromParent()
         }
+            
+            /*
         else  {
             
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
@@ -1303,6 +1317,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             secondNode.removeFromParent()
             
         }
+ */
         
         
         /* miscellans collision

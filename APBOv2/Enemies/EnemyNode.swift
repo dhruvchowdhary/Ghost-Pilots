@@ -93,8 +93,8 @@ class EnemyNode: SKSpriteNode {
         
         let dx = (speed + CGFloat(numPoints)/14285.7) * cos(adjustedRotation)
         let dy = (speed + CGFloat(numPoints)/14285.7) * sin(adjustedRotation)
-        print("dx:" + "\(dx)")
-        print("dy:" + "\(dy)")
+      //  print("dx:" + "\(dx)")
+        //print("dy:" + "\(dy)")
         weapon.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
         
      
