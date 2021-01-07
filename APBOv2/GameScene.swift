@@ -236,6 +236,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         phaseButtonNode.selectedHandler = {
             if self.isPlayerAlive == false {
+                print("tap phase")
                 self.pilot.alpha = 0.7
                 self.phaseButtonNode.alpha = 0.7
                 self.isPhase = true
@@ -243,6 +244,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         phaseButtonNode.selectedHandlers = {
             if self.isPlayerAlive == false {
+                print("untap phase")
                          self.pilot.alpha = 1
                          self.phaseButtonNode.alpha = 1
                          self.isPhase = false
