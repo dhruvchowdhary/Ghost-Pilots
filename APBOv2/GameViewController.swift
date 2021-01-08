@@ -46,11 +46,10 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     @objc func showLeaderboard(){
-        
         let gcViewController = GKGameCenterViewController()
         gcViewController.gameCenterDelegate = self
         gcViewController.viewState = GKGameCenterViewControllerState.leaderboards
-        gcViewController.leaderboardIdentifier = "edu.nathaniel.spacegame.leaderboard"
+        gcViewController.leaderboardIdentifier = "com.score.ghostpilots"
         self.showDetailViewController(gcViewController, sender: self)
         self.navigationController?.pushViewController(gcViewController, animated: true)
         self.present(gcViewController, animated: true, completion: nil)
