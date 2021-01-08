@@ -547,7 +547,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
      
      
      }*/
-    
+    //hi
     func buildPilot() {
         let pilotAnimatedAtlas = SKTextureAtlas(named: "pilotImages")
         var walkFrames: [SKTexture] = []
