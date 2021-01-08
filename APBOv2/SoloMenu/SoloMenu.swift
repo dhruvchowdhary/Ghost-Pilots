@@ -15,6 +15,7 @@ class SoloMenu: SKScene {
     var endlessButtonNode: MSButtonNode!
     var turretBossButtonNode: MSButtonNode!
     var backButtonNode: MSButtonNode!
+    var leaderboardButtonNode: MSButtonNode!
     var useCount = UserDefaults.standard.integer(forKey: "useCount")
     
     override func didMove(to view: SKView) {
@@ -67,6 +68,17 @@ class SoloMenu: SKScene {
             turretBossButtonNode.selectedHandlers = {
                 self.loadTurretBoss()
                // self.buttonPlay.alpha = 0.7
+            }
+            
+            leaderboardButtonNode = self.childNode(withName: "leaderboardButton") as? MSButtonNode
+            leaderboardButtonNode.selectedHandlers = {
+                if GameCenter.shared.isAuthenticated {
+                    NotificationCenter.default.post(name: Notification.Name("showLeaderboard"), object: nil)
+                } else {
+                    let alert = UIAlertController(title: "Error", message: "You are not currently logged into Game Center!" , preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
+                }
             }
         }
     }

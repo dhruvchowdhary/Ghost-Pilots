@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		74235B1E2590FCFC00AC4675 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74235B1D2590FCFC00AC4675 /* GameKit.framework */; };
+		74235B2025A7724400AC4675 /* GameCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74235B1F25A7724400AC4675 /* GameCenter.swift */; };
 		7451FF782576FE8F0074CC2E /* Spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7451FF772576FE8F0074CC2E /* Spark.sks */; };
 		748CEDA125657B65005DF246 /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748CEDA025657B65005DF246 /* MainMenu.sks */; };
 		748CEDAB25657F2E005DF246 /* MSButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748CEDAA25657F2E005DF246 /* MSButtonNode.swift */; };
@@ -81,6 +82,7 @@
 
 /* Begin PBXFileReference section */
 		74235B1D2590FCFC00AC4675 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		74235B1F25A7724400AC4675 /* GameCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenter.swift; sourceTree = "<group>"; };
 		7451FF772576FE8F0074CC2E /* Spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Spark.sks; sourceTree = "<group>"; };
 		748CEDA025657B65005DF246 /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		748CEDAA25657F2E005DF246 /* MSButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSButtonNode.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				74C3CFB5253F3BE900757586 /* GameScene.swift */,
 				74C3CFB1253F3BE900757586 /* GameScene.sks */,
 				74C3CFB7253F3BE900757586 /* GameViewController.swift */,
+				74235B1F25A7724400AC4675 /* GameCenter.swift */,
 				74C3CFB3253F3BE900757586 /* Actions.sks */,
 				74C3CFBC253F3BED00757586 /* Assets.xcassets */,
 				74C3CFC1253F3BED00757586 /* Info.plist */,
@@ -480,6 +483,7 @@
 				8100B1832575524900AA8A1F /* TurretBossNode.swift in Sources */,
 				74C3CFDD2553109000757586 /* EnemyType.swift in Sources */,
 				74CF6899258D78E2000C4E47 /* Tutorial.swift in Sources */,
+				74235B2025A7724400AC4675 /* GameCenter.swift in Sources */,
 				74C3CFB8253F3BE900757586 /* GameViewController.swift in Sources */,
 				749EBC5C255AFA58003EA0B3 /* Bundle-Decoding.swift in Sources */,
 				74C3CFDB2553100200757586 /* EnemyNode.swift in Sources */,
