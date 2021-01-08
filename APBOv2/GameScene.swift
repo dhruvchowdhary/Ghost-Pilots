@@ -28,6 +28,7 @@ enum CollisionType: UInt32 {
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
     private var pilot = SKSpriteNode()
        private var pilotWalkingFrames: [SKTexture] = []
        let fadeOut = SKAction.fadeOut(withDuration: 1)

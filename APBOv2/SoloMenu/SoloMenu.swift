@@ -10,7 +10,7 @@ import SpriteKit
 import StoreKit
 
 class SoloMenu: SKScene {
-    
+     let endlessLeaderboard = SKLabelNode(text: "Leaderboard")
     /* UI Connections */
     var endlessButtonNode: MSButtonNode!
     var turretBossButtonNode: MSButtonNode!
@@ -20,6 +20,8 @@ class SoloMenu: SKScene {
     
     override func didMove(to view: SKView) {
     
+       
+        
         useCount += 1 //Increment the useCount
         UserDefaults.standard.set(useCount, forKey: "useCount")
         if useCount == 1 {
@@ -80,6 +82,14 @@ class SoloMenu: SKScene {
                     self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
                 }
             }
+            
+            leaderboardButtonNode.position = CGPoint(x: frame.maxX - 300 , y: frame.minY + 200)
+                   endlessLeaderboard.fontName = "AvenirNext-Bold"
+                   endlessLeaderboard.position = CGPoint(x: leaderboardButtonNode.position.x, y: leaderboardButtonNode.position.y - 125)
+                         endlessLeaderboard.fontColor = UIColor.white
+                         endlessLeaderboard.zPosition = 2
+                         endlessLeaderboard.fontSize = 40
+                         addChild(endlessLeaderboard)
         }
     }
     
