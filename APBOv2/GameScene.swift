@@ -1014,31 +1014,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else {
                 if enemy.position.x < frame.minX - 20 {
                     enemy.removeFromParent()
-                  //  print("enemy removed)")
+                    //  print("enemy removed)")
                 }
             }
             
             if enemy.lastFireTime + 1 < currentTime {
                 enemy.lastFireTime = currentTime
-                
-                if Int.random(in: 0...4) == 0 || Int.random(in: 0...4) == 1 {
-                    let wait = SKAction.wait(forDuration:0.5)
-                                             let action = SKAction.run {
-                                                enemy.fire(numPoints: self.speedAdd*25)
-                                                self.run(SKAction.playSoundFileNamed("miniLasernew", waitForCompletion: false))
-                                                 }
-                                             
-                                                 self.run(SKAction.sequence([wait,action]))
-               
-                                         
-                                      
-                     
-                                       
-                   
+                let randInt = Int.random(in: 0...5)
+                if numPoints < 1000 {
+                    if randInt < 2 {
+                        enemy.fire(numPoints: speedAdd*25)
+                        self.run(SKAction.playSoundFileNamed("miniLasernew", waitForCompletion: false))
+                    }
+                } else if numPoints < 2000 {
+                    if randInt < 3 {
+                        enemy.fire(numPoints: speedAdd*25)
+                        self.run(SKAction.playSoundFileNamed("miniLasernew", waitForCompletion: false))
+                    }
+                } else if numPoints < 3000 {
+                    if randInt < 4 {
+                        enemy.fire(numPoints: speedAdd*25)
+                        self.run(SKAction.playSoundFileNamed("miniLasernew", waitForCompletion: false))
+                    }
+                } else {
+                    if randInt < 5 {
+                        enemy.fire(numPoints: speedAdd*25)
+                        self.run(SKAction.playSoundFileNamed("miniLasernew", waitForCompletion: false))
+                    }
                 }
             }
         }
-        
         
     }
     

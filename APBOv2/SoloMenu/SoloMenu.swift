@@ -77,7 +77,7 @@ class SoloMenu: SKScene {
                 if GameCenter.shared.isAuthenticated {
                     NotificationCenter.default.post(name: Notification.Name("showLeaderboard"), object: nil)
                 } else {
-                    let alert = UIAlertController(title: "Error", message: "You are not currently logged into Game Center!" , preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Game Center Error", message: "You are currently not logged into Game Center! Log in to view the leaderboard." , preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                     self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
                 }
