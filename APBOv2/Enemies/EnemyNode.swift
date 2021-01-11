@@ -96,6 +96,16 @@ class EnemyNode: SKSpriteNode {
       //  print("dx:" + "\(dx)")
         //print("dy:" + "\(dy)")
         weapon.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
+      
+        /*
+        let wait = SKAction.wait(forDuration:1)
+        let action = SKAction.run {
+
+              weapon.removeFromParent()
+                }
+            
+                self.run(SKAction.sequence([wait,action]))
+        */
         
      
     }

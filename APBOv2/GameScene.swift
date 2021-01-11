@@ -900,22 +900,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             pilotDirection = player.zRotation - 3.141592/2
             
             if currentShip == "enemy3" {
-                let revolve1 = SKAction.moveBy(x: -CGFloat(70 * cos(2 * currentTime )), y: -CGFloat(50 * sin(2 * currentTime)), duration: 0.000001)
+                let revolve1 = SKAction.moveBy(x: -CGFloat(80 * cos(2 * currentTime )), y: -CGFloat(80 * sin(2 * currentTime)), duration: 0.00000001)
                            
-                           let revolve2 = SKAction.moveBy(x: -CGFloat(70 * cos(2 * currentTime + 2.0944)), y: -CGFloat(50 * sin(2 * currentTime + 2.0944)), duration: 0.000001)
+                           let revolve2 = SKAction.moveBy(x: -CGFloat(80 * cos(2 * currentTime + 2.0944)), y: -CGFloat(80 * sin(2 * currentTime + 2.0944)), duration: 0.00000001)
                            
-                           let revolve3 = SKAction.moveBy(x: -CGFloat(70 * cos(2 * currentTime + 4.18879)), y: -CGFloat(50 * sin(2 * currentTime + 4.18879)), duration: 0.000001)
+                           let revolve3 = SKAction.moveBy(x: -CGFloat(80 * cos(2 * currentTime + 4.18879)), y: -CGFloat(80 * sin(2 * currentTime + 4.18879)), duration: 0.00000001)
                 
                 bullet1.run(revolve1)
                           bullet2.run(revolve2)
                           bullet3.run(revolve3)
             }
             else {
-            let revolve1 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime )), y: -CGFloat(50 * sin(2 * currentTime)), duration: 0.000001)
+            let revolve1 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime )), y: -CGFloat(50 * sin(2 * currentTime)), duration: 0.00000001)
             
-            let revolve2 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 2.0944)), y: -CGFloat(50 * sin(2 * currentTime + 2.0944)), duration: 0.000001)
+            let revolve2 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 2.0944)), y: -CGFloat(50 * sin(2 * currentTime + 2.0944)), duration: 0.00000001)
             
-            let revolve3 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 4.18879)), y: -CGFloat(50 * sin(2 * currentTime + 4.18879)), duration: 0.000001)
+            let revolve3 = SKAction.moveBy(x: -CGFloat(50 * cos(2 * currentTime + 4.18879)), y: -CGFloat(50 * sin(2 * currentTime + 4.18879)), duration: 0.00000001)
                 
                 bullet1.run(revolve1)
                           bullet2.run(revolve2)
@@ -1014,15 +1014,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else {
                 if enemy.position.x < frame.minX - 20 {
                     enemy.removeFromParent()
+                  //  print("enemy removed)")
                 }
             }
             
             if enemy.lastFireTime + 1 < currentTime {
                 enemy.lastFireTime = currentTime
                 
-                if Int.random(in: 0...2) == 0 || Int.random(in: 0...2) == 1 {
-                    enemy.fire(numPoints: speedAdd*25)
-                    self.run(SKAction.playSoundFileNamed("miniLasernew", waitForCompletion: false))
+                if Int.random(in: 0...4) == 0 || Int.random(in: 0...4) == 1 {
+                    let wait = SKAction.wait(forDuration:0.5)
+                                             let action = SKAction.run {
+                                                enemy.fire(numPoints: self.speedAdd*25)
+                                                self.run(SKAction.playSoundFileNamed("miniLasernew", waitForCompletion: false))
+                                                 }
+                                             
+                                                 self.run(SKAction.sequence([wait,action]))
+               
+                                         
+                                      
+                     
+                                       
+                   
                 }
             }
         }
@@ -1217,6 +1229,78 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             
         }
+            else if (secondNode.name == "0"||secondNode.name == "1" || secondNode.name == "2" ) && firstNode.name == "pilot" {
+                        if isPhase == true { //takeOver
+                                    isPhase = false
+                     
+                       
+                          if firstNode.name == "0" {
+                                    let enemy1pic = SKAction.setTexture(SKTexture(imageNamed: "enemy1blue"), resize: true)
+                          player.run(enemy1pic)
+                              self.playerShields = 1
+                              currentShip = "enemy1"
+                          
+                          }
+                          else if firstNode.name == "1" {
+                                    let enemy2pic = SKAction.setTexture(SKTexture(imageNamed: "enemy2blue"), resize: true)
+                          player.run(enemy2pic)
+                          self.playerShields = 2
+                              
+                              currentShip = "enemy2"
+                          }
+                          else if firstNode.name == "2" {
+                                    let enemy2pic = SKAction.setTexture(SKTexture(imageNamed: "enemy3blue"), resize: true)
+                          player.run(enemy2pic)
+                              self.playerShields = 3
+                          currentShip = "enemy3"
+                          }
+                          
+                          
+                          player.position = secondNode.position
+                          player.zRotation = pilot.zRotation + 3.14159 / 2
+                                            //        self.isPlayerAlive = true
+                                                    self.addChild(self.player)
+                                    secondNode.removeFromParent()
+                                    isPlayerAlive = true
+                          
+                                       firstNode.removeFromParent()
+                                       ejectButtonNode.alpha = 1
+                          phaseButtonNode.alpha = 0
+                          
+                                                               self.pilotThrust1?.removeFromParent()
+
+                                                               
+                                                               
+                                                               self.numAmmo = 3
+                                                               self.bullet1.position = self.player.position
+                                                               self.bullet2.position = self.player.position
+                                                               self.bullet3.position = self.player.position
+                                                               
+                                                               self.addChild(self.bullet1)
+                                                               self.addChild(self.bullet2)
+                                                               self.addChild(self.bullet3)
+                                                               
+                                                               self.bullet1.alpha = 0
+                                                               self.bullet1.run(self.fadeIn)
+                                                               self.bullet2.alpha = 0
+                                                               self.bullet2.run(self.fadeIn)
+                                                               self.bullet3.alpha = 0
+                                                               self.bullet3.run(self.fadeIn)
+                                                           }
+                        else {
+                          self.run(SKAction.playSoundFileNamed("pilotSquish3", waitForCompletion: false))
+                                               if let explosion = SKEmitterNode(fileNamed: "PilotBlood") {
+                                                   explosion.numParticlesToEmit = 8
+                                                   explosion.position = pilot.position
+                                                   addChild(explosion)
+                                               }
+                                               gameOver()
+                                               secondNode.removeFromParent()
+                      }
+                      
+                      
+                      
+                  }
             
             else if firstNode.name == "border" && secondNode.name == "playerWeapon" {
                        
@@ -1263,11 +1347,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
             
         else if firstNode.name == "border" && secondNode.name == "enemyWeapon" {
-            print("hi")
+         //   print("weapon removed")
             secondNode.removeFromParent()
+            
         }
             
-            else if firstNode.name == "playerWeapon" && secondNode.name == "enemyWeapon" {
+            else if secondNode.name == "playerWeapon" && firstNode.name == "enemyWeapon" {
                       print("bye")
             firstNode.removeFromParent()
                       secondNode.removeFromParent()
@@ -1305,19 +1390,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             secondNode.removeFromParent()
         }
             
-            /*
-        else  {
             
-            self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
-            if let explosion = SKEmitterNode(fileNamed: "Explosion") {
-                explosion.position = secondNode.position
-                addChild(explosion)
-            }
-            firstNode.removeFromParent()
+        else  {
+            print("else")
+         //   self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
+        //    if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+        //        explosion.position = secondNode.position
+        //        addChild(explosion)
+        //    }
+         //   firstNode.removeFromParent()
             secondNode.removeFromParent()
             
         }
- */
+ 
         
         
         /* miscellans collision
