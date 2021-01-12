@@ -100,7 +100,7 @@ class TurretBossMenu: SKScene {
 
         /* Show debug */
         skView.showsPhysics = false
-        skView.showsDrawCount = true
+        skView.showsDrawCount = false
         skView.showsFPS = false
 
         /* 4) Start game scene */
