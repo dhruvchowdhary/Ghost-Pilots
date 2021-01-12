@@ -234,15 +234,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         phaseButtonNode.selectedHandler = {
             if self.isPlayerAlive == false {
-                print("tap phase")
+                print("is phase")
                 self.pilot.alpha = 0.7
                 self.phaseButtonNode.alpha = 0.7
                 self.isPhase = true
+                
             }
         }
         phaseButtonNode.selectedHandlers = {
             if self.isPlayerAlive == false {
-                print("untap phase")
+                print("not phase")
                          self.pilot.alpha = 1
                          self.phaseButtonNode.alpha = 1
                          self.isPhase = false
@@ -1077,6 +1078,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             //    print(speedChange)
                 // 4th wave ^
                 addChild(enemy)
+                enemy.name = "\(enemyType)"
             //    enemy.name = "enemy"
                // enemyShipNode = self.childNode(withName: "enemy") as? MSButtonNode
                 
@@ -1162,9 +1164,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             }
         }
-            else if (firstNode.name == "0"||firstNode.name == "1" || firstNode.name == "2" ) && secondNode.name == "pilot" {
+        else if (firstNode.name == "0"||firstNode.name == "1" || firstNode.name == "2" || firstNode.name == "enemy" ) && secondNode.name == "pilot" {
+            
               if isPhase == true { //takeOver
                           isPhase = false
+                print("not phase")
+                print("take over1")
+                print("\(firstNode.name)")
            
              
                 if firstNode.name == "0" {
@@ -1234,9 +1240,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             
         }
-            else if (secondNode.name == "0"||secondNode.name == "1" || secondNode.name == "2" ) && firstNode.name == "pilot" {
+            else if (secondNode.name == "0"||secondNode.name == "1" || secondNode.name == "2" || secondNode.name == "enemy" ) && firstNode.name == "pilot" {
                         if isPhase == true { //takeOver
                                     isPhase = false
+                            print("not phase")
+                            
+                            print("take over2")
+                            print("\(secondNode.name)")
                      
                        
                           if firstNode.name == "0" {
@@ -1338,6 +1348,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                        
                 
         } else if secondNode.name == "pilot" {
+          //  print("\(firstNode.name)")
             if isPhase == false {
                 self.run(SKAction.playSoundFileNamed("pilotSquish3", waitForCompletion: false))
                         if let explosion = SKEmitterNode(fileNamed: "PilotBlood") {
@@ -1356,6 +1367,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             secondNode.removeFromParent()
             
         }
+            else if firstNode.name == "border" && secondNode.name == "enemy" {
+             //   print("weapon removed")
+                secondNode.removeFromParent()
+                
+            }
+            
+            else if (secondNode.name == "0"||secondNode.name == "1" || secondNode.name == "2" || secondNode.name == "enemy") && firstNode.name == "border" {
+             //   print("weapon removed")
+                secondNode.removeFromParent()
+                
+            }
+            else if (firstNode.name == "0"||firstNode.name == "1" || firstNode.name == "2" || firstNode.name == "enemy") && secondNode.name == "border" {
+             //   print("weapon removed")
+                firstNode.removeFromParent()
+                
+            }
             
             else if secondNode.name == "playerWeapon" && firstNode.name == "enemyWeapon" {
                       print("bye")
@@ -1394,7 +1421,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             secondNode.removeFromParent()
         }
-            
+            /*
             
         else  {
             print("else")
@@ -1407,7 +1434,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             secondNode.removeFromParent()
             
         }
- 
+ */
         
         
         /* miscellans collision
