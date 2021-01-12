@@ -66,7 +66,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //    let cannonSprite = SKSpriteNode(imageNamed: "turretbase")
     let waves = Bundle.main.decode([Wave].self, from: "waves.json")
     let enemyTypes = Bundle.main.decode([EnemyType].self, from: "enemy-types.json")
-    let positions = Array(stride(from: -320, through: 320, by: 80))
+    let positions = Array(stride(from: -360, through: 360, by: 90))
     var player = SKSpriteNode(imageNamed: "player")
    // let pilot = SKSpriteNode(imageNamed: "pilot")
     let shot = SKSpriteNode(imageNamed: "bullet")
