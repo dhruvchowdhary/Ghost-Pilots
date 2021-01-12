@@ -1023,6 +1023,8 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             if playerShields == 0 {
                 isPlayerAlive = false
                 self.player.removeFromParent()
+                let generator = UIImpactFeedbackGenerator(style: .heavy)
+                generator.impactOccurred()
                 self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
                 self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2.2, dy: 2.2), shakeDuration: 0.15)
                 if let shipExplosion = SKEmitterNode(fileNamed: "ShipExplosion") {
@@ -1115,7 +1117,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             }
         }
         else if secondNode.name == "turretshooter" {
-            let generator = UIImpactFeedbackGenerator(style: .light)
+            let generator = UIImpactFeedbackGenerator(style: .heavy)
             generator.impactOccurred()
             self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {

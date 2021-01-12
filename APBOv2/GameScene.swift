@@ -1132,6 +1132,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let secondNode = sortedNodes[1]
         
         if secondNode.name == "player" {
+            let generator = UIImpactFeedbackGenerator(style: .heavy)
+            generator.impactOccurred()
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2.2, dy: 2.2), shakeDuration: 0.15)
             if let explosion = SKEmitterNode(fileNamed: "ShipExplosion") {
@@ -1418,7 +1420,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
            // print("hi")
             enemy.shields -= 1
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
-            let generator = UIImpactFeedbackGenerator(style: .light)
+            let generator = UIImpactFeedbackGenerator(style: .heavy)
             generator.impactOccurred()
             self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
             if enemy.shields == 0 {
