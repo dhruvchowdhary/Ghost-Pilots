@@ -12,7 +12,7 @@ enum MSButtonNodeState {
 }
 
 class MSButtonNode: SKSpriteNode {
-    
+    //test
     /* Setup a dummy action closure */
     var selectedHandler: () -> Void = { print("No button action set") }
     var selectedHandlers: () -> Void = { print("No button action set") }
