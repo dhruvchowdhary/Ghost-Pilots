@@ -745,6 +745,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             playAgainButtonNode.position.x = cameraNode.position.x
             playAgainButtonNode.position.y = (cameraNode.position.y - 224) * CGFloat(scale)
             playAgainButtonNode.setScale(CGFloat(1.25 * scale))
+            
+            phaseButtonNode.position.x = turnButtonNode.position.x - 179.2
+            phaseButtonNode.position.y = turnButtonNode.position.y + 115.2
+            phaseButtonNode.setScale(CGFloat(1.25 * scale))
+            
+            ejectButtonNode.position.x = turnButtonNode.position.x - 179.2
+            ejectButtonNode.position.y = turnButtonNode.position.y + 115.2
+            ejectButtonNode.setScale(CGFloat(1.25 * scale))
         } else {
             if UIScreen.main.bounds.width > 779 {
                 if player.position.y < frame.minY + 35 {
@@ -790,6 +798,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
                 playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
+                
+                phaseButtonNode.size = CGSize(width: 188.4, height: 180)
+                phaseButtonNode.position.x = turnButtonNode.position.x - 168
+                phaseButtonNode.position.y = turnButtonNode.position.y + 108
+                
+                ejectButtonNode.size = CGSize(width: 188.4, height: 180)
+                ejectButtonNode.position.x = turnButtonNode.position.x - 168
+                ejectButtonNode.position.y = turnButtonNode.position.y + 108
             } else if UIScreen.main.bounds.width > 567 {
                 
                 if player.position.y < frame.minY + 35 {
@@ -838,12 +854,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
                 playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
                 
-                
+                phaseButtonNode.size = CGSize(width: 157, height: 150)
                 phaseButtonNode.position.x = turnButtonNode.position.x - 140
                 phaseButtonNode.position.y = turnButtonNode.position.y + 90
                 
+                ejectButtonNode.size = CGSize(width: 157, height: 150)
                 ejectButtonNode.position.x = turnButtonNode.position.x - 140
-                              ejectButtonNode.position.y = turnButtonNode.position.y + 90
+                ejectButtonNode.position.y = turnButtonNode.position.y + 90
                 
             } else {
                 if player.position.y < frame.minY + 35 {
@@ -890,6 +907,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
                 playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
+                
+                phaseButtonNode.size = CGSize(width: 157, height: 150)
+                phaseButtonNode.position.x = turnButtonNode.position.x - 140
+                phaseButtonNode.position.y = turnButtonNode.position.y + 90
+                
+                ejectButtonNode.size = CGSize(width: 157, height: 150)
+                ejectButtonNode.position.x = turnButtonNode.position.x - 140
+                ejectButtonNode.position.y = turnButtonNode.position.y + 90
             }
         }
         
@@ -1110,7 +1135,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if secondNode.name == "player" {
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
-            self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
+            self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2.2, dy: 2.2), shakeDuration: 0.15)
             if let explosion = SKEmitterNode(fileNamed: "ShipExplosion") {
                 explosion.position = secondNode.position
                 addChild(explosion)
@@ -1209,8 +1234,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                                                      self.pilotThrust1?.removeFromParent()
 
-                                                     
-                                                     
                                                      self.numAmmo = 3
                                                      self.bullet1.position = self.player.position
                                                      self.bullet2.position = self.player.position
@@ -1400,8 +1423,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
            // print("hi")
             enemy.shields -= 1
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
+            self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
             if enemy.shields == 0 {
-                
                 if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                     explosion.position = enemy.position
                     addChild(explosion)

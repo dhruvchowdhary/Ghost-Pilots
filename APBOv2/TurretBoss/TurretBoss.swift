@@ -555,11 +555,11 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
         
         
         if isPlayerAlive {
-            
-            cameraNode.position.x = (player.position.x + turretSprite.position.x) / 2
-            cameraNode.position.y = (player.position.y + turretSprite.position.y) / 2
-            followCamera()
-            
+            if !isGameOver {
+                cameraNode.position.x = (player.position.x + turretSprite.position.x) / 2
+                cameraNode.position.y = (player.position.y + turretSprite.position.y) / 2
+                followCamera()
+            }
             player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.7 ,y:player.position.y + sin(player.zRotation) * 3.7)
             pilotDirection = player.zRotation - 3.141592/2
             
@@ -575,7 +575,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             bullet2.run(revolve2)
             bullet3.run(revolve3)
             
-            
+
             if player.position.y < frame.minY + 190 {
                 player.position.y = frame.minY + 190
             } else if player.position.y > frame.maxY - 190 {
@@ -587,8 +587,6 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             } else if player.position.x > frame.maxX - 80 {
                 player.position.x = frame.maxX - 80
             }
-            
-            
             
             if self.numAmmo < 3 {
                 if !self.regenAmmo {
@@ -1045,7 +1043,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
                 isPlayerAlive = false
                 self.player.removeFromParent()
                 self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
-                self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
+                self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2.2, dy: 2.2), shakeDuration: 0.15)
                 if let shipExplosion = SKEmitterNode(fileNamed: "ShipExplosion") {
                     shipExplosion.position = secondNode.position
                     addChild(shipExplosion)
@@ -1070,13 +1068,12 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
                 firstNode.removeFromParent()
                 secondNode.removeFromParent()
                 
-                let wait = SKAction.wait(forDuration:2)
+                let wait = SKAction.wait(forDuration:4)
                 let action = SKAction.run {
                     if !self.isGameOver {
                         
                         self.pilot.run(self.fadeOut)
                         self.pilotThrust1?.particleAlpha = 0
-                        
                         
                         self.run(SKAction.playSoundFileNamed("revivenew", waitForCompletion: false))
                     }
@@ -1084,7 +1081,6 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
                     let wait1 = SKAction.wait(forDuration:1)
                     let action1 = SKAction.run {
                         if !self.isGameOver {
-                            
                             
                             if let respawnExplosion = SKEmitterNode(fileNamed: "RespawnExplosion") {
                                 respawnExplosion.position = self.pilot.position
@@ -1138,6 +1134,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             }
         }
         else if secondNode.name == "turretshooter" {
+            self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = firstNode.position
                 addChild(explosion)
