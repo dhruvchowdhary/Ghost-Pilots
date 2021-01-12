@@ -995,8 +995,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
  */
             
         
- 
-        
         let activeEnemies = children.compactMap { $0 as? EnemyNode }
         if activeEnemies.isEmpty {
             createWave()
@@ -1021,26 +1019,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if enemy.lastFireTime + 1 < currentTime {
                 enemy.lastFireTime = currentTime
+                
                 let randInt = Int.random(in: 0...5)
+                let wait = SKAction.wait(forDuration: 0.5)
+                let action = SKAction.run {
+                    enemy.fire(numPoints: self.speedAdd*25)
+                    self.run(SKAction.playSoundFileNamed("miniLasernew", waitForCompletion: false))
+                }
+                
                 if numPoints < 1000 {
                     if randInt < 2 {
-                        enemy.fire(numPoints: speedAdd*25)
-                        self.run(SKAction.playSoundFileNamed("miniLasernew", waitForCompletion: false))
+                        self.run(SKAction.sequence([wait,action]))
                     }
                 } else if numPoints < 2000 {
                     if randInt < 3 {
-                        enemy.fire(numPoints: speedAdd*25)
-                        self.run(SKAction.playSoundFileNamed("miniLasernew", waitForCompletion: false))
+                        self.run(SKAction.sequence([wait,action]))
                     }
                 } else if numPoints < 3000 {
                     if randInt < 4 {
-                        enemy.fire(numPoints: speedAdd*25)
-                        self.run(SKAction.playSoundFileNamed("miniLasernew", waitForCompletion: false))
+                        self.run(SKAction.sequence([wait,action]))
                     }
                 } else {
                     if randInt < 5 {
-                        enemy.fire(numPoints: speedAdd*25)
-                        self.run(SKAction.playSoundFileNamed("miniLasernew", waitForCompletion: false))
+                        self.run(SKAction.sequence([wait,action]))
                     }
                 }
             }
@@ -1384,11 +1385,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
             }
             
-            else if secondNode.name == "playerWeapon" && firstNode.name == "enemyWeapon" {
-                      print("bye")
+        else if secondNode.name == "playerWeapon" && firstNode.name == "enemyWeapon" {
+            if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+                explosion.position = secondNode.position
+                addChild(explosion)
+            }
+            self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             firstNode.removeFromParent()
-                      secondNode.removeFromParent()
-                  }
+            secondNode.removeFromParent()
+            
+        }
             
         else if let enemy = firstNode as? EnemyNode {
            // print("hi")
