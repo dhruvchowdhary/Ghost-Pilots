@@ -7,7 +7,7 @@
 //
 import SpriteKit
 import CoreMotion
-
+import AudioToolbox
 
 let degreesToRadians = CGFloat.pi / 180
 let radiansToDegrees = 180 / CGFloat.pi
@@ -225,43 +225,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
         player.physicsBody?.isDynamic = false
         
-      
+        
         
         
         
         phaseButtonNode = self.childNode(withName: "phaseButton") as? MSButtonNode
         phaseButtonNode.alpha = 0
-        
         phaseButtonNode.selectedHandler = {
             if self.isPlayerAlive == false {
                 print("is phase")
                 self.pilot.alpha = 0.7
-                self.phaseButtonNode.alpha = 0.7
+                self.phaseButtonNode.alpha = 0.6
                 self.isPhase = true
-                
             }
         }
         phaseButtonNode.selectedHandlers = {
-            if self.isPlayerAlive == false {
+            if self.isPlayerAlive == false && !self.isGameOver {
                 print("not phase")
-                         self.pilot.alpha = 1
-                         self.phaseButtonNode.alpha = 1
-                         self.isPhase = false
-                     }
+                self.pilot.alpha = 1
+                self.phaseButtonNode.alpha = 0.8
+                self.isPhase = false
             }
+        }
         
         ejectButtonNode = self.childNode(withName: "ejectButton") as? MSButtonNode
-             ejectButtonNode.alpha = 1
-             
-             ejectButtonNode.selectedHandler = {
-                 if self.isPlayerAlive == true {
-                    self.ejectButtonNode.alpha = 0
-                     self.phaseButtonNode.alpha = 1
-                    self.playerShields = -1
-                
-                    
-                 }
-             }
+        ejectButtonNode.alpha = 0.8
+        ejectButtonNode.selectedHandler = {
+            if self.isPlayerAlive == true {
+                self.ejectButtonNode.alpha = 0
+                self.phaseButtonNode.alpha = 0.8
+                self.playerShields = -1
+            }
+        }
         /*
              ejectButtonNode.selectedHandlers = {
                  if self.isPlayerAlive == false {
@@ -359,15 +354,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         pauseButtonNode = self.childNode(withName: "pause") as? MSButtonNode
+        pauseButtonNode.selectedHandler = {
+            self.pauseButtonNode.alpha = 0.6
+        }
         pauseButtonNode.selectedHandlers = {
             if !self.isGameOver {
                 if self.varisPaused == 0 {
                     self.varisPaused = 1
                     self.scene?.view?.isPaused = false
+                    self.pauseButtonNode.alpha = 1
                     self.backButtonNode.alpha = 0
                     self.restartButtonNode.alpha = 0
                     self.dimPanel.alpha = 0
-                    
                 }
                 else {
                     self.backButtonNode.alpha = 1
@@ -746,12 +744,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             playAgainButtonNode.position.y = (cameraNode.position.y - 224) * CGFloat(scale)
             playAgainButtonNode.setScale(CGFloat(1.25 * scale))
             
-            phaseButtonNode.position.x = turnButtonNode.position.x - 179.2
-            phaseButtonNode.position.y = turnButtonNode.position.y + 115.2
+            phaseButtonNode.position.x = turnButtonNode.position.x - 205
+            phaseButtonNode.position.y = turnButtonNode.position.y + 140
             phaseButtonNode.setScale(CGFloat(1.25 * scale))
             
-            ejectButtonNode.position.x = turnButtonNode.position.x - 179.2
-            ejectButtonNode.position.y = turnButtonNode.position.y + 115.2
+            ejectButtonNode.position.x = turnButtonNode.position.x - 205
+            ejectButtonNode.position.y = turnButtonNode.position.y + 140
             ejectButtonNode.setScale(CGFloat(1.25 * scale))
         } else {
             if UIScreen.main.bounds.width > 779 {
@@ -1144,7 +1142,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             playerShields -= 1
             
             if playerShields == 0 {
-                phaseButtonNode.alpha = 1
+                phaseButtonNode.alpha = 0.8
                 ejectButtonNode.alpha = 0
                 isPlayerAlive = false
                 pilot.name = "pilot"
@@ -1229,7 +1227,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                           isPlayerAlive = true
                 
                              firstNode.removeFromParent()
-                             ejectButtonNode.alpha = 1
+                ejectButtonNode.alpha = 0.8
                 phaseButtonNode.alpha = 0
                 
                                                      self.pilotThrust1?.removeFromParent()
@@ -1303,7 +1301,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                     isPlayerAlive = true
                           
                                        firstNode.removeFromParent()
-                                       ejectButtonNode.alpha = 1
+                            ejectButtonNode.alpha = 0.8
                           phaseButtonNode.alpha = 0
                           
                                                                self.pilotThrust1?.removeFromParent()
@@ -1368,8 +1366,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                            secondNode.removeFromParent()
                            addChild(BulletExplosion)
                        }
-                       
-                       
                 
         } else if secondNode.name == "pilot" {
           //  print("\(firstNode.name)")
@@ -1383,7 +1379,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         gameOver()
                         secondNode.removeFromParent()
             }
-        
         }
             
         else if firstNode.name == "border" && secondNode.name == "enemyWeapon" {
@@ -1423,6 +1418,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
            // print("hi")
             enemy.shields -= 1
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
+            let generator = UIImpactFeedbackGenerator(style: .light)
+            generator.impactOccurred()
             self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
             if enemy.shields == 0 {
                 if let explosion = SKEmitterNode(fileNamed: "Explosion") {
@@ -1491,19 +1488,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func gameOver() {
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
         isPlayerAlive = false
         isGameOver = true
         
         self.playAgainButtonNode.alpha = 1
-        
+        self.backButtonNode.alpha = 1
         self.pauseButtonNode.alpha = 0
         self.turnButtonNode.alpha = 0
         self.shootButtonNode.alpha = 0
-        self.backButtonNode.alpha = 1
+        self.ejectButtonNode.alpha = 0
+        self.phaseButtonNode.alpha = 0
         self.bullet1.alpha = 0
         self.bullet2.alpha = 0
         self.bullet3.alpha = 0
-        self.phaseButtonNode.alpha = 0
         
         let gameOver = SKSpriteNode(imageNamed: "gameOver")
         self.dimPanel.alpha = 0.3

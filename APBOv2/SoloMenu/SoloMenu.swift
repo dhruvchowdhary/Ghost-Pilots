@@ -54,22 +54,13 @@ class SoloMenu: SKScene {
             }
             
             endlessButtonNode = self.childNode(withName: "endlessButton") as? MSButtonNode
-            endlessButtonNode.selectedHandler = {
-                self.endlessButtonNode.alpha = 0.7
-            }
-            
             endlessButtonNode.selectedHandlers = {
                 self.loadGame()
-                //self.buttonPlay.alpha = 0.7
             }
             
             turretBossButtonNode = self.childNode(withName: "turretbossButton") as? MSButtonNode
-            turretBossButtonNode.selectedHandler = {
-                           self.turretBossButtonNode.alpha = 0.7
-                       }
             turretBossButtonNode.selectedHandlers = {
                 self.loadTurretBoss()
-               // self.buttonPlay.alpha = 0.7
             }
             
             leaderboardButtonNode = self.childNode(withName: "leaderboardButton") as? MSButtonNode
@@ -81,6 +72,7 @@ class SoloMenu: SKScene {
                     alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                     self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
                 }
+                self.leaderboardButtonNode.alpha = 1
             }
             
             leaderboardButtonNode.position = CGPoint(x: frame.maxX - 300 , y: frame.minY + 200)

@@ -2,10 +2,7 @@ import SpriteKit
 import CoreMotion
 
 
-
-
 class TurretBoss: SKScene, SKPhysicsContactDelegate {
-    
     
     private var pilot = SKSpriteNode()
     private var pilotWalkingFrames: [SKTexture] = []
@@ -75,44 +72,26 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
         
         
         if difficulty == 1 {
-        let turretspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretshootereasy"), resize: true)
-        turretSprite.run(turretspritecolor)
-            
-            
-            
+            let turretspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretshootereasy"), resize: true)
+            turretSprite.run(turretspritecolor)
             let cannonspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretbaseeasy"), resize: true)
             cannonSprite.run(cannonspritecolor)
+        } else if difficulty == 2 {
+            let turretspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretshootermedium"), resize: true)
+            turretSprite.run(turretspritecolor)
+            let cannonspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretbasemedium"), resize: true)
+            cannonSprite.run(cannonspritecolor)
+        } else if difficulty == 3 {
+            let turretspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretshooterhard"), resize: true)
+            turretSprite.run(turretspritecolor)
+            let cannonspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretbasehard"), resize: true)
+            cannonSprite.run(cannonspritecolor)
+        } else if difficulty == 4 {
+            let turretspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretshooterexpert"), resize: true)
+            turretSprite.run(turretspritecolor)
+            let cannonspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretbaseexpert"), resize: true)
+            cannonSprite.run(cannonspritecolor)
         }
-        else if difficulty == 2 {
-              let turretspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretshootermedium"), resize: true)
-              turretSprite.run(turretspritecolor)
-                  
-                  
-                  
-                  let cannonspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretbasemedium"), resize: true)
-                  cannonSprite.run(cannonspritecolor)
-
-              }
-        else if difficulty == 3 {
-                     let turretspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretshooterhard"), resize: true)
-                     turretSprite.run(turretspritecolor)
-                         
-                         
-                         
-                         let cannonspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretbasehard"), resize: true)
-                         cannonSprite.run(cannonspritecolor)
-
-                     }
-        else if difficulty == 4 {
-                     let turretspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretshooterexpert"), resize: true)
-                     turretSprite.run(turretspritecolor)
-                         
-                         
-                         
-                         let cannonspritecolor = SKAction.setTexture(SKTexture(imageNamed: "turretbaseexpert"), resize: true)
-                         cannonSprite.run(cannonspritecolor)
-
-                     }
         
         shape.path = UIBezierPath(roundedRect: CGRect(x: -800 + 50, y: -800 + 160, width: 1600 - 100, height: 1600 - 320), cornerRadius: 40).cgPath
         shape.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -279,17 +258,19 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
         }
         
         pauseButtonNode = self.childNode(withName: "pause") as? MSButtonNode
+        pauseButtonNode.selectedHandler = {
+            self.pauseButtonNode.alpha = 0.6
+        }
         pauseButtonNode.selectedHandlers = {
             if !self.isGameOver {
                 if self.varisPaused == 0 {
                     self.varisPaused = 1
                     self.scene?.view?.isPaused = false
                     self.children.map{($0 as SKNode).isPaused = false}
+                    self.pauseButtonNode.alpha = 1
                     self.backButtonNode.alpha = 0
                     self.restartButtonNode.alpha = 0
                     self.dimPanel.alpha = 0
-                    
-                    
                     //        self.dimPanel.removeFromParent()
                 }
                 else {
@@ -1134,6 +1115,8 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             }
         }
         else if secondNode.name == "turretshooter" {
+            let generator = UIImpactFeedbackGenerator(style: .light)
+            generator.impactOccurred()
             self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = firstNode.position
@@ -1262,6 +1245,8 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
     }
     
     func gameOverScreen() {
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
         isPlayerAlive = false
         isGameOver = true
         
