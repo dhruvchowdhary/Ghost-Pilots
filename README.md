@@ -11,12 +11,11 @@
   * bug fixes
 
 * Version 1.3
-This is our planned build version to submit to app store unless there are major bugs to fix!
- * Added turret boss mode!!!!!!
+ * Submitted to the Apple App Store!
+ * Added turret boss mode
  * Added pilot
 
 * Version 1.1
-New Features:
  * Added survive the enemy wave with shooting and collisions!
  * Modified thruster particles to be cleaner and directly on the exhaust instead of the center of the ship
  * Adjusted button size & location
