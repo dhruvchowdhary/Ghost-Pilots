@@ -5,10 +5,10 @@
 * Version 2.2
 
 * Version 2.0
-• Sound Effects
-• Better Visuals
-• Better BOSS
-• bug fixes
+-Sound Effects
+-Better Visuals
+-Better BOSS
+-bug fixes
 
 * Version 1.3
 This is our planned build version to submit to app store unless there are major bugs to fix!
