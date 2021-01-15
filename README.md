@@ -16,10 +16,10 @@
   * Added pilot
  
 * Version 1.1
- * Added survive the enemy wave with shooting and collisions!
- * Modified thruster particles to be cleaner and directly on the exhaust instead of the center of the ship
- * Adjusted button size & location
- * Added a main menu with Solo & Online (online is in the works)
+  * Added survive the enemy wave with shooting and collisions!
+  * Modified thruster particles to be cleaner and directly on the exhaust instead of the center of the ship
+  * Adjusted button size & location
+  * Added a main menu with Solo & Online (online is in the works)
 
 * Version 1.0
 
