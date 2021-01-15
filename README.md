@@ -5,6 +5,7 @@
 * Version 2.2
 
 * Version 2.0
+
 -Sound Effects
 -Better Visuals
 -Better BOSS
