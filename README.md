@@ -11,9 +11,9 @@
   * bug fixes
 
 * Version 1.3
- * Submitted to the Apple App Store!
- * Added turret boss mode
- * Added pilot
+  * Submitted to the Apple App Store!
+  * Added turret boss mode
+  * Added pilot
  
 * Version 1.1
  * Added survive the enemy wave with shooting and collisions!
