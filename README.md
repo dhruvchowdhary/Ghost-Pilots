@@ -1,7 +1,7 @@
 # Ghost-Pilots
 
 * **Version 2.4**
-[![Alt text for your video](GhostPilot.png)](https://youtu.be/JC6T25g9q88 "Put hover text here!")
+[![Alt text for your video](<img src="GhostPilot.png" width="566">)](https://youtu.be/JC6T25g9q88 "Put hover text here!")
 * **Version 2.2**
 
 * **Version 2.0**
