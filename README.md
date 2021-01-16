@@ -22,7 +22,7 @@
   * Added a main menu with Solo & Online (online is in the works)
 
 * Version 1.0
-
+![Screenshot](Version1.0.png)
 
 
 
