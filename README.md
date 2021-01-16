@@ -10,7 +10,7 @@
   * Better BOSS
   * Bug Fixes
 
-* Version 1.3
+* **Version 1.3**
   * Submitted to the Apple App Store!
   * Added turret boss mode
   * Added the ghost pilot
