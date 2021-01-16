@@ -2,7 +2,8 @@
 Download in the Apple App Store!\
 [<img src="Images/Promotion.png" width="250">](https://apps.apple.com/us/app/ghost-pilots/id1538606743)\
 https://apps.apple.com/us/app/ghost-pilots/id1538606743
-# 
+
+# Version History
 * **Version 2.4**
 
 [<img src="Images/Video.png" width="566">](https://youtu.be/JC6T25g9q88 "Ghost Pilots Preview Video")
