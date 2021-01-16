@@ -22,4 +22,4 @@
   * Added a main menu with Solo & Online (online is in the works)
 
 * Version 1.0
-<img src="Version1.0.png" width="600">
+<img src="Version1.0.png" width="566">
