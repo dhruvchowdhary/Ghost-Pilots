@@ -1,4 +1,4 @@
-# [Ghost Pilots](https://apps.apple.com/us/app/ghost-pilots/id1538606743)
+# Ghost Pilots
 Download in the Apple App Store!\
 [<img src="Images/Promotion.png" width="250">](https://apps.apple.com/us/app/ghost-pilots/id1538606743)\
 https://apps.apple.com/us/app/ghost-pilots/id1538606743
