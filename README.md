@@ -8,13 +8,13 @@
   * Sound Effects
   * Better Visuals
   * Better BOSS
-  * bug fixes
+  * Bug Fixes
 
 * Version 1.3
   * Submitted to the Apple App Store!
   * Added turret boss mode
-  * Added pilot
- 
+  * Added the ghost pilot
+ <img src="GhostPilot.png" width="566">
 * Version 1.1
   * Added survive the enemy wave with shooting and collisions!
   * Modified thruster particles to be cleaner and directly on the exhaust instead of the center of the ship
