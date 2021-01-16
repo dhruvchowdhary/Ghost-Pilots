@@ -16,7 +16,7 @@
   * Submitted to the Apple App Store!
   * Added turret boss mode
   * Added the ghost pilot
- <img src="GhostPilot.png" width="566">
+ <img src="https://raw.githubusercontent.com/1201dc/Ghost-Pilots/master/Images/GhostPilot.png" width="566">
  
 * **Version 1.1**
   * Added survive the enemy wave with shooting and collisions!
