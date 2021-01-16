@@ -1,6 +1,7 @@
 # Ghost-Pilots
 
 * **Version 2.4**
+
 [<img src="image.png" width="566">](https://youtu.be/JC6T25g9q88 "Ghost Pilots Preview Video")
 
 * **Version 2.2**
