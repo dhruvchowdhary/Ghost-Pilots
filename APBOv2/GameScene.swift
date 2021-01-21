@@ -66,7 +66,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //    let cannonSprite = SKSpriteNode(imageNamed: "turretbase")
     let waves = Bundle.main.decode([Wave].self, from: "waves.json")
     let enemyTypes = Bundle.main.decode([EnemyType].self, from: "enemy-types.json")
-    let positions = Array(stride(from: -320, through: 320, by: 80))
+    let positions = Array(stride(from: -360, through: 360, by: 90))
     var player = SKSpriteNode(imageNamed: "player")
    // let pilot = SKSpriteNode(imageNamed: "pilot")
     let shot = SKSpriteNode(imageNamed: "bullet")
@@ -1132,6 +1132,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let secondNode = sortedNodes[1]
         
         if secondNode.name == "player" {
+            let generator = UIImpactFeedbackGenerator(style: .heavy)
+            generator.impactOccurred()
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2.2, dy: 2.2), shakeDuration: 0.15)
             if let explosion = SKEmitterNode(fileNamed: "ShipExplosion") {
@@ -1417,7 +1419,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
            // print("hi")
             enemy.shields -= 1
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
-            let generator = UIImpactFeedbackGenerator(style: .light)
+            let generator = UIImpactFeedbackGenerator(style: .heavy)
             generator.impactOccurred()
             self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
             if enemy.shields == 0 {
