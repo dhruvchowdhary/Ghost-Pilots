@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>736312758144-5tnr7cq81h2ih5ui3i97m120rs0lm7fq.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.736312758144-5tnr7cq81h2ih5ui3i97m120rs0lm7fq</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA2SbqdHuhQJogNXjH2IxzMzVPaxKuLqvU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>736312758144</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>edu.astroparty</string>
+	<key>PROJECT_ID</key>
+	<string>ghostpilots-d199f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ghostpilots-d199f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:736312758144:ios:bc435ddcf3f8b93f147b65</string>
+	<key>DATABASE_URL</key>
+	<string>https://ghostpilots-d199f-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

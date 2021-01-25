@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/90306997/Desktop/Ghost-Pilots/APBOv2/GoogleService-Info.plist">
+   </FileRef>
+   <FileRef
       location = "group:APBOv2.xcodeproj">
    </FileRef>
    <FileRef
