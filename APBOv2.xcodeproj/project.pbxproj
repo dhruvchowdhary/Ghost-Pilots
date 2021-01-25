@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4334487CB521F6ACB8FA20C5 /* Pods_APBOv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F8ACF3585F6FBBF6F50A6C /* Pods_APBOv2.framework */; };
 		74235B1E2590FCFC00AC4675 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74235B1D2590FCFC00AC4675 /* GameKit.framework */; };
 		74235B2025A7724400AC4675 /* GameCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74235B1F25A7724400AC4675 /* GameCenter.swift */; };
 		7451FF782576FE8F0074CC2E /* Spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7451FF772576FE8F0074CC2E /* Spark.sks */; };
@@ -78,9 +79,11 @@
 		816EE12A259265D10053AE35 /* TurretShootingExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 816EE128259265D10053AE35 /* TurretShootingExplosion.sks */; };
 		81708DC425A376650030C2C4 /* TurretBossMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81708DC325A376650030C2C4 /* TurretBossMenu.swift */; };
 		81708DC825A565C50030C2C4 /* TurretBossMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81708DC725A565C50030C2C4 /* TurretBossMenu.sks */; };
+		CECC4DE525BF413500AD1559 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CECC4DE425BF413500AD1559 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6BEC5117A23B6C351E6D91CF /* Pods-APBOv2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APBOv2.release.xcconfig"; path = "Target Support Files/Pods-APBOv2/Pods-APBOv2.release.xcconfig"; sourceTree = "<group>"; };
 		74235B1D2590FCFC00AC4675 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		74235B1F25A7724400AC4675 /* GameCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenter.swift; sourceTree = "<group>"; };
 		7451FF772576FE8F0074CC2E /* Spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Spark.sks; sourceTree = "<group>"; };
@@ -156,6 +159,9 @@
 		816EE128259265D10053AE35 /* TurretShootingExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TurretShootingExplosion.sks; sourceTree = "<group>"; };
 		81708DC325A376650030C2C4 /* TurretBossMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBossMenu.swift; sourceTree = "<group>"; };
 		81708DC725A565C50030C2C4 /* TurretBossMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TurretBossMenu.sks; sourceTree = "<group>"; };
+		BF55C5AA57697F270DE41606 /* Pods-APBOv2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APBOv2.debug.xcconfig"; path = "Target Support Files/Pods-APBOv2/Pods-APBOv2.debug.xcconfig"; sourceTree = "<group>"; };
+		CECC4DE425BF413500AD1559 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D4F8ACF3585F6FBBF6F50A6C /* Pods_APBOv2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APBOv2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74235B1E2590FCFC00AC4675 /* GameKit.framework in Frameworks */,
+				4334487CB521F6ACB8FA20C5 /* Pods_APBOv2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +244,7 @@
 				74C3CFAE253F3BE900757586 /* APBOv2 */,
 				74C3CFAD253F3BE900757586 /* Products */,
 				74CF685A258289A0000C4E47 /* Frameworks */,
+				B93BFE38F0309C36ED6E13F1 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -268,6 +276,7 @@
 				74C3CFB3253F3BE900757586 /* Actions.sks */,
 				74C3CFBC253F3BED00757586 /* Assets.xcassets */,
 				74C3CFC1253F3BED00757586 /* Info.plist */,
+				CECC4DE425BF413500AD1559 /* GoogleService-Info.plist */,
 				749EBC5B255AFA58003EA0B3 /* Bundle-Decoding.swift */,
 				748CEDB2256701D0005DF246 /* Random Files idk */,
 			);
@@ -327,6 +336,7 @@
 			children = (
 				74235B1D2590FCFC00AC4675 /* GameKit.framework */,
 				74CF685B258289A0000C4E47 /* AVFoundation.framework */,
+				D4F8ACF3585F6FBBF6F50A6C /* Pods_APBOv2.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -355,6 +365,15 @@
 			path = Tutorial;
 			sourceTree = "<group>";
 		};
+		B93BFE38F0309C36ED6E13F1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BF55C5AA57697F270DE41606 /* Pods-APBOv2.debug.xcconfig */,
+				6BEC5117A23B6C351E6D91CF /* Pods-APBOv2.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -362,9 +381,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 74C3CFC4253F3BED00757586 /* Build configuration list for PBXNativeTarget "APBOv2" */;
 			buildPhases = (
+				D430B7F395B8088606DF6F9F /* [CP] Check Pods Manifest.lock */,
 				74C3CFA8253F3BE900757586 /* Sources */,
 				74C3CFA9253F3BE900757586 /* Frameworks */,
 				74C3CFAA253F3BE900757586 /* Resources */,
+				F50798809DA6819F078D758C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -465,12 +486,55 @@
 				749EBC58255AF9E7003EA0B3 /* waves.json in Resources */,
 				816EE129259265D10053AE35 /* ShootingExplosion.sks in Resources */,
 				74CF6842257C2EA8000C4E47 /* ShipExplosion.sks in Resources */,
+				CECC4DE525BF413500AD1559 /* GoogleService-Info.plist in Resources */,
 				7451FF782576FE8F0074CC2E /* Spark.sks in Resources */,
 				74CF686F25829A28000C4E47 /* Laser2new.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D430B7F395B8088606DF6F9F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-APBOv2-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F50798809DA6819F078D758C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-APBOv2/Pods-APBOv2-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-APBOv2/Pods-APBOv2-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-APBOv2/Pods-APBOv2-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		74C3CFA8253F3BE900757586 /* Sources */ = {
@@ -634,11 +698,12 @@
 		};
 		74C3CFC5253F3BED00757586 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BF55C5AA57697F270DE41606 /* Pods-APBOv2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_TEAM = 883DK65VTV;
+				DEVELOPMENT_TEAM = A83UK72RYN;
 				INFOPLIST_FILE = APBOv2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -654,11 +719,12 @@
 		};
 		74C3CFC6253F3BED00757586 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6BEC5117A23B6C351E6D91CF /* Pods-APBOv2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_TEAM = 883DK65VTV;
+				DEVELOPMENT_TEAM = A83UK72RYN;
 				INFOPLIST_FILE = APBOv2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
