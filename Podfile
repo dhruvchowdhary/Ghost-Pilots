@@ -8,5 +8,6 @@ target 'APBOv2' do
   # Pods for APBOv2
   pod 'Firebase/Database'
   pod 'Firebase/Analytics' 
+  pod 'Google-Mobile-Ads-SDK'
 
 end

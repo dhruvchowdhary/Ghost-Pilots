@@ -80,6 +80,9 @@
 		81708DC425A376650030C2C4 /* TurretBossMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81708DC325A376650030C2C4 /* TurretBossMenu.swift */; };
 		81708DC825A565C50030C2C4 /* TurretBossMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81708DC725A565C50030C2C4 /* TurretBossMenu.sks */; };
 		CECC4DE525BF413500AD1559 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CECC4DE425BF413500AD1559 /* GoogleService-Info.plist */; };
+		CEF309CF25C1E86D007B8B39 /* DataPusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309CE25C1E86D007B8B39 /* DataPusher.swift */; };
+		CEF309D425C1EA26007B8B39 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309D325C1EA26007B8B39 /* GameData.swift */; };
+		CEF309D825C1EAC0007B8B39 /* MultiplayerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -161,6 +164,9 @@
 		81708DC725A565C50030C2C4 /* TurretBossMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TurretBossMenu.sks; sourceTree = "<group>"; };
 		BF55C5AA57697F270DE41606 /* Pods-APBOv2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APBOv2.debug.xcconfig"; path = "Target Support Files/Pods-APBOv2/Pods-APBOv2.debug.xcconfig"; sourceTree = "<group>"; };
 		CECC4DE425BF413500AD1559 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CEF309CE25C1E86D007B8B39 /* DataPusher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPusher.swift; sourceTree = "<group>"; };
+		CEF309D325C1EA26007B8B39 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
+		CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerHandler.swift; sourceTree = "<group>"; };
 		D4F8ACF3585F6FBBF6F50A6C /* Pods_APBOv2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APBOv2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -259,6 +265,8 @@
 		74C3CFAE253F3BE900757586 /* APBOv2 */ = {
 			isa = PBXGroup;
 			children = (
+				CEF309D225C1E9F3007B8B39 /* OnlineGame */,
+				CEF309CD25C1E82A007B8B39 /* Firebase */,
 				815799E42591079800734A45 /* pilotImages.atlas */,
 				74CF6893258D7833000C4E47 /* Tutorial */,
 				748CEDC2256D7342005DF246 /* OnlineMenu */,
@@ -372,6 +380,23 @@
 				6BEC5117A23B6C351E6D91CF /* Pods-APBOv2.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		CEF309CD25C1E82A007B8B39 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				CEF309CE25C1E86D007B8B39 /* DataPusher.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		CEF309D225C1E9F3007B8B39 /* OnlineGame */ = {
+			isa = PBXGroup;
+			children = (
+				CEF309D325C1EA26007B8B39 /* GameData.swift */,
+				CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */,
+			);
+			path = OnlineGame;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -548,11 +573,14 @@
 				74C3CFDD2553109000757586 /* EnemyType.swift in Sources */,
 				74CF6899258D78E2000C4E47 /* Tutorial.swift in Sources */,
 				74235B2025A7724400AC4675 /* GameCenter.swift in Sources */,
+				CEF309D425C1EA26007B8B39 /* GameData.swift in Sources */,
 				74C3CFB8253F3BE900757586 /* GameViewController.swift in Sources */,
 				749EBC5C255AFA58003EA0B3 /* Bundle-Decoding.swift in Sources */,
+				CEF309CF25C1E86D007B8B39 /* DataPusher.swift in Sources */,
 				74C3CFDB2553100200757586 /* EnemyNode.swift in Sources */,
 				748CEDBE256D6EF8005DF246 /* TurretBoss.swift in Sources */,
 				748CEDB4256C151F005DF246 /* SoloMenu.swift in Sources */,
+				CEF309D825C1EAC0007B8B39 /* MultiplayerHandler.swift in Sources */,
 				748CEDC4256D7362005DF246 /* OnlineMenu.swift in Sources */,
 				81708DC425A376650030C2C4 /* TurretBossMenu.swift in Sources */,
 				74C3CFB0253F3BE900757586 /* AppDelegate.swift in Sources */,
@@ -703,7 +731,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_TEAM = A83UK72RYN;
+				DEVELOPMENT_TEAM = 883DK65VTV;
 				INFOPLIST_FILE = APBOv2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -724,7 +752,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_TEAM = A83UK72RYN;
+				DEVELOPMENT_TEAM = 883DK65VTV;
 				INFOPLIST_FILE = APBOv2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
