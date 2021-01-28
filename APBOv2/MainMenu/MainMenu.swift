@@ -85,7 +85,7 @@ class MainMenu: SKScene {
         }
         
         /* Set UI connections */
-        buttonPlay = self.childNode(withName: "playButton") as? MSButtonNode
+        buttonPlay = self.childNode(withName: "buttonOnline") as? MSButtonNode
         buttonPlay.selectedHandler = {
             self.buttonPlay.alpha = 0.7
         }
