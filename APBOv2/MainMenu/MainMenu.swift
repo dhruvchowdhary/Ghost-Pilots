@@ -85,20 +85,20 @@ class MainMenu: SKScene {
         }
         
         /* Set UI connections */
-        buttonPlay = self.childNode(withName: "buttonOnline") as? MSButtonNode
+        buttonPlay = self.childNode(withName: "playButton") as? MSButtonNode
         buttonPlay.selectedHandler = {
             self.buttonPlay.alpha = 0.7
         }
         buttonPlay.selectedHandlers = {
-            self.loadScene(s: "OnlineMenu")
+            self.loadScene(s: "SoloMenu")
         }
         
-        buttonOnline = self.childNode(withName: "playButton") as? MSButtonNode
+        buttonOnline = self.childNode(withName: "onlineButton") as? MSButtonNode
         buttonOnline.selectedHandler = {
             self.buttonOnline.alpha = 0.7
         }
         buttonOnline.selectedHandlers = {
-            self.loadScene(s: "SoloMenu")
+            self.loadScene(s: "OnlineMenu")
         }
         
         tutorialButtonNode = self.childNode(withName: "tutorial") as? MSButtonNode

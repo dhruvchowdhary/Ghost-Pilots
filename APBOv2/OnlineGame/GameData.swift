@@ -6,14 +6,23 @@ public class GameData{
     var shipPos = [0,0]
     var shipAngle = 0.0  // In degrees
     var shipSpeed = 0.0 // Idk how this is stored yet, doesnt need to be update until predict mov implemeted
-    /// Host Init
-    init() {
-        gameID = Int.random(in: 10000...99999)
-        if 
+    
+    // =================
+    // For the Host to run
+    
+    public func CreateNewGame(){
+        MultiplayerHandler.GenerateUniqueGameCode()
     }
     
-    /// Guest Init
-    init(GameID: Int) {
-        
+    
+    public func SetUniqueCode(code: Int){
+        // we have created a code, we must now finish init game
+        DataPusher.PushData(path: "Games/\(code)/Host", Value: Global.playerData.playerID!)
+        DataPusher.PushData(path: "Games/\(code)/Status", Value: "Lobby")
     }
+    
+    
+    // ==============
+    // For guest to run
+
 }

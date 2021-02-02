@@ -106,9 +106,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func didMove(to view: SKView) {
-
-        
-        
         
         
         addChild(cameraNode)

@@ -83,6 +83,8 @@
 		CEF309CF25C1E86D007B8B39 /* DataPusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309CE25C1E86D007B8B39 /* DataPusher.swift */; };
 		CEF309D425C1EA26007B8B39 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309D325C1EA26007B8B39 /* GameData.swift */; };
 		CEF309D825C1EAC0007B8B39 /* MultiplayerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */; };
+		CEF309FB25C33700007B8B39 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309FA25C33700007B8B39 /* Global.swift */; };
+		CEF309FF25C337D7007B8B39 /* PlayerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309FE25C337D7007B8B39 /* PlayerData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -167,6 +169,8 @@
 		CEF309CE25C1E86D007B8B39 /* DataPusher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPusher.swift; sourceTree = "<group>"; };
 		CEF309D325C1EA26007B8B39 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerHandler.swift; sourceTree = "<group>"; };
+		CEF309FA25C33700007B8B39 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		CEF309FE25C337D7007B8B39 /* PlayerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerData.swift; sourceTree = "<group>"; };
 		D4F8ACF3585F6FBBF6F50A6C /* Pods_APBOv2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APBOv2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -395,6 +399,8 @@
 			children = (
 				CEF309D325C1EA26007B8B39 /* GameData.swift */,
 				CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */,
+				CEF309FA25C33700007B8B39 /* Global.swift */,
+				CEF309FE25C337D7007B8B39 /* PlayerData.swift */,
 			);
 			path = OnlineGame;
 			sourceTree = "<group>";
@@ -571,6 +577,7 @@
 				74C3CFB6253F3BE900757586 /* GameScene.swift in Sources */,
 				8100B1832575524900AA8A1F /* TurretBossNode.swift in Sources */,
 				74C3CFDD2553109000757586 /* EnemyType.swift in Sources */,
+				CEF309FB25C33700007B8B39 /* Global.swift in Sources */,
 				74CF6899258D78E2000C4E47 /* Tutorial.swift in Sources */,
 				74235B2025A7724400AC4675 /* GameCenter.swift in Sources */,
 				CEF309D425C1EA26007B8B39 /* GameData.swift in Sources */,
@@ -580,6 +587,7 @@
 				74C3CFDB2553100200757586 /* EnemyNode.swift in Sources */,
 				748CEDBE256D6EF8005DF246 /* TurretBoss.swift in Sources */,
 				748CEDB4256C151F005DF246 /* SoloMenu.swift in Sources */,
+				CEF309FF25C337D7007B8B39 /* PlayerData.swift in Sources */,
 				CEF309D825C1EAC0007B8B39 /* MultiplayerHandler.swift in Sources */,
 				748CEDC4256D7362005DF246 /* OnlineMenu.swift in Sources */,
 				81708DC425A376650030C2C4 /* TurretBossMenu.swift in Sources */,
