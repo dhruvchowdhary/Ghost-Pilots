@@ -24,7 +24,8 @@ enum CollisionType: UInt32 {
     case playerWeapon = 2
     case enemy = 4
     case enemyWeapon = 8
-    case border = 32
+    //case border = 32
+    case powerup = 32
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -217,8 +218,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.texture!.size())
         player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
-        player.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-        player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+        player.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue | CollisionType.powerup.rawValue
+        player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue | CollisionType.powerup.rawValue
         player.physicsBody?.isDynamic = false
         
         
@@ -1552,10 +1553,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                          let rotateAction = SKAction.rotate(byAngle: 1000, duration: 1200)
                          powerup.run(rotateAction)
                          powerup.position = firstNode.position
-                         
+                        powerup.zPosition = 4
                          powerup.name = "powerup"
                         
-                        powerup.physicsBody?.categoryBitMask = CollisionType.enemy.rawValue
+                        powerup.physicsBody?.categoryBitMask = CollisionType.powerup.rawValue
                         powerup.physicsBody?.collisionBitMask = CollisionType.player.rawValue
                         powerup.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
                          
@@ -1593,9 +1594,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                        powerup.size = CGSize(width: 48.858, height: 45.689)
                                      powerup.name! = "3mine"
                                    }
-                                   
-                    
-             
                      }
                      
                       enemy.removeFromParent()
@@ -1615,12 +1613,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                  secondNode.removeFromParent()
             }
             }
-    
 
-         
-        
-       
-        
             /*
             
         else  {
