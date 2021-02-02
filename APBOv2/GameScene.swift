@@ -44,7 +44,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var shootButtonNode: MSButtonNode!
     //var tripleButtonNode: MSButtonNode!
     
-    
+    var powerSpawn = false
     var restartButtonNode: MSButtonNode!
     var playAgainButtonNode: MSButtonNode!
     var phaseButtonNode: MSButtonNode!
@@ -74,6 +74,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
    // let pilot = SKSpriteNode(imageNamed: "pilot")
     let shot = SKSpriteNode(imageNamed: "bullet")
     //
+    let powerup = SKSpriteNode(imageNamed: "tripleshot")
+
     //let powerup = SKSpriteNode(imageNamed: "tripleshot")
     var pilotForward = false
     var pilotDirection = CGFloat(0.000)
@@ -578,6 +580,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         }
                         else if self.powerupMode == 3 {
                             print("mine")
+                            
+                            let mine = SKSpriteNode(imageNamed: "mineRing")
+                            mine.position = player.position
+                            mine.zPosition = 2
+                            addChild(mine)
+                            
                         }
                     }
                 }
@@ -1227,6 +1235,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let firstNode = sortedNodes[0]
         let secondNode = sortedNodes[1]
         
+        
+        print("first Node is   \(firstNode.name)")
+        print("second Node is  \(secondNode.name)")
+        
+        //print("player collided with \(firstNode.name)")
+        
+        /* 
+        if (firstNode.name == "1triple" || firstNode.name == "2laser" || firstNode.name == "3mine") && (secondNode.name == "0" || secondNode.name == "1" || secondNode.name == "2" || secondNode.name == "enemy" || secondNode.name == "enemyWeapon") {
+            
+            print(firstNode.name)
+            print(secondNode.name)
+         powerup.physicsBody = nil
+        }
+        else {
+            powerup.physicsBody = SKPhysicsBody(texture: powerup.texture!, size: powerup.size)
+        }
+        
+        
+        */
+        
+        
+        
         if secondNode.name == "player" {
            
             print("player collided with \(firstNode.name)")
@@ -1236,12 +1266,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 powerupMode = 1
                 self.i = 3
                 firstNode.removeFromParent()
+                powerSpawn = false
             }
             else if firstNode.name == "2laser" {
                 let laserPower = SKAction.setTexture(SKTexture(imageNamed: "laser"))
       shootButtonNode.run(laserPower)
                 powerupMode = 2
                 firstNode.removeFromParent()
+                powerSpawn = false
             }
             
             else if firstNode.name == "3mine" {
@@ -1249,9 +1281,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       shootButtonNode.run(minePower)
                 powerupMode = 3
                 firstNode.removeFromParent()
+                powerSpawn = false
             }
            
-            else {
+            else if firstNode.name == "0"||firstNode.name == "1" || firstNode.name == "2" || firstNode.name == "enemy" || firstNode.name == "enemyWeapon" {
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
                 self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
@@ -1410,7 +1443,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             
         }
-            
+    
+    
+       
             else if firstNode.name == "border" && secondNode.name == "playerWeapon" {
                        
                        
@@ -1487,88 +1522,103 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
             
         else if let enemy = firstNode as? EnemyNode {
-           // print("hi")
-            enemy.shields -= 1
-            self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
-            let generator = UIImpactFeedbackGenerator(style: .heavy)
-            generator.impactOccurred()
-            self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
-            if enemy.shields == 0 {
-                if let explosion = SKEmitterNode(fileNamed: "Explosion") {
-                    explosion.position = enemy.position
-                    addChild(explosion)
-                }
-                enemyPoints.position = enemy.position
-                enemyPoints.text = "+" + "\(enemy.scoreinc)"
-                enemyPoints.alpha = 1
-               
-                numPoints += enemy.scoreinc
-                points.text = "\(numPoints)"
-                
+            
+            if secondNode.name == "playerWeapon" || secondNode.name ==
+                "player" {
+                // print("hi")
+                 enemy.shields -= 1
+                 self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
+                 let generator = UIImpactFeedbackGenerator(style: .heavy)
+                 generator.impactOccurred()
+                 self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
+                 if enemy.shields == 0 {
+                     if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+                         explosion.position = enemy.position
+                         addChild(explosion)
+                     }
+                     enemyPoints.position = enemy.position
+                     enemyPoints.text = "+" + "\(enemy.scoreinc)"
+                     enemyPoints.alpha = 1
                     
-                if numPoints % 1 == 0 {
-                    print("powerup initiate")
-                    
-                      let powerup = SKSpriteNode(imageNamed: "tripleshot")
-                    let rotateAction = SKAction.rotate(byAngle: 1000, duration: 1200)
-                    powerup.run(rotateAction)
-                    powerup.position = firstNode.position
-                    
-                    powerup.name = "powerup"
-                    
-                             powerup.size = CGSize(width: 48.858, height: 45.689)
-                    powerup.physicsBody = SKPhysicsBody(texture: powerup.texture!, size: powerup.size)
-                               
-                                       self.addChild(powerup)
-    
-                    poweruprandInt = Int.random(in: 1...3)
-                              
-                              if poweruprandInt == 1 {
-                                            let triplePower = SKAction.setTexture(SKTexture(imageNamed: "tripleshot"))
-                            //      shootButtonNode.run(triplePower)
-                            powerup.run(triplePower)
-                               
-                                powerup.size = CGSize(width: 48.858, height: 45.689)
-                                
-                                powerup.name! = "1tripleshot"
-                               
-                              }
-                              else if poweruprandInt == 2 {
-                                  let laserPower = SKAction.setTexture(SKTexture(imageNamed: "laser"))
-                                              //                 shootButtonNode.run(laserPower)
-                                powerup.run(laserPower)
-                                   powerup.size = CGSize(width: 48.858, height: 45.689)
-                                
-                                powerup.name! = "2laser"
-                              }
-                              else if poweruprandInt == 3 {
-                                  let minePower = SKAction.setTexture(SKTexture(imageNamed: "mine"))
-                                                   //            shootButtonNode.run(minePower)
-                                powerup.run(minePower)
+                     numPoints += enemy.scoreinc
+                     points.text = "\(numPoints)"
+                     
+                         
+                     if numPoints % 1 == 0 && powerSpawn == false {
+                         print("powerup spawn")
+                         powerSpawn = true
+                        
+                        
+                         let rotateAction = SKAction.rotate(byAngle: 1000, duration: 1200)
+                         powerup.run(rotateAction)
+                         powerup.position = firstNode.position
+                         
+                         powerup.name = "powerup"
+                        
+                        powerup.physicsBody?.categoryBitMask = CollisionType.enemy.rawValue
+                        powerup.physicsBody?.collisionBitMask = CollisionType.player.rawValue
+                        powerup.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
+                         
                                   powerup.size = CGSize(width: 48.858, height: 45.689)
-                                powerup.name! = "3mine"
-                              }
-                              
-               
+                         powerup.physicsBody = SKPhysicsBody(texture: powerup.texture!, size: powerup.size)
+                                    
+                        
+                       // powerup.physicsBody?.collisionBitMask = 0
+                                            self.addChild(powerup)
+         
+                         poweruprandInt = Int.random(in: 1...3)
+                                   
+                                   if poweruprandInt == 1 {
+                                                 let triplePower = SKAction.setTexture(SKTexture(imageNamed: "tripleshot"))
+                                 //      shootButtonNode.run(triplePower)
+                                 powerup.run(triplePower)
+                                    
+                                     powerup.size = CGSize(width: 48.858, height: 45.689)
+                                     
+                                     powerup.name! = "1tripleshot"
+                                    
+                                   }
+                                   else if poweruprandInt == 2 {
+                                       let laserPower = SKAction.setTexture(SKTexture(imageNamed: "laser"))
+                                                   //                 shootButtonNode.run(laserPower)
+                                     powerup.run(laserPower)
+                                        powerup.size = CGSize(width: 48.858, height: 45.689)
+                                     
+                                     powerup.name! = "2laser"
+                                   }
+                                   else if poweruprandInt == 3 {
+                                       let minePower = SKAction.setTexture(SKTexture(imageNamed: "mine"))
+                                                        //            shootButtonNode.run(minePower)
+                                     powerup.run(minePower)
+                                       powerup.size = CGSize(width: 48.858, height: 45.689)
+                                     powerup.name! = "3mine"
+                                   }
+                                   
+                    
+             
+                     }
+                     
+                      enemy.removeFromParent()
+                     if numPoints > highScore {
+                         highScore = numPoints
+                         highScorePoints.text = "\(highScore)"
+                         var highScoreDefaults = UserDefaults.standard
+                         highScoreDefaults.setValue(highScore, forKey: "highScore1")
+                         highScoreDefaults.synchronize()
+                         GameCenter.shared.updateScore(value: highScore)
+                     }
+                 }
+                 if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+                     explosion.position = enemy.position
+                     addChild(explosion)
+                 }
+                 secondNode.removeFromParent()
+            }
+            }
+    
+
+         
         
-                }
-                
-                 enemy.removeFromParent()
-                if numPoints > highScore {
-                    highScore = numPoints
-                    highScorePoints.text = "\(highScore)"
-                    var highScoreDefaults = UserDefaults.standard
-                    highScoreDefaults.setValue(highScore, forKey: "highScore1")
-                    highScoreDefaults.synchronize()
-                    GameCenter.shared.updateScore(value: highScore)
-                }
-            }
-            if let explosion = SKEmitterNode(fileNamed: "Explosion") {
-                explosion.position = enemy.position
-                addChild(explosion)
-            }
-            secondNode.removeFromParent()
-        }
        
         
             /*
