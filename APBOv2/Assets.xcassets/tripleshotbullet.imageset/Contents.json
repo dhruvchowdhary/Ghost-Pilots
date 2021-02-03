@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "laserbeam.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "tripleshotbullet.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
