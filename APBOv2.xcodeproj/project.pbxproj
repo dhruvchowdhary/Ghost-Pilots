@@ -85,6 +85,11 @@
 		CEF309D825C1EAC0007B8B39 /* MultiplayerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */; };
 		CEF309FB25C33700007B8B39 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309FA25C33700007B8B39 /* Global.swift */; };
 		CEF309FF25C337D7007B8B39 /* PlayerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309FE25C337D7007B8B39 /* PlayerData.swift */; };
+		CEF30A1B25CA65BF007B8B39 /* GameSceneBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF30A1A25CA65BF007B8B39 /* GameSceneBase.swift */; };
+		CEF30A1F25CA65CC007B8B39 /* GameSceneOnline.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF30A1E25CA65CC007B8B39 /* GameSceneOnline.swift */; };
+		CEF30A2225CA65E0007B8B39 /* SpaceshipBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF30A2125CA65E0007B8B39 /* SpaceshipBase.swift */; };
+		CEF30A2525CA65EF007B8B39 /* LocalSpaceship.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF30A2425CA65EF007B8B39 /* LocalSpaceship.swift */; };
+		CEF30A2825CA65FD007B8B39 /* RemoteSpaceship.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF30A2725CA65FD007B8B39 /* RemoteSpaceship.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -171,6 +176,11 @@
 		CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerHandler.swift; sourceTree = "<group>"; };
 		CEF309FA25C33700007B8B39 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		CEF309FE25C337D7007B8B39 /* PlayerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerData.swift; sourceTree = "<group>"; };
+		CEF30A1A25CA65BF007B8B39 /* GameSceneBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneBase.swift; sourceTree = "<group>"; };
+		CEF30A1E25CA65CC007B8B39 /* GameSceneOnline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneOnline.swift; sourceTree = "<group>"; };
+		CEF30A2125CA65E0007B8B39 /* SpaceshipBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceshipBase.swift; sourceTree = "<group>"; };
+		CEF30A2425CA65EF007B8B39 /* LocalSpaceship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSpaceship.swift; sourceTree = "<group>"; };
+		CEF30A2725CA65FD007B8B39 /* RemoteSpaceship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSpaceship.swift; sourceTree = "<group>"; };
 		D4F8ACF3585F6FBBF6F50A6C /* Pods_APBOv2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APBOv2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -269,6 +279,8 @@
 		74C3CFAE253F3BE900757586 /* APBOv2 */ = {
 			isa = PBXGroup;
 			children = (
+				CEF30A1925CA65AC007B8B39 /* GameScenes */,
+				CEF30A1825CA65A2007B8B39 /* Spaceships */,
 				CEF309D225C1E9F3007B8B39 /* OnlineGame */,
 				CEF309CD25C1E82A007B8B39 /* Firebase */,
 				815799E42591079800734A45 /* pilotImages.atlas */,
@@ -403,6 +415,25 @@
 				CEF309FE25C337D7007B8B39 /* PlayerData.swift */,
 			);
 			path = OnlineGame;
+			sourceTree = "<group>";
+		};
+		CEF30A1825CA65A2007B8B39 /* Spaceships */ = {
+			isa = PBXGroup;
+			children = (
+				CEF30A2125CA65E0007B8B39 /* SpaceshipBase.swift */,
+				CEF30A2425CA65EF007B8B39 /* LocalSpaceship.swift */,
+				CEF30A2725CA65FD007B8B39 /* RemoteSpaceship.swift */,
+			);
+			path = Spaceships;
+			sourceTree = "<group>";
+		};
+		CEF30A1925CA65AC007B8B39 /* GameScenes */ = {
+			isa = PBXGroup;
+			children = (
+				CEF30A1A25CA65BF007B8B39 /* GameSceneBase.swift */,
+				CEF30A1E25CA65CC007B8B39 /* GameSceneOnline.swift */,
+			);
+			path = GameScenes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -573,12 +604,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				749EBC5A255AFA34003EA0B3 /* Wave.swift in Sources */,
+				CEF30A2225CA65E0007B8B39 /* SpaceshipBase.swift in Sources */,
+				CEF30A1B25CA65BF007B8B39 /* GameSceneBase.swift in Sources */,
 				748CEDAE25658207005DF246 /* MainMenu.swift in Sources */,
 				74C3CFB6253F3BE900757586 /* GameScene.swift in Sources */,
 				8100B1832575524900AA8A1F /* TurretBossNode.swift in Sources */,
+				CEF30A2825CA65FD007B8B39 /* RemoteSpaceship.swift in Sources */,
 				74C3CFDD2553109000757586 /* EnemyType.swift in Sources */,
 				CEF309FB25C33700007B8B39 /* Global.swift in Sources */,
 				74CF6899258D78E2000C4E47 /* Tutorial.swift in Sources */,
+				CEF30A1F25CA65CC007B8B39 /* GameSceneOnline.swift in Sources */,
 				74235B2025A7724400AC4675 /* GameCenter.swift in Sources */,
 				CEF309D425C1EA26007B8B39 /* GameData.swift in Sources */,
 				74C3CFB8253F3BE900757586 /* GameViewController.swift in Sources */,
@@ -591,6 +626,7 @@
 				CEF309D825C1EAC0007B8B39 /* MultiplayerHandler.swift in Sources */,
 				748CEDC4256D7362005DF246 /* OnlineMenu.swift in Sources */,
 				81708DC425A376650030C2C4 /* TurretBossMenu.swift in Sources */,
+				CEF30A2525CA65EF007B8B39 /* LocalSpaceship.swift in Sources */,
 				74C3CFB0253F3BE900757586 /* AppDelegate.swift in Sources */,
 				748CEDAB25657F2E005DF246 /* MSButtonNode.swift in Sources */,
 			);

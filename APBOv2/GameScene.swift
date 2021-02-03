@@ -25,6 +25,7 @@ enum CollisionType: UInt32 {
     case enemy = 4
     case enemyWeapon = 8
     case border = 32
+    case powerup = 11
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
