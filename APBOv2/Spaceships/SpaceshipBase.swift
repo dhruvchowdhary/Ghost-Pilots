@@ -1,5 +1,6 @@
 import Foundation
 import SpriteKit
+import Firebase
 
 class SpaceshipBase {
     private var lastTimeUpdated: Float?
@@ -35,19 +36,37 @@ class SpaceshipBase {
             return
         }
         
-        
         // A scaler based off deltaTime
         let scaler = lastTimeUpdated! - deltaTime
         
-        // TODO: add input array dictating movement
+        // TODO calculate movement from inputs
+        
+        let payload = Payload(shipPosX: shipSprite.position.x, shipPosY: shipSprite.position.y, shipAngleRad: shipSprite.zRotation, hasPowerup: false)
+        let data = try! JSONEncoder().encode(payload)
+        let json = String(data: data, encoding: .utf8)!
+        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/\(playerID)", Value: json)
+        
     }
     
     private func UpdateRemoteShip(){
-        
+        let ref = Database.database().reference().child("Games/\(Global.gameData.gameID)/\(playerID)")
+        ref.observeSingleEvent(of: .value) { snapshot in
+            let snapVal = snapshot.value as! String
+            if (snapVal == "Null"){
+                return;
+            } else {
+                let jsonData = snapVal.data(using: .utf8)
+                let payload = try! JSONDecoder().decode(Payload.self, from: jsonData!)
+                
+                self.shipSprite.position.x = payload.shipPosX
+                self.shipSprite.position.y = payload.shipPosY
+                self.shipSprite.zRotation = payload.shipAngleRad
+            }
+        }
     }
     
     private func UpdateAiShip() {
-        
+        // Uhhh, idk how your ai works, and this will have a specific enum
     }
 }
 

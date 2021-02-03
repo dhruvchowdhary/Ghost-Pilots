@@ -90,6 +90,7 @@
 		CEF30A2225CA65E0007B8B39 /* SpaceshipBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF30A2125CA65E0007B8B39 /* SpaceshipBase.swift */; };
 		CEF30A2525CA65EF007B8B39 /* LocalSpaceship.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF30A2425CA65EF007B8B39 /* LocalSpaceship.swift */; };
 		CEF30A2825CA65FD007B8B39 /* RemoteSpaceship.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF30A2725CA65FD007B8B39 /* RemoteSpaceship.swift */; };
+		CEF30A2B25CB0C39007B8B39 /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF30A2A25CB0C39007B8B39 /* Payload.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -181,6 +182,7 @@
 		CEF30A2125CA65E0007B8B39 /* SpaceshipBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceshipBase.swift; sourceTree = "<group>"; };
 		CEF30A2425CA65EF007B8B39 /* LocalSpaceship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSpaceship.swift; sourceTree = "<group>"; };
 		CEF30A2725CA65FD007B8B39 /* RemoteSpaceship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSpaceship.swift; sourceTree = "<group>"; };
+		CEF30A2A25CB0C39007B8B39 /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		D4F8ACF3585F6FBBF6F50A6C /* Pods_APBOv2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APBOv2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -413,6 +415,7 @@
 				CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */,
 				CEF309FA25C33700007B8B39 /* Global.swift */,
 				CEF309FE25C337D7007B8B39 /* PlayerData.swift */,
+				CEF30A2A25CB0C39007B8B39 /* Payload.swift */,
 			);
 			path = OnlineGame;
 			sourceTree = "<group>";
@@ -624,6 +627,7 @@
 				748CEDB4256C151F005DF246 /* SoloMenu.swift in Sources */,
 				CEF309FF25C337D7007B8B39 /* PlayerData.swift in Sources */,
 				CEF309D825C1EAC0007B8B39 /* MultiplayerHandler.swift in Sources */,
+				CEF30A2B25CB0C39007B8B39 /* Payload.swift in Sources */,
 				748CEDC4256D7362005DF246 /* OnlineMenu.swift in Sources */,
 				81708DC425A376650030C2C4 /* TurretBossMenu.swift in Sources */,
 				CEF30A2525CA65EF007B8B39 /* LocalSpaceship.swift in Sources */,

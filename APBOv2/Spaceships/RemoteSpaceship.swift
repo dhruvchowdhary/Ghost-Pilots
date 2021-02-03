@@ -1,9 +1,11 @@
-//
-//  RemoteSpaceship.swift
-//  APBOv2
-//
-//  Created by 90306997 on 2/2/21.
-//  Copyright © 2021 Dhruv Chowdhary. All rights reserved.
-//
-
 import Foundation
+import SpriteKit
+
+class RemoteSpaceship: SpaceshipBase {
+    init(playerID: String) {
+        let spaceShipNode = SKSpriteNode(imageNamed: "player");
+        spaceShipNode.physicsBody!.categoryBitMask = CollisionType.player.rawValue
+        spaceShipNode.physicsBody!.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
+        super.init(shipSprite: spaceShipNode, playerId: playerID, controller: ControllerType.Remote)
+    }
+}
