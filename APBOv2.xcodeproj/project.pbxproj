@@ -78,6 +78,7 @@
 		816EE12A259265D10053AE35 /* TurretShootingExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 816EE128259265D10053AE35 /* TurretShootingExplosion.sks */; };
 		81708DC425A376650030C2C4 /* TurretBossMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81708DC325A376650030C2C4 /* TurretBossMenu.swift */; };
 		81708DC825A565C50030C2C4 /* TurretBossMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81708DC725A565C50030C2C4 /* TurretBossMenu.sks */; };
+		81E74D3D25CB204C00472109 /* mineExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81E74D3C25CB204B00472109 /* mineExplosion.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -156,6 +157,7 @@
 		816EE128259265D10053AE35 /* TurretShootingExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TurretShootingExplosion.sks; sourceTree = "<group>"; };
 		81708DC325A376650030C2C4 /* TurretBossMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBossMenu.swift; sourceTree = "<group>"; };
 		81708DC725A565C50030C2C4 /* TurretBossMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TurretBossMenu.sks; sourceTree = "<group>"; };
+		81E74D3C25CB204B00472109 /* mineExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = mineExplosion.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,6 +283,7 @@
 				749EBC0D25599D84003EA0B3 /* Explosion.sks */,
 				816EE127259265D10053AE35 /* ShootingExplosion.sks */,
 				816EE128259265D10053AE35 /* TurretShootingExplosion.sks */,
+				81E74D3C25CB204B00472109 /* mineExplosion.sks */,
 				7451FF772576FE8F0074CC2E /* Spark.sks */,
 				815799E825917EFD00734A45 /* BulletExplosion.sks */,
 				815799E62591136900734A45 /* RespawnExplosion.sks */,
@@ -413,6 +416,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81E74D3D25CB204C00472109 /* mineExplosion.sks in Resources */,
 				74CF6869258296F0000C4E47 /* miniLaser2.wav in Resources */,
 				748CEDC1256D6F24005DF246 /* TurretBoss.sks in Resources */,
 				74CF687A25830AD6000C4E47 /* ghost.sks in Resources */,

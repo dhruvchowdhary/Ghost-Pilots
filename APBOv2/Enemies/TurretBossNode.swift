@@ -24,8 +24,8 @@ class TurretNode: SKSpriteNode {
         
         physicsBody = SKPhysicsBody(texture: texture, size: texture.size())
         physicsBody?.categoryBitMask = CollisionType.enemy.rawValue
-        physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
-        physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
+        physicsBody?.collisionBitMask = CollisionType.player.rawValue
+        physicsBody?.contactTestBitMask = CollisionType.player.rawValue
         name = "enemy"
         position = CGPoint(x: startPosition.x + xOffset, y: startPosition.y)
         
@@ -65,7 +65,7 @@ class TurretNode: SKSpriteNode {
         parent?.addChild(weapon)
         
         weapon.physicsBody = SKPhysicsBody(rectangleOf: weapon.size)
-        weapon.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
+        weapon.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
         weapon.physicsBody?.collisionBitMask = CollisionType.player.rawValue
         weapon.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
         weapon.physicsBody?.mass = 0.001
