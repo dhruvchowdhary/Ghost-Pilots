@@ -597,34 +597,50 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                 else if self.numAmmo == 1 {
                                     self.bullet3.removeFromParent()
                                 }
-                               /*
-                                let rayStart = player.position
-                                let rayEnd = CGPoint(x: 15000 * cos(self.player.zRotation), y: 15000 * sin(self.player.zRotation))
-                                */
+
                             
                                 let laserBody = SKSpriteNode(imageNamed: "laserbeampic")
                                 laserBody.name = "laser"
                                 laserBody.size = CGSize(width: 2000, height: 30)
+                                laserBody.position.x = 1000
+                               // laserBody.anchorPoint = CGPoint(x: 0, y: 0.5)
                                 laserBody.physicsBody = SKPhysicsBody(texture: laserBody.texture!, size: laserBody.size)
                                 
                                 laserBody.physicsBody?.categoryBitMask = CollisionType.powerup.rawValue
                                 laserBody.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
                                 laserBody.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
                                // laserBody.zRotation = player.zRotation
-                                laserBody.anchorPoint = CGPoint(x: 0, y: 0.5)
+                           
+                              //  laserBody.physicsBody.po
                                // laserBody.position = player.position
                                 
                                 player.addChild(laserBody)
+                                
+                                let recoil = SKAction.moveBy(x: -8 * cos(self.player.zRotation), y: -8 * sin(self.player.zRotation), duration: 0.01)
+                                
+                                self.player.run(recoil)
                                 laserBody.zPosition = -10
-                                let wait = SKAction.wait(forDuration:0.2)
+                                
+                                let shrink = SKAction.resize(toHeight: 0, duration: 0.4)
+                                laserBody.run(shrink)
+                                
+                                let wait = SKAction.wait(forDuration:0.4)
                                 let action = SKAction.run {
                                     laserBody.removeFromParent()
                                 }
                                          run(SKAction.sequence([wait,action]))
                               
-                                    
+                                self.numAmmo = self.numAmmo - 1
+                                self.i -= 1
                               
                                 
+                            }
+                            if i == 0 {
+                               
+                                let shootbuttonPic = SKAction.setTexture(SKTexture(imageNamed: "shootButton"))
+                      shootButtonNode.run(shootbuttonPic)
+                                
+                            self.powerupMode = 0
                             }
                             
                         }
@@ -732,6 +748,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
      
      
      }*/
+    
+
     
       func buildPilot() {
         let pilotAnimatedAtlas = SKTextureAtlas(named: "pilotImages")
@@ -1362,7 +1380,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let laserPower = SKAction.setTexture(SKTexture(imageNamed: "laser"))
       shootButtonNode.run(laserPower)
                 powerupMode = 2
-                self.i = 3
+                self.i = 1
                 firstNode.removeFromParent()
                 powerSpawn = false
             }
