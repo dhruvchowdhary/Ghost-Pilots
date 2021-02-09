@@ -12,8 +12,8 @@ class LocalSpaceship: SpaceshipBase {
         Global.gameData.camera = cameraNode
         
         spaceShipNode.physicsBody!.categoryBitMask = CollisionType.player.rawValue
-        spaceShipNode.physicsBody!.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue | CollisionType.powerup.rawValue
-        spaceShipNode.physicsBody!.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue | CollisionType.powerup.rawValue
+        spaceShipNode.physicsBody!.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.powerup.rawValue
+        spaceShipNode.physicsBody!.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.powerup.rawValue
         spaceShipNode.physicsBody?.isDynamic = false
         super.init(shipSprite: spaceShipNode, playerId: UIDevice.current.identifierForVendor!.uuidString)
         

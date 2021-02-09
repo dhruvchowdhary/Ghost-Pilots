@@ -801,7 +801,9 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
              }
              secondNode.removeFromParent()
              print("2")*/
-        } else {
+        }
+        /*
+        else {
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             firstNode.removeFromParent()
             if secondNode.name == "playerWeapon" {
@@ -813,7 +815,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        
+        */
     }
     
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {

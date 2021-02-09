@@ -356,6 +356,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
                     if self.numAmmo > 0 {
                         self.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
                         
+                        /*
                         if let ShootingExplosion = SKEmitterNode(fileNamed: "ShootingExplosion") {
                             ShootingExplosion.position.x = self.player.position.x + 60 * cos(self.player.zRotation)
                             ShootingExplosion.position.y = self.player.position.y + 60 * sin(self.player.zRotation)
@@ -365,7 +366,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             
                             self.addChild(ShootingExplosion)
                                   }
-                        
+                        */
                         if self.numAmmo == 3 {
                             self.bullet1.removeFromParent()
                         }

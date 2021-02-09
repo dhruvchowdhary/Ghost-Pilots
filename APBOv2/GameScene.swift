@@ -162,6 +162,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
+        
         //size = view.bounds.size
         backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -510,13 +511,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             self.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
                             
                             if self.numAmmo == 3 {
-                                self.bullet1.removeFromParent()
+                                self.bullet1.alpha = 0
                             }
                             else if self.numAmmo == 2 {
-                                self.bullet2.removeFromParent()
+                                self.bullet2.alpha = 0
                             }
                             else if self.numAmmo == 1 {
-                                self.bullet3.removeFromParent()
+                                self.bullet3.alpha = 0
                             }
                             
                             print("tripleshot")
@@ -606,20 +607,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                 let laserBody = SKSpriteNode(imageNamed: "laserbeampic")
                                 laserBody.name = "laser"
                                 laserBody.size = CGSize(width: 2000, height: 30)
-                                laserBody.position.x = 1000
-                               // laserBody.anchorPoint = CGPoint(x: 0, y: 0.5)
-                                laserBody.physicsBody = SKPhysicsBody(texture: laserBody.texture!, size: laserBody.size)
+                              //  laserBody.position.x = 1000
+                                laserBody.zRotation = player.zRotation
+                                laserBody.position.y = player.position.y + 1000 * sin(player.zRotation)
+                                laserBody.position.x = player.position.x + 1000 * cos(player.zRotation)
+                                print(laserBody.position.x)
+                                print(laserBody.position.y)
+                                print(player.position.x)
+                                print(player.position.y)
                                 
+                                //laserBody.anchorPoint = CGPoint(x: 0, y: 0.5)
+                                laserBody.physicsBody = SKPhysicsBody(texture: laserBody.texture!, size: laserBody.size)
+                           
                                 laserBody.physicsBody?.categoryBitMask = CollisionType.powerup.rawValue
                                 laserBody.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
                                 laserBody.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
-                               // laserBody.zRotation = player.zRotation
+                               
                            
                               //  laserBody.physicsBody.po
                                // laserBody.position = player.position
+                             //   let pinPosition = connectingRod.convert
+                             
                                 
-                                player.addChild(laserBody)
-                                
+                                let joint = SKPhysicsJointPin.joint(withBodyA: laserBody.physicsBody!, bodyB: player.physicsBody!, anchor: player.position)
+                                addChild(laserBody)
+                             
+                                physicsWorld.add(joint)
+                 
+
                                 let recoil = SKAction.moveBy(x: -8 * cos(self.player.zRotation), y: -8 * sin(self.player.zRotation), duration: 0.01)
                                 
                                 self.player.run(recoil)
@@ -1198,23 +1213,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         self.numAmmo = self.numAmmo + 1
                         
                         if self.numAmmo == 1 {
-                            self.addChild(self.bullet3)
+                            self.bullet3.alpha = 1
                         }
                         else if self.numAmmo == 2 {
-                            self.addChild(self.bullet2)
+                            self.bullet2.alpha = 1
                         }
                         else if self.numAmmo == 3 {
-                            self.addChild(self.bullet1)
+                            self.bullet1.alpha = 1
                         }
-                        
                         self.regenAmmo = false
                     }
                 }
             }
         } else {
-            bullet1.removeFromParent()
-            bullet2.removeFromParent()
-            bullet3.removeFromParent()
+            
+            self.bullet3.alpha = 0
+            self.bullet2.alpha = 0
+            self.bullet1.alpha = 0
+
             
             
             if self.pilotForward {

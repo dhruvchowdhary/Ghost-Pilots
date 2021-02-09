@@ -6,7 +6,8 @@ class RemoteSpaceship: SpaceshipBase {
     init(playerID: String) {
         let spaceShipNode = SKSpriteNode(imageNamed: "player");
         spaceShipNode.physicsBody!.categoryBitMask = CollisionType.player.rawValue
-        spaceShipNode.physicsBody!.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue
+        spaceShipNode.physicsBody!.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        
         
         // Attach
         
