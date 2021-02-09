@@ -85,7 +85,7 @@ class MainMenu: SKScene {
         }
         
         /* Set UI connections */
-        buttonPlay = self.childNode(withName: "playButton") as? MSButtonNode
+        buttonPlay = self.childNode(withName: "soloButton") as? MSButtonNode
         buttonPlay.selectedHandler = {
             self.buttonPlay.alpha = 0.7
         }
@@ -186,7 +186,7 @@ class MainMenu: SKScene {
             }
             
             /* 2) Load Game scene */
-            guard let scene = SoloMenu(fileNamed: s) else {
+            guard let scene = SKScene(fileNamed: s) else {
                 print("Could not make \(s), check the name is spelled correctly")
                 return
             }
