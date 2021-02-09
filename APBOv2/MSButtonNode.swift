@@ -10,7 +10,7 @@ import SpriteKit
 enum MSButtonNodeState {
     case MSButtonNodeStateActive, MSButtonNodeStateSelected, MSButtonNodeStateHidden
 }
-
+//mm
 class MSButtonNode: SKSpriteNode {
     //test
     /* Setup a dummy action closure */

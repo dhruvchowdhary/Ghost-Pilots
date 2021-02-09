@@ -1,0 +1,4 @@
+
+class GameSceneOnline: GameSceneBase {
+    
+}

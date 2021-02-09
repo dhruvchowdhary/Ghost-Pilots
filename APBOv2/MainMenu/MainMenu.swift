@@ -13,7 +13,9 @@ class MainMenu: SKScene {
     /* UI Connections */
     var lastUpdateTime: CFTimeInterval = 0
     var buttonPlay: MSButtonNode!
+    var buttonOnline: MSButtonNode!
     var tutorialButtonNode: MSButtonNode!
+    var scenesAreLoaded = false;
     
     let title = SKLabelNode(text: "GHOST PILOTS")
     let playerParticles = SKEmitterNode(fileNamed: "Player")
@@ -28,6 +30,8 @@ class MainMenu: SKScene {
     
     override func didMove(to view: SKView) {
         /* Setup your scene here */
+        
+        
         
         title.fontName = "AvenirNext-Bold"
         title.position = CGPoint(x: frame.midX, y: frame.midY + 195)
@@ -86,7 +90,15 @@ class MainMenu: SKScene {
             self.buttonPlay.alpha = 0.7
         }
         buttonPlay.selectedHandlers = {
-            self.loadGame()
+            self.loadScene(s: "SoloMenu")
+        }
+        
+        buttonOnline = self.childNode(withName: "onlineButton") as? MSButtonNode
+        buttonOnline.selectedHandler = {
+            self.buttonOnline.alpha = 0.7
+        }
+        buttonOnline.selectedHandlers = {
+            self.loadScene(s: "OnlineMenu")
         }
         
         tutorialButtonNode = self.childNode(withName: "tutorial") as? MSButtonNode
@@ -164,33 +176,38 @@ class MainMenu: SKScene {
         self.ghostParticles?.particleScale = 1
     }
     
-    func loadGame() {
-        /* 1) Grab reference to our SpriteKit view */
-        guard let skView = self.view as SKView? else {
-            print("Could not get Skview")
-            return
+    func loadScene(s: String) {
+        // Loading other scenes in bg thread
+        DispatchQueue.global(qos: .background).async {
+            /* 1) Grab reference to our SpriteKit view */
+            guard let skView = self.view as SKView? else {
+                print("Could not get Skview")
+                return
+            }
+            
+            /* 2) Load Game scene */
+            guard let scene = SoloMenu(fileNamed: s) else {
+                print("Could not make \(s), check the name is spelled correctly")
+                return
+            }
+            /* 3) Ensure correct aspect mode */
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                scene.scaleMode = .aspectFit
+            } else {
+                scene.scaleMode = .aspectFill
+            }
+            
+            /* Show debug */
+            skView.showsPhysics = false
+            skView.showsDrawCount = false
+            skView.showsFPS = false
+            
+            // Run in main thread
+            DispatchQueue.main.async {
+                /* 4) Start game scene */
+                skView.presentScene(scene)
+            }
         }
-        
-        /* 2) Load Game scene */
-        guard let scene = SoloMenu(fileNamed:"SoloMenu") else {
-            print("Could not make SoloMenu, check the name is spelled correctly")
-            return
-        }
-        
-        /* 3) Ensure correct aspect mode */
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            scene.scaleMode = .aspectFit
-        } else {
-            scene.scaleMode = .aspectFill
-        }
-        
-        /* Show debug */
-        skView.showsPhysics = false
-        skView.showsDrawCount = false
-        skView.showsFPS = false
-        
-        /* 4) Start game scene */
-        skView.presentScene(scene)
     }
     
     func tutorial() {
