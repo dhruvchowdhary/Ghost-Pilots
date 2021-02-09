@@ -1,1 +1,4 @@
-import Foundation
+
+class GameSceneOnline: GameSceneBase {
+    
+}
