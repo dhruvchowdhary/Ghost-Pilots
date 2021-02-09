@@ -5,6 +5,8 @@ import SpriteKit
 public class GameData{
     var gameID = 00000
     var shipsToUpdate: [SpaceshipBase] = []
+    public var camera = SKCameraNode()
+    
     
     // =================
     // For the Host to run
