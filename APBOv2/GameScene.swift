@@ -570,10 +570,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                 self.i -= 1
                             }
                             
-                            if i == 0 {
+                            if self.i == 0 {
                                
                                 let shootbuttonPic = SKAction.setTexture(SKTexture(imageNamed: "shootButton"))
-                      shootButtonNode.run(shootbuttonPic)
+                                self.shootButtonNode.run(shootbuttonPic)
                                 
                             self.powerupMode = 0
                                 
@@ -587,9 +587,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             print("mine")
                             
                             let mine = SKSpriteNode(imageNamed: "mineRing")
-                            mine.position = player.position
+                            mine.position = self.player.position
                             mine.zPosition = 2
-                            addChild(mine)
+                            self.addChild(mine)
                             
                         }
                     }
