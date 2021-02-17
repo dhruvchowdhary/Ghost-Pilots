@@ -2,7 +2,7 @@ import Foundation
 import SpriteKit
 import Firebase
 
-class SpaceshipBase {
+public class SpaceshipBase {
     public var lastTimeUpdated: Float?
     public var shipSprite: SKSpriteNode
     public var playerID: String
@@ -15,15 +15,8 @@ class SpaceshipBase {
     }
 
     // Only to be ovveridden
-    func UpdateShip(deltaTime: Float, inputs: [InputType]){
+    func UpdateShip(deltaTime: Float){
         print("Error: UpdateShip Was not properly overrided")
     }
     
-    
-}
-
-
-enum InputType {
-    // Refers to button positions
-    case Rotate, Shoot, Ghost
 }

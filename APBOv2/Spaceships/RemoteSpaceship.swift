@@ -13,7 +13,7 @@ class RemoteSpaceship: SpaceshipBase {
         super.init(shipSprite: spaceShipNode, playerId: playerID)
     }
     
-    override func UpdateShip(deltaTime: Float, inputs: [InputType]) {
+    override func UpdateShip(deltaTime: Float) {
         let ref = Database.database().reference().child("Games/\(Global.gameData.gameID)/\(playerID)")
         ref.observeSingleEvent(of: .value) { snapshot in
             let snapVal = snapshot.value as! String

@@ -18,7 +18,6 @@ var backButtonNode: MSButtonNode!
 
 let notDoneLabel = SKLabelNode(text: "The online version of this game is currently under development!")
 
-    
     override func didMove(to view: SKView) {
         /* Setup your scene here */
         if let particles = SKEmitterNode(fileNamed: "Starfield") {

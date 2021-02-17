@@ -4,7 +4,6 @@ import CoreMotion
 import AudioToolbox
 
 class GameSceneBase: SKScene, SKPhysicsContactDelegate {
-    public var inputs: [InputType] = []
     let zoomInActionipad = SKAction.scale(to: 1.7, duration: 0.01)
     
     private var pilot = SKSpriteNode()
@@ -88,16 +87,23 @@ class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     let shape = SKShapeNode()
     
     override func didMove(to view: SKView) {
+        for ship in Global.gameData.shipsToUpdate{
+            addChild(ship.shipSprite)
+        }
         if UIDevice.current.userInterfaceIdiom == .pad { Global.gameData.camera.run(zoomInActionipad) }
+        camera = Global.gameData.camera
         
         // Sets up the boundries
         let borderShape = SKShapeNode(path: UIBezierPath(roundedRect: CGRect(x: -1792/2-1000, y: -828/2, width: 1792+2000, height: 828), cornerRadius: 40).cgPath)
         borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
         borderShape.fillColor = .clear
-        borderShape.strokeColor = UIColor.white
+        borderShape.strokeColor = UIColor.blue
         borderShape.lineWidth = 10
         borderShape.name = "border"
         borderShape.physicsBody = SKPhysicsBody(edgeChainFrom: borderShape.path!)
+        borderShape.physicsBody?.categoryBitMask = CollisionType.border.rawValue
+        borderShape.physicsBody?.collisionBitMask = CollisionType.player.rawValue
+        borderShape.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
         addChild(borderShape)
         
         // World physics
@@ -120,54 +126,10 @@ class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         self.dimPanel.alpha = 0
         
         // Button Setup
-        reviveButtonNode = self.childNode(withName: "reviveButton") as? MSButtonNode
-        reviveButtonNode.alpha = 0
-        reviveButtonNode.selectedHandler = {
-            GameViewController().playAd()
-        }
-        
-        phaseButtonNode = self.childNode(withName: "phaseButton") as? MSButtonNode
-        phaseButtonNode.alpha = 0
-        phaseButtonNode.selectedHandler = {
-            if self.isPlayerAlive == false {
-                print("is phase")
-                self.pilot.alpha = 0.7
-                self.phaseButtonNode.alpha = 0.6
-                self.isPhase = true
-            }
-        }
-        phaseButtonNode.selectedHandlers = {
-            if self.isPlayerAlive == false && !self.isGameOver {
-                print("not phase")
-                self.pilot.alpha = 1
-                self.phaseButtonNode.alpha = 0.8
-                self.isPhase = false
-            }
-        }
-        ejectButtonNode = self.childNode(withName: "ejectButton") as? MSButtonNode
-        ejectButtonNode.alpha = 0.8
-        ejectButtonNode.selectedHandler = {
-            if self.isPlayerAlive == true {
-                self.ejectButtonNode.alpha = 0
-                self.phaseButtonNode.alpha = 0.8
-                self.playerShields = -5
-            }
-        }
-        backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
-        backButtonNode.alpha = 0
-        backButtonNode.selectedHandlers = {self.loadScene(s: "OnlineMenu")}
-        
-        playAgainButtonNode = self.childNode(withName: "playAgainButton") as? MSButtonNode
-        playAgainButtonNode.alpha = 0
-        playAgainButtonNode.selectedHandlers = {print("error, Not implemented")}
-        
-        turnButtonNode = self.childNode(withName: "turnButton") as? MSButtonNode
-        turnButtonNode.selectedHandler = {}
     }
-    
     public override func update(_ currentTime: TimeInterval) {
         for ship in Global.gameData.shipsToUpdate {
-            ship.UpdateShip(deltaTime: Float(currentTime), inputs: inputs)
+            ship.UpdateShip(deltaTime: Float(currentTime))
         }
         
     }
@@ -184,3 +146,4 @@ class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         skView.presentScene(scene)
     }
 }
+

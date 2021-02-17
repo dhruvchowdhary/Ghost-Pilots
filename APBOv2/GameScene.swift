@@ -21,10 +21,10 @@ let shotCollisionRadius: CGFloat = 20
 enum CollisionType: UInt32 {
     case player = 1
     case pilot = 16
-    case playerWeapon = 2
+    // case playerWeapon = 2
     case enemy = 4
-    case enemyWeapon = 8
-    //case border = 32
+    case bullet = 8
+    case border = 2
     case powerup = 32
 }
 
@@ -621,7 +621,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         
-        let turnTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
+        let _ = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
             self.player.zRotation = self.player.zRotation + 1.2 * CGFloat(self.direction)
             self.pilot.zRotation = self.pilot.zRotation + 1.2 * CGFloat(self.direction)
             if self.doubleTap == 1 {
