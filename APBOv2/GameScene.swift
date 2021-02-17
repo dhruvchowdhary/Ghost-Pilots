@@ -20,6 +20,7 @@ let shotCollisionRadius: CGFloat = 20
 
 enum CollisionType: UInt32 {
     case player = 1
+    
     case pilot = 16
     // case playerWeapon = 2
     case enemy = 4
@@ -139,8 +140,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         shape.lineWidth = 10
         shape.name = "border"
         shape.physicsBody = SKPhysicsBody(edgeChainFrom: shape.path!)
+       
+        shape.physicsBody?.categoryBitMask = CollisionType.border.rawValue
+        shape.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue | CollisionType.pilot.rawValue
+        shape.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue | CollisionType.pilot.rawValue
         addChild(shape)
         
+    
 
         /*
         let borderBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: 0, y: 0, width: 80, height: 80))
@@ -156,6 +162,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
+        
         //size = view.bounds.size
         backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -218,8 +225,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.texture!.size())
         player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
-        player.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue | CollisionType.powerup.rawValue
-        player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue | CollisionType.powerup.rawValue
+        player.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.powerup.rawValue
+        player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.powerup.rawValue
         player.physicsBody?.isDynamic = false
         
         
@@ -472,9 +479,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             shot.name = "playerWeapon"
                             shot.position = CGPoint(x: self.player.position.x + cos(self.player.zRotation)*40, y: self.player.position.y + sin(self.player.zRotation)*40)
                             shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-                            shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
-                            shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-                            shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+                            shot.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
+                            shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
+                            shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
                             self.addChild(shot)
                             
                             let movement = SKAction.moveBy(x: 15000 * cos(self.player.zRotation), y: 15000 * sin(self.player.zRotation), duration: 26)
@@ -504,13 +511,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             self.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
                             
                             if self.numAmmo == 3 {
-                                self.bullet1.removeFromParent()
+                                self.bullet1.alpha = 0
                             }
                             else if self.numAmmo == 2 {
-                                self.bullet2.removeFromParent()
+                                self.bullet2.alpha = 0
                             }
                             else if self.numAmmo == 1 {
-                                self.bullet3.removeFromParent()
+                                self.bullet3.alpha = 0
                             }
                             
                             print("tripleshot")
@@ -520,9 +527,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             shot1.name = "playerWeapon"
                             shot1.position = CGPoint(x: self.player.position.x + cos(self.player.zRotation)*40, y: self.player.position.y + sin(self.player.zRotation)*40)
                             shot1.physicsBody = SKPhysicsBody(rectangleOf: shot1.size)
-                            shot1.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
-                            shot1.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-                            shot1.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+                            shot1.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
+                            shot1.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
+                            shot1.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
                             self.addChild(shot1)
                             
                             let movement1 = SKAction.moveBy(x: 15000 * cos(self.player.zRotation), y: 15000 * sin(self.player.zRotation), duration: 26)
@@ -534,9 +541,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             shot2.name = "playerWeapon"
                             shot2.position = CGPoint(x: self.player.position.x + cos(self.player.zRotation)*40, y: self.player.position.y + sin(self.player.zRotation)*40)
                             shot2.physicsBody = SKPhysicsBody(rectangleOf: shot2.size)
-                            shot2.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
-                            shot2.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-                            shot2.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+                            shot2.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
+                            shot2.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
+                            shot2.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
                             self.addChild(shot2)
                             
                             let movement2 = SKAction.moveBy(x: 15000 * cos(self.player.zRotation + 10 * degreesToRadians), y: 15000 * sin(self.player.zRotation + 10 * degreesToRadians), duration: 26)
@@ -548,9 +555,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             shot3.name = "playerWeapon"
                             shot3.position = CGPoint(x: self.player.position.x + cos(self.player.zRotation - 10 * degreesToRadians)*40, y: self.player.position.y + sin(self.player.zRotation - 10 * degreesToRadians)*40)
                             shot3.physicsBody = SKPhysicsBody(rectangleOf: shot3.size)
-                            shot3.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
-                            shot3.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-                            shot3.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+                            shot3.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
+                            shot3.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
+                            shot3.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
                             self.addChild(shot3)
                             
                             let movement3 = SKAction.moveBy(x: 15000 * cos(self.player.zRotation - 10 * degreesToRadians ), y: 15000 * sin(self.player.zRotation - 10 * degreesToRadians), duration: 26)
@@ -582,15 +589,127 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         }
                         else if self.powerupMode == 2 {
                             print("laser")
+                            
+                            if self.i > 0 {
+                                self.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
+                                
+                                if self.numAmmo == 3 {
+                                    self.bullet1.removeFromParent()
+                                }
+                                else if self.numAmmo == 2 {
+                                    self.bullet2.removeFromParent()
+                                }
+                                else if self.numAmmo == 1 {
+                                    self.bullet3.removeFromParent()
+                                }
+
+                            
+                                let laserBody = SKSpriteNode(imageNamed: "laserbeampic")
+                                laserBody.name = "laser"
+                                laserBody.size = CGSize(width: 2000, height: 30)
+                              //  laserBody.position.x = 1000
+                                laserBody.zRotation = player.zRotation
+                                laserBody.position.y = player.position.y + 1000 * sin(player.zRotation)
+                                laserBody.position.x = player.position.x + 1000 * cos(player.zRotation)
+                                print(laserBody.position.x)
+                                print(laserBody.position.y)
+                                print(player.position.x)
+                                print(player.position.y)
+                                
+                                //laserBody.anchorPoint = CGPoint(x: 0, y: 0.5)
+                                laserBody.physicsBody = SKPhysicsBody(texture: laserBody.texture!, size: laserBody.size)
+                           
+                                laserBody.physicsBody?.categoryBitMask = CollisionType.powerup.rawValue
+                                laserBody.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
+                                laserBody.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
+                               
+                           
+                              //  laserBody.physicsBody.po
+                               // laserBody.position = player.position
+                             //   let pinPosition = connectingRod.convert
+                             
+                                
+                                let joint = SKPhysicsJointPin.joint(withBodyA: laserBody.physicsBody!, bodyB: player.physicsBody!, anchor: player.position)
+                                addChild(laserBody)
+                             
+                                physicsWorld.add(joint)
+                 
+
+                                let recoil = SKAction.moveBy(x: -8 * cos(self.player.zRotation), y: -8 * sin(self.player.zRotation), duration: 0.01)
+                                
+                                self.player.run(recoil)
+                                laserBody.zPosition = -10
+                                
+                                let shrink = SKAction.resize(toHeight: 0, duration: 0.4)
+                                laserBody.run(shrink)
+                                
+                                let wait = SKAction.wait(forDuration:0.4)
+                                let action = SKAction.run {
+                                    laserBody.removeFromParent()
+                                }
+                                         run(SKAction.sequence([wait,action]))
+                              
+                                self.numAmmo = self.numAmmo - 1
+                                self.i -= 1
+                              
+                                
+                            }
+                            if i == 0 {
+                               
+                                let shootbuttonPic = SKAction.setTexture(SKTexture(imageNamed: "shootButton"))
+                      shootButtonNode.run(shootbuttonPic)
+                                
+                            self.powerupMode = 0
+                            }
+                            
                         }
                         else if self.powerupMode == 3 {
+                            
+                            
+                            if self.i > 0 {
+                            
+                            self.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
+                            
+                            if self.numAmmo == 3 {
+                                self.bullet1.removeFromParent()
+                            }
+                            else if self.numAmmo == 2 {
+                                self.bullet2.removeFromParent()
+                            }
+                            else if self.numAmmo == 1 {
+                                self.bullet3.removeFromParent()
+                            }
+                            
+                            
                             print("mine")
                             
                             let mine = SKSpriteNode(imageNamed: "mineRing")
-                            mine.position = self.player.position
-                            mine.zPosition = 2
-                            self.addChild(mine)
+
+                            mine.name = "mine"
+                            mine.size = CGSize(width: 80, height: 80)
+                            mine.physicsBody = SKPhysicsBody(texture: mine.texture!, size: mine.size)
                             
+                            mine.physicsBody?.categoryBitMask = CollisionType.powerup.rawValue
+                            mine.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue
+                            mine.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue
+                            
+                       
+                            mine.position = player.position
+                            mine.zPosition = 2
+                            addChild(mine)
+                                
+                                self.numAmmo = self.numAmmo - 1
+                                self.i -= 1
+                                
+                            }
+                            
+                            if i == 0 {
+                               
+                                let shootbuttonPic = SKAction.setTexture(SKTexture(imageNamed: "shootButton"))
+                      shootButtonNode.run(shootbuttonPic)
+                                
+                            self.powerupMode = 0
+                            }
                         }
                     }
                 }
@@ -616,10 +735,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         thruster1?.targetNode = self.scene
         player.addChild(thruster1!)
         
-        
-        
-        
-        
+    
         
         let _ = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
             self.player.zRotation = self.player.zRotation + 1.2 * CGFloat(self.direction)
@@ -653,6 +769,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
      
      }*/
     
+
+    
       func buildPilot() {
         let pilotAnimatedAtlas = SKTextureAtlas(named: "pilotImages")
         var walkFrames: [SKTexture] = []
@@ -672,8 +790,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           pilot.physicsBody = SKPhysicsBody.init(rectangleOf: pilot.size)
         //  pilot.physicsBody = SKPhysicsBody(texture: firstFrameTexture , size: pilot.size)
            pilot.physicsBody?.categoryBitMask = CollisionType.pilot.rawValue
-           pilot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-           pilot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+           pilot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
+           pilot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
            pilot.physicsBody?.isDynamic = false
            pilot.position = player.position
           pilot.name = "pilot"
@@ -698,7 +816,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        
+        /*
+        if powerSpawn == true {
+            let rotateAction = SKAction.rotate(byAngle: 1, duration: 20)
+            powerup.run(rotateAction)
+        }
+ */
         if playerShields == -5 {
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
                       self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
@@ -1087,27 +1210,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if self.numAmmo < 3 {
                 if !self.regenAmmo {
                     self.regenAmmo = true
-                    let ammoTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { (timer) in
+                    let ammoTimer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { (timer) in
                         self.numAmmo = self.numAmmo + 1
                         
                         if self.numAmmo == 1 {
-                            self.addChild(self.bullet3)
+                            self.bullet3.alpha = 1
                         }
                         else if self.numAmmo == 2 {
-                            self.addChild(self.bullet2)
+                            self.bullet2.alpha = 1
                         }
                         else if self.numAmmo == 3 {
-                            self.addChild(self.bullet1)
+                            self.bullet1.alpha = 1
                         }
-                        
                         self.regenAmmo = false
                     }
                 }
             }
         } else {
-            bullet1.removeFromParent()
-            bullet2.removeFromParent()
-            bullet3.removeFromParent()
+            
+            self.bullet3.alpha = 0
+            self.bullet2.alpha = 0
+            self.bullet1.alpha = 0
+
             
             
             if self.pilotForward {
@@ -1287,6 +1411,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let laserPower = SKAction.setTexture(SKTexture(imageNamed: "laser"))
       shootButtonNode.run(laserPower)
                 powerupMode = 2
+                self.i = 1
                 firstNode.removeFromParent()
                 powerSpawn = false
             }
@@ -1295,6 +1420,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let minePower = SKAction.setTexture(SKTexture(imageNamed: "mine"))
       shootButtonNode.run(minePower)
                 powerupMode = 3
+                self.i = 3
                 firstNode.removeFromParent()
                 powerSpawn = false
             }
@@ -1361,6 +1487,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             }
         }
+        
         else if (firstNode.name == "0"||firstNode.name == "1" || firstNode.name == "2" || firstNode.name == "enemy" ) && secondNode.name == "pilot" {
             
               if isPhase == true { //takeOver
@@ -1487,7 +1614,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                            addChild(BulletExplosion)
                        }
                 
-        } else if secondNode.name == "pilot" {
+            } else if secondNode.name == "pilot" && (firstNode.name == "enemyWeapon" || firstNode.name == "0" || firstNode.name == "1" || firstNode.name == "2" || firstNode.name == "enemy")  {
           //  print("\(firstNode.name)")
             if isPhase == false {
                 self.run(SKAction.playSoundFileNamed("pilotSquish3", waitForCompletion: false))
@@ -1505,6 +1632,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
          //   print("weapon removed")
             secondNode.removeFromParent()
             
+        }
+        else if firstNode.name == "enemyWeapon" && secondNode.name == "laser" {
+            firstNode.removeFromParent()
         }
             else if firstNode.name == "border" && secondNode.name == "enemy" {
              //   print("weapon removed")
@@ -1537,14 +1667,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         else if let enemy = firstNode as? EnemyNode {
             
             if secondNode.name == "playerWeapon" || secondNode.name ==
-                "player" {
+            "player" || secondNode.name == "mine" || secondNode.name == "laser" {
                 // print("hi")
                  enemy.shields -= 1
                  self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
                  let generator = UIImpactFeedbackGenerator(style: .heavy)
                  generator.impactOccurred()
                  self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
-                 if enemy.shields == 0 {
+               
+                if secondNode.name == "mine" {
+                    print("mine exploded")
+                    
+                    if let explosion = SKEmitterNode(fileNamed: "mineExplosion") {
+                        explosion.position = secondNode.position
+                        addChild(explosion)
+                    }
+                    secondNode.removeFromParent()
+                    enemy.shields = 0
+                }
+                if secondNode.name == "laser" {
+                    print("laser fired to kill enemy")
+                 //   secondNode.removeFromParent()
+                    enemy.shields = 0
+                }
+                
+                if enemy.shields == 0 {
                      if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                          explosion.position = enemy.position
                          addChild(explosion)
@@ -1558,26 +1705,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                      
                          
                      if numPoints % 1 == 0 && powerSpawn == false {
-                         print("powerup spawn")
+                         print("powerup spawned")
                          powerSpawn = true
                         
                         
-                         let rotateAction = SKAction.rotate(byAngle: 1000, duration: 1200)
-                         powerup.run(rotateAction)
+                    
                          powerup.position = firstNode.position
                         powerup.zPosition = 4
                          powerup.name = "powerup"
                         
+                        powerup.size = CGSize(width: 48.858, height: 45.689)
+                        powerup.physicsBody = SKPhysicsBody(texture: powerup.texture!, size: powerup.size)
+                        
                         powerup.physicsBody?.categoryBitMask = CollisionType.powerup.rawValue
                         powerup.physicsBody?.collisionBitMask = CollisionType.player.rawValue
                         powerup.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
-                         
-                                  powerup.size = CGSize(width: 48.858, height: 45.689)
-                         powerup.physicsBody = SKPhysicsBody(texture: powerup.texture!, size: powerup.size)
-                                    
                         
-                       // powerup.physicsBody?.collisionBitMask = 0
-                                            self.addChild(powerup)
+                                    self.addChild(powerup)
          
                          poweruprandInt = Int.random(in: 1...3)
                                    
@@ -1608,6 +1752,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                    }
                      }
                      
+                
                       enemy.removeFromParent()
                      if numPoints > highScore {
                          highScore = numPoints
@@ -1618,11 +1763,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                          GameCenter.shared.updateScore(value: highScore)
                      }
                  }
+                
+                
+               
+                
                  if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                      explosion.position = enemy.position
                      addChild(explosion)
                  }
-                 secondNode.removeFromParent()
+                if secondNode.name != "laser" {
+                    secondNode.removeFromParent()
+                }
+                
             }
             }
 

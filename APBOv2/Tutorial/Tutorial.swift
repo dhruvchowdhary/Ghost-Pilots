@@ -200,15 +200,15 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
         
         player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.texture!.size())
         player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
-        player.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-        player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+        player.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
+        player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
         player.physicsBody?.isDynamic = false
         
         pilot.size = CGSize(width: 40, height: 40)
         pilot.physicsBody = SKPhysicsBody(texture: pilot.texture!, size: pilot.size)
         pilot.physicsBody?.categoryBitMask = CollisionType.pilot.rawValue
-        pilot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-        pilot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+        pilot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
+        pilot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
         pilot.physicsBody?.isDynamic = false
         
         self.dimPanel.zPosition = 50
@@ -323,9 +323,9 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
                         shot.position = CGPoint(x: self.player.position.x + cos(self.player.zRotation)*40, y: self.player.position.y + sin(self.player.zRotation)*40)
                         
                         shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-                        shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
-                        shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-                        shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+                        shot.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
+                        shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
+                        shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
                         shot.zPosition = 200
                         self.addChild(shot)
                         
@@ -801,7 +801,9 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
              }
              secondNode.removeFromParent()
              print("2")*/
-        } else {
+        }
+        /*
+        else {
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
             firstNode.removeFromParent()
             if secondNode.name == "playerWeapon" {
@@ -813,7 +815,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        
+        */
     }
     
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {

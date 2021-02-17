@@ -140,8 +140,8 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
         
         player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.texture!.size())
         player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
-        player.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-        player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+        player.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
+        player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
         player.physicsBody?.isDynamic = false
         
         
@@ -164,9 +164,13 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
         addChild(turretSprite)
         turretSprite.zPosition = 6
         
+        
+        
         turretSprite.physicsBody?.categoryBitMask = CollisionType.enemy.rawValue
-        turretSprite.physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue | CollisionType.pilot.rawValue
-        turretSprite.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.playerWeapon.rawValue | CollisionType.pilot.rawValue
+        turretSprite.physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.pilot.rawValue
+        
+        
+        turretSprite.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.pilot.rawValue
         
         
         backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
@@ -352,6 +356,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
                     if self.numAmmo > 0 {
                         self.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
                         
+                        /*
                         if let ShootingExplosion = SKEmitterNode(fileNamed: "ShootingExplosion") {
                             ShootingExplosion.position.x = self.player.position.x + 60 * cos(self.player.zRotation)
                             ShootingExplosion.position.y = self.player.position.y + 60 * sin(self.player.zRotation)
@@ -361,7 +366,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             
                             self.addChild(ShootingExplosion)
                                   }
-                        
+                        */
                         if self.numAmmo == 3 {
                             self.bullet1.removeFromParent()
                         }
@@ -377,9 +382,9 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
                         shot.position = CGPoint(x: self.player.position.x + cos(self.player.zRotation)*40, y: self.player.position.y + sin(self.player.zRotation)*40)
                         
                         shot.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-                        shot.physicsBody?.categoryBitMask = CollisionType.playerWeapon.rawValue
-                        shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-                        shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+                        shot.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
+                        shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
+                        shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
                         self.addChild(shot)
                         
                         let movement = SKAction.moveBy(x: 1500 * cos(self.player.zRotation), y: 1500 * sin(self.player.zRotation), duration: 2.6)
@@ -703,7 +708,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             shot1.zRotation = turretSprite.zRotation
             
             shot1.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-            shot1.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
+            shot1.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
             shot1.physicsBody?.collisionBitMask = CollisionType.player.rawValue
             shot1.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
             shot1.physicsBody?.mass = 0.001
@@ -738,7 +743,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             shot1.zRotation = turretSprite.zRotation
             
             shot1.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-            shot1.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
+            shot1.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
             shot1.physicsBody?.collisionBitMask = CollisionType.player.rawValue
             shot1.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
             shot1.physicsBody?.mass = 0.001
@@ -750,7 +755,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             shot2.zRotation = turretSprite.zRotation
             
             shot2.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-            shot2.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
+            shot2.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
             shot2.physicsBody?.collisionBitMask = CollisionType.player.rawValue
             shot2.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
             shot2.physicsBody?.mass = 0.001
@@ -762,7 +767,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             shot3.zRotation = turretSprite.zRotation
             
             shot3.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-            shot3.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
+            shot3.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
             shot3.physicsBody?.collisionBitMask = CollisionType.player.rawValue
             shot3.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
             shot3.physicsBody?.mass = 0.001
@@ -828,8 +833,8 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
         pilot.physicsBody = SKPhysicsBody.init(rectangleOf: pilot.size)
         //  pilot.physicsBody = SKPhysicsBody(texture: firstFrameTexture , size: pilot.size)
         pilot.physicsBody?.categoryBitMask = CollisionType.pilot.rawValue
-        pilot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
-        pilot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.enemyWeapon.rawValue
+        pilot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
+        pilot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
         pilot.physicsBody?.isDynamic = false
         pilot.position = player.position
         pilot.name = "pilot"
@@ -854,7 +859,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             shot1.zRotation = turretSprite.zRotation
             
             shot1.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-            shot1.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
+            shot1.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
             shot1.physicsBody?.collisionBitMask = CollisionType.player.rawValue
             shot1.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
             shot1.physicsBody?.mass = 0.001
@@ -866,7 +871,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             shot2.zRotation = turretSprite.zRotation
             
             shot2.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-            shot2.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
+            shot2.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
             shot2.physicsBody?.collisionBitMask = CollisionType.player.rawValue
             shot2.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
             shot2.physicsBody?.mass = 0.001
@@ -878,7 +883,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             shot3.zRotation = turretSprite.zRotation
             
             shot3.physicsBody = SKPhysicsBody(rectangleOf: shot.size)
-            shot3.physicsBody?.categoryBitMask = CollisionType.enemyWeapon.rawValue
+            shot3.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
             shot3.physicsBody?.collisionBitMask = CollisionType.player.rawValue
             shot3.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
             shot3.physicsBody?.mass = 0.001

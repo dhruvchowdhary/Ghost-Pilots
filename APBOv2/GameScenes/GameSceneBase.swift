@@ -43,17 +43,11 @@ class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     var waveCounter = 0
     var levelNumber = 0
     var powerupMode = 0
-    //    let turretSprite = SKSpriteNode(imageNamed: "turretshooter")
-    //    let cannonSprite = SKSpriteNode(imageNamed: "turretbase")
     let waves = Bundle.main.decode([Wave].self, from: "waves.json")
     let enemyTypes = Bundle.main.decode([EnemyType].self, from: "enemy-types.json")
     let positions = Array(stride(from: -360, through: 360, by: 90))
-    
     let shot = SKSpriteNode(imageNamed: "bullet")
-    //
     let powerup = SKSpriteNode(imageNamed: "tripleshot")
-
-    //let powerup = SKSpriteNode(imageNamed: "tripleshot")
     var pilotForward = false
     var pilotDirection = CGFloat(0.000)
     var lastUpdateTime: CFTimeInterval = 0
