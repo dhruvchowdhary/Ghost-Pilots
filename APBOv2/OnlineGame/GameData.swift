@@ -7,6 +7,7 @@ public class GameData{
     public var shipsToUpdate: [SpaceshipBase] = []
     public var playerShip: LocalSpaceship? //Also included in shipsToUpdate
     public var camera = SKCameraNode()
+    public var gameScene = GameSceneBase()
     
     
     // =================

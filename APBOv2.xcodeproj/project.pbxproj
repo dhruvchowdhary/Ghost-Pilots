@@ -27,7 +27,6 @@
 		749EBC5A255AFA34003EA0B3 /* Wave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749EBC59255AFA34003EA0B3 /* Wave.swift */; };
 		749EBC5C255AFA58003EA0B3 /* Bundle-Decoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749EBC5B255AFA58003EA0B3 /* Bundle-Decoding.swift */; };
 		74C3CFB0253F3BE900757586 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3CFAF253F3BE900757586 /* AppDelegate.swift */; };
-		74C3CFB2253F3BE900757586 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74C3CFB1253F3BE900757586 /* GameScene.sks */; };
 		74C3CFB4253F3BE900757586 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74C3CFB3253F3BE900757586 /* Actions.sks */; };
 		74C3CFB6253F3BE900757586 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3CFB5253F3BE900757586 /* GameScene.swift */; };
 		74C3CFB8253F3BE900757586 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3CFB7253F3BE900757586 /* GameViewController.swift */; };
@@ -80,10 +79,10 @@
 		816EE12A259265D10053AE35 /* TurretShootingExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 816EE128259265D10053AE35 /* TurretShootingExplosion.sks */; };
 		81708DC425A376650030C2C4 /* TurretBossMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81708DC325A376650030C2C4 /* TurretBossMenu.swift */; };
 		81708DC825A565C50030C2C4 /* TurretBossMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81708DC725A565C50030C2C4 /* TurretBossMenu.sks */; };
-
 		81E74D3D25CB204C00472109 /* mineExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81E74D3C25CB204B00472109 /* mineExplosion.sks */; };
-
-		CECC4DE525BF413500AD1559 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CECC4DE425BF413500AD1559 /* GoogleService-Info.plist */; };
+		CED5110725DD8A720012C7B9 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CED5110425DD8A720012C7B9 /* GameScene.sks */; };
+		CED5110825DD8A720012C7B9 /* Hud.sks in Resources */ = {isa = PBXBuildFile; fileRef = CED5110525DD8A720012C7B9 /* Hud.sks */; };
+		CED5110925DD8A720012C7B9 /* GameSceneBase.sks in Resources */ = {isa = PBXBuildFile; fileRef = CED5110625DD8A720012C7B9 /* GameSceneBase.sks */; };
 		CEF309CF25C1E86D007B8B39 /* DataPusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309CE25C1E86D007B8B39 /* DataPusher.swift */; };
 		CEF309D425C1EA26007B8B39 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309D325C1EA26007B8B39 /* GameData.swift */; };
 		CEF309D825C1EAC0007B8B39 /* MultiplayerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */; };
@@ -95,7 +94,6 @@
 		CEF30A2525CA65EF007B8B39 /* LocalSpaceship.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF30A2425CA65EF007B8B39 /* LocalSpaceship.swift */; };
 		CEF30A2825CA65FD007B8B39 /* RemoteSpaceship.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF30A2725CA65FD007B8B39 /* RemoteSpaceship.swift */; };
 		CEF30A2B25CB0C39007B8B39 /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF30A2A25CB0C39007B8B39 /* Payload.swift */; };
-
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,7 +118,6 @@
 		749EBC5B255AFA58003EA0B3 /* Bundle-Decoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle-Decoding.swift"; sourceTree = "<group>"; };
 		74C3CFAC253F3BE900757586 /* Ghost Pilots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ghost Pilots.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74C3CFAF253F3BE900757586 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		74C3CFB1253F3BE900757586 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		74C3CFB3253F3BE900757586 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		74C3CFB5253F3BE900757586 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		74C3CFB7253F3BE900757586 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -176,11 +173,11 @@
 		816EE128259265D10053AE35 /* TurretShootingExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TurretShootingExplosion.sks; sourceTree = "<group>"; };
 		81708DC325A376650030C2C4 /* TurretBossMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBossMenu.swift; sourceTree = "<group>"; };
 		81708DC725A565C50030C2C4 /* TurretBossMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TurretBossMenu.sks; sourceTree = "<group>"; };
-
 		81E74D3C25CB204B00472109 /* mineExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = mineExplosion.sks; sourceTree = "<group>"; };
-
 		BF55C5AA57697F270DE41606 /* Pods-APBOv2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APBOv2.debug.xcconfig"; path = "Target Support Files/Pods-APBOv2/Pods-APBOv2.debug.xcconfig"; sourceTree = "<group>"; };
-		CECC4DE425BF413500AD1559 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CED5110425DD8A720012C7B9 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		CED5110525DD8A720012C7B9 /* Hud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Hud.sks; sourceTree = "<group>"; };
+		CED5110625DD8A720012C7B9 /* GameSceneBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneBase.sks; sourceTree = "<group>"; };
 		CEF309CE25C1E86D007B8B39 /* DataPusher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPusher.swift; sourceTree = "<group>"; };
 		CEF309D325C1EA26007B8B39 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerHandler.swift; sourceTree = "<group>"; };
@@ -193,7 +190,6 @@
 		CEF30A2725CA65FD007B8B39 /* RemoteSpaceship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSpaceship.swift; sourceTree = "<group>"; };
 		CEF30A2A25CB0C39007B8B39 /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		D4F8ACF3585F6FBBF6F50A6C /* Pods_APBOv2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APBOv2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,7 +302,6 @@
 				748CEDB02566F215005DF246 /* Enemies */,
 				748CEDAA25657F2E005DF246 /* MSButtonNode.swift */,
 				74C3CFB5253F3BE900757586 /* GameScene.swift */,
-				74C3CFB1253F3BE900757586 /* GameScene.sks */,
 				74C3CFB7253F3BE900757586 /* GameViewController.swift */,
 				74235B1F25A7724400AC4675 /* GameCenter.swift */,
 				74C3CFB3253F3BE900757586 /* Actions.sks */,
@@ -444,6 +439,9 @@
 		CEF30A1925CA65AC007B8B39 /* GameScenes */ = {
 			isa = PBXGroup;
 			children = (
+				CED5110425DD8A720012C7B9 /* GameScene.sks */,
+				CED5110625DD8A720012C7B9 /* GameSceneBase.sks */,
+				CED5110525DD8A720012C7B9 /* Hud.sks */,
 				CEF30A1A25CA65BF007B8B39 /* GameSceneBase.swift */,
 				CEF30A1E25CA65CC007B8B39 /* GameSceneOnline.swift */,
 			);
@@ -514,7 +512,9 @@
 				74CF6869258296F0000C4E47 /* miniLaser2.wav in Resources */,
 				748CEDC1256D6F24005DF246 /* TurretBoss.sks in Resources */,
 				74CF687A25830AD6000C4E47 /* ghost.sks in Resources */,
+				CED5110725DD8A720012C7B9 /* GameScene.sks in Resources */,
 				74CF68772582F889000C4E47 /* Player.sks in Resources */,
+				CED5110825DD8A720012C7B9 /* Hud.sks in Resources */,
 				74CF688E25849F2E000C4E47 /* shotgunnew.wav in Resources */,
 				74CF687C25830BB7000C4E47 /* enemy.sks in Resources */,
 				74CF688225830CA0000C4E47 /* yellowPlayer.sks in Resources */,
@@ -530,7 +530,6 @@
 				74CF687E25830C93000C4E47 /* bluePlayer.sks in Resources */,
 				74CF686025828E80000C4E47 /* menuThumpnew.wav in Resources */,
 				74CF687325829F9C000C4E47 /* revivenew.wav in Resources */,
-				74C3CFB2253F3BE900757586 /* GameScene.sks in Resources */,
 				74C3CFBD253F3BED00757586 /* Assets.xcassets in Resources */,
 				74CF68532581FE64000C4E47 /* pilotSquish.wav in Resources */,
 				74CF688625840398000C4E47 /* enemy2.sks in Resources */,
@@ -542,6 +541,7 @@
 				74CF686225829627000C4E47 /* miniLaser.aiff in Resources */,
 				74CF684E2581EF1D000C4E47 /* Laser2.wav in Resources */,
 				74C3CFC0253F3BED00757586 /* LaunchScreen.storyboard in Resources */,
+				CED5110925DD8A720012C7B9 /* GameSceneBase.sks in Resources */,
 				74CF6867258296A8000C4E47 /* revive.wav in Resources */,
 				74CF6848257FDF30000C4E47 /* PilotBlood.sks in Resources */,
 				74CF6846257C4E26000C4E47 /* PilotThrust.sks in Resources */,
