@@ -116,6 +116,16 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                     self.usernameBox.text?.removeAll()
                     self.enterButtonNode.alpha = 1
                 } else {
+                    self.ref.child("Games/\(self.codeBox.text!)").observeSingleEvent(of: .value){ snapshot in
+                        if snapshot.exists() {
+                            DataPusher.PushData(path: "Games/\(self.codeBox.text!)/users/\(self.usernameBox.text!)", Value: "PeePee")
+                            self.loadLobbyMenu()
+                        } else {
+                            print(self.codeBox.text!)
+                            self.codeBox.shake()
+                            self.enterButtonNode.alpha = 1
+                        }
+                    }
                     // check if code is right... if not shake
                 }
             }
@@ -148,7 +158,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         if activeTextField == usernameBox {
             maxLength = 10
         } else {
-            maxLength = 4
+            maxLength = 5
         }
         let currentString: NSString = (textField.text ?? "") as NSString
         let newString: NSString =
@@ -290,6 +300,38 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         
         /* 2) Load Menu scene */
         guard let scene = SKScene(fileNamed:"HostMenu") else {
+            print("Could not make GameScene, check the name is spelled correctly")
+            return
+        }
+        
+        /* 3) Ensure correct aspect mode */
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            scene.scaleMode = .aspectFit
+        } else {
+            scene.scaleMode = .aspectFill
+        }
+        
+        /* Show debug */
+        skView.showsPhysics = false
+        skView.showsDrawCount = false
+        skView.showsFPS = false
+        
+        /* 4) Start game scene */
+        skView.presentScene(scene)
+    }
+    
+    func loadLobbyMenu() {
+        DataPusher.PushData(path: "systemID/\(UIDevice.current.identifierForVendor!.uuidString)", Value: usernameBox.text!)
+        usernameBox.removeFromSuperview()
+        codeBox.removeFromSuperview()
+        /* 1) Grab reference to our SpriteKit view */
+        guard let skView = self.view as SKView? else {
+            print("Could not get Skview")
+            return
+        }
+        
+        /* 2) Load Menu scene */
+        guard let scene = SKScene(fileNamed:"LobbyMenu") else {
             print("Could not make GameScene, check the name is spelled correctly")
             return
         }

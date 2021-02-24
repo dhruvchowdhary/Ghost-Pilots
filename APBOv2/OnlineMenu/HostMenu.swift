@@ -39,6 +39,7 @@ class HostMenu: SKScene {
             // create game code
             Global.gameData.CreateNewGame()
             // go to lobbymenu
+            self.loadLobbyMenu()
         }
     }
     
@@ -62,6 +63,35 @@ class HostMenu: SKScene {
         
         /* 2) Load Menu scene */
         guard let scene = SKScene(fileNamed:"OnlineMenu") else {
+            print("Could not make GameScene, check the name is spelled correctly")
+            return
+        }
+        
+        /* 3) Ensure correct aspect mode */
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            scene.scaleMode = .aspectFit
+        } else {
+            scene.scaleMode = .aspectFill
+        }
+        
+        /* Show debug */
+        skView.showsPhysics = false
+        skView.showsDrawCount = false
+        skView.showsFPS = false
+        
+        /* 4) Start game scene */
+        skView.presentScene(scene)
+    }
+    
+    func loadLobbyMenu() {
+        /* 1) Grab reference to our SpriteKit view */
+        guard let skView = self.view as SKView? else {
+            print("Could not get Skview")
+            return
+        }
+        
+        /* 2) Load Menu scene */
+        guard let scene = SKScene(fileNamed:"LobbyMenu") else {
             print("Could not make GameScene, check the name is spelled correctly")
             return
         }
