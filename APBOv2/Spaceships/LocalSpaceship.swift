@@ -22,29 +22,35 @@ public class LocalSpaceship: SpaceshipBase {
     private var pilot = SKSpriteNode()
     var isPhase = false
     var isGameOver = false
-    var bullets: [SKSpriteNode]!
     
     var playerShields = 1
     var powerupMode = 0
     
+    var timeUntilNextBullet: Double = 0.8;
     let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
     
     init() {
         spaceShipNode = SKSpriteNode(imageNamed: "player");
         
-        spaceShipNode.physicsBody = SKPhysicsBody.init(texture: spaceShipNode.texture!, size: spaceShipNode.size)
+        //spaceShipNode.physicsBody = SKPhysicsBody.init(texture: spaceShipNode.texture!, size: spaceShipNode.size)
         spaceShipNode.name = "player"
         spaceShipNode.zPosition = 5
         
         spaceShipParent.addChild(spaceShipNode)
         spaceShipParent.addChild(spaceShipHud)
         
-        spaceShipNode.physicsBody!.categoryBitMask = CollisionType.player.rawValue
+        spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
 
-        spaceShipNode.physicsBody!.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.powerup.rawValue
-        spaceShipNode.physicsBody!.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.powerup.rawValue
         
-        spaceShipNode.physicsBody?.isDynamic = false
+        //spaceShipNode.physicsBody!.categoryBitMask = CollisionType.player.rawValue
+        
+        spaceShipNode.physicsBody?.collisionBitMask = CollisionType.border.rawValue
+        spaceShipNode.physicsBody?.categoryBitMask = CollisionType.player.rawValue
+        spaceShipNode.physicsBody?.contactTestBitMask = CollisionType.border.rawValue
+        //spaceShipNode.physicsBody!.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.border.rawValue | CollisionType.powerup.rawValue
+        //spaceShipNode.physicsBody!.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.border.rawValue | CollisionType.powerup.rawValue
+        
+        spaceShipNode.physicsBody?.isDynamic = true
         super.init(shipSprite: spaceShipParent, playerId: UIDevice.current.identifierForVendor!.uuidString)
         
         // Pulls all components from hud and adds them as children to the spaceship node
@@ -115,7 +121,7 @@ public class LocalSpaceship: SpaceshipBase {
             self.shootButtonNode.xScale = self.shootButtonNode.xScale * 1.1
             self.shootButtonNode.yScale = self.shootButtonNode.yScale * 1.1
             
-            if self.isPlayerAlive && self.bullets.count > 0{
+            if self.isPlayerAlive && self.unfiredBullets.count > 0 {
                 Global.gameData.playerShip?.Shoot(shotType: 0)
             }
         }
@@ -129,6 +135,15 @@ public class LocalSpaceship: SpaceshipBase {
                 self.shootButtonNode.alpha = 0
             }
         }
+        
+        let backButtonNode = spaceShipHud.childNode(withName: "backButton") as? MSButtonNode
+        backButtonNode!.alpha = 0
+        
+        let restartButtonNode = spaceShipHud.childNode(withName: "restartButton") as? MSButtonNode
+        restartButtonNode!.alpha = 0
+        
+        let playAgainButtonNode = spaceShipHud.childNode(withName: "playAgainButton") as? MSButtonNode
+        playAgainButtonNode!.alpha = 0
         
         
     }
@@ -155,16 +170,42 @@ public class LocalSpaceship: SpaceshipBase {
         }
         
         // For online only, but no control yet
-        
-        var bullets: [[CGFloat]] = [[]]
-        let bulletSprites = Global.gameData.gameScene.liveBullets
-        for bulletInt in 0..<bulletSprites.count {
-            bullets[0][bulletInt] = bulletSprites[bulletInt].position.x
-            bullets[1][bulletInt] = bulletSprites[bulletInt].position.y
-            bullets[2][bulletInt] = bulletSprites[bulletInt].zRotation
+        if unfiredBullets.count < 3 {
+            timeUntilNextBullet -= deltaTime;
+        }
+        if (timeUntilNextBullet < 0) {
+            if unfiredBullets.count > 0  {
+                print(unfiredBullets.last!.zRotation.truncatingRemainder(dividingBy: CGFloat(Double.pi * 2 / 3)))
+                if Int(unfiredBullets.last!.zRotation.truncatingRemainder(dividingBy: CGFloat(Double.pi * 2 / 3))) == 0 {
+                    timeUntilNextBullet = 0.8
+                    let bull = SKSpriteNode(imageNamed: "bullet")
+                    bull.color = UIColor.blue
+                    unfiredBullets.append(bull)
+                    spaceShipHud.addChild(bull)
+                }
+            } else{
+                timeUntilNextBullet = 0.8
+                let bull = SKSpriteNode(imageNamed: "bullet")
+                bull.color = UIColor.blue
+                unfiredBullets.append(bull)
+                spaceShipHud.addChild(bull)
+            }
+            
         }
         
-        let payload = Payload(shipPosX: shipSprite.position.x, shipPosY: shipSprite.position.y, shipAngleRad: shipSprite.zRotation, hasPowerup: false, bullets: bullets)
+        let bulletSprites = Global.gameData.gameScene.liveBullets
+        for bulletSprite in bulletSprites {
+            bulletSprite.position.x = 2 * cos(bulletSprite.zRotation)
+            bulletSprite.position.y = 2 * sin(bulletSprite.zRotation)
+        }
+        
+        for bul in unfiredBullets {
+            bul.position.x = 100 * cos(bul.zRotation)
+            bul.position.y = 100 * sin(bul.zRotation)
+            bul.zRotation += CGFloat(Double.pi/36)
+        }
+        
+        let payload = Payload(shipPosX: shipSprite.position.x, shipPosY: shipSprite.position.y, shipAngleRad: shipSprite.zRotation, hasPowerup: false)
         let data = try! JSONEncoder().encode(payload)
         let json = String(data: data, encoding: .utf8)!
         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/\(playerID)", Value: json)

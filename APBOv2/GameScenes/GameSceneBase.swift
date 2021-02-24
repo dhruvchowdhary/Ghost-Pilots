@@ -82,28 +82,37 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     public override func didMove(to view: SKView) {
         for ship in Global.gameData.shipsToUpdate{
             if (ship.shipSprite.parent != nil) {
-                addChild(ship.shipSprite.parent!)
+                addChild(ship.shipSprite.parent!.parent!.parent!)
+                
             } else {
                 addChild(ship.shipSprite)
             }
         }
         
+        // World physics
+        physicsWorld.gravity = .zero
+        self.physicsWorld.contactDelegate = self
+        
         // Sets up the boundries
-        let borderShape = SKShapeNode(path: UIBezierPath(roundedRect: CGRect(x: -1792/2-1000, y: -828/2, width: 1792+2000, height: 828), cornerRadius: 40).cgPath)
+        let borderShape = SKShapeNode()
+        borderShape.path = UIBezierPath(roundedRect: CGRect(x: -1792/2-1000, y: -828/2, width: 1792+2000, height: 828), cornerRadius: 40).cgPath
         borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
         borderShape.fillColor = .clear
         borderShape.strokeColor = UIColor.blue
         borderShape.lineWidth = 10
         borderShape.name = "border"
         borderShape.physicsBody = SKPhysicsBody(edgeChainFrom: borderShape.path!)
+        
         borderShape.physicsBody!.categoryBitMask = CollisionType.border.rawValue
         borderShape.physicsBody!.collisionBitMask = CollisionType.player.rawValue
-        borderShape.physicsBody!.contactTestBitMask = CollisionType.player.rawValue
+        borderShape.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
+        
+        borderShape.zPosition = 5
+        //borderShape.physicsBody!.collisionBitMask = CollisionType.player.rawValue
+        //borderShape.physicsBody!.contactTestBitMask = CollisionType.player.rawValue
         addChild(borderShape)
         
-        // World physics
-        physicsWorld.gravity = .zero
-        physicsWorld.contactDelegate = self
+        
         
         // Background
         backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)
@@ -133,8 +142,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         lastUpdateTime = Double(currentTime)
         
         for bullet in liveBullets {
-            bullet.position.x += 10 * cos( bullet.zRotation )
-            bullet.position.y += 10 * sin( bullet.zRotation )
+            bullet.position.x += 100 * cos( bullet.zRotation )
+            bullet.position.y += 100 * sin( bullet.zRotation )
             
             if abs(bullet.position.x) > 2000 {
                 bullet.removeFromParent()

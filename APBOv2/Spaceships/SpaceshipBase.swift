@@ -8,6 +8,7 @@ public class SpaceshipBase {
     public var playerID: String
     public var position = (0.0,0.0)
     public var angle = 0 // In degrees
+    var unfiredBullets: [SKSpriteNode] = []
     
     init(shipSprite: SKNode, playerId: String) {
         self.shipSprite = shipSprite
@@ -27,9 +28,15 @@ public class SpaceshipBase {
     public func Shoot(shotType: Int){
         switch shotType {
         case 0:
-            let bullet = SKSpriteNode(fileNamed: "bullet")
-            bullet?.zRotation = shipSprite.zRotation
-            Global.gameData.gameScene.liveBullets.append(bullet!)
+            if unfiredBullets.count > 0 {
+                let bullet = unfiredBullets.removeLast()
+                bullet.removeFromParent()
+                bullet.zRotation = shipSprite.zRotation
+                bullet.position = shipSprite.position
+                Global.gameData.gameScene.liveBullets.append(bullet)
+                Global.gameData.gameScene.addChild(bullet)
+                print(unfiredBullets.count)
+            }
         case 1:
             print("Triple Shot")
         case 2:
