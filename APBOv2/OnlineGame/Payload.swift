@@ -6,4 +6,5 @@ struct Payload : Codable {
     public let shipPosY: CGFloat;
     public let shipAngleRad: CGFloat;
     public let hasPowerup: Bool;
+    
 }

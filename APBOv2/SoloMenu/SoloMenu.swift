@@ -1,11 +1,3 @@
-//
-//  SoloMenu.swift
-//  APBOv2
-//
-//  Created by 90306670 on 11/23/20.
-//  Copyright © 2020 Dhruv Chowdhary. All rights reserved.
-//
-
 import SpriteKit
 import StoreKit
 
@@ -40,7 +32,10 @@ class SoloMenu: SKScene {
             /* Set UI connections */
             backButtonNode = self.childNode(withName: "back") as? MSButtonNode
             backButtonNode.selectedHandlers = {
-                self.loadMainMenu()
+                let e = LocalSpaceship()
+                Global.gameData.playerShip = e
+                Global.gameData.shipsToUpdate.append(e)
+                self.loadScene(s: "GameSceneBase")
                 //       skView.presentScene(scene)
             }
             
@@ -92,6 +87,39 @@ class SoloMenu: SKScene {
         shakeAnimation.fromValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x - intensity.dx, y: sceneView.center.y - intensity.dy))
         shakeAnimation.toValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x + intensity.dx, y: sceneView.center.y + intensity.dy))
         sceneView.layer.add(shakeAnimation, forKey: "position")
+    }
+    func loadScene(s: String) {
+        // Loading other scenes in bg thread
+        DispatchQueue.global(qos: .background).async {
+            /* 1) Grab reference to our SpriteKit view */
+            guard let skView = self.view as SKView? else {
+                print("Could not get Skview")
+                return
+            }
+            
+            /* 2) Load Game scene */
+            guard let scene = SKScene(fileNamed: s) else {
+                print("Could not make \(s), check the name is spelled correctly")
+                return
+            }
+            /* 3) Ensure correct aspect mode */
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                scene.scaleMode = .aspectFit
+            } else {
+                scene.scaleMode = .aspectFill
+            }
+            
+            /* Show debug */
+            skView.showsPhysics = true
+            skView.showsDrawCount = false
+            skView.showsFPS = false
+            
+            // Run in main thread
+            DispatchQueue.main.async {
+                /* 4) Start game scene */
+                skView.presentScene(scene)
+            }
+        }
     }
     
     func loadGame() {
@@ -194,9 +222,9 @@ class SoloMenu: SKScene {
         }
 
         /* Show debug */
-        skView.showsPhysics = false
         skView.showsDrawCount = false
         skView.showsFPS = false
+        skView.showsPhysics = false;
 
         /* 4) Start game scene */
         skView.presentScene(scene)

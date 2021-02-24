@@ -14,6 +14,7 @@ import Firebase
 import FirebaseCore
 import FirebaseDatabase
 
+
 class OnlineMenu: SKScene, UITextFieldDelegate {
     var backButtonNode: MSButtonNode!
     var hostButtonNode: MSButtonNode!
@@ -29,7 +30,14 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
     var codeBox: UITextField!
     var activeTextField: UITextField!
     var ref: DatabaseReference!
+    // test
+/* UI Connections */
+    var buttonPlay: MSButtonNode!
+
+
+    let notDoneLabel = SKLabelNode(text: "The online version of this game is currently under development!")
     
+    var useCount = UserDefaults.standard.integer(forKey: "useCount")
     override func didMove(to view: SKView) {
         usernameBox = UITextField(frame: CGRect(x: view.bounds.width/2 - 95, y: view.bounds.height/2 - 130, width: 190, height: 60))
         usernameBox.attributedPlaceholder = NSAttributedString(string: "Enter Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
