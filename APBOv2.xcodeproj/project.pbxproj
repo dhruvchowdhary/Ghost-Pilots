@@ -12,6 +12,8 @@
 		74235B2025A7724400AC4675 /* GameCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74235B1F25A7724400AC4675 /* GameCenter.swift */; };
 		7451FF782576FE8F0074CC2E /* Spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7451FF772576FE8F0074CC2E /* Spark.sks */; };
 		7462303425CB1BB800DDCEF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7462303325CB1BB800DDCEF6 /* GoogleService-Info.plist */; };
+		748500AE25E6C0730063F73B /* LobbyMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748500AD25E6C0730063F73B /* LobbyMenu.swift */; };
+		748500B025E6C0910063F73B /* LobbyMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748500AF25E6C0910063F73B /* LobbyMenu.sks */; };
 		748CEDA125657B65005DF246 /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748CEDA025657B65005DF246 /* MainMenu.sks */; };
 		748CEDAB25657F2E005DF246 /* MSButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748CEDAA25657F2E005DF246 /* MSButtonNode.swift */; };
 		748CEDAE25658207005DF246 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748CEDAD25658207005DF246 /* MainMenu.swift */; };
@@ -21,13 +23,14 @@
 		748CEDC1256D6F24005DF246 /* TurretBoss.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748CEDC0256D6F24005DF246 /* TurretBoss.sks */; };
 		748CEDC4256D7362005DF246 /* OnlineMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748CEDC3256D7362005DF246 /* OnlineMenu.swift */; };
 		748CEDC6256D737B005DF246 /* OnlineMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748CEDC5256D737B005DF246 /* OnlineMenu.sks */; };
+		748FC4B425DD987500756B4A /* HostMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748FC4B325DD987500756B4A /* HostMenu.sks */; };
+		748FC4B625DD98E500756B4A /* HostMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748FC4B525DD98E500756B4A /* HostMenu.swift */; };
 		749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 749EBC0D25599D84003EA0B3 /* Explosion.sks */; };
 		749EBC1025599EF3003EA0B3 /* enemy-types.json in Resources */ = {isa = PBXBuildFile; fileRef = 749EBC0F25599EF3003EA0B3 /* enemy-types.json */; };
 		749EBC58255AF9E7003EA0B3 /* waves.json in Resources */ = {isa = PBXBuildFile; fileRef = 749EBC57255AF9E7003EA0B3 /* waves.json */; };
 		749EBC5A255AFA34003EA0B3 /* Wave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749EBC59255AFA34003EA0B3 /* Wave.swift */; };
 		749EBC5C255AFA58003EA0B3 /* Bundle-Decoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749EBC5B255AFA58003EA0B3 /* Bundle-Decoding.swift */; };
 		74C3CFB0253F3BE900757586 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3CFAF253F3BE900757586 /* AppDelegate.swift */; };
-		74C3CFB2253F3BE900757586 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74C3CFB1253F3BE900757586 /* GameScene.sks */; };
 		74C3CFB4253F3BE900757586 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74C3CFB3253F3BE900757586 /* Actions.sks */; };
 		74C3CFB6253F3BE900757586 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3CFB5253F3BE900757586 /* GameScene.swift */; };
 		74C3CFB8253F3BE900757586 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3CFB7253F3BE900757586 /* GameViewController.swift */; };
@@ -99,6 +102,8 @@
 		74235B1F25A7724400AC4675 /* GameCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenter.swift; sourceTree = "<group>"; };
 		7451FF772576FE8F0074CC2E /* Spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Spark.sks; sourceTree = "<group>"; };
 		7462303325CB1BB800DDCEF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		748500AD25E6C0730063F73B /* LobbyMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyMenu.swift; sourceTree = "<group>"; };
+		748500AF25E6C0910063F73B /* LobbyMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LobbyMenu.sks; sourceTree = "<group>"; };
 		748CEDA025657B65005DF246 /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		748CEDAA25657F2E005DF246 /* MSButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSButtonNode.swift; sourceTree = "<group>"; };
 		748CEDAD25658207005DF246 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
@@ -108,6 +113,8 @@
 		748CEDC0256D6F24005DF246 /* TurretBoss.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TurretBoss.sks; sourceTree = "<group>"; };
 		748CEDC3256D7362005DF246 /* OnlineMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineMenu.swift; sourceTree = "<group>"; };
 		748CEDC5256D737B005DF246 /* OnlineMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OnlineMenu.sks; sourceTree = "<group>"; };
+		748FC4B325DD987500756B4A /* HostMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HostMenu.sks; sourceTree = "<group>"; };
+		748FC4B525DD98E500756B4A /* HostMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostMenu.swift; sourceTree = "<group>"; };
 		749EBC0D25599D84003EA0B3 /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
 		749EBC0F25599EF3003EA0B3 /* enemy-types.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "enemy-types.json"; sourceTree = "<group>"; };
 		749EBC57255AF9E7003EA0B3 /* waves.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = waves.json; sourceTree = "<group>"; };
@@ -115,7 +122,6 @@
 		749EBC5B255AFA58003EA0B3 /* Bundle-Decoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle-Decoding.swift"; sourceTree = "<group>"; };
 		74C3CFAC253F3BE900757586 /* Ghost Pilots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ghost Pilots.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74C3CFAF253F3BE900757586 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		74C3CFB1253F3BE900757586 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		74C3CFB3253F3BE900757586 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		74C3CFB5253F3BE900757586 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		74C3CFB7253F3BE900757586 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -256,6 +262,10 @@
 			children = (
 				748CEDC3256D7362005DF246 /* OnlineMenu.swift */,
 				748CEDC5256D737B005DF246 /* OnlineMenu.sks */,
+				748FC4B525DD98E500756B4A /* HostMenu.swift */,
+				748FC4B325DD987500756B4A /* HostMenu.sks */,
+				748500AD25E6C0730063F73B /* LobbyMenu.swift */,
+				748500AF25E6C0910063F73B /* LobbyMenu.sks */,
 			);
 			path = OnlineMenu;
 			sourceTree = "<group>";
@@ -296,7 +306,6 @@
 				748CEDB02566F215005DF246 /* Enemies */,
 				748CEDAA25657F2E005DF246 /* MSButtonNode.swift */,
 				74C3CFB5253F3BE900757586 /* GameScene.swift */,
-				74C3CFB1253F3BE900757586 /* GameScene.sks */,
 				74C3CFB7253F3BE900757586 /* GameViewController.swift */,
 				74235B1F25A7724400AC4675 /* GameCenter.swift */,
 				74C3CFB3253F3BE900757586 /* Actions.sks */,
@@ -504,6 +513,7 @@
 				74CF687A25830AD6000C4E47 /* ghost.sks in Resources */,
 				74CF68772582F889000C4E47 /* Player.sks in Resources */,
 				74CF688E25849F2E000C4E47 /* shotgunnew.wav in Resources */,
+				748FC4B425DD987500756B4A /* HostMenu.sks in Resources */,
 				74CF687C25830BB7000C4E47 /* enemy.sks in Resources */,
 				74CF688225830CA0000C4E47 /* yellowPlayer.sks in Resources */,
 				74C3CFC8253F3E3D00757586 /* Starfield.sks in Resources */,
@@ -518,7 +528,6 @@
 				74CF687E25830C93000C4E47 /* bluePlayer.sks in Resources */,
 				74CF686025828E80000C4E47 /* menuThumpnew.wav in Resources */,
 				74CF687325829F9C000C4E47 /* revivenew.wav in Resources */,
-				74C3CFB2253F3BE900757586 /* GameScene.sks in Resources */,
 				74C3CFBD253F3BED00757586 /* Assets.xcassets in Resources */,
 				74CF68532581FE64000C4E47 /* pilotSquish.wav in Resources */,
 				74CF688625840398000C4E47 /* enemy2.sks in Resources */,
@@ -540,6 +549,7 @@
 				815799E52591079800734A45 /* pilotImages.atlas in Resources */,
 				815799E925917EFD00734A45 /* BulletExplosion.sks in Resources */,
 				74C3CFB4253F3BE900757586 /* Actions.sks in Resources */,
+				748500B025E6C0910063F73B /* LobbyMenu.sks in Resources */,
 				81708DC825A565C50030C2C4 /* TurretBossMenu.sks in Resources */,
 				749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */,
 				74CF68752582CF37000C4E47 /* EnemyThruster.sks in Resources */,
@@ -618,6 +628,7 @@
 				74CF6899258D78E2000C4E47 /* Tutorial.swift in Sources */,
 				CEF30A1F25CA65CC007B8B39 /* GameSceneOnline.swift in Sources */,
 				74235B2025A7724400AC4675 /* GameCenter.swift in Sources */,
+				748FC4B625DD98E500756B4A /* HostMenu.swift in Sources */,
 				CEF309D425C1EA26007B8B39 /* GameData.swift in Sources */,
 				74C3CFB8253F3BE900757586 /* GameViewController.swift in Sources */,
 				749EBC5C255AFA58003EA0B3 /* Bundle-Decoding.swift in Sources */,
@@ -632,6 +643,7 @@
 				81708DC425A376650030C2C4 /* TurretBossMenu.swift in Sources */,
 				CEF30A2525CA65EF007B8B39 /* LocalSpaceship.swift in Sources */,
 				74C3CFB0253F3BE900757586 /* AppDelegate.swift in Sources */,
+				748500AE25E6C0730063F73B /* LobbyMenu.swift in Sources */,
 				748CEDAB25657F2E005DF246 /* MSButtonNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
