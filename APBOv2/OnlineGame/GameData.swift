@@ -22,6 +22,7 @@ public class GameData{
         // we have created a code, we must now finish init game
         DataPusher.PushData(path: "Games/\(code)/Users/\(UIDevice.current.identifierForVendor?.uuidString)", Value: "Null")
         DataPusher.PushData(path: "Games/\(code)/Status", Value: "Lobby")
+        gameID = code
     }
     
     // ==============
