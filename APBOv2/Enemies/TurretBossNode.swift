@@ -34,8 +34,22 @@ class TurretNode: SKSpriteNode {
     
     func configureMovement(_ moveStright: Bool) {
          let path = UIBezierPath()
+        
+        
+        
          path.move(to: .zero)
-         
+        
+        
+        
+        
+        /*
+        
+        shape.path = UIBezierPath(roundedRect: CGRect(x: -1792/2-1000, y: -828/2, width: 1792+2000, height: 828), cornerRadius: 40).cgPath
+        shape.position = CGPoint(x: frame.midX, y: frame.midY)
+        shape.fillColor = .clear
+        shape.strokeColor = UIColor.white
+        shape.lineWidth = 10
+         */
          if moveStright {
              path.addLine(to: CGPoint(x: -10000, y: 0))
          } else {

@@ -13,6 +13,7 @@ class SoloMenu: SKScene {
      let endlessLeaderboard = SKLabelNode(text: "Leaderboard")
     /* UI Connections */
     var endlessButtonNode: MSButtonNode!
+    var levelsButtonNode: MSButtonNode!
     var turretBossButtonNode: MSButtonNode!
     var backButtonNode: MSButtonNode!
     var leaderboardButtonNode: MSButtonNode!
@@ -63,6 +64,12 @@ class SoloMenu: SKScene {
                 self.loadTurretBoss()
             }
             
+            levelsButtonNode = self.childNode(withName: "levelsButton") as? MSButtonNode
+            levelsButtonNode.selectedHandlers = {
+                self.LoadLevelsMenu()
+            }
+         
+            
             leaderboardButtonNode = self.childNode(withName: "leaderboardButton") as? MSButtonNode
             leaderboardButtonNode.selectedHandlers = {
                 if GameCenter.shared.isAuthenticated {
@@ -75,7 +82,7 @@ class SoloMenu: SKScene {
                 self.leaderboardButtonNode.alpha = 1
             }
             
-            leaderboardButtonNode.position = CGPoint(x: frame.maxX - 300 , y: frame.minY + 200)
+            leaderboardButtonNode.position = CGPoint(x: frame.maxX - 280 , y: frame.minY + 175)
                    endlessLeaderboard.fontName = "AvenirNext-Bold"
                    endlessLeaderboard.position = CGPoint(x: leaderboardButtonNode.position.x, y: leaderboardButtonNode.position.y - 125)
                          endlessLeaderboard.fontColor = UIColor.white
@@ -120,7 +127,35 @@ class SoloMenu: SKScene {
         /* 4) Start game scene */
         skView.presentScene(scene)
     }
+    func LoadLevelsMenu() {
+        /* 1) Grab reference to our SpriteKit view */
+        guard let skView = self.view as SKView? else {
+            print("Could not get Skview")
+            return
+        }
+
+        /* 2) Load Game scene */
+        guard let scene = SKScene(fileNamed:"LoadLevelsMenu") else {
+            print("Could not make GameScene, check the name is spelled correctly")
+            return
+        }
     
+
+        /* 3) Ensure correct aspect mode */
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            scene.scaleMode = .aspectFit
+        } else {
+            scene.scaleMode = .aspectFill
+        }
+
+        /* Show debug */
+        skView.showsPhysics = false
+        skView.showsDrawCount = false
+        skView.showsFPS = false
+
+        /* 4) Start game scene */
+        skView.presentScene(scene)
+    }
     func loadTurretBoss() {
         /* 1) Grab reference to our SpriteKit view */
         guard let skView = self.view as SKView? else {
