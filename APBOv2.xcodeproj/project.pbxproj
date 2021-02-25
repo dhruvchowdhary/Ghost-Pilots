@@ -90,7 +90,7 @@
 		CE9C6DB425E82B1D00D47FCC /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6DB025E82B1C00D47FCC /* Level1.sks */; };
 		CE9C6DB525E82B1D00D47FCC /* Level1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9C6DB125E82B1C00D47FCC /* Level1.swift */; };
 		CE9C6DB625E82B1D00D47FCC /* LoadLevelsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9C6DB225E82B1D00D47FCC /* LoadLevelsMenu.swift */; };
-		CE9C6DB725E82B1D00D47FCC /* LoadLevelsMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6DB325E82B1D00D47FCC /* LoadLevelsMenu.sks */; };
+		CE9C6DC025E8332100D47FCC /* LoadLevelsMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6DBF25E8332100D47FCC /* LoadLevelsMenu.sks */; };
 		CEF309CF25C1E86D007B8B39 /* DataPusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309CE25C1E86D007B8B39 /* DataPusher.swift */; };
 		CEF309D425C1EA26007B8B39 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309D325C1EA26007B8B39 /* GameData.swift */; };
 		CEF309D825C1EAC0007B8B39 /* MultiplayerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */; };
@@ -193,7 +193,7 @@
 		CE9C6DB025E82B1C00D47FCC /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
 		CE9C6DB125E82B1C00D47FCC /* Level1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level1.swift; sourceTree = "<group>"; };
 		CE9C6DB225E82B1D00D47FCC /* LoadLevelsMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadLevelsMenu.swift; sourceTree = "<group>"; };
-		CE9C6DB325E82B1D00D47FCC /* LoadLevelsMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LoadLevelsMenu.sks; sourceTree = "<group>"; };
+		CE9C6DBF25E8332100D47FCC /* LoadLevelsMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LoadLevelsMenu.sks; sourceTree = "<group>"; };
 		CEF309CE25C1E86D007B8B39 /* DataPusher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPusher.swift; sourceTree = "<group>"; };
 		CEF309D325C1EA26007B8B39 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerHandler.swift; sourceTree = "<group>"; };
@@ -259,8 +259,8 @@
 				748CEDB3256C151F005DF246 /* SoloMenu.swift */,
 				748CEDB5256C1568005DF246 /* SoloMenu.sks */,
 				CE9C6DB025E82B1C00D47FCC /* Level1.sks */,
+				CE9C6DBF25E8332100D47FCC /* LoadLevelsMenu.sks */,
 				CE9C6DB125E82B1C00D47FCC /* Level1.swift */,
-				CE9C6DB325E82B1D00D47FCC /* LoadLevelsMenu.sks */,
 				CE9C6DB225E82B1D00D47FCC /* LoadLevelsMenu.swift */,
 			);
 			path = SoloMenu;
@@ -589,7 +589,7 @@
 				816EE12A259265D10053AE35 /* TurretShootingExplosion.sks in Resources */,
 				749EBC58255AF9E7003EA0B3 /* waves.json in Resources */,
 				816EE129259265D10053AE35 /* ShootingExplosion.sks in Resources */,
-				CE9C6DB725E82B1D00D47FCC /* LoadLevelsMenu.sks in Resources */,
+				CE9C6DC025E8332100D47FCC /* LoadLevelsMenu.sks in Resources */,
 				74CF6842257C2EA8000C4E47 /* ShipExplosion.sks in Resources */,
 				7451FF782576FE8F0074CC2E /* Spark.sks in Resources */,
 				74CF686F25829A28000C4E47 /* Laser2new.wav in Resources */,
