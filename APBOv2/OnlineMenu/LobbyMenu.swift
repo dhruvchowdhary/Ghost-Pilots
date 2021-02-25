@@ -11,6 +11,8 @@ import SpriteKit
 class LobbyMenu: SKScene {
     var backButtonNode: MSButtonNode!
     var codeLabel = SKLabelNode(text: "00000")
+    var user1 = SKLabelNode(text: "user1")
+    var user1colorButtonNode: MSButtonNode!
     
     override func didMove(to view: SKView) {
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -34,13 +36,29 @@ class LobbyMenu: SKScene {
             }
         }
         
-        codeLabel.text = String(Global.gameData.gameID)
         codeLabel.position = CGPoint(x: frame.midX, y: frame.midY - 330)
-        codeLabel.zPosition = 2
-        codeLabel.fontColor = UIColor.white
-        codeLabel.fontSize = 120
-        codeLabel.fontName = "AvenirNext-Bold"
-        addChild(codeLabel)
+        codeLabel.text = String(Global.gameData.gameID)
+        setupLabel(label: codeLabel)
+        
+        user1.position = CGPoint(x: frame.midX, y: frame.midY)
+        user1.fontSize = 100
+        setupLabel(label: user1)
+        
+        user1colorButtonNode = self.childNode(withName: "redPlayer") as? MSButtonNode
+        user1colorButtonNode.position = CGPoint(x: user1.position.x - 20, y: user1.position.y)
+        user1colorButtonNode.selectedHandlers = {
+            // go down a list checking if color is in use by another player and if not change it to that
+            self.user1colorButtonNode.texture = SKTexture(imageNamed: "apboBlack")
+            // change player's image in firebase
+        }
+    }
+    
+    func setupLabel(label: SKLabelNode) {
+        label.zPosition = 2
+        label.fontColor = UIColor.white
+        label.fontSize = 120
+        label.fontName = "AvenirNext-Bold"
+        addChild(label)
     }
     
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
