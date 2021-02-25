@@ -35,6 +35,7 @@ class LobbyMenu: SKScene {
         }
         
         codeLabel.text = String(Global.gameData.gameID)
+        print(Global.gameData.gameID)
         codeLabel.position = CGPoint(x: frame.midX, y: frame.midY - 330)
         codeLabel.zPosition = 2
         codeLabel.fontColor = UIColor.white
