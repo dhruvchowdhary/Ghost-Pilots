@@ -46,19 +46,24 @@ class LobbyMenu: SKScene {
         codeLabel.fontName = "AvenirNext-Bold"
         addChild(codeLabel)
         
+
+        codeLabel.position = CGPoint(x: frame.midX, y: frame.midY - 340)
         codeLabel.text = String(Global.gameData.gameID)
         setupLabel(label: codeLabel)
         
-        user1.position = CGPoint(x: frame.midX, y: frame.midY)
-        user1.fontSize = 100
+       // user1.text =
+        user1.position = CGPoint(x: frame.midX + 300, y: frame.midY)
+        user1.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         setupLabel(label: user1)
         
         user1colorButtonNode = self.childNode(withName: "redPlayer") as? MSButtonNode
-        user1colorButtonNode.position = CGPoint(x: user1.position.x - 20, y: user1.position.y)
+        user1colorButtonNode.position = CGPoint(x: user1.position.x - 230, y: user1.position.y + 50)
         user1colorButtonNode.selectedHandlers = {
             // go down a list checking if color is in use by another player and if not change it to that
-            self.user1colorButtonNode.texture = SKTexture(imageNamed: "apboBlack")
+            self.user1colorButtonNode.texture = SKTexture(imageNamed: "apboBlue")
             // change player's image in firebase
+            
+            self.user1colorButtonNode.alpha = 1
         }
         
         Global.multiplayerHandler.listenForGuestChanges()
