@@ -30,6 +30,7 @@ public class LocalSpaceship: SpaceshipBase {
     let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
     
     init() {
+        
         spaceShipNode = SKSpriteNode(imageNamed: "player");
         
         //spaceShipNode.physicsBody = SKPhysicsBody.init(texture: spaceShipNode.texture!, size: spaceShipNode.size)
@@ -53,18 +54,25 @@ public class LocalSpaceship: SpaceshipBase {
         spaceShipNode.physicsBody?.isDynamic = true
         super.init(shipSprite: spaceShipParent, playerId: UIDevice.current.identifierForVendor!.uuidString)
         
+        isLocal = true
+        
         // Pulls all components from hud and adds them as children to the spaceship node
         // Scalling the components is wack and prolly needs to be reworked
         let hud = SKScene(fileNamed: "Hud.sks")
         for x in hud!.children {
-            let thing = x.copy() as! SKNode
-            thing.removeFromParent()
-//            x.yScale = x.yScale/2.3
-//            x.xScale = x.xScale/2.3
-//            x.position.x = x.position.x/2.3
-//            x.position.y = x.position.y/2.3
-            spaceShipHud.addChild(thing as! SKSpriteNode)
+            x.removeFromParent()
+            spaceShipHud.addChild(x)
         }
+        
+        print(unfiredBullets.count)
+        for i in 0..<unfiredBullets.count {
+            unfiredBullets[i].position.x = CGFloat(80 * cos(Double.pi * Double(i) * 0.6666666))
+                                                   unfiredBullets[i].position.y = CGFloat(80 * sin(Double.pi * Double(i) * 0.6666666))
+            unfiredBulletRotator.addChild(unfiredBullets[i])
+        }
+        spaceShipHud.addChild(unfiredBulletRotator)
+        
+        
         Global.gameData.camera.setScale(2.4)
         Global.gameData.camera.removeFromParent()
         spaceShipHud.addChild(Global.gameData.camera)
@@ -171,39 +179,14 @@ public class LocalSpaceship: SpaceshipBase {
         }
         
         // For online only, but no control yet
-        if unfiredBullets.count < 3 {
+        if unfiredBulletsCount < 3 {
             timeUntilNextBullet -= deltaTime;
         }
-        if (timeUntilNextBullet < 0) {
-            if unfiredBullets.count > 0  {
-                print(unfiredBullets.last!.zRotation.truncatingRemainder(dividingBy: CGFloat(Double.pi * 2 / 3)))
-                if Int(unfiredBullets.last!.zRotation.truncatingRemainder(dividingBy: CGFloat(Double.pi * 2 / 3))) == 0 {
-                    timeUntilNextBullet = 0.8
-                    let bull = SKSpriteNode(imageNamed: "bullet")
-                    bull.color = UIColor.blue
-                    unfiredBullets.append(bull)
-                    spaceShipHud.addChild(bull)
-                }
-            } else{
-                timeUntilNextBullet = 0.8
-                let bull = SKSpriteNode(imageNamed: "bullet")
-                bull.color = UIColor.blue
-                unfiredBullets.append(bull)
-                spaceShipHud.addChild(bull)
-            }
-            
-        }
         
-        let bulletSprites = Global.gameData.gameScene.liveBullets
-        for bulletSprite in bulletSprites {
-            bulletSprite.position.x = 2 * cos(bulletSprite.zRotation)
-            bulletSprite.position.y = 2 * sin(bulletSprite.zRotation)
-        }
-        
-        for bul in unfiredBullets {
-            bul.position.x = 100 * cos(bul.zRotation)
-            bul.position.y = 100 * sin(bul.zRotation)
-            bul.zRotation += CGFloat(Double.pi/36)
+        if (timeUntilNextBullet < 0 && unfiredBulletsCount < 3) {
+            unfiredBullets[unfiredBulletsCount].alpha = 1;
+            unfiredBulletsCount += 1
+            timeUntilNextBullet = 1.3
         }
         
         let payload = Payload(shipPosX: shipSprite.position.x, shipPosY: shipSprite.position.y, shipAngleRad: shipSprite.zRotation, hasPowerup: false)

@@ -1,9 +1,3 @@
-//
-//  MSButtonNode.swift
-//  Make School
-//
-//  Copyright (c) 2017 Make School. All rights reserved.
-//
 
 import SpriteKit
 

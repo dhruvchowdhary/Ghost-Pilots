@@ -142,8 +142,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         lastUpdateTime = Double(currentTime)
         
         for bullet in liveBullets {
-            bullet.position.x += 100 * cos( bullet.zRotation )
-            bullet.position.y += 100 * sin( bullet.zRotation )
+            bullet.position.x += 10 * cos( bullet.zRotation )
+            bullet.position.y += 10 * sin( bullet.zRotation )
             
             if abs(bullet.position.x) > 2000 {
                 bullet.removeFromParent()
