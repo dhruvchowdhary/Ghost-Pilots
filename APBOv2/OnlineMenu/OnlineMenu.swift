@@ -25,19 +25,11 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
     var useCount = UserDefaults.standard.integer(forKey: "useCount")
   //  var username = UserDefaults.standard.string(forKey: "username")
     
-    
     var usernameBox: UITextField!
     var codeBox: UITextField!
     var activeTextField: UITextField!
     var ref: DatabaseReference!
-    // test
-/* UI Connections */
-    var buttonPlay: MSButtonNode!
 
-
-    let notDoneLabel = SKLabelNode(text: "The online version of this game is currently under development!")
-    
-    var useCount = UserDefaults.standard.integer(forKey: "useCount")
     override func didMove(to view: SKView) {
         usernameBox = UITextField(frame: CGRect(x: view.bounds.width/2 - 95, y: view.bounds.height/2 - 130, width: 190, height: 60))
         usernameBox.attributedPlaceholder = NSAttributedString(string: "Enter Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
@@ -127,6 +119,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                     self.ref.child("Games/\(self.codeBox.text!)").observeSingleEvent(of: .value){ snapshot in
                         if snapshot.exists() {
                             DataPusher.PushData(path: "Games/\(self.codeBox.text!)/users/\(self.usernameBox.text!)", Value: "PeePee")
+                            Global.gameData.gameID = Int(self.codeBox.text!)!
                             self.loadLobbyMenu()
                         } else {
                             print(self.codeBox.text!)
@@ -134,7 +127,6 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                             self.enterButtonNode.alpha = 1
                         }
                     }
-                    // check if code is right... if not shake
                 }
             }
         }

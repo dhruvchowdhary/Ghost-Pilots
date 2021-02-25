@@ -11,9 +11,9 @@
 		74235B1E2590FCFC00AC4675 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74235B1D2590FCFC00AC4675 /* GameKit.framework */; };
 		74235B2025A7724400AC4675 /* GameCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74235B1F25A7724400AC4675 /* GameCenter.swift */; };
 		7451FF782576FE8F0074CC2E /* Spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7451FF772576FE8F0074CC2E /* Spark.sks */; };
-		7462303425CB1BB800DDCEF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7462303325CB1BB800DDCEF6 /* GoogleService-Info.plist */; };
 		748500AE25E6C0730063F73B /* LobbyMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748500AD25E6C0730063F73B /* LobbyMenu.swift */; };
 		748500B025E6C0910063F73B /* LobbyMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748500AF25E6C0910063F73B /* LobbyMenu.sks */; };
+		748500B425E76C970063F73B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 748500B325E76C960063F73B /* GoogleService-Info.plist */; };
 		748CEDA125657B65005DF246 /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748CEDA025657B65005DF246 /* MainMenu.sks */; };
 		748CEDAB25657F2E005DF246 /* MSButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748CEDAA25657F2E005DF246 /* MSButtonNode.swift */; };
 		748CEDAE25658207005DF246 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748CEDAD25658207005DF246 /* MainMenu.swift */; };
@@ -101,9 +101,9 @@
 		74235B1D2590FCFC00AC4675 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		74235B1F25A7724400AC4675 /* GameCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenter.swift; sourceTree = "<group>"; };
 		7451FF772576FE8F0074CC2E /* Spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Spark.sks; sourceTree = "<group>"; };
-		7462303325CB1BB800DDCEF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		748500AD25E6C0730063F73B /* LobbyMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyMenu.swift; sourceTree = "<group>"; };
 		748500AF25E6C0910063F73B /* LobbyMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LobbyMenu.sks; sourceTree = "<group>"; };
+		748500B325E76C960063F73B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		748CEDA025657B65005DF246 /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		748CEDAA25657F2E005DF246 /* MSButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSButtonNode.swift; sourceTree = "<group>"; };
 		748CEDAD25658207005DF246 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
@@ -311,7 +311,7 @@
 				74C3CFB3253F3BE900757586 /* Actions.sks */,
 				74C3CFBC253F3BED00757586 /* Assets.xcassets */,
 				74C3CFC1253F3BED00757586 /* Info.plist */,
-				7462303325CB1BB800DDCEF6 /* GoogleService-Info.plist */,
+				748500B325E76C960063F73B /* GoogleService-Info.plist */,
 				749EBC5B255AFA58003EA0B3 /* Bundle-Decoding.swift */,
 				748CEDB2256701D0005DF246 /* Random Files idk */,
 			);
@@ -549,6 +549,7 @@
 				815799E52591079800734A45 /* pilotImages.atlas in Resources */,
 				815799E925917EFD00734A45 /* BulletExplosion.sks in Resources */,
 				74C3CFB4253F3BE900757586 /* Actions.sks in Resources */,
+				748500B425E76C970063F73B /* GoogleService-Info.plist in Resources */,
 				748500B025E6C0910063F73B /* LobbyMenu.sks in Resources */,
 				81708DC825A565C50030C2C4 /* TurretBossMenu.sks in Resources */,
 				749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */,
@@ -561,7 +562,6 @@
 				749EBC58255AF9E7003EA0B3 /* waves.json in Resources */,
 				816EE129259265D10053AE35 /* ShootingExplosion.sks in Resources */,
 				74CF6842257C2EA8000C4E47 /* ShipExplosion.sks in Resources */,
-				7462303425CB1BB800DDCEF6 /* GoogleService-Info.plist in Resources */,
 				7451FF782576FE8F0074CC2E /* Spark.sks in Resources */,
 				74CF686F25829A28000C4E47 /* Laser2new.wav in Resources */,
 			);
