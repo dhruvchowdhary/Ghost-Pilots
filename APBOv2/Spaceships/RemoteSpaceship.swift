@@ -14,13 +14,11 @@ class RemoteSpaceship: SpaceshipBase {
         super.init(shipSprite: spaceShipNode, playerId: playerID)
     }
     
-    override func UpdateShip(deltaTime: Float, inputs: [InputType]) {
+    override func UniqueUpdateShip(deltaTime: Double) {
         let ref = Database.database().reference().child("Games/\(Global.gameData.gameID)/\(playerID)")
         ref.observeSingleEvent(of: .value) { snapshot in
-            let snapVal = snapshot.value as! String
-            if (snapVal == "Null"){
-                return;
-            } else {
+            let snapVal = snapshot.childSnapshot(forPath: "Payload").value as! String
+            if (snapshot.hasChildren()) {
                 let jsonData = snapVal.data(using: .utf8)
                 let payload = try! JSONDecoder().decode(Payload.self, from: jsonData!)
                 
@@ -28,6 +26,7 @@ class RemoteSpaceship: SpaceshipBase {
                 self.shipSprite.position.y = payload.shipPosY
                 self.shipSprite.zRotation = payload.shipAngleRad
             }
+            
         }
     }
 }

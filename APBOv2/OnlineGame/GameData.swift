@@ -3,23 +3,30 @@ import SpriteKit
 
 // Created on game creation
 public class GameData{
-    var gameID = 00000
-    var shipsToUpdate: [SpaceshipBase] = []
+    public var gameID = 00000
+    public var shipsToUpdate: [SpaceshipBase] = []
+    public var playerShip: LocalSpaceship? //Also included in shipsToUpdate
     public var camera = SKCameraNode()
+    public var gameScene = GameSceneBase()
+    public var skView = SKView();
+    public var isHost = false;
     
     
     // =================
     // For the Host to run
     
     public func CreateNewGame(){
+        isHost = true
         MultiplayerHandler.GenerateUniqueGameCode()
     }
     
     
     public func SetUniqueCode(code: Int){
         // we have created a code, we must now finish init game
-        DataPusher.PushData(path: "Games/\(code)/\(UIDevice.current.identifierForVendor?.uuidString)", Value: "Null")
+        gameID = code
+        DataPusher.PushData(path: "Games/\(code)/Host", Value: Global.playerData.username)
         DataPusher.PushData(path: "Games/\(code)/Status", Value: "Lobby")
+        Global.loadScene(s: "LobbyMenu")
     }
     
     // ==============

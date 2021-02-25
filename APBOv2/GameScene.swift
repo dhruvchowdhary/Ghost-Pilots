@@ -22,7 +22,7 @@ enum CollisionType: UInt32 {
     case player = 1
     
     case pilot = 16
-   // case playerWeapon = 2
+    // case playerWeapon = 2
     case enemy = 4
     case bullet = 8
     case border = 2
@@ -608,10 +608,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                 self.i -= 1
                             }
                             
-                            if i == 0 {
+                            if self.i == 0 {
                                
                                 let shootbuttonPic = SKAction.setTexture(SKTexture(imageNamed: "shootButton"))
-                      shootButtonNode.run(shootbuttonPic)
+                                self.shootButtonNode.run(shootbuttonPic)
                                 
                             self.powerupMode = 0
                                 
@@ -639,13 +639,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                 laserBody.name = "laser"
                                 laserBody.size = CGSize(width: 2000, height: 30)
                               //  laserBody.position.x = 1000
-                                laserBody.zRotation = player.zRotation
-                                laserBody.position.y = player.position.y + 1000 * sin(player.zRotation)
-                                laserBody.position.x = player.position.x + 1000 * cos(player.zRotation)
+                                laserBody.zRotation = self.player.zRotation
+                                laserBody.position.y = self.player.position.y + 1000 * sin(self.player.zRotation)
+                                laserBody.position.x = self.player.position.x + 1000 * cos(self.player.zRotation)
                                 print(laserBody.position.x)
                                 print(laserBody.position.y)
-                                print(player.position.x)
-                                print(player.position.y)
+                                print(self.player.position.x)
+                                print(self.player.position.y)
                                 
                                 //laserBody.anchorPoint = CGPoint(x: 0, y: 0.5)
                                 laserBody.physicsBody = SKPhysicsBody(texture: laserBody.texture!, size: laserBody.size)
@@ -660,10 +660,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                              //   let pinPosition = connectingRod.convert
                              
                                 
-                                let joint = SKPhysicsJointPin.joint(withBodyA: laserBody.physicsBody!, bodyB: player.physicsBody!, anchor: player.position)
-                                addChild(laserBody)
+                                let joint = SKPhysicsJointPin.joint(withBodyA: laserBody.physicsBody!, bodyB: self.player.physicsBody!, anchor: self.player.position)
+                                self.addChild(laserBody)
                              
-                                physicsWorld.add(joint)
+                                self.physicsWorld.add(joint)
                  
 
                                 let recoil = SKAction.moveBy(x: -8 * cos(self.player.zRotation), y: -8 * sin(self.player.zRotation), duration: 0.01)
@@ -678,17 +678,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                 let action = SKAction.run {
                                     laserBody.removeFromParent()
                                 }
-                                         run(SKAction.sequence([wait,action]))
+                                self.run(SKAction.sequence([wait,action]))
                               
                                 self.numAmmo = self.numAmmo - 1
                                 self.i -= 1
                               
                                 
                             }
-                            if i == 0 {
+                            if self.i == 0 {
                                
                                 let shootbuttonPic = SKAction.setTexture(SKTexture(imageNamed: "shootButton"))
-                      shootButtonNode.run(shootbuttonPic)
+                                self.shootButtonNode.run(shootbuttonPic)
                                 
                             self.powerupMode = 0
                             }
@@ -715,6 +715,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             print("mine")
                             
                             let mine = SKSpriteNode(imageNamed: "mineRing")
+
                             mine.name = "mine"
                             mine.size = CGSize(width: 80, height: 80)
                             mine.physicsBody = SKPhysicsBody(texture: mine.texture!, size: mine.size)
@@ -724,19 +725,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             mine.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue
                             
                        
-                            mine.position = player.position
+                                mine.position = self.player.position
                             mine.zPosition = 2
-                            addChild(mine)
+                                self.addChild(mine)
                                 
                                 self.numAmmo = self.numAmmo - 1
                                 self.i -= 1
                                 
                             }
                             
-                            if i == 0 {
+                            if self.i == 0 {
                                
                                 let shootbuttonPic = SKAction.setTexture(SKTexture(imageNamed: "shootButton"))
-                      shootButtonNode.run(shootbuttonPic)
+                                self.shootButtonNode.run(shootbuttonPic)
                                 
                             self.powerupMode = 0
                             }
@@ -768,7 +769,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     
         
-        let turnTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
+        let _ = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
             self.player.zRotation = self.player.zRotation + 1.2 * CGFloat(self.direction)
             self.pilot.zRotation = self.pilot.zRotation + 1.2 * CGFloat(self.direction)
             if self.doubleTap == 1 {
