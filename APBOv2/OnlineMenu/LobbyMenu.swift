@@ -36,15 +36,6 @@ class LobbyMenu: SKScene {
             }
         }
         
-
-        codeLabel.text = String(Global.gameData.gameID)
-        print(Global.gameData.gameID)
-        codeLabel.position = CGPoint(x: frame.midX, y: frame.midY - 330)
-        codeLabel.zPosition = 2
-        codeLabel.fontColor = UIColor.white
-        codeLabel.fontSize = 120
-        codeLabel.fontName = "AvenirNext-Bold"
-        addChild(codeLabel)
         
 
         codeLabel.position = CGPoint(x: frame.midX, y: frame.midY - 340)
@@ -52,7 +43,7 @@ class LobbyMenu: SKScene {
         setupLabel(label: codeLabel)
         
        // user1.text =
-        user1.position = CGPoint(x: frame.midX + 300, y: frame.midY)
+        user1.position = CGPoint(x: frame.midX - 300, y: frame.midY)
         user1.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         setupLabel(label: user1)
         
