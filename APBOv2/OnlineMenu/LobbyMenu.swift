@@ -42,6 +42,13 @@ class LobbyMenu: SKScene {
         codeLabel.fontSize = 120
         codeLabel.fontName = "AvenirNext-Bold"
         addChild(codeLabel)
+        
+        Global.multiplayerHandler.listenForGuestChanges()
+    }
+    
+    
+    func setPlayerList(playerList: [String]){
+        
     }
     
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {

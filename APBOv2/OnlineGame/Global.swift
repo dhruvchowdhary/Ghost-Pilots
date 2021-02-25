@@ -5,6 +5,7 @@ import SpriteKit
 public struct Global {
     public static var playerData = PlayerData()
     public static var gameData = GameData()
+    public static let multiplayerHandler = MultiplayerHandler()
     
     static func loadScene(s: String) {
             

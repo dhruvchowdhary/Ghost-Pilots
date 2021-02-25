@@ -1,7 +1,8 @@
 import Foundation
 import Firebase
 
-class MultiplayerHandler{
+public class MultiplayerHandler{
+    var guestsRef: DatabaseReference?
     static var ref: DatabaseReference! = Database.database().reference()
     
     public func updateShips(gameData : GameData){
@@ -22,4 +23,19 @@ class MultiplayerHandler{
             }
         }
     }
+    
+    public func listenForGuestChanges(){
+        self.guestsRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Players")
+        let schildAdded = guestsRef?.observe(DataEventType.value, with: { (snapshot) in
+            let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
+            var playerList: [String] = []
+            for child in snapshot.children {
+                let e = child as! DataSnapshot
+                print(e.key)
+                playerList.append(e.key)
+            }
+            lobbyScene.setPlayerList(playerList: playerList)
+        })
+    }
+    
 }
