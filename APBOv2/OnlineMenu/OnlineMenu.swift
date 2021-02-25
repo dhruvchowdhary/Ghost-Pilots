@@ -48,7 +48,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         ref.child("systemID/\(UIDevice.current.identifierForVendor!.uuidString)").observeSingleEvent(of: .value){ snapshot in
             if snapshot.exists() {
                 self.usernameBox.text = snapshot.value as? String
-                print("username should print")
+                Global.playerData.username = snapshot.value as! String
             }
         }
         
@@ -120,6 +120,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                         if snapshot.exists() {
                             DataPusher.PushData(path: "Games/\(self.codeBox.text!)/Players/\(self.usernameBox.text!)", Value: "PeePee")
                             Global.gameData.gameID = Int(self.codeBox.text!)!
+                            Global.gameData.isHost = false
                             self.loadLobbyMenu()
                         } else {
                             print(self.codeBox.text!)
@@ -144,7 +145,6 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         }
     }
     @objc func keyboardWillHide(notification: NSNotification) {
-        Global.playerData.username = usernameBox.text!
         if activeTextField == usernameBox {
             if self.usernameBox.text!.trimmingCharacters(in: .whitespaces).isEmpty {
                 self.usernameBox.shake()
@@ -154,7 +154,8 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         if self.view?.frame.origin.y != 0 {
             self.view?.frame.origin.y = 0
         }
-        print("das")
+        Global.playerData.username = usernameBox.text!
+        print(Global.playerData.username)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
