@@ -8,8 +8,14 @@
 
 import SpriteKit
 
+
 class EnemyNode: SKSpriteNode {
+   // var chosenPath: Int
+   // var chosenPath: Int
+    var path = UIBezierPath()
     var type: EnemyType
+    var moveStright: Int
+    var speeds: Int
     var lastFireTime: Double = 0
     var shields: Int
     var scoreinc: Int
@@ -17,10 +23,13 @@ class EnemyNode: SKSpriteNode {
     let EnemyThruster = SKEmitterNode(fileNamed: "EnemyThruster")
     
     
-    init(type: EnemyType, startPosition: CGPoint, xOffset: CGFloat, moveStright: Bool, speeds: Int) {
+    init(type: EnemyType, startPosition: CGPoint, xOffset: CGFloat, moveStright: Int, speeds: Int) {
         self.type = type
         shields = type.shields
         scoreinc = type.scoreinc*100
+        self.moveStright = moveStright
+        self.speeds = speeds
+       // chosenPath = moveStright.chosenPath
         // hi
         let texture = SKTexture(imageNamed: type.name)
         super.init(texture: texture, color: .white, size: texture.size())
@@ -47,30 +56,33 @@ class EnemyNode: SKSpriteNode {
                EnemyThruster?.targetNode = self.scene
                addChild(EnemyThruster!)
         
-        configureMovement(moveStright, speeds: speeds)
+        
+    //    self.createPath()
+     
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("LOL NO")
     }
-    
-    func configureMovement(_ moveStright: Bool, speeds: Int) {
-        let path = UIBezierPath()
-        path.move(to: .zero)
+    /*
+    func configureMovement(_ moveStright: Int, speeds: Int) {
+      //chosenPath = moveStright
         
-        if moveStright {
-            path.addLine(to: CGPoint(x: -10000, y: 0))
-        }
+       
+
         /*
         else {
             path.addCurve(to: CGPoint(x: -3500, y: 0), controlPoint1: CGPoint(x: 0, y: -position.y*4), controlPoint2: CGPoint(x: -1000, y: -position.y))
  */
  //       }
-        let movement = SKAction.follow(path.cgPath, asOffset: true, orientToPath: true, speed: CGFloat(speeds))
-        let sequence = SKAction.sequence([movement, .removeFromParent()])
-        run(sequence)
+   
     }
- 
+
+    */
+
+    
+    
+    
     
     func fire(numPoints: Int) {
         let weaponType = "\(type.name)Weapon"

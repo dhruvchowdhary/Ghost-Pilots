@@ -16,6 +16,7 @@ public class GameData{
     // For the Host to run
     
     public func CreateNewGame(){
+        isHost = true
         MultiplayerHandler.GenerateUniqueGameCode()
     }
     
