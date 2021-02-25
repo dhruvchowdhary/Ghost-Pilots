@@ -9,6 +9,7 @@ public class GameData{
     public var camera = SKCameraNode()
     public var gameScene = GameSceneBase()
     public var skView = SKView();
+    public var isHost = false
     
     
     // =================

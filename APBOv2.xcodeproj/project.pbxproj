@@ -14,6 +14,9 @@
 		748500AE25E6C0730063F73B /* LobbyMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748500AD25E6C0730063F73B /* LobbyMenu.swift */; };
 		748500B025E6C0910063F73B /* LobbyMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748500AF25E6C0910063F73B /* LobbyMenu.sks */; };
 		748500B425E76C970063F73B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 748500B325E76C960063F73B /* GoogleService-Info.plist */; };
+		748500BA25E828580063F73B /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748500B725E828570063F73B /* GameScene.sks */; };
+		748500BB25E828580063F73B /* GameSceneBase.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748500B825E828570063F73B /* GameSceneBase.sks */; };
+		748500BC25E828580063F73B /* Hud.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748500B925E828570063F73B /* Hud.sks */; };
 		748CEDA125657B65005DF246 /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 748CEDA025657B65005DF246 /* MainMenu.sks */; };
 		748CEDAB25657F2E005DF246 /* MSButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748CEDAA25657F2E005DF246 /* MSButtonNode.swift */; };
 		748CEDAE25658207005DF246 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748CEDAD25658207005DF246 /* MainMenu.swift */; };
@@ -104,6 +107,9 @@
 		748500AD25E6C0730063F73B /* LobbyMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyMenu.swift; sourceTree = "<group>"; };
 		748500AF25E6C0910063F73B /* LobbyMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LobbyMenu.sks; sourceTree = "<group>"; };
 		748500B325E76C960063F73B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		748500B725E828570063F73B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = APBOv2/GameScenes/GameScene.sks; sourceTree = SOURCE_ROOT; };
+		748500B825E828570063F73B /* GameSceneBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameSceneBase.sks; path = APBOv2/GameScenes/GameSceneBase.sks; sourceTree = SOURCE_ROOT; };
+		748500B925E828570063F73B /* Hud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Hud.sks; path = APBOv2/GameScenes/Hud.sks; sourceTree = SOURCE_ROOT; };
 		748CEDA025657B65005DF246 /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		748CEDAA25657F2E005DF246 /* MSButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSButtonNode.swift; sourceTree = "<group>"; };
 		748CEDAD25658207005DF246 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
@@ -261,6 +267,9 @@
 			isa = PBXGroup;
 			children = (
 				748CEDC3256D7362005DF246 /* OnlineMenu.swift */,
+				748500B725E828570063F73B /* GameScene.sks */,
+				748500B825E828570063F73B /* GameSceneBase.sks */,
+				748500B925E828570063F73B /* Hud.sks */,
 				748CEDC5256D737B005DF246 /* OnlineMenu.sks */,
 				748FC4B525DD98E500756B4A /* HostMenu.swift */,
 				748FC4B325DD987500756B4A /* HostMenu.sks */,
@@ -531,6 +540,7 @@
 				74C3CFBD253F3BED00757586 /* Assets.xcassets in Resources */,
 				74CF68532581FE64000C4E47 /* pilotSquish.wav in Resources */,
 				74CF688625840398000C4E47 /* enemy2.sks in Resources */,
+				748500BC25E828580063F73B /* Hud.sks in Resources */,
 				748CEDC6256D737B005DF246 /* OnlineMenu.sks in Resources */,
 				74CF684C2581EF11000C4E47 /* Laser1.wav in Resources */,
 				749EBC1025599EF3003EA0B3 /* enemy-types.json in Resources */,
@@ -541,6 +551,7 @@
 				74C3CFC0253F3BED00757586 /* LaunchScreen.storyboard in Resources */,
 				74CF6867258296A8000C4E47 /* revive.wav in Resources */,
 				74CF6848257FDF30000C4E47 /* PilotBlood.sks in Resources */,
+				748500BB25E828580063F73B /* GameSceneBase.sks in Resources */,
 				74CF6846257C4E26000C4E47 /* PilotThrust.sks in Resources */,
 				74CF6888258403B3000C4E47 /* enemy3.sks in Resources */,
 				74C3CFD325506D0300757586 /* Assets.xcassets in Resources */,
@@ -551,6 +562,7 @@
 				74C3CFB4253F3BE900757586 /* Actions.sks in Resources */,
 				748500B425E76C970063F73B /* GoogleService-Info.plist in Resources */,
 				748500B025E6C0910063F73B /* LobbyMenu.sks in Resources */,
+				748500BA25E828580063F73B /* GameScene.sks in Resources */,
 				81708DC825A565C50030C2C4 /* TurretBossMenu.sks in Resources */,
 				749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */,
 				74CF68752582CF37000C4E47 /* EnemyThruster.sks in Resources */,
