@@ -57,12 +57,13 @@ public class LocalSpaceship: SpaceshipBase {
         // Scalling the components is wack and prolly needs to be reworked
         let hud = SKScene(fileNamed: "Hud.sks")
         for x in hud!.children {
-            x.removeFromParent()
+            let thing = x.copy() as! SKNode
+            thing.removeFromParent()
 //            x.yScale = x.yScale/2.3
 //            x.xScale = x.xScale/2.3
 //            x.position.x = x.position.x/2.3
 //            x.position.y = x.position.y/2.3
-            spaceShipHud.addChild(x as! SKSpriteNode)
+            spaceShipHud.addChild(thing as! SKSpriteNode)
         }
         Global.gameData.camera.setScale(2.4)
         Global.gameData.camera.removeFromParent()

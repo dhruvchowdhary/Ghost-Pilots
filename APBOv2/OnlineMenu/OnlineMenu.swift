@@ -47,7 +47,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         ref = Database.database().reference()
         ref.child("systemID/\(UIDevice.current.identifierForVendor!.uuidString)").observeSingleEvent(of: .value){ snapshot in
             if snapshot.exists() {
-                self.usernameBox.text = snapshot.value as! String
+                self.usernameBox.text = snapshot.value as? String
                 print("username should print")
             }
         }
@@ -118,7 +118,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                 } else {
                     self.ref.child("Games/\(self.codeBox.text!)").observeSingleEvent(of: .value){ snapshot in
                         if snapshot.exists() {
-                            DataPusher.PushData(path: "Games/\(self.codeBox.text!)/users/\(self.usernameBox.text!)", Value: "PeePee")
+                            DataPusher.PushData(path: "Games/\(self.codeBox.text!)/Guests/\(self.usernameBox.text!)", Value: "PeePee")
                             Global.gameData.gameID = Int(self.codeBox.text!)!
                             self.loadLobbyMenu()
                         } else {
@@ -129,6 +129,8 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                     }
                 }
             }
+            
+            
         }
     }
     
@@ -142,6 +144,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         }
     }
     @objc func keyboardWillHide(notification: NSNotification) {
+        Global.playerData.username = usernameBox.text!
         if activeTextField == usernameBox {
             if self.usernameBox.text!.trimmingCharacters(in: .whitespaces).isEmpty {
                 self.usernameBox.shake()
@@ -151,6 +154,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         if self.view?.frame.origin.y != 0 {
             self.view?.frame.origin.y = 0
         }
+        print("das")
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

@@ -38,8 +38,6 @@ class HostMenu: SKScene {
         startButtonNode.selectedHandlers = {
             // create game code
             Global.gameData.CreateNewGame()
-            // go to lobbymenu
-            self.loadLobbyMenu()
         }
     }
     

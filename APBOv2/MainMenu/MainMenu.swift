@@ -31,7 +31,7 @@ class MainMenu: SKScene {
     override func didMove(to view: SKView) {
         /* Setup your scene here */
         
-        
+        Global.gameData.skView = self.view!
         
         title.fontName = "AvenirNext-Bold"
         title.position = CGPoint(x: frame.midX, y: frame.midY + 195)

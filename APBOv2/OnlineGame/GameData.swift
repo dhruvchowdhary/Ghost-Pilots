@@ -8,6 +8,7 @@ public class GameData{
     public var playerShip: LocalSpaceship? //Also included in shipsToUpdate
     public var camera = SKCameraNode()
     public var gameScene = GameSceneBase()
+    public var skView = SKView();
     
     
     // =================
@@ -20,9 +21,10 @@ public class GameData{
     
     public func SetUniqueCode(code: Int){
         // we have created a code, we must now finish init game
-        DataPusher.PushData(path: "Games/\(code)/Users/\(UIDevice.current.identifierForVendor?.uuidString)", Value: "Null")
-        DataPusher.PushData(path: "Games/\(code)/Status", Value: "Lobby")
         gameID = code
+        DataPusher.PushData(path: "Games/\(code)/Host", Value: Global.playerData.username)
+        DataPusher.PushData(path: "Games/\(code)/Status", Value: "Lobby")
+        Global.loadScene(s: "LobbyMenu")
     }
     
     // ==============
