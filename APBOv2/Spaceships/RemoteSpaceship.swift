@@ -12,6 +12,7 @@ class RemoteSpaceship: SpaceshipBase {
         
         let ref = Database.database().reference().child("Games/\(Global.gameData.gameID)/\(playerID)")
         Global.multiplayerHandler.listenForPayload(ref: ref, shipSprite: self.shipSprite as! SKSpriteNode)
+        
     }
     
     override func UniqueUpdateShip(deltaTime: Double) {
