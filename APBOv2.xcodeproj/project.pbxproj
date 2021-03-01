@@ -30,7 +30,6 @@
 		749EBC58255AF9E7003EA0B3 /* waves.json in Resources */ = {isa = PBXBuildFile; fileRef = 749EBC57255AF9E7003EA0B3 /* waves.json */; };
 		749EBC5A255AFA34003EA0B3 /* Wave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749EBC59255AFA34003EA0B3 /* Wave.swift */; };
 		749EBC5C255AFA58003EA0B3 /* Bundle-Decoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749EBC5B255AFA58003EA0B3 /* Bundle-Decoding.swift */; };
-		74AE786025ED5D7800073E57 /* PlayerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AE785F25ED5D7800073E57 /* PlayerNode.swift */; };
 		74C3CFB0253F3BE900757586 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3CFAF253F3BE900757586 /* AppDelegate.swift */; };
 		74C3CFB4253F3BE900757586 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 74C3CFB3253F3BE900757586 /* Actions.sks */; };
 		74C3CFB6253F3BE900757586 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C3CFB5253F3BE900757586 /* GameScene.swift */; };
@@ -129,7 +128,6 @@
 		749EBC57255AF9E7003EA0B3 /* waves.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = waves.json; sourceTree = "<group>"; };
 		749EBC59255AFA34003EA0B3 /* Wave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wave.swift; sourceTree = "<group>"; };
 		749EBC5B255AFA58003EA0B3 /* Bundle-Decoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle-Decoding.swift"; sourceTree = "<group>"; };
-		74AE785F25ED5D7800073E57 /* PlayerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerNode.swift; sourceTree = "<group>"; };
 		74C3CFAC253F3BE900757586 /* Ghost Pilots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ghost Pilots.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		74C3CFAF253F3BE900757586 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74C3CFB3253F3BE900757586 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -288,7 +286,6 @@
 				748FC4B325DD987500756B4A /* HostMenu.sks */,
 				748500AD25E6C0730063F73B /* LobbyMenu.swift */,
 				748500AF25E6C0910063F73B /* LobbyMenu.sks */,
-				74AE785F25ED5D7800073E57 /* PlayerNode.swift */,
 			);
 			path = OnlineMenu;
 			sourceTree = "<group>";
@@ -651,7 +648,6 @@
 				749EBC5A255AFA34003EA0B3 /* Wave.swift in Sources */,
 				CEF30A2225CA65E0007B8B39 /* SpaceshipBase.swift in Sources */,
 				CEF30A1B25CA65BF007B8B39 /* GameSceneBase.swift in Sources */,
-				74AE786025ED5D7800073E57 /* PlayerNode.swift in Sources */,
 				748CEDAE25658207005DF246 /* MainMenu.swift in Sources */,
 				74C3CFB6253F3BE900757586 /* GameScene.swift in Sources */,
 				8100B1832575524900AA8A1F /* TurretBossNode.swift in Sources */,
