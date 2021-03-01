@@ -6,8 +6,10 @@ class LobbyMenu: SKScene {
     var startButtonNode: MSButtonNode!
     
     var codeLabel = SKLabelNode(text: "00000")
+    var playerLabel = SKNode()
+    var playerLabelParent = SKNode()
     var user1 = SKLabelNode(text: "user1")
-    var user1colorButtonNode: MSButtonNode!
+    var colorButtonNode: MSButtonNode!
     var kickButtonNode: MSButtonNode!
 
     
@@ -50,15 +52,25 @@ class LobbyMenu: SKScene {
         user1.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         setupLabel(label: user1)
         
-        user1colorButtonNode = self.childNode(withName: "redPlayer") as? MSButtonNode
-        user1colorButtonNode.position = CGPoint(x: user1.position.x - 230, y: user1.position.y + 50)
-        user1colorButtonNode.selectedHandlers = {
+        colorButtonNode = self.childNode(withName: "redPlayer") as? MSButtonNode
+        colorButtonNode.position = CGPoint(x: user1.position.x - 230, y: user1.position.y + 50)
+        colorButtonNode.selectedHandlers = {
             // go down a list checking if color is in use by another player and if not change it to that
-            self.user1colorButtonNode.texture = SKTexture(imageNamed: "apboBlue")
+            self.colorButtonNode.texture = SKTexture(imageNamed: "apboBlue")
             // change player's image in firebase
             
-            self.user1colorButtonNode.alpha = 1
+            self.colorButtonNode.alpha = 1
         }
+        
+        kickButtonNode = self.childNode(withName: "kickButton") as? MSButtonNode
+        
+        user1.name = "user1"
+        user1.removeFromParent()
+        colorButtonNode.removeFromParent()
+        kickButtonNode.removeFromParent()
+        playerLabel.addChild(user1)
+        playerLabel.addChild(colorButtonNode)
+        playerLabel.addChild(kickButtonNode)
         
         pullGuestList()
         Global.multiplayerHandler.listenForGuestChanges()
@@ -66,11 +78,14 @@ class LobbyMenu: SKScene {
     
     
     func setPlayerList(playerList: [String]) {
-        
-    }
-    
-    func player() {
-        let 
+        playerLabelParent.removeAllChildren()
+        for player in playerList {
+            let newuser = playerLabel.copy() as! SKNode
+            let userLabel = newuser.childNode(withName: "user1") as! SKLabelNode
+            userLabel.text = player
+            let i = playerList.firstIndex(of: player)!
+            newuser.position.y -= CGFloat(i*30)
+        }
     }
     
     func setupLabel(label: SKLabelNode) {
