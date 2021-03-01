@@ -69,22 +69,25 @@ class LobbyMenu: SKScene {
         colorButtonNode.removeFromParent()
         kickButtonNode.removeFromParent()
         playerLabel.addChild(user1)
-        playerLabel.addChild(colorButtonNode)
-        playerLabel.addChild(kickButtonNode)
+        addChild(playerLabelParent)
+   //     playerLabel.addChild(colorButtonNode)
+    //    playerLabel.addChild(kickButtonNode)
         
-        pullGuestList()
+   //     pullGuestList()
         Global.multiplayerHandler.listenForGuestChanges()
     }
     
     
     func setPlayerList(playerList: [String]) {
         playerLabelParent.removeAllChildren()
+        print(playerList)
         for player in playerList {
             let newuser = playerLabel.copy() as! SKNode
             let userLabel = newuser.childNode(withName: "user1") as! SKLabelNode
             userLabel.text = player
             let i = playerList.firstIndex(of: player)!
             newuser.position.y -= CGFloat(i*30)
+            playerLabelParent.addChild(newuser)
         }
     }
     
@@ -106,6 +109,7 @@ class LobbyMenu: SKScene {
                 }
             }
         }
+        print(playerList)
         setPlayerList(playerList: playerList)
     }
     
