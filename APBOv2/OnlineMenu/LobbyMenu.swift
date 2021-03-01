@@ -1,11 +1,4 @@
-//
-//  LobbyMenu.swift
-//  APBOv2
-//
-//  Created by 90306670 on 2/24/21.
-//  Copyright © 2021 Dhruv Chowdhary. All rights reserved.
-//
-
+import Firebase
 import SpriteKit
 
 class LobbyMenu: SKScene {
@@ -57,6 +50,7 @@ class LobbyMenu: SKScene {
             self.user1colorButtonNode.alpha = 1
         }
         
+        pullGuestList()
         Global.multiplayerHandler.listenForGuestChanges()
     }
     
@@ -71,6 +65,19 @@ class LobbyMenu: SKScene {
         label.fontSize = 120
         label.fontName = "AvenirNext-Bold"
         addChild(label)
+    }
+    
+    func pullGuestList(){
+        var playerList: [String] = []
+        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Players").observeSingleEvent(of: .value) { snapshot in
+            if (snapshot.exists()){
+                for child in snapshot.children {
+                    let e = child as! DataSnapshot
+                    playerList.append(e.key)
+                }
+            }
+        }
+        setPlayerList(playerList: playerList)
     }
     
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {

@@ -10,6 +10,7 @@ public class GameData{
     public var gameScene = GameSceneBase()
     public var skView = SKView();
     public var isHost = false
+    public var host = "IDK";
     
     
     // =================
@@ -26,6 +27,8 @@ public class GameData{
         gameID = code
         DataPusher.PushData(path: "Games/\(code)/Host", Value: Global.playerData.username)
         DataPusher.PushData(path: "Games/\(code)/Status", Value: "Lobby")
+        DataPusher.PushData(path: "Games/\(code)/Players/\(Global.playerData.username)", Value: "PeePee")
+        Global.gameData.host = Global.playerData.username
         Global.loadScene(s: "LobbyMenu")
     }
     
