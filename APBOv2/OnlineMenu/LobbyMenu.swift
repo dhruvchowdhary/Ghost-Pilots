@@ -10,9 +10,13 @@ import SpriteKit
 
 class LobbyMenu: SKScene {
     var backButtonNode: MSButtonNode!
+    var startButtonNode: MSButtonNode!
+    
     var codeLabel = SKLabelNode(text: "00000")
     var user1 = SKLabelNode(text: "user1")
     var user1colorButtonNode: MSButtonNode!
+    var kickButtonNode: MSButtonNode!
+
     
     override func didMove(to view: SKView) {
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -36,7 +40,13 @@ class LobbyMenu: SKScene {
             }
         }
         
-        
+        startButtonNode = self.childNode(withName: "startButton") as? MSButtonNode
+        startButtonNode.selectedHandlers = {
+            // move scene to start da game
+        }
+        if Global.gameData.isHost {
+            startButtonNode.alpha = 1
+        }
 
         codeLabel.position = CGPoint(x: frame.midX, y: frame.midY - 340)
         codeLabel.text = String(Global.gameData.gameID)
@@ -63,6 +73,10 @@ class LobbyMenu: SKScene {
     
     func setPlayerList(playerList: [String]) {
         
+    }
+    
+    func player() {
+        let 
     }
     
     func setupLabel(label: SKLabelNode) {
