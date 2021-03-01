@@ -176,6 +176,10 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         self.activeTextField = textField
     }
     
+    func KickedFromGame() {
+        
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Hides the keyboard
         textField.resignFirstResponder()

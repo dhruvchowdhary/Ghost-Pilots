@@ -39,6 +39,7 @@ class HostMenu: SKScene {
             // create game code
             Global.gameData.CreateNewGame()
         }
+        
     }
     
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
