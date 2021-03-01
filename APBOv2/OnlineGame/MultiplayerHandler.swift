@@ -66,6 +66,7 @@ public class MultiplayerHandler{
                     shipSprite.position.x = payload.shipPosX
                     shipSprite.position.y = payload.shipPosY
                     shipSprite.zRotation = payload.shipAngleRad
+                    
             }
         }
     }
