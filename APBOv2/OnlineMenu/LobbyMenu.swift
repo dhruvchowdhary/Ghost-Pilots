@@ -86,7 +86,8 @@ class LobbyMenu: SKScene {
             let userLabel = newuser.childNode(withName: "user1") as! SKLabelNode
             userLabel.text = player
             let i = playerList.firstIndex(of: player)!
-            newuser.position.y -= CGFloat(i*30)
+            newuser.position.x = frame.midX
+            newuser.position.y -= CGFloat(i*100)
             playerLabelParent.addChild(newuser)
         }
     }
