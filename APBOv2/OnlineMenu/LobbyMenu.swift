@@ -11,7 +11,7 @@ class LobbyMenu: SKScene {
     var user1 = SKLabelNode(text: "user1")
     var colorButtonNode: MSButtonNode!
     var kickButtonNode: MSButtonNode!
-
+    var list: [String] = []
     
     override func didMove(to view: SKView) {
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -37,7 +37,17 @@ class LobbyMenu: SKScene {
         
         startButtonNode = self.childNode(withName: "startButton") as? MSButtonNode
         startButtonNode.selectedHandlers = {
-            // move scene to start da game
+            for s in self.list {
+                var spaceship: SpaceshipBase
+                if s == Global.playerData.username {
+                    spaceship = LocalSpaceship()
+                    Global.gameData.playerShip = spaceship as! LocalSpaceship
+                } else {
+                    spaceship = RemoteSpaceship(playerID: s)
+                }
+                Global.gameData.shipsToUpdate.append(spaceship)
+            }
+            Global.loadScene(s: "GameSceneBase")
         }
         if Global.gameData.isHost {
             startButtonNode.alpha = 1
@@ -79,6 +89,7 @@ class LobbyMenu: SKScene {
     
     
     func setPlayerList(playerList: [String]) {
+        list = playerList
         playerLabelParent.removeAllChildren()
         print(playerList)
         for player in playerList {
