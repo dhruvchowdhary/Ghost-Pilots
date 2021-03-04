@@ -38,18 +38,8 @@ class LobbyMenu: SKScene {
         
         startButtonNode = self.childNode(withName: "startButton") as? MSButtonNode
         startButtonNode.selectedHandlers = {
-            for s in self.list {
-                var spaceship: SpaceshipBase
-                if s == Global.playerData.username {
-                    spaceship = LocalSpaceship()
-                    Global.gameData.playerShip = spaceship as? LocalSpaceship
-                } else {
-                    spaceship = RemoteSpaceship(playerID: s)
-                }
-                Global.gameData.shipsToUpdate.append(spaceship)
-            }
-            Global.multiplayerHandler.StopListenForGuestChanges();
-            Global.loadScene(s: "GameSceneBase")
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Game")
+            //====================================
         }
         if Global.gameData.isHost {
             startButtonNode.alpha = 1
@@ -87,6 +77,7 @@ class LobbyMenu: SKScene {
         
    //     pullGuestList()
         Global.multiplayerHandler.listenForGuestChanges()
+        Global.multiplayerHandler.ListenForGameStatus()
     }
     
     
@@ -103,6 +94,21 @@ class LobbyMenu: SKScene {
             newuser.position.y += CGFloat(i*100)
             playerLabelParent.addChild(newuser)
         }
+    }
+    
+    func StartGame(){
+        for s in self.list {
+            var spaceship: SpaceshipBase
+            if s == Global.playerData.username {
+                spaceship = LocalSpaceship()
+                Global.gameData.playerShip = spaceship as? LocalSpaceship
+            } else {
+                spaceship = RemoteSpaceship(playerID: s)
+            }
+            Global.gameData.shipsToUpdate.append(spaceship)
+        }
+        Global.multiplayerHandler.StopListenForGuestChanges();
+        Global.loadScene(s: "GameSceneBase")
     }
     
     func setupLabel(label: SKLabelNode) {

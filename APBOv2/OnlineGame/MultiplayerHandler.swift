@@ -4,6 +4,7 @@ import SpriteKit
 
 public class MultiplayerHandler{
     var guestsRef: DatabaseReference?
+    var statusRef: DatabaseReference?
     public static var ref: DatabaseReference! = Database.database().reference()
     
     public func updateShips(gameData : GameData){
@@ -74,6 +75,18 @@ public class MultiplayerHandler{
     
     public func StopListenForPayload(ref: DatabaseReference){
         ref.removeAllObservers()
+    }
+    
+    public func ListenForGameStatus(){
+        statusRef = Database.database().reference().child("Games/Status")
+        statusRef!.observe(DataEventType.value) { ( snapshot ) in
+            if (snapshot.exists()){
+                if (snapshot.value as! String == "Game"){
+                    let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
+                    lobbyScene.StartGame()
+                }
+            }
+        }
     }
     
 }
