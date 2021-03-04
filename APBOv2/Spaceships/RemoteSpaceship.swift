@@ -11,7 +11,7 @@ class RemoteSpaceship: SpaceshipBase {
         
         super.init(shipSprite: spaceShipNode, playerId: playerID)
         
-        let ref = Database.database().reference().child("Games/\(Global.gameData.gameID)/\(Global.playerData.username)")
+        let ref = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)")
         Global.multiplayerHandler.listenForPayload(ref: ref, shipSprite: self.shipSprite as! SKSpriteNode)
     }
     
