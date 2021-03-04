@@ -80,6 +80,8 @@
 		81135EEE25E8312300B0F59F /* Level1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81135EEA25E8312300B0F59F /* Level1.swift */; };
 		81135EEF25E8312300B0F59F /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81135EEB25E8312300B0F59F /* Level1.sks */; };
 		81135EF025E8312300B0F59F /* LoadLevelsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81135EEC25E8312300B0F59F /* LoadLevelsMenu.swift */; };
+		81135EF325F14E5800B0F59F /* Level2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81135EF225F14E5800B0F59F /* Level2.swift */; };
+		81135EF625F1514C00B0F59F /* Level2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81135EF525F1514C00B0F59F /* Level2.sks */; };
 		815799E52591079800734A45 /* pilotImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 815799E42591079800734A45 /* pilotImages.atlas */; };
 		815799E72591136900734A45 /* RespawnExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 815799E62591136900734A45 /* RespawnExplosion.sks */; };
 		815799E925917EFD00734A45 /* BulletExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 815799E825917EFD00734A45 /* BulletExplosion.sks */; };
@@ -182,6 +184,8 @@
 		81135EEA25E8312300B0F59F /* Level1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level1.swift; sourceTree = "<group>"; };
 		81135EEB25E8312300B0F59F /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
 		81135EEC25E8312300B0F59F /* LoadLevelsMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadLevelsMenu.swift; sourceTree = "<group>"; };
+		81135EF225F14E5800B0F59F /* Level2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2.swift; sourceTree = "<group>"; };
+		81135EF525F1514C00B0F59F /* Level2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level2.sks; sourceTree = "<group>"; };
 		815799E42591079800734A45 /* pilotImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = pilotImages.atlas; sourceTree = "<group>"; };
 		815799E62591136900734A45 /* RespawnExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RespawnExplosion.sks; sourceTree = "<group>"; };
 		815799E825917EFD00734A45 /* BulletExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BulletExplosion.sks; sourceTree = "<group>"; };
@@ -258,6 +262,8 @@
 			children = (
 				81135EEB25E8312300B0F59F /* Level1.sks */,
 				81135EEA25E8312300B0F59F /* Level1.swift */,
+				81135EF225F14E5800B0F59F /* Level2.swift */,
+				81135EF525F1514C00B0F59F /* Level2.sks */,
 				81135EE925E8312200B0F59F /* LoadLevelsMenu.sks */,
 				81135EEC25E8312300B0F59F /* LoadLevelsMenu.swift */,
 				748CEDB3256C151F005DF246 /* SoloMenu.swift */,
@@ -583,6 +589,7 @@
 				81708DC825A565C50030C2C4 /* TurretBossMenu.sks in Resources */,
 				749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */,
 				74CF68752582CF37000C4E47 /* EnemyThruster.sks in Resources */,
+				81135EF625F1514C00B0F59F /* Level2.sks in Resources */,
 				748CEDB6256C1568005DF246 /* SoloMenu.sks in Resources */,
 				74CF685525820076000C4E47 /* pilotSquish2.wav in Resources */,
 				815799E72591136900734A45 /* RespawnExplosion.sks in Resources */,
@@ -666,6 +673,7 @@
 				CEF309CF25C1E86D007B8B39 /* DataPusher.swift in Sources */,
 				74C3CFDB2553100200757586 /* EnemyNode.swift in Sources */,
 				748CEDBE256D6EF8005DF246 /* TurretBoss.swift in Sources */,
+				81135EF325F14E5800B0F59F /* Level2.swift in Sources */,
 				748CEDB4256C151F005DF246 /* SoloMenu.swift in Sources */,
 				CEF309FF25C337D7007B8B39 /* PlayerData.swift in Sources */,
 				CEF309D825C1EAC0007B8B39 /* MultiplayerHandler.swift in Sources */,

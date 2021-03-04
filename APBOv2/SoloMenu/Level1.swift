@@ -92,7 +92,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         
-        
+        loadBluePilot()
         createPath()
         addChild(cameraNode)
               camera = cameraNode
@@ -194,19 +194,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         addChild(enemyPoints)
         
         
-        bluepilot.name = "bluepilot"
-        bluepilot.position.x = frame.midX
-        bluepilot.position.y = frame.midY
-        bluepilot.zPosition = 5
-        addChild(bluepilot)
-        
-        bluepilot.physicsBody = SKPhysicsBody(texture: bluepilot.texture!, size: bluepilot.texture!.size())
-        bluepilot.physicsBody?.categoryBitMask = CollisionType.pilot.rawValue
-        bluepilot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue
-        bluepilot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue
-        
-        bluepilot.physicsBody?.isDynamic = false
-        
+
         player.name = "player"
         player.position.x = frame.midX-700
         player.position.y = frame.midY-80
@@ -777,6 +765,20 @@ class Level1: SKScene, SKPhysicsContactDelegate {
      
      }*/
     
+    func loadBluePilot() {
+        bluepilot.name = "bluepilot"
+        bluepilot.position.x = frame.midX
+        bluepilot.position.y = frame.midY
+        bluepilot.zPosition = 5
+        addChild(bluepilot)
+        
+        bluepilot.physicsBody = SKPhysicsBody(texture: bluepilot.texture!, size: bluepilot.texture!.size())
+        bluepilot.physicsBody?.categoryBitMask = CollisionType.pilot.rawValue
+        bluepilot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue
+        bluepilot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue
+        
+        bluepilot.physicsBody?.isDynamic = false
+    }
 
     
       func buildPilot() {
@@ -1341,10 +1343,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
             path.move(to: .zero)
             path.stroke()
             
-            switch level {
-            case 0:
-                path.addCurve(to: CGPoint(x: -3500, y: 0), controlPoint1: CGPoint(x: 0, y: -position.y*4), controlPoint2: CGPoint(x: -1000, y: -position.y))
-            case 1:
+            
                 path.addLine(to: CGPoint(x: -1800, y: 0))
                 path.addLine(to: CGPoint(x: -1800, y: -600))
                 path.addLine(to: CGPoint(x: -900, y: -600))
@@ -1352,13 +1351,8 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                 
                 path.addLine(to: CGPoint(x: -1200, y: -360))
                 
-                
-            case 2:
-                path.addCurve(to: CGPoint(x: -3500, y: 0), controlPoint1: CGPoint(x: 400, y: -position.y*5), controlPoint2: CGPoint(x: -600, y: position.y*2))
-          
-            default:
-                print("default path")
-            }
+
+
             
          //   path.close()
         
@@ -1366,7 +1360,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         let shapeNode = SKShapeNode(path: path.cgPath)
         shapeNode.position.x = 1200
         shapeNode.position.y = 360
-        shapeNode.strokeColor = UIColor(red: 23.0/255, green: 208.0/255, blue: 238.0/255, alpha:1)
+    shapeNode.strokeColor = UIColor(red: 23.0/255, green: 208.0/255, blue: 238.0/255, alpha:0.8)
         shapeNode.zPosition = 2
         shapeNode.lineWidth = 3
         shapeNode.alpha = 0.7
