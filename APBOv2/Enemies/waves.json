@@ -125,10 +125,20 @@
 		]
 	},
     {
-        "name": "levels",
+        "name": "level1",
         "enemies": [
             {
                 "position": 8,
+                "xOffset": 2,
+                "moveStraight": true
+            }
+        ]
+    },
+    {
+        "name": "level2",
+        "enemies": [
+            {
+                "position": 0,
                 "xOffset": 2,
                 "moveStraight": true
             }

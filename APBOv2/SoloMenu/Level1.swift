@@ -191,7 +191,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         enemyPoints.fontSize = 45
         enemyPoints.fontName = "AvenirNext-Bold"
         enemyPoints.alpha = 0
-        addChild(enemyPoints)
+        //addChild(enemyPoints)
         
         
 
@@ -208,7 +208,8 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.isDynamic = false
         
         
-
+        resetscene()
+        
         reviveButtonNode = self.childNode(withName: "reviveButton") as? MSButtonNode
         reviveButtonNode.alpha = 0
         reviveButtonNode.selectedHandler = {
@@ -284,60 +285,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
             skView.presentScene(scene)
         }
         
-        restartButtonNode = self.childNode(withName: "restartButton") as? MSButtonNode
-        restartButtonNode.alpha = 0
-        restartButtonNode.selectedHandlers = {
-            /* 1) Grab reference to our SpriteKit view */
-            guard let skView = self.view as SKView? else {
-                print("Could not get Skview")
-                return
-            }
-            
-            /* 2) Load Menu scene */
-            guard let scene = GameScene(fileNamed:"Level1") else {
-                print("Could not make GameScene, check the name is spelled correctly")
-                return
-            }
-            
-            /* 3) Ensure correct aspect mode */
-            scene.scaleMode = .aspectFill
-            
-            /* Show debug */
-            skView.showsPhysics = false
-            skView.showsDrawCount = false
-            skView.showsFPS = false
-            
-            /* 4) Start game scene */
-            skView.presentScene(scene)
-        }
-        
-        playAgainButtonNode = self.childNode(withName: "playAgainButton") as? MSButtonNode
-        playAgainButtonNode.alpha = 0
-        playAgainButtonNode.selectedHandlers = {
-            /* 1) Grab reference to our SpriteKit view */
-            guard let skView = self.view as SKView? else {
-                print("Could not get Skview")
-                return
-            }
-            
-            /* 2) Load Menu scene */
-            guard let scene = GameScene(fileNamed:"Level1") else {
-                print("Could not make GameScene, check the name is spelled correctly")
-                return
-            }
-            
-            /* 3) Ensure correct aspect mode */
-            scene.scaleMode = .aspectFill
-            
-            /* Show debug */
-            skView.showsPhysics = false
-            skView.showsDrawCount = false
-            skView.showsFPS = false
-            
-            /* 4) Start game scene */
-            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-            skView.presentScene(scene, transition: reveal)
-        }
+    
         
         pauseButtonNode = self.childNode(withName: "pause") as? MSButtonNode
         pauseButtonNode.selectedHandler = {
@@ -765,6 +713,64 @@ class Level1: SKScene, SKPhysicsContactDelegate {
      
      }*/
     
+    
+    func resetscene() {
+        
+        restartButtonNode = self.childNode(withName: "restartButton") as? MSButtonNode
+        restartButtonNode.alpha = 0
+        restartButtonNode.selectedHandlers = {
+            /* 1) Grab reference to our SpriteKit view */
+            guard let skView = self.view as SKView? else {
+                print("Could not get Skview")
+                return
+            }
+            
+            /* 2) Load Menu scene */
+            guard let scene = GameScene(fileNamed:"Level1") else {
+                print("Could not make GameScene, check the name is spelled correctly")
+                return
+            }
+            
+            /* 3) Ensure correct aspect mode */
+            scene.scaleMode = .aspectFill
+            
+            /* Show debug */
+            skView.showsPhysics = false
+            skView.showsDrawCount = false
+            skView.showsFPS = false
+            
+            /* 4) Start game scene */
+            skView.presentScene(scene)
+        }
+        
+        playAgainButtonNode = self.childNode(withName: "playAgainButton") as? MSButtonNode
+        playAgainButtonNode.alpha = 0
+        playAgainButtonNode.selectedHandlers = {
+            /* 1) Grab reference to our SpriteKit view */
+            guard let skView = self.view as SKView? else {
+                print("Could not get Skview")
+                return
+            }
+            
+            /* 2) Load Menu scene */
+            guard let scene = GameScene(fileNamed:"Level1") else {
+                print("Could not make GameScene, check the name is spelled correctly")
+                return
+            }
+            
+            /* 3) Ensure correct aspect mode */
+            scene.scaleMode = .aspectFill
+            
+            /* Show debug */
+            skView.showsPhysics = false
+            skView.showsDrawCount = false
+            skView.showsFPS = false
+            
+            /* 4) Start game scene */
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            skView.presentScene(scene, transition: reveal)
+        }
+    }
     func loadBluePilot() {
         bluepilot.name = "bluepilot"
         bluepilot.position.x = frame.midX
