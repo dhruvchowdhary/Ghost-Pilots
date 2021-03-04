@@ -25,6 +25,7 @@ public class LocalSpaceship: SpaceshipBase {
     
     var playerShields = 1
     var powerupMode = 0
+    var doubleTap = 0
     
     var timeUntilNextBullet: Double = 0.8;
     let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
@@ -116,6 +117,14 @@ public class LocalSpaceship: SpaceshipBase {
             self.isRotating = true
             self.turnButtonNode.xScale = self.turnButtonNode.xScale * 1.1
             self.turnButtonNode.yScale = self.turnButtonNode.yScale * 1.1
+            if self.doubleTap == 1 {
+                
+            } else {
+                self.doubleTap = 1
+                let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
+                    self.doubleTap = 0
+                }
+            }
         }
         turnButtonNode.selectedHandlers = {
             self.isRotating = false
@@ -160,7 +169,7 @@ public class LocalSpaceship: SpaceshipBase {
     override func UniqueUpdateShip(deltaTime: Double) {
         // Handle rotation and movement
         if (isRotating){
-            spaceShipNode.zRotation += CGFloat(Double.pi * 1.3 * deltaTime)
+            spaceShipNode.zRotation -= CGFloat(Double.pi * 1.3 * deltaTime)
         }
         
         if isRecoiling {
