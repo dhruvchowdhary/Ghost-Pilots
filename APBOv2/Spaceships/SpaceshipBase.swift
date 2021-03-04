@@ -24,8 +24,8 @@ public class SpaceshipBase {
         for s in unfiredBullets {
             s.alpha = 0
         }
-        
-        shipSprite.position.x = CGFloat((100 * Global.gameData.shipsToUpdate.count))
+        print(Global.gameData.shipsToUpdate.count)
+        shipSprite.position.x += CGFloat((300 * Global.gameData.shipsToUpdate.count))
     }
 
     
