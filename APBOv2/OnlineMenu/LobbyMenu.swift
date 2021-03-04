@@ -26,6 +26,7 @@ class LobbyMenu: SKScene {
         backButtonNode = self.childNode(withName: "back") as? MSButtonNode
         backButtonNode.selectedHandlers = {
             // if host give host to someone else || if no one destroy lobby/code || if not host just leave
+            Global.multiplayerHandler.StopListenForGuestChanges();
             self.loadOnlineMenu()
         }
         if UIDevice.current.userInterfaceIdiom != .pad {
@@ -41,12 +42,13 @@ class LobbyMenu: SKScene {
                 var spaceship: SpaceshipBase
                 if s == Global.playerData.username {
                     spaceship = LocalSpaceship()
-                    Global.gameData.playerShip = spaceship as! LocalSpaceship
+                    Global.gameData.playerShip = spaceship as? LocalSpaceship
                 } else {
                     spaceship = RemoteSpaceship(playerID: s)
                 }
                 Global.gameData.shipsToUpdate.append(spaceship)
             }
+            Global.multiplayerHandler.StopListenForGuestChanges();
             Global.loadScene(s: "GameSceneBase")
         }
         if Global.gameData.isHost {
