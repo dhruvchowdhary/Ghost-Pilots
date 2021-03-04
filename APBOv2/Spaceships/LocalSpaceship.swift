@@ -192,7 +192,7 @@ public class LocalSpaceship: SpaceshipBase {
         let payload = Payload(shipPosX: shipSprite.position.x, shipPosY: shipSprite.position.y, shipAngleRad: shipSprite.zRotation, hasPowerup: false)
         let data = try! JSONEncoder().encode(payload)
         let json = String(data: data, encoding: .utf8)!
-        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/\(playerID)", Value: json)
+        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)", Value: json)
     }
     
     public func Ghost(){
