@@ -25,7 +25,7 @@ public class SpaceshipBase {
             s.alpha = 0
         }
         
-        shipSprite.position.x = (100 * Global.gameData.shipsToUpdate.count)
+        shipSprite.position.x = CGFloat((100 * Global.gameData.shipsToUpdate.count))
     }
 
     
