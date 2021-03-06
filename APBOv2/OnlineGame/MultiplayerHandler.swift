@@ -5,6 +5,8 @@ import SpriteKit
 public class MultiplayerHandler{
     var guestsRef: DatabaseReference?
     var statusRef: DatabaseReference?
+    var currentBulletCounts: [(String, Int)] = []
+    
     public static var ref: DatabaseReference! = Database.database().reference()
     
     public func updateShips(gameData : GameData){
@@ -26,7 +28,7 @@ public class MultiplayerHandler{
     public func listenForGuestChanges(){
         var isInGame = false
         self.guestsRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Players")
-        let childAdded = guestsRef?.observe(DataEventType.value, with: { (snapshot) in
+        guestsRef?.observe(DataEventType.value, with: { (snapshot) in
             let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
             var playerList: [String] = []
             for child in snapshot.children {
@@ -57,21 +59,55 @@ public class MultiplayerHandler{
         guestsRef?.removeAllObservers()
     }
     
-    public func listenForPayload(ref: DatabaseReference, shipSprite: SKSpriteNode){
+    public func ListenForPayload(ref: DatabaseReference, shipSprite: SKSpriteNode){
         ref.observe(DataEventType.value) { ( snapshot ) in
             if (snapshot.exists()) {
                 let snapVal = snapshot.value as! String
                 if (snapVal != "PeePee"){
-                    print("e")
                     let jsonData = snapVal.data(using: .utf8)
                     let payload = try! JSONDecoder().decode(Payload.self, from: jsonData!)
+                    print("=========")
                     print(payload.shipPosX)
+                    print(" vs ")
+                    print(shipSprite.position.x)
                     shipSprite.position.x = payload.shipPosX
                     shipSprite.position.y = payload.shipPosY
                     shipSprite.zRotation = payload.shipAngleRad
                 }
+            } else {
+                print ("Snapshot does not exist");
             }
         }
+    }
+    
+    public func ListenForShots(ref: DatabaseReference, spaceShip: SpaceshipBase ){
+        
+        currentBulletCounts.append((spaceShip.playerID, 0))
+        
+        ref.observe(DataEventType.value) { ( snapshot ) in
+            if (snapshot.exists()) {
+                for var tup in self.currentBulletCounts{
+                    if tup.0 == spaceShip.playerID{
+                        var e = snapshot.childSnapshot(forPath: spaceShip.playerID + String(tup.1)).value as! String;
+                        e.removeFirst(spaceShip.playerID.count)
+                        let i: Int = Int(e)!
+                        spaceShip.Shoot(shotType: i)
+                        tup.1 += 1
+                    }
+                }
+            }
+        }
+    }
+    
+    public func StopListenForShots(ref: DatabaseReference, spaceShip: SpaceshipBase ){
+        ref.removeAllObservers()
+        for i in 0..<currentBulletCounts.count {
+            if currentBulletCounts[i].0 == spaceShip.playerID {
+                currentBulletCounts.remove(at: i)
+                break;
+            }
+        }
+        
     }
     
     public func StopListenForPayload(ref: DatabaseReference){

@@ -24,9 +24,7 @@ public class SpaceshipBase {
         for s in unfiredBullets {
             s.alpha = 0
         }
-
-        print(Global.gameData.shipsToUpdate.count)
-        shipSprite.position.x += CGFloat((300 * Global.gameData.shipsToUpdate.count))
+        
     }
 
     
@@ -41,6 +39,7 @@ public class SpaceshipBase {
     }
     
     public func Shoot(shotType: Int){
+        print (Global.gameData.shipsToUpdate)
         switch shotType {
         case 0:
             if unfiredBulletsCount > 0 {
@@ -52,9 +51,7 @@ public class SpaceshipBase {
                 bullet.position = shipSprite.position
                 Global.gameData.gameScene.liveBullets.append(bullet)
                 Global.gameData.gameScene.addChild(bullet)
-                print("pre" + String(unfiredBulletsCount))
-                unfiredBulletsCount -= 1
-                print(unfiredBulletsCount)
+                self.unfiredBulletsCount -= 1
                 unfiredBullets[unfiredBulletsCount].alpha = 0;
             }
         case 1:

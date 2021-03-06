@@ -33,11 +33,11 @@ class SoloMenu: SKScene {
             /* Set UI connections */
             backButtonNode = self.childNode(withName: "back") as? MSButtonNode
             backButtonNode.selectedHandlers = {
-                let e = LocalSpaceship()
-                Global.gameData.playerShip = e
-                Global.gameData.shipsToUpdate.append(e)
-                self.loadScene(s: "GameSceneBase")
-                //       skView.presentScene(scene)
+//                let e = LocalSpaceship()
+//                Global.gameData.playerShip = e
+//                Global.gameData.shipsToUpdate.append(e)
+//                self.loadScene(s: "GameSceneBase")
+                Global.loadScene(s: "MainMenu")
             }
             
             if UIDevice.current.userInterfaceIdiom != .pad {

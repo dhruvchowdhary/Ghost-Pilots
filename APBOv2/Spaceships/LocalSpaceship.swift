@@ -30,6 +30,8 @@ public class LocalSpaceship: SpaceshipBase {
     var timeUntilNextBullet: Double = 0.8;
     let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
     
+    var currentShotCountBuddy = 0;
+    
     init() {
         
         spaceShipNode = SKSpriteNode(imageNamed: "player");
@@ -53,7 +55,7 @@ public class LocalSpaceship: SpaceshipBase {
         //spaceShipNode.physicsBody!.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.border.rawValue | CollisionType.powerup.rawValue
         
         spaceShipNode.physicsBody?.isDynamic = true
-        super.init(shipSprite: spaceShipParent, playerId: UIDevice.current.identifierForVendor!.uuidString)
+        super.init(shipSprite: spaceShipParent, playerId: Global.playerData.username)
         
         isLocal = true
         
@@ -141,6 +143,8 @@ public class LocalSpaceship: SpaceshipBase {
             
             if self.isPlayerAlive && self.unfiredBullets.count > 0 {
                 Global.gameData.playerShip?.Shoot(shotType: 0)
+                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)/Shots/\(self.playerID + String(self.currentShotCountBuddy))", Value: "PeePee")
+                self.currentShotCountBuddy += 1;
             }
         }
         shootButtonNode.selectedHandlers = {
@@ -162,7 +166,6 @@ public class LocalSpaceship: SpaceshipBase {
         
         let playAgainButtonNode = spaceShipHud.childNode(withName: "playAgainButton") as? MSButtonNode
         playAgainButtonNode!.alpha = 0
-        
         
     }
     
@@ -198,10 +201,10 @@ public class LocalSpaceship: SpaceshipBase {
             timeUntilNextBullet = 1.3
         }
         
-        let payload = Payload(shipPosX: shipSprite.position.x, shipPosY: shipSprite.position.y, shipAngleRad: shipSprite.zRotation, hasPowerup: false)
+        let payload = Payload(shipPosX: spaceShipParent.position.x, shipPosY: spaceShipParent.position.y, shipAngleRad: spaceShipNode.zRotation)
         let data = try! JSONEncoder().encode(payload)
         let json = String(data: data, encoding: .utf8)!
-        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)", Value: json)
+        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)/Pos", Value: json)
     }
     
     public func Ghost(){
