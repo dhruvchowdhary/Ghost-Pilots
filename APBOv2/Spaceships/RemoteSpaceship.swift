@@ -3,6 +3,10 @@ import SpriteKit
 import Firebase
 
 class RemoteSpaceship: SpaceshipBase {
+    
+    public var posRef: DatabaseReference = DatabaseReference()
+    public var shotsRef: DatabaseReference = DatabaseReference()
+    
     init(playerID: String) {
         let spaceShipNode = SKSpriteNode(imageNamed: "player");
         spaceShipNode.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
@@ -12,8 +16,10 @@ class RemoteSpaceship: SpaceshipBase {
         super.init(shipSprite: spaceShipNode, playerId: playerID)
         shipSprite.position.x += CGFloat((300 * Global.gameData.shipsToUpdate.count))
         
-        let ref = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)")
-        Global.multiplayerHandler.listenForPayload(ref: ref, shipSprite: self.shipSprite as! SKSpriteNode)
+        posRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(playerID)/Pos")
+        shotsRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)/Shots")
+        Global.multiplayerHandler.ListenForPayload(ref: posRef, shipSprite: self.shipSprite as! SKSpriteNode)
+        Global.multiplayerHandler.ListenForShots(ref: shotsRef, spaceShip: self)
     }
     
     override func UniqueUpdateShip(deltaTime: Double) {

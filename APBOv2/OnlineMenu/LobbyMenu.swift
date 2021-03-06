@@ -97,6 +97,7 @@ class LobbyMenu: SKScene {
     }
     
     func StartGame(){
+        Global.multiplayerHandler.StopListenForGuestChanges();
         for s in self.list {
             var spaceship: SpaceshipBase
             if s == Global.playerData.username {
@@ -107,7 +108,6 @@ class LobbyMenu: SKScene {
             }
             Global.gameData.shipsToUpdate.append(spaceship)
         }
-        Global.multiplayerHandler.StopListenForGuestChanges();
         Global.loadScene(s: "GameSceneBase")
     }
     
