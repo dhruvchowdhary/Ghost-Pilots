@@ -121,6 +121,7 @@ public class LocalSpaceship: SpaceshipBase {
             self.turnButtonNode.yScale = self.turnButtonNode.yScale * 1.1
             if self.doubleTap == 1 {
                 
+                doubleTap = 0
             } else {
                 self.doubleTap = 1
                 let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in

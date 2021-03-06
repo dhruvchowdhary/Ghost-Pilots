@@ -24,7 +24,6 @@ public class SpaceshipBase {
         for s in unfiredBullets {
             s.alpha = 0
         }
-        
     }
 
     

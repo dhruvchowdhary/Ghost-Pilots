@@ -14,6 +14,7 @@ class RemoteSpaceship: SpaceshipBase {
         spaceShipNode.physicsBody!.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.bullet.rawValue
         
         super.init(shipSprite: spaceShipNode, playerId: playerID)
+        shipSprite.position.x += CGFloat((300 * Global.gameData.shipsToUpdate.count))
         
         posRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(playerID)/Pos")
         shotsRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)/Shots")
