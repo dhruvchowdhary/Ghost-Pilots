@@ -131,7 +131,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                 }
             }
             
-            
+            setPositions()
         }
     }
     
@@ -237,6 +237,17 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         return tap
     }
     
+    func setPositions() {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            usernameBox.frame = CGRect(x: view!.bounds.width/2 - 130, y: view!.bounds.height/2 - 180, width: 260, height: 82.10526)
+               } else if UIScreen.main.bounds.width > 779 {
+        //           tutorialButtonNode.position.x = frame.midX - 720
+         //          tutorialButtonNode.position.y =  frame.midY - 290
+               } else {
+         //          tutorialButtonNode.position.x = frame.midX - 620
+          //         tutorialButtonNode.position.y =  frame.midY - 300
+               }
+    }
     
     func loadTutorial() {
         usernameBox.removeFromSuperview()
