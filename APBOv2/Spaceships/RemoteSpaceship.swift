@@ -23,7 +23,8 @@ class RemoteSpaceship: SpaceshipBase {
     }
     
     override func UniqueUpdateShip(deltaTime: Double) {
-        
+        shipSprite.position.x += cos(shipSprite.zRotation) * CGFloat(deltaTime) * 250
+        shipSprite.position.y += sin(shipSprite.zRotation) * CGFloat(deltaTime) * 250
     }
 }
 
