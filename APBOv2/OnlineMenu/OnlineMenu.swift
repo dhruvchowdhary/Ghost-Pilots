@@ -241,6 +241,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         if UIDevice.current.userInterfaceIdiom == .pad {
             usernameBox.frame = CGRect(x: view!.bounds.width/2 - 160, y: view!.bounds.height/2 - 195, width: 320, height: 101.052632)
             usernameBox.font = UIFont.init(name: "AvenirNext-Bold", size: 38.7368)
+            
             codeBox.frame = CGRect(x: view!.bounds.width/2 - 100, y: view!.bounds.height/2 + 85, width: 200, height: 70)
             codeBox.font = UIFont.init(name: "AvenirNext-Bold", size: 28)
                } else if UIScreen.main.bounds.width > 779 {
@@ -250,8 +251,9 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
          //          tutorialButtonNode.position.y =  frame.midY - 290
                } else if UIScreen.main.bounds.width > 567 {
                 //iphone 8+
-                usernameBox = UITextField(frame: CGRect(x: view!.bounds.width/2 - 95, y: view!.bounds.height/2 - 130, width: 190, height: 60))
+                usernameBox.frame = CGRect(x: view!.bounds.width/2 - 95, y: view!.bounds.height/2 - 130, width: 190, height: 60)
                 usernameBox.font = UIFont.init(name: "AvenirNext-Bold", size: 38.7368)
+                
                 codeBox.frame = CGRect(x: view!.bounds.width/2 - 100, y: view!.bounds.height/2 + 85, width: 200, height: 70)
                 codeBox.font = UIFont.init(name: "AvenirNext-Bold", size: 28)
                } else {
