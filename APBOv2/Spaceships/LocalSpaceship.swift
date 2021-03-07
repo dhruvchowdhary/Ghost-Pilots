@@ -28,7 +28,6 @@ public class LocalSpaceship: SpaceshipBase {
     var powerupMode = 0
     var doubleTap = 0
     
-    var timeUntilNextBullet: Double = 0.8;
     let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
     
     var framesTilPos = 3;
@@ -146,7 +145,7 @@ public class LocalSpaceship: SpaceshipBase {
             
             if self.isPlayerAlive && self.unfiredBullets.count > 0 {
                 Global.gameData.playerShip?.Shoot(shotType: 0)
-                posRef.child("shot #" + String(self.currentShotCountBuddy)).setValue("PeePee")
+                self.shotsRef.child("shot " + String(self.currentShotCountBuddy)).setValue("PeePee")
                 self.currentShotCountBuddy += 1;
             }
         }
@@ -197,16 +196,6 @@ public class LocalSpaceship: SpaceshipBase {
                 spaceShipParent.position.y += sin(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
             }
         
-        // For online only, but no control yet
-        if unfiredBulletsCount < 3 {
-            timeUntilNextBullet -= deltaTime;
-        }
-        
-        if (timeUntilNextBullet < 0 && unfiredBulletsCount < 3) {
-            unfiredBullets[unfiredBulletsCount].alpha = 1;
-            unfiredBulletsCount += 1
-            timeUntilNextBullet = 1.3
-        }
         
         if framesTilPos < 0 {
             let payload = Payload(shipPosX: spaceShipParent.position.x, shipPosY: spaceShipParent.position.y, shipAngleRad: spaceShipNode.zRotation)

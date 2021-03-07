@@ -4,7 +4,6 @@ import Firebase
 
 class RemoteSpaceship: SpaceshipBase {
     
-    
     init(playerID: String, imageTexture: String) {
         let spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
         spaceShipNode.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)

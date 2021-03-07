@@ -15,6 +15,7 @@ public class SpaceshipBase {
          SKSpriteNode(imageNamed: "bullet"),
          SKSpriteNode(imageNamed: "bullet")]
     let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
+    var timeUntilNextBullet: Double = 0.8;
     
     var unfiredBulletsCount = 0
     public var unfiredBulletRotator = SKNode();
@@ -35,7 +36,7 @@ public class SpaceshipBase {
         shipSprite.addChild(thruster1!)
         
         posRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(playerID)/Pos")
-        shotsRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)/Shots")
+        shotsRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(playerID)/Shots")
         
         for s in unfiredBullets {
             s.alpha = 0
@@ -46,6 +47,17 @@ public class SpaceshipBase {
     func UpdateShip(deltaTime: Double){
         unfiredBulletRotator.zRotation -= CGFloat(Double.pi/35)
         UniqueUpdateShip(deltaTime: deltaTime)
+        
+        // For online only, but no control yet
+        if unfiredBulletsCount < 3 {
+            timeUntilNextBullet -= deltaTime;
+        }
+        
+        if (timeUntilNextBullet < 0 && unfiredBulletsCount < 3) {
+            unfiredBullets[unfiredBulletsCount].alpha = 1;
+            unfiredBulletsCount += 1
+            timeUntilNextBullet = 1.3
+        }
     }
     // Only to be ovveridden
     func UniqueUpdateShip(deltaTime: Double){
