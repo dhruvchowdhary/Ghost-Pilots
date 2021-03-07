@@ -37,6 +37,7 @@ public class LocalSpaceship: SpaceshipBase {
     init(imageTexture: String) {
         
         spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
+        super.init(shipSprite: spaceShipParent, playerId: Global.playerData.username)
         
         //spaceShipNode.physicsBody = SKPhysicsBody.init(texture: spaceShipNode.texture!, size: spaceShipNode.size)
         spaceShipNode.name = "player"
@@ -45,20 +46,13 @@ public class LocalSpaceship: SpaceshipBase {
         spaceShipParent.addChild(spaceShipNode)
         spaceShipParent.addChild(spaceShipHud)
         
-        spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
-
-        
-        //spaceShipNode.physicsBody!.categoryBitMask = CollisionType.player.rawValue
+        if self.playerID != "Pepe2"{
+            spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
+        }
         
         spaceShipNode.physicsBody?.collisionBitMask = CollisionType.border.rawValue
-        spaceShipNode.physicsBody?.categoryBitMask = CollisionType.player.rawValue
-        spaceShipNode.physicsBody?.contactTestBitMask = CollisionType.border.rawValue
-        //spaceShipNode.physicsBody!.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.border.rawValue | CollisionType.powerup.rawValue
-        //spaceShipNode.physicsBody!.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.border.rawValue | CollisionType.powerup.rawValue
         
         spaceShipNode.physicsBody?.isDynamic = true
-        super.init(shipSprite: spaceShipParent, playerId: Global.playerData.username)
-        
         isLocal = true
         
         // Pulls all components from hud and adds them as children to the spaceship node
@@ -172,24 +166,26 @@ public class LocalSpaceship: SpaceshipBase {
     }
     
     override func UniqueUpdateShip(deltaTime: Double) {
-        // Handle rotation and movement
-        if (isRotating){
-            spaceShipNode.zRotation -= CGFloat(Double.pi * 1.3 * deltaTime)
-        }
-        
-        if isRecoiling {
-            recoilTimer -= deltaTime
-            if recoilTimer < 0
-            {
-                isRecoiling = false
+        if (!Global.gameData.isBackground){
+            // Handle rotation and movement
+            if (isRotating){
+                spaceShipNode.zRotation -= CGFloat(Double.pi * 1.3 * deltaTime)
             }
-            else {
-                spaceShipParent.position.x -= cos(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
-                spaceShipParent.position.y -= sin(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
+            
+            if isRecoiling {
+                recoilTimer -= deltaTime
+                if recoilTimer < 0
+                {
+                    isRecoiling = false
+                }
+                else {
+                    spaceShipParent.position.x -= cos(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
+                    spaceShipParent.position.y -= sin(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
+                }
+            } else {
+                spaceShipParent.position.x += cos(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
+                spaceShipParent.position.y += sin(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
             }
-        } else {
-            spaceShipParent.position.x += cos(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
-            spaceShipParent.position.y += sin(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
         }
         
         // For online only, but no control yet
