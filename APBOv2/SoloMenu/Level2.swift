@@ -124,8 +124,8 @@ class Level2: Level1 {
        // waveNumber += 1
         waveCounter += 1
   //     var rng = SystemRandomNumberGenerator()
-        let maximumEnemyType = min(enemyTypes.count, levelNumber + 1)
-        let enemyType = Int.random(in: 0...maximumEnemyType-1)
+        
+        let enemyType = 1
 
         let speedChange = (3-enemyType)*100 + speedAdd
       //      , using: &rng)
@@ -176,6 +176,11 @@ class Level2: Level1 {
         bluepilot.position.y = frame.midY
         bluepilot.zPosition = 5
         addChild(bluepilot)
+        
+        PilotFX?.position = CGPoint(x: 0, y: 0)
+        PilotFX?.targetNode = self.scene
+        PilotFX?.particleAlpha = 1
+        bluepilot.addChild(PilotFX!)
         
         bluepilot.physicsBody = SKPhysicsBody(texture: bluepilot.texture!, size: bluepilot.texture!.size())
         bluepilot.physicsBody?.categoryBitMask = CollisionType.pilot.rawValue

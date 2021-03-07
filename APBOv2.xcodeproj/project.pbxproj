@@ -85,6 +85,7 @@
 		815799E52591079800734A45 /* pilotImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 815799E42591079800734A45 /* pilotImages.atlas */; };
 		815799E72591136900734A45 /* RespawnExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 815799E62591136900734A45 /* RespawnExplosion.sks */; };
 		815799E925917EFD00734A45 /* BulletExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 815799E825917EFD00734A45 /* BulletExplosion.sks */; };
+		8157B31225F4681E005E59C5 /* PilotFX.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8157B31125F4681E005E59C5 /* PilotFX.sks */; };
 		816EE129259265D10053AE35 /* ShootingExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 816EE127259265D10053AE35 /* ShootingExplosion.sks */; };
 		816EE12A259265D10053AE35 /* TurretShootingExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 816EE128259265D10053AE35 /* TurretShootingExplosion.sks */; };
 		81708DC425A376650030C2C4 /* TurretBossMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81708DC325A376650030C2C4 /* TurretBossMenu.swift */; };
@@ -191,6 +192,7 @@
 		815799E42591079800734A45 /* pilotImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = pilotImages.atlas; sourceTree = "<group>"; };
 		815799E62591136900734A45 /* RespawnExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RespawnExplosion.sks; sourceTree = "<group>"; };
 		815799E825917EFD00734A45 /* BulletExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BulletExplosion.sks; sourceTree = "<group>"; };
+		8157B31125F4681E005E59C5 /* PilotFX.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PilotFX.sks; sourceTree = "<group>"; };
 		816EE127259265D10053AE35 /* ShootingExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ShootingExplosion.sks; sourceTree = "<group>"; };
 		816EE128259265D10053AE35 /* TurretShootingExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TurretShootingExplosion.sks; sourceTree = "<group>"; };
 		81708DC325A376650030C2C4 /* TurretBossMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBossMenu.swift; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 				7451FF772576FE8F0074CC2E /* Spark.sks */,
 				815799E825917EFD00734A45 /* BulletExplosion.sks */,
 				815799E62591136900734A45 /* RespawnExplosion.sks */,
+				8157B31125F4681E005E59C5 /* PilotFX.sks */,
 				74CF6847257FDF30000C4E47 /* PilotBlood.sks */,
 				74CF6841257C2EA8000C4E47 /* ShipExplosion.sks */,
 				74CF68742582CF37000C4E47 /* EnemyThruster.sks */,
@@ -592,6 +595,7 @@
 				74C3CFB4253F3BE900757586 /* Actions.sks in Resources */,
 				748500B425E76C970063F73B /* GoogleService-Info.plist in Resources */,
 				748500B025E6C0910063F73B /* LobbyMenu.sks in Resources */,
+				8157B31225F4681E005E59C5 /* PilotFX.sks in Resources */,
 				CE9C6D9C25E8275800D47FCC /* GameScene.sks in Resources */,
 				81708DC825A565C50030C2C4 /* TurretBossMenu.sks in Resources */,
 				749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */,

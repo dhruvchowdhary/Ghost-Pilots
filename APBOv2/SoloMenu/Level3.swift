@@ -21,15 +21,19 @@ class Level3: Level1 {
             path.stroke()
             
         
-        path.addLine(to: CGPoint(x: -500, y: 0))
+
         path.addLine(to: CGPoint(x: -600, y: 300))
         
-        path.addLine(to: CGPoint(x: -700, y: -400))
+        path.addLine(to: CGPoint(x: -700, y: -350))
         
         path.addLine(to: CGPoint(x: -800, y: 200))
         
+        path.addLine(to: CGPoint(x: -1100, y: -250))
         
-        path.addLine(to: CGPoint(x: frame.midX - 500, y: frame.midY))
+        path.addLine(to: CGPoint(x: -1400, y: 300))
+        
+        
+        path.addLine(to: CGPoint(x: -1200 - 500, y: frame.midY))
         
         
          //   path.close()
@@ -124,8 +128,8 @@ class Level3: Level1 {
        // waveNumber += 1
         waveCounter += 1
   //     var rng = SystemRandomNumberGenerator()
-        let maximumEnemyType = min(enemyTypes.count, levelNumber + 1)
-        let enemyType = Int.random(in: 0...maximumEnemyType-1)
+       
+        let enemyType = 2
 
         let speedChange = (3-enemyType)*100 + speedAdd
       //      , using: &rng)
@@ -176,6 +180,11 @@ class Level3: Level1 {
         bluepilot.position.y = frame.midY
         bluepilot.zPosition = 5
         addChild(bluepilot)
+        
+        PilotFX?.position = CGPoint(x: 0, y: 0)
+        PilotFX?.targetNode = self.scene
+        PilotFX?.particleAlpha = 1
+        bluepilot.addChild(PilotFX!)
         
         bluepilot.physicsBody = SKPhysicsBody(texture: bluepilot.texture!, size: bluepilot.texture!.size())
         bluepilot.physicsBody?.categoryBitMask = CollisionType.pilot.rawValue

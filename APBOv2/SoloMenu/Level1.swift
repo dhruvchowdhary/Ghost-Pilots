@@ -64,6 +64,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
     var count = 0
     var doubleTap = 0;
     let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
+    let PilotFX = SKEmitterNode(fileNamed: "PilotFX")
     let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
     let spark1 = SKEmitterNode(fileNamed: "Spark")
     let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
@@ -778,6 +779,16 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         bluepilot.position.y = frame.midY
         bluepilot.zPosition = 5
         addChild(bluepilot)
+        
+        
+        
+        PilotFX?.position = CGPoint(x: 0, y: 0)
+        PilotFX?.targetNode = self.scene
+        PilotFX?.particleAlpha = 1 
+        bluepilot.addChild(PilotFX!)
+        
+        
+        
         
         bluepilot.physicsBody = SKPhysicsBody(texture: bluepilot.texture!, size: bluepilot.texture!.size())
         bluepilot.physicsBody?.categoryBitMask = CollisionType.pilot.rawValue
@@ -1566,7 +1577,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
             self.run(SKAction.playSoundFileNamed("pilotSquish3", waitForCompletion: false))
                                  if let explosion = SKEmitterNode(fileNamed: "PilotBlood") {
                                      explosion.numParticlesToEmit = 8
-                                     explosion.position = pilot.position
+                                     explosion.position = bluepilot.position
                                      addChild(explosion)
                                  }
             
@@ -1587,7 +1598,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
             self.run(SKAction.playSoundFileNamed("pilotSquish3", waitForCompletion: false))
                                  if let explosion = SKEmitterNode(fileNamed: "PilotBlood") {
                                      explosion.numParticlesToEmit = 8
-                                     explosion.position = pilot.position
+                                     explosion.position = bluepilot.position
                                      addChild(explosion)
                                  }
             
