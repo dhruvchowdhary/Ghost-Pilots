@@ -34,9 +34,9 @@ public class LocalSpaceship: SpaceshipBase {
     
     var currentShotCountBuddy = 0;
     
-    init() {
+    init(imageTexture: String) {
         
-        spaceShipNode = SKSpriteNode(imageNamed: "player");
+        spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
         
         //spaceShipNode.physicsBody = SKPhysicsBody.init(texture: spaceShipNode.texture!, size: spaceShipNode.size)
         spaceShipNode.name = "player"
