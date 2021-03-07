@@ -7,7 +7,8 @@ class LoadLevelsMenu: SKScene {
     var buttonPlay: MSButtonNode!
     var backButtonNode: MSButtonNode!
     var level1ButtonNode: MSButtonNode!
-    
+    var level2ButtonNode: MSButtonNode!
+    var level3ButtonNode: MSButtonNode!
     var useCount = UserDefaults.standard.integer(forKey: "useCount")
     var difficulty = UserDefaults.standard.integer(forKey: "difficulty")
     
@@ -33,6 +34,17 @@ class LoadLevelsMenu: SKScene {
         level1ButtonNode.selectedHandlers = {
             self.loadLevel1()
         }
+        
+        level2ButtonNode = self.childNode(withName: "level2") as? MSButtonNode
+        level2ButtonNode.selectedHandlers = {
+            self.loadLevel2()
+        }
+        
+        level3ButtonNode = self.childNode(withName: "level3") as? MSButtonNode
+        level3ButtonNode.selectedHandlers = {
+            self.loadLevel3()
+        }
+            
             
             if UIDevice.current.userInterfaceIdiom != .pad {
                 if UIScreen.main.bounds.width < 779 {
@@ -65,6 +77,56 @@ class LoadLevelsMenu: SKScene {
 
         /* 2) Load Game scene */
         guard let scene = SKScene(fileNamed:"Level1") else {
+            print("Could not make GameScene, check the name is spelled correctly")
+            return
+        }
+
+        /* 3) Ensure correct aspect mode */
+        scene.scaleMode = .aspectFill
+
+        /* Show debug */
+        skView.showsPhysics = false
+        skView.showsDrawCount = false
+        skView.showsFPS = false
+
+        /* 4) Start game scene */
+        skView.presentScene(scene)
+    }
+    
+    func loadLevel2() {
+        /* 1) Grab reference to our SpriteKit view */
+        guard let skView = self.view as SKView? else {
+            print("Could not get Skview")
+            return
+        }
+
+        /* 2) Load Game scene */
+        guard let scene = SKScene(fileNamed:"Level2") else {
+            print("Could not make GameScene, check the name is spelled correctly")
+            return
+        }
+
+        /* 3) Ensure correct aspect mode */
+        scene.scaleMode = .aspectFill
+
+        /* Show debug */
+        skView.showsPhysics = false
+        skView.showsDrawCount = false
+        skView.showsFPS = false
+
+        /* 4) Start game scene */
+        skView.presentScene(scene)
+    }
+    
+    func loadLevel3() {
+        /* 1) Grab reference to our SpriteKit view */
+        guard let skView = self.view as SKView? else {
+            print("Could not get Skview")
+            return
+        }
+
+        /* 2) Load Game scene */
+        guard let scene = SKScene(fileNamed:"Level3") else {
             print("Could not make GameScene, check the name is spelled correctly")
             return
         }

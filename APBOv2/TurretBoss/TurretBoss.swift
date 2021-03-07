@@ -332,7 +332,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
         turnButtonNode.selectedHandlers = {
             self.turnButtonNode.setScale(1)
             if !self.isGameOver {
-                self.turnButtonNode.alpha = 0.8
+                self.turnButtonNode.alpha = 0.4
                 let timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { (timer) in
                     self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
                 }
@@ -411,7 +411,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             self.shootButtonNode.setScale(1)
             if !self.isGameOver {
                 self.pilotDirection = self.pilot.zRotation
-                self.shootButtonNode.alpha = 0.8
+                self.shootButtonNode.alpha = 0.4
                 self.pilotForward = false
                 self.pilotThrust1?.particleAlpha = 0
             } else {

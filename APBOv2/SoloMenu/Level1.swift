@@ -64,6 +64,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
     var count = 0
     var doubleTap = 0;
     let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
+    let PilotFX = SKEmitterNode(fileNamed: "PilotFX")
     let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
     let spark1 = SKEmitterNode(fileNamed: "Spark")
     let rotate = SKAction.rotate(byAngle: -1, duration: 0.5)
@@ -92,7 +93,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         
-        
+        loadBluePilot()
         createPath()
         addChild(cameraNode)
               camera = cameraNode
@@ -191,22 +192,10 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         enemyPoints.fontSize = 45
         enemyPoints.fontName = "AvenirNext-Bold"
         enemyPoints.alpha = 0
-        addChild(enemyPoints)
+        //addChild(enemyPoints)
         
         
-        bluepilot.name = "bluepilot"
-        bluepilot.position.x = frame.midX
-        bluepilot.position.y = frame.midY
-        bluepilot.zPosition = 5
-        addChild(bluepilot)
-        
-        bluepilot.physicsBody = SKPhysicsBody(texture: bluepilot.texture!, size: bluepilot.texture!.size())
-        bluepilot.physicsBody?.categoryBitMask = CollisionType.pilot.rawValue
-        bluepilot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue
-        bluepilot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue
-        
-        bluepilot.physicsBody?.isDynamic = false
-        
+
         player.name = "player"
         player.position.x = frame.midX-700
         player.position.y = frame.midY-80
@@ -220,7 +209,8 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.isDynamic = false
         
         
-
+        resetscene()
+        
         reviveButtonNode = self.childNode(withName: "reviveButton") as? MSButtonNode
         reviveButtonNode.alpha = 0
         reviveButtonNode.selectedHandler = {
@@ -247,7 +237,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         }
         
         ejectButtonNode = self.childNode(withName: "ejectButton") as? MSButtonNode
-        ejectButtonNode.alpha = 0.8
+        ejectButtonNode.alpha = 0
         ejectButtonNode.selectedHandler = {
             if self.isPlayerAlive == true {
                 self.ejectButtonNode.alpha = 0
@@ -296,60 +286,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
             skView.presentScene(scene)
         }
         
-        restartButtonNode = self.childNode(withName: "restartButton") as? MSButtonNode
-        restartButtonNode.alpha = 0
-        restartButtonNode.selectedHandlers = {
-            /* 1) Grab reference to our SpriteKit view */
-            guard let skView = self.view as SKView? else {
-                print("Could not get Skview")
-                return
-            }
-            
-            /* 2) Load Menu scene */
-            guard let scene = GameScene(fileNamed:"Level1") else {
-                print("Could not make GameScene, check the name is spelled correctly")
-                return
-            }
-            
-            /* 3) Ensure correct aspect mode */
-            scene.scaleMode = .aspectFill
-            
-            /* Show debug */
-            skView.showsPhysics = false
-            skView.showsDrawCount = false
-            skView.showsFPS = false
-            
-            /* 4) Start game scene */
-            skView.presentScene(scene)
-        }
-        
-        playAgainButtonNode = self.childNode(withName: "playAgainButton") as? MSButtonNode
-        playAgainButtonNode.alpha = 0
-        playAgainButtonNode.selectedHandlers = {
-            /* 1) Grab reference to our SpriteKit view */
-            guard let skView = self.view as SKView? else {
-                print("Could not get Skview")
-                return
-            }
-            
-            /* 2) Load Menu scene */
-            guard let scene = GameScene(fileNamed:"Level1") else {
-                print("Could not make GameScene, check the name is spelled correctly")
-                return
-            }
-            
-            /* 3) Ensure correct aspect mode */
-            scene.scaleMode = .aspectFill
-            
-            /* Show debug */
-            skView.showsPhysics = false
-            skView.showsDrawCount = false
-            skView.showsFPS = false
-            
-            /* 4) Start game scene */
-            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-            skView.presentScene(scene, transition: reveal)
-        }
+    
         
         pauseButtonNode = self.childNode(withName: "pause") as? MSButtonNode
         pauseButtonNode.selectedHandler = {
@@ -385,6 +322,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         turnButtonNode.selectedHandler = {
             
             self.turnButtonNode.alpha = 0.6
+            
             self.turnButtonNode.setScale(1.1)
             
             if self.varisPaused==1 && self.isPlayerAlive {
@@ -421,7 +359,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         turnButtonNode.selectedHandlers = {
             self.turnButtonNode.setScale(1)
             if !self.isGameOver {
-                self.turnButtonNode.alpha = 0.8
+                self.turnButtonNode.alpha = 0.4
                 let timer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { (timer) in
                     self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
                 }
@@ -730,7 +668,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
             self.shootButtonNode.setScale(1)
             if !self.isGameOver {
                 self.pilotDirection = self.pilot.zRotation
-                self.shootButtonNode.alpha = 0.8
+                self.shootButtonNode.alpha = 0.4
                 self.pilotForward = false
                 self.pilotThrust1?.particleAlpha = 0
             } else {
@@ -777,6 +715,88 @@ class Level1: SKScene, SKPhysicsContactDelegate {
      
      }*/
     
+    
+    func resetscene() {
+        
+        restartButtonNode = self.childNode(withName: "restartButton") as? MSButtonNode
+        restartButtonNode.alpha = 0
+        restartButtonNode.selectedHandlers = {
+            /* 1) Grab reference to our SpriteKit view */
+            guard let skView = self.view as SKView? else {
+                print("Could not get Skview")
+                return
+            }
+            
+            /* 2) Load Menu scene */
+            guard let scene = GameScene(fileNamed:"Level1") else {
+                print("Could not make GameScene, check the name is spelled correctly")
+                return
+            }
+            
+            /* 3) Ensure correct aspect mode */
+            scene.scaleMode = .aspectFill
+            
+            /* Show debug */
+            skView.showsPhysics = false
+            skView.showsDrawCount = false
+            skView.showsFPS = false
+            
+            /* 4) Start game scene */
+            skView.presentScene(scene)
+        }
+        
+        playAgainButtonNode = self.childNode(withName: "playAgainButton") as? MSButtonNode
+        playAgainButtonNode.alpha = 0
+        playAgainButtonNode.selectedHandlers = {
+            /* 1) Grab reference to our SpriteKit view */
+            guard let skView = self.view as SKView? else {
+                print("Could not get Skview")
+                return
+            }
+            
+            /* 2) Load Menu scene */
+            guard let scene = GameScene(fileNamed:"Level1") else {
+                print("Could not make GameScene, check the name is spelled correctly")
+                return
+            }
+            
+            /* 3) Ensure correct aspect mode */
+            scene.scaleMode = .aspectFill
+            
+            /* Show debug */
+            skView.showsPhysics = false
+            skView.showsDrawCount = false
+            skView.showsFPS = false
+            
+            /* 4) Start game scene */
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            skView.presentScene(scene, transition: reveal)
+        }
+    }
+    func loadBluePilot() {
+        bluepilot.name = "bluepilot"
+        bluepilot.position.x = frame.midX
+        bluepilot.position.y = frame.midY
+        bluepilot.zPosition = 5
+        addChild(bluepilot)
+        
+        
+        
+        PilotFX?.position = CGPoint(x: 0, y: 0)
+        PilotFX?.targetNode = self.scene
+        PilotFX?.particleAlpha = 1 
+        bluepilot.addChild(PilotFX!)
+        
+        
+        
+        
+        bluepilot.physicsBody = SKPhysicsBody(texture: bluepilot.texture!, size: bluepilot.texture!.size())
+        bluepilot.physicsBody?.categoryBitMask = CollisionType.pilot.rawValue
+        bluepilot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue
+        bluepilot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue
+        
+        bluepilot.physicsBody?.isDynamic = false
+    }
 
     
       func buildPilot() {
@@ -1341,10 +1361,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
             path.move(to: .zero)
             path.stroke()
             
-            switch level {
-            case 0:
-                path.addCurve(to: CGPoint(x: -3500, y: 0), controlPoint1: CGPoint(x: 0, y: -position.y*4), controlPoint2: CGPoint(x: -1000, y: -position.y))
-            case 1:
+            
                 path.addLine(to: CGPoint(x: -1800, y: 0))
                 path.addLine(to: CGPoint(x: -1800, y: -600))
                 path.addLine(to: CGPoint(x: -900, y: -600))
@@ -1352,13 +1369,8 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                 
                 path.addLine(to: CGPoint(x: -1200, y: -360))
                 
-                
-            case 2:
-                path.addCurve(to: CGPoint(x: -3500, y: 0), controlPoint1: CGPoint(x: 400, y: -position.y*5), controlPoint2: CGPoint(x: -600, y: position.y*2))
-          
-            default:
-                print("default path")
-            }
+
+
             
          //   path.close()
         
@@ -1366,7 +1378,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         let shapeNode = SKShapeNode(path: path.cgPath)
         shapeNode.position.x = 1200
         shapeNode.position.y = 360
-        shapeNode.strokeColor = UIColor(red: 23.0/255, green: 208.0/255, blue: 238.0/255, alpha:1)
+    shapeNode.strokeColor = UIColor(red: 23.0/255, green: 208.0/255, blue: 238.0/255, alpha:0.8)
         shapeNode.zPosition = 2
         shapeNode.lineWidth = 3
         shapeNode.alpha = 0.7
@@ -1507,11 +1519,11 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                     explosion.position = secondNode.position
                     addChild(explosion)
                 }
-              
+                gameOver()
                 playerShields -= 1
                 
                 if playerShields == 0 {
-                    phaseButtonNode.alpha = 0.8
+                    phaseButtonNode.alpha = 0
                     ejectButtonNode.alpha = 0
                     isPlayerAlive = false
                     pilot.name = "pilot"
@@ -1565,7 +1577,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
             self.run(SKAction.playSoundFileNamed("pilotSquish3", waitForCompletion: false))
                                  if let explosion = SKEmitterNode(fileNamed: "PilotBlood") {
                                      explosion.numParticlesToEmit = 8
-                                     explosion.position = pilot.position
+                                     explosion.position = bluepilot.position
                                      addChild(explosion)
                                  }
             
@@ -1586,7 +1598,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
             self.run(SKAction.playSoundFileNamed("pilotSquish3", waitForCompletion: false))
                                  if let explosion = SKEmitterNode(fileNamed: "PilotBlood") {
                                      explosion.numParticlesToEmit = 8
-                                     explosion.position = pilot.position
+                                     explosion.position = bluepilot.position
                                      addChild(explosion)
                                  }
             
