@@ -244,14 +244,18 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
             codeBox.frame = CGRect(x: view!.bounds.width/2 - 100, y: view!.bounds.height/2 + 85, width: 200, height: 70)
             codeBox.font = UIFont.init(name: "AvenirNext-Bold", size: 28)
                } else if UIScreen.main.bounds.width > 779 {
+                //iphone X+
                 print("hi")
         //           tutorialButtonNode.position.x = frame.midX - 720
          //          tutorialButtonNode.position.y =  frame.midY - 290
                } else if UIScreen.main.bounds.width > 567 {
+                //iphone 8+
+                
                 print("hiiiii")
          //          tutorialButtonNode.position.x = frame.midX - 620
           //         tutorialButtonNode.position.y =  frame.midY - 300
                } else {
+                // < iphone 8
                 
                }
     }
