@@ -18,7 +18,7 @@ public class LocalSpaceship: SpaceshipBase {
     var shootButtonNode: MSButtonNode!
     var pauseButtonNode: MSButtonNode!
     
-    
+    var rotation = CGFloat(0)
     var isPlayerAlive = true
     private var pilot = SKSpriteNode()
     var isPhase = false
@@ -116,8 +116,12 @@ public class LocalSpaceship: SpaceshipBase {
             self.turnButtonNode.xScale = self.turnButtonNode.xScale * 1.1
             self.turnButtonNode.yScale = self.turnButtonNode.yScale * 1.1
             if self.doubleTap == 1 {
+                self.spaceShipNode.zRotation = self.spaceShipNode.zRotation - 3.141592/2 + self.rotation + 0.24
+                let movement = SKAction.moveBy(x: 60 * cos(self.spaceShipNode.zRotation), y: 60 * sin(self.spaceShipNode.zRotation), duration: 0.15)
+                self.spaceShipParent.run(movement)
                 
                 self.doubleTap = 0
+                self.rotation = 0
             } else {
                 self.doubleTap = 1
                 let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in

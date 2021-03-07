@@ -33,14 +33,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
+        Global.gameData.gameScene.lastUpdateTime = 42069.0
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        Global.gameData.isBackground = false
-        print(Global.gameData.isBackground)
     }
 
 }

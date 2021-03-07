@@ -295,8 +295,6 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
         
         
         turnButtonNode = self.childNode(withName: "turnButton") as? MSButtonNode
-        
-        
         turnButtonNode.selectedHandler = {
             self.turnButtonNode.setScale(1.1)
             if self.varisPaused==1 && self.isPlayerAlive {
