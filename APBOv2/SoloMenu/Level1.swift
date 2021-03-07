@@ -216,7 +216,10 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.affectedByGravity = false
         player.physicsBody?.friction = 0
         
-        player.physicsBody?.velocity = (CGVector(dx: cos(player.zRotation) * 200, dy: sin(player.zRotation) * 200))
+        //player.physicsBody?.velocity = velocity
+            
+            
+            //(CGVector(dx: cos(player.zRotation) * 200, dy: sin(player.zRotation) * 200))
         
         
         //.physicsBody!.applyImpulse(CGVector(dx: cos(player.zRotation) * 20, dy: sin(player.zRotation) * 20))
@@ -444,7 +447,13 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                             self.addChild(shot)
                             
                             shot.physicsBody?.mass = 0.001
-                            shot.physicsBody?.applyImpulse(CGVector(dx: 0.7 * cos(self.player.zRotation), dy: 0.7 * sin(self.player.zRotation)))
+                            
+                            
+                            let shotvelocity = (CGVector(dx: cos(self.player.zRotation) * 600, dy: sin(self.player.zRotation) * 600))
+                            
+                            shot.physicsBody?.velocity = shotvelocity
+                            
+                         //   shot.physicsBody?.applyImpulse(CGVector(dx: 0.7 * cos(self.player.zRotation), dy: 0.7 * sin(self.player.zRotation)))
                             
                         //
                                     //let movement = SKAction.moveBy(x: 15000 * cos(self.player.zRotation), y: 15000 * sin(self.player.zRotation), duration: 26)
@@ -862,13 +871,18 @@ class Level1: SKScene, SKPhysicsContactDelegate {
       }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
-        let squishNormal = SKAction.scale(to: 1.0, duration: 0.05)
+       // let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
+     //   let squishNormal = SKAction.scale(to: 1.0, duration: 0.05)
      
     }
     
     override func update(_ currentTime: TimeInterval) {
+        let velocity = (CGVector(dx: cos(player.zRotation) * 220, dy: sin(player.zRotation) * 220))
+        player.physicsBody?.velocity = velocity
+        
+        
         /*
+         
         if powerSpawn == true {
             let rotateAction = SKAction.rotate(byAngle: 1, duration: 20)
             powerup.run(rotateAction)
