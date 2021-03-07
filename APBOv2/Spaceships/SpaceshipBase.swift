@@ -9,6 +9,7 @@ public class SpaceshipBase {
     public var isLocal = false;
     public var position = (0.0,0.0)
     public var angle = 0 // In degrees
+    public var shipLabel = SKLabelNode(text: "name")
     var unfiredBullets: [SKSpriteNode] =
         [SKSpriteNode(imageNamed: "bullet"),
          SKSpriteNode(imageNamed: "bullet"),
@@ -20,6 +21,9 @@ public class SpaceshipBase {
     init(shipSprite: SKNode, playerId: String) {
         self.shipSprite = shipSprite
         self.playerID = playerId
+        shipLabel.text = playerId
+        shipSprite.addChild(shipLabel)
+        shipLabel.position = CGPoint(x: 0, y: 20)
         
         for s in unfiredBullets {
             s.alpha = 0
