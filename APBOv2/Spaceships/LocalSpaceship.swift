@@ -30,11 +30,13 @@ public class LocalSpaceship: SpaceshipBase {
     var timeUntilNextBullet: Double = 0.8;
     let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
     
+    var framesTilPos = 3;
+    
     var currentShotCountBuddy = 0;
     
-    init() {
+    init(imageTexture: String) {
         
-        spaceShipNode = SKSpriteNode(imageNamed: "player");
+        spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
         
         //spaceShipNode.physicsBody = SKPhysicsBody.init(texture: spaceShipNode.texture!, size: spaceShipNode.size)
         spaceShipNode.name = "player"
@@ -202,10 +204,19 @@ public class LocalSpaceship: SpaceshipBase {
             timeUntilNextBullet = 1.3
         }
         
-        let payload = Payload(shipPosX: spaceShipParent.position.x, shipPosY: spaceShipParent.position.y, shipAngleRad: spaceShipNode.zRotation)
-        let data = try! JSONEncoder().encode(payload)
-        let json = String(data: data, encoding: .utf8)!
-        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)/Pos", Value: json)
+        if framesTilPos < 0 {
+            let payload = Payload(shipPosX: spaceShipParent.position.x, shipPosY: spaceShipParent.position.y, shipAngleRad: spaceShipNode.zRotation)
+            let data = try! JSONEncoder().encode(payload)
+            let json = String(data: data, encoding: .utf8)!
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)/Pos", Value: json)
+            framesTilPos = 2
+        } else {
+            let payload = Payload(shipPosX: nil, shipPosY: nil, shipAngleRad: spaceShipNode.zRotation)
+            let data = try! JSONEncoder().encode(payload)
+            let json = String(data: data, encoding: .utf8)!
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)/Pos", Value: json)
+            framesTilPos -= 1
+        }
     }
     
     public func Ghost(){

@@ -7,8 +7,8 @@ class RemoteSpaceship: SpaceshipBase {
     public var posRef: DatabaseReference = DatabaseReference()
     public var shotsRef: DatabaseReference = DatabaseReference()
     
-    init(playerID: String) {
-        let spaceShipNode = SKSpriteNode(imageNamed: "player");
+    init(playerID: String, imageTexture: String) {
+        let spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
         spaceShipNode.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
         spaceShipNode.physicsBody!.categoryBitMask = CollisionType.player.rawValue
         spaceShipNode.physicsBody!.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.bullet.rawValue
@@ -23,7 +23,8 @@ class RemoteSpaceship: SpaceshipBase {
     }
     
     override func UniqueUpdateShip(deltaTime: Double) {
-        
+        shipSprite.position.x += cos(shipSprite.zRotation) * CGFloat(deltaTime) * 250
+        shipSprite.position.y += sin(shipSprite.zRotation) * CGFloat(deltaTime) * 250
     }
 }
 

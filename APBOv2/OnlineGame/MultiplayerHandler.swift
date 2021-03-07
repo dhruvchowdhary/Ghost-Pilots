@@ -66,13 +66,13 @@ public class MultiplayerHandler{
                 if (snapVal != "PeePee"){
                     let jsonData = snapVal.data(using: .utf8)
                     let payload = try! JSONDecoder().decode(Payload.self, from: jsonData!)
-                    print("=========")
-                    print(payload.shipPosX)
-                    print(" vs ")
-                    print(shipSprite.position.x)
-                    shipSprite.position.x = payload.shipPosX
-                    shipSprite.position.y = payload.shipPosY
-                    shipSprite.zRotation = payload.shipAngleRad
+                    if payload.shipPosX != nil{
+                        shipSprite.position.x = payload.shipPosX!
+                        shipSprite.position.y = payload.shipPosY!
+                        shipSprite.zRotation = payload.shipAngleRad
+                    } else {
+                        shipSprite.zRotation = payload.shipAngleRad
+                    }
                 }
             } else {
                 print ("Snapshot does not exist");

@@ -13,6 +13,18 @@ class LobbyMenu: SKScene {
     var kickButtonNode: MSButtonNode!
     var list: [String] = []
     
+    let intToColor: Dictionary = [
+        0: "player",
+        1: "apboBlue",
+        2: "apboBlack",
+        3: "apboGreen",
+        4: "apboOrange",
+        5: "apboPink",
+        6: "apboPurple",
+        7: "apboWhite",
+        8: "apboYellow",
+    ]
+    
     override func didMove(to view: SKView) {
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -101,11 +113,12 @@ class LobbyMenu: SKScene {
         for s in self.list {
             var spaceship: SpaceshipBase
             if s == Global.playerData.username {
-                spaceship = LocalSpaceship()
+                spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
                 Global.gameData.playerShip = spaceship as? LocalSpaceship
             } else {
-                spaceship = RemoteSpaceship(playerID: s)
+                spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
             }
+            
             Global.gameData.shipsToUpdate.append(spaceship)
         }
         Global.loadScene(s: "GameSceneBase")
