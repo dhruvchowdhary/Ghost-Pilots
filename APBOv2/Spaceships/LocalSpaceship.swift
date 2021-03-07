@@ -166,8 +166,6 @@ public class LocalSpaceship: SpaceshipBase {
     }
     
     override func UniqueUpdateShip(deltaTime: Double) {
-        if (!Global.gameData.isBackground){
-            print("vibin")
             // Handle rotation and movement
             if (isRotating){
                 spaceShipNode.zRotation -= CGFloat(Double.pi * 1.3 * deltaTime)
@@ -187,7 +185,6 @@ public class LocalSpaceship: SpaceshipBase {
                 spaceShipParent.position.x += cos(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
                 spaceShipParent.position.y += sin(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
             }
-        }
         
         // For online only, but no control yet
         if unfiredBulletsCount < 3 {

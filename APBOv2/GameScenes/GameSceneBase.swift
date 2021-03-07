@@ -136,22 +136,26 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
 //        }
     }
     public override func update(_ currentTime: TimeInterval) {
+        if Global.gameData.isBackground {
+            lastUpdateTime = 42069.0
+            return;
+        }
         if lastUpdateTime != 42069.0 {
             for ship in Global.gameData.shipsToUpdate {
                 ship.UpdateShip(deltaTime: Double(currentTime) - lastUpdateTime)
+                
+                for bullet in liveBullets {
+                    bullet.position.x += 10 * cos( bullet.zRotation )
+                    bullet.position.y += 10 * sin( bullet.zRotation )
+                    
+                    if abs(bullet.position.x) > 2000 {
+                        bullet.removeFromParent()
+                        liveBullets.remove(at: liveBullets.firstIndex(of: bullet)!)
+                    }
+                }
             }
         }
         lastUpdateTime = Double(currentTime)
-        
-        for bullet in liveBullets {
-            bullet.position.x += 10 * cos( bullet.zRotation )
-            bullet.position.y += 10 * sin( bullet.zRotation )
-            
-            if abs(bullet.position.x) > 2000 {
-                bullet.removeFromParent()
-                liveBullets.remove(at: liveBullets.firstIndex(of: bullet)!)
-            }
-        }
         
     }
     

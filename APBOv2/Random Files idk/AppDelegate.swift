@@ -29,23 +29,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
     func applicationWillResignActive(_ application: UIApplication) {
-        Global.gameData.isBackground = true;
-        print("e")
+        Global.gameData.gameScene.lastUpdateTime = 42069.0
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        Global.gameData.isBackground = true;
-        print("e")
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        Global.gameData.isBackground = false
-        print("f")
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         Global.gameData.isBackground = false
-        print("f")
+        print(Global.gameData.isBackground)
     }
 
 }
