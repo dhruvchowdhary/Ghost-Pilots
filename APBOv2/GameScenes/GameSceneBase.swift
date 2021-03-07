@@ -123,12 +123,11 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         self.dimPanel.zPosition = 50
         self.dimPanel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         self.addChild(self.dimPanel)
-        self.dimPanel.alpha = 0
-                
-        // Set the players into different spots
-//        for i in 0..<Global.gameData.shipsToUpdate.count{
-//            Global.gameData.shipsToUpdate[i].shipSprite.position.x = CGFloat(-500 + (300 * i))
-//        }
+        self.dimPanel.alpha = 0;
+        
+    for ship in Global.gameData.shipsToUpdate{
+        ship.thruster1?.targetNode = self.scene
+        }
     }
     public override func update(_ currentTime: TimeInterval) {
         if Global.gameData.isBackground {

@@ -91,9 +91,6 @@ public class SpaceshipBase {
         default:
             print("Error, LocalSpaceship given an invalid powerup number")
         }
-        let thruster = SKEmitterNode(fileNamed: "Thrusters")
-        thruster!.position = CGPoint(x: -30, y: 0)
-        thruster?.zPosition = 1
     }
     
 }
