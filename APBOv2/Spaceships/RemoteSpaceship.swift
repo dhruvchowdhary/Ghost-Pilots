@@ -4,8 +4,6 @@ import Firebase
 
 class RemoteSpaceship: SpaceshipBase {
     
-    public var posRef: DatabaseReference = DatabaseReference()
-    public var shotsRef: DatabaseReference = DatabaseReference()
     
     init(playerID: String, imageTexture: String) {
         let spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
@@ -17,8 +15,6 @@ class RemoteSpaceship: SpaceshipBase {
         shipSprite.position.x += CGFloat((300 * Global.gameData.shipsToUpdate.count))
         shipSprite.zPosition = 5
         
-        posRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(playerID)/Pos")
-        shotsRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)/Shots")
         Global.multiplayerHandler.ListenForPayload(ref: posRef, shipSprite: self.shipSprite as! SKSpriteNode)
         Global.multiplayerHandler.ListenForShots(ref: shotsRef, spaceShip: self)
     }

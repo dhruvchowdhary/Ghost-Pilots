@@ -19,6 +19,9 @@ public class SpaceshipBase {
     var unfiredBulletsCount = 0
     public var unfiredBulletRotator = SKNode();
     
+    public var posRef: DatabaseReference = DatabaseReference()
+    public var shotsRef: DatabaseReference = DatabaseReference()
+    
     init(shipSprite: SKNode, playerId: String) {
         self.shipSprite = shipSprite
         self.playerID = playerId
@@ -31,6 +34,8 @@ public class SpaceshipBase {
         thruster1?.position = CGPoint(x: -30, y: 0)
         shipSprite.addChild(thruster1!)
         
+        posRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(playerID)/Pos")
+        shotsRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)/Shots")
         
         for s in unfiredBullets {
             s.alpha = 0

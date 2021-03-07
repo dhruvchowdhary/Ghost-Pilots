@@ -66,7 +66,7 @@ public class LocalSpaceship: SpaceshipBase {
         
         print(unfiredBullets.count)
         for i in 0..<unfiredBullets.count {
-            unfiredBullets[i].position.x = CGFloat(80 * cos(Double.pi * Double(i) * 0.6666666))
+            unfiredBullets[i].position.x = CGFloat(50 * cos(Double.pi * Double(i) * 0.6666666))
                                                    unfiredBullets[i].position.y = CGFloat(80 * sin(Double.pi * Double(i) * 0.6666666))
             unfiredBulletRotator.addChild(unfiredBullets[i])
         }
@@ -146,7 +146,7 @@ public class LocalSpaceship: SpaceshipBase {
             
             if self.isPlayerAlive && self.unfiredBullets.count > 0 {
                 Global.gameData.playerShip?.Shoot(shotType: 0)
-                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)/Shots/\(self.playerID + String(self.currentShotCountBuddy))", Value: "PeePee")
+                posRef.child("shot #" + String(self.currentShotCountBuddy)).setValue("PeePee")
                 self.currentShotCountBuddy += 1;
             }
         }
