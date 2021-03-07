@@ -15,6 +15,7 @@ class RemoteSpaceship: SpaceshipBase {
         
         super.init(shipSprite: spaceShipNode, playerId: playerID)
         shipSprite.position.x += CGFloat((300 * Global.gameData.shipsToUpdate.count))
+        shipSprite.zPosition = 5
         
         posRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(playerID)/Pos")
         shotsRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)/Shots")
