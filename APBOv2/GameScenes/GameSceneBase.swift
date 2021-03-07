@@ -112,7 +112,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         //borderShape.physicsBody!.contactTestBitMask = CollisionType.player.rawValue
         addChild(borderShape)
         
-        
+        camera = Global.gameData.camera
         
         // Background
         backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)
@@ -129,9 +129,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         self.dimPanel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         self.addChild(self.dimPanel)
         self.dimPanel.alpha = 0
-        
-        camera = Global.gameData.camera
-        
+                
         // Set the players into different spots
 //        for i in 0..<Global.gameData.shipsToUpdate.count{
 //            Global.gameData.shipsToUpdate[i].shipSprite.position.x = CGFloat(-500 + (300 * i))

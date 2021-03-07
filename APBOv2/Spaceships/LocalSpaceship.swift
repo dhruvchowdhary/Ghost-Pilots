@@ -78,7 +78,6 @@ public class LocalSpaceship: SpaceshipBase {
         spaceShipHud.addChild(unfiredBulletRotator)
         
         
-        Global.gameData.camera.setScale(2.4)
         Global.gameData.camera.removeFromParent()
         spaceShipHud.addChild(Global.gameData.camera)
         
