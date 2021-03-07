@@ -30,6 +30,8 @@ public class LocalSpaceship: SpaceshipBase {
     var timeUntilNextBullet: Double = 0.8;
     let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
     
+    var framesTilPayload = 3;
+    
     var currentShotCountBuddy = 0;
     
     init() {
@@ -202,10 +204,15 @@ public class LocalSpaceship: SpaceshipBase {
             timeUntilNextBullet = 1.3
         }
         
-        let payload = Payload(shipPosX: spaceShipParent.position.x, shipPosY: spaceShipParent.position.y, shipAngleRad: spaceShipNode.zRotation)
-        let data = try! JSONEncoder().encode(payload)
-        let json = String(data: data, encoding: .utf8)!
-        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)/Pos", Value: json)
+        if framesTilPayload <= 0 {
+            let payload = Payload(shipPosX: spaceShipParent.position.x, shipPosY: spaceShipParent.position.y, shipAngleRad: spaceShipNode.zRotation)
+            let data = try! JSONEncoder().encode(payload)
+            let json = String(data: data, encoding: .utf8)!
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)/Pos", Value: json)
+            framesTilPayload = 3
+        } else {
+            framesTilPayload -= 1
+        }
     }
     
     public func Ghost(){
