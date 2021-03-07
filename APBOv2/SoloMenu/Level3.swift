@@ -37,7 +37,7 @@ class Level3: Level1 {
         
         let shapeNode = SKShapeNode(path: path.cgPath)
         shapeNode.position.x = 1200
-        shapeNode.position.y = -360
+        shapeNode.position.y = 0
         shapeNode.strokeColor = UIColor(red: 255/255, green: 102/255, blue: 0/255, alpha:0.8)
         shapeNode.zPosition = 2
         shapeNode.lineWidth = 3
