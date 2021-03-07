@@ -4,7 +4,9 @@ import Firebase
 
 public class SpaceshipBase {
     public var lastTimeUpdated: Float?
-    public var shipSprite: SKNode
+    public var spaceShipParent = SKNode()
+    public var spaceShipNode = SKSpriteNode()
+    public var spaceShipHud = SKNode()
     public var playerID: String
     public var isLocal = false;
     public var position = (0.0,0.0)
@@ -23,17 +25,18 @@ public class SpaceshipBase {
     public var posRef: DatabaseReference = DatabaseReference()
     public var shotsRef: DatabaseReference = DatabaseReference()
     
-    init(shipSprite: SKNode, playerId: String) {
-        self.shipSprite = shipSprite
+    init(playerId: String) {
         self.playerID = playerId
         shipLabel.text = playerId
-        shipSprite.addChild(shipLabel)
+        spaceShipHud.addChild(shipLabel)
         shipLabel.fontName = "AvenirNext-Bold"
         shipLabel.position = CGPoint(x: 0, y: 23)
         
+        spaceShipParent.addChild(spaceShipNode)
+        spaceShipParent.addChild(spaceShipHud)
         
         thruster1?.position = CGPoint(x: -30, y: 0)
-        shipSprite.addChild(thruster1!)
+        spaceShipNode.addChild(thruster1!)
         
         posRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(playerID)/Pos")
         shotsRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(playerID)/Shots")
@@ -71,11 +74,8 @@ public class SpaceshipBase {
         case 0:
             if unfiredBulletsCount > 0 {
                 let bullet = SKSpriteNode(imageNamed: "bullet")
-                bullet.zRotation = shipSprite.zRotation
-                if isLocal {
-                    bullet.zRotation = shipSprite.childNode(withName: "player")!.zRotation
-                }
-                bullet.position = shipSprite.position
+                bullet.zRotation = spaceShipNode.zRotation
+                bullet.position = spaceShipParent.position
                 Global.gameData.gameScene.liveBullets.append(bullet)
                 Global.gameData.gameScene.addChild(bullet)
                 self.unfiredBulletsCount -= 1
@@ -92,9 +92,7 @@ public class SpaceshipBase {
         }
         let thruster = SKEmitterNode(fileNamed: "Thrusters")
         thruster!.position = CGPoint(x: -30, y: 0)
-        //thruster!.targetNode = self.scene
-        // Idk if the above line is nessasary
-        shipSprite.addChild(thruster!)
+        thruster?.zPosition = 1
     }
     
 }
