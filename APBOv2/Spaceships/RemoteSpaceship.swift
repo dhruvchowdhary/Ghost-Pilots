@@ -7,6 +7,7 @@ class RemoteSpaceship: SpaceshipBase {
     init(playerID: String, imageTexture: String) {
         super.init(playerId: playerID)
         spaceShipNode.removeFromParent()
+        spaceShipNode.name = "player"
         spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
         spaceShipParent.addChild(spaceShipNode)
         spaceShipNode.addChild(thruster1!)
@@ -17,7 +18,7 @@ class RemoteSpaceship: SpaceshipBase {
         spaceShipParent.position.x += CGFloat((300 * Global.gameData.shipsToUpdate.count))
         spaceShipNode.zPosition = 5
         
-        Global.multiplayerHandler.ListenForPayload(ref: posRef, shipSprite: spaceShipNode)
+        Global.multiplayerHandler.ListenForPayload(ref: posRef, shipSprite: spaceShipParent)
         Global.multiplayerHandler.ListenForShots(ref: shotsRef, spaceShip: self)
     }
     
