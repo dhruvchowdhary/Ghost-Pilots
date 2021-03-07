@@ -167,6 +167,7 @@ public class LocalSpaceship: SpaceshipBase {
     
     override func UniqueUpdateShip(deltaTime: Double) {
         if (!Global.gameData.isBackground){
+            print("vibin")
             // Handle rotation and movement
             if (isRotating){
                 spaceShipNode.zRotation -= CGFloat(Double.pi * 1.3 * deltaTime)
