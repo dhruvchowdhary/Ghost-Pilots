@@ -23,7 +23,8 @@ public class SpaceshipBase {
         self.playerID = playerId
         shipLabel.text = playerId
         shipSprite.addChild(shipLabel)
-        shipLabel.position = CGPoint(x: 0, y: 20)
+        shipLabel.fontName = "AvenirNext-Bold"
+        shipLabel.position = CGPoint(x: 0, y: 23)
         
         for s in unfiredBullets {
             s.alpha = 0
