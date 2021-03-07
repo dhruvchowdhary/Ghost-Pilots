@@ -29,7 +29,9 @@ public class MultiplayerHandler{
         var isInGame = false
         self.guestsRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Players")
         guestsRef?.observe(DataEventType.value, with: { (snapshot) in
-            let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
+            guard let lobbyScene = Global.gameData.skView.scene as? LobbyMenu else  {
+                return
+            }
             var playerList: [String] = []
             for child in snapshot.children {
                 let e = child as! DataSnapshot
