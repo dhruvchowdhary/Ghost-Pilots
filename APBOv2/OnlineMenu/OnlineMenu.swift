@@ -241,8 +241,10 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         if UIDevice.current.userInterfaceIdiom == .pad {
             usernameBox.frame = CGRect(x: view!.bounds.width/2 - 160, y: view!.bounds.height/2 - 195, width: 320, height: 101.052632)
             usernameBox.font = UIFont.init(name: "AvenirNext-Bold", size: 38.7368)
-            
-            codeBox.frame = CGRect(x: view!.bounds.width/2 - 100, y: view!.bounds.height/2 + 82, width: 200, height: 70)
+            print(joinButtonNode.position.y)
+            print(view!.bounds.width/2 - 100)
+            print(view!.bounds.height/2 + 85)
+            codeBox.frame = CGRect(x: view!.bounds.width/2 - 100, y: view!.bounds.height/2 + 85, width: 200, height: 70)
             codeBox.font = UIFont.init(name: "AvenirNext-Bold", size: 28)
                } else if UIScreen.main.bounds.width > 779 {
         //           tutorialButtonNode.position.x = frame.midX - 720
