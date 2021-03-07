@@ -10,9 +10,9 @@ class RemoteSpaceship: SpaceshipBase {
         spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
         spaceShipParent.addChild(spaceShipNode)
         spaceShipNode.addChild(thruster1!)
-        spaceShipNode.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
-        spaceShipNode.physicsBody!.categoryBitMask = CollisionType.player.rawValue
-        spaceShipNode.physicsBody!.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
+        spaceShipParent.physicsBody!.categoryBitMask = CollisionType.player.rawValue
+        spaceShipParent.physicsBody!.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         
         spaceShipParent.position.x += CGFloat((300 * Global.gameData.shipsToUpdate.count))
         spaceShipNode.zPosition = 5
