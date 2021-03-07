@@ -7,8 +7,8 @@ class RemoteSpaceship: SpaceshipBase {
     init(playerID: String, imageTexture: String) {
         super.init(playerId: playerID)
         spaceShipNode.removeFromParent()
-        spaceShipNode.name = "player"
         spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
+        spaceShipNode.name = "player"
         spaceShipParent.addChild(spaceShipNode)
         spaceShipNode.addChild(thruster1!)
         spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
