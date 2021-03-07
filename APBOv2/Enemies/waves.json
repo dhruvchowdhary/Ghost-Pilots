@@ -144,6 +144,16 @@
             }
         ]
     },
+    {
+        "name": "level3",
+        "enemies": [
+            {
+                "position": 4,
+                "xOffset": 2,
+                "moveStraight": true
+            }
+        ]
+    },
 	{
 		"name": "random",
 		"enemies": [

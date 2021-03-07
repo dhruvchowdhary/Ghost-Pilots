@@ -264,17 +264,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if self.isPlayerAlive == false && !self.isGameOver {
                 print("not phase")
                 self.pilot.alpha = 1
-                self.phaseButtonNode.alpha = 0.8
+                self.phaseButtonNode.alpha = 0.4
                 self.isPhase = false
             }
         }
         
         ejectButtonNode = self.childNode(withName: "ejectButton") as? MSButtonNode
-        ejectButtonNode.alpha = 0.8
+        ejectButtonNode.alpha = 0.4
         ejectButtonNode.selectedHandler = {
             if self.isPlayerAlive == true {
                 self.ejectButtonNode.alpha = 0
-                self.phaseButtonNode.alpha = 0.8
+                self.phaseButtonNode.alpha = 0.4
                 self.playerShields = -5
             }
         }
@@ -444,7 +444,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         turnButtonNode.selectedHandlers = {
             self.turnButtonNode.setScale(1)
             if !self.isGameOver {
-                self.turnButtonNode.alpha = 0.8
+                self.turnButtonNode.alpha = 0.4
                 let timer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { (timer) in
                     self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
                 }
@@ -754,7 +754,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.shootButtonNode.setScale(1)
             if !self.isGameOver {
                 self.pilotDirection = self.pilot.zRotation
-                self.shootButtonNode.alpha = 0.8
+                self.shootButtonNode.alpha = 0.4
                 self.pilotForward = false
                 self.pilotThrust1?.particleAlpha = 0
             } else {
@@ -1504,7 +1504,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 playerShields -= 1
                 
                 if playerShields == 0 {
-                    phaseButtonNode.alpha = 0.8
+                    phaseButtonNode.alpha = 0.4
                     ejectButtonNode.alpha = 0
                     isPlayerAlive = false
                     pilot.name = "pilot"
@@ -1621,7 +1621,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                           isPlayerAlive = true
                 
                              firstNode.removeFromParent()
-                ejectButtonNode.alpha = 0.8
+                ejectButtonNode.alpha = 0.4
                 phaseButtonNode.alpha = 0
                 
                                                      self.pilotThrust1?.removeFromParent()
