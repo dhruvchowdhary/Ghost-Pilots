@@ -11,6 +11,7 @@ public class GameData{
     public var skView = SKView();
     public var isHost = false
     public var host = "IDK";
+    public var isBackground = false;
     
     
     // =================
