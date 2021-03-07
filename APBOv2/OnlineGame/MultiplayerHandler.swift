@@ -61,7 +61,7 @@ public class MultiplayerHandler{
         guestsRef?.removeAllObservers()
     }
     
-    public func ListenForPayload(ref: DatabaseReference, shipSprite: SKSpriteNode){
+    public func ListenForPayload(ref: DatabaseReference, shipSprite: SKNode){
         ref.observe(DataEventType.value) { ( snapshot ) in
             if (snapshot.exists()) {
                 let snapVal = snapshot.value as! String
@@ -71,9 +71,9 @@ public class MultiplayerHandler{
                     if payload.shipPosX != nil{
                         shipSprite.position.x = payload.shipPosX!
                         shipSprite.position.y = payload.shipPosY!
-                        shipSprite.zRotation = payload.shipAngleRad
+                        shipSprite.childNode(withName: "player")!.zRotation = payload.shipAngleRad
                     } else {
-                        shipSprite.zRotation = payload.shipAngleRad
+                        shipSprite.childNode(withName: "player")!.zRotation = payload.shipAngleRad
                     }
                 }
             } else {
