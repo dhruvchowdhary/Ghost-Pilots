@@ -4,9 +4,6 @@ import SpriteKit
 public class LocalSpaceship: SpaceshipBase {
     
     public var isRotating = false;
-    public var spaceShipParent = SKNode()
-    public var spaceShipNode: SKSpriteNode
-    public var spaceShipHud = SKNode()
     
     public var isRecoiling = false
     public var recoilTimer: Double = 0
@@ -35,16 +32,15 @@ public class LocalSpaceship: SpaceshipBase {
     var currentShotCountBuddy = 0;
     
     init(imageTexture: String) {
-        
+        super.init(playerId: Global.playerData.username)
+        spaceShipNode.removeFromParent()
         spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
-        super.init(shipSprite: spaceShipParent, playerId: Global.playerData.username)
+        spaceShipParent.addChild(spaceShipNode)
+        spaceShipNode.addChild(thruster1!)
         
         //spaceShipNode.physicsBody = SKPhysicsBody.init(texture: spaceShipNode.texture!, size: spaceShipNode.size)
         spaceShipNode.name = "player"
         spaceShipNode.zPosition = 5
-        
-        spaceShipParent.addChild(spaceShipNode)
-        spaceShipParent.addChild(spaceShipHud)
         
         if self.playerID != "Pepe2"{
             spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)

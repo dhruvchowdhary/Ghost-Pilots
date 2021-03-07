@@ -81,12 +81,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     
     public override func didMove(to view: SKView) {
         for ship in Global.gameData.shipsToUpdate{
-//            if (ship.shipSprite.parent != nil) {
-//                addChild(ship.shipSprite.parent!.parent!.parent!)
-//
-//            } else {
-                addChild(ship.shipSprite)
-//            }
+            addChild(ship.spaceShipParent)
         }
         
         // World physics
