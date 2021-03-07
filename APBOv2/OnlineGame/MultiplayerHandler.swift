@@ -83,9 +83,7 @@ public class MultiplayerHandler{
     }
     
     public func ListenForShots(ref: DatabaseReference, spaceShip: SpaceshipBase ){
-        
         currentBulletCounts.append((spaceShip.playerID, 0))
-        
         ref.observe(DataEventType.value) { ( snapshot ) in
             if (snapshot.exists()) {
                 for var tup in self.currentBulletCounts{
