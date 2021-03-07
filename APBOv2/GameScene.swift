@@ -478,7 +478,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             
                             
                             if let ShootingExplosion = SKEmitterNode(fileNamed: "ShootingExplosion") {
-                                player.addChild(ShootingExplosion)
+                                self.player.addChild(ShootingExplosion)
                                 ShootingExplosion.particleColorSequence = nil
                                 ShootingExplosion.particleColorBlendFactor = 1.0
                                 ShootingExplosion.position.x = 35
@@ -533,7 +533,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             if self.i > 0 {
                                 
                                 if let ShootingExplosion = SKEmitterNode(fileNamed: "ShootingExplosion") {
-                                    player.addChild(ShootingExplosion)
+                                    self.player.addChild(ShootingExplosion)
                                     ShootingExplosion.position.x = 35
                                     ShootingExplosion.particleColor = UIColor(red: 0.0/255, green: 0.0/255, blue: 255.0/255, alpha:1)
                                     

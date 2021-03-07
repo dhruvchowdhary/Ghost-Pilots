@@ -81,12 +81,12 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     
     public override func didMove(to view: SKView) {
         for ship in Global.gameData.shipsToUpdate{
-            if (ship.shipSprite.parent != nil) {
-                addChild(ship.shipSprite.parent!.parent!.parent!)
-                
-            } else {
+//            if (ship.shipSprite.parent != nil) {
+//                addChild(ship.shipSprite.parent!.parent!.parent!)
+//
+//            } else {
                 addChild(ship.shipSprite)
-            }
+//            }
         }
         
         // World physics
@@ -131,7 +131,11 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         self.dimPanel.alpha = 0
         
         camera = Global.gameData.camera
-        // Button Setup
+        
+        // Set the players into different spots
+//        for i in 0..<Global.gameData.shipsToUpdate.count{
+//            Global.gameData.shipsToUpdate[i].shipSprite.position.x = CGFloat(-500 + (300 * i))
+//        }
     }
     public override func update(_ currentTime: TimeInterval) {
         if lastUpdateTime != 42069.0 {
@@ -142,8 +146,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         lastUpdateTime = Double(currentTime)
         
         for bullet in liveBullets {
-            bullet.position.x += 100 * cos( bullet.zRotation )
-            bullet.position.y += 100 * sin( bullet.zRotation )
+            bullet.position.x += 10 * cos( bullet.zRotation )
+            bullet.position.y += 10 * sin( bullet.zRotation )
             
             if abs(bullet.position.x) > 2000 {
                 bullet.removeFromParent()

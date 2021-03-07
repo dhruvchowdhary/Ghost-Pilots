@@ -22,7 +22,6 @@ class EnemyNode: SKSpriteNode {
 
     let EnemyThruster = SKEmitterNode(fileNamed: "EnemyThruster")
     
-    
     init(type: EnemyType, startPosition: CGPoint, xOffset: CGFloat, moveStright: Int, speeds: Int) {
         self.type = type
         shields = type.shields

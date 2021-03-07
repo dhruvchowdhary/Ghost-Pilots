@@ -1,18 +1,17 @@
-//
-//  LobbyMenu.swift
-//  APBOv2
-//
-//  Created by 90306670 on 2/24/21.
-//  Copyright © 2021 Dhruv Chowdhary. All rights reserved.
-//
-
+import Firebase
 import SpriteKit
 
 class LobbyMenu: SKScene {
     var backButtonNode: MSButtonNode!
+    var startButtonNode: MSButtonNode!
+    
     var codeLabel = SKLabelNode(text: "00000")
+    var playerLabel = SKNode()
+    var playerLabelParent = SKNode()
     var user1 = SKLabelNode(text: "user1")
-    var user1colorButtonNode: MSButtonNode!
+    var colorButtonNode: MSButtonNode!
+    var kickButtonNode: MSButtonNode!
+    var list: [String] = []
     
     override func didMove(to view: SKView) {
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -27,6 +26,7 @@ class LobbyMenu: SKScene {
         backButtonNode = self.childNode(withName: "back") as? MSButtonNode
         backButtonNode.selectedHandlers = {
             // if host give host to someone else || if no one destroy lobby/code || if not host just leave
+            Global.multiplayerHandler.StopListenForGuestChanges();
             self.loadOnlineMenu()
         }
         if UIDevice.current.userInterfaceIdiom != .pad {
@@ -36,7 +36,14 @@ class LobbyMenu: SKScene {
             }
         }
         
-        
+        startButtonNode = self.childNode(withName: "startButton") as? MSButtonNode
+        startButtonNode.selectedHandlers = {
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Game")
+            //====================================
+        }
+        if Global.gameData.isHost {
+            startButtonNode.alpha = 1
+        }
 
         codeLabel.position = CGPoint(x: frame.midX, y: frame.midY - 340)
         codeLabel.text = String(Global.gameData.gameID)
@@ -47,22 +54,61 @@ class LobbyMenu: SKScene {
         user1.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         setupLabel(label: user1)
         
-        user1colorButtonNode = self.childNode(withName: "redPlayer") as? MSButtonNode
-        user1colorButtonNode.position = CGPoint(x: user1.position.x - 230, y: user1.position.y + 50)
-        user1colorButtonNode.selectedHandlers = {
+        colorButtonNode = self.childNode(withName: "redPlayer") as? MSButtonNode
+        colorButtonNode.position = CGPoint(x: user1.position.x - 230, y: user1.position.y + 50)
+        colorButtonNode.selectedHandlers = {
             // go down a list checking if color is in use by another player and if not change it to that
-            self.user1colorButtonNode.texture = SKTexture(imageNamed: "apboBlue")
+            self.colorButtonNode.texture = SKTexture(imageNamed: "apboBlue")
             // change player's image in firebase
             
-            self.user1colorButtonNode.alpha = 1
+            self.colorButtonNode.alpha = 1
         }
         
+        kickButtonNode = self.childNode(withName: "kickButton") as? MSButtonNode
+        
+        user1.name = "user1"
+        user1.removeFromParent()
+        colorButtonNode.removeFromParent()
+        kickButtonNode.removeFromParent()
+        playerLabel.addChild(user1)
+        addChild(playerLabelParent)
+   //     playerLabel.addChild(colorButtonNode)
+    //    playerLabel.addChild(kickButtonNode)
+        
+   //     pullGuestList()
         Global.multiplayerHandler.listenForGuestChanges()
+        Global.multiplayerHandler.ListenForGameStatus()
     }
     
     
     func setPlayerList(playerList: [String]) {
-        
+        list = playerList
+        playerLabelParent.removeAllChildren()
+        print(playerList)
+        for player in playerList {
+            let newuser = playerLabel.copy() as! SKNode
+            let userLabel = newuser.childNode(withName: "user1") as! SKLabelNode
+            userLabel.text = player
+            let i = playerList.firstIndex(of: player)!
+            newuser.position.x = frame.midX
+            newuser.position.y += CGFloat(i*100)
+            playerLabelParent.addChild(newuser)
+        }
+    }
+    
+    func StartGame(){
+        Global.multiplayerHandler.StopListenForGuestChanges();
+        for s in self.list {
+            var spaceship: SpaceshipBase
+            if s == Global.playerData.username {
+                spaceship = LocalSpaceship()
+                Global.gameData.playerShip = spaceship as? LocalSpaceship
+            } else {
+                spaceship = RemoteSpaceship(playerID: s)
+            }
+            Global.gameData.shipsToUpdate.append(spaceship)
+        }
+        Global.loadScene(s: "GameSceneBase")
     }
     
     func setupLabel(label: SKLabelNode) {
@@ -71,6 +117,20 @@ class LobbyMenu: SKScene {
         label.fontSize = 120
         label.fontName = "AvenirNext-Bold"
         addChild(label)
+    }
+    
+    func pullGuestList(){
+        var playerList: [String] = []
+        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Players").observeSingleEvent(of: .value) { snapshot in
+            if (snapshot.exists()){
+                for child in snapshot.children {
+                    let e = child as! DataSnapshot
+                    playerList.append(e.key)
+                }
+            }
+        }
+        print(playerList)
+        setPlayerList(playerList: playerList)
     }
     
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {

@@ -6,17 +6,29 @@ public class SpaceshipBase {
     public var lastTimeUpdated: Float?
     public var shipSprite: SKNode
     public var playerID: String
+    public var isLocal = false;
     public var position = (0.0,0.0)
     public var angle = 0 // In degrees
-    var unfiredBullets: [SKSpriteNode] = []
+    var unfiredBullets: [SKSpriteNode] =
+        [SKSpriteNode(imageNamed: "bullet"),
+         SKSpriteNode(imageNamed: "bullet"),
+         SKSpriteNode(imageNamed: "bullet")]
+    
+    var unfiredBulletsCount = 0
+    public var unfiredBulletRotator = SKNode();
     
     init(shipSprite: SKNode, playerId: String) {
         self.shipSprite = shipSprite
         self.playerID = playerId
+        
+        for s in unfiredBullets {
+            s.alpha = 0
+        }
     }
 
     
     func UpdateShip(deltaTime: Double){
+        unfiredBulletRotator.zRotation -= CGFloat(Double.pi/35)
         UniqueUpdateShip(deltaTime: deltaTime)
     }
     // Only to be ovveridden
@@ -26,16 +38,20 @@ public class SpaceshipBase {
     }
     
     public func Shoot(shotType: Int){
+        print (Global.gameData.shipsToUpdate)
         switch shotType {
         case 0:
-            if unfiredBullets.count > 0 {
-                let bullet = unfiredBullets.removeLast()
-                bullet.removeFromParent()
+            if unfiredBulletsCount > 0 {
+                let bullet = SKSpriteNode(imageNamed: "bullet")
                 bullet.zRotation = shipSprite.zRotation
+                if isLocal {
+                    bullet.zRotation = shipSprite.childNode(withName: "player")!.zRotation
+                }
                 bullet.position = shipSprite.position
                 Global.gameData.gameScene.liveBullets.append(bullet)
                 Global.gameData.gameScene.addChild(bullet)
-                print(unfiredBullets.count)
+                self.unfiredBulletsCount -= 1
+                unfiredBullets[unfiredBulletsCount].alpha = 0;
             }
         case 1:
             print("Triple Shot")
