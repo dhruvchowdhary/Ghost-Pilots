@@ -28,7 +28,9 @@ public class SpaceshipBase {
         shipLabel.position = CGPoint(x: 0, y: 23)
         
         
+        
         thruster1?.position = CGPoint(x: -30, y: 0)
+        
         shipSprite.addChild(thruster1!)
         
         
