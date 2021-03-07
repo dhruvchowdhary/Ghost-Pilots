@@ -36,6 +36,7 @@ public class SpaceshipBase {
         spaceShipParent.addChild(spaceShipHud)
         
         thruster1?.position = CGPoint(x: -30, y: 0)
+        thruster1?.zPosition = -5
         spaceShipNode.addChild(thruster1!)
         
         posRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(playerID)/Pos")

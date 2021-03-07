@@ -113,7 +113,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
-            particles.zPosition = 1
+            particles.zPosition = -100
             addChild(particles)
         }
         
