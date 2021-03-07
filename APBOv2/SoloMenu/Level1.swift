@@ -64,6 +64,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
     var count = 0
     var doubleTap = 0;
     let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
+    
     let PilotFX = SKEmitterNode(fileNamed: "PilotFX")
     let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
     let spark1 = SKEmitterNode(fileNamed: "Spark")

@@ -14,6 +14,7 @@ public class SpaceshipBase {
         [SKSpriteNode(imageNamed: "bullet"),
          SKSpriteNode(imageNamed: "bullet"),
          SKSpriteNode(imageNamed: "bullet")]
+    let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
     
     var unfiredBulletsCount = 0
     public var unfiredBulletRotator = SKNode();
@@ -25,6 +26,11 @@ public class SpaceshipBase {
         shipSprite.addChild(shipLabel)
         shipLabel.fontName = "AvenirNext-Bold"
         shipLabel.position = CGPoint(x: 0, y: 23)
+        
+        
+        thruster1?.position = CGPoint(x: -30, y: 0)
+        shipSprite.addChild(thruster1!)
+        
         
         for s in unfiredBullets {
             s.alpha = 0
