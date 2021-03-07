@@ -16,6 +16,7 @@ public class LocalSpaceship: SpaceshipBase {
     var reviveButtonNode: MSButtonNode!
     var turnButtonNode: MSButtonNode!
     var shootButtonNode: MSButtonNode!
+    var pauseButtonNode: MSButtonNode!
     
     
     var isPlayerAlive = true
@@ -100,7 +101,7 @@ public class LocalSpaceship: SpaceshipBase {
             }
         }
         ejectButtonNode = spaceShipHud.childNode(withName: "ejectButton") as? MSButtonNode
-        ejectButtonNode.alpha = 0.8
+        ejectButtonNode.alpha = 0
         ejectButtonNode.selectedHandler = {
             if self.isPlayerAlive == true {
                 self.ejectButtonNode.alpha = 0
@@ -130,8 +131,10 @@ public class LocalSpaceship: SpaceshipBase {
             self.turnButtonNode.yScale = self.turnButtonNode.yScale / 1.1
         }
         
-        shootButtonNode = spaceShipHud.childNode(withName: "shootButton") as? MSButtonNode
+        pauseButtonNode = spaceShipHud.childNode(withName: "pause") as? MSButtonNode
+        pauseButtonNode.alpha = 0
         
+        shootButtonNode = spaceShipHud.childNode(withName: "shootButton") as? MSButtonNode
         shootButtonNode.selectedHandler = {
             self.shootButtonNode.alpha = 0.6
             self.shootButtonNode.xScale = self.shootButtonNode.xScale * 1.1
@@ -155,7 +158,11 @@ public class LocalSpaceship: SpaceshipBase {
         }
         
         let backButtonNode = spaceShipHud.childNode(withName: "backButton") as? MSButtonNode
-        backButtonNode!.alpha = 0
+        backButtonNode!.selectedHandlers = {
+            // remove player from lobby
+            Global.loadScene(s: "OnlineMenu")
+        }
+     //   backButtonNode!.alpha = 1
         
         let restartButtonNode = spaceShipHud.childNode(withName: "restartButton") as? MSButtonNode
         restartButtonNode!.alpha = 0
@@ -167,6 +174,7 @@ public class LocalSpaceship: SpaceshipBase {
     
     override func UniqueUpdateShip(deltaTime: Double) {
         if (!Global.gameData.isBackground){
+            print("vibin")
             // Handle rotation and movement
             if (isRotating){
                 spaceShipNode.zRotation -= CGFloat(Double.pi * 1.3 * deltaTime)

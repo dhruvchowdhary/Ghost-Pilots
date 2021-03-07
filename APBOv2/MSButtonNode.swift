@@ -23,7 +23,7 @@ class MSButtonNode: SKSpriteNode {
                 break
             case .MSButtonNodeStateSelected:
                 /* Semi transparent */
-                //self.alpha = 0.7
+                self.alpha = 0.7
                 break
             case .MSButtonNodeStateHidden:
                 /* Disable touch */
