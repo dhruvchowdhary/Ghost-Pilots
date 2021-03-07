@@ -88,10 +88,10 @@ public class MultiplayerHandler{
             if (snapshot.exists()) {
                 for var tup in self.currentBulletCounts{
                     if tup.0 == spaceShip.playerID{
-                        var e = snapshot.childSnapshot(forPath: spaceShip.playerID + String(tup.1)).value as! String;
-                        e.removeFirst(spaceShip.playerID.count)
-                        let i: Int = Int(e)!
-                        spaceShip.Shoot(shotType: i)
+                        var e = snapshot.childSnapshot(forPath: "shot " + String(tup.1)).value as! String;
+                        //e.removeFirst(5)
+                        //let i: Int = Int()!
+                        spaceShip.Shoot(shotType: 0)
                         tup.1 += 1
                     }
                 }
