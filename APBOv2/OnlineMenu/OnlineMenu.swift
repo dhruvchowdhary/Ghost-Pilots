@@ -254,7 +254,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
             if UIScreen.main.bounds.width > 813 {
                 codeBox.frame = CGRect(x: view!.bounds.width/2 - 80, y: view!.bounds.height/2 + 65, width: 160, height: 65)
             } else {
-                codeBox.frame = CGRect(x: view!.bounds.width/2 - 80, y: view!.bounds.height/2 + 80, width: 160, height: 58)
+                codeBox.frame = CGRect(x: view!.bounds.width/2 - 80, y: view!.bounds.height/2 + 58.5, width: 160, height: 58)
             }
             codeBox.font = UIFont.init(name: "AvenirNext-Bold", size: 23)
         } else if UIScreen.main.bounds.width > 567 {
