@@ -115,6 +115,9 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                     self.usernameBox.shake()
                     self.usernameBox.text?.removeAll()
                     self.enterButtonNode.alpha = 1
+                } else if self.codeBox.text!.trimmingCharacters(in: .whitespaces).isEmpty {
+                    self.codeBox.shake()
+                    self.enterButtonNode.alpha = 1
                 } else {
                     self.ref.child("Games/\(self.codeBox.text!)").observeSingleEvent(of: .value){ snapshot in
                         if snapshot.exists() {
@@ -244,22 +247,24 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
             
             codeBox.frame = CGRect(x: view!.bounds.width/2 - 100, y: view!.bounds.height/2 + 85, width: 200, height: 70)
             codeBox.font = UIFont.init(name: "AvenirNext-Bold", size: 28)
-               } else if UIScreen.main.bounds.width > 779 {
-                //iphone X+
-                print("hi")
-        //           tutorialButtonNode.position.x = frame.midX - 720
-         //          tutorialButtonNode.position.y =  frame.midY - 290
-               } else if UIScreen.main.bounds.width > 567 {
-                //iphone 8+
-                usernameBox.frame = CGRect(x: view!.bounds.width/2 - 95, y: view!.bounds.height/2 - 130, width: 190, height: 60)
-                usernameBox.font = UIFont.init(name: "AvenirNext-Bold", size: 38.7368)
-                
-                codeBox.frame = CGRect(x: view!.bounds.width/2 - 100, y: view!.bounds.height/2 + 85, width: 200, height: 70)
-                codeBox.font = UIFont.init(name: "AvenirNext-Bold", size: 28)
-               } else {
-                // < iphone 8
-                
-               }
+        } else if UIScreen.main.bounds.width > 779 {
+            //iphone X+
+            usernameBox.frame = CGRect(x: view!.bounds.width/2 - 140, y: view!.bounds.height/2 - 165, width: 280, height: 88.947368)
+            usernameBox.font = UIFont.init(name: "AvenirNext-Bold", size: 36)
+            
+            codeBox.frame = CGRect(x: view!.bounds.width/2 - 80, y: view!.bounds.height/2 + 65, width: 160, height: 65)
+            codeBox.font = UIFont.init(name: "AvenirNext-Bold", size: 23)
+        } else if UIScreen.main.bounds.width > 567 {
+            //iphone 8+
+            usernameBox.frame = CGRect(x: view!.bounds.width/2 - 120, y: view!.bounds.height/2 - 150, width: 240, height: 75.78947)
+            usernameBox.font = UIFont.init(name: "AvenirNext-Bold", size: 33)
+            
+            codeBox.frame = CGRect(x: view!.bounds.width/2 - 75, y: view!.bounds.height/2 + 58, width: 150, height: 60)
+            codeBox.font = UIFont.init(name: "AvenirNext-Bold", size: 20)
+        } else {
+            // < iphone 8
+            
+        }
     }
     
     func loadTutorial() {
