@@ -9,6 +9,7 @@ public class SpaceshipBase {
     public var spaceShipHud = SKNode()
     public var playerID: String
     public var isLocal = false;
+  
     public var position = (0.0,0.0)
     public var angle = 0 // In degrees
     public var shipLabel = SKLabelNode(text: "name")
@@ -30,7 +31,7 @@ public class SpaceshipBase {
         shipLabel.text = playerId
         spaceShipHud.addChild(shipLabel)
         shipLabel.fontName = "AvenirNext-Bold"
-        shipLabel.position = CGPoint(x: 0, y: 23)
+        shipLabel.position = CGPoint(x: 0, y: 35)
         
         spaceShipParent.addChild(spaceShipNode)
         spaceShipParent.addChild(spaceShipHud)

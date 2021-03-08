@@ -93,7 +93,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         borderShape.path = UIBezierPath(roundedRect: CGRect(x: -1792/2-1000, y: -828/2, width: 1792+2000, height: 828), cornerRadius: 40).cgPath
         borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
         borderShape.fillColor = .clear
-        borderShape.strokeColor = UIColor.blue
+        borderShape.strokeColor = UIColor.white
         borderShape.lineWidth = 10
         borderShape.name = "border"
         borderShape.physicsBody = SKPhysicsBody(edgeChainFrom: borderShape.path!)
@@ -142,10 +142,39 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
                     bullet.position.x += 10 * cos( bullet.zRotation )
                     bullet.position.y += 10 * sin( bullet.zRotation )
                     
-                    if abs(bullet.position.x) > 2000 {
-                        bullet.removeFromParent()
+                    if abs(bullet.position.x) > 1896 || abs(bullet.position.y) > 424 {
+                        
+                        if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
+                            BulletExplosion.position = bullet.position
+                            
+                            
+                            var angle = CGFloat(3.14159)
+                            
+                            if bullet.position.x > 1896 {
+                                angle = CGFloat(3.14159)
+                            }
+                            else if bullet.position.x < -1896 {
+                                angle = CGFloat(0)
+                            }
+                            else if bullet.position.y > 424 {
+                                angle = CGFloat(-3.14 / 2)
+                            }
+                            else if bullet.position.y < -424 {
+                                angle = CGFloat(3.14 / 2)
+                            }
+                            
+                            
+                            BulletExplosion.emissionAngle = angle
+                            bullet.removeFromParent()
+                            addChild(BulletExplosion)
+                        }
+                 
                         liveBullets.remove(at: liveBullets.firstIndex(of: bullet)!)
+                        
+                        
                     }
+                    
+            
                 }
             }
         }
