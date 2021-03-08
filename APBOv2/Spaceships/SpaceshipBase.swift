@@ -36,6 +36,8 @@ public class SpaceshipBase {
         spaceShipParent.addChild(spaceShipHud)
         
         thruster1?.position = CGPoint(x: -30, y: 0)
+        
+        thruster1?.zPosition = -5
         spaceShipNode.addChild(thruster1!)
         
         posRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(playerID)/Pos")
@@ -90,9 +92,6 @@ public class SpaceshipBase {
         default:
             print("Error, LocalSpaceship given an invalid powerup number")
         }
-        let thruster = SKEmitterNode(fileNamed: "Thrusters")
-        thruster!.position = CGPoint(x: -30, y: 0)
-        thruster?.zPosition = 1
     }
     
 }
