@@ -250,7 +250,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         } else if UIScreen.main.bounds.width > 779 {
             //iphone X+
             usernameBox.frame = CGRect(x: view!.bounds.width/2 - 140, y: view!.bounds.height/2 - 165, width: 280, height: 88.947368)
-            usernameBox.font = UIFont.init(name: "AvenirNext-Bold", size: 36)
+            usernameBox.font = UIFont.init(name: "AvenirNext-Bold", size: 38)
             
             codeBox.frame = CGRect(x: view!.bounds.width/2 - 80, y: view!.bounds.height/2 + 65, width: 160, height: 65)
             codeBox.font = UIFont.init(name: "AvenirNext-Bold", size: 23)
