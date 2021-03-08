@@ -46,9 +46,9 @@ public class LocalSpaceship: SpaceshipBase {
             spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
         }
         
-        spaceShipParent.physicsBody?.collisionBitMask = CollisionType.border.rawValue
+        spaceShipNode.physicsBody?.collisionBitMask = CollisionType.border.rawValue
         
-        spaceShipParent.physicsBody?.isDynamic = true
+        spaceShipNode.physicsBody?.isDynamic = true
         isLocal = true
         
         // Pulls all components from hud and adds them as children to the spaceship node
