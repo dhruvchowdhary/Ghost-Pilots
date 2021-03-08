@@ -6,6 +6,7 @@ class LobbyMenu: SKScene {
     var startButtonNode: MSButtonNode!
     
     var codeLabel = SKLabelNode(text: "00000")
+    var playercountLabel = SKLabelNode(text: "1/∞")
     var playerLabel = SKNode()
     var playerLabelParent = SKNode()
     var user1 = SKLabelNode(text: "user1")
@@ -58,13 +59,17 @@ class LobbyMenu: SKScene {
         }
 
         codeLabel.position = CGPoint(x: frame.midX, y: frame.midY - 340)
+        startButtonNode.position.y = codeLabel.position.y + startButtonNode.size.height/4
         codeLabel.text = String(Global.gameData.gameID)
         setupLabel(label: codeLabel)
         
-       // user1.text =
-        user1.position = CGPoint(x: frame.midX - 300, y: frame.midY)
+        playercountLabel.position = CGPoint(x: -480, y: frame.midY - 340)
+        setupLabel(label: playercountLabel)
+        
+        user1.position = CGPoint(x: frame.midX - 150, y: frame.midY)
         user1.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         setupLabel(label: user1)
+        user1.fontSize = 90
         
         colorButtonNode = self.childNode(withName: "redPlayer") as? MSButtonNode
         colorButtonNode.position = CGPoint(x: user1.position.x - 230, y: user1.position.y + 50)
@@ -106,6 +111,7 @@ class LobbyMenu: SKScene {
             newuser.position.y += CGFloat(i*100)
             playerLabelParent.addChild(newuser)
         }
+        playercountLabel.text = "\(playerList.count)/∞"
     }
     
     func StartGame(){

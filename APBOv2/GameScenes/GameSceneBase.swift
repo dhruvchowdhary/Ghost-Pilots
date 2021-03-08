@@ -81,12 +81,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     
     public override func didMove(to view: SKView) {
         for ship in Global.gameData.shipsToUpdate{
-//            if (ship.shipSprite.parent != nil) {
-//                addChild(ship.shipSprite.parent!.parent!.parent!)
-//
-//            } else {
-                addChild(ship.shipSprite)
-//            }
+            addChild(ship.spaceShipParent)
         }
         
         // World physics
@@ -98,7 +93,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         borderShape.path = UIBezierPath(roundedRect: CGRect(x: -1792/2-1000, y: -828/2, width: 1792+2000, height: 828), cornerRadius: 40).cgPath
         borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
         borderShape.fillColor = .clear
-        borderShape.strokeColor = UIColor.blue
+        borderShape.strokeColor = UIColor.white
         borderShape.lineWidth = 10
         borderShape.name = "border"
         borderShape.physicsBody = SKPhysicsBody(edgeChainFrom: borderShape.path!)
@@ -118,7 +113,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
-            particles.zPosition = 1
+            particles.zPosition = -100
             addChild(particles)
         }
         
@@ -128,12 +123,11 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         self.dimPanel.zPosition = 50
         self.dimPanel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         self.addChild(self.dimPanel)
-        self.dimPanel.alpha = 0
-                
-        // Set the players into different spots
-//        for i in 0..<Global.gameData.shipsToUpdate.count{
-//            Global.gameData.shipsToUpdate[i].shipSprite.position.x = CGFloat(-500 + (300 * i))
-//        }
+        self.dimPanel.alpha = 0;
+        
+    for ship in Global.gameData.shipsToUpdate{
+        ship.thruster1?.targetNode = self.scene
+        }
     }
     public override func update(_ currentTime: TimeInterval) {
         if Global.gameData.isBackground {
@@ -143,15 +137,40 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         if lastUpdateTime != 42069.0 {
             for ship in Global.gameData.shipsToUpdate {
                 ship.UpdateShip(deltaTime: Double(currentTime) - lastUpdateTime)
+            }
                 
-                for bullet in liveBullets {
-                    bullet.position.x += 10 * cos( bullet.zRotation )
-                    bullet.position.y += 10 * sin( bullet.zRotation )
+        for bullet in liveBullets {
+            bullet.position.x += 10 * cos( bullet.zRotation )
+            bullet.position.y += 10 * sin( bullet.zRotation )
+            
+            if abs(bullet.position.x) > 1896 || abs(bullet.position.y) > 424 {
+                
+                if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
+                    BulletExplosion.position = bullet.position
                     
-                    if abs(bullet.position.x) > 2000 {
-                        bullet.removeFromParent()
-                        liveBullets.remove(at: liveBullets.firstIndex(of: bullet)!)
+                    
+                    var angle = CGFloat(3.14159)
+                    
+                    if bullet.position.x > 1896 {
+                        angle = CGFloat(3.14159)
                     }
+                    else if bullet.position.x < -1896 {
+                        angle = CGFloat(0)
+                    }
+                    else if bullet.position.y > 424 {
+                        angle = CGFloat(-3.14 / 2)
+                    }
+                    else if bullet.position.y < -424 {
+                        angle = CGFloat(3.14 / 2)
+                    }
+                    
+                    
+                    BulletExplosion.emissionAngle = angle
+                    bullet.removeFromParent()
+                    addChild(BulletExplosion)
+                }
+         
+                liveBullets.remove(at: liveBullets.firstIndex(of: bullet)!)
                 }
             }
         }

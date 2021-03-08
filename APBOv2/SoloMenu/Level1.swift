@@ -203,12 +203,26 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         player.zPosition = 5
         addChild(player)
         
+        
+        player.physicsBody?.mass = 0
+        
         player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.texture!.size())
         player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
-        player.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.powerup.rawValue
-        player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.powerup.rawValue
-        player.physicsBody?.isDynamic = false
+        player.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
+        player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
+      //  player.physicsBody?.isDynamic = false
         
+        
+        player.physicsBody?.affectedByGravity = false
+        player.physicsBody?.friction = 0
+        
+        //player.physicsBody?.velocity = velocity
+            
+            
+            //(CGVector(dx: cos(player.zRotation) * 200, dy: sin(player.zRotation) * 200))
+        
+        
+        //.physicsBody!.applyImpulse(CGVector(dx: cos(player.zRotation) * 20, dy: sin(player.zRotation) * 20))
         
         resetscene()
         
@@ -386,6 +400,14 @@ class Level1: SKScene, SKPhysicsContactDelegate {
             
             if self.varisPaused==1 && self.isPlayerAlive {
                 if self.isPlayerAlive {
+                   
+                    
+                    //player.physicsBody!.applyImpulse(CGVector(dx: player.position.x + cos(player.zRotation) * 0.1, dy: player.position.y + sin(player.zRotation) * 0.1))
+             
+             
+                //    player.physicsBody!.applyImpulse(CGVector(dx: 10, dy: 0))
+                    
+                    
              //       self.numPoints += 100
                 //    self.points.text = "\(self.numPoints)"
                     if self.numAmmo > 0 {
@@ -424,9 +446,19 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                             shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
                             self.addChild(shot)
                             
-                            let movement = SKAction.moveBy(x: 15000 * cos(self.player.zRotation), y: 15000 * sin(self.player.zRotation), duration: 26)
+                            shot.physicsBody?.mass = 0.001
+                            
+                            
+                            let shotvelocity = (CGVector(dx: cos(self.player.zRotation) * 600, dy: sin(self.player.zRotation) * 600))
+                            
+                            shot.physicsBody?.velocity = shotvelocity
+                            
+                         //   shot.physicsBody?.applyImpulse(CGVector(dx: 0.7 * cos(self.player.zRotation), dy: 0.7 * sin(self.player.zRotation)))
+                            
+                        //
+                                    //let movement = SKAction.moveBy(x: 15000 * cos(self.player.zRotation), y: 15000 * sin(self.player.zRotation), duration: 26)
                       //      let sequence = SKAction.sequence([movement, .removeFromParent()])
-                            shot.run(movement)
+                       //     shot.run(movement)
                             
                             self.numAmmo = self.numAmmo - 1
                             
@@ -479,9 +511,17 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                             shot1.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
                             self.addChild(shot1)
                             
-                            let movement1 = SKAction.moveBy(x: 15000 * cos(self.player.zRotation), y: 15000 * sin(self.player.zRotation), duration: 26)
+                          //  let movement1 = SKAction.moveBy(x: 15000 * cos(self.player.zRotation), y: 15000 * sin(self.player.zRotation), duration: 26)
                       //      let sequence = SKAction.sequence([movement, .removeFromParent()])
-                            shot1.run(movement1)
+                          //  shot1.run(movement1)
+                                
+                                
+                                shot1.physicsBody?.mass = 0.001
+                                
+                                
+                                let shot1velocity = (CGVector(dx: cos(self.player.zRotation) * 600, dy: sin(self.player.zRotation) * 600))
+                                
+                                shot1.physicsBody?.velocity = shot1velocity
                             
                             let shot2 = SKSpriteNode(imageNamed: "tripleshotbullet")
                             shot2.size = CGSize(width: 12.5, height: 12.5)
@@ -492,10 +532,18 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                             shot2.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
                             shot2.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
                             self.addChild(shot2)
+                                
+                                
+                                shot2.physicsBody?.mass = 0.001
+                                
+                                
+                                let shot2velocity = (CGVector(dx: cos(self.player.zRotation + 10 * degreesToRadians) * 600, dy: sin(self.player.zRotation + 10 * degreesToRadians) * 600))
+                                
+                                shot2.physicsBody?.velocity = shot2velocity
                             
-                            let movement2 = SKAction.moveBy(x: 15000 * cos(self.player.zRotation + 10 * degreesToRadians), y: 15000 * sin(self.player.zRotation + 10 * degreesToRadians), duration: 26)
+                      //      let movement2 = SKAction.moveBy(x: 15000 * cos(self.player.zRotation + 10 * degreesToRadians), y: 15000 * sin(self.player.zRotation + 10 * degreesToRadians), duration: 26)
                       //      let sequence = SKAction.sequence([movement, .removeFromParent()])
-                            shot2.run(movement2)
+                        //    shot2.run(movement2)
                             
                             let shot3 = SKSpriteNode(imageNamed: "tripleshotbullet")
                             shot3.size = CGSize(width: 12.5, height: 12.5)
@@ -507,10 +555,15 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                             shot3.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
                             self.addChild(shot3)
                             
-                            let movement3 = SKAction.moveBy(x: 15000 * cos(self.player.zRotation - 10 * degreesToRadians ), y: 15000 * sin(self.player.zRotation - 10 * degreesToRadians), duration: 26)
+                          //  let movement3 = SKAction.moveBy(x: 15000 * cos(self.player.zRotation - 10 * degreesToRadians ), y: 15000 * sin(self.player.zRotation - 10 * degreesToRadians), duration: 26)
                       //      let sequence = SKAction.sequence([movement, .removeFromParent()])
-                            shot3.run(movement3)
+                          //  shot3.run(movement3)
                             
+                                
+                                let shot3velocity = (CGVector(dx: cos(self.player.zRotation - 10 * degreesToRadians) * 600, dy: sin(self.player.zRotation - 10 * degreesToRadians) * 600))
+                                
+                                shot3.physicsBody?.velocity = shot3velocity
+                                
                             self.numAmmo = self.numAmmo - 1
                             
                             let recoil = SKAction.moveBy(x: -8 * cos(self.player.zRotation), y: -8 * sin(self.player.zRotation), duration: 0.01)
@@ -839,13 +892,18 @@ class Level1: SKScene, SKPhysicsContactDelegate {
       }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
-        let squishNormal = SKAction.scale(to: 1.0, duration: 0.05)
+       // let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
+     //   let squishNormal = SKAction.scale(to: 1.0, duration: 0.05)
      
     }
     
     override func update(_ currentTime: TimeInterval) {
+        let velocity = (CGVector(dx: cos(player.zRotation) * 220, dy: sin(player.zRotation) * 220))
+        player.physicsBody?.velocity = velocity
+        
+        
         /*
+         
         if powerSpawn == true {
             let rotateAction = SKAction.rotate(byAngle: 1, duration: 20)
             powerup.run(rotateAction)
@@ -1185,13 +1243,15 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         
         
         if isPlayerAlive {
-            
-            //       player.physicsBody!.applyImpulse(CGVector(dx: player.position.x + cos(player.zRotation) * 0.1, dy: player.position.y + sin(player.zRotation) * 0.1))
+            //movementimpulse
+                     // player.physicsBody!.applyImpulse(CGVector(dx: cos(player.zRotation) * 0.4, dy: sin(player.zRotation) * 0.4))
             
             
           //  player.physicsBody!.applyImpulse(CGVector(dx: 0, dy: 50))
             
-            player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.7 ,y:player.position.y + sin(player.zRotation) * 3.7)
+           // player.position = CGPoint(x:player.position.x + cos(player.zRotation) * 3.7 ,y:player.position.y + sin(player.zRotation) * 3.7)
+            
+            
             pilotDirection = player.zRotation - 3.141592/2
             
             if currentShip == "enemy3" {

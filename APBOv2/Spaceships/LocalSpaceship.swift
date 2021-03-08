@@ -4,9 +4,6 @@ import SpriteKit
 public class LocalSpaceship: SpaceshipBase {
     
     public var isRotating = false;
-    public var spaceShipParent = SKNode()
-    public var spaceShipNode: SKSpriteNode
-    public var spaceShipHud = SKNode()
     
     public var isRecoiling = false
     public var recoilTimer: Double = 0
@@ -28,7 +25,6 @@ public class LocalSpaceship: SpaceshipBase {
     var powerupMode = 0
     var doubleTap = 0
     
-    var timeUntilNextBullet: Double = 0.8;
     let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
     
     var framesTilPos = 3;
@@ -36,16 +32,15 @@ public class LocalSpaceship: SpaceshipBase {
     var currentShotCountBuddy = 0;
     
     init(imageTexture: String) {
-        
+        super.init(playerId: Global.playerData.username)
+        spaceShipNode.removeFromParent()
         spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
-        super.init(shipSprite: spaceShipParent, playerId: Global.playerData.username)
+        spaceShipParent.addChild(spaceShipNode)
+        spaceShipNode.addChild(thruster1!)
         
         //spaceShipNode.physicsBody = SKPhysicsBody.init(texture: spaceShipNode.texture!, size: spaceShipNode.size)
         spaceShipNode.name = "player"
         spaceShipNode.zPosition = 5
-        
-        spaceShipParent.addChild(spaceShipNode)
-        spaceShipParent.addChild(spaceShipHud)
         
         if self.playerID != "Pepe2"{
             spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
@@ -64,10 +59,9 @@ public class LocalSpaceship: SpaceshipBase {
             spaceShipHud.addChild(x)
         }
         
-        print(unfiredBullets.count)
         for i in 0..<unfiredBullets.count {
-            unfiredBullets[i].position.x = CGFloat(80 * cos(Double.pi * Double(i) * 0.6666666))
-                                                   unfiredBullets[i].position.y = CGFloat(80 * sin(Double.pi * Double(i) * 0.6666666))
+            unfiredBullets[i].position.x = CGFloat(50 * cos(Double.pi * Double(i) * 0.6666666))
+            unfiredBullets[i].position.y = CGFloat(50 * sin(Double.pi * Double(i) * 0.6666666))
             unfiredBulletRotator.addChild(unfiredBullets[i])
         }
         spaceShipHud.addChild(unfiredBulletRotator)
@@ -119,6 +113,10 @@ public class LocalSpaceship: SpaceshipBase {
                 self.spaceShipNode.zRotation = self.spaceShipNode.zRotation - 3.141592/2 + self.rotation + 0.24
                 let movement = SKAction.moveBy(x: 60 * cos(self.spaceShipNode.zRotation), y: 60 * sin(self.spaceShipNode.zRotation), duration: 0.15)
                 self.spaceShipParent.run(movement)
+                self.thruster1?.particleColorSequence = nil
+                self.thruster1?.particleColorBlendFactor = 1.0
+                self.thruster1?.particleColor = UIColor(red: 240.0/255, green: 50.0/255, blue: 53.0/255, alpha:1)
+                
                 
                 self.doubleTap = 0
                 self.rotation = 0
@@ -130,6 +128,10 @@ public class LocalSpaceship: SpaceshipBase {
             }
         }
         turnButtonNode.selectedHandlers = {
+            
+            let timer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { (timer) in
+                self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
+            }
             self.isRotating = false
             self.turnButtonNode.xScale = self.turnButtonNode.xScale / 1.1
             self.turnButtonNode.yScale = self.turnButtonNode.yScale / 1.1
@@ -146,7 +148,7 @@ public class LocalSpaceship: SpaceshipBase {
             
             if self.isPlayerAlive && self.unfiredBullets.count > 0 {
                 Global.gameData.playerShip?.Shoot(shotType: 0)
-                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)/Shots/\(self.playerID + String(self.currentShotCountBuddy))", Value: "PeePee")
+                self.shotsRef.child("shot " + String(self.currentShotCountBuddy)).setValue("PeePee")
                 self.currentShotCountBuddy += 1;
             }
         }
@@ -174,6 +176,33 @@ public class LocalSpaceship: SpaceshipBase {
         let playAgainButtonNode = spaceShipHud.childNode(withName: "playAgainButton") as? MSButtonNode
         playAgainButtonNode!.alpha = 0
         
+        if UIScreen.main.bounds.width < 779 {
+            if UIScreen.main.bounds.width > 567 {
+                turnButtonNode.size = CGSize(width: 200, height: 184.038)
+                turnButtonNode.position.x = spaceShipHud.position.x + 620
+                turnButtonNode.position.y = spaceShipHud.position.y - 300
+                
+                shootButtonNode.size = CGSize(width: 200, height: 184.038)
+                shootButtonNode.position.x = spaceShipHud.position.x - 620
+                shootButtonNode.position.y =  spaceShipHud.position.y - 300
+                
+                backButtonNode!.size = CGSize(width: 131.25, height: 93.75)
+                backButtonNode!.position.x = spaceShipHud.position.x - 620
+                backButtonNode!.position.y =  spaceShipHud.position.y + 330
+            } else {
+                turnButtonNode.size = CGSize(width: 200, height: 184.038)
+                turnButtonNode.position.x = spaceShipHud.position.x + 620
+                turnButtonNode.position.y = spaceShipHud.position.y - 300
+                
+                shootButtonNode.size = CGSize(width: 200, height: 184.038)
+                shootButtonNode.position.x = spaceShipHud.position.x - 620
+                shootButtonNode.position.y =  spaceShipHud.position.y - 300
+                
+                backButtonNode!.size = CGSize(width: 131.25, height: 93.75)
+                backButtonNode!.position.x = spaceShipHud.position.x - 620
+                backButtonNode!.position.y =  spaceShipHud.position.y + 330
+            }
+        }
     }
     
     override func UniqueUpdateShip(deltaTime: Double) {
@@ -193,20 +222,12 @@ public class LocalSpaceship: SpaceshipBase {
                     spaceShipParent.position.y -= sin(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
                 }
             } else {
+               // let velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 220, dy: sin(spaceShipNode.zRotation) * 220))
+               // spaceShipParent.physicsBody?.velocity = velocity
                 spaceShipParent.position.x += cos(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
                 spaceShipParent.position.y += sin(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
             }
         
-        // For online only, but no control yet
-        if unfiredBulletsCount < 3 {
-            timeUntilNextBullet -= deltaTime;
-        }
-        
-        if (timeUntilNextBullet < 0 && unfiredBulletsCount < 3) {
-            unfiredBullets[unfiredBulletsCount].alpha = 1;
-            unfiredBulletsCount += 1
-            timeUntilNextBullet = 1.3
-        }
         
         if framesTilPos < 0 {
             let payload = Payload(shipPosX: spaceShipParent.position.x, shipPosY: spaceShipParent.position.y, shipAngleRad: spaceShipNode.zRotation)
