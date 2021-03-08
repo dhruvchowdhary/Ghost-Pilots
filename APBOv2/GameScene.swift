@@ -238,8 +238,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.texture!.size())
         player.physicsBody?.categoryBitMask = CollisionType.player.rawValue
-        player.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.powerup.rawValue
-        player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue | CollisionType.powerup.rawValue
+        player.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
+        player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
         player.physicsBody?.isDynamic = false
         
         
@@ -722,7 +722,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             
                             mine.physicsBody?.categoryBitMask = CollisionType.powerup.rawValue
                             mine.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue
-                            mine.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue
+                        mine.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue
                             
                        
                                 mine.position = self.player.position
@@ -1576,6 +1576,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                           let enemy1pic = SKAction.setTexture(SKTexture(imageNamed: "enemy1blue"), resize: true)
                 player.run(enemy1pic)
                     player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.texture!.size())
+                    
+                   
+                    player.physicsBody?.isDynamic = false
+                    
+                    player.name = "player"
+                    
                     self.playerShields = 1
                     currentShip = "enemy1"
                     enemyPoints.position = firstNode.position
@@ -1589,6 +1595,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                           let enemy2pic = SKAction.setTexture(SKTexture(imageNamed: "enemy2blue"), resize: true)
                 player.run(enemy2pic)
                     player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.texture!.size())
+                    
+                    player.name = "player"
+                    player.physicsBody?.isDynamic = false
                 self.playerShields = 2
                     enemyPoints.position = firstNode.position
                     enemyPoints.text = "+" + "200"
@@ -1602,6 +1611,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                           let enemy2pic = SKAction.setTexture(SKTexture(imageNamed: "enemy3blue"), resize: true)
                 player.run(enemy2pic)
                     player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.texture!.size())
+                    player.name = "player"
+                    player.physicsBody?.isDynamic = false
                     self.playerShields = 3
                     enemyPoints.position = firstNode.position
                     enemyPoints.text = "+" + "300"
