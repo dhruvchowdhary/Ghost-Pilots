@@ -137,44 +137,40 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         if lastUpdateTime != 42069.0 {
             for ship in Global.gameData.shipsToUpdate {
                 ship.UpdateShip(deltaTime: Double(currentTime) - lastUpdateTime)
+            }
                 
-                for bullet in liveBullets {
-                    bullet.position.x += 10 * cos( bullet.zRotation )
-                    bullet.position.y += 10 * sin( bullet.zRotation )
+        for bullet in liveBullets {
+            bullet.position.x += 10 * cos( bullet.zRotation )
+            bullet.position.y += 10 * sin( bullet.zRotation )
+            
+            if abs(bullet.position.x) > 1896 || abs(bullet.position.y) > 424 {
+                
+                if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
+                    BulletExplosion.position = bullet.position
                     
-                    if abs(bullet.position.x) > 1896 || abs(bullet.position.y) > 424 {
-                        
-                        if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
-                            BulletExplosion.position = bullet.position
-                            
-                            
-                            var angle = CGFloat(3.14159)
-                            
-                            if bullet.position.x > 1896 {
-                                angle = CGFloat(3.14159)
-                            }
-                            else if bullet.position.x < -1896 {
-                                angle = CGFloat(0)
-                            }
-                            else if bullet.position.y > 424 {
-                                angle = CGFloat(-3.14 / 2)
-                            }
-                            else if bullet.position.y < -424 {
-                                angle = CGFloat(3.14 / 2)
-                            }
-                            
-                            
-                            BulletExplosion.emissionAngle = angle
-                            bullet.removeFromParent()
-                            addChild(BulletExplosion)
-                        }
-                 
-                        liveBullets.remove(at: liveBullets.firstIndex(of: bullet)!)
-                        
-                        
+                    
+                    var angle = CGFloat(3.14159)
+                    
+                    if bullet.position.x > 1896 {
+                        angle = CGFloat(3.14159)
+                    }
+                    else if bullet.position.x < -1896 {
+                        angle = CGFloat(0)
+                    }
+                    else if bullet.position.y > 424 {
+                        angle = CGFloat(-3.14 / 2)
+                    }
+                    else if bullet.position.y < -424 {
+                        angle = CGFloat(3.14 / 2)
                     }
                     
-            
+                    
+                    BulletExplosion.emissionAngle = angle
+                    bullet.removeFromParent()
+                    addChild(BulletExplosion)
+                }
+         
+                liveBullets.remove(at: liveBullets.firstIndex(of: bullet)!)
                 }
             }
         }
