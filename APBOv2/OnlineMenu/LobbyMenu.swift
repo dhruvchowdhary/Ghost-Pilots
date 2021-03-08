@@ -58,10 +58,10 @@ class LobbyMenu: SKScene {
         }
 
         codeLabel.position = CGPoint(x: frame.midX, y: frame.midY - 340)
+        startButtonNode.position.y = codeLabel.position.y + startButtonNode.size.height/4
         codeLabel.text = String(Global.gameData.gameID)
         setupLabel(label: codeLabel)
-        
-       // user1.text =
+
         user1.position = CGPoint(x: frame.midX - 300, y: frame.midY)
         user1.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         setupLabel(label: user1)
