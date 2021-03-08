@@ -176,6 +176,33 @@ public class LocalSpaceship: SpaceshipBase {
         let playAgainButtonNode = spaceShipHud.childNode(withName: "playAgainButton") as? MSButtonNode
         playAgainButtonNode!.alpha = 0
         
+        if UIScreen.main.bounds.width < 779 {
+            if UIScreen.main.bounds.width > 567 {
+                turnButtonNode.size = CGSize(width: 200, height: 184.038)
+                turnButtonNode.position.x = spaceShipHud.position.x + 620
+                turnButtonNode.position.y = spaceShipHud.position.y - 300
+                
+                shootButtonNode.size = CGSize(width: 200, height: 184.038)
+                shootButtonNode.position.x = spaceShipHud.position.x - 620
+                shootButtonNode.position.y =  spaceShipHud.position.y - 300
+                
+                backButtonNode!.size = CGSize(width: 131.25, height: 93.75)
+                backButtonNode!.position.x = spaceShipHud.position.x - 620
+                backButtonNode!.position.y =  spaceShipHud.position.y + 330
+            } else {
+                turnButtonNode.size = CGSize(width: 200, height: 184.038)
+                turnButtonNode.position.x = spaceShipHud.position.x + 620
+                turnButtonNode.position.y = spaceShipHud.position.y - 300
+                
+                shootButtonNode.size = CGSize(width: 200, height: 184.038)
+                shootButtonNode.position.x = spaceShipHud.position.x - 620
+                shootButtonNode.position.y =  spaceShipHud.position.y - 300
+                
+                backButtonNode!.size = CGSize(width: 131.25, height: 93.75)
+                backButtonNode!.position.x = spaceShipHud.position.x - 620
+                backButtonNode!.position.y =  spaceShipHud.position.y + 330
+            }
+        }
     }
     
     override func UniqueUpdateShip(deltaTime: Double) {
