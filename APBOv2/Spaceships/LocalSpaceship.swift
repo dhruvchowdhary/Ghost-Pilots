@@ -46,9 +46,9 @@ public class LocalSpaceship: SpaceshipBase {
             spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
         }
         
-        spaceShipNode.physicsBody?.collisionBitMask = CollisionType.border.rawValue
+        spaceShipParent.physicsBody?.collisionBitMask = CollisionType.border.rawValue
         
-        spaceShipNode.physicsBody?.isDynamic = true
+        spaceShipParent.physicsBody?.isDynamic = true
         isLocal = true
         
         // Pulls all components from hud and adds them as children to the spaceship node
@@ -222,10 +222,10 @@ public class LocalSpaceship: SpaceshipBase {
                     spaceShipParent.position.y -= sin(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
                 }
             } else {
-                let velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 220, dy: sin(spaceShipNode.zRotation) * 220))
-                spaceShipParent.physicsBody?.velocity = velocity
-                //spaceShipParent.position.x += cos(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
-                //spaceShipParent.position.y += sin(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
+               // let velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 220, dy: sin(spaceShipNode.zRotation) * 220))
+               // spaceShipParent.physicsBody?.velocity = velocity
+                spaceShipParent.position.x += cos(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
+                spaceShipParent.position.y += sin(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
             }
         
         
