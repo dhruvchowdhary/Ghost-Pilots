@@ -150,7 +150,7 @@ public class LocalSpaceship: SpaceshipBase {
             
             if self.isPlayerAlive && self.unfiredBullets.count > 0 {
                 Global.gameData.playerShip?.Shoot(shotType: 0)
-                self.shotsRef.child("shot " + String(self.currentShotCountBuddy)).setValue("PeePee")
+                self.shotsRef.child("shot " + String(self.currentShotCountBuddy)).setValue("e")
                 self.currentShotCountBuddy += 1;
                 
           //   self.spaceShipNode.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
@@ -169,8 +169,7 @@ public class LocalSpaceship: SpaceshipBase {
         
         let backButtonNode = spaceShipHud.childNode(withName: "backButton") as? MSButtonNode
         backButtonNode!.selectedHandlers = {
-            // remove player from lobby
-        
+            Global.gameData.ResetGameData()
             Global.loadScene(s: "OnlineMenu")
         }
      //   backButtonNode!.alpha = 1
