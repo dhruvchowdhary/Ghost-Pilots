@@ -78,12 +78,18 @@ public class SpaceshipBase {
         case 0:
             if unfiredBulletsCount > 0 {
                 let bullet = SKSpriteNode(imageNamed: "bullet")
+                bullet.physicsBody = SKPhysicsBody(texture: bullet.texture!, size: bullet.size)
+                bullet.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
+                bullet.physicsBody?.collisionBitMask = CollisionType.player.rawValue
                 bullet.zRotation = spaceShipNode.zRotation
                 bullet.position = spaceShipParent.position
+                bullet.position.x += 10 * cos(spaceShipNode.zRotation)
+                bullet.position.y += 10 * sin(spaceShipNode.zRotation)
                 Global.gameData.gameScene.liveBullets.append(bullet)
                 Global.gameData.gameScene.addChild(bullet)
                 self.unfiredBulletsCount -= 1
                 unfiredBullets[unfiredBulletsCount].alpha = 0;
+                self.spaceShipNode.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
             }
         case 1:
             print("Triple Shot")

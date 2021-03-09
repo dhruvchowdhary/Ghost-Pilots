@@ -11,6 +11,11 @@ import SpriteKit
 class HostMenu: SKScene {
     var backButtonNode: MSButtonNode!
     var startButtonNode: MSButtonNode!
+    var leftButtonNode: MSButtonNode!
+    var rightButtonNode: MSButtonNode!
+    var mapImage = SKNode(fileNamed: "cubismap")
+    let mapArray = ["cubismap", "trisenmap", "hexmap"]
+    var i = 0
     
     override func didMove(to view: SKView) {
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -39,6 +44,33 @@ class HostMenu: SKScene {
             // create game code
             Global.gameData.CreateNewGame()
         }
+        mapImage = self.childNode(withName: "mapImage")
+        leftButtonNode = self.childNode(withName: "leftMap") as? MSButtonNode
+        leftButtonNode.selectedHandlers = {
+            // go left map
+            if self.i==0 {
+                self.i = self.mapArray.endIndex - 1
+            } else {
+                self.i = self.i-1
+            }
+            let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: self.mapArray[self.i]))
+            self.mapImage!.run(mapPicChange)
+            self.leftButtonNode.alpha = 1
+        }
+        
+        rightButtonNode = self.childNode(withName: "rightMap") as? MSButtonNode
+        rightButtonNode.selectedHandlers = {
+            // go right map
+            if self.i == self.mapArray.endIndex - 1 {
+                self.i = 0
+            } else {
+                self.i = self.i+1
+            }
+            let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: self.mapArray[self.i]))
+            self.mapImage!.run(mapPicChange)
+            self.rightButtonNode.alpha = 1
+        }
+        
         
     }
     
