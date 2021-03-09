@@ -92,9 +92,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.contactDelegate = self
         
         // Sets up the boundries
-       
         selectmap()
-        
         
         camera = Global.gameData.camera
         
@@ -173,10 +171,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         let firstNode = sortedNodes[0]
         let secondNode = sortedNodes[1]
         
-        
         if firstNode.name == "border" && secondNode.name == "playerWeapon" {
-                   
-                   
                    if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
                        BulletExplosion.position = secondNode.position
           
@@ -185,7 +180,6 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
                   //  borderShape.strokeColor
                     liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
                    }
-            
         } 
         
         
@@ -193,7 +187,6 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     
     func cubis() {
         let borderShape = SKShapeNode()
-        
         
         borderShape.path = UIBezierPath(roundedRect: CGRect(x: -borderwidth/2, y: -borderheight/2, width: borderwidth, height: borderheight), cornerRadius: 40).cgPath
         //borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -273,9 +266,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     
     
     func trisen() {
-        
         let borderShape = SKShapeNode()
-        
         
         borderShape.path = UIBezierPath(roundedRect: CGRect(x: -borderwidth/2, y: -borderheight/2, width: borderwidth, height: borderheight), cornerRadius: 40).cgPath
         //borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -339,19 +330,12 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     
         addChild(tri3)
         tri3.name = "border"
-        
-        
 
         tri1.physicsBody?.isDynamic = false
-        
-        
-        
     }
     
     func hex() {
-        
         let borderShape = SKShapeNode()
-        
         
         borderShape.path = UIBezierPath(roundedRect: CGRect(x: -borderwidth/2, y: -borderheight/2, width: borderwidth, height: borderheight), cornerRadius: 40).cgPath
         //borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -368,7 +352,6 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         borderShape.zPosition = 5
     
         addChild(borderShape)
-        
         
         let hexPos = 300
         let hexWidth = 477 / 3
@@ -441,14 +424,10 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         hex6.position = CGPoint(x: -hexPos, y: hexPos)
         addChild(hex6)
         hex6.name = "border"
-        
-        
-        
     }
     
     func empty() {
         let borderShape = SKShapeNode()
-        
         
         borderShape.path = UIBezierPath(roundedRect: CGRect(x: -borderwidth/2, y: -borderheight/2, width: borderwidth, height: borderheight), cornerRadius: 40).cgPath
         //borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -465,10 +444,6 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         borderShape.zPosition = 5
     
         addChild(borderShape)
-
-        
-        
-    
     }
     
     
