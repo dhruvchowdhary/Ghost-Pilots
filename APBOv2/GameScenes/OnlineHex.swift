@@ -30,7 +30,7 @@ class OnlineHex: GameSceneBase {
         
         
         let hexPos = 200
-       // let squaresize = 150
+        let hexsize = 150
         
         let hex1 = SKSpriteNode(imageNamed: "hexagon")
         
@@ -42,7 +42,7 @@ class OnlineHex: GameSceneBase {
         hex1.zPosition = 5
         
         hex1.position = CGPoint(x: hexPos, y: hexPos)
-    
+        hex1.size = CGSize(width: hexsize, height: hexsize)
         addChild(hex1)
         
         

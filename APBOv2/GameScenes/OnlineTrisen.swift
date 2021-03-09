@@ -31,7 +31,7 @@ class OnlineTrisen: GameSceneBase {
         addChild(borderShape)
         
         let triPos = 200
-       // let squaresize = 150
+        let trisize = 150
         
         let tri1 = SKSpriteNode(imageNamed: "triangle")
         
@@ -45,6 +45,12 @@ class OnlineTrisen: GameSceneBase {
         tri1.position = CGPoint(x: triPos, y: triPos)
     
         addChild(tri1)
+        
+        tri1.size = CGSize(width: trisize, height: trisize)
+
+        tri1.physicsBody?.isDynamic = false
+        
+        
         
     
         

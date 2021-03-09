@@ -29,7 +29,7 @@ class OnlineCubis: GameSceneBase {
         addChild(borderShape)
         
         let cubePos = 200
-       // let squaresize = 150
+        let cubesize = 150
         
         let cube1 = SKSpriteNode(imageNamed: "cube")
         
@@ -41,7 +41,7 @@ class OnlineCubis: GameSceneBase {
         cube1.zPosition = 5
         
         cube1.position = CGPoint(x: cubePos, y: cubePos)
-    
+        cube1.size = CGSize(width: cubesize, height: cubesize)
         addChild(cube1)
         
         /*
