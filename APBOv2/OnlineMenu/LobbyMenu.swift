@@ -132,9 +132,9 @@ class LobbyMenu: SKScene {
             print("worked")
             Global.loadScene(s: "OnlineCubisHud")
         } else if mapDefaults.value(forKey: "mapIndex") as! Int == 1 {
-            //  Global.loadScene(s: "OnlineTrisen")
-        } else if mapDefaults.value(forKey: "mapIndex") as! Int == 1 {
-            //  Global.loadScene(s: "OnlineHex")
+              Global.loadScene(s: "OnlineTrisenHud")
+        } else if mapDefaults.value(forKey: "mapIndex") as! Int == 2 {
+              Global.loadScene(s: "OnlineHexHud")
         } else {
             // we should never be here
             print("did not work")
