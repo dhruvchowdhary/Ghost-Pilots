@@ -474,21 +474,21 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     
     func selectmap() {
         // based on map selected variable switch case
+     //   Global.gameData.map
         
-        /*
-        switch @@whateber variable is@@ {
-         
-         case "cubis":
+        switch Global.gameData.map {
+         case "OnlineCubis":
             cubis()
          
-         case trisen:
+         case "OnlineTrisen":
             trisen()
          
-         case hex:
+         case "OnlineHex":
             hex()
  
- 
- */
+        default:
+            empty()
+        }
     }
 }
 

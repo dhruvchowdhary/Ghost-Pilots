@@ -49,7 +49,7 @@ class LobbyMenu: SKScene {
                 backButtonNode.position.y =  300
             }
         }
-        
+        pullMap()
         startButtonNode = self.childNode(withName: "startButton") as? MSButtonNode
         startButtonNode.selectedHandlers = {
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Game")
@@ -93,8 +93,6 @@ class LobbyMenu: SKScene {
    //     playerLabel.addChild(colorButtonNode)
     //    playerLabel.addChild(kickButtonNode)
         
-        pullMap()
-        
         Global.multiplayerHandler.listenForGuestChanges()
         Global.multiplayerHandler.ListenForGameStatus()
     }
@@ -130,7 +128,7 @@ class LobbyMenu: SKScene {
             Global.gameData.shipsToUpdate.append(spaceship)
         }
 
-        Global.loadScene(s: Global.gameData.map)
+        Global.loadScene(s: "GameSceneBase")
     }
     
     func setupLabel(label: SKLabelNode) {
