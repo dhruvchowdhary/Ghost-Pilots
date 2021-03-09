@@ -161,7 +161,6 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         skView.presentScene(scene)
     }
     
-    
     public func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }

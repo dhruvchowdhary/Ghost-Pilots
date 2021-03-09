@@ -28,9 +28,7 @@ class LobbyMenu: SKScene {
     ]
     
     override func didMove(to view: SKView) {
-        mapImage = self.childNode(withName: "mapImage")
-        let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: Global.gameData.map))
-        self.mapImage!.run(mapPicChange)
+        pullMap()
 
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -54,7 +52,6 @@ class LobbyMenu: SKScene {
                 backButtonNode.position.y =  300
             }
         }
-        pullMap()
         startButtonNode = self.childNode(withName: "startButton") as? MSButtonNode
         startButtonNode.selectedHandlers = {
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Game")
@@ -150,6 +147,10 @@ class LobbyMenu: SKScene {
             snapshot in
             if (snapshot.exists()) {
                 Global.gameData.map = snapshot.value as! String
+                self.mapImage = self.childNode(withName: "mapImage")
+                let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: Global.gameData.map))
+                self.mapImage!.run(mapPicChange)
+                self.mapImage!.alpha = 1
             }
         }
     }
