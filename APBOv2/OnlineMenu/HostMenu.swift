@@ -16,6 +16,7 @@ class HostMenu: SKScene {
     var mapImage = SKNode(fileNamed: "cubismap")
     let mapArray = ["cubismap", "trisenmap", "hexmap"]
     var i = 0
+    let mapDefaults = UserDefaults.standard
     
     override func didMove(to view: SKView) {
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -53,6 +54,8 @@ class HostMenu: SKScene {
             } else {
                 self.i = self.i-1
             }
+            self.mapDefaults.setValue(self.i, forKey: "mapIndex")
+            self.mapDefaults.synchronize()
             let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: self.mapArray[self.i]))
             self.mapImage!.run(mapPicChange)
             self.leftButtonNode.alpha = 1
@@ -66,6 +69,8 @@ class HostMenu: SKScene {
             } else {
                 self.i = self.i+1
             }
+            self.mapDefaults.setValue(self.i, forKey: "mapIndex")
+            self.mapDefaults.synchronize()
             let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: self.mapArray[self.i]))
             self.mapImage!.run(mapPicChange)
             self.rightButtonNode.alpha = 1
