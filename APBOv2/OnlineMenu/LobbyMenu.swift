@@ -94,7 +94,8 @@ class LobbyMenu: SKScene {
    //     playerLabel.addChild(colorButtonNode)
     //    playerLabel.addChild(kickButtonNode)
         
-   //     pullGuestList()
+        pullMap()
+        
         Global.multiplayerHandler.listenForGuestChanges()
         Global.multiplayerHandler.ListenForGameStatus()
     }
@@ -139,20 +140,6 @@ class LobbyMenu: SKScene {
         label.fontSize = 120
         label.fontName = "AvenirNext-Bold"
         addChild(label)
-    }
-    
-    func pullGuestList(){
-        var playerList: [String] = []
-        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Players").observeSingleEvent(of: .value) { snapshot in
-            if (snapshot.exists()){
-                for child in snapshot.children {
-                    let e = child as! DataSnapshot
-                    playerList.append(e.key)
-                }
-            }
-        }
-        print(playerList)
-        setPlayerList(playerList: playerList)
     }
     
     
