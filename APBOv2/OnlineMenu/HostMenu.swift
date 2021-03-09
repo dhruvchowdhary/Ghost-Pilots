@@ -13,8 +13,8 @@ class HostMenu: SKScene {
     var startButtonNode: MSButtonNode!
     var leftButtonNode: MSButtonNode!
     var rightButtonNode: MSButtonNode!
-    var mapImage = SKNode(fileNamed: "cubismap")
-    let mapArray = ["cubismap", "trisenmap", "hexmap"]
+    var mapImage = SKNode(fileNamed: "OnlineCubis")
+    let mapArray = ["OnlineCubis", "OnlineTrisen", "OnlineHex"]
     var i = 0
     let mapDefaults = UserDefaults.standard
     

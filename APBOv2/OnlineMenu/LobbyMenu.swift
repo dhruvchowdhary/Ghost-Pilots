@@ -163,7 +163,7 @@ class LobbyMenu: SKScene {
         MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Map").observeSingleEvent(of: .value) {
             snapshot in
             if (snapshot.exists()) {
-                Global.gameData.map = snapshot.value
+                Global.gameData.map = snapshot.value as! String
             }
         }
     }
