@@ -46,6 +46,7 @@ class HostMenu: SKScene {
             Global.gameData.CreateNewGame()
         }
         mapImage = self.childNode(withName: "mapImage")
+        mapDefaults.setValue(0, forKey: "mapIndex")
         leftButtonNode = self.childNode(withName: "leftMap") as? MSButtonNode
         leftButtonNode.selectedHandlers = {
             // go left map
