@@ -474,8 +474,6 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     
     func selectmap() {
         // based on map selected variable switch case
-     //   Global.gameData.map
-        
         switch Global.gameData.map {
          case "OnlineCubis":
             cubis()
