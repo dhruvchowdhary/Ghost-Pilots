@@ -50,5 +50,7 @@ public class GameData{
         shipsToUpdate = []
         isHost = false
         host = ""
+        map = "OnlineCubis"
+        playerShip?.spaceShipParent.removeFromParent()
     }
 }
