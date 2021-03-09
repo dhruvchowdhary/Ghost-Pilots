@@ -63,7 +63,7 @@ public class MultiplayerHandler{
             if (snapshot.exists()) {
                 if (snapshot.value as? String == "NULL"){
                     shipSprite.removeFromParent()
-                    StopListenForPayload(ref: ref)
+                    self.StopListenForPayload(ref: ref)
                 }
                 let snapVal = snapshot.value as! String
                 if (snapVal != "e"){
