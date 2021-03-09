@@ -61,6 +61,10 @@ public class MultiplayerHandler{
     public func ListenForPayload(ref: DatabaseReference, shipSprite: SKNode){
         ref.observe(DataEventType.value) { ( snapshot ) in
             if (snapshot.exists()) {
+                if (snapshot.value as? String == "NULL"){
+                    shipSprite.removeFromParent()
+                    StopListenForPayload(ref: ref)
+                }
                 let snapVal = snapshot.value as! String
                 if (snapVal != "e"){
                     let jsonData = snapVal.data(using: .utf8)
