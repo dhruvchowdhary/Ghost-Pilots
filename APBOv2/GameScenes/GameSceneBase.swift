@@ -131,36 +131,20 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         for bullet in liveBullets {
             bullet.position.x += 10 * cos( bullet.zRotation )
             bullet.position.y += 10 * sin( bullet.zRotation )
-            
+            /*
             if abs(bullet.position.x) > (2000 / 2) || abs(bullet.position.y) > (2000 / 2) {
                 
                 if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
                     BulletExplosion.position = bullet.position
                     
-                    
-                    var angle = CGFloat(3.14159)
-                    
-                    if bullet.position.x > 1000 {
-                        angle = CGFloat(3.14159)
-                    }
-                    else if bullet.position.x < -1000 {
-                        angle = CGFloat(0)
-                    }
-                    else if bullet.position.y > 1000 {
-                        angle = CGFloat(-3.14 / 2)
-                    }
-                    else if bullet.position.y < -1000 {
-                        angle = CGFloat(3.14 / 2)
-                    }
-                    
-                    
-                    BulletExplosion.emissionAngle = angle
+
                     bullet.removeFromParent()
                     addChild(BulletExplosion)
                 }
          
                 liveBullets.remove(at: liveBullets.firstIndex(of: bullet)!)
                 }
+ */
             }
         }
         lastUpdateTime = Double(currentTime)
@@ -179,6 +163,33 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         skView.presentScene(scene)
     }
     
+    
+    public func didBegin(_ contact: SKPhysicsContact) {
+        guard let nodeA = contact.bodyA.node else { return }
+        guard let nodeB = contact.bodyB.node else { return }
+        
+        let sortedNodes = [nodeA, nodeB].sorted { $0.name ?? "" < $1.name ?? "" }
+        
+        let firstNode = sortedNodes[0]
+        let secondNode = sortedNodes[1]
+        
+        
+        if firstNode.name == "border" && secondNode.name == "playerWeapon" {
+                   
+                   
+                   if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
+                       BulletExplosion.position = secondNode.position
+          
+                       secondNode.removeFromParent()
+                       addChild(BulletExplosion)
+                  //  borderShape.strokeColor
+                    liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
+                   }
+            
+        } 
+        
+        
+    }
     
     func shapes() {
         let borderShape = SKShapeNode()

@@ -79,9 +79,16 @@ public class SpaceshipBase {
         case 0:
             if unfiredBulletsCount > 0 {
                 let bullet = SKSpriteNode(imageNamed: "bullet")
+                
+                
+                bullet.name = "playerWeapon"
                 bullet.physicsBody = SKPhysicsBody(texture: bullet.texture!, size: bullet.size)
                 bullet.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
-                bullet.physicsBody?.collisionBitMask = CollisionType.player.rawValue
+                bullet.physicsBody?.collisionBitMask = CollisionType.player.rawValue | CollisionType.border.rawValue
+                
+                bullet.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.border.rawValue
+                
+                
                 bullet.zRotation = spaceShipNode.zRotation
                 bullet.position = spaceShipParent.position
                 bullet.position.x += 10 * cos(spaceShipNode.zRotation)
