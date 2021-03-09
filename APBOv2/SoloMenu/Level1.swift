@@ -1360,6 +1360,8 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                 if self.didWin == false && self.didLose == false {
                     victoryScreen()
                     self.didWin = true
+                    self.didLose = false
+                
                 }
                 
             }
@@ -1571,7 +1573,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                 powerSpawn = false
             }
            
-            else if firstNode.name == "0"||firstNode.name == "1" || firstNode.name == "2" || firstNode.name == "enemy" || firstNode.name == "enemyWeapon" {
+            else if firstNode.name == "0" || firstNode.name == "1" || firstNode.name == "2" || firstNode.name == "enemy" || firstNode.name == "enemyWeapon" {
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
                 self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
@@ -1580,7 +1582,16 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                     explosion.position = secondNode.position
                     addChild(explosion)
                 }
-                gameOver()
+                let wait2 = SKAction.wait(forDuration:0)
+                let action = SKAction.run {
+                    if self.didWin == false && self.didLose == false {
+                        self.gameOver()
+                        self.didLose = true
+                        self.didWin = false
+                    }
+               
+                }
+                         run(SKAction.sequence([wait2,action]))
                 playerShields -= 1
                 
                 if playerShields == 0 {
@@ -1647,6 +1658,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                 if self.didWin == false && self.didLose == false {
                     self.gameOver()
                     self.didLose = true
+                    self.didWin = false
                 }
            
             }
@@ -1663,12 +1675,14 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                                      addChild(explosion)
                                  }
             
-            let wait2 = SKAction.wait(forDuration:1)
+            let wait2 = SKAction.wait(forDuration:0)
             let action = SKAction.run {
                 if self.didWin == false && self.didLose == false {
                     self.gameOver()
                     self.didLose = true
+                    self.didWin = false
                 }
+           
             }
                      run(SKAction.sequence([wait2,action]))
         }
@@ -1818,9 +1832,31 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         }
             
         else if firstNode.name == "border" && secondNode.name == "enemyWeapon" {
-         //   print("weapon removed")
-            secondNode.removeFromParent()
+            if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
+                BulletExplosion.position = secondNode.position
+                
+                
+                var angle = CGFloat(3.14159)
+                
+                if secondNode.position.x > frame.maxX - 100 {
+                    angle = CGFloat(3.14159)
+                }
+                else if secondNode.position.x < frame.minX + 100 {
+                    angle = CGFloat(0)
+                }
+                else if secondNode.position.y > frame.maxY - 200 {
+                    angle = CGFloat(-3.14 / 2)
+                }
+                else if secondNode.position.y < frame.minY + 200 {
+                    angle = CGFloat(3.14 / 2)
+                }
+                
+                
+                BulletExplosion.emissionAngle = angle
+                secondNode.removeFromParent()
+                addChild(BulletExplosion)
             
+        }
         }
         else if firstNode.name == "enemyWeapon" && secondNode.name == "laser" {
             firstNode.removeFromParent()

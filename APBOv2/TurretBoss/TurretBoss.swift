@@ -93,7 +93,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             cannonSprite.run(cannonspritecolor)
         }
         
-        shape.path = UIBezierPath(roundedRect: CGRect(x: -800 + 50, y: -800 + 160, width: 1600 - 100, height: 1600 - 320), cornerRadius: 40).cgPath
+        shape.path = UIBezierPath(roundedRect: CGRect(x: -800 + 50, y: -800 + 160, width: 1792 - 100, height: 1600 - 320), cornerRadius: 40).cgPath
         shape.position = CGPoint(x: frame.midX, y: frame.midY)
         shape.fillColor = .clear
         shape.strokeColor = UIColor.white
