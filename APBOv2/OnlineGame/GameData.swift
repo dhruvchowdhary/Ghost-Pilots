@@ -12,7 +12,8 @@ public class GameData{
     public var isHost = false
     public var host = "IDK";
     public var isBackground = false;
-    
+    public var map = "OnlineCubis"
+    let mapDefaults = UserDefaults.standard
     
     // =================
     // For the Host to run
@@ -27,6 +28,7 @@ public class GameData{
         // we have created a code, we must now finish init game
         gameID = code
         DataPusher.PushData(path: "Games/\(code)/Host", Value: Global.playerData.username)
+        DataPusher.PushData(path: "Games/\(code)/Map", Value: map)
         DataPusher.PushData(path: "Games/\(code)/Status", Value: "Lobby")
         DataPusher.PushData(path: "Games/\(code)/Players/\(Global.playerData.username)", Value: "PeePee")
         Global.gameData.host = Global.playerData.username

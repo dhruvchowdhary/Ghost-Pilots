@@ -128,17 +128,8 @@ class LobbyMenu: SKScene {
             
             Global.gameData.shipsToUpdate.append(spaceship)
         }
-        if mapDefaults.value(forKey: "mapIndex") as! Int == 0 {
-            Global.loadScene(s: "OnlineCubis")
-        } else if mapDefaults.value(forKey: "mapIndex") as! Int == 1 {
-              Global.loadScene(s: "OnlineTrisen")
-        } else if mapDefaults.value(forKey: "mapIndex") as! Int == 2 {
-              Global.loadScene(s: "OnlineHex")
-        } else {
-            // we should never be here
-            print("did not work")
-            Global.loadScene(s: "GameSceneBase")
-        }
+        
+        Global.loadScene(s: Global.gameData.map)
     }
     
     func setupLabel(label: SKLabelNode) {
@@ -161,6 +152,19 @@ class LobbyMenu: SKScene {
         }
         print(playerList)
         setPlayerList(playerList: playerList)
+    }
+    
+    
+    
+    
+    func pullMap(){
+        var map: String
+        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Map").observeSingleEvent(of: .value) {
+            snapshot in
+            if (snapshot.exists()) {
+                Global.gameData.map = snapshot.value
+            }
+        }
     }
     
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {

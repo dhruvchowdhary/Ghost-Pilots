@@ -57,6 +57,7 @@ class HostMenu: SKScene {
             }
             self.mapDefaults.setValue(self.i, forKey: "mapIndex")
             self.mapDefaults.synchronize()
+            Global.gameData.map = self.mapArray[self.i]
             let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: self.mapArray[self.i]))
             self.mapImage!.run(mapPicChange)
             self.leftButtonNode.alpha = 1
@@ -72,6 +73,7 @@ class HostMenu: SKScene {
             }
             self.mapDefaults.setValue(self.i, forKey: "mapIndex")
             self.mapDefaults.synchronize()
+            Global.gameData.map = self.mapArray[self.i]
             let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: self.mapArray[self.i]))
             self.mapImage!.run(mapPicChange)
             self.rightButtonNode.alpha = 1
