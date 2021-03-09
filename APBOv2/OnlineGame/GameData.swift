@@ -14,7 +14,6 @@ public class GameData{
     public var host = "";
     public var isBackground = false;
     public var map = "OnlineCubis"
- //   let mapDefaults = UserDefaults.standard
     
     // =================
     // For the Host to run

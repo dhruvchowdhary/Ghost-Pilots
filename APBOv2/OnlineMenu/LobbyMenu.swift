@@ -13,7 +13,6 @@ class LobbyMenu: SKScene {
     var colorButtonNode: MSButtonNode!
     var kickButtonNode: MSButtonNode!
     var list: [String] = []
-    let mapDefaults = UserDefaults.standard
     
     let intToColor: Dictionary = [
         0: "player",
