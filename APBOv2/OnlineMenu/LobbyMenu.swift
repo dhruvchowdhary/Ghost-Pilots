@@ -129,7 +129,6 @@ class LobbyMenu: SKScene {
             Global.gameData.shipsToUpdate.append(spaceship)
         }
         if mapDefaults.value(forKey: "mapIndex") as! Int == 0 {
-            print("worked")
             Global.loadScene(s: "OnlineCubis")
         } else if mapDefaults.value(forKey: "mapIndex") as! Int == 1 {
               Global.loadScene(s: "OnlineTrisen")
