@@ -4,7 +4,7 @@ import CoreMotion
 import AudioToolbox
 
 
-class OnlineCubis: GameSceneBase {
+class OnlineHex: GameSceneBase {
 
     
     override func shapes() {
@@ -15,7 +15,7 @@ class OnlineCubis: GameSceneBase {
         borderShape.path = UIBezierPath(roundedRect: CGRect(x: -borderwidth/2, y: -borderheight/2, width: borderwidth, height: borderheight), cornerRadius: 40).cgPath
         //borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
         borderShape.fillColor = .clear
-        borderShape.strokeColor = UIColor(red: 0/255, green: 121/255, blue: 255/255, alpha:1)
+        borderShape.strokeColor = UIColor.white
         borderShape.lineWidth = 20
         borderShape.name = "border"
         borderShape.physicsBody = SKPhysicsBody(edgeChainFrom: borderShape.path!)
