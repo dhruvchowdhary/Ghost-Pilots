@@ -10,6 +10,7 @@ class LobbyMenu: SKScene {
     var playerLabel = SKNode()
     var playerLabelParent = SKNode()
     var user1 = SKLabelNode(text: "user1")
+    var mapImage = SKNode(fileNamed: "OnlineCubis")
     var colorButtonNode: MSButtonNode!
     var kickButtonNode: MSButtonNode!
     var list: [String] = []
@@ -27,6 +28,10 @@ class LobbyMenu: SKScene {
     ]
     
     override func didMove(to view: SKView) {
+        mapImage = self.childNode(withName: "mapImage")
+        let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: Global.gameData.map))
+        self.mapImage!.run(mapPicChange)
+
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
             //      particles.advanceSimulationTime(60)
@@ -138,9 +143,6 @@ class LobbyMenu: SKScene {
         label.fontName = "AvenirNext-Bold"
         addChild(label)
     }
-    
-    
-    
     
     func pullMap(){
         var map: String

@@ -11,11 +11,17 @@ import SpriteKit
 class HostMenu: SKScene {
     var backButtonNode: MSButtonNode!
     var startButtonNode: MSButtonNode!
-    var leftButtonNode: MSButtonNode!
-    var rightButtonNode: MSButtonNode!
+    var leftModeButtonNode: MSButtonNode!
+    var rightModeButtonNode: MSButtonNode!
+ //   var modeImage = SKNode(fileNamed: "Standard")
+ //   let modeArray = ["Standard", "Soccer", "Infection"]
+ //   var i = 0
+    
+    var leftMapButtonNode: MSButtonNode!
+    var rightMapButtonNode: MSButtonNode!
     var mapImage = SKNode(fileNamed: "OnlineCubis")
     let mapArray = ["OnlineCubis", "OnlineTrisen", "OnlineHex"]
-    var i = 0
+    var j = 0
     
     override func didMove(to view: SKView) {
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -46,32 +52,32 @@ class HostMenu: SKScene {
         }
         
         mapImage = self.childNode(withName: "mapImage")
-        leftButtonNode = self.childNode(withName: "leftMap") as? MSButtonNode
-        leftButtonNode.selectedHandlers = {
+        leftMapButtonNode = self.childNode(withName: "leftMap") as? MSButtonNode
+        leftMapButtonNode.selectedHandlers = {
             // go left map
-            if self.i==0 {
-                self.i = self.mapArray.endIndex - 1
+            if self.j==0 {
+                self.j = self.mapArray.endIndex - 1
             } else {
-                self.i = self.i-1
+                self.j = self.j-1
             }
-            Global.gameData.map = self.mapArray[self.i]
-            let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: self.mapArray[self.i]))
+            Global.gameData.map = self.mapArray[self.j]
+            let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: self.mapArray[self.j]))
             self.mapImage!.run(mapPicChange)
-            self.leftButtonNode.alpha = 1
+            self.leftMapButtonNode.alpha = 1
         }
         
-        rightButtonNode = self.childNode(withName: "rightMap") as? MSButtonNode
-        rightButtonNode.selectedHandlers = {
+        rightMapButtonNode = self.childNode(withName: "rightMap") as? MSButtonNode
+        rightMapButtonNode.selectedHandlers = {
             // go right map
-            if self.i == self.mapArray.endIndex - 1 {
-                self.i = 0
+            if self.j == self.mapArray.endIndex - 1 {
+                self.j = 0
             } else {
-                self.i = self.i+1
+                self.j = self.j+1
             }
-            Global.gameData.map = self.mapArray[self.i]
-            let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: self.mapArray[self.i]))
+            Global.gameData.map = self.mapArray[self.j]
+            let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: self.mapArray[self.j]))
             self.mapImage!.run(mapPicChange)
-            self.rightButtonNode.alpha = 1
+            self.rightMapButtonNode.alpha = 1
         }
         
         

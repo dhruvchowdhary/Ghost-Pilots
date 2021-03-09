@@ -264,7 +264,6 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         cube4.name = "border"
     }
     
-    
     func trisen() {
         let borderShape = SKShapeNode()
         
@@ -445,7 +444,6 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     
         addChild(borderShape)
     }
-    
     
     func selectmap() {
         // based on map selected variable switch case
