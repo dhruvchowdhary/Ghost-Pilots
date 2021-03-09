@@ -13,7 +13,6 @@ class LobbyMenu: SKScene {
     var colorButtonNode: MSButtonNode!
     var kickButtonNode: MSButtonNode!
     var list: [String] = []
-    let mapDefaults = UserDefaults.standard
     
     let intToColor: Dictionary = [
         0: "player",
@@ -41,6 +40,7 @@ class LobbyMenu: SKScene {
         backButtonNode.selectedHandlers = {
             // if host give host to someone else || if no one destroy lobby/code || if not host just leave
             Global.multiplayerHandler.StopListenForGuestChanges();
+            Global.gameData.ResetGameData()
             self.loadOnlineMenu()
         }
         if UIDevice.current.userInterfaceIdiom != .pad {
@@ -93,7 +93,8 @@ class LobbyMenu: SKScene {
    //     playerLabel.addChild(colorButtonNode)
     //    playerLabel.addChild(kickButtonNode)
         
-   //     pullGuestList()
+        pullMap()
+        
         Global.multiplayerHandler.listenForGuestChanges()
         Global.multiplayerHandler.ListenForGameStatus()
     }
@@ -128,17 +129,8 @@ class LobbyMenu: SKScene {
             
             Global.gameData.shipsToUpdate.append(spaceship)
         }
-        if mapDefaults.value(forKey: "mapIndex") as! Int == 0 {
-            Global.loadScene(s: "OnlineCubis")
-        } else if mapDefaults.value(forKey: "mapIndex") as! Int == 1 {
-              Global.loadScene(s: "OnlineTrisen")
-        } else if mapDefaults.value(forKey: "mapIndex") as! Int == 2 {
-              Global.loadScene(s: "OnlineHex")
-        } else {
-            // we should never be here
-            print("did not work")
-            Global.loadScene(s: "GameSceneBase")
-        }
+
+        Global.loadScene(s: Global.gameData.map)
     }
     
     func setupLabel(label: SKLabelNode) {
@@ -149,18 +141,17 @@ class LobbyMenu: SKScene {
         addChild(label)
     }
     
-    func pullGuestList(){
-        var playerList: [String] = []
-        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Players").observeSingleEvent(of: .value) { snapshot in
-            if (snapshot.exists()){
-                for child in snapshot.children {
-                    let e = child as! DataSnapshot
-                    playerList.append(e.key)
-                }
+    
+    
+    
+    func pullMap(){
+        var map: String
+        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Map").observeSingleEvent(of: .value) {
+            snapshot in
+            if (snapshot.exists()) {
+                Global.gameData.map = snapshot.value as! String
             }
         }
-        print(playerList)
-        setPlayerList(playerList: playerList)
     }
     
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {

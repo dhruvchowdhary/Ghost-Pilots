@@ -121,7 +121,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                 } else {
                     self.ref.child("Games/\(self.codeBox.text!)").observeSingleEvent(of: .value){ snapshot in
                         if snapshot.exists() {
-                            DataPusher.PushData(path: "Games/\(self.codeBox.text!)/Players/\(self.usernameBox.text!)", Value: "PeePee")
+                            DataPusher.PushData(path: "Games/\(self.codeBox.text!)/Players/\(self.usernameBox.text!)", Value: "e")
                             Global.gameData.gameID = Int(self.codeBox.text!)!
                             Global.gameData.isHost = false
                             self.loadLobbyMenu()

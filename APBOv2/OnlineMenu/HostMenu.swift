@@ -13,10 +13,9 @@ class HostMenu: SKScene {
     var startButtonNode: MSButtonNode!
     var leftButtonNode: MSButtonNode!
     var rightButtonNode: MSButtonNode!
-    var mapImage = SKNode(fileNamed: "cubismap")
-    let mapArray = ["cubismap", "trisenmap", "hexmap"]
+    var mapImage = SKNode(fileNamed: "OnlineCubis")
+    let mapArray = ["OnlineCubis", "OnlineTrisen", "OnlineHex"]
     var i = 0
-    let mapDefaults = UserDefaults.standard
     
     override func didMove(to view: SKView) {
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -45,8 +44,8 @@ class HostMenu: SKScene {
             // create game code
             Global.gameData.CreateNewGame()
         }
+        
         mapImage = self.childNode(withName: "mapImage")
-        mapDefaults.setValue(0, forKey: "mapIndex")
         leftButtonNode = self.childNode(withName: "leftMap") as? MSButtonNode
         leftButtonNode.selectedHandlers = {
             // go left map
@@ -55,8 +54,7 @@ class HostMenu: SKScene {
             } else {
                 self.i = self.i-1
             }
-            self.mapDefaults.setValue(self.i, forKey: "mapIndex")
-            self.mapDefaults.synchronize()
+            Global.gameData.map = self.mapArray[self.i]
             let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: self.mapArray[self.i]))
             self.mapImage!.run(mapPicChange)
             self.leftButtonNode.alpha = 1
@@ -70,8 +68,7 @@ class HostMenu: SKScene {
             } else {
                 self.i = self.i+1
             }
-            self.mapDefaults.setValue(self.i, forKey: "mapIndex")
-            self.mapDefaults.synchronize()
+            Global.gameData.map = self.mapArray[self.i]
             let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: self.mapArray[self.i]))
             self.mapImage!.run(mapPicChange)
             self.rightButtonNode.alpha = 1
