@@ -88,6 +88,7 @@ public class SpaceshipBase {
                 Global.gameData.gameScene.addChild(bullet)
                 self.unfiredBulletsCount -= 1
                 unfiredBullets[unfiredBulletsCount].alpha = 0;
+                self.spaceShipNode.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
             }
         case 1:
             print("Triple Shot")

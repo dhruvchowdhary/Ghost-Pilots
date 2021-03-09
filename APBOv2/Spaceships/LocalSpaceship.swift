@@ -1,5 +1,6 @@
 import Foundation
 import SpriteKit
+import AudioToolbox
 
 public class LocalSpaceship: SpaceshipBase {
     
@@ -117,6 +118,7 @@ public class LocalSpaceship: SpaceshipBase {
                 self.thruster1?.particleColorBlendFactor = 1.0
                 self.thruster1?.particleColor = UIColor(red: 240.0/255, green: 50.0/255, blue: 53.0/255, alpha:1)
                 
+                self.spaceShipNode.run(SKAction.playSoundFileNamed("swishnew", waitForCompletion: false))
                 
                 self.doubleTap = 0
                 self.rotation = 0
@@ -150,6 +152,8 @@ public class LocalSpaceship: SpaceshipBase {
                 Global.gameData.playerShip?.Shoot(shotType: 0)
                 self.shotsRef.child("shot " + String(self.currentShotCountBuddy)).setValue("PeePee")
                 self.currentShotCountBuddy += 1;
+                
+          //   self.spaceShipNode.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
             }
         }
         shootButtonNode.selectedHandlers = {
