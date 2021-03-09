@@ -52,5 +52,6 @@ public class GameData{
         host = ""
         map = "OnlineCubis"
         playerShip?.spaceShipParent.removeFromParent()
+        DataPusher.PushData(path: "Games/\(code)/\(Global.playerData.playerID!)", Value: "NULL")
     }
 }
