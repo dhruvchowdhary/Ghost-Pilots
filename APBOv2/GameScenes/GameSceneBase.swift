@@ -93,7 +93,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         
         // Sets up the boundries
        
-        shapes()
+        selectmap()
         
         
         camera = Global.gameData.camera
@@ -191,7 +191,262 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    func shapes() {
+    func cubis() {
+        let borderShape = SKShapeNode()
+        
+        
+        borderShape.path = UIBezierPath(roundedRect: CGRect(x: -borderwidth/2, y: -borderheight/2, width: borderwidth, height: borderheight), cornerRadius: 40).cgPath
+        //borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
+        borderShape.fillColor = .clear
+        borderShape.strokeColor = UIColor(red: 0/255, green: 121/255, blue: 255/255, alpha:1)
+        borderShape.lineWidth = 20
+        borderShape.name = "border"
+        borderShape.physicsBody = SKPhysicsBody(edgeChainFrom: borderShape.path!)
+        
+        borderShape.physicsBody!.categoryBitMask = CollisionType.border.rawValue
+        borderShape.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        borderShape.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        
+        borderShape.zPosition = 5
+    
+        addChild(borderShape)
+        
+        let cubePos = 200
+        let cubesize = 100
+        
+        let cube1 = SKSpriteNode(imageNamed: "cube")
+        cube1.size = CGSize(width: cubesize, height: cubesize)
+        cube1.physicsBody = SKPhysicsBody(texture: cube1.texture!, size: cube1.size)
+        
+        cube1.physicsBody!.categoryBitMask = CollisionType.border.rawValue
+        cube1.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        cube1.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        cube1.zPosition = 5
+        
+        cube1.position = CGPoint(x: cubePos - cubePos / 2, y: cubePos - cubePos / 2)
+   
+        addChild(cube1)
+        cube1.name = "border"
+        
+        let cube2 = SKSpriteNode(imageNamed: "cube")
+        cube2.size = CGSize(width: cubesize, height: cubesize)
+        cube2.physicsBody = SKPhysicsBody(texture: cube2.texture!, size: cube2.size)
+        
+        cube2.physicsBody!.categoryBitMask = CollisionType.border.rawValue
+        cube2.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        cube2.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        cube2.zPosition = 5
+        
+        cube2.position = CGPoint(x: -cubePos - cubePos / 2, y: cubePos - cubePos / 2)
+   
+        addChild(cube2)
+        cube2.name = "border"
+        
+        let cube3 = SKSpriteNode(imageNamed: "cube")
+        cube3.size = CGSize(width: cubesize, height: cubesize)
+        cube3.physicsBody = SKPhysicsBody(texture: cube3.texture!, size: cube3.size)
+        
+        cube3.physicsBody!.categoryBitMask = CollisionType.border.rawValue
+        cube3.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        cube3.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        cube3.zPosition = 5
+        
+        cube3.position = CGPoint(x: -cubePos - cubePos / 2, y: -cubePos - cubePos / 2)
+   
+        addChild(cube3)
+        cube3.name = "border"
+        
+        let cube4 = SKSpriteNode(imageNamed: "cube")
+        cube4.size = CGSize(width: cubesize, height: cubesize)
+        cube4.physicsBody = SKPhysicsBody(texture: cube4.texture!, size: cube4.size)
+        
+        cube4.physicsBody!.categoryBitMask = CollisionType.border.rawValue
+        cube4.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        cube4.physicsBody?.contactTestBitMask = CollisionType.player.rawValue  | CollisionType.bullet.rawValue
+        cube4.zPosition = 5
+        
+        cube4.position = CGPoint(x: cubePos - cubePos / 2, y: -cubePos - cubePos / 2)
+   
+        addChild(cube4)
+        cube4.name = "border"
+    }
+    
+    
+    func trisen() {
+        
+        let borderShape = SKShapeNode()
+        
+        
+        borderShape.path = UIBezierPath(roundedRect: CGRect(x: -borderwidth/2, y: -borderheight/2, width: borderwidth, height: borderheight), cornerRadius: 40).cgPath
+        //borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
+        borderShape.fillColor = .clear
+        borderShape.strokeColor = UIColor(red: 255/255, green: 85/255, blue: 85/255, alpha:1)
+        borderShape.lineWidth = 20
+        borderShape.name = "border"
+        borderShape.physicsBody = SKPhysicsBody(edgeChainFrom: borderShape.path!)
+        
+        borderShape.physicsBody!.categoryBitMask = CollisionType.border.rawValue
+        borderShape.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        borderShape.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        
+        borderShape.zPosition = 5
+    
+        addChild(borderShape)
+        
+        let triPos = 300
+        let triHeight = 359 / 2
+        let triWidth = 379 / 2
+        
+        let tri1 = SKSpriteNode(imageNamed: "triangle")
+        tri1.size = CGSize(width: triWidth, height: triHeight)
+        tri1.physicsBody = SKPhysicsBody(texture: tri1.texture!, size: tri1.size)
+        
+        tri1.physicsBody!.categoryBitMask = CollisionType.border.rawValue
+        tri1.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        tri1.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        tri1.zPosition = 5
+        
+        tri1.position = CGPoint(x: 0, y: triPos * Int(sqrt(3)) / 2)
+    
+        addChild(tri1)
+        tri1.name = "border"
+        
+        
+        let tri2 = SKSpriteNode(imageNamed: "triangle")
+        tri2.size = CGSize(width: triWidth, height: triHeight)
+        tri2.physicsBody = SKPhysicsBody(texture: tri2.texture!, size: tri2.size)
+        
+        tri2.physicsBody!.categoryBitMask = CollisionType.border.rawValue
+        tri2.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        tri2.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        tri2.zPosition = 5
+        
+        tri2.position = CGPoint(x: -triPos, y: -triPos * Int(sqrt(3)) / 2)
+    
+        addChild(tri2)
+        tri2.name = "border"
+        
+        let tri3 = SKSpriteNode(imageNamed: "triangle")
+        tri3.size = CGSize(width: triWidth, height: triHeight)
+        tri3.physicsBody = SKPhysicsBody(texture: tri3.texture!, size: tri3.size)
+        
+        tri3.physicsBody!.categoryBitMask = CollisionType.border.rawValue
+        tri3.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        tri3.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        tri3.zPosition = 5
+        
+        tri3.position = CGPoint(x: triPos, y: -triPos * Int(sqrt(3)) / 2)
+    
+        addChild(tri3)
+        tri3.name = "border"
+        
+        
+
+        tri1.physicsBody?.isDynamic = false
+        
+        
+        
+    }
+    
+    func hex() {
+        
+        let borderShape = SKShapeNode()
+        
+        
+        borderShape.path = UIBezierPath(roundedRect: CGRect(x: -borderwidth/2, y: -borderheight/2, width: borderwidth, height: borderheight), cornerRadius: 40).cgPath
+        //borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
+        borderShape.fillColor = .clear
+        borderShape.strokeColor = UIColor(red: 255/255, green: 0/255, blue: 255/255, alpha:1)
+        borderShape.lineWidth = 20
+        borderShape.name = "border"
+        borderShape.physicsBody = SKPhysicsBody(edgeChainFrom: borderShape.path!)
+        
+        borderShape.physicsBody!.categoryBitMask = CollisionType.border.rawValue
+        borderShape.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        borderShape.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        
+        borderShape.zPosition = 5
+    
+        addChild(borderShape)
+        
+        
+        let hexPos = 300
+        let hexWidth = 477 / 3
+        let hexHeight = 413 / 3
+        
+        let v = 10
+        
+        let hex1 = SKSpriteNode(imageNamed: "hexagon")
+        hex1.size = CGSize(width: hexWidth, height: hexHeight)
+        hex1.physicsBody = SKPhysicsBody(texture: hex1.texture!, size: hex1.size)
+        hex1.physicsBody!.categoryBitMask = CollisionType.border.rawValue
+        hex1.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex1.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex1.zPosition = 5
+        hex1.position = CGPoint(x:  hexPos, y: hexPos)
+        addChild(hex1)
+        hex1.name = "border"
+        
+        let hex2 = SKSpriteNode(imageNamed: "hexagon")
+        hex2.size = CGSize(width: hexWidth, height: hexHeight)
+        hex2.physicsBody = SKPhysicsBody(texture: hex2.texture!, size: hex2.size)
+        hex2.physicsBody!.categoryBitMask = CollisionType.border.rawValue
+        hex2.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex2.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex2.zPosition = 5
+        hex2.position = CGPoint(x: hexPos * 2, y: 0)
+        addChild(hex2)
+        hex2.name = "border"
+        
+        let hex3 = SKSpriteNode(imageNamed: "hexagon")
+        hex3.size = CGSize(width: hexWidth, height: hexHeight)
+        hex3.physicsBody = SKPhysicsBody(texture: hex3.texture!, size: hex3.size)
+        hex3.physicsBody!.categoryBitMask = CollisionType.border.rawValue
+        hex3.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex3.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex3.zPosition = 5
+        hex3.position = CGPoint(x: hexPos, y: -hexPos)
+        addChild(hex3)
+        hex3.name = "border"
+        
+        let hex4 = SKSpriteNode(imageNamed: "hexagon")
+        hex4.size = CGSize(width: hexWidth, height: hexHeight)
+        hex4.physicsBody = SKPhysicsBody(texture: hex4.texture!, size: hex4.size)
+        hex4.physicsBody!.categoryBitMask = CollisionType.border.rawValue
+        hex4.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex4.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex4.zPosition = 5
+        hex4.position = CGPoint(x: -hexPos , y: -hexPos)
+        addChild(hex4)
+        hex4.name = "border"
+        
+        let hex5 = SKSpriteNode(imageNamed: "hexagon")
+        hex5.size = CGSize(width: hexWidth, height: hexHeight)
+        hex5.physicsBody = SKPhysicsBody(texture: hex3.texture!, size: hex3.size)
+        hex5.physicsBody!.categoryBitMask = CollisionType.border.rawValue
+        hex5.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex5.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex5.zPosition = 5
+        hex5.position = CGPoint(x: -hexPos * 2 , y: 0)
+        addChild(hex5)
+        hex5.name = "border"
+        
+        let hex6 = SKSpriteNode(imageNamed: "hexagon")
+        hex6.size = CGSize(width: hexWidth, height: hexHeight)
+        hex6.physicsBody = SKPhysicsBody(texture: hex6.texture!, size: hex6.size)
+        hex6.physicsBody!.categoryBitMask = CollisionType.border.rawValue
+        hex6.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex6.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex6.zPosition = 5
+        hex6.position = CGPoint(x: -hexPos, y: hexPos)
+        addChild(hex6)
+        hex6.name = "border"
+        
+        
+        
+    }
+    
+    func empty() {
         let borderShape = SKShapeNode()
         
         
@@ -214,6 +469,26 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         
         
     
+    }
+    
+    
+    func selectmap() {
+        // based on map selected variable switch case
+        
+        /*
+        switch @@whateber variable is@@ {
+         
+         case "cubis":
+            cubis()
+         
+         case trisen:
+            trisen()
+         
+         case hex:
+            hex()
+ 
+ 
+ */
     }
 }
 
