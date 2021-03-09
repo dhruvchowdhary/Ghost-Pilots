@@ -1360,6 +1360,8 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                 if self.didWin == false && self.didLose == false {
                     victoryScreen()
                     self.didWin = true
+                    self.didLose = false
+                
                 }
                 
             }
@@ -1571,7 +1573,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                 powerSpawn = false
             }
            
-            else if firstNode.name == "0"||firstNode.name == "1" || firstNode.name == "2" || firstNode.name == "enemy" || firstNode.name == "enemyWeapon" {
+            else if firstNode.name == "0" || firstNode.name == "1" || firstNode.name == "2" || firstNode.name == "enemy" || firstNode.name == "enemyWeapon" {
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
                 self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
@@ -1580,7 +1582,16 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                     explosion.position = secondNode.position
                     addChild(explosion)
                 }
-                gameOver()
+                let wait2 = SKAction.wait(forDuration:0)
+                let action = SKAction.run {
+                    if self.didWin == false && self.didLose == false {
+                        self.gameOver()
+                        self.didLose = true
+                        self.didWin = false
+                    }
+               
+                }
+                         run(SKAction.sequence([wait2,action]))
                 playerShields -= 1
                 
                 if playerShields == 0 {
@@ -1647,6 +1658,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                 if self.didWin == false && self.didLose == false {
                     self.gameOver()
                     self.didLose = true
+                    self.didWin = false
                 }
            
             }
@@ -1663,12 +1675,14 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                                      addChild(explosion)
                                  }
             
-            let wait2 = SKAction.wait(forDuration:1)
+            let wait2 = SKAction.wait(forDuration:0)
             let action = SKAction.run {
                 if self.didWin == false && self.didLose == false {
                     self.gameOver()
                     self.didLose = true
+                    self.didWin = false
                 }
+           
             }
                      run(SKAction.sequence([wait2,action]))
         }

@@ -81,6 +81,8 @@
 		81135EF025E8312300B0F59F /* LoadLevelsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81135EEC25E8312300B0F59F /* LoadLevelsMenu.swift */; };
 		81135EF325F14E5800B0F59F /* Level2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81135EF225F14E5800B0F59F /* Level2.swift */; };
 		81135EF625F1514C00B0F59F /* Level2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81135EF525F1514C00B0F59F /* Level2.sks */; };
+		8115C3DA25F72DE8009F2F9D /* OnlineCubis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8115C3D825F72DE7009F2F9D /* OnlineCubis.swift */; };
+		8115C3DF25F72F73009F2F9D /* OnlineCubisHud.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8115C3DE25F72F73009F2F9D /* OnlineCubisHud.sks */; };
 		815799E52591079800734A45 /* pilotImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 815799E42591079800734A45 /* pilotImages.atlas */; };
 		815799E72591136900734A45 /* RespawnExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 815799E62591136900734A45 /* RespawnExplosion.sks */; };
 		815799E925917EFD00734A45 /* BulletExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 815799E825917EFD00734A45 /* BulletExplosion.sks */; };
@@ -188,6 +190,8 @@
 		81135EEC25E8312300B0F59F /* LoadLevelsMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadLevelsMenu.swift; sourceTree = "<group>"; };
 		81135EF225F14E5800B0F59F /* Level2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2.swift; sourceTree = "<group>"; };
 		81135EF525F1514C00B0F59F /* Level2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level2.sks; sourceTree = "<group>"; };
+		8115C3D825F72DE7009F2F9D /* OnlineCubis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnlineCubis.swift; sourceTree = "<group>"; };
+		8115C3DE25F72F73009F2F9D /* OnlineCubisHud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = OnlineCubisHud.sks; sourceTree = "<group>"; };
 		815799E42591079800734A45 /* pilotImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = pilotImages.atlas; sourceTree = "<group>"; };
 		815799E62591136900734A45 /* RespawnExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RespawnExplosion.sks; sourceTree = "<group>"; };
 		815799E825917EFD00734A45 /* BulletExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BulletExplosion.sks; sourceTree = "<group>"; };
@@ -482,6 +486,8 @@
 				CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */,
 				CE9C6D9B25E8275800D47FCC /* Hud.sks */,
 				CE9C6D9625E826F800D47FCC /* GameSceneLocal.swift */,
+				8115C3DE25F72F73009F2F9D /* OnlineCubisHud.sks */,
+				8115C3D825F72DE7009F2F9D /* OnlineCubis.swift */,
 				CEF30A1E25CA65CC007B8B39 /* GameSceneOnline.swift */,
 			);
 			path = GameScenes;
@@ -603,6 +609,7 @@
 				81135EF625F1514C00B0F59F /* Level2.sks in Resources */,
 				CEDECCD725F4C18E00C01A7D /* SoloMenu.sks in Resources */,
 				74CF685525820076000C4E47 /* pilotSquish2.wav in Resources */,
+				8115C3DF25F72F73009F2F9D /* OnlineCubisHud.sks in Resources */,
 				815799E72591136900734A45 /* RespawnExplosion.sks in Resources */,
 				74CF68502581F781000C4E47 /* menuThump.wav in Resources */,
 				816EE12A259265D10053AE35 /* TurretShootingExplosion.sks in Resources */,
@@ -681,6 +688,7 @@
 				81135EF025E8312300B0F59F /* LoadLevelsMenu.swift in Sources */,
 				74C3CFB8253F3BE900757586 /* GameViewController.swift in Sources */,
 				749EBC5C255AFA58003EA0B3 /* Bundle-Decoding.swift in Sources */,
+				8115C3DA25F72DE8009F2F9D /* OnlineCubis.swift in Sources */,
 				CEF309CF25C1E86D007B8B39 /* DataPusher.swift in Sources */,
 				74C3CFDB2553100200757586 /* EnemyNode.swift in Sources */,
 				748CEDBE256D6EF8005DF246 /* TurretBoss.swift in Sources */,
