@@ -34,8 +34,8 @@ class OnlineTrisen: GameSceneBase {
         let trisize = 150
         
         let tri1 = SKSpriteNode(imageNamed: "triangle")
-        
-        tri1.physicsBody = SKPhysicsBody(texture: tri1.texture!, size: tri1.texture!.size())
+        tri1.size = CGSize(width: trisize, height: trisize)
+        tri1.physicsBody = SKPhysicsBody(texture: tri1.texture!, size: tri1.size)
         
         tri1.physicsBody!.categoryBitMask = CollisionType.border.rawValue
         tri1.physicsBody!.collisionBitMask = CollisionType.player.rawValue
@@ -46,7 +46,7 @@ class OnlineTrisen: GameSceneBase {
     
         addChild(tri1)
         
-        tri1.size = CGSize(width: trisize, height: trisize)
+        
 
         tri1.physicsBody?.isDynamic = false
         

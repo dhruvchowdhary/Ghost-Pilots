@@ -170,6 +170,7 @@ public class LocalSpaceship: SpaceshipBase {
         let backButtonNode = spaceShipHud.childNode(withName: "backButton") as? MSButtonNode
         backButtonNode!.selectedHandlers = {
             // remove player from lobby
+        
             Global.loadScene(s: "OnlineMenu")
         }
      //   backButtonNode!.alpha = 1

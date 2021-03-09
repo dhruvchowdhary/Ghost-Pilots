@@ -33,8 +33,9 @@ class OnlineHex: GameSceneBase {
         let hexsize = 150
         
         let hex1 = SKSpriteNode(imageNamed: "hexagon")
-        
-        hex1.physicsBody = SKPhysicsBody(texture: hex1.texture!, size: hex1.texture!.size())
+        hex1.size = CGSize(width: hexsize, height: hexsize)
+
+        hex1.physicsBody = SKPhysicsBody(texture: hex1.texture!, size: hex1.size)
         
         hex1.physicsBody!.categoryBitMask = CollisionType.border.rawValue
         hex1.physicsBody!.collisionBitMask = CollisionType.player.rawValue
@@ -42,7 +43,6 @@ class OnlineHex: GameSceneBase {
         hex1.zPosition = 5
         
         hex1.position = CGPoint(x: hexPos, y: hexPos)
-        hex1.size = CGSize(width: hexsize, height: hexsize)
         addChild(hex1)
         
         

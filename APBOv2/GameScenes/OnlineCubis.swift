@@ -32,8 +32,8 @@ class OnlineCubis: GameSceneBase {
         let cubesize = 150
         
         let cube1 = SKSpriteNode(imageNamed: "cube")
-        
-        cube1.physicsBody = SKPhysicsBody(texture: cube1.texture!, size: cube1.texture!.size())
+        cube1.size = CGSize(width: cubesize, height: cubesize)
+        cube1.physicsBody = SKPhysicsBody(texture: cube1.texture!, size: cube1.size)
         
         cube1.physicsBody!.categoryBitMask = CollisionType.border.rawValue
         cube1.physicsBody!.collisionBitMask = CollisionType.player.rawValue
@@ -41,7 +41,7 @@ class OnlineCubis: GameSceneBase {
         cube1.zPosition = 5
         
         cube1.position = CGPoint(x: cubePos, y: cubePos)
-        cube1.size = CGSize(width: cubesize, height: cubesize)
+   
         addChild(cube1)
         
         /*
