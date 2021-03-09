@@ -129,7 +129,7 @@ class LobbyMenu: SKScene {
             
             Global.gameData.shipsToUpdate.append(spaceship)
         }
-        
+
         Global.loadScene(s: Global.gameData.map)
     }
     
