@@ -32,9 +32,9 @@ enum CollisionType: UInt32 {
 class GameScene: SKScene, SKPhysicsContactDelegate {
     var path = UIBezierPath()
     private var pilot = SKSpriteNode()
-       private var pilotWalkingFrames: [SKTexture] = []
-       let fadeOut = SKAction.fadeOut(withDuration: 1)
-          let fadeIn = SKAction.fadeIn(withDuration: 0.5)
+    private var pilotWalkingFrames: [SKTexture] = []
+    let fadeOut = SKAction.fadeOut(withDuration: 1)
+    let fadeIn = SKAction.fadeIn(withDuration: 0.5)
     let cameraNode =  SKCameraNode()
 
     let EnemyThruster = SKEmitterNode(fileNamed: "EnemyThruster")
@@ -1830,16 +1830,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                      }
                      
                 
-                      enemy.removeFromParent()
-                     if numPoints > highScore {
-                         highScore = numPoints
-                         highScorePoints.text = "\(highScore)"
-                         var highScoreDefaults = UserDefaults.standard
-                         highScoreDefaults.setValue(highScore, forKey: "highScore1")
-                         highScoreDefaults.synchronize()
-                         GameCenter.shared.updateScore(value: highScore)
-                     }
-                 }
+                    enemy.removeFromParent()
+                    if numPoints > highScore {
+                        highScore = numPoints
+                        highScorePoints.text = "\(highScore)"
+                        var highScoreDefaults = UserDefaults.standard
+                        highScoreDefaults.setValue(highScore, forKey: "highScore1")
+                        highScoreDefaults.synchronize()
+                        GameCenter.shared.updateScore(value: highScore)
+                    }
+                }
                 
                 
                

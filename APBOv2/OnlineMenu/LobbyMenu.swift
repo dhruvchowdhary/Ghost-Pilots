@@ -13,6 +13,7 @@ class LobbyMenu: SKScene {
     var colorButtonNode: MSButtonNode!
     var kickButtonNode: MSButtonNode!
     var list: [String] = []
+    let mapDefaults = UserDefaults.standard
     
     let intToColor: Dictionary = [
         0: "player",
@@ -127,7 +128,18 @@ class LobbyMenu: SKScene {
             
             Global.gameData.shipsToUpdate.append(spaceship)
         }
-        Global.loadScene(s: "GameSceneBase")
+        if mapDefaults.value(forKey: "mapIndex") as! Int == 0 {
+            print("worked")
+            Global.loadScene(s: "OnlineCubisHud")
+        } else if mapDefaults.value(forKey: "mapIndex") as! Int == 1 {
+            //  Global.loadScene(s: "OnlineTrisen")
+        } else if mapDefaults.value(forKey: "mapIndex") as! Int == 1 {
+            //  Global.loadScene(s: "OnlineHex")
+        } else {
+            // we should never be here
+            print("did not work")
+            Global.loadScene(s: "GameSceneBase")
+        }
     }
     
     func setupLabel(label: SKLabelNode) {
