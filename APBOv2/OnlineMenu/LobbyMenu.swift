@@ -41,6 +41,7 @@ class LobbyMenu: SKScene {
         backButtonNode.selectedHandlers = {
             // if host give host to someone else || if no one destroy lobby/code || if not host just leave
             Global.multiplayerHandler.StopListenForGuestChanges();
+            Global.gameData.ResetGameData()
             self.loadOnlineMenu()
         }
         if UIDevice.current.userInterfaceIdiom != .pad {

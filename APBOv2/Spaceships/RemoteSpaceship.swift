@@ -28,5 +28,11 @@ class RemoteSpaceship: SpaceshipBase {
         spaceShipParent.position.x += cos(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
        spaceShipParent.position.y += sin(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
     }
+    
+    public func StopListenToShip(){
+        Global.multiplayerHandler.StopListenForPayload(ref: posRef)
+        Global.multiplayerHandler.StopListenForShots(ref: shotsRef, spaceShip: self)
+        
+    }
 }
 

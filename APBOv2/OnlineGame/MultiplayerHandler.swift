@@ -9,9 +9,6 @@ public class MultiplayerHandler{
     
     public static var ref: DatabaseReference! = Database.database().reference()
     
-    public func updateShips(gameData : GameData){
-    }
-    
     
     /// The host will do this, then this will call ReccieveUniqueGameCode
     public static func GenerateUniqueGameCode(){
@@ -65,7 +62,7 @@ public class MultiplayerHandler{
         ref.observe(DataEventType.value) { ( snapshot ) in
             if (snapshot.exists()) {
                 let snapVal = snapshot.value as! String
-                if (snapVal != "PeePee"){
+                if (snapVal != "e"){
                     let jsonData = snapVal.data(using: .utf8)
                     let payload = try! JSONDecoder().decode(Payload.self, from: jsonData!)
                     if payload.shipPosX != nil{
