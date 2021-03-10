@@ -37,15 +37,17 @@ public class MultiplayerHandler{
                         Global.gameData.skView.presentScene(scene)
                         scene.KickedFromGame()
                     }
+                    var indexesToRM: [Int] = []
                     // Haha somone left loser
-                   
                     for i in 0..<Global.gameData.shipsToUpdate.count {
                         print("gotem")
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
                             Global.gameData.shipsToUpdate[i].spaceShipParent.removeFromParent()
-                            Global.gameData.shipsToUpdate.remove(at: i)
-                            //Dhruv sucks
+                            indexesToRM.insert(i, at: 0)
                         }
+                    }
+                    for i in indexesToRM {
+                        Global.gameData.shipsToUpdate.remove(at: i)
                     }
                 } else {
                     playerList.append(e.key)
