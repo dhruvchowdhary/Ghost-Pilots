@@ -179,7 +179,17 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
                   //  borderShape.strokeColor
                     liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
                    }
-        } 
+        }
+        else if firstNode.name == "bullet" && secondNode.name == "player" {
+            if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
+                BulletExplosion.position = secondNode.position
+   
+                secondNode.removeFromParent()
+                addChild(BulletExplosion)
+           //  borderShape.strokeColor
+             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
+            }
+        }
         
         
     }
