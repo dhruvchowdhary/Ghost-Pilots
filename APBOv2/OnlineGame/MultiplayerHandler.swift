@@ -25,7 +25,6 @@ public class MultiplayerHandler{
     }
     
     public func listenForGuestChanges(){
-        var isInGame = false
         self.guestsRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerList")
         guestsRef?.observe(DataEventType.value, with: { (snapshot) in
             var playerList: [String] = []
@@ -43,8 +42,8 @@ public class MultiplayerHandler{
                     for i in 0..<Global.gameData.shipsToUpdate.count {
                         print("gotem")
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
-                            Global.gameData.shipsToUpdate.remove(at: i)
                             Global.gameData.shipsToUpdate[i].spaceShipParent.removeFromParent()
+                            Global.gameData.shipsToUpdate.remove(at: i)
                         }
                     }
                 } else {
