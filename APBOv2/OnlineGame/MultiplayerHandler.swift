@@ -44,6 +44,7 @@ public class MultiplayerHandler{
                         print("gotem")
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
                             Global.gameData.shipsToUpdate.remove(at: i)
+                            Global.gameData.shipsToUpdate[i].spaceShipParent.removeFromParent()
                         }
                     }
                 } else {
