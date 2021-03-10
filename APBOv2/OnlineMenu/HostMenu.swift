@@ -20,7 +20,7 @@ class HostMenu: SKScene {
     var leftMapButtonNode: MSButtonNode!
     var rightMapButtonNode: MSButtonNode!
     var mapImage = SKNode(fileNamed: "OnlineCubis")
-    let mapArray = ["OnlineCubis", "OnlineTrisen", "OnlineHex"]
+    var mapArray = ["OnlineCubis", "OnlineTrisen", "OnlineHex"]
     var j = 0
     
     override func didMove(to view: SKView) {

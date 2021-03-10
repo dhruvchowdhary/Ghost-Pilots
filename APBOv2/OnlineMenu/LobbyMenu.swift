@@ -10,7 +10,9 @@ class LobbyMenu: SKScene {
     var playerLabel = SKNode()
     var playerLabelParent = SKNode()
     var user1 = SKLabelNode(text: "user1")
-    var mapImage = SKNode(fileNamed: "OnlineCubis")
+    var mapImageButtonNode: MSButtonNode!
+    var mapArray = ["OnlineCubis", "OnlineTrisen", "OnlineHex"]
+    var j = 0
     var colorButtonNode: MSButtonNode!
     var kickButtonNode: MSButtonNode!
     var list: [String] = []
@@ -28,7 +30,6 @@ class LobbyMenu: SKScene {
     ]
     
     override func didMove(to view: SKView) {
-        pullMap()
 
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -86,6 +87,33 @@ class LobbyMenu: SKScene {
         
         kickButtonNode = self.childNode(withName: "kickButton") as? MSButtonNode
         
+        if Global.gameData.map == mapArray[0] {
+            j = 0
+        } else if Global.gameData.map == mapArray[1] {
+            j = 1
+        } else {
+            j = 2
+        }
+        mapImageButtonNode = self.childNode(withName: "mapImage") as? MSButtonNode
+        self.mapImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.map)
+        if Global.gameData.isHost {
+            mapImageButtonNode.selectedHandlers = {
+                if self.j == self.mapArray.endIndex - 1 {
+                    self.j = 0
+                } else {
+                    self.j = self.j+1
+                }
+                self.mapImageButtonNode.alpha = 1
+                Global.gameData.map = self.mapArray[self.j]
+                Global.gameData.MapChange()
+                self.mapImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.map)
+            }
+        } else {
+            mapImageButtonNode.selectedHandler = {
+                self.mapImageButtonNode.alpha = 1
+            }
+        }
+        
         user1.name = "user1"
         user1.removeFromParent()
         colorButtonNode.removeFromParent()
@@ -97,6 +125,7 @@ class LobbyMenu: SKScene {
         
         Global.multiplayerHandler.listenForGuestChanges()
         Global.multiplayerHandler.ListenForGameStatus()
+        Global.multiplayerHandler.ListenForMapChanges()
     }
     
     
@@ -126,10 +155,8 @@ class LobbyMenu: SKScene {
             } else {
                 spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
             }
-            
             Global.gameData.shipsToUpdate.append(spaceship)
         }
-
         Global.loadScene(s: "GameSceneBase")
     }
     
@@ -142,15 +169,16 @@ class LobbyMenu: SKScene {
     }
     
     func pullMap(){
-        var map: String
+        print("fjvhvkhk")
         MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Map").observeSingleEvent(of: .value) {
             snapshot in
             if (snapshot.exists()) {
                 Global.gameData.map = snapshot.value as! String
-                self.mapImage = self.childNode(withName: "mapImage")
-                let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: Global.gameData.map))
-                self.mapImage!.run(mapPicChange)
-                self.mapImage!.alpha = 1
+                self.mapImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.map)
+            //    self.mapImage = self.childNode(withName: "mapImage")
+           //     let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: Global.gameData.map))
+          //      self.mapImage!.run(mapPicChange)
+                self.mapImageButtonNode.alpha = 1
             }
         }
     }

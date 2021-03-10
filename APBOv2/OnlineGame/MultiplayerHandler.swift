@@ -5,6 +5,7 @@ import SpriteKit
 public class MultiplayerHandler{
     var guestsRef: DatabaseReference?
     var statusRef: DatabaseReference?
+    var mapRef: DatabaseReference?
     var currentBulletCounts: [(String, Int)] = []
     
     public static var ref: DatabaseReference! = Database.database().reference()
@@ -114,6 +115,19 @@ public class MultiplayerHandler{
     public func StopListenForPayload(ref: DatabaseReference){
         ref.removeAllObservers()
     }
+    
+    public func ListenForMapChanges(){
+        self.mapRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Map")
+        mapRef?.observe(DataEventType.value, with: { (snapshot) in
+            if !Global.gameData.isHost {
+                let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
+                Global.gameData.map = snapshot.value as! String
+                lobbyScene.pullMap()
+            }
+        })
+    }
+
+    
     
     public func ListenForGameStatus(){
         statusRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Status")

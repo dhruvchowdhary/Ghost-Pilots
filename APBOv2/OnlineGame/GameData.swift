@@ -35,6 +35,9 @@ public class GameData{
         Global.loadScene(s: "LobbyMenu")
     }
     
+    public func MapChange(){
+        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Map", Value: map)
+    }
     // ==============
     // For guest to run
 
