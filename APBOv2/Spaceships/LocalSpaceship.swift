@@ -47,6 +47,8 @@ public class LocalSpaceship: SpaceshipBase {
             spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
         }
         
+        
+        spaceShipNode.physicsBody?.contactTestBitMask = CollisionType.border.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue
         spaceShipNode.physicsBody?.collisionBitMask = CollisionType.border.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue
         
         spaceShipNode.physicsBody?.isDynamic = true
