@@ -51,7 +51,7 @@ class LobbyMenu: SKScene {
             // if host give host to someone else || if no one destroy lobby/code || if not host just leave
             Global.multiplayerHandler.StopListenForGuestChanges();
             Global.gameData.ResetGameData()
-            self.loadOnlineMenu()
+            Global.loadScene(s: "OnlineMenu")
         }
         if UIDevice.current.userInterfaceIdiom != .pad {
             if UIScreen.main.bounds.width < 779 {
@@ -236,35 +236,7 @@ class LobbyMenu: SKScene {
         shakeAnimation.toValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x + intensity.dx, y: sceneView.center.y + intensity.dy))
         sceneView.layer.add(shakeAnimation, forKey: "position")
     }
-    
-    func loadOnlineMenu() {
-        /* 1) Grab reference to our SpriteKit view */
-        guard let skView = self.view as SKView? else {
-            print("Could not get Skview")
-            return
-        }
-        
-        /* 2) Load Menu scene */
-        guard let scene = SKScene(fileNamed:"OnlineMenu") else {
-            print("Could not make GameScene, check the name is spelled correctly")
-            return
-        }
-        
-        /* 3) Ensure correct aspect mode */
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            scene.scaleMode = .aspectFit
-        } else {
-            scene.scaleMode = .aspectFill
-        }
-        
-        /* Show debug */
-        skView.showsPhysics = false
-        skView.showsDrawCount = false
-        skView.showsFPS = false
-        
-        /* 4) Start game scene */
-        skView.presentScene(scene)
-    }
+
 }
 
 
