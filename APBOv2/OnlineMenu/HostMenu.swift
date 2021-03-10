@@ -61,7 +61,7 @@ class HostMenu: SKScene {
             } else {
                 self.i = self.i-1
             }
-   //         Global.gameData.map = self.mapArray[self.j]
+            Global.gameData.mode = self.modeArray[self.i]
             let modePicChange = SKAction.setTexture(SKTexture(imageNamed: self.modeArray[self.i]))
             self.modeImage!.run(modePicChange)
             self.leftModeButtonNode.alpha = 1
@@ -75,7 +75,7 @@ class HostMenu: SKScene {
             } else {
                 self.i = self.i+1
             }
-     //       Global.gameData.map = self.mapArray[self.j]
+            Global.gameData.mode = self.modeArray[self.i]
             let modePicChange = SKAction.setTexture(SKTexture(imageNamed: self.modeArray[self.i]))
             self.modeImage!.run(modePicChange)
             self.rightModeButtonNode.alpha = 1

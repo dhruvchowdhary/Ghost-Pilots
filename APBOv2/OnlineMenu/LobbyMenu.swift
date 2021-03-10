@@ -10,9 +10,15 @@ class LobbyMenu: SKScene {
     var playerLabel = SKNode()
     var playerLabelParent = SKNode()
     var user1 = SKLabelNode(text: "user1")
+    
+    var modeImageButtonNode: MSButtonNode!
+    let modeArray = ["ffa", "astroball", "infection"]
+    var i = 0
+    
     var mapImageButtonNode: MSButtonNode!
     var mapArray = ["OnlineCubis", "OnlineTrisen", "OnlineHex"]
     var j = 0
+    
     var colorButtonNode: MSButtonNode!
     var kickButtonNode: MSButtonNode!
     var list: [String] = []
@@ -87,6 +93,33 @@ class LobbyMenu: SKScene {
         
         kickButtonNode = self.childNode(withName: "kickButton") as? MSButtonNode
         
+        if Global.gameData.mode == modeArray[0] {
+            i = 0
+        } else if Global.gameData.mode == modeArray[1] {
+            i = 1
+        } else {
+            i = 2
+        }
+        modeImageButtonNode = self.childNode(withName: "modeImage") as? MSButtonNode
+        self.modeImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.mode)
+        if Global.gameData.isHost {
+            modeImageButtonNode.selectedHandlers = {
+                if self.i == self.modeArray.endIndex - 1 {
+                    self.i = 0
+                } else {
+                    self.i = self.i+1
+                }
+                self.modeImageButtonNode.alpha = 1
+                Global.gameData.mode = self.modeArray[self.i]
+                Global.gameData.ModeChange()
+                self.modeImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.mode)
+            }
+        } else {
+            modeImageButtonNode.selectedHandler = {
+                self.modeImageButtonNode.alpha = 1
+            }
+        }
+        
         if Global.gameData.map == mapArray[0] {
             j = 0
         } else if Global.gameData.map == mapArray[1] {
@@ -126,6 +159,7 @@ class LobbyMenu: SKScene {
         Global.multiplayerHandler.listenForGuestChanges()
         Global.multiplayerHandler.ListenForGameStatus()
         Global.multiplayerHandler.ListenForMapChanges()
+        Global.multiplayerHandler.ListenForModeChanges()
     }
     
     
@@ -169,16 +203,25 @@ class LobbyMenu: SKScene {
     }
     
     func pullMap(){
-        print("fjvhvkhk")
+        print("pulled map")
         MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Map").observeSingleEvent(of: .value) {
             snapshot in
             if (snapshot.exists()) {
                 Global.gameData.map = snapshot.value as! String
                 self.mapImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.map)
-            //    self.mapImage = self.childNode(withName: "mapImage")
-           //     let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: Global.gameData.map))
-          //      self.mapImage!.run(mapPicChange)
                 self.mapImageButtonNode.alpha = 1
+            }
+        }
+    }
+    
+    func pullMode(){
+        print("pulled mode")
+        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Mode").observeSingleEvent(of: .value) {
+            snapshot in
+            if (snapshot.exists()) {
+                Global.gameData.mode = snapshot.value as! String
+                self.modeImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.mode)
+                self.modeImageButtonNode.alpha = 1
             }
         }
     }

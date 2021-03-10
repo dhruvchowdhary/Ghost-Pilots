@@ -40,6 +40,10 @@ public class GameData{
     public func MapChange(){
         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Map", Value: map)
     }
+    public func ModeChange(){
+        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Mode", Value: mode)
+    }
+    
     // ==============
     // For guest to run
 
