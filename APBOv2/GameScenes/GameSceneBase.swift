@@ -82,6 +82,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     let borderwidth = 2000
     let borderheight = 800
     
+    var pilotmode = false
+    
     public override func didMove(to view: SKView) {
         for ship in Global.gameData.shipsToUpdate{
             addChild(ship.spaceShipParent)
@@ -114,6 +116,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         
     for ship in Global.gameData.shipsToUpdate{
         ship.thruster1?.targetNode = self.scene
+        ship.pilotThrust1?.targetNode = self.scene
         }
     }
     public override func update(_ currentTime: TimeInterval) {
@@ -124,6 +127,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         if lastUpdateTime != 42069.0 {
             for ship in Global.gameData.shipsToUpdate {
                 ship.UpdateShip(deltaTime: Double(currentTime) - lastUpdateTime)
+                
             }
                 
         for bullet in liveBullets {
@@ -170,29 +174,62 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         let firstNode = sortedNodes[0]
         let secondNode = sortedNodes[1]
         
-        print("first Node is   \(firstNode.name)")
-        print("second Node is  \(secondNode.name)")
+        print("first Node is   \(String(describing: firstNode.name))")
+        print("second Node is  \(String(describing: secondNode.name))")
         
         
         if firstNode.name == "border" && secondNode.name == "playerWeapon" {
                    if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
                        BulletExplosion.position = secondNode.position
-          
-                       secondNode.removeFromParent()
                        addChild(BulletExplosion)
                   //  borderShape.strokeColor
-                    liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
                    }
+            secondNode.removeFromParent()
+            liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
+            
+            
         }
         else if firstNode.name == "bullet" && secondNode.name == "player" {
             if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
                 BulletExplosion.position = secondNode.position
-   
-                secondNode.removeFromParent()
                 addChild(BulletExplosion)
            //  borderShape.strokeColor
-             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
+             
             }
+            firstNode.removeFromParent()
+            liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
+            
+        }
+        
+        
+        if firstNode.name == "border" && secondNode.name == "parent" {
+                
+
+            if pilotmode == false {
+                
+                let pilottexture = SKTexture(imageNamed: "onlinebluepilot")
+               // pilottexture.size = CGSize(width: 27.27, height: 26.9)
+                //pilottexture.zRotation =
+                
+                let pilot = SKAction.setTexture(pilottexture, resize: true)
+                
+                secondNode.childNode(withName: "shipnode")!.run(pilot)
+                
+                secondNode.childNode(withName: "shipnode")!.childNode(withName: "thruster1")!.alpha = 0
+                
+        
+                secondNode.childNode(withName: "shipnode")!.childNode(withName: "pilotThrust1")!.alpha = 1
+    
+                
+
+          
+                
+              
+                  //  .run(pilot)
+                print("hi")
+                pilotmode = true
+            }
+            
         }
         
         
@@ -229,7 +266,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         cube1.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
         cube1.zPosition = 5
         
-        cube1.position = CGPoint(x: cubePos - cubePos / 2, y: cubePos - cubePos / 2)
+        cube1.position = CGPoint(x: cubePos, y: cubePos)
    
         addChild(cube1)
         cube1.name = "border"
@@ -243,7 +280,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         cube2.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
         cube2.zPosition = 5
         
-        cube2.position = CGPoint(x: -cubePos - cubePos / 2, y: cubePos - cubePos / 2)
+        cube2.position = CGPoint(x: -cubePos, y: cubePos)
    
         addChild(cube2)
         cube2.name = "border"
@@ -257,7 +294,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         cube3.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
         cube3.zPosition = 5
         
-        cube3.position = CGPoint(x: -cubePos - cubePos / 2, y: -cubePos - cubePos / 2)
+        cube3.position = CGPoint(x: -cubePos, y: -cubePos)
    
         addChild(cube3)
         cube3.name = "border"
@@ -271,7 +308,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         cube4.physicsBody?.contactTestBitMask = CollisionType.player.rawValue  | CollisionType.bullet.rawValue
         cube4.zPosition = 5
         
-        cube4.position = CGPoint(x: cubePos - cubePos / 2, y: -cubePos - cubePos / 2)
+        cube4.position = CGPoint(x: cubePos, y: -cubePos)
    
         addChild(cube4)
         cube4.name = "border"

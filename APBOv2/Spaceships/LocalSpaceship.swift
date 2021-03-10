@@ -26,7 +26,7 @@ public class LocalSpaceship: SpaceshipBase {
     var powerupMode = 0
     var doubleTap = 0
     
-    let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
+ //   let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
     
     var framesTilPos = 3;
     
@@ -39,19 +39,40 @@ public class LocalSpaceship: SpaceshipBase {
         spaceShipParent.addChild(spaceShipNode)
         spaceShipNode.addChild(thruster1!)
         
-        //spaceShipNode.physicsBody = SKPhysicsBody.init(texture: spaceShipNode.texture!, size: spaceShipNode.size)
-        spaceShipNode.name = "player"
+        
+        spaceShipNode.addChild(pilotThrust1!)
+        
+        /*
+        thruster1!.name = "thruster1"
+        thruster1!.position = CGPoint(x: -30, y: 0)
+        
+        thruster1!.zPosition = -5
+        spaceShipNode.addChild(thruster1!)
+        
+        
+        pilotThrust1!.name = "pilotThrust1"
+        pilotThrust1!.position = CGPoint(x: -20, y: 0)
+        
+        pilotThrust1!.zPosition = -5
+        spaceShipNode.addChild(pilotThrust1!)
+        
+        pilotThrust1!.alpha = 0
+        */
+       // spaceShipNode.physicsBody = SKPhysicsBody.init(texture: spaceShipNode.texture!, size: spaceShipNode.size)
+        spaceShipNode.name = "shipnode"
+        
         spaceShipNode.zPosition = 5
         
-        if self.playerID != "Pepe2"{
-            spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
-        }
+
         
-        spaceShipParent.physicsBody!.categoryBitMask = CollisionType.player.rawValue
-        spaceShipNode.physicsBody?.contactTestBitMask = CollisionType.border.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue
-        spaceShipNode.physicsBody?.collisionBitMask = CollisionType.border.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue
         
-        spaceShipNode.physicsBody?.isDynamic = true
+        spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
+        spaceShipParent.name = "parent"
+        spaceShipParent.physicsBody?.categoryBitMask = CollisionType.player.rawValue
+        spaceShipParent.physicsBody?.contactTestBitMask = CollisionType.border.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue
+        spaceShipParent.physicsBody?.collisionBitMask = CollisionType.border.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue
+        
+        spaceShipParent.physicsBody?.isDynamic = true
         isLocal = true
         
         // Pulls all components from hud and adds them as children to the spaceship node

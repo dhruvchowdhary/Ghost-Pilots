@@ -18,6 +18,9 @@ public class SpaceshipBase {
          SKSpriteNode(imageNamed: "bullet"),
          SKSpriteNode(imageNamed: "bullet")]
     let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
+    
+    let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
+    
     var timeUntilNextBullet: Double = 0.8;
 
     var unfiredBulletsCount = 0
@@ -37,10 +40,20 @@ public class SpaceshipBase {
         spaceShipParent.addChild(spaceShipNode)
         spaceShipParent.addChild(spaceShipHud)
         
+        thruster1?.name = "thruster1"
         thruster1?.position = CGPoint(x: -30, y: 0)
-
+        
         thruster1?.zPosition = -5
         spaceShipNode.addChild(thruster1!)
+        
+        
+        pilotThrust1?.name = "pilotThrust1"
+        pilotThrust1?.position = CGPoint(x: -20, y: 0)
+        
+        pilotThrust1?.zPosition = -5
+        spaceShipNode.addChild(pilotThrust1!)
+        
+        pilotThrust1?.alpha = 0
 
         posRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/MainGame/\(playerId)/Pos")
         shotsRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/MainGame/\(playerId)/Shots")
