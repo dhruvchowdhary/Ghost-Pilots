@@ -170,6 +170,10 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         let firstNode = sortedNodes[0]
         let secondNode = sortedNodes[1]
         
+        print("first Node is   \(firstNode.name)")
+        print("second Node is  \(secondNode.name)")
+        
+        
         if firstNode.name == "border" && secondNode.name == "playerWeapon" {
                    if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
                        BulletExplosion.position = secondNode.position
