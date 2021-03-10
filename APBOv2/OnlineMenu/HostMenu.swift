@@ -11,11 +11,12 @@ import SpriteKit
 class HostMenu: SKScene {
     var backButtonNode: MSButtonNode!
     var startButtonNode: MSButtonNode!
+    
     var leftModeButtonNode: MSButtonNode!
     var rightModeButtonNode: MSButtonNode!
- //   var modeImage = SKNode(fileNamed: "Standard")
- //   let modeArray = ["Standard", "Soccer", "Infection"]
- //   var i = 0
+    var modeImage = SKNode(fileNamed: "ffa")
+    let modeArray = ["ffa", "astroball", "infection"]
+    var i = 0
     
     var leftMapButtonNode: MSButtonNode!
     var rightMapButtonNode: MSButtonNode!
