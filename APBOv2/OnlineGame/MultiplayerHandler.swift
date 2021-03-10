@@ -44,6 +44,7 @@ public class MultiplayerHandler{
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
                             Global.gameData.shipsToUpdate[i].spaceShipParent.removeFromParent()
                             Global.gameData.shipsToUpdate.remove(at: i)
+                            //Dhruv sucks
                         }
                     }
                 } else {
