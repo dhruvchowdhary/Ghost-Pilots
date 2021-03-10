@@ -239,13 +239,13 @@ public class LocalSpaceship: SpaceshipBase {
             let payload = Payload(shipPosX: spaceShipParent.position.x, shipPosY: spaceShipParent.position.y, shipAngleRad: spaceShipNode.zRotation)
             let data = try! JSONEncoder().encode(payload)
             let json = String(data: data, encoding: .utf8)!
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)/Pos", Value: json)
+            posRef.setValue(json)
             framesTilPos = 2
         } else {
             let payload = Payload(shipPosX: nil, shipPosY: nil, shipAngleRad: spaceShipNode.zRotation)
             let data = try! JSONEncoder().encode(payload)
             let json = String(data: data, encoding: .utf8)!
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)/Pos", Value: json)
+            posRef.setValue(json)
             framesTilPos -= 1
         }
     }
