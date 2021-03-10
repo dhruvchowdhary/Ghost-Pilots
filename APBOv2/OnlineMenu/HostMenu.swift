@@ -24,6 +24,10 @@ class HostMenu: SKScene {
     var mapArray = ["OnlineCubis", "OnlineTrisen", "OnlineHex"]
     var j = 0
     
+    
+    private var astroWalkingFrames: [SKTexture] = []
+    
+    
     override func didMove(to view: SKView) {
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -54,7 +58,7 @@ class HostMenu: SKScene {
         
         modeImage = self.childNode(withName: "modeImage")
         leftModeButtonNode = self.childNode(withName: "leftMode") as? MSButtonNode
-        leftModeButtonNode.selectedHandlers = {
+        leftModeButtonNode.selectedHandlers = { [self] in
             // go left mode
             if self.i==0 {
                 self.i = self.modeArray.endIndex - 1
@@ -65,6 +69,11 @@ class HostMenu: SKScene {
             let modePicChange = SKAction.setTexture(SKTexture(imageNamed: self.modeArray[self.i]))
             self.modeImage!.run(modePicChange)
             self.leftModeButtonNode.alpha = 1
+            print(self.i)
+            if self.i == 1 {
+                self.buildAstro()
+                self.animateAstro()
+            }
         }
         
         rightModeButtonNode = self.childNode(withName: "rightMode") as? MSButtonNode
@@ -79,6 +88,11 @@ class HostMenu: SKScene {
             let modePicChange = SKAction.setTexture(SKTexture(imageNamed: self.modeArray[self.i]))
             self.modeImage!.run(modePicChange)
             self.rightModeButtonNode.alpha = 1
+            print(self.i)
+            if self.i == 1 {
+                self.buildAstro()
+                self.animateAstro()
+            }
         }
         
         mapImage = self.childNode(withName: "mapImage")
@@ -107,6 +121,9 @@ class HostMenu: SKScene {
             Global.gameData.map = self.mapArray[self.j]
             let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: self.mapArray[self.j]))
             self.mapImage!.run(mapPicChange)
+           
+            
+            
             self.rightMapButtonNode.alpha = 1
         }
         
@@ -181,4 +198,29 @@ class HostMenu: SKScene {
         /* 4) Start game scene */
         skView.presentScene(scene)
     }
+    
+    
+    func buildAstro() {
+      let astroAnimatedAtlas = SKTextureAtlas(named: "astroImages")
+      var walkFrames: [SKTexture] = []
+
+      let numImages = astroAnimatedAtlas.textureNames.count
+      for i in 1...numImages {
+        let astroTextureName = "astroball\(i)"
+        walkFrames.append(astroAnimatedAtlas.textureNamed(astroTextureName))
+      }
+      astroWalkingFrames = walkFrames
+        
+       // let firstFrameTexture = astroWalkingFrames[0]
+        
+    }
+      func animateAstro() {
+        modeImage!.run(SKAction.repeatForever(
+          SKAction.animate(with: astroWalkingFrames,
+                           timePerFrame: 0.05,
+                           resize: false,
+                           restore: true)),
+          withKey:"walkingInPlaceastro")
+      }
+    
 }
