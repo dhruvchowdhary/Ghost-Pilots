@@ -49,7 +49,6 @@ class LobbyMenu: SKScene {
         backButtonNode = self.childNode(withName: "back") as? MSButtonNode
         backButtonNode.selectedHandlers = {
             // if host give host to someone else || if no one destroy lobby/code || if not host just leave
-            Global.multiplayerHandler.StopListenForGuestChanges();
             Global.gameData.ResetGameData()
             Global.loadScene(s: "OnlineMenu")
         }
@@ -180,7 +179,6 @@ class LobbyMenu: SKScene {
     }
     
     func StartGame(){
-        Global.multiplayerHandler.StopListenForGuestChanges();
         for s in self.list {
             var spaceship: SpaceshipBase
             if s == Global.playerData.username {
