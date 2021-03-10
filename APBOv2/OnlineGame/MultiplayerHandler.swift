@@ -28,9 +28,6 @@ public class MultiplayerHandler{
         var isInGame = false
         self.guestsRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerList")
         guestsRef?.observe(DataEventType.value, with: { (snapshot) in
-            guard let lobbyScene = Global.gameData.skView.scene as? LobbyMenu else  {
-                return
-            }
             var playerList: [String] = []
             for child in snapshot.children {
                 let e = child as! DataSnapshot
@@ -42,7 +39,9 @@ public class MultiplayerHandler{
                         scene.KickedFromGame()
                     }
                     // Haha somone left loser
+                   
                     for i in 0..<Global.gameData.shipsToUpdate.count {
+                        print("gotem")
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
                             Global.gameData.shipsToUpdate.remove(at: i)
                         }
@@ -50,6 +49,9 @@ public class MultiplayerHandler{
                 } else {
                     playerList.append(e.key)
                 }
+            }
+            guard let lobbyScene = Global.gameData.skView.scene as? LobbyMenu else  {
+                return
             }
             lobbyScene.setPlayerList(playerList: playerList)
         })
