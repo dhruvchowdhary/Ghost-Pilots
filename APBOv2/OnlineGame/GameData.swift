@@ -32,7 +32,7 @@ public class GameData{
         DataPusher.PushData(path: "Games/\(code)/Map", Value: map)
         DataPusher.PushData(path: "Games/\(code)/Mode", Value: mode)
         DataPusher.PushData(path: "Games/\(code)/Status", Value: "Lobby")
-        DataPusher.PushData(path: "Games/\(code)/Players/\(Global.playerData.username)", Value: "e")
+        DataPusher.PushData(path: "Games/\(code)/PlayerList/\(Global.playerData.username)", Value: "NotPePeGone")
         Global.gameData.host = Global.playerData.username
         Global.loadScene(s: "LobbyMenu")
     }
@@ -62,6 +62,6 @@ public class GameData{
         mode = "ffa"
         playerShip?.spaceShipParent.removeFromParent()
 
-        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Players/\(Global.playerData.username)", Value: "NULL")
+        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(Global.playerData.username)", Value: "PePeGone")
     }
 }

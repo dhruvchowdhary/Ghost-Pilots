@@ -21,7 +21,7 @@ class RemoteSpaceship: SpaceshipBase {
         spaceShipParent.position.x += CGFloat((300 * Global.gameData.shipsToUpdate.count))
         spaceShipNode.zPosition = 5
         
-        Global.multiplayerHandler.ListenForPayload(ref: posRef, shipSprite: spaceShipParent)
+        Global.multiplayerHandler.ListenForPosPayload(ref: posRef, shipSprite: spaceShipParent)
         Global.multiplayerHandler.ListenForShots(ref: shotsRef, spaceShip: self)
     }
     

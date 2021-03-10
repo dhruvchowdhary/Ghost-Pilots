@@ -42,8 +42,8 @@ public class SpaceshipBase {
         thruster1?.zPosition = -5
         spaceShipNode.addChild(thruster1!)
 
-        posRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(playerID)/Pos")
-        shotsRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Players/\(playerID)/Shots")
+        posRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/MainGame/\(playerId)/Pos")
+        shotsRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/MainGame/\(playerId)/Shots")
 
 
         for s in unfiredBullets {

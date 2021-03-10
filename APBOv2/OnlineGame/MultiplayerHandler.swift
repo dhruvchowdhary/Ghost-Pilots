@@ -26,7 +26,7 @@ public class MultiplayerHandler{
     
     public func listenForGuestChanges(){
         var isInGame = false
-        self.guestsRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Players")
+        self.guestsRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerList")
         guestsRef?.observe(DataEventType.value, with: { (snapshot) in
             guard let lobbyScene = Global.gameData.skView.scene as? LobbyMenu else  {
                 return
@@ -34,25 +34,24 @@ public class MultiplayerHandler{
             var playerList: [String] = []
             for child in snapshot.children {
                 let e = child as! DataSnapshot
-                if e.value as! String == "Host" {
-                    Global.gameData.host = e.key
-                    if (Global.gameData.host == Global.playerData.username){
-                        Global.gameData.isHost = true
+                if e.value as! String == "PePeGone"{
+                    if (e.key == Global.playerData.username){
+                        // Uh oh mario, we have been removed from the game
+                        let scene = OnlineMenu()
+                        Global.gameData.skView.presentScene(scene)
+                        scene.KickedFromGame()
                     }
+                    // Haha somone left loser
+                    for i in 0..<Global.gameData.shipsToUpdate.count {
+                        if Global.gameData.shipsToUpdate[i].playerID == e.key {
+                            Global.gameData.shipsToUpdate.remove(at: i)
+                        }
+                    }
+                } else {
+                    playerList.append(e.key)
                 }
-                if (e.key == Global.playerData.username){
-                    isInGame = true
-                }
-                playerList.append(e.key)
             }
             lobbyScene.setPlayerList(playerList: playerList)
-            
-            if (!isInGame){
-                // Uh oh mario, we have been removed from the game
-                let scene = OnlineMenu()
-                Global.gameData.skView.presentScene(scene)
-                scene.KickedFromGame()
-            }
         })
     }
     
@@ -60,13 +59,9 @@ public class MultiplayerHandler{
         guestsRef?.removeAllObservers()
     }
     
-    public func ListenForPayload(ref: DatabaseReference, shipSprite: SKNode){
+    public func ListenForPosPayload(ref: DatabaseReference, shipSprite: SKNode){
         ref.observe(DataEventType.value) { ( snapshot ) in
             if (snapshot.exists()) {
-                if (snapshot.value as? String == "NULL"){
-                    shipSprite.removeFromParent()
-                    self.StopListenForPayload(ref: ref)
-                }
                 let snapVal = snapshot.value as! String
                 if (snapVal != "e"){
                     let jsonData = snapVal.data(using: .utf8)
