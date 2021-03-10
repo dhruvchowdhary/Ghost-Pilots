@@ -11,11 +11,12 @@ import SpriteKit
 class HostMenu: SKScene {
     var backButtonNode: MSButtonNode!
     var startButtonNode: MSButtonNode!
+    
     var leftModeButtonNode: MSButtonNode!
     var rightModeButtonNode: MSButtonNode!
- //   var modeImage = SKNode(fileNamed: "Standard")
- //   let modeArray = ["Standard", "Soccer", "Infection"]
- //   var i = 0
+    var modeImage = SKNode(fileNamed: "ffa")
+    let modeArray = ["ffa", "astroball", "infection"]
+    var i = 0
     
     var leftMapButtonNode: MSButtonNode!
     var rightMapButtonNode: MSButtonNode!
@@ -49,6 +50,35 @@ class HostMenu: SKScene {
         startButtonNode.selectedHandlers = {
             // create game code
             Global.gameData.CreateNewGame()
+        }
+        
+        modeImage = self.childNode(withName: "modeImage")
+        leftModeButtonNode = self.childNode(withName: "leftMode") as? MSButtonNode
+        leftModeButtonNode.selectedHandlers = {
+            // go left mode
+            if self.i==0 {
+                self.i = self.modeArray.endIndex - 1
+            } else {
+                self.i = self.i-1
+            }
+   //         Global.gameData.map = self.mapArray[self.j]
+            let modePicChange = SKAction.setTexture(SKTexture(imageNamed: self.modeArray[self.i]))
+            self.modeImage!.run(modePicChange)
+            self.leftModeButtonNode.alpha = 1
+        }
+        
+        rightModeButtonNode = self.childNode(withName: "rightMode") as? MSButtonNode
+        rightModeButtonNode.selectedHandlers = {
+            // go right mode
+            if self.i == self.modeArray.endIndex - 1 {
+                self.i = 0
+            } else {
+                self.i = self.i+1
+            }
+     //       Global.gameData.map = self.mapArray[self.j]
+            let modePicChange = SKAction.setTexture(SKTexture(imageNamed: self.modeArray[self.i]))
+            self.modeImage!.run(modePicChange)
+            self.rightModeButtonNode.alpha = 1
         }
         
         mapImage = self.childNode(withName: "mapImage")
