@@ -45,7 +45,7 @@ class Infection: GameSceneBase {
             
             
             let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
-            secondNode.childNode(withName: "shipnode")!.run(infected)
+            firstNode.childNode(withName: "shipnode")!.run(infected)
             
         }
     }
