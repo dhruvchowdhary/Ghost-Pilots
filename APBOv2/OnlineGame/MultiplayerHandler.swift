@@ -74,9 +74,9 @@ public class MultiplayerHandler{
                     if payload.shipPosX != nil{
                         shipSprite.position.x = payload.shipPosX!
                         shipSprite.position.y = payload.shipPosY!
-                        shipSprite.childNode(withName: "player")!.zRotation = payload.shipAngleRad
+                        shipSprite.childNode(withName: "shipnode")!.zRotation = payload.shipAngleRad
                     } else {
-                        shipSprite.childNode(withName: "player")!.zRotation = payload.shipAngleRad
+                        shipSprite.childNode(withName: "shipnode")!.zRotation = payload.shipAngleRad
                     }
                 }
             } else {
