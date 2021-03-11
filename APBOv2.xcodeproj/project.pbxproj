@@ -99,6 +99,7 @@
 		81944F6025FA872C00AAD7C0 /* ffaImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 81944F5F25FA872C00AAD7C0 /* ffaImages.atlas */; };
 		81944F6325FA873D00AAD7C0 /* astroImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 81944F6225FA873D00AAD7C0 /* astroImages.atlas */; };
 		81944F6625FA874C00AAD7C0 /* infectionImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 81944F6525FA874C00AAD7C0 /* infectionImages.atlas */; };
+		81A4CEDD25FA8BCD001C2602 /* AstroBallHud.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81A4CEDC25FA8BCD001C2602 /* AstroBallHud.sks */; };
 		81EA5C5925F4414200A127A7 /* Level3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EA5C5825F4414200A127A7 /* Level3.swift */; };
 		81EA5C5C25F4416800A127A7 /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81EA5C5B25F4416800A127A7 /* Level3.sks */; };
 		CE9C6D9725E826F800D47FCC /* GameSceneLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9C6D9625E826F800D47FCC /* GameSceneLocal.swift */; };
@@ -215,6 +216,7 @@
 		81944F5F25FA872C00AAD7C0 /* ffaImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = ffaImages.atlas; path = APBOv2/ffaImages.atlas; sourceTree = SOURCE_ROOT; };
 		81944F6225FA873D00AAD7C0 /* astroImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = astroImages.atlas; sourceTree = "<group>"; };
 		81944F6525FA874C00AAD7C0 /* infectionImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = infectionImages.atlas; sourceTree = "<group>"; };
+		81A4CEDC25FA8BCD001C2602 /* AstroBallHud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AstroBallHud.sks; sourceTree = "<group>"; };
 		81EA5C5825F4414200A127A7 /* Level3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level3.swift; sourceTree = "<group>"; };
 		81EA5C5B25F4416800A127A7 /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
 		BF55C5AA57697F270DE41606 /* Pods-APBOv2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APBOv2.debug.xcconfig"; path = "Target Support Files/Pods-APBOv2/Pods-APBOv2.debug.xcconfig"; sourceTree = "<group>"; };
@@ -506,6 +508,7 @@
 				8177393425F9DAE20054FC06 /* Infection.swift */,
 				CEF30A1A25CA65BF007B8B39 /* GameSceneBase.swift */,
 				CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */,
+				81A4CEDC25FA8BCD001C2602 /* AstroBallHud.sks */,
 				CEF30A1E25CA65CC007B8B39 /* GameSceneOnline.swift */,
 				81775BF625FA89D40020C259 /* InfectionHud.sks */,
 				CE9C6D9625E826F800D47FCC /* GameSceneLocal.swift */,
@@ -602,6 +605,7 @@
 				74CF688625840398000C4E47 /* enemy2.sks in Resources */,
 				815AA69F25F998B500870CF9 /* infectionImages.atlas in Resources */,
 				CE9C6D9E25E8275800D47FCC /* Hud.sks in Resources */,
+				81A4CEDD25FA8BCD001C2602 /* AstroBallHud.sks in Resources */,
 				748CEDC6256D737B005DF246 /* OnlineMenu.sks in Resources */,
 				74CF684C2581EF11000C4E47 /* Laser1.wav in Resources */,
 				749EBC1025599EF3003EA0B3 /* enemy-types.json in Resources */,
