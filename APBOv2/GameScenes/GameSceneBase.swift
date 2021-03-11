@@ -189,9 +189,9 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
             
             
         }
-        else if firstNode.name == "bullet" && secondNode.name == "parent" {
+        else if firstNode.name == "parent" && secondNode.name == "playerWeapon" {
             print("player is shot")
-            firstNode.removeFromParent()
+            secondNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
             
         }
