@@ -204,22 +204,22 @@ class LobbyMenu: SKScene {
                 case "infection":
                     spaceship = LocalSpaceship(imageTexture: intToColorInfection[list.firstIndex(of: s)! % 3]!)
                     Global.gameData.playerShip = spaceship as? LocalSpaceship
-                    Global.gameData.shipsToUpdate.append(spaceship)
+                    
                 case "ffa":
                     spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
                     Global.gameData.playerShip = spaceship as? LocalSpaceship
-                    Global.gameData.shipsToUpdate.append(spaceship)
+                    
                 case "astroball":
                     spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 2]!)
                     Global.gameData.playerShip = spaceship as? LocalSpaceship
-                    Global.gameData.shipsToUpdate.append(spaceship)
+                
                 default:
                     spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
                     Global.gameData.playerShip = spaceship as? LocalSpaceship
                     
-                    Global.gameData.shipsToUpdate.append(spaceship)
+                  
                 }
-                
+                Global.gameData.shipsToUpdate.append(spaceship)
             }
            
         }
