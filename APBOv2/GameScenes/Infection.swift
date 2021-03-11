@@ -50,13 +50,10 @@ class Infection: GameSceneBase {
         }
         
         
-        else if firstNode.name == "parent" && secondNode.name == "parent" {
+        else if firstNode.name == "parent" && secondNode.name == "remoteparent" {
             print("ship was shot by bullet")
             
-            secondNode.removeFromParent()
-            liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
-            
-            
+        
             let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
             firstNode.childNode(withName: "shipnode")!.run(infected)
             

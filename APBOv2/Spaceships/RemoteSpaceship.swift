@@ -12,7 +12,7 @@ class RemoteSpaceship: SpaceshipBase {
         spaceShipParent.addChild(spaceShipNode)
         spaceShipNode.addChild(thruster1!)
         
-        spaceShipParent.name = "parent"
+        spaceShipParent.name = "remoteparent"
         spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
         spaceShipParent.physicsBody!.categoryBitMask = CollisionType.player.rawValue
         spaceShipParent.physicsBody!.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
