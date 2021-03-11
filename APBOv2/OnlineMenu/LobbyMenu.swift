@@ -35,6 +35,14 @@ class LobbyMenu: SKScene {
         8: "apboYellow",
     ]
     
+    
+    let intToColorInfection: Dictionary = [
+        0: "apboWhite",
+        1: "apboWhite",
+        2: "apboGreen",
+    ]
+    
+    
     override func didMove(to view: SKView) {
 
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -192,14 +200,43 @@ class LobbyMenu: SKScene {
         for s in self.list {
             var spaceship: SpaceshipBase
             if s == Global.playerData.username {
-                spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
-                Global.gameData.playerShip = spaceship as? LocalSpaceship
+                switch Global.gameData.mode {
+                case "infection":
+                    spaceship = LocalSpaceship(imageTexture: intToColorInfection[list.firstIndex(of: s)! % 3]!)
+                    Global.gameData.playerShip = spaceship as? LocalSpaceship
+                case "ffa":
+                    spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
+                    Global.gameData.playerShip = spaceship as? LocalSpaceship
+                case "astroball":
+                    spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 2]!)
+                    Global.gameData.playerShip = spaceship as? LocalSpaceship
+                default:
+                    spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
+                    Global.gameData.playerShip = spaceship as? LocalSpaceship
+                    
+                }
+                
             } else {
                 spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
             }
             Global.gameData.shipsToUpdate.append(spaceship)
         }
-        Global.loadScene(s: "GameSceneBase")
+        
+        switch Global.gameData.mode {
+        
+        case "ffa":
+            Global.loadScene(s: "GameSceneBase")
+            
+        case "astroball":
+            Global.loadScene(s: "AstroBall")
+        case "infection":
+            Global.loadScene(s: "Infection")
+            
+        default:
+            Global.loadScene(s: "GameSceneBase")
+        
+        }
+        
     }
     
     func setupLabel(label: SKLabelNode) {

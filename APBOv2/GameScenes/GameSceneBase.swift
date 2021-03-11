@@ -189,48 +189,14 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
             
             
         }
-        else if firstNode.name == "bullet" && secondNode.name == "player" {
-            if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
-                BulletExplosion.position = secondNode.position
-                addChild(BulletExplosion)
-           //  borderShape.strokeColor
-             
-            }
+        else if firstNode.name == "bullet" && secondNode.name == "parent" {
+            print("player is shot")
             firstNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
             
         }
         
         
-        if firstNode.name == "border" && secondNode.name == "parent" {
-                
-
-            if pilotmode == false {
-                
-                let pilottexture = SKTexture(imageNamed: "onlinebluepilot")
-               // pilottexture.size = CGSize(width: 27.27, height: 26.9)
-                //pilottexture.zRotation =
-                
-                let pilot = SKAction.setTexture(pilottexture, resize: true)
-                
-                secondNode.childNode(withName: "shipnode")!.run(pilot)
-                
-                secondNode.childNode(withName: "shipnode")!.childNode(withName: "thruster1")!.alpha = 1
-                
-        
-              //  secondNode.childNode(withName: "shipnode")!.childNode(withName: "pilotThrust1")!.alpha = 1
-    
-                
-
-          
-                
-              
-                  //  .run(pilot)
-                print("hi")
-                pilotmode = true
-            }
-            
-        }
         
         
     }
