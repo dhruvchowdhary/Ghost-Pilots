@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         Global.gameData.gameScene.lastUpdateTime = 42069.0
-        DataPusher.PushData(path: "Games/\(gameCode)/\(username)", Value: "PePeGone")
+        DataPusher.PushData(path: "Games/\(gameCode)/PlayerList/\(username)", Value: "PePeGone")
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
