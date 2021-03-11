@@ -14,6 +14,8 @@ import GoogleMobileAds
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var gameCode: Int = 0
+    var username: String = ""
 
     func application(_ application: UIApplication,
       didFinishLaunchingWithOptions launchOptions:
@@ -30,11 +32,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillResignActive(_ application: UIApplication) {
         Global.gameData.gameScene.lastUpdateTime = 42069.0
+        gameCode = Global.gameData.gameID
+        username = Global.playerData.username
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         Global.gameData.gameScene.lastUpdateTime = 42069.0
-        Global.gameData.ResetGameData()
+        DataPusher.PushData(path: "Games/\(gameCode)/\(username)", Value: "PePeGone")
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

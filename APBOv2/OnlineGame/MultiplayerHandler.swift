@@ -183,7 +183,7 @@ public class MultiplayerHandler{
                 for c in snapshot.children {
                     let player = c as! DataSnapshot
                     if player.value as! String == "PePeNotGone" {
-                        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Host", Value: player.key as! String)
+                        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Host", Value: player.key)
                         Global.gameData.isHost = false
                     }
                 }
