@@ -86,6 +86,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     
     public override func didMove(to view: SKView) {
         for ship in Global.gameData.shipsToUpdate{
+            ship.spaceShipParent.removeFromParent()
             addChild(ship.spaceShipParent)
         }
         

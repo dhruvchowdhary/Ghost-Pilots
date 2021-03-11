@@ -32,7 +32,7 @@ public class GameData{
         DataPusher.PushData(path: "Games/\(code)/Map", Value: map)
         DataPusher.PushData(path: "Games/\(code)/Mode", Value: mode)
         DataPusher.PushData(path: "Games/\(code)/Status", Value: "Lobby")
-        DataPusher.PushData(path: "Games/\(code)/PlayerList/\(Global.playerData.username)", Value: "NotPePeGone")
+        DataPusher.PushData(path: "Games/\(code)/PlayerList/\(Global.playerData.username)", Value: "PePeNotGone")
         Global.gameData.host = Global.playerData.username
         Global.loadScene(s: "LobbyMenu")
     }
@@ -50,18 +50,28 @@ public class GameData{
     
     public func ResetGameData(){
         Global.multiplayerHandler.StopListenForGuestChanges()
+        Global.multiplayerHandler.StopListenForHostChanges()
+        Global.multiplayerHandler.StopListenForModeChanges()
+        Global.multiplayerHandler.StopListenForMapChanges()
+        
+        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(Global.playerData.username)", Value: "PePeGone")
+        
+        
+        Global.multiplayerHandler.StopListenForGuestChanges()
         for x in shipsToUpdate{
             if let ship = x as? RemoteSpaceship {
                 ship.StopListenToShip()
             }
         }
+        
+        if isHost {
+            Global.multiplayerHandler.SetNewHost()
+        }
+        
         shipsToUpdate = []
-        isHost = false
         host = ""
         map = "OnlineCubis"
         mode = "ffa"
         playerShip?.spaceShipParent.removeFromParent()
-
-        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(Global.playerData.username)", Value: "PePeGone")
     }
 }

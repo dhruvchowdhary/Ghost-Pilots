@@ -4,6 +4,7 @@ import SpriteKit
 
 public class MultiplayerHandler{
     var guestsRef: DatabaseReference?
+    var hostRef: DatabaseReference?
     var statusRef: DatabaseReference?
     var mapRef: DatabaseReference?
     var modeRef: DatabaseReference?
@@ -62,6 +63,21 @@ public class MultiplayerHandler{
     
     public func StopListenForGuestChanges(){
         guestsRef?.removeAllObservers()
+    }
+    
+    public func ListenForHostChanges(){
+        self.hostRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Host")
+        hostRef?.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.value as! String == Global.playerData.username
+            {
+                Global.gameData.isHost = true
+            }
+            Global.gameData.host = snapshot.value as! String
+        })
+    }
+    
+    public func StopListenForHostChanges(){
+        self.hostRef?.removeAllObservers()
     }
     
     public func ListenForPosPayload(ref: DatabaseReference, shipSprite: SKNode){
@@ -128,6 +144,14 @@ public class MultiplayerHandler{
         })
     }
     
+    public func StopListenForMapChanges(){
+        self.mapRef?.removeAllObservers()
+    }
+    
+    public func StopListenForModeChanges(){
+        self.modeRef?.removeAllObservers()
+    }
+    
     public func ListenForModeChanges(){
         self.modeRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Mode")
         modeRef?.observe(DataEventType.value, with: { (snapshot) in
@@ -148,6 +172,25 @@ public class MultiplayerHandler{
                 if (snapshot.value as! String == "Game"){
                     let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
                     lobbyScene.StartGame()
+                }
+            }
+        }
+    }
+    
+    public func SetNewHost(){
+        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerList").observeSingleEvent(of: .value) { snapshot in
+            if snapshot.exists(){
+                for c in snapshot.children {
+                    let player = c as! DataSnapshot
+                    if player.value as! String == "PePeNotGone" {
+                        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Host", Value: player.value as! String)
+                        Global.gameData.isHost = false
+                    }
+                }
+                if Global.gameData.isHost {
+                    print("killed it")
+                    MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)").removeValue()
+                    Global.gameData.isHost = false
                 }
             }
         }

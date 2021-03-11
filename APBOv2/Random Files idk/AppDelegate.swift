@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         Global.gameData.gameScene.lastUpdateTime = 42069.0
+        Global.gameData.ResetGameData()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
