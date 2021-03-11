@@ -94,6 +94,7 @@
 		81708DC825A565C50030C2C4 /* TurretBossMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81708DC725A565C50030C2C4 /* TurretBossMenu.sks */; };
 		8177393225F9D9880054FC06 /* AstroBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8177393125F9D9880054FC06 /* AstroBall.swift */; };
 		8177393525F9DAE20054FC06 /* Infection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8177393425F9DAE20054FC06 /* Infection.swift */; };
+		81775BF725FA89D40020C259 /* InfectionHud.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81775BF625FA89D40020C259 /* InfectionHud.sks */; };
 		8186856225F9AD6C00B9CBF3 /* astroImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 8186856125F9AD6C00B9CBF3 /* astroImages.atlas */; };
 		81944F6025FA872C00AAD7C0 /* ffaImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 81944F5F25FA872C00AAD7C0 /* ffaImages.atlas */; };
 		81944F6325FA873D00AAD7C0 /* astroImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 81944F6225FA873D00AAD7C0 /* astroImages.atlas */; };
@@ -209,6 +210,7 @@
 		81708DC725A565C50030C2C4 /* TurretBossMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TurretBossMenu.sks; sourceTree = "<group>"; };
 		8177393125F9D9880054FC06 /* AstroBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstroBall.swift; sourceTree = "<group>"; };
 		8177393425F9DAE20054FC06 /* Infection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Infection.swift; sourceTree = "<group>"; };
+		81775BF625FA89D40020C259 /* InfectionHud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = InfectionHud.sks; sourceTree = "<group>"; };
 		8186856125F9AD6C00B9CBF3 /* astroImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = astroImages.atlas; sourceTree = "<group>"; };
 		81944F5F25FA872C00AAD7C0 /* ffaImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = ffaImages.atlas; path = APBOv2/ffaImages.atlas; sourceTree = SOURCE_ROOT; };
 		81944F6225FA873D00AAD7C0 /* astroImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = astroImages.atlas; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 				CEF30A1A25CA65BF007B8B39 /* GameSceneBase.swift */,
 				CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */,
 				CEF30A1E25CA65CC007B8B39 /* GameSceneOnline.swift */,
+				81775BF625FA89D40020C259 /* InfectionHud.sks */,
 				CE9C6D9625E826F800D47FCC /* GameSceneLocal.swift */,
 				8177393125F9D9880054FC06 /* AstroBall.swift */,
 			);
@@ -602,6 +605,7 @@
 				748CEDC6256D737B005DF246 /* OnlineMenu.sks in Resources */,
 				74CF684C2581EF11000C4E47 /* Laser1.wav in Resources */,
 				749EBC1025599EF3003EA0B3 /* enemy-types.json in Resources */,
+				81775BF725FA89D40020C259 /* InfectionHud.sks in Resources */,
 				74CF688A25843DA9000C4E47 /* explosionnew.wav in Resources */,
 				74C3CFD225506D0300757586 /* Thrusters.sks in Resources */,
 				74CF686225829627000C4E47 /* miniLaser.aiff in Resources */,
