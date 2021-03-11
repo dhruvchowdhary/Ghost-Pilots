@@ -331,9 +331,6 @@
 		74C3CFAE253F3BE900757586 /* APBOv2 */ = {
 			isa = PBXGroup;
 			children = (
-				8186856125F9AD6C00B9CBF3 /* astroImages.atlas */,
-				8133262625F9A1CD00D857D7 /* ffaImages.atlas */,
-				815AA69E25F998B400870CF9 /* infectionImages.atlas */,
 				CEF30A1925CA65AC007B8B39 /* GameScenes */,
 				CEF30A1825CA65A2007B8B39 /* Spaceships */,
 				CEF309D225C1E9F3007B8B39 /* OnlineGame */,
@@ -354,6 +351,9 @@
 				74235B1F25A7724400AC4675 /* GameCenter.swift */,
 				74C3CFB3253F3BE900757586 /* Actions.sks */,
 				74C3CFBC253F3BED00757586 /* Assets.xcassets */,
+				8186856125F9AD6C00B9CBF3 /* astroImages.atlas */,
+				8133262625F9A1CD00D857D7 /* ffaImages.atlas */,
+				815AA69E25F998B400870CF9 /* infectionImages.atlas */,
 				74C3CFC1253F3BED00757586 /* Info.plist */,
 				748500B325E76C960063F73B /* GoogleService-Info.plist */,
 				749EBC5B255AFA58003EA0B3 /* Bundle-Decoding.swift */,
