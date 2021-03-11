@@ -8,15 +8,17 @@ class RemoteSpaceship: SpaceshipBase {
         super.init(playerId: playerID)
         spaceShipNode.removeFromParent()
         spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
-        spaceShipNode.name = "player"
+       // spaceShipNode.name = "player"
         spaceShipParent.addChild(spaceShipNode)
         spaceShipNode.addChild(thruster1!)
+        
+        spaceShipParent.name = "player"
         spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
         spaceShipParent.physicsBody!.categoryBitMask = CollisionType.player.rawValue
         spaceShipParent.physicsBody!.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         
-        spaceShipParent.physicsBody?.categoryBitMask = CollisionType.enemy.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
-        
+    
+        spaceShipParent.physicsBody?.contactTestBitMask = CollisionType.border.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue
         
         spaceShipParent.position.x += CGFloat((300 * Global.gameData.shipsToUpdate.count))
         spaceShipNode.zPosition = 5
