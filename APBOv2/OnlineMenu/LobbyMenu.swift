@@ -203,25 +203,42 @@ class LobbyMenu: SKScene {
                 switch Global.gameData.mode {
                 case "infection":
                     spaceship = LocalSpaceship(imageTexture: intToColorInfection[list.firstIndex(of: s)! % 3]!)
-                    Global.gameData.playerShip = spaceship as? LocalSpaceship
-                    
                 case "ffa":
                     spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
-                    Global.gameData.playerShip = spaceship as? LocalSpaceship
-                    
+    
                 case "astroball":
                     spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 2]!)
-                    Global.gameData.playerShip = spaceship as? LocalSpaceship
                 
                 default:
                     spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
-                    Global.gameData.playerShip = spaceship as? LocalSpaceship
+                  
                     
                   
                 }
-                Global.gameData.shipsToUpdate.append(spaceship)
+                Global.gameData.playerShip = spaceship as? LocalSpaceship
+            } else {
+                switch Global.gameData.mode {
+                case "infection":
+                    spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColorInfection[list.firstIndex(of: s)! % 3]!)
+                    
+                    
+                case "ffa":
+                    spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
+                   
+                    
+                case "astroball":
+                    spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColor[list.firstIndex(of: s)! % 2]!)
+                 
+                
+                default:
+                    spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
+                 
+                    
+                  
+                }
+              
             }
-           
+            Global.gameData.shipsToUpdate.append(spaceship)
         }
         
         switch Global.gameData.mode {
