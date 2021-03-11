@@ -180,11 +180,11 @@ class LobbyMenu: SKScene {
             let i = playerList.firstIndex(of: player)!
             newuser.position.x = frame.midX
             newuser.position.y += CGFloat(i*100)
-     /*       let newcolor = colorButtonNode.copy() as! MSButtonNode
-            newcolor.position.x = frame.midX - 150
-            newcolor.position.y += CGFloat(i*100)
+     //       let newcolor = colorButtonNode.copy() as! MSButtonNode
+     //       newcolor.position.x = frame.midX - 150
+     //       newcolor.position.y += CGFloat(i*100)
             playerLabelParent.addChild(newuser)
-            newuser.addChild(newcolor)
+      /*      newuser.addChild(newcolor)
      //       playerLabelParent.addChild(newcolor)
             if Global.gameData.isHost {
                 let newkick = kickButtonNode.copy() as! MSButtonNode
