@@ -215,10 +215,10 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
                 
                 secondNode.childNode(withName: "shipnode")!.run(pilot)
                 
-                secondNode.childNode(withName: "shipnode")!.childNode(withName: "thruster1")!.alpha = 0
+                secondNode.childNode(withName: "shipnode")!.childNode(withName: "thruster1")!.alpha = 1
                 
         
-                secondNode.childNode(withName: "shipnode")!.childNode(withName: "pilotThrust1")!.alpha = 1
+              //  secondNode.childNode(withName: "shipnode")!.childNode(withName: "pilotThrust1")!.alpha = 1
     
                 
 

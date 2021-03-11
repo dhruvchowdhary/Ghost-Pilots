@@ -39,7 +39,7 @@ public class SpaceshipBase {
 
         spaceShipParent.addChild(spaceShipNode)
         spaceShipParent.addChild(spaceShipHud)
-        
+            
         thruster1?.name = "thruster1"
         thruster1?.position = CGPoint(x: -30, y: 0)
         

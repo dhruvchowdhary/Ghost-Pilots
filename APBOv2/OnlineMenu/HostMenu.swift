@@ -27,6 +27,11 @@ class HostMenu: SKScene {
     
     private var astroWalkingFrames: [SKTexture] = []
     
+    private var infectionWalkingFrames: [SKTexture] = []
+    
+    private var ffaWalkingFrames: [SKTexture] = []
+    
+    
     
     override func didMove(to view: SKView) {
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -35,6 +40,9 @@ class HostMenu: SKScene {
             particles.zPosition = -1
             addChild(particles)
         }
+        
+        
+        
         self.sceneShake(shakeCount: 4, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         self.run(SKAction.playSoundFileNamed("menuThumpnew", waitForCompletion: false))
         
@@ -57,6 +65,9 @@ class HostMenu: SKScene {
         }
         
         modeImage = self.childNode(withName: "modeImage")
+        
+        buildffa()
+        animateffa()
         leftModeButtonNode = self.childNode(withName: "leftMode") as? MSButtonNode
         leftModeButtonNode.selectedHandlers = { [self] in
             // go left mode
@@ -66,14 +77,28 @@ class HostMenu: SKScene {
                 self.i = self.i-1
             }
             Global.gameData.mode = self.modeArray[self.i]
-            let modePicChange = SKAction.setTexture(SKTexture(imageNamed: self.modeArray[self.i]))
-            self.modeImage!.run(modePicChange)
+            //let modePicChange = SKAction.setTexture(SKTexture(imageNamed: self.modeArray[self.i]))
+            //self.modeImage!.run(modePicChange)
             self.leftModeButtonNode.alpha = 1
-            print(self.i)
-            if self.i == 1 {
+            
+            switch self.i {
+            case 0:
+                self.removeAction(forKey: "mode")
+                self.buildffa()
+                self.animateffa()
+            case 1:
+                self.removeAction(forKey: "mode")
                 self.buildAstro()
                 self.animateAstro()
+            case 2:
+                self.removeAction(forKey: "mode")
+                self.buildInfection()
+                self.animateInfection()
+                
+            default:
+                print("no mode")
             }
+    
         }
         
         rightModeButtonNode = self.childNode(withName: "rightMode") as? MSButtonNode
@@ -85,13 +110,26 @@ class HostMenu: SKScene {
                 self.i = self.i+1
             }
             Global.gameData.mode = self.modeArray[self.i]
-            let modePicChange = SKAction.setTexture(SKTexture(imageNamed: self.modeArray[self.i]))
-            self.modeImage!.run(modePicChange)
+            //let modePicChange = SKAction.setTexture(SKTexture(imageNamed: self.modeArray[self.i]))
+            //self.modeImage!.run(modePicChange)
             self.rightModeButtonNode.alpha = 1
-            print(self.i)
-            if self.i == 1 {
+           // print(self.i)
+            switch self.i {
+            case 0:
+                self.removeAction(forKey: "mode")
+                self.buildffa()
+                self.animateffa()
+            case 1:
+                self.removeAction(forKey: "mode")
                 self.buildAstro()
                 self.animateAstro()
+            case 2:
+                self.removeAction(forKey: "mode")
+                self.buildInfection()
+                self.animateInfection()
+                
+            default:
+                print("no mode")
             }
         }
         
@@ -199,6 +237,28 @@ class HostMenu: SKScene {
         skView.presentScene(scene)
     }
     
+    func buildffa() {
+      let ffaAnimatedAtlas = SKTextureAtlas(named: "ffaImages")
+      var walkFrames: [SKTexture] = []
+
+      let numImages = ffaAnimatedAtlas.textureNames.count
+      for i in 1...numImages {
+        let ffaTextureName = "ffa\(i)"
+        walkFrames.append(ffaAnimatedAtlas.textureNamed(ffaTextureName))
+      }
+      ffaWalkingFrames = walkFrames
+        
+ 
+    }
+      func animateffa() {
+        
+        modeImage!.run(SKAction.repeatForever(
+          SKAction.animate(with: ffaWalkingFrames,
+                           timePerFrame: 0.3,
+                           resize: false,
+                           restore: true)),
+          withKey:"mode")
+      }
     
     func buildAstro() {
       let astroAnimatedAtlas = SKTextureAtlas(named: "astroImages")
@@ -211,7 +271,7 @@ class HostMenu: SKScene {
       }
       astroWalkingFrames = walkFrames
         
-       // let firstFrameTexture = astroWalkingFrames[0]
+     
         
     }
       func animateAstro() {
@@ -220,7 +280,34 @@ class HostMenu: SKScene {
                            timePerFrame: 0.05,
                            resize: false,
                            restore: true)),
-          withKey:"walkingInPlaceastro")
+          withKey:"mode")
       }
+    
+    func buildInfection() {
+      let infectionAnimatedAtlas = SKTextureAtlas(named: "infectionImages")
+      var walkFrames: [SKTexture] = []
+
+      let numImages = infectionAnimatedAtlas.textureNames.count
+      for i in 1...numImages {
+        let infectionTextureName = "infection\(i)"
+        walkFrames.append(infectionAnimatedAtlas.textureNamed(infectionTextureName))
+      }
+      infectionWalkingFrames = walkFrames
+        
+
+        
+    }
+      func animateInfection() {
+        modeImage!.run(SKAction.repeatForever(
+          SKAction.animate(with: infectionWalkingFrames,
+                           timePerFrame: 0.1,
+                           resize: false,
+                           restore: true)),
+          withKey:"mode")
+      }
+    
+    
+    
+    
     
 }
