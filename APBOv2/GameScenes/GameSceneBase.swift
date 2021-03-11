@@ -71,7 +71,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     var rotation = CGFloat(0)
     var numAmmo = 3
     var regenAmmo = false
-    
+    let mass = 10.0
     let scaleAction = SKAction.scale(to: 2.2, duration: 0.4)
     
     var lastUpdateTime: Double = 42069.0
@@ -88,6 +88,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         for ship in Global.gameData.shipsToUpdate{
             ship.spaceShipParent.removeFromParent()
             addChild(ship.spaceShipParent)
+            ship.spaceShipParent.position = CGPoint(x: frame.midX, y: frame.midY + 300)
         }
         
         // World physics
@@ -193,7 +194,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         else if firstNode.name == "parent" && secondNode.name == "playerWeapon" {
             print("player is shot")
             secondNode.removeFromParent()
-            liveBullets.remove(at: liveBullets.firstIndex(of: firstNode as! SKSpriteNode)!)
+            liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
             
         }
         
@@ -203,6 +204,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     }
     
     func cubis() {
+        
+        
         let borderShape = SKShapeNode()
         
         borderShape.path = UIBezierPath(roundedRect: CGRect(x: -borderwidth/2, y: -borderheight/2, width: borderwidth, height: borderheight), cornerRadius: 40).cgPath
@@ -229,12 +232,12 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         cube1.physicsBody = SKPhysicsBody(texture: cube1.texture!, size: cube1.size)
         
         cube1.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        cube1.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        cube1.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        cube1.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        cube1.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         cube1.zPosition = 5
         
         cube1.position = CGPoint(x: cubePos, y: cubePos)
-   
+        
         addChild(cube1)
         cube1.name = "border"
         
@@ -243,8 +246,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         cube2.physicsBody = SKPhysicsBody(texture: cube2.texture!, size: cube2.size)
         
         cube2.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        cube2.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        cube2.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        cube2.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        cube2.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         cube2.zPosition = 5
         
         cube2.position = CGPoint(x: -cubePos, y: cubePos)
@@ -257,8 +260,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         cube3.physicsBody = SKPhysicsBody(texture: cube3.texture!, size: cube3.size)
         
         cube3.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        cube3.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        cube3.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        cube3.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        cube3.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         cube3.zPosition = 5
         
         cube3.position = CGPoint(x: -cubePos, y: -cubePos)
@@ -271,14 +274,20 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         cube4.physicsBody = SKPhysicsBody(texture: cube4.texture!, size: cube4.size)
         
         cube4.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        cube4.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        cube4.physicsBody?.contactTestBitMask = CollisionType.player.rawValue  | CollisionType.bullet.rawValue
+        cube4.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        cube4.physicsBody?.contactTestBitMask = CollisionType.player.rawValue  | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         cube4.zPosition = 5
         
         cube4.position = CGPoint(x: cubePos, y: -cubePos)
    
         addChild(cube4)
         cube4.name = "border"
+        
+        
+        cube1.physicsBody!.mass = CGFloat(mass)
+        cube2.physicsBody!.mass = CGFloat(mass)
+        cube3.physicsBody!.mass = CGFloat(mass)
+        cube4.physicsBody!.mass = CGFloat(mass)
     }
     
     func trisen() {
@@ -293,8 +302,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         borderShape.physicsBody = SKPhysicsBody(edgeChainFrom: borderShape.path!)
         
         borderShape.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        borderShape.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        borderShape.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        borderShape.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        borderShape.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         
         borderShape.zPosition = 5
     
@@ -309,8 +318,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         tri1.physicsBody = SKPhysicsBody(texture: tri1.texture!, size: tri1.size)
         
         tri1.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        tri1.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        tri1.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        tri1.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        tri1.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         tri1.zPosition = 5
         
         tri1.position = CGPoint(x: 0, y: triPos * Int(sqrt(3)) / 2)
@@ -324,8 +333,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         tri2.physicsBody = SKPhysicsBody(texture: tri2.texture!, size: tri2.size)
         
         tri2.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        tri2.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        tri2.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        tri2.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        tri2.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         tri2.zPosition = 5
         
         tri2.position = CGPoint(x: -triPos, y: -triPos * Int(sqrt(3)) / 2)
@@ -338,8 +347,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         tri3.physicsBody = SKPhysicsBody(texture: tri3.texture!, size: tri3.size)
         
         tri3.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        tri3.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        tri3.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        tri3.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        tri3.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         tri3.zPosition = 5
         
         tri3.position = CGPoint(x: triPos, y: -triPos * Int(sqrt(3)) / 2)
@@ -347,7 +356,11 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         addChild(tri3)
         tri3.name = "border"
 
-        tri1.physicsBody?.isDynamic = false
+       // tri1.physicsBody?.isDynamic = false
+        
+        tri1.physicsBody!.mass = CGFloat(mass)
+        tri2.physicsBody!.mass = CGFloat(mass)
+        tri3.physicsBody!.mass = CGFloat(mass)
     }
     
     func hex() {
@@ -362,8 +375,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         borderShape.physicsBody = SKPhysicsBody(edgeChainFrom: borderShape.path!)
         
         borderShape.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        borderShape.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        borderShape.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        borderShape.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        borderShape.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         
         borderShape.zPosition = 5
     
@@ -373,14 +386,14 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         let hexWidth = 477 / 3
         let hexHeight = 413 / 3
         
-        let v = 10
+       
         
         let hex1 = SKSpriteNode(imageNamed: "hexagon")
         hex1.size = CGSize(width: hexWidth, height: hexHeight)
         hex1.physicsBody = SKPhysicsBody(texture: hex1.texture!, size: hex1.size)
         hex1.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        hex1.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        hex1.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex1.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        hex1.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         hex1.zPosition = 5
         hex1.position = CGPoint(x:  hexPos, y: hexPos)
         addChild(hex1)
@@ -390,8 +403,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         hex2.size = CGSize(width: hexWidth, height: hexHeight)
         hex2.physicsBody = SKPhysicsBody(texture: hex2.texture!, size: hex2.size)
         hex2.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        hex2.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        hex2.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex2.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        hex2.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         hex2.zPosition = 5
         hex2.position = CGPoint(x: hexPos * 2, y: 0)
         addChild(hex2)
@@ -401,8 +414,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         hex3.size = CGSize(width: hexWidth, height: hexHeight)
         hex3.physicsBody = SKPhysicsBody(texture: hex3.texture!, size: hex3.size)
         hex3.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        hex3.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        hex3.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex3.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        hex3.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         hex3.zPosition = 5
         hex3.position = CGPoint(x: hexPos, y: -hexPos)
         addChild(hex3)
@@ -412,8 +425,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         hex4.size = CGSize(width: hexWidth, height: hexHeight)
         hex4.physicsBody = SKPhysicsBody(texture: hex4.texture!, size: hex4.size)
         hex4.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        hex4.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        hex4.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex4.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        hex4.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         hex4.zPosition = 5
         hex4.position = CGPoint(x: -hexPos , y: -hexPos)
         addChild(hex4)
@@ -423,8 +436,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         hex5.size = CGSize(width: hexWidth, height: hexHeight)
         hex5.physicsBody = SKPhysicsBody(texture: hex3.texture!, size: hex3.size)
         hex5.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        hex5.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        hex5.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex5.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        hex5.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         hex5.zPosition = 5
         hex5.position = CGPoint(x: -hexPos * 2 , y: 0)
         addChild(hex5)
@@ -434,12 +447,19 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         hex6.size = CGSize(width: hexWidth, height: hexHeight)
         hex6.physicsBody = SKPhysicsBody(texture: hex6.texture!, size: hex6.size)
         hex6.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        hex6.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        hex6.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        hex6.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        hex6.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         hex6.zPosition = 5
         hex6.position = CGPoint(x: -hexPos, y: hexPos)
         addChild(hex6)
         hex6.name = "border"
+        
+        hex1.physicsBody!.mass = CGFloat(mass)
+        hex2.physicsBody!.mass = CGFloat(mass)
+        hex3.physicsBody!.mass = CGFloat(mass)
+        hex4.physicsBody!.mass = CGFloat(mass)
+        hex5.physicsBody!.mass = CGFloat(mass)
+        hex6.physicsBody!.mass = CGFloat(mass)
     }
     
     func empty() {
@@ -454,8 +474,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         borderShape.physicsBody = SKPhysicsBody(edgeChainFrom: borderShape.path!)
         
         borderShape.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        borderShape.physicsBody!.collisionBitMask = CollisionType.player.rawValue
-        borderShape.physicsBody?.contactTestBitMask = CollisionType.player.rawValue
+        borderShape.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.border.rawValue
+        borderShape.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.border.rawValue
         
         borderShape.zPosition = 5
     

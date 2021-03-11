@@ -101,11 +101,11 @@ public class SpaceshipBase {
                 
                 bullet.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.border.rawValue
                 
-                
+                bullet.physicsBody?.mass = 10
                 bullet.zRotation = spaceShipNode.zRotation
                 bullet.position = spaceShipParent.position
-                bullet.position.x += 50 * cos(spaceShipNode.zRotation)
-                bullet.position.y += 50 * sin(spaceShipNode.zRotation)
+                bullet.position.x += 40 * cos(spaceShipNode.zRotation)
+                bullet.position.y += 40 * sin(spaceShipNode.zRotation)
                 Global.gameData.gameScene.liveBullets.append(bullet)
                 Global.gameData.gameScene.addChild(bullet)
                 self.unfiredBulletsCount -= 1
