@@ -48,7 +48,7 @@ class Infection: GameSceneBase {
             firstNode.childNode(withName: "shipnode")!.run(infected)
             
         }
-        
+        /*
         
         else if firstNode.name == "parent" && secondNode.name == "remoteparent" {
             print("ship was shot by bullet")
@@ -58,6 +58,7 @@ class Infection: GameSceneBase {
             firstNode.childNode(withName: "shipnode")!.run(infected)
             
         }
+ */
     }
 
 }
