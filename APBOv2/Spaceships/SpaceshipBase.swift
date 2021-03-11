@@ -104,8 +104,8 @@ public class SpaceshipBase {
                 
                 bullet.zRotation = spaceShipNode.zRotation
                 bullet.position = spaceShipParent.position
-                bullet.position.x += 10 * cos(spaceShipNode.zRotation)
-                bullet.position.y += 10 * sin(spaceShipNode.zRotation)
+                bullet.position.x += 50 * cos(spaceShipNode.zRotation)
+                bullet.position.y += 50 * sin(spaceShipNode.zRotation)
                 Global.gameData.gameScene.liveBullets.append(bullet)
                 Global.gameData.gameScene.addChild(bullet)
                 self.unfiredBulletsCount -= 1

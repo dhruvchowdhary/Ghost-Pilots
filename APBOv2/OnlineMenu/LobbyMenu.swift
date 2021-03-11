@@ -180,11 +180,11 @@ class LobbyMenu: SKScene {
             let i = playerList.firstIndex(of: player)!
             newuser.position.x = frame.midX
             newuser.position.y += CGFloat(i*100)
-     /*       let newcolor = colorButtonNode.copy() as! MSButtonNode
-            newcolor.position.x = frame.midX - 150
-            newcolor.position.y += CGFloat(i*100)
+     //       let newcolor = colorButtonNode.copy() as! MSButtonNode
+     //       newcolor.position.x = frame.midX - 150
+     //       newcolor.position.y += CGFloat(i*100)
             playerLabelParent.addChild(newuser)
-            newuser.addChild(newcolor)
+      /*      newuser.addChild(newcolor)
      //       playerLabelParent.addChild(newcolor)
             if Global.gameData.isHost {
                 let newkick = kickButtonNode.copy() as! MSButtonNode
@@ -203,21 +203,40 @@ class LobbyMenu: SKScene {
                 switch Global.gameData.mode {
                 case "infection":
                     spaceship = LocalSpaceship(imageTexture: intToColorInfection[list.firstIndex(of: s)! % 3]!)
-                    Global.gameData.playerShip = spaceship as? LocalSpaceship
                 case "ffa":
                     spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
-                    Global.gameData.playerShip = spaceship as? LocalSpaceship
+    
                 case "astroball":
                     spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 2]!)
-                    Global.gameData.playerShip = spaceship as? LocalSpaceship
+                
                 default:
                     spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
-                    Global.gameData.playerShip = spaceship as? LocalSpaceship
+                  
                     
+                  
                 }
-                
+                Global.gameData.playerShip = spaceship as? LocalSpaceship
             } else {
-                spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
+                switch Global.gameData.mode {
+                case "infection":
+                    spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColorInfection[list.firstIndex(of: s)! % 3]!)
+                    
+                    
+                case "ffa":
+                    spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
+                   
+                    
+                case "astroball":
+                    spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColor[list.firstIndex(of: s)! % 2]!)
+                 
+                
+                default:
+                    spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
+                 
+                    
+                  
+                }
+              
             }
             Global.gameData.shipsToUpdate.append(spaceship)
         }
