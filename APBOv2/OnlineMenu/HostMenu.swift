@@ -300,7 +300,7 @@ class HostMenu: SKScene {
       func animateInfection() {
         modeImage!.run(SKAction.repeatForever(
           SKAction.animate(with: infectionWalkingFrames,
-                           timePerFrame: 0.1,
+                           timePerFrame: 0.05,
                            resize: false,
                            restore: true)),
           withKey:"mode")
