@@ -10,6 +10,7 @@ class LobbyMenu: SKScene {
     var playerLabel = SKNode()
     var playerLabelParent = SKNode()
     var user1 = SKLabelNode(text: "user1")
+    var randInt = 0
     
     var modeImageButtonNode: MSButtonNode!
     let modeArray = ["ffa", "astroball", "infection"]
@@ -196,15 +197,16 @@ class LobbyMenu: SKScene {
     }
     
     func StartGame(){
-        var randInt = 0
         if list.count > 1 {
-            randInt = Global.gameData.gameID % (list.count-1)
+            randInt = Global.gameData.gameID % (list.count)
         }
+        print(randInt)
         for s in self.list {
             var spaceship: SpaceshipBase
             if s == Global.playerData.username {
                 switch Global.gameData.mode {
                 case "infection":
+                    print("me: \(list.firstIndex(of: s))")
                     if list.firstIndex(of: s) == randInt {
                         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/InfectedList/\(Global.playerData.username)", Value: "true")
                         spaceship = LocalSpaceship(imageTexture: intToColorInfection[0]!)
@@ -220,6 +222,7 @@ class LobbyMenu: SKScene {
                 }
                 Global.gameData.playerShip = spaceship as? LocalSpaceship
             } else {
+                print("not me: \(list.firstIndex(of: s))")
                 switch Global.gameData.mode {
                 case "infection":
                     if list.firstIndex(of: s) == randInt {
