@@ -291,32 +291,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
         backButtonNode.alpha = 0
         backButtonNode.selectedHandlers = {
-            /* 1) Grab reference to our SpriteKit view */
-            guard let skView = self.view as SKView? else {
-                print("Could not get Skview")
-                return
-            }
-            
-            /* 2) Load Menu scene */
-            guard let scene = SoloMenu(fileNamed:"SoloMenu") else {
-                print("Could not make GameScene, check the name is spelled correctly")
-                return
-            }
-            
-            /* 3) Ensure correct aspect mode */
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                scene.scaleMode = .aspectFit
-            } else {
-                scene.scaleMode = .aspectFill
-            }
-            
-            /* Show debug */
-            skView.showsPhysics = false
-            skView.showsDrawCount = false
-            skView.showsFPS = false
-            
-            /* 4) Start game scene */
-            skView.presentScene(scene)
+            Global.loadScene(s: "SoloMenu")
         }
         
         restartButtonNode = self.childNode(withName: "restartButton") as? MSButtonNode

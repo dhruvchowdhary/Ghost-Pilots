@@ -31,8 +31,7 @@ class TurretBossMenu: SKScene {
             /* Set UI connections */
             backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
             backButtonNode.selectedHandlers = {
-                self.loadMainMenu()
-                //       skView.presentScene(scene)
+                Global.loadScene(s: "MainMenu")
             }
             
             if UIDevice.current.userInterfaceIdiom != .pad {
@@ -41,8 +40,6 @@ class TurretBossMenu: SKScene {
                     backButtonNode.position.y =  300
                 }
             }
-            
-    
             
             buttonPlay = self.childNode(withName: "easy") as? MSButtonNode
             buttonPlay.selectedHandlers = {
@@ -122,35 +119,6 @@ class TurretBossMenu: SKScene {
 
         /* 3) Ensure correct aspect mode */
         scene.scaleMode = .aspectFill
-
-        /* Show debug */
-        skView.showsPhysics = false
-        skView.showsDrawCount = false
-        skView.showsFPS = false
-
-        /* 4) Start game scene */
-        skView.presentScene(scene)
-    }
-    
-    func loadMainMenu() {
-        /* 1) Grab reference to our SpriteKit view */
-        guard let skView = self.view as SKView? else {
-            print("Could not get Skview")
-            return
-        }
-
-        /* 2) Load Menu scene */
-        guard let scene = GameScene(fileNamed:"SoloMenu") else {
-            print("Could not make GameScene, check the name is spelled correctly")
-            return
-        }
-
-        /* 3) Ensure correct aspect mode */
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            scene.scaleMode = .aspectFit
-        } else {
-            scene.scaleMode = .aspectFill
-        }
 
         /* Show debug */
         skView.showsPhysics = false
