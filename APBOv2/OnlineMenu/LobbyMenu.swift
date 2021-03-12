@@ -205,57 +205,37 @@ class LobbyMenu: SKScene {
                     spaceship = LocalSpaceship(imageTexture: intToColorInfection[list.firstIndex(of: s)! % 3]!)
                 case "ffa":
                     spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
-    
                 case "astroball":
                     spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 2]!)
-                
                 default:
                     spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
-                  
-                    
-                  
                 }
                 Global.gameData.playerShip = spaceship as? LocalSpaceship
             } else {
                 switch Global.gameData.mode {
                 case "infection":
                     spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColorInfection[list.firstIndex(of: s)! % 3]!)
-                    
-                    
                 case "ffa":
                     spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
-                   
-                    
                 case "astroball":
                     spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColor[list.firstIndex(of: s)! % 2]!)
-                 
-                
                 default:
                     spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
-                 
-                    
-                  
                 }
-              
             }
             Global.gameData.shipsToUpdate.append(spaceship)
         }
         
         switch Global.gameData.mode {
-        
         case "ffa":
             Global.loadScene(s: "GameSceneBase")
-            
         case "astroball":
             Global.loadScene(s: "AstroBall")
         case "infection":
             Global.loadScene(s: "Infection")
-            
         default:
             Global.loadScene(s: "GameSceneBase")
-        
         }
-        
     }
     
     func setupLabel(label: SKLabelNode) {
