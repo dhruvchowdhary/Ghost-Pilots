@@ -84,11 +84,15 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     
     var pilotmode = false
     
+    var loadShipPosX =  -800
+    var loadShipPosY =  700
     public override func didMove(to view: SKView) {
         for ship in Global.gameData.shipsToUpdate{
             ship.spaceShipParent.removeFromParent()
             addChild(ship.spaceShipParent)
-            ship.spaceShipParent.position = CGPoint(x: frame.midX, y: frame.midY + 300)
+            
+            ship.spaceShipParent.position = CGPoint(x: loadShipPosX, y: loadShipPosY)
+            loadShipPosX = loadShipPosX + 20
         }
         
         // World physics
