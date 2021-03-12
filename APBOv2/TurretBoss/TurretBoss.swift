@@ -176,33 +176,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
         backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
         backButtonNode.alpha = 0
         backButtonNode.selectedHandlers = {
-            /* 1) Grab reference to our SpriteKit view */
-            guard let skView = self.view as SKView? else {
-                print("Could not get Skview")
-                return
-            }
-            
-            /* 2) Load Menu scene */
-            guard let scene = SoloMenu(fileNamed:"SoloMenu") else {
-                print("Could not make GameScene, check the name is spelled correctly")
-                return
-            }
-            
-            /* 3) Ensure correct aspect mode */
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                scene.scaleMode = .aspectFit
-            } else {
-                scene.scaleMode = .aspectFill
-            }
-            
-            
-            /* Show debug */
-            skView.showsPhysics = false
-            skView.showsDrawCount = false
-            skView.showsFPS = false
-            
-            /* 4) Start game scene */
-            skView.presentScene(scene)
+            Global.loadScene(s: "SoloMenu")
         }
         
         
@@ -355,16 +329,16 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
                         self.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
                         
                         /*
-                        if let ShootingExplosion = SKEmitterNode(fileNamed: "ShootingExplosion") {
-                            ShootingExplosion.position.x = self.player.position.x + 60 * cos(self.player.zRotation)
-                            ShootingExplosion.position.y = self.player.position.y + 60 * sin(self.player.zRotation)
-                            
-                            
-                            ShootingExplosion.emissionAngle = self.player.zRotation
-            
-                            self.addChild(ShootingExplosion)
-                                  }
-                        */
+                         if let ShootingExplosion = SKEmitterNode(fileNamed: "ShootingExplosion") {
+                         ShootingExplosion.position.x = self.player.position.x + 60 * cos(self.player.zRotation)
+                         ShootingExplosion.position.y = self.player.position.y + 60 * sin(self.player.zRotation)
+                         
+                         
+                         ShootingExplosion.emissionAngle = self.player.zRotation
+                         
+                         self.addChild(ShootingExplosion)
+                         }
+                         */
                         if self.numAmmo == 3 {
                             self.bullet1.removeFromParent()
                         }
@@ -398,7 +372,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
                         self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.2*cos(self.player.zRotation), dy: 1.2*sin(self.player.zRotation)), shakeDuration: 0.04)
                     }
                     
-                 
+                    
                 }
             } else {
                 self.pilotForward = true
@@ -559,7 +533,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             bullet2.run(revolve2)
             bullet3.run(revolve3)
             
-
+            
             if player.position.y < frame.minY + 190 {
                 player.position.y = frame.minY + 190
             } else if player.position.y > frame.maxY - 190 {
@@ -715,14 +689,14 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             shot1.position.y = turretSprite.position.y + 60 * sin(3 * 3.14159 / 2  + turretSprite.zRotation)
             
             if let TurretShootingExplosion = SKEmitterNode(fileNamed: "TurretShootingExplosion") {
-                                      TurretShootingExplosion.position.x = turretSprite.position.x + 80 * cos(3 * 3.14159 / 2  + turretSprite.zRotation)
-                                      TurretShootingExplosion.position.y = turretSprite.position.y + 80 * sin(3 * 3.14159 / 2  + turretSprite.zRotation)
-           
-                                      
-                                      TurretShootingExplosion.emissionAngle = turretSprite.zRotation + 3 * 3.14159 / 2
-                      
-                                      self.addChild(TurretShootingExplosion)
-                                            }
+                TurretShootingExplosion.position.x = turretSprite.position.x + 80 * cos(3 * 3.14159 / 2  + turretSprite.zRotation)
+                TurretShootingExplosion.position.y = turretSprite.position.y + 80 * sin(3 * 3.14159 / 2  + turretSprite.zRotation)
+                
+                
+                TurretShootingExplosion.emissionAngle = turretSprite.zRotation + 3 * 3.14159 / 2
+                
+                self.addChild(TurretShootingExplosion)
+            }
             
             addChild(shot1)
             
@@ -780,15 +754,15 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             shot3.position.x = turretSprite.position.x + 60 * cos(3 * 3.14159 / 2  + turretSprite.zRotation)
             shot3.position.y = turretSprite.position.y + 60 * sin(3 * 3.14159 / 2  + turretSprite.zRotation)
             
-                      if let TurretShootingExplosion = SKEmitterNode(fileNamed: "TurretShootingExplosion") {
-                                                          TurretShootingExplosion.position.x = turretSprite.position.x + 80 * cos(3 * 3.14159 / 2  + turretSprite.zRotation)
-                                                          TurretShootingExplosion.position.y = turretSprite.position.y + 80 * sin(3 * 3.14159 / 2  + turretSprite.zRotation)
-                               
-                                                          
-                                                          TurretShootingExplosion.emissionAngle = turretSprite.zRotation + 3 * 3.14159 / 2
-                                          
-                                                          self.addChild(TurretShootingExplosion)
-                                                                }
+            if let TurretShootingExplosion = SKEmitterNode(fileNamed: "TurretShootingExplosion") {
+                TurretShootingExplosion.position.x = turretSprite.position.x + 80 * cos(3 * 3.14159 / 2  + turretSprite.zRotation)
+                TurretShootingExplosion.position.y = turretSprite.position.y + 80 * sin(3 * 3.14159 / 2  + turretSprite.zRotation)
+                
+                
+                TurretShootingExplosion.emissionAngle = turretSprite.zRotation + 3 * 3.14159 / 2
+                
+                self.addChild(TurretShootingExplosion)
+            }
             
             
             
@@ -888,23 +862,23 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             shot3.zPosition = 4
             shot3.position = turretSprite.position
             
-          shot1.position.x = turretSprite.position.x + 60 * cos(3 * 3.14159 / 2  + turretSprite.zRotation)
-          shot1.position.y = turretSprite.position.y + 60 * sin(3 * 3.14159 / 2  + turretSprite.zRotation)
-          shot2.position.x = turretSprite.position.x + 60 * cos(3 * 3.14159 / 2  + turretSprite.zRotation)
-          shot2.position.y = turretSprite.position.y + 60 * sin(3 * 3.14159 / 2  + turretSprite.zRotation)
-          shot3.position.x = turretSprite.position.x + 60 * cos(3 * 3.14159 / 2  + turretSprite.zRotation)
-          shot3.position.y = turretSprite.position.y + 60 * sin(3 * 3.14159 / 2  + turretSprite.zRotation)
+            shot1.position.x = turretSprite.position.x + 60 * cos(3 * 3.14159 / 2  + turretSprite.zRotation)
+            shot1.position.y = turretSprite.position.y + 60 * sin(3 * 3.14159 / 2  + turretSprite.zRotation)
+            shot2.position.x = turretSprite.position.x + 60 * cos(3 * 3.14159 / 2  + turretSprite.zRotation)
+            shot2.position.y = turretSprite.position.y + 60 * sin(3 * 3.14159 / 2  + turretSprite.zRotation)
+            shot3.position.x = turretSprite.position.x + 60 * cos(3 * 3.14159 / 2  + turretSprite.zRotation)
+            shot3.position.y = turretSprite.position.y + 60 * sin(3 * 3.14159 / 2  + turretSprite.zRotation)
             
             addChild(shot1)
             if let TurretShootingExplosion = SKEmitterNode(fileNamed: "TurretShootingExplosion") {
-                                                TurretShootingExplosion.position.x = turretSprite.position.x + 80 * cos(3 * 3.14159 / 2  + turretSprite.zRotation)
-                                                TurretShootingExplosion.position.y = turretSprite.position.y + 80 * sin(3 * 3.14159 / 2  + turretSprite.zRotation)
-                     
-                                                
-                                                TurretShootingExplosion.emissionAngle = turretSprite.zRotation + 3 * 3.14159 / 2
-                                
-                                                self.addChild(TurretShootingExplosion)
-                                                      }
+                TurretShootingExplosion.position.x = turretSprite.position.x + 80 * cos(3 * 3.14159 / 2  + turretSprite.zRotation)
+                TurretShootingExplosion.position.y = turretSprite.position.y + 80 * sin(3 * 3.14159 / 2  + turretSprite.zRotation)
+                
+                
+                TurretShootingExplosion.emissionAngle = turretSprite.zRotation + 3 * 3.14159 / 2
+                
+                self.addChild(TurretShootingExplosion)
+            }
             
             self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
             
@@ -914,24 +888,24 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
                 if let TurretShootingExplosion = SKEmitterNode(fileNamed: "TurretShootingExplosion") {
                     TurretShootingExplosion.position.x = self.turretSprite.position.x + 80 * cos(3 * 3.14159 / 2  + self.turretSprite.zRotation)
                     TurretShootingExplosion.position.y = self.turretSprite.position.y + 80 * sin(3 * 3.14159 / 2  + self.turretSprite.zRotation)
-                         
-                                                    
+                    
+                    
                     TurretShootingExplosion.emissionAngle = self.turretSprite.zRotation + 3 * 3.14159 / 2
-                                    
-                                                    self.addChild(TurretShootingExplosion)
-                                                          }
+                    
+                    self.addChild(TurretShootingExplosion)
+                }
                 let timer1 = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
                     self.addChild(shot3)
                     self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
                     if let TurretShootingExplosion = SKEmitterNode(fileNamed: "TurretShootingExplosion") {
                         TurretShootingExplosion.position.x = self.turretSprite.position.x + 80 * cos(3 * 3.14159 / 2  + self.turretSprite.zRotation)
                         TurretShootingExplosion.position.y = self.turretSprite.position.y + 80 * sin(3 * 3.14159 / 2  + self.turretSprite.zRotation)
-                             
-                                                        
+                        
+                        
                         TurretShootingExplosion.emissionAngle = self.turretSprite.zRotation + 3 * 3.14159 / 2
-                                        
-                                                        self.addChild(TurretShootingExplosion)
-                                                              }
+                        
+                        self.addChild(TurretShootingExplosion)
+                    }
                 }
             }
             

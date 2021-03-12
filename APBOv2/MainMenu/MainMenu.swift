@@ -90,7 +90,7 @@ class MainMenu: SKScene {
             self.buttonPlay.alpha = 0.7
         }
         buttonPlay.selectedHandlers = {
-            self.loadScene(s: "SoloMenu")
+            Global.loadScene(s: "SoloMenu")
         }
         
         buttonOnline = self.childNode(withName: "onlineButton") as? MSButtonNode
@@ -98,7 +98,7 @@ class MainMenu: SKScene {
             self.buttonOnline.alpha = 0.7
         }
         buttonOnline.selectedHandlers = {
-            self.loadScene(s: "OnlineMenu")
+            Global.loadScene(s: "OnlineMenu")
         }
         
         tutorialButtonNode = self.childNode(withName: "tutorial") as? MSButtonNode
@@ -174,40 +174,6 @@ class MainMenu: SKScene {
         let randomNum4 = CGFloat.random(in: 1...3.5)
         party.particleScale = randomNum4
         self.ghostParticles?.particleScale = 1
-    }
-    
-    func loadScene(s: String) {
-        // Loading other scenes in bg thread
-        DispatchQueue.global(qos: .background).async {
-            /* 1) Grab reference to our SpriteKit view */
-            guard let skView = self.view as SKView? else {
-                print("Could not get Skview")
-                return
-            }
-            
-            /* 2) Load Game scene */
-            guard let scene = SKScene(fileNamed: s) else {
-                print("Could not make \(s), check the name is spelled correctly")
-                return
-            }
-            /* 3) Ensure correct aspect mode */
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                scene.scaleMode = .aspectFit
-            } else {
-                scene.scaleMode = .aspectFill
-            }
-            
-            /* Show debug */
-            skView.showsPhysics = false
-            skView.showsDrawCount = false
-            skView.showsFPS = false
-            
-            // Run in main thread
-            DispatchQueue.main.async {
-                /* 4) Start game scene */
-                skView.presentScene(scene)
-            }
-        }
     }
     
     func tutorial() {
