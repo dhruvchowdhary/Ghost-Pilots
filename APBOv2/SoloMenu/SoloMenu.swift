@@ -59,7 +59,7 @@ class SoloMenu: SKScene {
             
             levelsButtonNode = self.childNode(withName: "levelsButton") as? MSButtonNode
             levelsButtonNode.selectedHandlers = {
-                self.LoadLevelsMenu()
+                Global.loadScene(s: "LoadLevelsMenu")
             }
          
             
@@ -95,39 +95,6 @@ class SoloMenu: SKScene {
         shakeAnimation.toValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x + intensity.dx, y: sceneView.center.y + intensity.dy))
         sceneView.layer.add(shakeAnimation, forKey: "position")
     }
-    func loadScene(s: String) {
-        // Loading other scenes in bg thread
-        DispatchQueue.global(qos: .background).async {
-            /* 1) Grab reference to our SpriteKit view */
-            guard let skView = self.view as SKView? else {
-                print("Could not get Skview")
-                return
-            }
-            
-            /* 2) Load Game scene */
-            guard let scene = SKScene(fileNamed: s) else {
-                print("Could not make \(s), check the name is spelled correctly")
-                return
-            }
-            /* 3) Ensure correct aspect mode */
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                scene.scaleMode = .aspectFit
-            } else {
-                scene.scaleMode = .aspectFill
-            }
-            
-            /* Show debug */
-            skView.showsPhysics = true
-            skView.showsDrawCount = false
-            skView.showsFPS = false
-            
-            // Run in main thread
-            DispatchQueue.main.async {
-                /* 4) Start game scene */
-                skView.presentScene(scene)
-            }
-        }
-    }
     
     func loadGame() {
         /* 1) Grab reference to our SpriteKit view */
@@ -144,35 +111,6 @@ class SoloMenu: SKScene {
 
         /* 3) Ensure correct aspect mode */
         scene.scaleMode = .aspectFill
-
-        /* Show debug */
-        skView.showsPhysics = false
-        skView.showsDrawCount = false
-        skView.showsFPS = false
-
-        /* 4) Start game scene */
-        skView.presentScene(scene)
-    }
-    func LoadLevelsMenu() {
-        /* 1) Grab reference to our SpriteKit view */
-        guard let skView = self.view as SKView? else {
-            print("Could not get Skview")
-            return
-        }
-
-        /* 2) Load Game scene */
-        guard let scene = SKScene(fileNamed:"LoadLevelsMenu") else {
-            print("Could not make GameScene, check the name is spelled correctly")
-            return
-        }
-    
-
-        /* 3) Ensure correct aspect mode */
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            scene.scaleMode = .aspectFit
-        } else {
-            scene.scaleMode = .aspectFill
-        }
 
         /* Show debug */
         skView.showsPhysics = false
@@ -236,32 +174,4 @@ class SoloMenu: SKScene {
         skView.presentScene(scene)
     }
     
-    func loadMainMenu() {
-        /* 1) Grab reference to our SpriteKit view */
-        guard let skView = self.view as SKView? else {
-            print("Could not get Skview")
-            return
-        }
-
-        /* 2) Load Menu scene */
-        guard let scene = GameScene(fileNamed:"MainMenu") else {
-            print("Could not make GameScene, check the name is spelled correctly")
-            return
-        }
-
-        /* 3) Ensure correct aspect mode */
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            scene.scaleMode = .aspectFit
-        } else {
-            scene.scaleMode = .aspectFill
-        }
-
-        /* Show debug */
-        skView.showsDrawCount = false
-        skView.showsFPS = false
-        skView.showsPhysics = false;
-
-        /* 4) Start game scene */
-        skView.presentScene(scene)
-    }
 }

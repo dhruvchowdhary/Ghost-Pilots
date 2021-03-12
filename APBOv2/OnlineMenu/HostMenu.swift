@@ -24,13 +24,9 @@ class HostMenu: SKScene {
     var mapArray = ["OnlineCubis", "OnlineTrisen", "OnlineHex"]
     var j = 0
     
-    
     private var astroWalkingFrames: [SKTexture] = []
-    
     private var infectionWalkingFrames: [SKTexture] = []
-    
     private var ffaWalkingFrames: [SKTexture] = []
-    
     
     
     override func didMove(to view: SKView) {
@@ -41,14 +37,12 @@ class HostMenu: SKScene {
             addChild(particles)
         }
         
-        
-        
         self.sceneShake(shakeCount: 4, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         self.run(SKAction.playSoundFileNamed("menuThumpnew", waitForCompletion: false))
         
         backButtonNode = self.childNode(withName: "back") as? MSButtonNode
         backButtonNode.selectedHandlers = {
-            self.loadOnlineMenu()
+            Global.loadScene(s: "OnlineMenu")
         }
         
         if UIDevice.current.userInterfaceIdiom != .pad {
@@ -127,7 +121,6 @@ class HostMenu: SKScene {
                 self.removeAction(forKey: "mode")
                 self.buildInfection()
                 self.animateInfection()
-                
             default:
                 print("no mode")
             }
@@ -159,12 +152,8 @@ class HostMenu: SKScene {
             Global.gameData.map = self.mapArray[self.j]
             let mapPicChange = SKAction.setTexture(SKTexture(imageNamed: self.mapArray[self.j]))
             self.mapImage!.run(mapPicChange)
-           
-            
-            
             self.rightMapButtonNode.alpha = 1
         }
-        
         
     }
     
@@ -177,64 +166,6 @@ class HostMenu: SKScene {
         shakeAnimation.fromValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x - intensity.dx, y: sceneView.center.y - intensity.dy))
         shakeAnimation.toValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x + intensity.dx, y: sceneView.center.y + intensity.dy))
         sceneView.layer.add(shakeAnimation, forKey: "position")
-    }
-    
-    func loadOnlineMenu() {
-        /* 1) Grab reference to our SpriteKit view */
-        guard let skView = self.view as SKView? else {
-            print("Could not get Skview")
-            return
-        }
-        
-        /* 2) Load Menu scene */
-        guard let scene = SKScene(fileNamed:"OnlineMenu") else {
-            print("Could not make GameScene, check the name is spelled correctly")
-            return
-        }
-        
-        /* 3) Ensure correct aspect mode */
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            scene.scaleMode = .aspectFit
-        } else {
-            scene.scaleMode = .aspectFill
-        }
-        
-        /* Show debug */
-        skView.showsPhysics = false
-        skView.showsDrawCount = false
-        skView.showsFPS = false
-        
-        /* 4) Start game scene */
-        skView.presentScene(scene)
-    }
-    
-    func loadLobbyMenu() {
-        /* 1) Grab reference to our SpriteKit view */
-        guard let skView = self.view as SKView? else {
-            print("Could not get Skview")
-            return
-        }
-        
-        /* 2) Load Menu scene */
-        guard let scene = SKScene(fileNamed:"LobbyMenu") else {
-            print("Could not make GameScene, check the name is spelled correctly")
-            return
-        }
-        
-        /* 3) Ensure correct aspect mode */
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            scene.scaleMode = .aspectFit
-        } else {
-            scene.scaleMode = .aspectFill
-        }
-        
-        /* Show debug */
-        skView.showsPhysics = false
-        skView.showsDrawCount = false
-        skView.showsFPS = false
-        
-        /* 4) Start game scene */
-        skView.presentScene(scene)
     }
     
     func buildffa() {
