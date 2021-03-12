@@ -197,8 +197,10 @@ class LobbyMenu: SKScene {
     }
     
     func StartGame(){
-        let randInt = Global.gameData.gameID % (list.count-1)
-        print("rand: \(randInt)")
+        var randInt = 0
+        if list.count > 1 {
+            randInt = Global.gameData.gameID % (list.count-1)
+        }
         for s in self.list {
             var spaceship: SpaceshipBase
             if s == Global.playerData.username {
