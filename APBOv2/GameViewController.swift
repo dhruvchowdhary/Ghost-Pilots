@@ -51,7 +51,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GADR
             // Load the SKScene from 'GameScene.sks'
             let store = UserDefaults.standard
             store.setValue(nil, forKey: "Score")
-            if let scene = SKScene(fileNamed: "MainMenu") {
+            if let scene = SKScene(fileNamed: "LoadIntro") {
                 // Set the scale mode to scale to fit the window
                 if UIDevice.current.userInterfaceIdiom == .pad {
                     scene.scaleMode = .aspectFit
