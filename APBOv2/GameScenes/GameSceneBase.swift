@@ -92,7 +92,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
             addChild(ship.spaceShipParent)
             
             ship.spaceShipParent.position = CGPoint(x: loadShipPosX, y: loadShipPosY)
-            loadShipPosX = loadShipPosX + 20
+            loadShipPosX = loadShipPosX + 50
         }
         
         // World physics

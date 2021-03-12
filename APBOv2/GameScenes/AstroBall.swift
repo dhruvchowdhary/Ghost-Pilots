@@ -10,10 +10,10 @@ class AstroBall: GameSceneBase {
         for ship in Global.gameData.shipsToUpdate{
             ship.spaceShipParent.removeFromParent()
             addChild(ship.spaceShipParent)
-            ship.spaceShipParent.position = CGPoint(x: frame.midX, y: frame.midY + 300)
-            ship.spaceShipParent.physicsBody!.mass = 5
+            
+            ship.spaceShipParent.position = CGPoint(x: loadShipPosX, y: loadShipPosY)
+            loadShipPosX = loadShipPosX + 50
         }
-        
         // World physics
         physicsWorld.gravity = .zero
         self.physicsWorld.contactDelegate = self
