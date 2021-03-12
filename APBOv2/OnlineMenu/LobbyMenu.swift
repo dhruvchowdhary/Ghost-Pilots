@@ -206,7 +206,6 @@ class LobbyMenu: SKScene {
             if s == Global.playerData.username {
                 switch Global.gameData.mode {
                 case "infection":
-                    print("myindex: \(list.firstIndex(of: s)!)")
                     if list.firstIndex(of: s) == randInt {
                         spaceship = LocalSpaceship(imageTexture: intToColorInfection[0]!)
                     } else {
@@ -223,7 +222,6 @@ class LobbyMenu: SKScene {
             } else {
                 switch Global.gameData.mode {
                 case "infection":
-                    print("notmyindex: \(list.firstIndex(of: s)!)")
                     if list.firstIndex(of: s) == randInt {
                         spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColorInfection[0]!)
                     } else {
