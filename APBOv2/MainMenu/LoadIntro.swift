@@ -20,8 +20,12 @@ class LoadIntro: SKScene {
         
         
         intropilot.size =  CGSize(width: 250.6667, height: 247.3333)
+        
+        addChild(intropilot)
         let fadeOut = SKAction.fadeOut(withDuration: 2)
         intropilot.run(fadeOut)
+        
+
         
         let wait1 = SKAction.wait(forDuration:2)
         let action1 = SKAction.run {
