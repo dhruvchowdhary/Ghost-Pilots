@@ -15,6 +15,7 @@ public class GameData{
     public var isBackground = false;
     public var map = "OnlineCubis"
     public var mode = "ffa"
+    public var infected = false
     
     // =================
     // For the Host to run
@@ -33,6 +34,7 @@ public class GameData{
         DataPusher.PushData(path: "Games/\(code)/Mode", Value: mode)
         DataPusher.PushData(path: "Games/\(code)/Status", Value: "Lobby")
         DataPusher.PushData(path: "Games/\(code)/PlayerList/\(Global.playerData.username)", Value: "PePeNotGone")
+    //    DataPusher.PushData(path: "Games/\(code)/InfectedList/\(Global.playerData.username)", Value: "true")
         Global.gameData.host = Global.playerData.username
         Global.loadScene(s: "LobbyMenu")
     }

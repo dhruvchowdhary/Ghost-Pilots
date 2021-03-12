@@ -42,7 +42,7 @@ class Infection: GameSceneBase {
             
             secondNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
-            
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/InfectedList/\(Global.playerData.username)", Value: "true")
             
             let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
             firstNode.childNode(withName: "shipnode")!.run(infected)
@@ -54,7 +54,6 @@ class Infection: GameSceneBase {
             
             firstNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: firstNode as! SKSpriteNode)!)
-            
             
             let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
             secondNode.childNode(withName: "shipnode")!.run(infected)

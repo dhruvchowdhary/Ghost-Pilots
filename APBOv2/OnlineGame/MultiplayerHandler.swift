@@ -8,6 +8,7 @@ public class MultiplayerHandler{
     var statusRef: DatabaseReference?
     var mapRef: DatabaseReference?
     var modeRef: DatabaseReference?
+    var infectedRef: DatabaseReference?
     var currentBulletCounts: [(String, Int)] = []
     
     public static var ref: DatabaseReference! = Database.database().reference()
@@ -136,6 +137,17 @@ public class MultiplayerHandler{
     public func ListenForMapChanges(){
         self.mapRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Map")
         mapRef?.observe(DataEventType.value, with: { (snapshot) in
+            if !Global.gameData.isHost {
+                let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
+                Global.gameData.map = snapshot.value as! String
+                lobbyScene.pullMap()
+            }
+        })
+    }
+    
+    public func ListenForInfectedChanges(){
+        self.infectedRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/InfectedList")
+        infectedRef?.observe(DataEventType.value, with: { (snapshot) in
             if !Global.gameData.isHost {
                 let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
                 Global.gameData.map = snapshot.value as! String

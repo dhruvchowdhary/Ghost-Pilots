@@ -206,6 +206,7 @@ class LobbyMenu: SKScene {
                 switch Global.gameData.mode {
                 case "infection":
                     if list.firstIndex(of: s) == randInt {
+                        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/InfectedList/\(Global.playerData.username)", Value: "true")
                         spaceship = LocalSpaceship(imageTexture: intToColorInfection[0]!)
                     } else {
                         spaceship = LocalSpaceship(imageTexture: intToColorInfection[1]!)
