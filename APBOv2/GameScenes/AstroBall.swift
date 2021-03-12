@@ -42,7 +42,7 @@ class AstroBall: GameSceneBase {
         
     for ship in Global.gameData.shipsToUpdate{
         ship.thruster1?.targetNode = self.scene
-        ship.pilotThrust1?.targetNode = self.scene
+    //    ship.pilotThrust1?.targetNode = self.scene
         }
     }
     

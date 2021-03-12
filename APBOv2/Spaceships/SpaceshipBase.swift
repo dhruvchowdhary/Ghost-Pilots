@@ -48,10 +48,10 @@ public class SpaceshipBase {
         
         
         pilotThrust1?.name = "pilotThrust1"
-        pilotThrust1?.position = CGPoint(x: -20, y: 0)
+        //pilotThrust1?.position = CGPoint(x: -20, y: 0)
         
         pilotThrust1?.zPosition = -5
-        spaceShipNode.addChild(pilotThrust1!)
+        //spaceShipNode.addChild(pilotThrust1!)
         
         pilotThrust1?.alpha = 0
 

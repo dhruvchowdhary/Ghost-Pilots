@@ -40,7 +40,7 @@ public class LocalSpaceship: SpaceshipBase {
         spaceShipNode.addChild(thruster1!)
         
         
-        spaceShipNode.addChild(pilotThrust1!)
+     //   spaceShipNode.addChild(pilotThrust1!)
         
         /*
         thruster1!.name = "thruster1"

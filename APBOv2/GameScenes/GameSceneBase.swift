@@ -85,7 +85,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     var pilotmode = false
     
     var loadShipPosX =  -800
-    var loadShipPosY =  700
+    var loadShipPosY =  300
     public override func didMove(to view: SKView) {
         for ship in Global.gameData.shipsToUpdate{
             ship.spaceShipParent.removeFromParent()
@@ -122,7 +122,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         
     for ship in Global.gameData.shipsToUpdate{
         ship.thruster1?.targetNode = self.scene
-        ship.pilotThrust1?.targetNode = self.scene
+        //ship.pilotThrust1?.targetNode = self.scene
         }
     }
     public override func update(_ currentTime: TimeInterval) {
