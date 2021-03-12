@@ -39,7 +39,6 @@ class LobbyMenu: SKScene {
     let intToColorInfection: Dictionary = [
         0: "apboGreen",
         1: "apboWhite",
-        2: "apboWhite",
     ]
     
     
