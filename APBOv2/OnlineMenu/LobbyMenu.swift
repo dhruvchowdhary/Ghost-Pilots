@@ -282,6 +282,18 @@ class LobbyMenu: SKScene {
         }
     }
     
+    func pullInfected(){
+        print("pulled infected")
+        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/InfectedList").observeSingleEvent(of: .value) {
+            snapshot in
+            if (snapshot.exists()) {
+                Global.gameData.map = snapshot.value as! String
+                self.mapImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.map)
+                self.mapImageButtonNode.alpha = 1
+            }
+        }
+    }
+    
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
         let sceneView = self.scene!.view! as UIView
         let shakeAnimation = CABasicAnimation(keyPath: "position")

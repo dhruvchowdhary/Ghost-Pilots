@@ -10,9 +10,11 @@ import Foundation
 import SpriteKit
 import CoreMotion
 import AudioToolbox
+import Firebase
 
 
 class Infection: GameSceneBase {
+    var infectedRef: DatabaseReference?
     override func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }
@@ -43,7 +45,7 @@ class Infection: GameSceneBase {
             secondNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/InfectedList/\(Global.playerData.username)", Value: "true")
-            
+        //    ListenForInfectedChanges(playerID: Global.playerData.playerID!, secondNode: secondNode)
             let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
             firstNode.childNode(withName: "shipnode")!.run(infected)
             
@@ -51,12 +53,11 @@ class Infection: GameSceneBase {
         
         else if firstNode.name == "playerWeapon" && secondNode.name == "remoteparent" {
             print("ship was shot by bullet")
-            
             firstNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: firstNode as! SKSpriteNode)!)
-            
-            let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
-            secondNode.childNode(withName: "shipnode")!.run(infected)
+            Global.multiplayerHandler.ListenForInfectedChanges(username: Global.playerData.username, secondNode: secondNode)
+    //        if remoteparent isin infectedlist {
+     //       }
             
         }
         /*
@@ -71,5 +72,4 @@ class Infection: GameSceneBase {
         }
  */
     }
-
 }

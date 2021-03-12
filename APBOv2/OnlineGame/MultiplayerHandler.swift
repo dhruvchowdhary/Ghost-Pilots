@@ -102,6 +102,24 @@ public class MultiplayerHandler{
         }
     }
     
+    public func ListenForInfectedChanges(username: String, secondNode: SKNode) {
+        self.infectedRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/InfectedList")
+        infectedRef?.observe(DataEventType.value, with: { (snapshot) in
+            var infectedList: [String] = []
+            for child in snapshot.children {
+                let e = child as! DataSnapshot
+                if e.value as! String == "true"{
+                    for i in 0..<Global.gameData.shipsToUpdate.count {
+                        if Global.gameData.shipsToUpdate[i].playerID == e.key {
+                            let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
+                            Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(infected)
+                        }
+                    }
+                }
+            }
+        })
+    }
+    
     public func ListenForShots(ref: DatabaseReference, spaceShip: SpaceshipBase ){
         currentBulletCounts.append((spaceShip.playerID, 0))
         ref.observe(DataEventType.value) { ( snapshot ) in
@@ -145,15 +163,8 @@ public class MultiplayerHandler{
         })
     }
     
-    public func ListenForInfectedChanges(){
-        self.infectedRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/InfectedList")
-        infectedRef?.observe(DataEventType.value, with: { (snapshot) in
-            if !Global.gameData.isHost {
-                let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
-                Global.gameData.map = snapshot.value as! String
-                lobbyScene.pullMap()
-            }
-        })
+    public func StopListenForInfectedChanges(){
+        self.infectedRef?.removeAllObservers()
     }
     
     public func StopListenForMapChanges(){
