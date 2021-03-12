@@ -197,12 +197,19 @@ class LobbyMenu: SKScene {
     }
     
     func StartGame(){
+        let randInt = Global.gameData.gameID % (list.count-1)
+        print("rand: \(randInt)")
         for s in self.list {
             var spaceship: SpaceshipBase
             if s == Global.playerData.username {
                 switch Global.gameData.mode {
                 case "infection":
-                    spaceship = LocalSpaceship(imageTexture: intToColorInfection[list.firstIndex(of: s)! % 3]!)
+                    print("myindex: \(list.firstIndex(of: s)!)")
+                    if list.firstIndex(of: s) == randInt {
+                        spaceship = LocalSpaceship(imageTexture: intToColorInfection[0]!)
+                    } else {
+                        spaceship = LocalSpaceship(imageTexture: intToColorInfection[1]!)
+                    }
                 case "ffa":
                     spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
                 case "astroball":
@@ -214,7 +221,12 @@ class LobbyMenu: SKScene {
             } else {
                 switch Global.gameData.mode {
                 case "infection":
-                    spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColorInfection[list.firstIndex(of: s)! % 3]!)
+                    print("notmyindex: \(list.firstIndex(of: s)!)")
+                    if list.firstIndex(of: s) == randInt {
+                        spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColorInfection[0]!)
+                    } else {
+                        spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColorInfection[1]!)
+                    }
                 case "ffa":
                     spaceship = RemoteSpaceship(playerID: s, imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
                 case "astroball":
