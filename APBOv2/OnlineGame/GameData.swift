@@ -34,7 +34,7 @@ public class GameData{
         DataPusher.PushData(path: "Games/\(code)/Mode", Value: mode)
         DataPusher.PushData(path: "Games/\(code)/Status", Value: "Lobby")
         DataPusher.PushData(path: "Games/\(code)/PlayerList/\(Global.playerData.username)", Value: "PePeNotGone")
-    //    DataPusher.PushData(path: "Games/\(code)/InfectedList/\(Global.playerData.username)", Value: "true")
+    //    DataPusher.PushData(path: "Games/\(code)/InfectedList/\(Global.playerData.username)", Value: "false")
         Global.gameData.host = Global.playerData.username
         Global.loadScene(s: "LobbyMenu")
     }
