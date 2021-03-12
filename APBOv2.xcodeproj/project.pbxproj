@@ -258,9 +258,9 @@
 		748CEDAC256581E5005DF246 /* MainMenu */ = {
 			isa = PBXGroup;
 			children = (
-				748CEDAD25658207005DF246 /* MainMenu.swift */,
-				810C92FC25FB341F00C298C8 /* LoadIntro.sks */,
 				810C92F325FB2F9F00C298C8 /* LoadIntro.swift */,
+				810C92FC25FB341F00C298C8 /* LoadIntro.sks */,
+				748CEDAD25658207005DF246 /* MainMenu.swift */,
 				748CEDA025657B65005DF246 /* MainMenu.sks */,
 			);
 			path = MainMenu;
