@@ -46,8 +46,7 @@ class Infection: GameSceneBase {
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/InfectedList/\(Global.playerData.username)", Value: "true")
         //    ListenForInfectedChanges(playerID: Global.playerData.playerID!, secondNode: secondNode)
-            let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
-            firstNode.childNode(withName: "shipnode")!.run(infected)
+           // Global.multiplayerHandler.ListenForInfectedChanges(username: Global.playerData.username, secondNode: firstNode)
             
         }
         
@@ -55,7 +54,9 @@ class Infection: GameSceneBase {
             print("ship was shot by bullet")
             firstNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: firstNode as! SKSpriteNode)!)
-            Global.multiplayerHandler.ListenForInfectedChanges(username: Global.playerData.username, secondNode: secondNode)
+            
+            
+         //   Global.multiplayerHandler.ListenForInfectedChanges(username: Global.playerData.username, secondNode: secondNode)
     //        if remoteparent isin infectedlist {
      //       }
             

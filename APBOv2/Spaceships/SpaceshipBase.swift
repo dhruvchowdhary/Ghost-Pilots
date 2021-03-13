@@ -57,6 +57,9 @@ public class SpaceshipBase {
 
         posRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/MainGame/\(playerId)/Pos")
         shotsRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/MainGame/\(playerId)/Shots")
+        
+        
+        Global.multiplayerHandler.ListenForInfectedChanges(username: Global.playerData.username, secondNode: firstNode)
 
 
         for s in unfiredBullets {
