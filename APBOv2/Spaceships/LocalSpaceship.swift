@@ -25,6 +25,7 @@ public class LocalSpaceship: SpaceshipBase {
     var playerShields = 1
     var powerupMode = 0
     var doubleTap = 0
+    let scaleAction = SKAction.scale(to: 2.2, duration: 0.4)
     
  //   let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
     
@@ -44,7 +45,7 @@ public class LocalSpaceship: SpaceshipBase {
         
         
          gameOver.zPosition = 100
-         gameOver.alpha = 1
+         gameOver.alpha = 0
          gameOver.size = CGSize(width: 1469 / 2, height: 311 / 2)
          spaceShipParent.addChild(gameOver)
      //   spaceShipNode.addChild(pilotThrust1!)
@@ -237,15 +238,19 @@ public class LocalSpaceship: SpaceshipBase {
     }
     
     
-    public func setGameOver() {
-        gameOver.alpha = 1
-    }
+
     override func UniqueUpdateShip(deltaTime: Double) {
         
         gameOver.position.x = spaceShipNode.position.x
         gameOver.position.y = spaceShipNode.position.y + 50
         
         if Infection().GameStatus() == true {
+            print("GAME OVER!!!!!")
+            
+            let generator = UIImpactFeedbackGenerator(style: .medium)
+            generator.impactOccurred()
+            gameOver.run(scaleAction)
+            
             gameOver.alpha = 1
         }
         
