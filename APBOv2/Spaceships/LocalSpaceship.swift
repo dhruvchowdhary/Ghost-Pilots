@@ -254,15 +254,8 @@ public class LocalSpaceship: SpaceshipBase {
                 gameOver.run(scaleAction)
                 
                 gameOver.alpha = 1
-                let wait1 = SKAction.wait(forDuration: 5)
-                let action1 = SKAction.run {
-                    Global.loadScene(s: "LobbyMenu")
-                }
-                spaceShipNode.run(SKAction.sequence([wait1,action1]))
-            
+             
                 indicateEnd = true
-                
-                
             }
         }
         

@@ -54,6 +54,7 @@ public class GameData{
         Global.multiplayerHandler.StopListenForHostChanges()
         Global.multiplayerHandler.StopListenForModeChanges()
         Global.multiplayerHandler.StopListenForMapChanges()
+        Global.multiplayerHandler.StopListenForInfectedChanges()
         
         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(Global.playerData.username)", Value: "PePeGone")
         
