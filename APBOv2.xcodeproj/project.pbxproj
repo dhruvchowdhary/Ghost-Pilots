@@ -78,6 +78,9 @@
 		8100B1832575524900AA8A1F /* TurretBossNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8100B1822575524900AA8A1F /* TurretBossNode.swift */; };
 		810C92F525FB2F9F00C298C8 /* LoadIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C92F325FB2F9F00C298C8 /* LoadIntro.swift */; };
 		810C92FD25FB341F00C298C8 /* LoadIntro.sks in Resources */ = {isa = PBXBuildFile; fileRef = 810C92FC25FB341F00C298C8 /* LoadIntro.sks */; };
+		810C930625FDEA0F00C298C8 /* infectionImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 810C930525FDEA0F00C298C8 /* infectionImages.atlas */; };
+		810C930925FDEA3200C298C8 /* astroImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 810C930825FDEA3100C298C8 /* astroImages.atlas */; };
+		810C930C25FDEA3800C298C8 /* ffaImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 810C930B25FDEA3800C298C8 /* ffaImages.atlas */; };
 		81135EED25E8312300B0F59F /* LoadLevelsMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81135EE925E8312200B0F59F /* LoadLevelsMenu.sks */; };
 		81135EEE25E8312300B0F59F /* Level1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81135EEA25E8312300B0F59F /* Level1.swift */; };
 		81135EEF25E8312300B0F59F /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81135EEB25E8312300B0F59F /* Level1.sks */; };
@@ -97,9 +100,6 @@
 		8177393225F9D9880054FC06 /* AstroBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8177393125F9D9880054FC06 /* AstroBall.swift */; };
 		8177393525F9DAE20054FC06 /* Infection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8177393425F9DAE20054FC06 /* Infection.swift */; };
 		8186856225F9AD6C00B9CBF3 /* astroImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 8186856125F9AD6C00B9CBF3 /* astroImages.atlas */; };
-		81944F6025FA872C00AAD7C0 /* ffaImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 81944F5F25FA872C00AAD7C0 /* ffaImages.atlas */; };
-		81944F6325FA873D00AAD7C0 /* astroImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 81944F6225FA873D00AAD7C0 /* astroImages.atlas */; };
-		81944F6625FA874C00AAD7C0 /* infectionImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 81944F6525FA874C00AAD7C0 /* infectionImages.atlas */; };
 		81A4CEE025FA8C2C001C2602 /* Infection.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81A4CEDF25FA8C2C001C2602 /* Infection.sks */; };
 		81A4CEE325FA8C56001C2602 /* AstroBall.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81A4CEE225FA8C56001C2602 /* AstroBall.sks */; };
 		81EA5C5925F4414200A127A7 /* Level3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EA5C5825F4414200A127A7 /* Level3.swift */; };
@@ -197,6 +197,9 @@
 		8100B1822575524900AA8A1F /* TurretBossNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurretBossNode.swift; sourceTree = "<group>"; };
 		810C92F325FB2F9F00C298C8 /* LoadIntro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadIntro.swift; sourceTree = "<group>"; };
 		810C92FC25FB341F00C298C8 /* LoadIntro.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LoadIntro.sks; sourceTree = "<group>"; };
+		810C930525FDEA0F00C298C8 /* infectionImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = infectionImages.atlas; sourceTree = "<group>"; };
+		810C930825FDEA3100C298C8 /* astroImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = astroImages.atlas; sourceTree = "<group>"; };
+		810C930B25FDEA3800C298C8 /* ffaImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = ffaImages.atlas; sourceTree = "<group>"; };
 		81135EE925E8312200B0F59F /* LoadLevelsMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = LoadLevelsMenu.sks; path = APBOv2/TurretBoss/LoadLevelsMenu.sks; sourceTree = SOURCE_ROOT; };
 		81135EEA25E8312300B0F59F /* Level1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level1.swift; sourceTree = "<group>"; };
 		81135EEB25E8312300B0F59F /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
@@ -216,9 +219,6 @@
 		8177393125F9D9880054FC06 /* AstroBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstroBall.swift; sourceTree = "<group>"; };
 		8177393425F9DAE20054FC06 /* Infection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Infection.swift; sourceTree = "<group>"; };
 		8186856125F9AD6C00B9CBF3 /* astroImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = astroImages.atlas; sourceTree = "<group>"; };
-		81944F5F25FA872C00AAD7C0 /* ffaImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = ffaImages.atlas; path = APBOv2/ffaImages.atlas; sourceTree = SOURCE_ROOT; };
-		81944F6225FA873D00AAD7C0 /* astroImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = astroImages.atlas; sourceTree = "<group>"; };
-		81944F6525FA874C00AAD7C0 /* infectionImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = infectionImages.atlas; sourceTree = "<group>"; };
 		81A4CEDF25FA8C2C001C2602 /* Infection.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Infection.sks; sourceTree = "<group>"; };
 		81A4CEE225FA8C56001C2602 /* AstroBall.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AstroBall.sks; sourceTree = "<group>"; };
 		81EA5C5825F4414200A127A7 /* Level3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level3.swift; sourceTree = "<group>"; };
@@ -351,9 +351,9 @@
 		74C3CFAE253F3BE900757586 /* APBOv2 */ = {
 			isa = PBXGroup;
 			children = (
-				81944F6525FA874C00AAD7C0 /* infectionImages.atlas */,
-				81944F6225FA873D00AAD7C0 /* astroImages.atlas */,
-				81944F5F25FA872C00AAD7C0 /* ffaImages.atlas */,
+				810C930B25FDEA3800C298C8 /* ffaImages.atlas */,
+				810C930825FDEA3100C298C8 /* astroImages.atlas */,
+				810C930525FDEA0F00C298C8 /* infectionImages.atlas */,
 				CEF30A1925CA65AC007B8B39 /* GameScenes */,
 				CEF30A1825CA65A2007B8B39 /* Spaceships */,
 				CEF309D225C1E9F3007B8B39 /* OnlineGame */,
@@ -600,13 +600,13 @@
 				74C3CFBB253F3BE900757586 /* Main.storyboard in Resources */,
 				74CF68842583CAE1000C4E47 /* swishnew.mp3 in Resources */,
 				74CF688C25843F26000C4E47 /* miniLasernew.wav in Resources */,
-				81944F6325FA873D00AAD7C0 /* astroImages.atlas in Resources */,
 				74CF6857258201BA000C4E47 /* pilotSquish3.wav in Resources */,
 				74CF6895258D787C000C4E47 /* Tutorial.sks in Resources */,
 				81135EED25E8312300B0F59F /* LoadLevelsMenu.sks in Resources */,
 				74CF687E25830C93000C4E47 /* bluePlayer.sks in Resources */,
 				74CF686025828E80000C4E47 /* menuThumpnew.wav in Resources */,
 				74CF687325829F9C000C4E47 /* revivenew.wav in Resources */,
+				810C930625FDEA0F00C298C8 /* infectionImages.atlas in Resources */,
 				74C3CFBD253F3BED00757586 /* Assets.xcassets in Resources */,
 				74CF68532581FE64000C4E47 /* pilotSquish.wav in Resources */,
 				74CF688625840398000C4E47 /* enemy2.sks in Resources */,
@@ -638,9 +638,9 @@
 				748500B425E76C970063F73B /* GoogleService-Info.plist in Resources */,
 				748500B025E6C0910063F73B /* LobbyMenu.sks in Resources */,
 				8157B31225F4681E005E59C5 /* PilotFX.sks in Resources */,
-				81944F6625FA874C00AAD7C0 /* infectionImages.atlas in Resources */,
 				CE9C6D9C25E8275800D47FCC /* GameScene.sks in Resources */,
 				81708DC825A565C50030C2C4 /* TurretBossMenu.sks in Resources */,
+				810C930C25FDEA3800C298C8 /* ffaImages.atlas in Resources */,
 				749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */,
 				74CF68752582CF37000C4E47 /* EnemyThruster.sks in Resources */,
 				81135EF625F1514C00B0F59F /* Level2.sks in Resources */,
@@ -651,9 +651,9 @@
 				74CF68502581F781000C4E47 /* menuThump.wav in Resources */,
 				816EE12A259265D10053AE35 /* TurretShootingExplosion.sks in Resources */,
 				749EBC58255AF9E7003EA0B3 /* waves.json in Resources */,
+				810C930925FDEA3200C298C8 /* astroImages.atlas in Resources */,
 				816EE129259265D10053AE35 /* ShootingExplosion.sks in Resources */,
 				74CF6842257C2EA8000C4E47 /* ShipExplosion.sks in Resources */,
-				81944F6025FA872C00AAD7C0 /* ffaImages.atlas in Resources */,
 				7451FF782576FE8F0074CC2E /* Spark.sks in Resources */,
 				74CF686F25829A28000C4E47 /* Laser2new.wav in Resources */,
 			);
