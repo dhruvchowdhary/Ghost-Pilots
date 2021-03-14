@@ -20,8 +20,6 @@ class LobbyMenu: SKScene {
     var mapArray = ["OnlineCubis", "OnlineTrisen", "OnlineHex"]
     var j = 0
     
-    var colorArray = ["player","apboBlue", "apboGreen", "apboOrange", "apboPink", "apboPurple","apboWhite","apboYellow"]
-    // do we do apboBlack?
     var colorButtonNode: MSButtonNode!
     var colorIndex = 0
     var kickButtonNode: MSButtonNode!
@@ -38,8 +36,6 @@ class LobbyMenu: SKScene {
         7: "apboWhite",
         8: "apboYellow",
     ]
-    
-    
     let intToColorInfection: Dictionary = [
         0: "apboGreen",
         1: "apboWhite",
