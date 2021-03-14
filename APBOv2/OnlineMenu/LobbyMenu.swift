@@ -92,7 +92,7 @@ class LobbyMenu: SKScene {
         colorButtonNode.position = CGPoint(x: user1.position.x - 230, y: user1.position.y + 50)
         colorButtonNode.selectedHandlers = {
             // go down a list checking if color is in use by another player and if not change it to that
-            self.colorButtonNode.texture = SKTexture(imageNamed: "apboBlue")
+     //       self.colorButtonNode.texture = SKTexture(imageNamed: "apboBlue")
             // change player's image in firebase
             
             self.colorButtonNode.alpha = 1
@@ -160,6 +160,7 @@ class LobbyMenu: SKScene {
         colorButtonNode.removeFromParent()
         kickButtonNode.removeFromParent()
         playerLabel.addChild(user1)
+        playerLabel.addChild(colorButtonNode)
         addChild(playerLabelParent)
         
         Global.multiplayerHandler.listenForGuestChanges()
@@ -176,6 +177,8 @@ class LobbyMenu: SKScene {
         for player in playerList {
             let newuser = playerLabel.copy() as! SKNode
             let userLabel = newuser.childNode(withName: "user1") as! SKLabelNode
+            let userColor = newuser.childNode(withName: "colorButtonNode") as! MSButtonNode
+            userColor.texture = SKTexture(imageNamed: "apboBlue")
             userLabel.text = player
             let i = playerList.firstIndex(of: player)!
             newuser.position.x = frame.midX

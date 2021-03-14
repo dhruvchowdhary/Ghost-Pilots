@@ -6,6 +6,7 @@ enum MSButtonNodeState {
 }
 //mm
 class MSButtonNode: SKSpriteNode {
+    
     //test
     /* Setup a dummy action closure */
     var selectedHandler: () -> Void = { print("No button action set") }
@@ -35,7 +36,10 @@ class MSButtonNode: SKSpriteNode {
             }
         }
     }
-    
+    override init(texture texture: SKTexture!, color color: UIColor!, size size: CGSize)
+    {
+        super.init(texture: texture, color: color, size: size)
+    }
     /* Support for NSKeyedArchiver (loading objects from SK Scene Editor */
     required init?(coder aDecoder: NSCoder) {
         

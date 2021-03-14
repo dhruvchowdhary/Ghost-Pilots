@@ -102,7 +102,7 @@ public class MultiplayerHandler{
         }
     }
     
-    public func ListenForInfectedChanges(username: String, secondNode: SKNode) {
+    public func ListenForInfectedChanges() {
         self.infectedRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/InfectedList")
         infectedRef?.observe(DataEventType.value, with: { (snapshot) in
             var infectedList: [String] = []
