@@ -176,6 +176,7 @@ class LobbyMenu: SKScene {
         Global.multiplayerHandler.ListenForGameStatus()
         Global.multiplayerHandler.ListenForMapChanges()
         Global.multiplayerHandler.ListenForModeChanges()
+   //     Global.multiplayerHandler.ListenForColorChanges()
     }
     
     
@@ -197,7 +198,11 @@ class LobbyMenu: SKScene {
             }
             
             let userColor = newuser.childNode(withName: "colorButtonNode") as! MSButtonNode
-            setUpColors(userColor: userColor)
+            if player == Global.playerData.username {
+                setUpColors(userColor: userColor, isPlayer: true)
+            } else {
+                setUpColors(userColor: userColor, isPlayer: false)
+            }
             
             
             newuser.position.x = frame.midX
@@ -270,7 +275,7 @@ class LobbyMenu: SKScene {
         addChild(label)
     }
     
-    func setUpColors(userColor: MSButtonNode){
+    func setUpColors(userColor: MSButtonNode, isPlayer: Bool){
         switch Global.gameData.mode {
         case "infection":
             userColor.alpha = 0
@@ -278,29 +283,41 @@ class LobbyMenu: SKScene {
             userColor.texture = SKTexture(imageNamed: intToColor[i % 9]!)
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
             colorIndex = i
-            userColor.selectedHandlers = {
-                if self.colorIndex == 8 {
-                    self.colorIndex = 0
-                } else {
-                    self.colorIndex = self.colorIndex + 1
+            if isPlayer {
+                userColor.selectedHandlers = {
+                    if self.colorIndex == 8 {
+                        self.colorIndex = 0
+                    } else {
+                        self.colorIndex = self.colorIndex + 1
+                    }
+                    userColor.texture = SKTexture(imageNamed: self.intToColor[self.colorIndex]!)
+                    DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
+                    userColor.alpha = 1
                 }
-                userColor.texture = SKTexture(imageNamed: self.intToColor[self.colorIndex]!)
-                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
-                userColor.alpha = 1
+            } else {
+                userColor.selectedHandler = {
+                    userColor.alpha = 1
+                }
             }
         case "astroball":
             userColor.texture = SKTexture(imageNamed: intToColor[i % 2]!)
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
             colorIndex = i
-            userColor.selectedHandlers = {
-                if self.colorIndex == 1 {
-                    self.colorIndex = 0
-                } else {
-                    self.colorIndex = 1
+            if isPlayer {
+                userColor.selectedHandlers = {
+                    if self.colorIndex == 1 {
+                        self.colorIndex = 0
+                    } else {
+                        self.colorIndex = 1
+                    }
+                    userColor.texture = SKTexture(imageNamed: self.intToColor[self.colorIndex]!)
+                    DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
+                    userColor.alpha = 1
                 }
-                userColor.texture = SKTexture(imageNamed: self.intToColor[self.colorIndex]!)
-                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
-                userColor.alpha = 1
+            } else {
+                userColor.selectedHandler = {
+                    userColor.alpha = 1
+                }
             }
         default:
             userColor.texture = SKTexture(imageNamed: intToColor[i % 9]!)

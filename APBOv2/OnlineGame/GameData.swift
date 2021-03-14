@@ -14,6 +14,7 @@ public class GameData{
     public var host = "";
     public var isBackground = false;
     public var map = "OnlineCubis"
+    public var status = "Lobby"
     public var mode = "ffa"
     public var infected = false
     

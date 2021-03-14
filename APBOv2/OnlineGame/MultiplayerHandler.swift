@@ -179,12 +179,18 @@ public class MultiplayerHandler{
             for child in snapshot.children {
                 print("i got here")
                 let e = child as! DataSnapshot
+            //    self.pullGameStatus()
+               // print(Global.gameData.status)
+              //  if Global.gameData.status == "Game" {
                     for i in 0..<Global.gameData.shipsToUpdate.count {
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
                             let color = SKAction.setTexture(SKTexture(imageNamed: e.value as! String))
                             Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(color)
                         }
                     }
+             //   } else {
+                    //change da texture of da shipbuttonnode in lobby
+               // }
             }
         })
     }
@@ -223,6 +229,16 @@ public class MultiplayerHandler{
                     let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
                     lobbyScene.StartGame()
                 }
+            }
+        }
+    }
+    
+    public func pullGameStatus(){
+        print("pulled game status")
+        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Status").observeSingleEvent(of: .value) {
+            snapshot in
+            if (snapshot.exists()) {
+                Global.gameData.status = snapshot.value as! String
             }
         }
     }
