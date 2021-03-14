@@ -15,6 +15,24 @@ import Firebase
 
 class Infection: GameSceneBase {
     var infectedRef: DatabaseReference?
+    
+    
+    
+  
+    
+    func gameOver() {
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+        
+        let gameOver = SKSpriteNode(imageNamed: "infectiongameover")
+        self.dimPanel.alpha = 0.3
+        gameOver.zPosition = 100
+        gameOver.run(scaleAction)
+        gameOver.position = CGPoint(x: frame.midY, y: frame.midY)
+        gameOver.size = CGSize(width: 619, height: 118)
+        addChild(gameOver)
+    }
+    
     override func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }

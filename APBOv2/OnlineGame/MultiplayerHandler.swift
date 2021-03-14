@@ -117,7 +117,7 @@ public class MultiplayerHandler{
                             infectedList.append(e.key)
                         }
                         if infectedList.count == Global.gameData.shipsToUpdate.count {
-                            
+                            Infection().gameOver()
                             
                         }
                     }
