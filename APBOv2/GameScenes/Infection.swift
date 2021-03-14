@@ -12,26 +12,24 @@ import CoreMotion
 import AudioToolbox
 import Firebase
 
+var gameOver = false
 
 class Infection: GameSceneBase {
     var infectedRef: DatabaseReference?
     
-    
-    
   
+    func setGameOver() {
+        gameOver = true
+    }
     
-    func gameOver() {
-      //  print("hiiiiiiiii")
-        let generator = UIImpactFeedbackGenerator(style: .medium)
-        generator.impactOccurred()
-        
-        let gameOver = SKSpriteNode(imageNamed: "infectiongameover")
-        self.dimPanel.alpha = 0.3
-        gameOver.zPosition = 100
-        gameOver.run(scaleAction)
-        gameOver.position = CGPoint(x: frame.midY, y: frame.midY)
-        gameOver.size = CGSize(width: 619, height: 118)
-        addChild(gameOver)
+    
+    func GameStatus() -> Bool {
+        if gameOver == true {
+        return true
+        }
+        else {
+            return false
+        }
     }
     
     override func didBegin(_ contact: SKPhysicsContact) {

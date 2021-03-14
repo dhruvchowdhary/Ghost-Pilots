@@ -95,6 +95,10 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
             loadShipPosX = loadShipPosX + 50
         }
         
+       
+        
+        
+        
         // World physics
         physicsWorld.gravity = .zero
         self.physicsWorld.contactDelegate = self
@@ -103,6 +107,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         selectmap()
         
         camera = Global.gameData.camera
+        
         
         // Background
         backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)

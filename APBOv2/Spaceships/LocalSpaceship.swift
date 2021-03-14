@@ -32,6 +32,8 @@ public class LocalSpaceship: SpaceshipBase {
     
     var currentShotCountBuddy = 0;
     
+    let gameOver = SKSpriteNode(imageNamed: "infectiongameover")
+    
     init(imageTexture: String) {
         super.init(playerId: Global.playerData.username)
         spaceShipNode.removeFromParent()
@@ -40,6 +42,11 @@ public class LocalSpaceship: SpaceshipBase {
         spaceShipNode.addChild(thruster1!)
         
         
+        
+         gameOver.zPosition = 100
+         gameOver.alpha = 1
+         gameOver.size = CGSize(width: 1469 / 2, height: 311 / 2)
+         spaceShipParent.addChild(gameOver)
      //   spaceShipNode.addChild(pilotThrust1!)
         
         /*
@@ -62,10 +69,7 @@ public class LocalSpaceship: SpaceshipBase {
         spaceShipNode.name = "shipnode"
         
         spaceShipNode.zPosition = 5
-        
-
-        
-        
+       
         spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
         spaceShipParent.name = "parent"
         spaceShipParent.physicsBody?.categoryBitMask = CollisionType.player.rawValue
@@ -232,7 +236,19 @@ public class LocalSpaceship: SpaceshipBase {
         }
     }
     
+    
+    public func setGameOver() {
+        gameOver.alpha = 1
+    }
     override func UniqueUpdateShip(deltaTime: Double) {
+        
+        gameOver.position.x = spaceShipNode.position.x
+        gameOver.position.y = spaceShipNode.position.y + 50
+        
+        if Infection().GameStatus() == true {
+            gameOver.alpha = 1
+        }
+        
             // Handle rotation and movement
             if (isRotating){
                 spaceShipNode.zRotation -= CGFloat(Double.pi * 1.3 * deltaTime)

@@ -28,6 +28,7 @@ public class SpaceshipBase {
 
     public var posRef: DatabaseReference = DatabaseReference()
     public var shotsRef: DatabaseReference = DatabaseReference()
+   
 
     init(playerId: String) {
         self.playerID = playerId
@@ -58,6 +59,7 @@ public class SpaceshipBase {
         posRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/MainGame/\(playerId)/Pos")
         shotsRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/MainGame/\(playerId)/Shots")
         
+       
         
         Global.multiplayerHandler.ListenForInfectedChanges()
 
@@ -69,6 +71,11 @@ public class SpaceshipBase {
 
 
     func UpdateShip(deltaTime: Double){
+        
+        
+        
+             
+        
         unfiredBulletRotator.zRotation -= CGFloat(Double.pi/35)
         UniqueUpdateShip(deltaTime: deltaTime)
 

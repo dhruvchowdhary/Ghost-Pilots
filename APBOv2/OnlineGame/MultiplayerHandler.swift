@@ -120,7 +120,7 @@ public class MultiplayerHandler{
                      //   print(Global.gameData.shipsToUpdate.count)
                         if infectedList.count == Global.gameData.shipsToUpdate.count {
                           //  print("gameover!!!!")
-                            Infection().gameOver()
+                            Infection().setGameOver()
                             
                         }
                     }
