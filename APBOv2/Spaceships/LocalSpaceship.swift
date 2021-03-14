@@ -21,6 +21,7 @@ public class LocalSpaceship: SpaceshipBase {
     private var pilot = SKSpriteNode()
     var isPhase = false
     var isGameOver = false
+    var indicateEnd = false
     
     var playerShields = 1
     var powerupMode = 0
@@ -245,13 +246,24 @@ public class LocalSpaceship: SpaceshipBase {
         gameOver.position.y = spaceShipNode.position.y + 50
         
         if Infection().GameStatus() == true {
-            print("GAME OVER!!!!!")
+            if indicateEnd == false {
+                print("GAME OVER!!!!!")
+                
+                let generator = UIImpactFeedbackGenerator(style: .medium)
+                generator.impactOccurred()
+                gameOver.run(scaleAction)
+                
+                gameOver.alpha = 1
+                let wait1 = SKAction.wait(forDuration: 5)
+                let action1 = SKAction.run {
+                    Global.loadScene(s: "LobbyMenu")
+                }
+                spaceShipNode.run(SKAction.sequence([wait1,action1]))
             
-            let generator = UIImpactFeedbackGenerator(style: .medium)
-            generator.impactOccurred()
-            gameOver.run(scaleAction)
-            
-            gameOver.alpha = 1
+                indicateEnd = true
+                
+                
+            }
         }
         
             // Handle rotation and movement

@@ -72,7 +72,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     var numAmmo = 3
     var regenAmmo = false
     let mass = 10.0
-    let scaleAction = SKAction.scale(to: 2.2, duration: 0.4)
+    
     
     var lastUpdateTime: Double = 42069.0
     
