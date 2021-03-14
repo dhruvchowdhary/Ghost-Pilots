@@ -20,6 +20,8 @@ class LobbyMenu: SKScene {
     var mapArray = ["OnlineCubis", "OnlineTrisen", "OnlineHex"]
     var j = 0
     
+    var colorArray = ["player","apboBlue", "apboGreen", "apboOrange", "apboPink", "apboPurple","apboWhite","apboYellow"]
+    // do we do apboBlack?
     var colorButtonNode: MSButtonNode!
     var kickButtonNode: MSButtonNode!
     var list: [String] = []
@@ -157,11 +159,14 @@ class LobbyMenu: SKScene {
         
         user1.name = "user1"
         colorButtonNode.name = "colorButtonNode"
+        kickButtonNode.name = "kickButtonNode"
         user1.removeFromParent()
         colorButtonNode.removeFromParent()
         kickButtonNode.removeFromParent()
+        
         playerLabel.addChild(user1)
         playerLabel.addChild(colorButtonNode)
+        playerLabel.addChild(kickButtonNode)
         addChild(playerLabelParent)
         
         Global.multiplayerHandler.listenForGuestChanges()
@@ -178,43 +183,17 @@ class LobbyMenu: SKScene {
         for player in playerList {
             let newuser = playerLabel.copy() as! SKNode
             let userLabel = newuser.childNode(withName: "user1") as! SKLabelNode
-            let userColor = newuser.childNode(withName: "colorButtonNode") as! MSButtonNode
-            userColor.texture = SKTexture(imageNamed: "apboBlue")
             userLabel.text = player
             let i = playerList.firstIndex(of: player)!
+            let userColor = newuser.childNode(withName: "colorButtonNode") as! MSButtonNode
+            let userKick = newuser.childNode(withName: "kickButtonNode") as! MSButtonNode
+            userColor.texture = SKTexture(imageNamed: "apboBlue")
             newuser.position.x = frame.midX
             newuser.position.y += CGFloat(i*100)
-     //       let newcolor = colorButtonNode.copy() as! MSButtonNode
-     //       newcolor.position.x = frame.midX - 150
-     //       newcolor.position.y += CGFloat(i*100)
             playerLabelParent.addChild(newuser)
+            playercountLabel.text = "\(playerList.count)/∞"
             
-   /*         colorButtonNode = self.childNode(withName: "redPlayer") as? MSButtonNode
-            colorButtonNode.position.x = user1.position.x - 230
-            colorButtonNode.position.y += CGFloat(i*100)
-           
-            colorButtonNode.selectedHandlers = {
-                // go down a list checking if color is in use by another player and if not change it to that
-                self.colorButtonNode.texture = SKTexture(imageNamed: "apboBlue")
-                // change player's image in firebase
-                
-                self.colorButtonNode.alpha = 1
-            
-      /*      newuser.addChild(newcolor)
-     //       playerLabelParent.addChild(newcolor)
-            if Global.gameData.isHost {
-                let newkick = kickButtonNode.copy() as! MSButtonNode
-                newkick.position.x = frame.midX + 150
-                newkick.position.y += CGFloat(i*100)
-                playerLabelParent.addChild(newkick)
-            }*/
-        }*/
-        playercountLabel.text = "\(playerList.count)/∞"
-        
-       
         }
-        
-        
     }
     
     func StartGame(){
