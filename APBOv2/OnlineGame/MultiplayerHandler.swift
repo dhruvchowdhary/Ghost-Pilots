@@ -204,11 +204,12 @@ public class MultiplayerHandler{
     public func ListenForModeChanges(){
         self.modeRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Mode")
         modeRef?.observe(DataEventType.value, with: { (snapshot) in
+            let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
             if !Global.gameData.isHost {
-                let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
                 Global.gameData.mode = snapshot.value as! String
                 lobbyScene.pullMode()
             }
+            lobbyScene.setPlayerList(playerList: lobbyScene.list)
         })
     }
 

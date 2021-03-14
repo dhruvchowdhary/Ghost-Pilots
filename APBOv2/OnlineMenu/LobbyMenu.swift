@@ -188,23 +188,18 @@ class LobbyMenu: SKScene {
             let userLabel = newuser.childNode(withName: "user1") as! SKLabelNode
             userLabel.text = player
             let i = playerList.firstIndex(of: player)!
-            let userColor = newuser.childNode(withName: "colorButtonNode") as! MSButtonNode
+            
             if Global.gameData.isHost {
                 let userKick = newuser.childNode(withName: "kickButtonNode") as! MSButtonNode
-            }
-            userColor.texture = SKTexture(imageNamed: intToColor[i % 9]!)
-            colorIndex = i
-            userColor.selectedHandlers = {
-                // go down a list checking if color is in use by another player and if not change it to that
-                if self.colorIndex == 8 {
-                    self.colorIndex = 0
-                } else {
-                    self.colorIndex = self.colorIndex + 1
+                userKick.selectedHandlers = {
+                    //kick em
                 }
-                userColor.texture = SKTexture(imageNamed: self.intToColor[self.colorIndex]!)
-                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
-                userColor.alpha = 1
             }
+            
+            let userColor = newuser.childNode(withName: "colorButtonNode") as! MSButtonNode
+            setUpColors(userColor: userColor)
+            
+            
             newuser.position.x = frame.midX
             newuser.position.y -= CGFloat(i*100)
             playerLabelParent.addChild(newuser)
@@ -230,9 +225,9 @@ class LobbyMenu: SKScene {
                 case "ffa":
                     spaceship = LocalSpaceship(imageTexture: intToColor[colorIndex]!)
                 case "astroball":
-                    spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 2]!)
+                    spaceship = LocalSpaceship(imageTexture: intToColor[colorIndex]!)
                 default:
-                    spaceship = LocalSpaceship(imageTexture: intToColor[list.firstIndex(of: s)! % 9]!)
+                    spaceship = LocalSpaceship(imageTexture: intToColor[colorIndex]!)
                 }
                 Global.gameData.playerShip = spaceship as? LocalSpaceship
             } else {
@@ -275,6 +270,55 @@ class LobbyMenu: SKScene {
         addChild(label)
     }
     
+    func setUpColors(userColor: MSButtonNode){
+        switch Global.gameData.mode {
+        case "infection":
+            userColor.alpha = 0
+        case "ffa":
+            userColor.texture = SKTexture(imageNamed: intToColor[i % 9]!)
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
+            colorIndex = i
+            userColor.selectedHandlers = {
+                if self.colorIndex == 8 {
+                    self.colorIndex = 0
+                } else {
+                    self.colorIndex = self.colorIndex + 1
+                }
+                userColor.texture = SKTexture(imageNamed: self.intToColor[self.colorIndex]!)
+                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
+                userColor.alpha = 1
+            }
+        case "astroball":
+            userColor.texture = SKTexture(imageNamed: intToColor[i % 2]!)
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
+            colorIndex = i
+            userColor.selectedHandlers = {
+                if self.colorIndex == 1 {
+                    self.colorIndex = 0
+                } else {
+                    self.colorIndex = 1
+                }
+                userColor.texture = SKTexture(imageNamed: self.intToColor[self.colorIndex]!)
+                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
+                userColor.alpha = 1
+            }
+        default:
+            userColor.texture = SKTexture(imageNamed: intToColor[i % 9]!)
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
+            colorIndex = i
+            userColor.selectedHandlers = {
+                if self.colorIndex == 8 {
+                    self.colorIndex = 0
+                } else {
+                    self.colorIndex = self.colorIndex + 1
+                }
+                userColor.texture = SKTexture(imageNamed: self.intToColor[self.colorIndex]!)
+                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
+                userColor.alpha = 1
+            }
+        }
+    }
+    
     func pullMap(){
         print("pulled map")
         MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Map").observeSingleEvent(of: .value) {
@@ -295,18 +339,6 @@ class LobbyMenu: SKScene {
                 Global.gameData.mode = snapshot.value as! String
                 self.modeImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.mode)
                 self.modeImageButtonNode.alpha = 1
-            }
-        }
-    }
-    
-    func pullInfected(){
-        print("pulled infected")
-        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/InfectedList").observeSingleEvent(of: .value) {
-            snapshot in
-            if (snapshot.exists()) {
-                Global.gameData.map = snapshot.value as! String
-                self.mapImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.map)
-                self.mapImageButtonNode.alpha = 1
             }
         }
     }
