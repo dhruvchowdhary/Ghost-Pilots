@@ -202,7 +202,7 @@ class LobbyMenu: SKScene {
                     self.colorIndex = self.colorIndex + 1
                 }
                 userColor.texture = SKTexture(imageNamed: self.intToColor[self.colorIndex]!)
-                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
+                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
                 userColor.alpha = 1
             }
             newuser.position.x = frame.midX
