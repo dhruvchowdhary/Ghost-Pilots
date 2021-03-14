@@ -156,9 +156,9 @@ class LobbyMenu: SKScene {
         }
         
         user1.name = "user1"
-       // colorButtonNode.name = "colorButtonNode"
+        colorButtonNode.name = "colorButtonNode"
         user1.removeFromParent()
-       // colorButtonNode.removeFromParent()
+        colorButtonNode.removeFromParent()
         kickButtonNode.removeFromParent()
         playerLabel.addChild(user1)
         playerLabel.addChild(colorButtonNode)
