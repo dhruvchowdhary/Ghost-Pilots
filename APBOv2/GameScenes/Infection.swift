@@ -21,6 +21,7 @@ class Infection: GameSceneBase {
   
     
     func gameOver() {
+      //  print("hiiiiiiiii")
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
         
@@ -42,8 +43,8 @@ class Infection: GameSceneBase {
         let firstNode = sortedNodes[0]
         let secondNode = sortedNodes[1]
 
-        print("first Node is   \(String(describing: firstNode.name))")
-        print("second Node is  \(String(describing: secondNode.name))")
+        //print("first Node is   \(String(describing: firstNode.name))")
+     //   print("second Node is  \(String(describing: secondNode.name))")
 
 
         if firstNode.name == "border" && secondNode.name == "playerWeapon" {
