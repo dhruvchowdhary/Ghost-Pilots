@@ -25,6 +25,12 @@ class Infection: GameSceneBase {
     
     func GameStatus() -> Bool {
         if gameOver == true {
+            let wait1 = SKAction.wait(forDuration: 5)
+            let action1 = SKAction.run {
+                Global.gameData.ResetGameData()
+                Global.loadScene(s: "LobbyMenu")
+            }
+            self.run(SKAction.sequence([wait1,action1]))
         return true
         }
         else {
