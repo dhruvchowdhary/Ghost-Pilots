@@ -88,15 +88,7 @@ class LobbyMenu: SKScene {
         setupLabel(label: user1)
         user1.fontSize = 90
         
-        colorButtonNode = self.childNode(withName: "redPlayer") as? MSButtonNode
-        colorButtonNode.position = CGPoint(x: user1.position.x - 230, y: user1.position.y + 50)
-        colorButtonNode.selectedHandlers = {
-            // go down a list checking if color is in use by another player and if not change it to that
-            self.colorButtonNode.texture = SKTexture(imageNamed: "apboBlue")
-            // change player's image in firebase
-            
-            self.colorButtonNode.alpha = 1
-        }
+        
         
         kickButtonNode = self.childNode(withName: "kickButton") as? MSButtonNode
         
@@ -155,9 +147,9 @@ class LobbyMenu: SKScene {
         }
         
         user1.name = "user1"
-        colorButtonNode.name = "colorButtonNode"
+       // colorButtonNode.name = "colorButtonNode"
         user1.removeFromParent()
-        colorButtonNode.removeFromParent()
+       // colorButtonNode.removeFromParent()
         kickButtonNode.removeFromParent()
         playerLabel.addChild(user1)
         addChild(playerLabelParent)
@@ -184,6 +176,18 @@ class LobbyMenu: SKScene {
      //       newcolor.position.x = frame.midX - 150
      //       newcolor.position.y += CGFloat(i*100)
             playerLabelParent.addChild(newuser)
+            
+            colorButtonNode = self.childNode(withName: "redPlayer") as? MSButtonNode
+            colorButtonNode.position.x = user1.position.x - 230
+            colorButtonNode.position.y += CGFloat(i*100)
+           
+            colorButtonNode.selectedHandlers = {
+                // go down a list checking if color is in use by another player and if not change it to that
+                self.colorButtonNode.texture = SKTexture(imageNamed: "apboBlue")
+                // change player's image in firebase
+                
+                self.colorButtonNode.alpha = 1
+            
       /*      newuser.addChild(newcolor)
      //       playerLabelParent.addChild(newcolor)
             if Global.gameData.isHost {
@@ -194,6 +198,11 @@ class LobbyMenu: SKScene {
             }*/
         }
         playercountLabel.text = "\(playerList.count)/∞"
+        
+       
+        }
+        
+        
     }
     
     func StartGame(){

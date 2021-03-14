@@ -102,7 +102,7 @@ public class MultiplayerHandler{
         }
     }
     
-    public func ListenForInfectedChanges(username: String, secondNode: SKNode) {
+    public func ListenForInfectedChanges() {
         self.infectedRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/InfectedList")
         infectedRef?.observe(DataEventType.value, with: { (snapshot) in
             var infectedList: [String] = []
@@ -113,6 +113,12 @@ public class MultiplayerHandler{
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
                             let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
                             Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(infected)
+                            
+                            infectedList.append(e.key)
+                        }
+                        if infectedList.count == Global.gameData.shipsToUpdate.count {
+                            
+                            
                         }
                     }
                 }
