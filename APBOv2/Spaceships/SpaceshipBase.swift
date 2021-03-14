@@ -62,6 +62,7 @@ public class SpaceshipBase {
        
         
         Global.multiplayerHandler.ListenForInfectedChanges()
+        Global.multiplayerHandler.ListenForColorChanges()
 
 
         for s in unfiredBullets {

@@ -9,6 +9,7 @@ public class MultiplayerHandler{
     var mapRef: DatabaseReference?
     var modeRef: DatabaseReference?
     var infectedRef: DatabaseReference?
+    var colorRef: DatabaseReference?
     var currentBulletCounts: [(String, Int)] = []
     
     public static var ref: DatabaseReference! = Database.database().reference()
@@ -168,6 +169,22 @@ public class MultiplayerHandler{
                 let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
                 Global.gameData.map = snapshot.value as! String
                 lobbyScene.pullMap()
+            }
+        })
+    }
+    
+    public func ListenForColorChanges() {
+        self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerColor")
+        colorRef?.observe(DataEventType.value, with: { (snapshot) in
+            for child in snapshot.children {
+                print("i got here")
+                let e = child as! DataSnapshot
+                    for i in 0..<Global.gameData.shipsToUpdate.count {
+                        if Global.gameData.shipsToUpdate[i].playerID == e.key {
+                            let color = SKAction.setTexture(SKTexture(imageNamed: e.value as! String))
+                            Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(color)
+                        }
+                    }
             }
         })
     }
