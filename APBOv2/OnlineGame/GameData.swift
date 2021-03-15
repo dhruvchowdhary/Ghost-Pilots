@@ -17,6 +17,7 @@ public class GameData{
     public var status = "Lobby"
     public var mode = "ffa"
     public var infected = false
+    public var gameState: GamesStates
     
     // =================
     // For the Host to run
@@ -77,4 +78,8 @@ public class GameData{
         mode = "ffa"
         playerShip?.spaceShipParent.removeFromParent()
     }
+}
+
+enum GamesStates {
+    case MainMenu, OnlineMenu, SoloMenu, LobbyMenu, AstroBall, Infection, FFA, HostMenu
 }
