@@ -184,7 +184,7 @@ class LobbyMenu: SKScene {
             let newuser = playerLabel.copy() as! SKNode
             let userLabel = newuser.childNode(withName: "user1") as! SKLabelNode
             userLabel.text = player
-            let i = playerList.firstIndex(of: player)!
+            let index = playerList.firstIndex(of: player)!
             
             if Global.gameData.isHost {
                 let userKick = newuser.childNode(withName: "kickButtonNode") as! MSButtonNode
@@ -195,14 +195,14 @@ class LobbyMenu: SKScene {
             
             let userColor = newuser.childNode(withName: "colorButtonNode") as! MSButtonNode
             if player == Global.playerData.username {
-                setUpColors(userColor: userColor, isPlayer: true)
+                setUpColors(userColor: userColor, isPlayer: true, index: index)
             } else {
-                setUpColors(userColor: userColor, isPlayer: false)
+                setUpColors(userColor: userColor, isPlayer: false, index: index)
             }
             
             
             newuser.position.x = frame.midX
-            newuser.position.y -= CGFloat(i*100)
+            newuser.position.y -= CGFloat(index*100)
             playerLabelParent.addChild(newuser)
             playercountLabel.text = "\(playerList.count)/∞"
         }
@@ -271,14 +271,14 @@ class LobbyMenu: SKScene {
         addChild(label)
     }
     
-    func setUpColors(userColor: MSButtonNode, isPlayer: Bool){
+    func setUpColors(userColor: MSButtonNode, isPlayer: Bool, index: Int){
         switch Global.gameData.mode {
         case "infection":
             userColor.alpha = 0
         case "ffa":
-            userColor.texture = SKTexture(imageNamed: intToColor[i % 9]!)
+            userColor.texture = SKTexture(imageNamed: intToColor[index % 9]!)
+            colorIndex = index
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
-            colorIndex = i
             if isPlayer {
                 userColor.selectedHandlers = {
                     if self.colorIndex == 8 {
@@ -296,9 +296,10 @@ class LobbyMenu: SKScene {
                 }
             }
         case "astroball":
-            userColor.texture = SKTexture(imageNamed: intToColor[i % 2]!)
+            print(index)
+            userColor.texture = SKTexture(imageNamed: intToColor[index % 2]!)
+            colorIndex = index
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
-            colorIndex = i
             if isPlayer {
                 userColor.selectedHandlers = {
                     if self.colorIndex == 1 {
@@ -316,9 +317,9 @@ class LobbyMenu: SKScene {
                 }
             }
         default:
-            userColor.texture = SKTexture(imageNamed: intToColor[i % 9]!)
+            userColor.texture = SKTexture(imageNamed: intToColor[index % 9]!)
+            colorIndex = index
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
-            colorIndex = i
             userColor.selectedHandlers = {
                 if self.colorIndex == 8 {
                     self.colorIndex = 0
