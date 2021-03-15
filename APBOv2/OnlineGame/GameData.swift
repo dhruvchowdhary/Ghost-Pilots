@@ -14,10 +14,9 @@ public class GameData{
     public var host = "";
     public var isBackground = false;
     public var map = "OnlineCubis"
-    public var status = "Lobby"
     public var mode = "ffa"
     public var infected = false
-    public var gameState: GamesStates = GamesStates.MainMenu
+    public var gameState: GameStates = GameStates.MainMenu
     
     // =================
     // For the Host to run
@@ -80,6 +79,6 @@ public class GameData{
     }
 }
 
-public enum GamesStates {
-    case MainMenu, OnlineMenu, SoloMenu, LobbyMenu, AstroBall, Infection, FFA, HostMenu
+public enum GameStates {
+    case MainMenu, OnlineMenu, SoloMenu, LobbyMenu, AstroBall, Infection, FFA, HostMenu, Endless, TurretBoss, Levels
 }

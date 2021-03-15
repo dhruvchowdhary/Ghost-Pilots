@@ -233,16 +233,6 @@ public class MultiplayerHandler{
         }
     }
     
-    public func pullGameStatus(){
-        print("pulled game status")
-        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Status").observeSingleEvent(of: .value) {
-            snapshot in
-            if (snapshot.exists()) {
-                Global.gameData.status = snapshot.value as! String
-            }
-        }
-    }
-    
     public func SetNewHost(){
         MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerList").observeSingleEvent(of: .value) { snapshot in
             if snapshot.exists(){

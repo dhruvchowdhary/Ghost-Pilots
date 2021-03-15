@@ -7,6 +7,7 @@ import AudioToolbox
 
 class AstroBall: GameSceneBase {
     public override func didMove(to view: SKView) {
+        Global.gameData.gameState = GameStates.AstroBall
         for ship in Global.gameData.shipsToUpdate{
             ship.spaceShipParent.removeFromParent()
             addChild(ship.spaceShipParent)

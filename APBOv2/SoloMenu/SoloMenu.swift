@@ -12,7 +12,8 @@ class SoloMenu: SKScene {
     var useCount = UserDefaults.standard.integer(forKey: "useCount")
     
     override func didMove(to view: SKView) {
-    
+        Global.gameData.gameState = GameStates.SoloMenu
+        
         useCount += 1 //Increment the useCount
         UserDefaults.standard.set(useCount, forKey: "useCount")
         if useCount == 1 {

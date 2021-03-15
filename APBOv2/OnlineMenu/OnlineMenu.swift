@@ -31,6 +31,8 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
     var ref: DatabaseReference!
 
     override func didMove(to view: SKView) {
+        Global.gameData.gameState = GameStates.OnlineMenu
+        
         usernameBox = UITextField(frame: CGRect(x: view.bounds.width/2 - 95, y: view.bounds.height/2 - 130, width: 190, height: 60))
         usernameBox.attributedPlaceholder = NSAttributedString(string: "Enter Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         usernameBox.font = UIFont.init(name: "AvenirNext-Bold", size: 23)

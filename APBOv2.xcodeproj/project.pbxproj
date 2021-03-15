@@ -104,7 +104,6 @@
 		81A4CEE325FA8C56001C2602 /* AstroBall.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81A4CEE225FA8C56001C2602 /* AstroBall.sks */; };
 		81EA5C5925F4414200A127A7 /* Level3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EA5C5825F4414200A127A7 /* Level3.swift */; };
 		81EA5C5C25F4416800A127A7 /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81EA5C5B25F4416800A127A7 /* Level3.sks */; };
-		CE9C6D9725E826F800D47FCC /* GameSceneLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9C6D9625E826F800D47FCC /* GameSceneLocal.swift */; };
 		CE9C6D9C25E8275800D47FCC /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9925E8275800D47FCC /* GameScene.sks */; };
 		CE9C6D9D25E8275800D47FCC /* GameSceneBase.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */; };
 		CE9C6D9E25E8275800D47FCC /* Hud.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9B25E8275800D47FCC /* Hud.sks */; };
@@ -224,7 +223,6 @@
 		81EA5C5825F4414200A127A7 /* Level3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level3.swift; sourceTree = "<group>"; };
 		81EA5C5B25F4416800A127A7 /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
 		BF55C5AA57697F270DE41606 /* Pods-APBOv2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APBOv2.debug.xcconfig"; path = "Target Support Files/Pods-APBOv2/Pods-APBOv2.debug.xcconfig"; sourceTree = "<group>"; };
-		CE9C6D9625E826F800D47FCC /* GameSceneLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneLocal.swift; sourceTree = "<group>"; };
 		CE9C6D9925E8275800D47FCC /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneBase.sks; sourceTree = "<group>"; };
 		CE9C6D9B25E8275800D47FCC /* Hud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Hud.sks; sourceTree = "<group>"; };
@@ -517,7 +515,6 @@
 				81A4CEE225FA8C56001C2602 /* AstroBall.sks */,
 				8177393425F9DAE20054FC06 /* Infection.swift */,
 				81A4CEDF25FA8C2C001C2602 /* Infection.sks */,
-				CE9C6D9625E826F800D47FCC /* GameSceneLocal.swift */,
 				CEF30A1E25CA65CC007B8B39 /* GameSceneOnline.swift */,
 			);
 			path = GameScenes;
@@ -739,7 +736,6 @@
 				748CEDC4256D7362005DF246 /* OnlineMenu.swift in Sources */,
 				81708DC425A376650030C2C4 /* TurretBossMenu.swift in Sources */,
 				CEF30A2525CA65EF007B8B39 /* LocalSpaceship.swift in Sources */,
-				CE9C6D9725E826F800D47FCC /* GameSceneLocal.swift in Sources */,
 				81EA5C5925F4414200A127A7 /* Level3.swift in Sources */,
 				74C3CFB0253F3BE900757586 /* AppDelegate.swift in Sources */,
 				748500AE25E6C0730063F73B /* LobbyMenu.swift in Sources */,

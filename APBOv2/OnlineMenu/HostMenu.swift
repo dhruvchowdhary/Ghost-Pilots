@@ -30,6 +30,8 @@ class HostMenu: SKScene {
     
     
     override func didMove(to view: SKView) {
+        Global.gameData.gameState = GameStates.HostMenu
+        
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
             //      particles.advanceSimulationTime(60)

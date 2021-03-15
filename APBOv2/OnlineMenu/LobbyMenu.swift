@@ -43,6 +43,7 @@ class LobbyMenu: SKScene {
     
     
     override func didMove(to view: SKView) {
+        Global.gameData.gameState = GameStates.LobbyMenu
 
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -243,12 +244,16 @@ class LobbyMenu: SKScene {
         
         switch Global.gameData.mode {
         case "ffa":
+            Global.gameData.gameState = GameStates.FFA
             Global.loadScene(s: "GameSceneBase")
         case "astroball":
+            Global.gameData.gameState = GameStates.AstroBall
             Global.loadScene(s: "AstroBall")
         case "infection":
+            Global.gameData.gameState = GameStates.Infection
             Global.loadScene(s: "Infection")
         default:
+            Global.gameData.gameState = GameStates.FFA
             Global.loadScene(s: "GameSceneBase")
         }
     }
