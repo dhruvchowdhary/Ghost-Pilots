@@ -166,7 +166,7 @@ public class MultiplayerHandler{
         self.mapRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Map")
         mapRef?.observe(DataEventType.value, with: { (snapshot) in
             if !Global.gameData.isHost {
-                let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
+                let lobbyScene = Global.gameData.skView.scene as? LobbyMenu
                 Global.gameData.map = snapshot.value as! String
                 lobbyScene.pullMap()
             }

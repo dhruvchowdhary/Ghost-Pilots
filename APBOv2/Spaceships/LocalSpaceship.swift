@@ -264,7 +264,7 @@ public class LocalSpaceship: SpaceshipBase {
     override func UniqueUpdateShip(deltaTime: Double) {
         
         gameOver.position.x = spaceShipNode.position.x
-        gameOver.position.y = spaceShipNode.position.y + 50
+        gameOver.position.y = spaceShipNode.position.y
     
             // Handle rotation and movement
             if (isRotating){
