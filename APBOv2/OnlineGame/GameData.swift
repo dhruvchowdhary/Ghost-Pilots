@@ -17,7 +17,7 @@ public class GameData{
     public var status = "Lobby"
     public var mode = "ffa"
     public var infected = false
-    public var gameState: GamesStates
+    public var gameState: GamesStates = GamesStates.MainMenu
     
     // =================
     // For the Host to run
@@ -80,6 +80,6 @@ public class GameData{
     }
 }
 
-enum GamesStates {
+public enum GamesStates {
     case MainMenu, OnlineMenu, SoloMenu, LobbyMenu, AstroBall, Infection, FFA, HostMenu
 }
