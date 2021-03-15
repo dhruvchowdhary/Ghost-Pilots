@@ -168,7 +168,7 @@ public class MultiplayerHandler{
             if !Global.gameData.isHost {
                 let lobbyScene = Global.gameData.skView.scene as? LobbyMenu
                 Global.gameData.map = snapshot.value as! String
-                lobbyScene.pullMap()
+                lobbyScene?.pullMap()
             }
         })
     }
