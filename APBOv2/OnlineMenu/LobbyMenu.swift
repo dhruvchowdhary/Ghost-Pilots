@@ -164,7 +164,7 @@ class LobbyMenu: SKScene {
         Global.multiplayerHandler.ListenForGameStatus()
         Global.multiplayerHandler.ListenForMapChanges()
         Global.multiplayerHandler.ListenForModeChanges()
-   //     Global.multiplayerHandler.ListenForColorChanges()
+        Global.multiplayerHandler.ListenForColorChanges()
     }
     
     
@@ -210,8 +210,10 @@ class LobbyMenu: SKScene {
                 case "infection":
                     if list.firstIndex(of: s) == randInt {
                         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/InfectedList/\(Global.playerData.username)", Value: "true")
+                        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: "apboGreen")
                         spaceship = LocalSpaceship(imageTexture: intToColorInfection[0]!)
                     } else {
+                        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: "apboWhite")
                         spaceship = LocalSpaceship(imageTexture: intToColorInfection[1]!)
                     }
                 case "ffa":
