@@ -238,27 +238,34 @@ public class LocalSpaceship: SpaceshipBase {
         }
     }
     
+    func setGameOver() {
+        if indicateEnd == false {
+            print("GAME OVER!!!!!")
+            
+            let generator = UIImpactFeedbackGenerator(style: .medium)
+            generator.impactOccurred()
+            gameOver.run(scaleAction)
+            
+            gameOver.alpha = 1
+         
+            indicateEnd = true
+            
+            let wait1 = SKAction.wait(forDuration: 5)
+            spaceShipNode.run(wait1, completion:  {
+                print("hi")
+                Global.gameData.ResetGameData()
+                Global.loadScene(s: "LobbyMenu")
+                
+            })
+    }
+    }
     
 
     override func UniqueUpdateShip(deltaTime: Double) {
         
         gameOver.position.x = spaceShipNode.position.x
         gameOver.position.y = spaceShipNode.position.y + 50
-        
-        if Infection().GameStatus() == true {
-            if indicateEnd == false {
-                print("GAME OVER!!!!!")
-                
-                let generator = UIImpactFeedbackGenerator(style: .medium)
-                generator.impactOccurred()
-                gameOver.run(scaleAction)
-                
-                gameOver.alpha = 1
-             
-                indicateEnd = true
-            }
-        }
-        
+    
             // Handle rotation and movement
             if (isRotating){
                 spaceShipNode.zRotation -= CGFloat(Double.pi * 1.3 * deltaTime)

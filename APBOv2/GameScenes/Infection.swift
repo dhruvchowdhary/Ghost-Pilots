@@ -18,26 +18,6 @@ class Infection: GameSceneBase {
     var infectedRef: DatabaseReference?
     
   
-    func setGameOver() {
-        gameOver = true
-    }
-    
-    
-    func GameStatus() -> Bool {
-        if gameOver == true {
-            gameOver = false
-            let wait1 = SKAction.wait(forDuration: 5)
-            self.run(wait1, completion:  {
-                Global.gameData.ResetGameData()
-                Global.loadScene(s: "LobbyMenu")
-            })
-            return true
-        }
-        else {
-            return false
-        }
-    }
-    
     override func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }
