@@ -17,10 +17,6 @@ var gameOver = false
 class Infection: GameSceneBase {
     var infectedRef: DatabaseReference?
     
-    override func didMove(to view: SKView) {
-        Global.gameData.gameState = GameStates.Infection
-    }
-    
   
     override func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node else { return }
