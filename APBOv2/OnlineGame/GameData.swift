@@ -50,7 +50,7 @@ public class GameData{
     // For guest to run
 
     
-    public func ResetGameData(){
+    public func ResetGameData(toLobby: Bool){
         Global.multiplayerHandler.StopListenForGuestChanges()
         Global.multiplayerHandler.StopListenForHostChanges()
         Global.multiplayerHandler.StopListenForModeChanges()
@@ -67,7 +67,7 @@ public class GameData{
             }
         }
         
-        if isHost {
+        if isHost && !toLobby {
             Global.multiplayerHandler.SetNewHost()
         }
         

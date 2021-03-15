@@ -73,10 +73,6 @@ public class SpaceshipBase {
 
     func UpdateShip(deltaTime: Double){
         
-        
-        
-             
-        
         unfiredBulletRotator.zRotation -= CGFloat(Double.pi/35)
         UniqueUpdateShip(deltaTime: deltaTime)
 

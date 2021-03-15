@@ -198,7 +198,7 @@ public class LocalSpaceship: SpaceshipBase {
         
         let backButtonNode = spaceShipHud.childNode(withName: "backButton") as? MSButtonNode
         backButtonNode!.selectedHandlers = {
-            Global.gameData.ResetGameData()
+            Global.gameData.ResetGameData(toLobby: false)
             Global.loadScene(s: "OnlineMenu")
         }
      //   backButtonNode!.alpha = 1
@@ -253,7 +253,7 @@ public class LocalSpaceship: SpaceshipBase {
             let wait1 = SKAction.wait(forDuration: 5)
             spaceShipNode.run(wait1, completion:  {
                 print("hi")
-                Global.gameData.ResetGameData()
+                Global.gameData.ResetGameData(toLobby: true)
                 Global.loadScene(s: "LobbyMenu")
                 
             })

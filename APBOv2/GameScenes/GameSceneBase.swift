@@ -95,8 +95,9 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
             loadShipPosX = loadShipPosX + 50
         }
         
-       
-        
+        func willMove(from: SKScene ){
+            
+        }
         
         
         // World physics

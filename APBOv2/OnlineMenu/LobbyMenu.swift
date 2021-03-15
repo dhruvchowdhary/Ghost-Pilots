@@ -56,7 +56,7 @@ class LobbyMenu: SKScene {
         backButtonNode = self.childNode(withName: "back") as? MSButtonNode
         backButtonNode.selectedHandlers = {
             // if host give host to someone else || if no one destroy lobby/code || if not host just leave
-            Global.gameData.ResetGameData()
+            Global.gameData.ResetGameData(toLobby: false)
             Global.loadScene(s: "OnlineMenu")
         }
         if UIDevice.current.userInterfaceIdiom != .pad {
