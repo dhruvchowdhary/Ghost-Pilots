@@ -36,7 +36,8 @@ public class MultiplayerHandler{
                 if e.value as! String == "PePeKicked"{
                     if (e.key == Global.playerData.username){
                         // Uh oh mario, we have been removed from the game
-                        Global.loadScene(s: "OnlineMenu")
+                        let scene = OnlineMenu()
+                        Global.gameData.skView.presentScene(scene)
                         scene.KickedFromGame()
                     }
                     var indexesToRM: [Int] = []
