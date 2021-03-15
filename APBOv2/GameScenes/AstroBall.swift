@@ -106,7 +106,7 @@ class AstroBall: GameSceneBase {
         astroball.position = CGPoint(x: frame.midX, y: frame.midY)
         
         astroball.name = "astroball"
-        astroball.size = CGSize(width: 300, height: 300)
+        astroball.size = CGSize(width: 200, height: 200)
         astroball.physicsBody = SKPhysicsBody(texture: astroball.texture!, size: astroball.size)
         
         astroball.physicsBody!.categoryBitMask = CollisionType.border.rawValue

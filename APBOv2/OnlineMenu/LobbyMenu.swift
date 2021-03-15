@@ -89,15 +89,6 @@ class LobbyMenu: SKScene {
         
 
         colorButtonNode = self.childNode(withName: "redPlayer") as? MSButtonNode
-        colorButtonNode.selectedHandlers = {
-            // go down a list checking if color is in use by another player and if not change it to that
-     //       self.colorButtonNode.texture = SKTexture(imageNamed: intToColor[intToColor.firstIndex(of: colorButtonNode.texture) + 1]!)
-            print(self.colorButtonNode.texture)
-            // change player's image in firebase
-    //        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Game")
-            self.colorButtonNode.alpha = 1
-        }
-        
         kickButtonNode = self.childNode(withName: "kickButton") as? MSButtonNode
         
         if Global.gameData.mode == modeArray[0] {
@@ -192,7 +183,6 @@ class LobbyMenu: SKScene {
                     //kick em
                 }
             }
-            
             let userColor = newuser.childNode(withName: "colorButtonNode") as! MSButtonNode
             if player == Global.playerData.username {
                 setUpColors(userColor: userColor, isPlayer: true, index: index)
@@ -201,8 +191,8 @@ class LobbyMenu: SKScene {
             }
             
             
-            newuser.position.x = frame.midX
-            newuser.position.y -= CGFloat(index*100)
+            newuser.position.x = frame.midX - 120
+            newuser.position.y += CGFloat(200 - index*100)
             playerLabelParent.addChild(newuser)
             playercountLabel.text = "\(playerList.count)/∞"
         }
@@ -296,7 +286,6 @@ class LobbyMenu: SKScene {
                 }
             }
         case "astroball":
-            print(index)
             userColor.texture = SKTexture(imageNamed: intToColor[index % 2]!)
             colorIndex = index
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
