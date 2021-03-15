@@ -51,10 +51,6 @@ public class GameData{
 
     
     public func ResetGameData(toLobby: Bool){
-        Global.multiplayerHandler.StopListenForGuestChanges()
-        Global.multiplayerHandler.StopListenForHostChanges()
-        Global.multiplayerHandler.StopListenForModeChanges()
-        Global.multiplayerHandler.StopListenForMapChanges()
         Global.multiplayerHandler.StopListenForInfectedChanges()
         
         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(Global.playerData.username)", Value: "PePeGone")
@@ -74,6 +70,10 @@ public class GameData{
             host = ""
             map = "OnlineCubis"
             mode = "ffa"
+            Global.multiplayerHandler.StopListenForModeChanges()
+            Global.multiplayerHandler.StopListenForMapChanges()
+            Global.multiplayerHandler.StopListenForGuestChanges()
+            Global.multiplayerHandler.StopListenForHostChanges()
         }
         
         shipsToUpdate = []

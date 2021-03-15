@@ -252,9 +252,9 @@ public class LocalSpaceship: SpaceshipBase {
             
             let wait1 = SKAction.wait(forDuration: 5)
             spaceShipNode.run(wait1, completion:  {
-                print("hi")
-                Global.gameData.ResetGameData(toLobby: true)
-                Global.loadScene(s: "LobbyMenu")
+                if Global.gameData.isHost {
+                    DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Lobby")
+                }
                 
             })
     }

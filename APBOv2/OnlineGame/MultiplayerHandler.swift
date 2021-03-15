@@ -235,6 +235,10 @@ public class MultiplayerHandler{
                         let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
                         lobbyScene.StartGame()
                     }
+                } else if (snapshot.value as! String == "Lobby"){
+                    Global.gameData.gameState = GameStates.LobbyMenu
+                    Global.gameData.ResetGameData(toLobby: true)
+                    Global.loadScene(s: "LobbyMenu")
                 }
             }
         }
