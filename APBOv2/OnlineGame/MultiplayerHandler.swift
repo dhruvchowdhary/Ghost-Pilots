@@ -33,11 +33,10 @@ public class MultiplayerHandler{
             var playerList: [String] = []
             for child in snapshot.children {
                 let e = child as! DataSnapshot
-                if e.value as! String == "PePeGone"{
+                if e.value as! String == "PePeKicked"{
                     if (e.key == Global.playerData.username){
                         // Uh oh mario, we have been removed from the game
-                        let scene = OnlineMenu()
-                        Global.gameData.skView.presentScene(scene)
+                        Global.loadScene(s: "OnlineMenu")
                         scene.KickedFromGame()
                     }
                     var indexesToRM: [Int] = []
