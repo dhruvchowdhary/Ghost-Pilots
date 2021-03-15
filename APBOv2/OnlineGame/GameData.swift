@@ -80,9 +80,5 @@ public class GameData{
 }
 
 public enum GameStates {
-<<<<<<< Updated upstream
     case MainMenu, OnlineMenu, SoloMenu, LobbyMenu, AstroBall, Infection, FFA, HostMenu, Endless, TurretBoss, Levels
-=======
-    case MainMenu, OnlineMenu, SoloMenu, LobbyMenu, AstroBall, Infection, FFA, HostMenu
->>>>>>> Stashed changes
 }
