@@ -67,14 +67,16 @@ public class GameData{
             }
         }
         
-        if isHost && !toLobby {
-            Global.multiplayerHandler.SetNewHost()
+        if !toLobby {
+            if isHost {
+                Global.multiplayerHandler.SetNewHost()
+            }
+            host = ""
+            map = "OnlineCubis"
+            mode = "ffa"
         }
         
         shipsToUpdate = []
-        host = ""
-        map = "OnlineCubis"
-        mode = "ffa"
         playerShip?.spaceShipParent.removeFromParent()
     }
 }
