@@ -25,6 +25,7 @@ class Infection: GameSceneBase {
     
     func GameStatus() -> Bool {
         if gameOver == true {
+            gameOver = false
             let wait1 = SKAction.wait(forDuration: 5)
             self.run(wait1, completion:  {
                 Global.gameData.ResetGameData()
