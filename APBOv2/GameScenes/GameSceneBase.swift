@@ -98,6 +98,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
             loadShipPosX = loadShipPosX + 50
         }
         
+        Global.multiplayerHandler.SetGeoRefs()
         if !Global.gameData.isHost{
             Global.multiplayerHandler.ListenToGeometry()
         }

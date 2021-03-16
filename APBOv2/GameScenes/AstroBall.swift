@@ -12,6 +12,7 @@ class AstroBall: GameSceneBase {
     
     public override func didMove(to view: SKView) {
         Global.gameData.gameState = GameStates.AstroBall
+        Global.multiplayerHandler.SetGeoRefs()
         
         if !Global.gameData.isHost{
             Global.multiplayerHandler.ListenToAstroball()

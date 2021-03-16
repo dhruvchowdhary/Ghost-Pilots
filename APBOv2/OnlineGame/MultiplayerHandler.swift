@@ -344,8 +344,7 @@ public class MultiplayerHandler{
         astroballRef?.removeAllObservers()
     }
     
-    
-    public func ListenToGeometry(){
+    public func SetGeoRefs(){
         let geoPieces: Int?
         switch Global.gameData.map{
         case "OnlineTrisen":
@@ -359,6 +358,11 @@ public class MultiplayerHandler{
         }
         for i in 0..<geoPieces!{
             geoRefs.append(MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Geo/\(i)"))
+        }
+    }
+    
+    public func ListenToGeometry(){
+        for i in 0..<geoRefs.count{
             geoRefs[i].observe(.value, with: { (Snapshot) in
                 if !Snapshot.exists() || Global.gameData.gameState != GameStates.AstroBall{
                     return
