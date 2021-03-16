@@ -55,8 +55,6 @@ public class GameData{
         
         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(Global.playerData.username)", Value: "PePeGone")
         
-        
-        Global.multiplayerHandler.StopListenForGuestChanges()
         for x in shipsToUpdate{
             if let ship = x as? RemoteSpaceship {
                 ship.StopListenToShip()
