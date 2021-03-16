@@ -139,7 +139,7 @@ public class MultiplayerHandler{
         self.astroBallRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/AstroBall")
         astroBallRef?.observe(DataEventType.value, with: { (snapshot) in
             print(snapshot.childSnapshot(forPath: "redHP"))
-            
+        //    print(snapshot.childSnapshot(forPath: "redHP").value as? Int)
             if snapshot.childSnapshot(forPath: "redHP").value as? Int == 0 {
                 print("redWon")
                 Global.gameData.playerShip!.setGameOver(winner: "redWon")
