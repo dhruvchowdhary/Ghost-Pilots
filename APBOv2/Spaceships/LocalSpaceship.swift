@@ -29,7 +29,7 @@ public class LocalSpaceship: SpaceshipBase {
     let scaleAction = SKAction.scale(to: 2.2, duration: 0.4)
     
  //   let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
-    
+    let infectionGameOverFX = SKEmitterNode(fileNamed: "InfectionGameOver")
     var framesTilPos = 3;
     
     var currentShotCountBuddy = 0;
@@ -44,11 +44,8 @@ public class LocalSpaceship: SpaceshipBase {
         spaceShipNode.addChild(thruster1!)
         
         
+    
         
-         gameOver.zPosition = 100
-         gameOver.alpha = 0
-         gameOver.size = CGSize(width: 1469 / 2, height: 311 / 2)
-         spaceShipParent.addChild(gameOver)
      //   spaceShipNode.addChild(pilotThrust1!)
         
         /*
@@ -244,12 +241,14 @@ public class LocalSpaceship: SpaceshipBase {
             
             let generator = UIImpactFeedbackGenerator(style: .medium)
             generator.impactOccurred()
+            gameOver.zPosition = 100
+            gameOver.size = CGSize(width: 1469 / 2, height: 311 / 2)
+            spaceShipParent.addChild(gameOver)
             gameOver.run(scaleAction)
-            
             gameOver.alpha = 1
-         
+            gameOver.addChild(infectionGameOverFX!)
+            infectionGameOverFX!.alpha = 1
             indicateEnd = true
-            
             let wait1 = SKAction.wait(forDuration: 5)
             spaceShipNode.run(wait1, completion:  {
                 if Global.gameData.isHost {
@@ -257,7 +256,7 @@ public class LocalSpaceship: SpaceshipBase {
                 }
                 
             })
-    }
+        }
     }
     
 

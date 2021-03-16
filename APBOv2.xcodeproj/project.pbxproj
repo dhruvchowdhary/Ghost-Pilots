@@ -81,6 +81,8 @@
 		810C930625FDEA0F00C298C8 /* infectionImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 810C930525FDEA0F00C298C8 /* infectionImages.atlas */; };
 		810C930925FDEA3200C298C8 /* astroImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 810C930825FDEA3100C298C8 /* astroImages.atlas */; };
 		810C930C25FDEA3800C298C8 /* ffaImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 810C930B25FDEA3800C298C8 /* ffaImages.atlas */; };
+		810C93102601137200C298C8 /* InfectionGameOver.sks in Resources */ = {isa = PBXBuildFile; fileRef = 810C930F2601137200C298C8 /* InfectionGameOver.sks */; };
+		810C93132601137F00C298C8 /* InfectionGameOver.sks in Resources */ = {isa = PBXBuildFile; fileRef = 810C93122601137F00C298C8 /* InfectionGameOver.sks */; };
 		81135EED25E8312300B0F59F /* LoadLevelsMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81135EE925E8312200B0F59F /* LoadLevelsMenu.sks */; };
 		81135EEE25E8312300B0F59F /* Level1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81135EEA25E8312300B0F59F /* Level1.swift */; };
 		81135EEF25E8312300B0F59F /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81135EEB25E8312300B0F59F /* Level1.sks */; };
@@ -199,6 +201,8 @@
 		810C930525FDEA0F00C298C8 /* infectionImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = infectionImages.atlas; sourceTree = "<group>"; };
 		810C930825FDEA3100C298C8 /* astroImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = astroImages.atlas; sourceTree = "<group>"; };
 		810C930B25FDEA3800C298C8 /* ffaImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = ffaImages.atlas; sourceTree = "<group>"; };
+		810C930F2601137200C298C8 /* InfectionGameOver.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = InfectionGameOver.sks; path = APBOv2/Particles/InfectionGameOver.sks; sourceTree = SOURCE_ROOT; };
+		810C93122601137F00C298C8 /* InfectionGameOver.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = InfectionGameOver.sks; sourceTree = "<group>"; };
 		81135EE925E8312200B0F59F /* LoadLevelsMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = LoadLevelsMenu.sks; path = APBOv2/TurretBoss/LoadLevelsMenu.sks; sourceTree = SOURCE_ROOT; };
 		81135EEA25E8312300B0F59F /* Level1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level1.swift; sourceTree = "<group>"; };
 		81135EEB25E8312300B0F59F /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
@@ -388,6 +392,7 @@
 			children = (
 				74CF687825830AA1000C4E47 /* MainMenu */,
 				749EBC0D25599D84003EA0B3 /* Explosion.sks */,
+				810C93122601137F00C298C8 /* InfectionGameOver.sks */,
 				816EE127259265D10053AE35 /* ShootingExplosion.sks */,
 				816EE128259265D10053AE35 /* TurretShootingExplosion.sks */,
 				7451FF772576FE8F0074CC2E /* Spark.sks */,
@@ -445,6 +450,7 @@
 		74CF687825830AA1000C4E47 /* MainMenu */ = {
 			isa = PBXGroup;
 			children = (
+				810C930F2601137200C298C8 /* InfectionGameOver.sks */,
 				74CF68762582F889000C4E47 /* Player.sks */,
 				74CF687925830AD6000C4E47 /* ghost.sks */,
 				74CF687B25830BB7000C4E47 /* enemy.sks */,
@@ -585,6 +591,7 @@
 				74CF687A25830AD6000C4E47 /* ghost.sks in Resources */,
 				81A4CEE025FA8C2C001C2602 /* Infection.sks in Resources */,
 				8133262725F9A1CD00D857D7 /* ffaImages.atlas in Resources */,
+				810C93102601137200C298C8 /* InfectionGameOver.sks in Resources */,
 				74CF68772582F889000C4E47 /* Player.sks in Resources */,
 				74CF688E25849F2E000C4E47 /* shotgunnew.wav in Resources */,
 				748FC4B425DD987500756B4A /* HostMenu.sks in Resources */,
@@ -597,6 +604,7 @@
 				74C3CFBB253F3BE900757586 /* Main.storyboard in Resources */,
 				74CF68842583CAE1000C4E47 /* swishnew.mp3 in Resources */,
 				74CF688C25843F26000C4E47 /* miniLasernew.wav in Resources */,
+				810C93132601137F00C298C8 /* InfectionGameOver.sks in Resources */,
 				74CF6857258201BA000C4E47 /* pilotSquish3.wav in Resources */,
 				74CF6895258D787C000C4E47 /* Tutorial.sks in Resources */,
 				81135EED25E8312300B0F59F /* LoadLevelsMenu.sks in Resources */,

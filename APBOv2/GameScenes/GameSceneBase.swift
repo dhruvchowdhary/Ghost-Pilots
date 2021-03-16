@@ -7,11 +7,11 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     let zoomInActionipad = SKAction.scale(to: 1.7, duration: 0.01)
     
     private var pilot = SKSpriteNode()
-       private var pilotWalkingFrames: [SKTexture] = []
-       let fadeOut = SKAction.fadeOut(withDuration: 1)
-          let fadeIn = SKAction.fadeIn(withDuration: 0.5)
+    private var pilotWalkingFrames: [SKTexture] = []
+    let fadeOut = SKAction.fadeOut(withDuration: 1)
+    let fadeIn = SKAction.fadeIn(withDuration: 0.5)
     let cameraNode =  SKCameraNode()
-
+    
     let EnemyThruster = SKEmitterNode(fileNamed: "EnemyThruster")
     var i = 3
     var backButtonNode: MSButtonNode!
@@ -126,9 +126,9 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         self.addChild(self.dimPanel)
         self.dimPanel.alpha = 0;
         
-    for ship in Global.gameData.shipsToUpdate{
-        ship.thruster1?.targetNode = self.scene
-        //ship.pilotThrust1?.targetNode = self.scene
+        for ship in Global.gameData.shipsToUpdate{
+            ship.thruster1?.targetNode = self.scene
+            //ship.pilotThrust1?.targetNode = self.scene
         }
     }
     public override func update(_ currentTime: TimeInterval) {
@@ -141,24 +141,24 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
                 ship.UpdateShip(deltaTime: Double(currentTime) - lastUpdateTime)
                 
             }
-                
-        for bullet in liveBullets {
-            bullet.position.x += 10 * cos( bullet.zRotation )
-            bullet.position.y += 10 * sin( bullet.zRotation )
-            /*
-            if abs(bullet.position.x) > (2000 / 2) || abs(bullet.position.y) > (2000 / 2) {
-                
-                if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
-                    BulletExplosion.position = bullet.position
-                    
-
-                    bullet.removeFromParent()
-                    addChild(BulletExplosion)
-                }
-         
-                liveBullets.remove(at: liveBullets.firstIndex(of: bullet)!)
-                }
- */
+            
+            for bullet in liveBullets {
+                bullet.position.x += 10 * cos( bullet.zRotation )
+                bullet.position.y += 10 * sin( bullet.zRotation )
+                /*
+                 if abs(bullet.position.x) > (2000 / 2) || abs(bullet.position.y) > (2000 / 2) {
+                 
+                 if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
+                 BulletExplosion.position = bullet.position
+                 
+                 
+                 bullet.removeFromParent()
+                 addChild(BulletExplosion)
+                 }
+                 
+                 liveBullets.remove(at: liveBullets.firstIndex(of: bullet)!)
+                 }
+                 */
             }
         }
         lastUpdateTime = Double(currentTime)
@@ -191,11 +191,11 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         
         
         if firstNode.name == "border" && secondNode.name == "playerWeapon" {
-                   if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
-                       BulletExplosion.position = secondNode.position
-                       addChild(BulletExplosion)
-                  //  borderShape.strokeColor
-                   }
+            if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
+                BulletExplosion.position = secondNode.position
+                addChild(BulletExplosion)
+                //  borderShape.strokeColor
+            }
             secondNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
             
@@ -231,7 +231,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         borderShape.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
         
         borderShape.zPosition = 5
-    
+        
         addChild(borderShape)
         
         let cubePos = 200
@@ -261,7 +261,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         cube2.zPosition = 5
         
         cube2.position = CGPoint(x: -cubePos, y: cubePos)
-   
+        
         addChild(cube2)
         cube2.name = "border"
         
@@ -275,7 +275,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         cube3.zPosition = 5
         
         cube3.position = CGPoint(x: -cubePos, y: -cubePos)
-   
+        
         addChild(cube3)
         cube3.name = "border"
         
@@ -289,7 +289,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         cube4.zPosition = 5
         
         cube4.position = CGPoint(x: cubePos, y: -cubePos)
-   
+        
         addChild(cube4)
         cube4.name = "border"
         
@@ -316,7 +316,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         borderShape.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         
         borderShape.zPosition = 5
-    
+        
         addChild(borderShape)
         
         let triPos = 300
@@ -333,7 +333,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         tri1.zPosition = 5
         
         tri1.position = CGPoint(x: 0, y: triPos * Int(sqrt(3)) / 2)
-    
+        
         addChild(tri1)
         tri1.name = "border"
         
@@ -348,7 +348,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         tri2.zPosition = 5
         
         tri2.position = CGPoint(x: -triPos, y: -triPos * Int(sqrt(3)) / 2)
-    
+        
         addChild(tri2)
         tri2.name = "border"
         
@@ -362,11 +362,11 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         tri3.zPosition = 5
         
         tri3.position = CGPoint(x: triPos, y: -triPos * Int(sqrt(3)) / 2)
-    
+        
         addChild(tri3)
         tri3.name = "border"
-
-       // tri1.physicsBody?.isDynamic = false
+        
+        // tri1.physicsBody?.isDynamic = false
         
         tri1.physicsBody!.mass = CGFloat(mass)
         tri2.physicsBody!.mass = CGFloat(mass)
@@ -389,14 +389,14 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         borderShape.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         
         borderShape.zPosition = 5
-    
+        
         addChild(borderShape)
         
         let hexPos = 300
         let hexWidth = 477 / 3
         let hexHeight = 413 / 3
         
-       
+        
         
         let hex1 = SKSpriteNode(imageNamed: "hexagon")
         hex1.size = CGSize(width: hexWidth, height: hexHeight)
@@ -488,22 +488,22 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         borderShape.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.border.rawValue
         
         borderShape.zPosition = 5
-    
+        
         addChild(borderShape)
     }
     
     func selectmap() {
         // based on map selected variable switch case
         switch Global.gameData.map {
-         case "OnlineCubis":
+        case "OnlineCubis":
             cubis()
-         
-         case "OnlineTrisen":
+            
+        case "OnlineTrisen":
             trisen()
-         
-         case "OnlineHex":
+            
+        case "OnlineHex":
             hex()
- 
+            
         default:
             empty()
         }
