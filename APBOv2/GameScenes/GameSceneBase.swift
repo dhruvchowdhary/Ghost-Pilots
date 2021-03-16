@@ -84,6 +84,9 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     
     var pilotmode = false
     
+    var geo: [SKSpriteNode] = []
+    
+    
     var loadShipPosX =  -800
     var loadShipPosY =  300
     public override func didMove(to view: SKView) {
@@ -93,6 +96,10 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
             ship.spaceShipParent.physicsBody!.mass = 10
             ship.spaceShipParent.position = CGPoint(x: loadShipPosX, y: loadShipPosY)
             loadShipPosX = loadShipPosX + 50
+        }
+        
+        if !Global.gameData.isHost{
+            Global.multiplayerHandler.ListenToGeometry()
         }
         
         func willMove(from: SKScene ){
@@ -288,6 +295,10 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         cube2.physicsBody!.mass = CGFloat(mass)
         cube3.physicsBody!.mass = CGFloat(mass)
         cube4.physicsBody!.mass = CGFloat(mass)
+        geo.append(cube1)
+        geo.append(cube2)
+        geo.append(cube3)
+        geo.append(cube4)
     }
     
     func trisen() {
@@ -361,6 +372,10 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         tri1.physicsBody!.mass = CGFloat(mass)
         tri2.physicsBody!.mass = CGFloat(mass)
         tri3.physicsBody!.mass = CGFloat(mass)
+        
+        geo.append(tri1)
+        geo.append(tri2)
+        geo.append(tri3)
     }
     
     func hex() {
@@ -460,6 +475,13 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         hex4.physicsBody!.mass = CGFloat(mass)
         hex5.physicsBody!.mass = CGFloat(mass)
         hex6.physicsBody!.mass = CGFloat(mass)
+        
+        geo.append(hex1)
+        geo.append(hex2)
+        geo.append(hex3)
+        geo.append(hex4)
+        geo.append(hex5)
+        geo.append(hex6)
     }
     
     func empty() {
@@ -495,7 +517,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
             hex()
             
         default:
-            empty()
+            fatalError("PePeSad")
         }
     }
 }

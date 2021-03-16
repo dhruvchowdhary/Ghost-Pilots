@@ -12,6 +12,7 @@ public class MultiplayerHandler{
     var astroBallRef: DatabaseReference?
     var colorRef: DatabaseReference?
     var astroballRef: DatabaseReference?
+    var geoRefs: [DatabaseReference] = []
     var currentBulletCounts: [(String, Int)] = []
     
     public static var ref: DatabaseReference! = Database.database().reference()
@@ -343,4 +344,46 @@ public class MultiplayerHandler{
         astroballRef?.removeAllObservers()
     }
     
+    
+    public func ListenToGeometry(){
+        let geoPieces: Int?
+        switch Global.gameData.map{
+        case "OnlineTrisen":
+            geoPieces = 3
+        case "OnlineCubis":
+            geoPieces = 4
+        case "OnlineHex":
+            geoPieces = 6
+        default:
+            fatalError("Map name is incorrecty marked in Multihandler")
+        }
+        for i in 0..<geoPieces!{
+            geoRefs.append(MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Geo/\(i)"))
+            geoRefs[i].observe(.value, with: { (Snapshot) in
+                if !Snapshot.exists() || Global.gameData.gameState != GameStates.AstroBall{
+                    return
+                }
+                
+                let astroballScene = Global.gameData.skView.scene as! AstroBall
+                let snapVal = Snapshot.value as! String
+                let jsonData = snapVal.data(using: .utf8)
+                let payload = try! JSONDecoder().decode(Payload.self, from: jsonData!)
+                if payload.posX != nil{
+                    astroballScene.geo[i].position.x = payload.posX!
+                    astroballScene.geo[i].position.y = payload.posY!
+                    astroballScene.geo[i].physicsBody?.velocity = payload.velocity!
+                    astroballScene.geo[i].zRotation = payload.angleRad
+                } else {
+                    astroballScene.geo[i].physicsBody?.velocity = payload.velocity!
+                    astroballScene.geo[i].zRotation = payload.angleRad
+                }
+            })
+        }
+    }
+    
+    func StopListenToGeometry(){
+        for r in geoRefs {
+            r.removeAllObservers()
+        }
+    }
 }
