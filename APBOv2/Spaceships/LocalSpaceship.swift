@@ -260,7 +260,7 @@ public class LocalSpaceship: SpaceshipBase {
                     gameOver.zPosition = 1000
                     
                     gameOver.size = CGSize(width: 1469 / 1.5, height: 311 / 1.5)
-                    spaceShipParent.addChild(gameOver)
+                    spaceShipHud.addChild(gameOver)
                     //gameOver.run(scaleAction)
                     gameOver.alpha = 1
                     
@@ -270,7 +270,7 @@ public class LocalSpaceship: SpaceshipBase {
                     GameOverFX?.particleColorSequence = nil
                     GameOverFX?.particleColorBlendFactor = 1.0
                     GameOverFX?.particleColor = UIColor(red: 255/255, green: 85/255, blue: 85/255, alpha:1)
-                    self.spaceShipParent.addChild(GameOverFX!)
+                    self.spaceShipHud.addChild(GameOverFX!)
                     print("uh ohred")
                     indicateEnd = true
                     let wait1 = SKAction.wait(forDuration: 5)
@@ -291,7 +291,7 @@ public class LocalSpaceship: SpaceshipBase {
                     gameOver.zPosition = 1000
                     
                     gameOver.size = CGSize(width: 1469 / 1.5, height: 311 / 1.5)
-                    spaceShipParent.addChild(gameOver)
+                    spaceShipHud.addChild(gameOver)
                     //gameOver.run(scaleAction)
                     gameOver.alpha = 1
                     
@@ -301,7 +301,7 @@ public class LocalSpaceship: SpaceshipBase {
                     GameOverFX?.particleColorSequence = nil
                     GameOverFX?.particleColorBlendFactor = 1.0
                     GameOverFX?.particleColor = UIColor(red: 0/255, green: 121/255, blue: 255/255, alpha:1)
-                    self.spaceShipParent.addChild(GameOverFX!)
+                    self.spaceShipHud.addChild(GameOverFX!)
                     print("uh ohblue")
                     indicateEnd = true
                     let wait1 = SKAction.wait(forDuration: 5)

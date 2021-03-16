@@ -319,6 +319,9 @@ public class MultiplayerHandler{
         astroballRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Astroball")
         astroballRef?.observe(.value, with: { (Snapshot) in
             if Global.gameData.gameState == GameStates.AstroBall {
+                if !Snapshot.exists(){
+                    return
+                }
                 let astroballScene = Global.gameData.skView.scene as! AstroBall
                 let snapVal = Snapshot.value as! String
                 let jsonData = snapVal.data(using: .utf8)

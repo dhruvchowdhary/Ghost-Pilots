@@ -17,6 +17,7 @@ class RemoteSpaceship: SpaceshipBase {
         spaceShipParent.physicsBody!.categoryBitMask = CollisionType.player.rawValue
         spaceShipParent.physicsBody!.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.pilot.rawValue | CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         
+        spaceShipParent.physicsBody?.allowsRotation = false
     
         spaceShipParent.physicsBody?.contactTestBitMask = CollisionType.border.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue
         
