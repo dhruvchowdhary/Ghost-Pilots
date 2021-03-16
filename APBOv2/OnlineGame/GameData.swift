@@ -53,7 +53,9 @@ public class GameData{
     
     public func ResetGameData(toLobby: Bool){
         Global.multiplayerHandler.StopListenForInfectedChanges()
+
         Global.multiplayerHandler.StopListenToAstroball()
+        Global.multiplayerHandler.StopListenForAstroBallChanges()
         
         for x in shipsToUpdate{
             if let ship = x as? RemoteSpaceship {

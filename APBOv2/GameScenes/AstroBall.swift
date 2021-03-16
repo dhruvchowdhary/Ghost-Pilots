@@ -71,8 +71,8 @@ class AstroBall: GameSceneBase {
         let firstNode = sortedNodes[0]
         let secondNode = sortedNodes[1]
         
-        print("first Node is   \(String(describing: firstNode.name))")
-        print("second Node is  \(String(describing: secondNode.name))")
+      //  print("first Node is   \(String(describing: firstNode.name))")
+       // print("second Node is  \(String(describing: secondNode.name))")
         
         
         if (firstNode.name == "border" || firstNode.name == "astroball" || firstNode.name == "blueGoal") && secondNode.name == "playerWeapon" {
@@ -170,7 +170,7 @@ class AstroBall: GameSceneBase {
         redGoal.fillColor = UIColor(red: 255/255, green: 85/255, blue: 85/255, alpha:1)
         redGoal.strokeColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha:1)
         redGoal.lineWidth = 10
-        redGoal.name = "blueGoal"
+        redGoal.name = "redGoal"
         redGoal.physicsBody = SKPhysicsBody(edgeChainFrom: redGoal.path!)
         
         redGoal.physicsBody!.categoryBitMask = CollisionType.border.rawValue

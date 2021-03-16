@@ -125,7 +125,7 @@ public class MultiplayerHandler{
                         if Global.gameData.shipsToUpdate.count > 1 {
                             if infectedList.count == Global.gameData.shipsToUpdate.count {
                                 //  print("gameover!!!!")
-                                Global.gameData.playerShip!.setGameOver()
+                                Global.gameData.playerShip!.setGameOver(winner: "infected")
                             }
                         }
                     }
@@ -137,17 +137,20 @@ public class MultiplayerHandler{
     public func ListenForAstroBallChanges() {
         self.astroBallRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/AstroBall")
         astroBallRef?.observe(DataEventType.value, with: { (snapshot) in
-          
-            if (snapshot.exists()) {
-                let snapVal = snapshot.value as! String
-                if snapVal == "redWon" {
-                    print("redWon")
+            if Global.gameData.isHost {
+                if (snapshot.exists()) {
+                    let snapVal = snapshot.value as! String
+                    if snapVal == "redWon" {
+                        print("redWon")
+                        Global.gameData.playerShip!.setGameOver(winner: "redWon")
+                    }
+                    else if snapVal == "blueWon" {
+                        print("blueWon")
+                        Global.gameData.playerShip!.setGameOver(winner: "blueWon")
+                    }
+                    
+                    
                 }
-                else if snapVal == "blueWon" {
-                    print("blueWon")
-                }
-            
-         //Global.gameData.playerShip!.setGameOver()
             }
         })
     }
@@ -231,6 +234,10 @@ public class MultiplayerHandler{
                 }
             }
         })
+    }
+    
+    public func StopListenForAstroBallChanges(){
+        self.astroBallRef?.removeAllObservers()
     }
     
     public func StopListenForInfectedChanges(){

@@ -29,7 +29,7 @@ public class LocalSpaceship: SpaceshipBase {
     let scaleAction = SKAction.scale(to: 2.2, duration: 0.4)
     
  //   let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
-    let infectionGameOverFX = SKEmitterNode(fileNamed: "InfectionGameOver")
+   
     var framesTilPos = 3;
     
     var currentShotCountBuddy = 0;
@@ -44,7 +44,8 @@ public class LocalSpaceship: SpaceshipBase {
         spaceShipNode.addChild(thruster1!)
         
         
-    
+       // print("redWonnnn")
+       
         
      //   spaceShipNode.addChild(pilotThrust1!)
         
@@ -237,7 +238,10 @@ public class LocalSpaceship: SpaceshipBase {
         }
     }
     
-    func setGameOver() {
+    func setGameOver(winner: String) {
+        
+        let GameOverFX = SKEmitterNode(fileNamed: "GameOverFX")
+        
         if indicateEnd == false {
             print("GAME OVER!!!!!")
             let generator = UIImpactFeedbackGenerator(style: .medium)
@@ -247,8 +251,72 @@ public class LocalSpaceship: SpaceshipBase {
             case "ffa":
                print("ffa ended")
             case "astroball":
-                
                 print("astroball ended")
+                if winner == "redWon" {
+                    let redWon = SKAction.setTexture(SKTexture(imageNamed: "astroballredwin"))
+ 
+                    gameOver.run(redWon)
+                    
+                    gameOver.zPosition = 1000
+                    
+                    gameOver.size = CGSize(width: 1469 / 1.5, height: 311 / 1.5)
+                    spaceShipParent.addChild(gameOver)
+                    //gameOver.run(scaleAction)
+                    gameOver.alpha = 1
+                    
+                    print("redWonnnn")
+                    GameOverFX!.zPosition = 99
+                    GameOverFX!.alpha = 1
+                    GameOverFX?.particleColorSequence = nil
+                    GameOverFX?.particleColorBlendFactor = 1.0
+                    GameOverFX?.particleColor = UIColor(red: 255/255, green: 85/255, blue: 85/255, alpha:1)
+                    self.spaceShipParent.addChild(GameOverFX!)
+                    print("uh ohred")
+                    indicateEnd = true
+                    let wait1 = SKAction.wait(forDuration: 5)
+                    spaceShipNode.run(wait1, completion:  {
+                        if Global.gameData.isHost {
+                            self.gameOver.removeFromParent()
+                            GameOverFX?.removeFromParent()
+                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall", Value: "pendingWinner")
+                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Lobby")
+                        }
+                        
+                    })
+                }
+                else if winner == "blueWon" {
+                    let bluewon = SKAction.setTexture(SKTexture(imageNamed: "astroballbluewin"))
+                    gameOver.run(bluewon)
+                    
+                    gameOver.zPosition = 1000
+                    
+                    gameOver.size = CGSize(width: 1469 / 1.5, height: 311 / 1.5)
+                    spaceShipParent.addChild(gameOver)
+                    //gameOver.run(scaleAction)
+                    gameOver.alpha = 1
+                    
+                    print("bluewonnnn")
+                    GameOverFX!.zPosition = 99
+                    GameOverFX!.alpha = 1
+                    GameOverFX?.particleColorSequence = nil
+                    GameOverFX?.particleColorBlendFactor = 1.0
+                    GameOverFX?.particleColor = UIColor(red: 0/255, green: 121/255, blue: 255/255, alpha:1)
+                    self.spaceShipParent.addChild(GameOverFX!)
+                    print("uh ohblue")
+                    indicateEnd = true
+                    let wait1 = SKAction.wait(forDuration: 5)
+                    spaceShipNode.run(wait1, completion:  {
+                        if Global.gameData.isHost {
+                            self.gameOver.removeFromParent()
+                            GameOverFX?.removeFromParent()
+                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall", Value: "pendingWinner")
+                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Lobby")
+                        }
+                        
+                    })
+                    
+                }
+                
             case "infection":
                 
                   gameOver.zPosition = 1000
@@ -257,15 +325,23 @@ public class LocalSpaceship: SpaceshipBase {
                   //gameOver.run(scaleAction)
                   gameOver.alpha = 1
                   
-                  spaceShipParent.addChild(infectionGameOverFX!)
-                  infectionGameOverFX!.zPosition = 99
-                  infectionGameOverFX!.alpha = 1
-                  
+               
+                GameOverFX!.zPosition = 99
+                GameOverFX!.alpha = 1
+                GameOverFX?.particleColorSequence = nil
+                GameOverFX?.particleColorBlendFactor = 1.0
+                GameOverFX?.particleColor = UIColor(red: 128/255, green: 198/255, blue: 128/255, alpha:1)
+                spaceShipParent.addChild(GameOverFX!)
+                
+                
                   indicateEnd = true
                   let wait1 = SKAction.wait(forDuration: 5)
                   spaceShipNode.run(wait1, completion:  {
                       if Global.gameData.isHost {
+                        self.gameOver.removeFromParent()
+                        GameOverFX?.removeFromParent()
                           DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Lobby")
+                        
                       }
                       
                   })
@@ -285,8 +361,7 @@ public class LocalSpaceship: SpaceshipBase {
 
     override func UniqueUpdateShip(deltaTime: Double) {
         
-        gameOver.position.x = spaceShipNode.position.x
-        gameOver.position.y = spaceShipNode.position.y
+
     
             // Handle rotation and movement
             if (isRotating){
