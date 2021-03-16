@@ -212,7 +212,7 @@ public class MultiplayerHandler{
     
     public func ListenForModeChanges(){
         self.modeRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Mode")
-        modeRef?.observe(DataEventType.value, with: { (snapshot) in
+        modeRef?.observe(.value, with: { (snapshot) in
             if Global.gameData.gameState == GameStates.LobbyMenu {
                 let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
                 if !Global.gameData.isHost {
@@ -228,7 +228,7 @@ public class MultiplayerHandler{
     
     public func ListenForGameStatus(){
         statusRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Status")
-        statusRef!.observe(DataEventType.value) { ( snapshot ) in
+        statusRef!.observe(.value) { ( snapshot ) in
             if (snapshot.exists()){
                 if (snapshot.value as! String == "Game"){
                     if Global.gameData.gameState == GameStates.LobbyMenu {
@@ -236,9 +236,11 @@ public class MultiplayerHandler{
                         lobbyScene.StartGame()
                     }
                 } else if (snapshot.value as! String == "Lobby"){
-                    Global.gameData.gameState = GameStates.LobbyMenu
-                    Global.gameData.ResetGameData(toLobby: true)
-                    Global.loadScene(s: "LobbyMenu")
+                    if Global.gameData.gameState != GameStates.LobbyMenu{
+                        Global.gameData.gameState = GameStates.LobbyMenu
+                        Global.gameData.ResetGameData(toLobby: true)
+                        Global.loadScene(s: "LobbyMenu")
+                    }
                 }
             }
         }
