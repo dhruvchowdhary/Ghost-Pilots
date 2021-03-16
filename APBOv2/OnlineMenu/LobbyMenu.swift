@@ -170,6 +170,7 @@ class LobbyMenu: SKScene {
             playerLabel.addChild(kickButtonNode)
         }
         addChild(playerLabelParent)
+        playerLabelParent.name = "pepe"
         
         Global.multiplayerHandler.listenForGuestChanges()
         Global.multiplayerHandler.ListenForGameStatus()
