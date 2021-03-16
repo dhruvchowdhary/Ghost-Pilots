@@ -74,6 +74,7 @@ public class GameData{
             Global.multiplayerHandler.StopListenForMapChanges()
             Global.multiplayerHandler.StopListenForGuestChanges()
             Global.multiplayerHandler.StopListenForHostChanges()
+            Global.multiplayerHandler.StopListenForGameStatus()
         }
         
         shipsToUpdate = []

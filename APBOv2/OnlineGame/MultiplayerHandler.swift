@@ -246,6 +246,10 @@ public class MultiplayerHandler{
         }
     }
     
+    public func StopListenForGameStatus(){
+        statusRef?.removeAllObservers()
+    }
+    
     public func SetNewHost(){
         MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerList").observeSingleEvent(of: .value) { snapshot in
             if snapshot.exists(){
