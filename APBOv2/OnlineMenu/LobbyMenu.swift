@@ -175,7 +175,7 @@ class LobbyMenu: SKScene {
         Global.multiplayerHandler.ListenForGameStatus()
         Global.multiplayerHandler.ListenForMapChanges()
         Global.multiplayerHandler.ListenForModeChanges()
-   //     Global.multiplayerHandler.ListenForColorChanges()
+        Global.multiplayerHandler.ListenForColorChanges()
     }
     
     
