@@ -165,6 +165,7 @@ class LobbyMenu: SKScene {
         Global.multiplayerHandler.ListenForMapChanges()
         Global.multiplayerHandler.ListenForModeChanges()
         Global.multiplayerHandler.ListenForColorChanges()
+        Global.multiplayerHandler.ListenForColorChangesLobby()
     }
     
     
@@ -174,6 +175,7 @@ class LobbyMenu: SKScene {
         print(playerList)
         for player in playerList {
             let newuser = playerLabel.copy() as! SKNode
+            newuser.name = player
             let userLabel = newuser.childNode(withName: "user1") as! SKLabelNode
             userLabel.text = player
             let index = playerList.firstIndex(of: player)!
