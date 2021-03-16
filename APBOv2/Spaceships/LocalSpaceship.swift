@@ -245,6 +245,7 @@ public class LocalSpaceship: SpaceshipBase {
             case "ffa":
                print("ffa ended")
             case "astroball":
+                
                 print("astroball ended")
             case "infection":
                 

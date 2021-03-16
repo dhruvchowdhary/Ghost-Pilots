@@ -87,12 +87,12 @@ class AstroBall: GameSceneBase {
         }
         
         else if firstNode.name == "astroball" && secondNode.name == "blueGoal" {
-            //red won
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall", Value: "redWon")
             
         }
         
         else if firstNode.name == "astroball" && secondNode.name == "redGoal" {
-            //blue won
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall", Value: "blueWon")
             
         }
         
