@@ -9,7 +9,9 @@ class AstroBall: GameSceneBase {
     var framesTilPos = 10
     var astroball: SKSpriteNode?
     let astroballRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Astroball")
-    
+    var redHP = 5
+    var blueHP = 5
+     
     public override func didMove(to view: SKView) {
         Global.gameData.gameState = GameStates.AstroBall
         
@@ -76,7 +78,7 @@ class AstroBall: GameSceneBase {
        // print("second Node is  \(String(describing: secondNode.name))")
         
         
-        if (firstNode.name == "border" || firstNode.name == "astroball" || firstNode.name == "blueGoal") && secondNode.name == "playerWeapon" {
+        if (firstNode.name == "border" || firstNode.name == "astroball" || firstNode.name == "blueGoal" || firstNode.name == "redGoal") && secondNode.name == "playerWeapon" {
                    if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
                        BulletExplosion.position = secondNode.position
                        addChild(BulletExplosion)
@@ -102,18 +104,23 @@ class AstroBall: GameSceneBase {
         }
         
         else if firstNode.name == "astroball" && secondNode.name == "blueGoal" {
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall", Value: "redWon")
+         
+           if Global.gameData.isHost {
+                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: String(redHP - 1))
+            }
+            redHP = redHP - 1
+        //
             
         }
         
         else if firstNode.name == "astroball" && secondNode.name == "redGoal" {
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall", Value: "blueWon")
-            
+        if Global.gameData.isHost {
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: String(blueHP - 1))
         }
+        blueHP = blueHP - 1
+    
         
-        
-        
-        
+        }
     }
     
     func loadBall() {
@@ -140,52 +147,45 @@ class AstroBall: GameSceneBase {
     
         addChild(astroball)
         
-        let blueGoal = SKShapeNode()
-        let blueGoalWidth = 50
-        let blueGoalHeight = 600
-        blueGoal.path = UIBezierPath(roundedRect: CGRect(x: -blueGoalWidth/2, y: -blueGoalHeight/2, width: blueGoalWidth, height: blueGoalHeight), cornerRadius: 40).cgPath
-        //borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
-        blueGoal.fillColor = UIColor(red: 0/255, green: 121/255, blue: 255/255, alpha:1)
-        blueGoal.strokeColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha:1)
-        blueGoal.lineWidth = 10
+        let blueGoal = SKSpriteNode(imageNamed: "blueGoal")
+        
+        
+        blueGoal.zPosition = 5
         blueGoal.name = "blueGoal"
-        blueGoal.physicsBody = SKPhysicsBody(edgeChainFrom: blueGoal.path!)
+        
+        blueGoal.physicsBody = SKPhysicsBody(texture: blueGoal.texture!, size: blueGoal.texture!.size())
         
         blueGoal.physicsBody!.categoryBitMask = CollisionType.border.rawValue
         blueGoal.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
-        blueGoal.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        blueGoal.physicsBody!.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         
-        blueGoal.zPosition = 5
         
-        blueGoal.position = CGPoint(x: -900, y: frame.midY)
+        blueGoal.position = CGPoint(x: -800, y: frame.midY)
         
         blueGoal.physicsBody?.isDynamic = false
     
         addChild(blueGoal)
         
-        let redGoal = SKShapeNode()
-        let redGoalWidth = 50
-        let redGoalHeight = 600
-        redGoal.path = UIBezierPath(roundedRect: CGRect(x: -redGoalWidth/2, y: -redGoalHeight/2, width: redGoalWidth, height: redGoalHeight), cornerRadius: 40).cgPath
-        //borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
-        redGoal.fillColor = UIColor(red: 255/255, green: 85/255, blue: 85/255, alpha:1)
-        redGoal.strokeColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha:1)
-        redGoal.lineWidth = 10
+        let redGoal = SKSpriteNode(imageNamed: "redGoal")
+        
+        
+        redGoal.zPosition = 5
         redGoal.name = "redGoal"
-        redGoal.physicsBody = SKPhysicsBody(edgeChainFrom: redGoal.path!)
+        
+        redGoal.physicsBody = SKPhysicsBody(texture: redGoal.texture!, size: redGoal.texture!.size())
         
         redGoal.physicsBody!.categoryBitMask = CollisionType.border.rawValue
         redGoal.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
-        redGoal.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
+        redGoal.physicsBody!.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         
-        redGoal.zPosition = 5
         
-        redGoal.position = CGPoint(x: 900, y: frame.midY)
+        redGoal.position = CGPoint(x: 800, y: frame.midY)
         
         redGoal.physicsBody?.isDynamic = false
     
         addChild(redGoal)
         
+       
     
     }
     
