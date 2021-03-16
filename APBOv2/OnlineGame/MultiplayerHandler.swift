@@ -203,7 +203,6 @@ public class MultiplayerHandler{
         self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerColor")
         colorRef?.observe(DataEventType.value, with: { (snapshot) in
             for child in snapshot.children {
-                print("this: \(Global.gameData.shipsToUpdate.count)")
                 let e = child as! DataSnapshot
                 if Global.gameData.gameState == GameStates.LobbyMenu {
                     let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
