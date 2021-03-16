@@ -145,23 +145,13 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
             for bullet in liveBullets {
                 bullet.position.x += 10 * cos( bullet.zRotation )
                 bullet.position.y += 10 * sin( bullet.zRotation )
-                /*
-                 if abs(bullet.position.x) > (2000 / 2) || abs(bullet.position.y) > (2000 / 2) {
-                 
-                 if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
-                 BulletExplosion.position = bullet.position
-                 
-                 
-                 bullet.removeFromParent()
-                 addChild(BulletExplosion)
-                 }
-                 
-                 liveBullets.remove(at: liveBullets.firstIndex(of: bullet)!)
-                 }
-                 */
             }
         }
         lastUpdateTime = Double(currentTime)
+        uniqueGamemodeUpdate()
+    }
+    
+    func uniqueGamemodeUpdate(){
         
     }
     

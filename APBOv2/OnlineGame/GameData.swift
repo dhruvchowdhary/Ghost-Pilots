@@ -17,6 +17,7 @@ public class GameData{
     public var mode = "ffa"
     public var infected = false
     public var gameState: GameStates = GameStates.MainMenu
+    public var speedMultiplier: CGFloat = 1.0
     
     // =================
     // For the Host to run
@@ -52,6 +53,7 @@ public class GameData{
     
     public func ResetGameData(toLobby: Bool){
         Global.multiplayerHandler.StopListenForInfectedChanges()
+        Global.multiplayerHandler.StopListenToAstroball()
         
         for x in shipsToUpdate{
             if let ship = x as? RemoteSpaceship {
@@ -62,9 +64,6 @@ public class GameData{
             Global.multiplayerHandler.ClearInfectedList()
         }
         if !toLobby {
-            if isHost {
-                Global.multiplayerHandler.SetNewHost()
-            }
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(Global.playerData.playerID)", Value: "PePeGone")
             host = ""
             map = "OnlineCubis"
@@ -74,8 +73,12 @@ public class GameData{
             Global.multiplayerHandler.StopListenForGuestChanges()
             Global.multiplayerHandler.StopListenForHostChanges()
             Global.multiplayerHandler.StopListenForGameStatus()
+            
+            if isHost {
+                Global.multiplayerHandler.SetNewHost()
+            }
         }
-        
+        Global.gameData.playerShip?.spaceShipHud.position = .zero
         shipsToUpdate = []
         playerShip?.spaceShipParent.removeFromParent()
     }

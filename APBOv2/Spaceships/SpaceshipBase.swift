@@ -34,7 +34,7 @@ public class SpaceshipBase {
         self.playerID = playerId
         shipLabel.text = playerId
         shipLabel.zPosition = 1
-        spaceShipHud.addChild(shipLabel)
+        spaceShipParent.addChild(shipLabel)
         shipLabel.fontName = "AvenirNext-Bold"
         shipLabel.position = CGPoint(x: 0, y: 35)
 

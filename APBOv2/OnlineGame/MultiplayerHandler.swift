@@ -10,6 +10,7 @@ public class MultiplayerHandler{
     var modeRef: DatabaseReference?
     var infectedRef: DatabaseReference?
     var colorRef: DatabaseReference?
+    var astroballRef: DatabaseReference?
     var currentBulletCounts: [(String, Int)] = []
     
     public static var ref: DatabaseReference! = Database.database().reference()
@@ -90,12 +91,12 @@ public class MultiplayerHandler{
                 if (snapVal != "e"){
                     let jsonData = snapVal.data(using: .utf8)
                     let payload = try! JSONDecoder().decode(Payload.self, from: jsonData!)
-                    if payload.shipPosX != nil{
-                        shipSprite.position.x = payload.shipPosX!
-                        shipSprite.position.y = payload.shipPosY!
-                        shipSprite.childNode(withName: "shipnode")!.zRotation = payload.shipAngleRad
+                    if payload.posX != nil{
+                        shipSprite.position.x = payload.posX!
+                        shipSprite.position.y = payload.posY!
+                        shipSprite.childNode(withName: "shipnode")!.zRotation = payload.angleRad
                     } else {
-                        shipSprite.childNode(withName: "shipnode")!.zRotation = payload.shipAngleRad
+                        shipSprite.childNode(withName: "shipnode")!.zRotation = payload.angleRad
                     }
                 }
             } else {
@@ -287,6 +288,31 @@ public class MultiplayerHandler{
                 }
             }
         }
+    }
+    
+    public func ListenToAstroball(){
+        astroballRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Astroball")
+        astroballRef?.observe(.value, with: { (Snapshot) in
+            if Global.gameData.gameState == GameStates.AstroBall {
+                let astroballScene = Global.gameData.skView.scene as! AstroBall
+                let snapVal = Snapshot.value as! String
+                let jsonData = snapVal.data(using: .utf8)
+                let payload = try! JSONDecoder().decode(Payload.self, from: jsonData!)
+                if payload.posX != nil{
+                    astroballScene.astroball?.position.x = payload.posX!
+                    astroballScene.astroball?.position.y = payload.posY!
+                    astroballScene.astroball?.physicsBody?.velocity = payload.velocity!
+                    astroballScene.astroball?.zRotation = payload.angleRad
+                } else {
+                    astroballScene.astroball?.physicsBody?.velocity = payload.velocity!
+                    astroballScene.astroball?.zRotation = payload.angleRad
+                }
+            }
+        })
+    }
+    
+    public func StopListenToAstroball(){
+        astroballRef?.removeAllObservers()
     }
     
 }

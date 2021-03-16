@@ -2,8 +2,8 @@ import Foundation
 import SpriteKit
 
 struct Payload : Codable {
-    public let shipPosX: CGFloat?;
-    public let shipPosY: CGFloat?;
-    public let shipAngleRad: CGFloat;
-    
+    public let posX: CGFloat?;
+    public let posY: CGFloat?;
+    public let angleRad: CGFloat;
+    public let velocity: CGVector?;
 }

@@ -8,22 +8,26 @@ public struct Global {
     public static let multiplayerHandler = MultiplayerHandler()
     
     static func loadScene(s: String) {
-            
-            /* 2) Load Game scene */
-            guard let scene = SKScene(fileNamed: s) else {
-                print("Could not make \(s), check the name is spelled correctly")
-                return
-            }
-            /* 3) Ensure correct aspect mode */
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                scene.scaleMode = .aspectFit
-            } else {
-                scene.scaleMode = .aspectFill
-            }
-            
-            // Run in main thread
-            /* 4) Start game scene */
-        gameData.skView.presentScene(scene)
         
+        /* 2) Load Game scene */
+        guard let scene = SKScene(fileNamed: s) else {
+            print("Could not make \(s), check the name is spelled correctly")
+            return
         }
+        /* 3) Ensure correct aspect mode */
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            scene.scaleMode = .aspectFit
+        } else {
+            scene.scaleMode = .aspectFill
+        }
+        
+        gameData.skView.showsPhysics = true
+        gameData.skView.showsDrawCount = false
+        gameData.skView.showsFPS = false
+        
+        // Run in main thread
+        /* 4) Start game scene */
+        gameData.skView.presentScene(scene)
+    
     }
+}

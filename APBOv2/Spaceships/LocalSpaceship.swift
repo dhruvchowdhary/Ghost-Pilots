@@ -70,6 +70,7 @@ public class LocalSpaceship: SpaceshipBase {
         spaceShipNode.zPosition = 5
        
         spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)
+        spaceShipParent.physicsBody?.allowsRotation = false
         spaceShipParent.name = "parent"
         spaceShipParent.physicsBody?.categoryBitMask = CollisionType.player.rawValue
         spaceShipParent.physicsBody?.contactTestBitMask = CollisionType.border.rawValue | CollisionType.bullet.rawValue | CollisionType.player.rawValue
@@ -91,10 +92,11 @@ public class LocalSpaceship: SpaceshipBase {
             unfiredBullets[i].position.y = CGFloat(50 * sin(Double.pi * Double(i) * 0.6666666))
             unfiredBulletRotator.addChild(unfiredBullets[i])
         }
-        spaceShipHud.addChild(unfiredBulletRotator)
+        spaceShipParent.addChild(unfiredBulletRotator)
         
         
         Global.gameData.camera.removeFromParent()
+        Global.gameData.camera.name = "camera"
         spaceShipHud.addChild(Global.gameData.camera)
         
         reviveButtonNode = spaceShipHud.childNode(withName: "reviveButton") as? MSButtonNode
@@ -297,25 +299,23 @@ public class LocalSpaceship: SpaceshipBase {
                     isRecoiling = false
                 }
                 else {
-                    spaceShipParent.position.x -= cos(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
-                    spaceShipParent.position.y -= sin(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
+                    let velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 220, dy: sin(spaceShipNode.zRotation) * 220 * Global.gameData.speedMultiplier))
+                    spaceShipParent.physicsBody?.velocity = velocity
                 }
             } else {
-               // let velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 220, dy: sin(spaceShipNode.zRotation) * 220))
-               // spaceShipParent.physicsBody?.velocity = velocity
-                spaceShipParent.position.x += cos(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
-                spaceShipParent.position.y += sin(spaceShipNode.zRotation) * CGFloat(deltaTime) * 250
+                let velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 220, dy: sin(spaceShipNode.zRotation) * 220 * Global.gameData.speedMultiplier))
+                spaceShipParent.physicsBody?.velocity = velocity
             }
         
         
         if framesTilPos < 0 {
-            let payload = Payload(shipPosX: spaceShipParent.position.x, shipPosY: spaceShipParent.position.y, shipAngleRad: spaceShipNode.zRotation)
+            let payload = Payload(posX: spaceShipParent.position.x, posY: spaceShipParent.position.y, angleRad: spaceShipNode.zRotation, velocity: nil)
             let data = try! JSONEncoder().encode(payload)
             let json = String(data: data, encoding: .utf8)!
             posRef.setValue(json)
-            framesTilPos = 2
+            framesTilPos = 3
         } else {
-            let payload = Payload(shipPosX: nil, shipPosY: nil, shipAngleRad: spaceShipNode.zRotation)
+            let payload = Payload(posX: nil, posY: nil, angleRad: spaceShipNode.zRotation, velocity: nil)
             let data = try! JSONEncoder().encode(payload)
             let json = String(data: data, encoding: .utf8)!
             posRef.setValue(json)

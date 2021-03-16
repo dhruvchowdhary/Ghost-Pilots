@@ -6,17 +6,31 @@ import AudioToolbox
 
 
 class AstroBall: GameSceneBase {
+    var framesTilPos = 10
+    var astroball: SKSpriteNode?
+    let astroballRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Astroball")
+    
     public override func didMove(to view: SKView) {
         Global.gameData.gameState = GameStates.AstroBall
+        
+        if !Global.gameData.isHost{
+            Global.multiplayerHandler.ListenToAstroball()
+        }
+        
+        
         for ship in Global.gameData.shipsToUpdate{
             ship.spaceShipParent.removeFromParent()
             addChild(ship.spaceShipParent)
             ship.spaceShipParent.physicsBody!.mass = 10
             ship.spaceShipParent.position = CGPoint(x: loadShipPosX, y: loadShipPosY)
             loadShipPosX = loadShipPosX + 50
+            
+            if !Global.gameData.isHost {
+                
+            }
         }
         // World physics
-        physicsWorld.gravity = .zero
+        //physicsWorld.gravity = .zero
         self.physicsWorld.contactDelegate = self
         
         // Sets up the boundries
@@ -103,6 +117,7 @@ class AstroBall: GameSceneBase {
     
     func loadBall() {
         let astroball = SKSpriteNode(imageNamed: "asteroid")
+        self.astroball = astroball
     
         astroball.position = CGPoint(x: frame.midX, y: frame.midY)
         
@@ -116,6 +131,11 @@ class AstroBall: GameSceneBase {
         
         astroball.zPosition = 4
         astroball.physicsBody!.mass = 1
+        astroball.physicsBody!.friction = 0
+        astroball.physicsBody!.linearDamping = 0
+        astroball.physicsBody!.angularDamping = 0
+        astroball.physicsBody!.restitution = 1
+        astroball.physicsBody!.isDynamic = true
     
         addChild(astroball)
         
@@ -166,5 +186,29 @@ class AstroBall: GameSceneBase {
         addChild(redGoal)
         
     
+    }
+    
+    override func uniqueGamemodeUpdate() {
+        let c = Global.gameData.playerShip?.spaceShipHud
+        let y = (astroball!.position.y - Global.gameData.playerShip!.spaceShipParent.position.y) / 3
+        let x = (astroball!.position.x - Global.gameData.playerShip!.spaceShipParent.position.x) / 3
+        c?.position.x = x
+        c?.position.y = y
+        
+        if Global.gameData.isHost {
+            if framesTilPos < 0 {
+                let payload = Payload(posX: astroball!.position.x, posY: astroball!.position.y, angleRad: astroball!.zRotation, velocity: astroball!.physicsBody!.velocity)
+                let data = try! JSONEncoder().encode(payload)
+                let json = String(data: data, encoding: .utf8)!
+                astroballRef.setValue(json)
+                framesTilPos = 3
+            } else {
+                let payload = Payload(posX: nil, posY: nil, angleRad: astroball!.zRotation, velocity: astroball!.physicsBody!.velocity)
+                let data = try! JSONEncoder().encode(payload)
+                let json = String(data: data, encoding: .utf8)!
+                astroballRef.setValue(json)
+                framesTilPos -= 1
+            }
+        }
     }
 }
