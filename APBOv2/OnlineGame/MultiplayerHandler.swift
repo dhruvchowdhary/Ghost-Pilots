@@ -207,8 +207,8 @@ public class MultiplayerHandler{
                 let e = child as! DataSnapshot
                 if Global.gameData.gameState == GameStates.LobbyMenu {
                     let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
-                    let j = lobbyScene.childNode(withName: e.key)?.childNode(withName: "colorButtonNode") as! MSButtonNode
-                    j.texture = SKTexture(imageNamed: e.value as! String)
+                    let j = lobbyScene.childNode(withName: e.key)?.childNode(withName: "colorButtonNode") as? MSButtonNode
+                    j?.texture = SKTexture(imageNamed: e.value as! String)
                 }
             }
         })
