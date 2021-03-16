@@ -120,10 +120,11 @@ public class MultiplayerHandler{
                         }
                      //   print(infectedList.count)
                      //   print(Global.gameData.shipsToUpdate.count)
-                        if infectedList.count == Global.gameData.shipsToUpdate.count {
-                          //  print("gameover!!!!")
-                            Global.gameData.playerShip!.setGameOver()
-                            
+                        if Global.gameData.shipsToUpdate.count > 1 {
+                            if infectedList.count == Global.gameData.shipsToUpdate.count {
+                                //  print("gameover!!!!")
+                                Global.gameData.playerShip!.setGameOver()
+                            }
                         }
                     }
                 }
