@@ -40,10 +40,11 @@ public class MultiplayerHandler{
                         Global.gameData.skView.presentScene(scene)
                         scene.KickedFromGame()
                     }
+                }
+                if e.value as! String == "PePeKicked" || e.value as! String == "PePeGone"{
                     var indexesToRM: [Int] = []
                     // Haha somone left loser
                     for i in 0..<Global.gameData.shipsToUpdate.count {
-                        print("gotem")
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
                             Global.gameData.shipsToUpdate[i].spaceShipParent.removeFromParent()
                             indexesToRM.insert(i, at: 0)

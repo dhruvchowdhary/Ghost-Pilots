@@ -53,8 +53,6 @@ public class GameData{
     public func ResetGameData(toLobby: Bool){
         Global.multiplayerHandler.StopListenForInfectedChanges()
         
-        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(Global.playerData.username)", Value: "PePeGone")
-        
         for x in shipsToUpdate{
             if let ship = x as? RemoteSpaceship {
                 ship.StopListenToShip()
@@ -67,6 +65,7 @@ public class GameData{
             if isHost {
                 Global.multiplayerHandler.SetNewHost()
             }
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(Global.playerData.username)", Value: "PePeGone")
             host = ""
             map = "OnlineCubis"
             mode = "ffa"

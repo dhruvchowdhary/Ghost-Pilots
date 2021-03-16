@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Global.gameData.gameScene.lastUpdateTime = 42069.0
         gameCode = Global.gameData.gameID
         username = Global.playerData.username
+        DataPusher.PushData(path: "Games/\(gameCode)/PlayerList/\(username)", Value: "PePeGone")
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {

@@ -44,7 +44,18 @@ class LobbyMenu: SKScene {
     
     override func didMove(to view: SKView) {
         Global.gameData.gameState = GameStates.LobbyMenu
-
+        
+        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerList").observeSingleEvent(of: .value) { snapshot in
+            var playerList: [String] = []
+            for child in snapshot.children {
+                let e = child as! DataSnapshot
+                if e.value as! String == "PePeNotGone"{
+                    playerList.append(e.key)
+                }
+            }
+            self.setPlayerList(playerList: playerList)
+        }
+        
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
             //      particles.advanceSimulationTime(60)
