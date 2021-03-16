@@ -203,7 +203,7 @@ class AstroBall: GameSceneBase {
                 let json = String(data: data, encoding: .utf8)!
                 astroballRef.setValue(json)
                 
-                for g in 0..<geo.count {
+                for g in 0..<geo.count-1 {
                     let payload = Payload(posX: geo[g].position.x, posY: geo[g].position.y, angleRad: geo[g].zRotation, velocity: geo[g].physicsBody!.velocity)
                     let data = try! JSONEncoder().encode(payload)
                     let json = String(data: data, encoding: .utf8)!
@@ -217,7 +217,7 @@ class AstroBall: GameSceneBase {
                 let json = String(data: data, encoding: .utf8)!
                 astroballRef.setValue(json)
                 
-                for g in 0..<geo.count {
+                for g in 0..<geo.count-1 {
                     let payload = Payload(posX: nil, posY: nil, angleRad: geo[g].zRotation, velocity: geo[g].physicsBody!.velocity)
                     let data = try! JSONEncoder().encode(payload)
                     let json = String(data: data, encoding: .utf8)!
