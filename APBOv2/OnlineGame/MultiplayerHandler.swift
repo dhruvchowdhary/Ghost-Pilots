@@ -137,7 +137,7 @@ public class MultiplayerHandler{
     public func ListenForAstroBallChanges() {
         self.astroBallRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/AstroBall")
         astroBallRef?.observe(DataEventType.value, with: { (snapshot) in
-            if Global.gameData.isHost {
+    
                 if (snapshot.exists()) {
                     let snapVal = snapshot.value as! String
                     if snapVal == "redWon" {
@@ -150,7 +150,7 @@ public class MultiplayerHandler{
                     }
                     
                     
-                }
+                
             }
         })
     }
