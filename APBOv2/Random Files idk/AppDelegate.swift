@@ -33,12 +33,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         Global.gameData.gameScene.lastUpdateTime = 42069.0
         gameCode = Global.gameData.gameID
-        username = Global.playerData.username
+        username = Global.playerData.playerID
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         Global.gameData.gameScene.lastUpdateTime = 42069.0
-        DataPusher.PushData(path: "Games/\(gameCode)/PlayerList/\(username)", Value: "PePeGone")
+        Global.gameData.ResetGameData(toLobby: false)
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

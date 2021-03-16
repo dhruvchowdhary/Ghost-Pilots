@@ -34,16 +34,17 @@ public class MultiplayerHandler{
             for child in snapshot.children {
                 let e = child as! DataSnapshot
                 if e.value as! String == "PePeKicked"{
-                    if (e.key == Global.playerData.username){
+                    if (e.key == Global.playerData.playerID){
                         // Uh oh mario, we have been removed from the game
                         let scene = OnlineMenu()
                         Global.gameData.skView.presentScene(scene)
                         scene.KickedFromGame()
                     }
+                }
+                if e.value as! String == "PePeKicked" || e.value as! String == "PePeGone"{
                     var indexesToRM: [Int] = []
                     // Haha somone left loser
                     for i in 0..<Global.gameData.shipsToUpdate.count {
-                        print("gotem")
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
                             Global.gameData.shipsToUpdate[i].spaceShipParent.removeFromParent()
                             indexesToRM.insert(i, at: 0)
@@ -70,7 +71,7 @@ public class MultiplayerHandler{
     public func ListenForHostChanges(){
         self.hostRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Host")
         hostRef?.observe(DataEventType.value, with: { (snapshot) in
-            if snapshot.value as! String == Global.playerData.username
+            if snapshot.value as! String == Global.playerData.playerID
             {
                 Global.gameData.isHost = true
             }
