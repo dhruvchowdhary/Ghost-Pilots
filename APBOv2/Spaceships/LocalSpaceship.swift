@@ -238,25 +238,44 @@ public class LocalSpaceship: SpaceshipBase {
     func setGameOver() {
         if indicateEnd == false {
             print("GAME OVER!!!!!")
-            
             let generator = UIImpactFeedbackGenerator(style: .medium)
             generator.impactOccurred()
-            gameOver.zPosition = 100
-            gameOver.size = CGSize(width: 1469 / 3, height: 311 / 3)
-            spaceShipParent.addChild(gameOver)
-            gameOver.run(scaleAction)
-            gameOver.alpha = 1
-            spaceShipParent.addChild(infectionGameOverFX!)
-            infectionGameOverFX!.zPosition = 99
-            infectionGameOverFX!.alpha = 1
-            indicateEnd = true
-            let wait1 = SKAction.wait(forDuration: 5)
-            spaceShipNode.run(wait1, completion:  {
-                if Global.gameData.isHost {
-                    DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Lobby")
-                }
+            
+            switch Global.gameData.mode {
+            case "ffa":
+               print("ffa ended")
+            case "astroball":
+                print("astroball ended")
+            case "infection":
                 
-            })
+                  gameOver.zPosition = 1000
+                  gameOver.size = CGSize(width: 1469 / 1.5, height: 311 / 1.5)
+                  spaceShipParent.addChild(gameOver)
+                  //gameOver.run(scaleAction)
+                  gameOver.alpha = 1
+                  
+                  spaceShipParent.addChild(infectionGameOverFX!)
+                  infectionGameOverFX!.zPosition = 99
+                  infectionGameOverFX!.alpha = 1
+                  
+                  indicateEnd = true
+                  let wait1 = SKAction.wait(forDuration: 5)
+                  spaceShipNode.run(wait1, completion:  {
+                      if Global.gameData.isHost {
+                          DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Lobby")
+                      }
+                      
+                  })
+                
+            default:
+                print("default ended")
+               
+            }
+            
+            
+           
+           
+          
         }
     }
     
