@@ -246,6 +246,10 @@ public class MultiplayerHandler{
         }
     }
     
+    public func ClearInfectedList(){
+        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/InfectedList").removeValue()
+    }
+    
     public func StopListenForGameStatus(){
         statusRef?.removeAllObservers()
     }

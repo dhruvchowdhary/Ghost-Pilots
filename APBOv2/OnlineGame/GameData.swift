@@ -60,7 +60,9 @@ public class GameData{
                 ship.StopListenToShip()
             }
         }
-        
+        if isHost {
+            Global.multiplayerHandler.ClearInfectedList()
+        }
         if !toLobby {
             if isHost {
                 Global.multiplayerHandler.SetNewHost()
