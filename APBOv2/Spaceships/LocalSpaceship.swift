@@ -242,11 +242,12 @@ public class LocalSpaceship: SpaceshipBase {
             let generator = UIImpactFeedbackGenerator(style: .medium)
             generator.impactOccurred()
             gameOver.zPosition = 100
-            gameOver.size = CGSize(width: 1469 / 2, height: 311 / 2)
+            gameOver.size = CGSize(width: 1469 / 3, height: 311 / 3)
             spaceShipParent.addChild(gameOver)
             gameOver.run(scaleAction)
             gameOver.alpha = 1
-            gameOver.addChild(infectionGameOverFX!)
+            spaceShipParent.addChild(infectionGameOverFX!)
+            infectionGameOverFX!.zPosition = 99
             infectionGameOverFX!.alpha = 1
             indicateEnd = true
             let wait1 = SKAction.wait(forDuration: 5)
