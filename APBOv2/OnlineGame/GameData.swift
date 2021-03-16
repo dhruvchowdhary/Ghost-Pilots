@@ -30,12 +30,12 @@ public class GameData{
     public func SetUniqueCode(code: Int){
         // we have created a code, we must now finish init game
         gameID = code
-        DataPusher.PushData(path: "Games/\(code)/Host", Value: Global.playerData.username)
+        DataPusher.PushData(path: "Games/\(code)/Host", Value: Global.playerData.playerID)
         DataPusher.PushData(path: "Games/\(code)/Map", Value: map)
         DataPusher.PushData(path: "Games/\(code)/Mode", Value: mode)
         DataPusher.PushData(path: "Games/\(code)/Status", Value: "Lobby")
-        DataPusher.PushData(path: "Games/\(code)/PlayerList/\(Global.playerData.username)", Value: "PePeNotGone")
-        Global.gameData.host = Global.playerData.username
+        DataPusher.PushData(path: "Games/\(code)/PlayerList/\(Global.playerData.playerID)", Value: "PePeNotGone")
+        Global.gameData.host = Global.playerData.playerID
         Global.loadScene(s: "LobbyMenu")
     }
     
@@ -65,7 +65,7 @@ public class GameData{
             if isHost {
                 Global.multiplayerHandler.SetNewHost()
             }
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(Global.playerData.username)", Value: "PePeGone")
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(Global.playerData.playerID)", Value: "PePeGone")
             host = ""
             map = "OnlineCubis"
             mode = "ffa"

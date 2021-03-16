@@ -37,7 +37,7 @@ public class LocalSpaceship: SpaceshipBase {
     let gameOver = SKSpriteNode(imageNamed: "infectiongameover")
     
     init(imageTexture: String) {
-        super.init(playerId: Global.playerData.username)
+        super.init(playerId: Global.playerData.playerID)
         spaceShipNode.removeFromParent()
         spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
         spaceShipParent.addChild(spaceShipNode)

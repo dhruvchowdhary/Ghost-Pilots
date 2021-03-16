@@ -196,7 +196,7 @@ class LobbyMenu: SKScene {
                 }
             }
             let userColor = newuser.childNode(withName: "colorButtonNode") as! MSButtonNode
-            if player == Global.playerData.username {
+            if player == Global.playerData.playerID {
                 setUpColors(userColor: userColor, isPlayer: true, index: index)
             } else {
                 setUpColors(userColor: userColor, isPlayer: false, index: index)
@@ -216,15 +216,15 @@ class LobbyMenu: SKScene {
         }
         for s in self.list {
             var spaceship: SpaceshipBase
-            if s == Global.playerData.username {
+            if s == Global.playerData.playerID {
                 switch Global.gameData.mode {
                 case "infection":
                     if list.firstIndex(of: s) == randInt {
-                        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/InfectedList/\(Global.playerData.username)", Value: "true")
-                        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: "apboGreen")
+                        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/InfectedList/\(Global.playerData.playerID)", Value: "true")
+                        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.playerID)", Value: "apboGreen")
                         spaceship = LocalSpaceship(imageTexture: intToColorInfection[0]!)
                     } else {
-                        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: "apboWhite")
+                        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.playerID)", Value: "apboWhite")
                         spaceship = LocalSpaceship(imageTexture: intToColorInfection[1]!)
                     }
                 case "ffa":
@@ -286,7 +286,7 @@ class LobbyMenu: SKScene {
         case "ffa":
             userColor.texture = SKTexture(imageNamed: intToColor[index % 9]!)
             colorIndex = index
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex]!)
             if isPlayer {
                 userColor.selectedHandlers = {
                     if self.colorIndex == 8 {
@@ -295,7 +295,7 @@ class LobbyMenu: SKScene {
                         self.colorIndex = self.colorIndex + 1
                     }
                     userColor.texture = SKTexture(imageNamed: self.intToColor[self.colorIndex]!)
-                    DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
+                    DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex]!)
                     userColor.alpha = 1
                 }
             } else {
@@ -306,7 +306,7 @@ class LobbyMenu: SKScene {
         case "astroball":
             userColor.texture = SKTexture(imageNamed: intToColor[index % 2]!)
             colorIndex = index
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex]!)
             if isPlayer {
                 userColor.selectedHandlers = {
                     if self.colorIndex == 1 {
@@ -315,7 +315,7 @@ class LobbyMenu: SKScene {
                         self.colorIndex = 1
                     }
                     userColor.texture = SKTexture(imageNamed: self.intToColor[self.colorIndex]!)
-                    DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
+                    DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex]!)
                     userColor.alpha = 1
                 }
             } else {
@@ -326,7 +326,7 @@ class LobbyMenu: SKScene {
         default:
             userColor.texture = SKTexture(imageNamed: intToColor[index % 9]!)
             colorIndex = index
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex]!)
             userColor.selectedHandlers = {
                 if self.colorIndex == 8 {
                     self.colorIndex = 0
@@ -334,7 +334,7 @@ class LobbyMenu: SKScene {
                     self.colorIndex = self.colorIndex + 1
                 }
                 userColor.texture = SKTexture(imageNamed: self.intToColor[self.colorIndex]!)
-                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.username)", Value: self.intToColor[self.colorIndex]!)
+                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex]!)
                 userColor.alpha = 1
             }
         }

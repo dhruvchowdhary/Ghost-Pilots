@@ -47,7 +47,7 @@ class Infection: GameSceneBase {
             
             secondNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/InfectedList/\(Global.playerData.username)", Value: "true")
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/InfectedList/\(Global.playerData.playerID)", Value: "true")
         //    ListenForInfectedChanges(playerID: Global.playerData.playerID!, secondNode: secondNode)
            // Global.multiplayerHandler.ListenForInfectedChanges(username: Global.playerData.username, secondNode: firstNode)
             

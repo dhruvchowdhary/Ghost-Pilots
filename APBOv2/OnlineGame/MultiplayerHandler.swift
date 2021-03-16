@@ -34,7 +34,7 @@ public class MultiplayerHandler{
             for child in snapshot.children {
                 let e = child as! DataSnapshot
                 if e.value as! String == "PePeKicked"{
-                    if (e.key == Global.playerData.username){
+                    if (e.key == Global.playerData.playerID){
                         // Uh oh mario, we have been removed from the game
                         let scene = OnlineMenu()
                         Global.gameData.skView.presentScene(scene)
@@ -71,7 +71,7 @@ public class MultiplayerHandler{
     public func ListenForHostChanges(){
         self.hostRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Host")
         hostRef?.observe(DataEventType.value, with: { (snapshot) in
-            if snapshot.value as! String == Global.playerData.username
+            if snapshot.value as! String == Global.playerData.playerID
             {
                 Global.gameData.isHost = true
             }
