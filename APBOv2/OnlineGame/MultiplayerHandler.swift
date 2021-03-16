@@ -9,6 +9,7 @@ public class MultiplayerHandler{
     var mapRef: DatabaseReference?
     var modeRef: DatabaseReference?
     var infectedRef: DatabaseReference?
+    var astroBallRef: DatabaseReference?
     var colorRef: DatabaseReference?
     var astroballRef: DatabaseReference?
     var currentBulletCounts: [(String, Int)] = []
@@ -133,6 +134,23 @@ public class MultiplayerHandler{
         })
     }
     
+    public func ListenForAstroBallChanges() {
+        self.astroBallRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/AstroBall")
+        astroBallRef?.observe(DataEventType.value, with: { (snapshot) in
+          
+            if (snapshot.exists()) {
+                let snapVal = snapshot.value as! String
+                if snapVal == "redWon" {
+                    print("redWon")
+                }
+                else if snapVal == "blueWon" {
+                    print("blueWon")
+                }
+            
+         //Global.gameData.playerShip!.setGameOver()
+            }
+        })
+    }
     public func ListenForShots(ref: DatabaseReference, spaceShip: SpaceshipBase ){
         currentBulletCounts.append((spaceShip.playerID, 0))
         ref.observe(DataEventType.value) { ( snapshot ) in
