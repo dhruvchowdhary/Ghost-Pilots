@@ -395,12 +395,12 @@ public class LocalSpaceship: SpaceshipBase {
             let data = try! JSONEncoder().encode(payload)
             let json = String(data: data, encoding: .utf8)!
             posRef.setValue(json)
-            framesTilPos = 3
+            framesTilPos = 2
         } else {
-            let payload = Payload(posX: nil, posY: nil, angleRad: spaceShipNode.zRotation, velocity: nil)
-            let data = try! JSONEncoder().encode(payload)
-            let json = String(data: data, encoding: .utf8)!
-            posRef.setValue(json)
+//            let payload = Payload(posX: nil, posY: nil, angleRad: spaceShipNode.zRotation, velocity: nil)
+//            let data = try! JSONEncoder().encode(payload)
+//            let json = String(data: data, encoding: .utf8)!
+//            posRef.setValue(json)
             framesTilPos -= 1
         }
     }

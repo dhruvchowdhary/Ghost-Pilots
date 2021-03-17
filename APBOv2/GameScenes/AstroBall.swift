@@ -124,16 +124,7 @@ class AstroBall: GameSceneBase {
             secondNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
             
-        }
-        
-        else if firstNode.name == "parent" && secondNode.name == "playerWeapon" {
-            print("player is shot")
-            secondNode.removeFromParent()
-            liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
-            
-        }
-        
-        else if firstNode.name == "astroball" && secondNode.name == "redGoal" {
+        } else if firstNode.name == "astroball" && secondNode.name == "redGoal" {
          
            if Global.gameData.isHost {
                 DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: String(redHP - 1))
@@ -141,15 +132,35 @@ class AstroBall: GameSceneBase {
             redHP = redHP - 1
         //
             
-        }
-        
-        else if firstNode.name == "astroball" && secondNode.name == "blueGoal" {
+        } else if firstNode.name == "astroball" && secondNode.name == "blueGoal" {
         if Global.gameData.isHost {
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: String(blueHP - 1))
         }
         blueHP = blueHP - 1
     
         
+        }
+        if firstNode.name == "astroball"{
+            if Global.gameData.isHost {
+                if framesTilPos < 0 {
+                    let payload = Payload(posX: astroball!.position.x, posY: astroball!.position.y, angleRad: astroball!.zRotation, velocity: astroball!.physicsBody!.velocity)
+                    let data = try! JSONEncoder().encode(payload)
+                    let json = String(data: data, encoding: .utf8)!
+                    astroballRef.setValue(json)
+
+                    for g in 0..<geo.count {
+                        let payload = Payload(posX: geo[g].position.x, posY: geo[g].position.y, angleRad: geo[g].zRotation, velocity: geo[g].physicsBody!.velocity)
+                        let data = try! JSONEncoder().encode(payload)
+                        let json = String(data: data, encoding: .utf8)!
+                        Global.multiplayerHandler.geoRefs[g].setValue(json)
+                    }
+
+                    framesTilPos = 0
+                } else {
+                    framesTilPos -= 1
+                }
+            }
+
         }
     }
     
@@ -234,38 +245,38 @@ class AstroBall: GameSceneBase {
         c?.position.x = x
         c?.position.y = y
         
-        if Global.gameData.isHost {
-            if framesTilPos < 0 {
-                let payload = Payload(posX: astroball!.position.x, posY: astroball!.position.y, angleRad: astroball!.zRotation, velocity: astroball!.physicsBody!.velocity)
-                let data = try! JSONEncoder().encode(payload)
-                let json = String(data: data, encoding: .utf8)!
-                astroballRef.setValue(json)
-                
-                for g in 0..<geo.count {
-                    let payload = Payload(posX: geo[g].position.x, posY: geo[g].position.y, angleRad: geo[g].zRotation, velocity: geo[g].physicsBody!.velocity)
-                    let data = try! JSONEncoder().encode(payload)
-                    let json = String(data: data, encoding: .utf8)!
-                    Global.multiplayerHandler.geoRefs[g].setValue(json)
-                }
-                
-                framesTilPos = 2
-            } else {
-                let payload = Payload(posX: nil, posY: nil, angleRad: astroball!.zRotation, velocity: astroball!.physicsBody!.velocity)
-                let data = try! JSONEncoder().encode(payload)
-                let json = String(data: data, encoding: .utf8)!
-                astroballRef.setValue(json)
-                
-                for g in 0..<geo.count {
-                    let payload = Payload(posX: nil, posY: nil, angleRad: geo[g].zRotation, velocity: geo[g].physicsBody!.velocity)
-                    let data = try! JSONEncoder().encode(payload)
-                    let json = String(data: data, encoding: .utf8)!
-                    Global.multiplayerHandler.geoRefs[g].setValue(json)
-                }
-                
-                framesTilPos -= 1
-            }
-            
-            
-        }
+//        if Global.gameData.isHost {
+//            if framesTilPos < 0 {
+//                let payload = Payload(posX: astroball!.position.x, posY: astroball!.position.y, angleRad: astroball!.zRotation, velocity: astroball!.physicsBody!.velocity)
+//                let data = try! JSONEncoder().encode(payload)
+//                let json = String(data: data, encoding: .utf8)!
+//                astroballRef.setValue(json)
+//
+//                for g in 0..<geo.count {
+//                    let payload = Payload(posX: geo[g].position.x, posY: geo[g].position.y, angleRad: geo[g].zRotation, velocity: geo[g].physicsBody!.velocity)
+//                    let data = try! JSONEncoder().encode(payload)
+//                    let json = String(data: data, encoding: .utf8)!
+//                    Global.multiplayerHandler.geoRefs[g].setValue(json)
+//                }
+//
+//                framesTilPos = 2
+//            } else {
+//                let payload = Payload(posX: nil, posY: nil, angleRad: astroball!.zRotation, velocity: astroball!.physicsBody!.velocity)
+//                let data = try! JSONEncoder().encode(payload)
+//                let json = String(data: data, encoding: .utf8)!
+//                astroballRef.setValue(json)
+//
+//                for g in 0..<geo.count {
+//                    let payload = Payload(posX: nil, posY: nil, angleRad: geo[g].zRotation, velocity: geo[g].physicsBody!.velocity)
+//                    let data = try! JSONEncoder().encode(payload)
+//                    let json = String(data: data, encoding: .utf8)!
+//                    Global.multiplayerHandler.geoRefs[g].setValue(json)
+//                }
+//
+//                framesTilPos -= 1
+//            }
+//
+//
+//        }
     }
 }

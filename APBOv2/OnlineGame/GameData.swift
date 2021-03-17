@@ -81,6 +81,7 @@ public class GameData{
             if isHost {
                 Global.multiplayerHandler.SetNewHost()
             }
+            gameID = 666
         }
         Global.gameData.playerShip?.spaceShipHud.position = .zero
         shipsToUpdate = []

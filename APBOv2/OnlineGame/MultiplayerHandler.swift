@@ -325,7 +325,6 @@ public class MultiplayerHandler{
                     }
                 }
                 if Global.gameData.isHost {
-                    print("killed it")
                     MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)").removeValue()
                     Global.gameData.isHost = false
                 }
