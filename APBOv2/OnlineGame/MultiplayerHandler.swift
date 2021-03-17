@@ -407,6 +407,7 @@ public class MultiplayerHandler{
     }
     
     public func SetGeoRefs(){
+        geoRefs = []
         let geoPieces: Int?
         switch Global.gameData.map{
         case "OnlineTrisen":
@@ -436,9 +437,6 @@ public class MultiplayerHandler{
                 let jsonData = snapVal.data(using: .utf8)
                 let payload = try! JSONDecoder().decode(Payload.self, from: jsonData!)
                 if payload.posX != nil{
-                    guard let pepe = astroballScene.geo[i].position.x as? String else {
-                        return
-                    }
                     astroballScene.geo[i].position.x = payload.posX!
                     astroballScene.geo[i].position.y = payload.posY!
                     astroballScene.geo[i].physicsBody?.velocity = payload.velocity!
