@@ -152,7 +152,7 @@ public class MultiplayerHandler{
             
           //  AstroBall().setColorHP(redHPString: redHP, blueHPString: blueHP)
             
-            AstroBall().setColorHP(redHPString: "3", blueHPString: "3")
+            AstroBall().setColorHP(redHPString: redHP, blueHPString: blueHP)
            // (AstroBall().childNode(withName: "redHPLabel") as! SKLabelNode).text = (redHP as! String)
                 // (AstroBall().childNode(withName: "blueHPLabel") as! SKLabelNode).text = (blueHP as! String)
             

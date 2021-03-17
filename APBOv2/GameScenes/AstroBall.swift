@@ -155,9 +155,10 @@ class AstroBall: GameSceneBase {
     
     func setColorHP(redHPString: String, blueHPString: String) {
 
-        blueHPLabel.text = blueHPString
-        redHPLabel.text = redHPString
-       print("set labels")
+        blueHPLabel.text = "\(blueHPString)"
+        redHPLabel.text = "\(redHPString)"
+        
+       print("labels set")
     }
     
     func loadBall() {
