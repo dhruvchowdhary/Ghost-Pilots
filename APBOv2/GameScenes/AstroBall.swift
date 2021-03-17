@@ -9,8 +9,8 @@ class AstroBall: GameSceneBase {
     var framesTilPos = 10
     var astroball: SKSpriteNode?
     let astroballRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Astroball")
-    var redHP = 5
-    var blueHP = 5
+    var redHP = 9
+    var blueHP = 9
     
    var redHPLabel = SKLabelNode(text: "0")
     var blueHPLabel = SKLabelNode(text: "0")
@@ -168,6 +168,10 @@ class AstroBall: GameSceneBase {
 
         blueHPLabel.text = "\(blueHPString)"
         redHPLabel.text = "\(redHPString)"
+        
+        
+        print("redHP: \(blueHPString)")
+        print("blueHP: \(redHPString)")
         
        print("labels set")
     }
