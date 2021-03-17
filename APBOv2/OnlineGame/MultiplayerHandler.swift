@@ -14,6 +14,7 @@ public class MultiplayerHandler{
     var astroballRef: DatabaseReference?
     var geoRefs: [DatabaseReference] = []
     var currentBulletCounts: [(String, Int)] = []
+    var hasFoundGame = false
     
     public static var ref: DatabaseReference! = Database.database().reference()
     
@@ -476,6 +477,58 @@ public class MultiplayerHandler{
     func StopListenToGeometry(){
         for r in geoRefs {
             r.removeAllObservers()
+        }
+    }
+    
+    func MakeGamePublic(){
+        if Global.gameData.isHost {
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/isPublic", Value: "TRUE")
+            DataPusher.PushData(path: "Games/LFG/\(Global.gameData.gameID)", Value: "PePeLonely")
+        }
+    }
+    
+    func MakeGamePrivate(){
+        if Global.gameData.isHost {
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/isPublic", Value: "FALSE")
+            MultiplayerHandler.ref.child("Games/LFG/\(Global.gameData.gameID)").removeValue()
+        }
+    }
+    
+    func FindPublicGame(){
+        hasFoundGame = false
+        MultiplayerHandler.ref.child("Games/LFG").observeSingleEvent(of: .value) { Snapshot in
+            if Snapshot.exists(){
+                for c in Snapshot.children {
+                    let lobby = c as! DataSnapshot
+                    MultiplayerHandler.ref.child("Games/\(lobby.key)").observeSingleEvent(of: .value) { snapshot in
+                        if snapshot.exists(){
+                            print("1")
+                            if snapshot.childSnapshot(forPath: "Status").value as! String == "Lobby"{
+                                print("lobby status")
+                                var isEmpty = true
+                                for j in Snapshot.childSnapshot(forPath: "PlayerList").children{
+                                    if (j as! DataSnapshot).value as! String == "PePeNotGone" {
+                                        isEmpty = false
+                                    }
+                                }
+                                if isEmpty {
+                                    MultiplayerHandler.ref.child("Games/\(lobby.key)").removeValue()
+                                } else {
+                                    if !self.hasFoundGame {
+                                        print("3")
+                                    // Add some sort of max player count check here
+                                    DataPusher.PushData(path: "Games/\(lobby.key)/PlayerList/\(Global.playerData.playerID)", Value: "PePeNotGone")
+                                    Global.gameData.gameID = Int(lobby.key)!
+                                    Global.gameData.isHost = false
+                                    self.hasFoundGame = true
+                                    Global.loadScene(s: "LobbyMenu")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

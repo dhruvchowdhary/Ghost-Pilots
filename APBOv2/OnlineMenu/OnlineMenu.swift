@@ -20,6 +20,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
     var hostButtonNode: MSButtonNode!
     var joinButtonNode: MSButtonNode!
     var enterButtonNode: MSButtonNode!
+    var MIKE: MSButtonNode!
     var emptyButton = SKSpriteNode(imageNamed: "emptyButton")
     
     var useCount = UserDefaults.standard.integer(forKey: "useCount")
@@ -90,6 +91,10 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                     backButtonNode.position.y =  300
                 }
             }
+            MIKE = self.childNode(withName: "MIKE") as? MSButtonNode
+            MIKE.selectedHandlers = {
+                Global.multiplayerHandler.FindPublicGame()
+            }
             
             hostButtonNode = self.childNode(withName: "hostButton") as? MSButtonNode
             hostButtonNode.selectedHandlers = {
@@ -135,6 +140,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                     }
                 }
             }
+            
             
             setPositions()
         }

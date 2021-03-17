@@ -39,6 +39,11 @@ public class GameData{
         DataPusher.PushData(path: "Games/\(code)/Status", Value: "Lobby")
         DataPusher.PushData(path: "Games/\(code)/PlayerList/\(Global.playerData.playerID)", Value: "PePeNotGone")
         Global.gameData.host = Global.playerData.playerID
+        
+        //IGNORE THIS FAKE NEWS
+        Global.multiplayerHandler.MakeGamePublic()
+        //IGNORE THIS FAKE NEWS
+        
         Global.loadScene(s: "LobbyMenu")
     }
     
