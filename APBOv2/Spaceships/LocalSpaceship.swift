@@ -282,8 +282,8 @@ public class LocalSpaceship: SpaceshipBase {
                         if Global.gameData.isHost {
                             self.gameOver.removeFromParent()
                             GameOverFX?.removeFromParent()
-                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: "5")
-                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: "5")
+                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: "9")
+                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: "9")
                             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Lobby")
                         }
                         
@@ -314,8 +314,8 @@ public class LocalSpaceship: SpaceshipBase {
                         if Global.gameData.isHost {
                             self.gameOver.removeFromParent()
                             GameOverFX?.removeFromParent()
-                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: "5")
-                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: "5")
+                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: "9")
+                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: "9")
                             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Lobby")
                         }
                         
