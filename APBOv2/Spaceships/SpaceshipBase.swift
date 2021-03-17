@@ -60,9 +60,14 @@ public class SpaceshipBase {
         shotsRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/MainGame/\(playerId)/Shots")
         
        
-        
-        Global.multiplayerHandler.ListenForInfectedChanges()
-        Global.multiplayerHandler.ListenForAstroBallChanges()
+        switch Global.gameData.gameState {
+        case GameStates.Infection:
+            Global.multiplayerHandler.ListenForInfectedChanges()
+        case GameStates.AstroBall:
+            Global.multiplayerHandler.ListenForAstroBallChanges()
+        default:
+            print("pepe")
+        }
         Global.multiplayerHandler.ListenForColorChanges()
 
 
