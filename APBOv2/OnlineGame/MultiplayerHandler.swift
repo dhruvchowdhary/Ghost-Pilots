@@ -366,6 +366,7 @@ public class MultiplayerHandler{
                     if player.value as! String == "PePeNotGone" {
                         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Host", Value: player.key)
                         Global.gameData.isHost = false
+                        return
                     }
                 }
                 if Global.gameData.isHost {
