@@ -85,7 +85,7 @@ class LobbyMenu: SKScene {
         if Global.gameData.isHost {
             startButtonNode.alpha = 1
         }
-
+        
         codeLabel.position = CGPoint(x: frame.midX, y: frame.midY - 340)
         startButtonNode.position.y = codeLabel.position.y + startButtonNode.size.height/4
         codeLabel.text = String(Global.gameData.gameID)
@@ -99,7 +99,7 @@ class LobbyMenu: SKScene {
         setupLabel(label: user1)
         user1.fontSize = 90
         
-
+        
         colorButtonNode = self.childNode(withName: "redPlayer") as? MSButtonNode
         kickButtonNode = self.childNode(withName: "kickButton") as? MSButtonNode
         
@@ -289,8 +289,8 @@ class LobbyMenu: SKScene {
         case "ffa":
             userColor.texture = SKTexture(imageNamed: intToColor[index % 9]!)
             colorIndex = index
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex]!)
             if isPlayer {
+                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex]!)
                 userColor.selectedHandlers = {
                     if self.colorIndex == 8 {
                         self.colorIndex = 0
@@ -309,8 +309,8 @@ class LobbyMenu: SKScene {
         case "astroball":
             userColor.texture = SKTexture(imageNamed: intToColor[index % 2]!)
             colorIndex = index
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex]!)
             if isPlayer {
+                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex]!)
                 userColor.selectedHandlers = {
                     if self.colorIndex == 1 {
                         self.colorIndex = 0
@@ -377,7 +377,7 @@ class LobbyMenu: SKScene {
         shakeAnimation.toValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x + intensity.dx, y: sceneView.center.y + intensity.dy))
         sceneView.layer.add(shakeAnimation, forKey: "position")
     }
-
+    
 }
 
 

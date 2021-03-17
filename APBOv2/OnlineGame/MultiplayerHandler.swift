@@ -62,7 +62,7 @@ public class MultiplayerHandler{
                 }
             }
             if Global.gameData.gameState == GameStates.LobbyMenu {
-               let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
+                let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
                 lobbyScene.setPlayerList(playerList: playerList)
             }
         })
@@ -122,8 +122,8 @@ public class MultiplayerHandler{
                             
                             infectedList.append(e.key)
                         }
-                     //   print(infectedList.count)
-                     //   print(Global.gameData.shipsToUpdate.count)
+                        //   print(infectedList.count)
+                        //   print(Global.gameData.shipsToUpdate.count)
                         if Global.gameData.shipsToUpdate.count > 1 {
                             if infectedList.count == Global.gameData.shipsToUpdate.count {
                                 //  print("gameover!!!!")
@@ -268,20 +268,16 @@ public class MultiplayerHandler{
         self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerColor")
         colorRef?.observe(DataEventType.value, with: { (snapshot) in
             for child in snapshot.children {
-                print("i got here")
                 let e = child as! DataSnapshot
-            //    self.pullGameStatus()
-               // print(Global.gameData.status)
-              //  if Global.gameData.status == "Game" {
-                    for i in 0..<Global.gameData.shipsToUpdate.count {
-                        if Global.gameData.shipsToUpdate[i].playerID == e.key {
-                            let color = SKAction.setTexture(SKTexture(imageNamed: e.value as! String))
-                            Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(color)
-                        }
+                //    self.pullGameStatus()
+                // print(Global.gameData.status)
+                //  if Global.gameData.status == "Game" {
+                for i in 0..<Global.gameData.shipsToUpdate.count {
+                    if Global.gameData.shipsToUpdate[i].playerID == e.key {
+                        let color = SKAction.setTexture(SKTexture(imageNamed: e.value as! String))
+                        Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(color)
                     }
-             //   } else {
-                    //change da texture of da shipbuttonnode in lobby
-               // }
+                }
             }
         })
     }
@@ -292,6 +288,8 @@ public class MultiplayerHandler{
             for child in snapshot.children {
                 let e = child as! DataSnapshot
                 if Global.gameData.gameState == GameStates.LobbyMenu {
+                    //               if Global.playerData.playerID != e.key {
+                    print(e)
                     let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
                     let color = SKAction.setTexture(SKTexture(imageNamed: e.value! as! String))
                     lobbyScene.childNode(withName: "pepe")!.childNode(withName: e.key)?.childNode(withName: "colorButtonNode")?.run(color)
@@ -329,7 +327,7 @@ public class MultiplayerHandler{
             }
         })
     }
-
+    
     
     
     public func ListenForGameStatus(){
@@ -494,12 +492,12 @@ public class MultiplayerHandler{
                                 } else {
                                     if !self.hasFoundGame {
                                         print("3")
-                                    // Add some sort of max player count check here
-                                    DataPusher.PushData(path: "Games/\(lobby.key)/PlayerList/\(Global.playerData.playerID)", Value: "PePeNotGone")
-                                    Global.gameData.gameID = Int(lobby.key)!
-                                    Global.gameData.isHost = false
-                                    self.hasFoundGame = true
-                                    Global.loadScene(s: "LobbyMenu")
+                                        // Add some sort of max player count check here
+                                        DataPusher.PushData(path: "Games/\(lobby.key)/PlayerList/\(Global.playerData.playerID)", Value: "PePeNotGone")
+                                        Global.gameData.gameID = Int(lobby.key)!
+                                        Global.gameData.isHost = false
+                                        self.hasFoundGame = true
+                                        Global.loadScene(s: "LobbyMenu")
                                     }
                                 }
                             }
