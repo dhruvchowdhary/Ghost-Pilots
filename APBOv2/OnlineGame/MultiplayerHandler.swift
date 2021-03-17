@@ -443,6 +443,7 @@ public class MultiplayerHandler{
     }
     
     public func ListenToGeometry(){
+        
         for i in 0..<geoRefs.count{
             geoRefs[i].observe(.value, with: { (Snapshot) in
                 if !Snapshot.exists() || Global.gameData.gameState != GameStates.AstroBall{
@@ -454,11 +455,17 @@ public class MultiplayerHandler{
                 let jsonData = snapVal.data(using: .utf8)
                 let payload = try! JSONDecoder().decode(Payload.self, from: jsonData!)
                 if payload.posX != nil{
+                    guard let pepe = astroballScene.geo[i].position.x as? String else {
+                        return
+                    }
                     astroballScene.geo[i].position.x = payload.posX!
                     astroballScene.geo[i].position.y = payload.posY!
                     astroballScene.geo[i].physicsBody?.velocity = payload.velocity!
                     astroballScene.geo[i].zRotation = payload.angleRad
                 } else {
+                    guard let pepe = astroballScene.geo[i].physicsBody?.velocity else {
+                        return
+                    }
                     astroballScene.geo[i].physicsBody?.velocity = payload.velocity!
                     astroballScene.geo[i].zRotation = payload.angleRad
                 }

@@ -140,28 +140,28 @@ class AstroBall: GameSceneBase {
     
         
         }
-        if firstNode.name == "astroball"{
-            if Global.gameData.isHost {
-                if framesTilPos < 0 {
-                    let payload = Payload(posX: astroball!.position.x, posY: astroball!.position.y, angleRad: astroball!.zRotation, velocity: astroball!.physicsBody!.velocity)
-                    let data = try! JSONEncoder().encode(payload)
-                    let json = String(data: data, encoding: .utf8)!
-                    astroballRef.setValue(json)
-
-                    for g in 0..<geo.count {
-                        let payload = Payload(posX: geo[g].position.x, posY: geo[g].position.y, angleRad: geo[g].zRotation, velocity: geo[g].physicsBody!.velocity)
-                        let data = try! JSONEncoder().encode(payload)
-                        let json = String(data: data, encoding: .utf8)!
-                        Global.multiplayerHandler.geoRefs[g].setValue(json)
-                    }
-
-                    framesTilPos = 0
-                } else {
-                    framesTilPos -= 1
-                }
-            }
-
-        }
+//        if firstNode.name == "astroball"{
+//            if Global.gameData.isHost {
+//                if framesTilPos < 0 {
+//                    let payload = Payload(posX: astroball!.position.x, posY: astroball!.position.y, angleRad: astroball!.zRotation, velocity: astroball!.physicsBody!.velocity)
+//                    let data = try! JSONEncoder().encode(payload)
+//                    let json = String(data: data, encoding: .utf8)!
+//                    astroballRef.setValue(json)
+//
+//                    for g in 0..<geo.count {
+//                        let payload = Payload(posX: geo[g].position.x, posY: geo[g].position.y, angleRad: geo[g].zRotation, velocity: geo[g].physicsBody!.velocity)
+//                        let data = try! JSONEncoder().encode(payload)
+//                        let json = String(data: data, encoding: .utf8)!
+//                        Global.multiplayerHandler.geoRefs[g].setValue(json)
+//                    }
+//
+//                    framesTilPos = 0
+//                } else {
+//                    framesTilPos -= 1
+//                }
+//            }
+//
+//        }
     }
     
     func setColorHP(redHPString: String, blueHPString: String) {
@@ -249,22 +249,22 @@ class AstroBall: GameSceneBase {
         c?.position.x = x
         c?.position.y = y
         
-//        if Global.gameData.isHost {
-//            if framesTilPos < 0 {
-//                let payload = Payload(posX: astroball!.position.x, posY: astroball!.position.y, angleRad: astroball!.zRotation, velocity: astroball!.physicsBody!.velocity)
-//                let data = try! JSONEncoder().encode(payload)
-//                let json = String(data: data, encoding: .utf8)!
-//                astroballRef.setValue(json)
-//
-//                for g in 0..<geo.count {
-//                    let payload = Payload(posX: geo[g].position.x, posY: geo[g].position.y, angleRad: geo[g].zRotation, velocity: geo[g].physicsBody!.velocity)
-//                    let data = try! JSONEncoder().encode(payload)
-//                    let json = String(data: data, encoding: .utf8)!
-//                    Global.multiplayerHandler.geoRefs[g].setValue(json)
-//                }
-//
-//                framesTilPos = 2
-//            } else {
+        if Global.gameData.isHost {
+            if framesTilPos < 0 {
+                let payload = Payload(posX: astroball!.position.x, posY: astroball!.position.y, angleRad: astroball!.zRotation, velocity: astroball!.physicsBody!.velocity)
+                let data = try! JSONEncoder().encode(payload)
+                let json = String(data: data, encoding: .utf8)!
+                astroballRef.setValue(json)
+
+                for g in 0..<geo.count {
+                    let payload = Payload(posX: geo[g].position.x, posY: geo[g].position.y, angleRad: geo[g].zRotation, velocity: geo[g].physicsBody!.velocity)
+                    let data = try! JSONEncoder().encode(payload)
+                    let json = String(data: data, encoding: .utf8)!
+                    Global.multiplayerHandler.geoRefs[g].setValue(json)
+                }
+
+                framesTilPos = 0
+            } else {
 //                let payload = Payload(posX: nil, posY: nil, angleRad: astroball!.zRotation, velocity: astroball!.physicsBody!.velocity)
 //                let data = try! JSONEncoder().encode(payload)
 //                let json = String(data: data, encoding: .utf8)!
@@ -276,11 +276,11 @@ class AstroBall: GameSceneBase {
 //                    let json = String(data: data, encoding: .utf8)!
 //                    Global.multiplayerHandler.geoRefs[g].setValue(json)
 //                }
-//
-//                framesTilPos -= 1
-//            }
-//
-//
-//        }
+
+                framesTilPos -= 1
+            }
+
+
+        }
     }
 }

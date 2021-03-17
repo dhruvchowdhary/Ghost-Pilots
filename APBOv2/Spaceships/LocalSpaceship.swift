@@ -395,7 +395,7 @@ public class LocalSpaceship: SpaceshipBase {
             let data = try! JSONEncoder().encode(payload)
             let json = String(data: data, encoding: .utf8)!
             posRef.setValue(json)
-            framesTilPos = 2
+            framesTilPos = 0
         } else {
 //            let payload = Payload(posX: nil, posY: nil, angleRad: spaceShipNode.zRotation, velocity: nil)
 //            let data = try! JSONEncoder().encode(payload)
