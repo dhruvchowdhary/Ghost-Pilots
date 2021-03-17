@@ -55,19 +55,12 @@ public class SpaceshipBase {
         //spaceShipNode.addChild(pilotThrust1!)
         
         pilotThrust1?.alpha = 0
-
+        
         posRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/MainGame/\(playerId)/Pos")
         shotsRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/MainGame/\(playerId)/Shots")
         
-       
-        switch Global.gameData.gameState {
-        case GameStates.Infection:
-            Global.multiplayerHandler.ListenForInfectedChanges()
-        case GameStates.AstroBall:
-            Global.multiplayerHandler.ListenForAstroBallChanges()
-        default:
-            print("pepe")
-        }
+        Global.multiplayerHandler.ListenForAstroBallChanges()
+        Global.multiplayerHandler.ListenForInfectedChanges()
         Global.multiplayerHandler.ListenForColorChanges()
 
 

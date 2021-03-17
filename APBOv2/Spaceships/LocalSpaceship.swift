@@ -356,11 +356,6 @@ public class LocalSpaceship: SpaceshipBase {
                 print("default ended")
                
             }
-            
-            
-           
-           
-          
         }
     }
     
