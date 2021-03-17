@@ -19,6 +19,8 @@ public class GameData{
     public var gameState: GameStates = GameStates.MainMenu
     public var speedMultiplier: CGFloat = 1.0
     
+    
+    
     // =================
     // For the Host to run
     

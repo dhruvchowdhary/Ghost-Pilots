@@ -11,8 +11,37 @@ class AstroBall: GameSceneBase {
     let astroballRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Astroball")
     var redHP = 5
     var blueHP = 5
+    
+   var redHPLabel = SKLabelNode(text: "0")
+    var blueHPLabel = SKLabelNode(text: "0")
      
     public override func didMove(to view: SKView) {
+        
+        
+        addChild(redHPLabel)
+        addChild(blueHPLabel)
+        
+        redHPLabel.position = CGPoint(x: frame.midX + 600, y: frame.midY)
+        redHPLabel.zPosition = 100
+        redHPLabel.fontColor = UIColor(red: 255/255, green: 85/255, blue: 85/255, alpha:1)
+        redHPLabel.fontSize = 95
+        redHPLabel.fontName = "AvenirNext-Bold"
+        
+        redHPLabel.name = "redHPLabel"
+       
+        
+        blueHPLabel.position = CGPoint(x: frame.midX - 600, y: frame.midY)
+        blueHPLabel.zPosition = 100
+        blueHPLabel.fontColor =  UIColor(red: 0/255, green: 121/255, blue: 255/255, alpha:1)
+        blueHPLabel.fontSize = 95
+        blueHPLabel.fontName = "AvenirNext-Bold"
+        
+        blueHPLabel.name = "blueHPLabel"
+      
+        
+        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: String(redHP))
+        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: String(blueHP))
+        
         Global.gameData.gameState = GameStates.AstroBall
         Global.multiplayerHandler.SetGeoRefs()
         
@@ -104,7 +133,7 @@ class AstroBall: GameSceneBase {
             
         }
         
-        else if firstNode.name == "astroball" && secondNode.name == "blueGoal" {
+        else if firstNode.name == "astroball" && secondNode.name == "redGoal" {
          
            if Global.gameData.isHost {
                 DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: String(redHP - 1))
@@ -114,7 +143,7 @@ class AstroBall: GameSceneBase {
             
         }
         
-        else if firstNode.name == "astroball" && secondNode.name == "redGoal" {
+        else if firstNode.name == "astroball" && secondNode.name == "blueGoal" {
         if Global.gameData.isHost {
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: String(blueHP - 1))
         }
@@ -122,6 +151,13 @@ class AstroBall: GameSceneBase {
     
         
         }
+    }
+    
+    func setColorHP(redHPString: String, blueHPString: String) {
+
+        blueHPLabel.text = blueHPString
+        redHPLabel.text = redHPString
+       print("set labels")
     }
     
     func loadBall() {

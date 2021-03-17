@@ -138,17 +138,38 @@ public class MultiplayerHandler{
     public func ListenForAstroBallChanges() {
         self.astroBallRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/AstroBall")
         astroBallRef?.observe(DataEventType.value, with: { (snapshot) in
-            print(snapshot.childSnapshot(forPath: "redHP"))
-        //    print(snapshot.childSnapshot(forPath: "redHP").value as? Int)
-            if snapshot.childSnapshot(forPath: "redHP").value as? Int == 0 {
+        //    print(snapshot.childSnapshot(forPath: "redHP"))
+           // print(snapshot.childSnapshot(forPath: "redHP").value!)
+            
+            guard let redHP = snapshot.childSnapshot(forPath: "redHP").value as? String else {return}
+            guard let blueHP = snapshot.childSnapshot(forPath: "blueHP").value as? String else {return}
+            print("redHP: \(redHP)")
+            print("blueHP: \(blueHP)")
+                
+          //  (AstroBall().childNode(withName: "redHP"))?.alpha = 0
+            
+            
+            
+          //  AstroBall().setColorHP(redHPString: redHP, blueHPString: blueHP)
+            
+            AstroBall().setColorHP(redHPString: "3", blueHPString: "3")
+           // (AstroBall().childNode(withName: "redHPLabel") as! SKLabelNode).text = (redHP as! String)
+                // (AstroBall().childNode(withName: "blueHPLabel") as! SKLabelNode).text = (blueHP as! String)
+            
+         
+            if redHP == "0" {
                 print("redWon")
                 Global.gameData.playerShip!.setGameOver(winner: "redWon")
+            }
+            else if blueHP == "0" {
+                    print("blueWon")
+                    Global.gameData.playerShip!.setGameOver(winner: "blueWon")
+                }
             
-    
-                    
+       
                     
                 
-            }
+            
         })
     }
     public func ListenForShots(ref: DatabaseReference, spaceShip: SpaceshipBase ){

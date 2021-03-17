@@ -271,6 +271,10 @@ public class LocalSpaceship: SpaceshipBase {
                     GameOverFX?.particleColorBlendFactor = 1.0
                     GameOverFX?.particleColor = UIColor(red: 255/255, green: 85/255, blue: 85/255, alpha:1)
                     self.spaceShipHud.addChild(GameOverFX!)
+                    
+                  
+                    
+                    
                     print("uh ohred")
                     indicateEnd = true
                     let wait1 = SKAction.wait(forDuration: 5)
