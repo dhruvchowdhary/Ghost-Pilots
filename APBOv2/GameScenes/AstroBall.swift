@@ -12,35 +12,33 @@ class AstroBall: GameSceneBase {
     var redHP = 5
     var blueHP = 5
     
-   var redHPLabel = SKLabelNode(text: "0")
+    var redHPLabel = SKLabelNode(text: "0")
     var blueHPLabel = SKLabelNode(text: "0")
      
     public override func didMove(to view: SKView) {
-        
-        
-        addChild(redHPLabel)
-        addChild(blueHPLabel)
         
         redHPLabel.position = CGPoint(x: frame.midX + 600, y: frame.midY)
         redHPLabel.zPosition = 100
         redHPLabel.fontColor = UIColor(red: 255/255, green: 85/255, blue: 85/255, alpha:1)
         redHPLabel.fontSize = 95
         redHPLabel.fontName = "AvenirNext-Bold"
-        
+        redHPLabel.text = String(redHP)
         redHPLabel.name = "redHPLabel"
-       
+        addChild(redHPLabel)
         
         blueHPLabel.position = CGPoint(x: frame.midX - 600, y: frame.midY)
         blueHPLabel.zPosition = 100
         blueHPLabel.fontColor =  UIColor(red: 0/255, green: 121/255, blue: 255/255, alpha:1)
         blueHPLabel.fontSize = 95
         blueHPLabel.fontName = "AvenirNext-Bold"
-        
+        blueHPLabel.text = String(blueHP)
         blueHPLabel.name = "blueHPLabel"
+        addChild(blueHPLabel)
       
-        
+        if Global.gameData.isHost {
         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: String(redHP))
         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: String(blueHP))
+        }
         
         Global.gameData.gameState = GameStates.AstroBall
         Global.multiplayerHandler.SetGeoRefs()
@@ -134,30 +132,29 @@ class AstroBall: GameSceneBase {
         }
         
         else if firstNode.name == "astroball" && secondNode.name == "redGoal" {
-         
-           if Global.gameData.isHost {
+            if Global.gameData.isHost {
                 DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: String(redHP - 1))
             }
             redHP = redHP - 1
-        //
-            
+     //       setColorHP(redHPString: "\(redHP)", blueHPString: "\(blueHP)")
         }
         
         else if firstNode.name == "astroball" && secondNode.name == "blueGoal" {
-        if Global.gameData.isHost {
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: String(blueHP - 1))
-        }
-        blueHP = blueHP - 1
-    
-        
+            if Global.gameData.isHost {
+                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: String(blueHP - 1))
+            }
+            blueHP = blueHP - 1
+       //     setColorHP(redHPString: "\(redHP)", blueHPString: "\(blueHP)")
         }
     }
     
     func setColorHP(redHPString: String, blueHPString: String) {
-
         blueHPLabel.text = "\(blueHPString)"
         redHPLabel.text = "\(redHPString)"
         
+        
+        print(redHPString)
+        print(blueHPString)
        print("labels set")
     }
     
@@ -190,7 +187,6 @@ class AstroBall: GameSceneBase {
         
         blueGoal.zPosition = 5
         blueGoal.name = "blueGoal"
-        
         blueGoal.physicsBody = SKPhysicsBody(texture: blueGoal.texture!, size: blueGoal.texture!.size())
         
         blueGoal.physicsBody!.categoryBitMask = CollisionType.border.rawValue
@@ -199,14 +195,10 @@ class AstroBall: GameSceneBase {
         
         
         blueGoal.position = CGPoint(x: -800, y: frame.midY)
-        
         blueGoal.physicsBody?.isDynamic = false
-    
         addChild(blueGoal)
         
         let redGoal = SKSpriteNode(imageNamed: "redGoal")
-        
-        
         redGoal.zPosition = 5
         redGoal.name = "redGoal"
         
@@ -223,8 +215,7 @@ class AstroBall: GameSceneBase {
     
         addChild(redGoal)
         
-       
-    
+
     }
     
     override func uniqueGamemodeUpdate() {
