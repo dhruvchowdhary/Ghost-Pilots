@@ -145,8 +145,6 @@ public class MultiplayerHandler{
             let astroScene = Global.gameData.skView.scene as! AstroBall
             astroScene.setColorHP(redHPString: redHP, blueHPString: blueHP)
             
-            
-            //  (AstroBall().childNode(withName: "redHP"))?.alpha = 0
             if Global.gameData.gameState == GameStates.AstroBall {
                 switch blueHP {
                 case "8":
