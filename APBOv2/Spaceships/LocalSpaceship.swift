@@ -282,8 +282,8 @@ public class LocalSpaceship: SpaceshipBase {
                         if Global.gameData.isHost {
                             self.gameOver.removeFromParent()
                             GameOverFX?.removeFromParent()
-                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: "5")
-                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: "5")
+                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: "9")
+                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: "9")
                             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Lobby")
                         }
                         
@@ -314,8 +314,8 @@ public class LocalSpaceship: SpaceshipBase {
                         if Global.gameData.isHost {
                             self.gameOver.removeFromParent()
                             GameOverFX?.removeFromParent()
-                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: "5")
-                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: "5")
+                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: "9")
+                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: "9")
                             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Lobby")
                         }
                         
@@ -395,12 +395,12 @@ public class LocalSpaceship: SpaceshipBase {
             let data = try! JSONEncoder().encode(payload)
             let json = String(data: data, encoding: .utf8)!
             posRef.setValue(json)
-            framesTilPos = 3
+            framesTilPos = 0
         } else {
-            let payload = Payload(posX: nil, posY: nil, angleRad: spaceShipNode.zRotation, velocity: nil)
-            let data = try! JSONEncoder().encode(payload)
-            let json = String(data: data, encoding: .utf8)!
-            posRef.setValue(json)
+//            let payload = Payload(posX: nil, posY: nil, angleRad: spaceShipNode.zRotation, velocity: nil)
+//            let data = try! JSONEncoder().encode(payload)
+//            let json = String(data: data, encoding: .utf8)!
+//            posRef.setValue(json)
             framesTilPos -= 1
         }
     }

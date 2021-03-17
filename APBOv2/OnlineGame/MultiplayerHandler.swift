@@ -145,14 +145,98 @@ public class MultiplayerHandler{
             let astroScene = Global.gameData.skView.scene as! AstroBall
             astroScene.setColorHP(redHPString: redHP, blueHPString: blueHP)
 
-            if redHP == "0" {
+
+          //  (AstroBall().childNode(withName: "redHP"))?.alpha = 0
+            if Global.gameData.gameState == GameStates.AstroBall {
+            switch blueHP {
+            case "8":
+                let crack8 = SKAction.setTexture(SKTexture(imageNamed: "blueGoal1"))
+                (Global.gameData.skView.scene?.childNode(withName: "blueGoal") as! SKSpriteNode).run(crack8)
+            case "7":
+                let crack7 = SKAction.setTexture(SKTexture(imageNamed: "blueGoal2"))
+                (Global.gameData.skView.scene?.childNode(withName: "blueGoal") as! SKSpriteNode).run(crack7)
+            case "6":
+                let crack6 = SKAction.setTexture(SKTexture(imageNamed: "blueGoal3"))
+                (Global.gameData.skView.scene?.childNode(withName: "blueGoal") as! SKSpriteNode).run(crack6)
+            case "5":
+                let crack5 = SKAction.setTexture(SKTexture(imageNamed: "blueGoal4"))
+                (Global.gameData.skView.scene?.childNode(withName: "blueGoal") as! SKSpriteNode).run(crack5)
+            case "4":
+                let crack4 = SKAction.setTexture(SKTexture(imageNamed: "blueGoal5"))
+                (Global.gameData.skView.scene?.childNode(withName: "blueGoal") as! SKSpriteNode).run(crack4)
+            case "3":
+                let crack3 = SKAction.setTexture(SKTexture(imageNamed: "blueGoal6"))
+                (Global.gameData.skView.scene?.childNode(withName: "blueGoal") as! SKSpriteNode).run(crack3)
+            case "2":
+                let crack2 = SKAction.setTexture(SKTexture(imageNamed: "blueGoal7"))
+                (Global.gameData.skView.scene?.childNode(withName: "blueGoal") as! SKSpriteNode).run(crack2)
+            case "1":
+                let crack1 = SKAction.setTexture(SKTexture(imageNamed: "blueGoal8"))
+                (Global.gameData.skView.scene?.childNode(withName: "blueGoal") as! SKSpriteNode).run(crack1)
+            case "0":
+                (Global.gameData.skView.scene?.childNode(withName: "blueGoal") as? SKSpriteNode)?.removeFromParent()
                 print("redWon")
                 Global.gameData.playerShip!.setGameOver(winner: "redWon")
+            default:
+                print("it cracked a lil")
+            }
+            
+            
+            switch redHP {
+            case "8":
+               
+                let crack8 = SKAction.setTexture(SKTexture(imageNamed: "redGoal1"))
+                (Global.gameData.skView.scene?.childNode(withName: "redGoal") as! SKSpriteNode).run(crack8)
+            case "7":
+                let crack7 = SKAction.setTexture(SKTexture(imageNamed: "redGoal2"))
+                (Global.gameData.skView.scene?.childNode(withName: "redGoal") as! SKSpriteNode).run(crack7)
+            case "6":
+                let crack6 = SKAction.setTexture(SKTexture(imageNamed: "redGoal3"))
+                (Global.gameData.skView.scene?.childNode(withName: "redGoal") as! SKSpriteNode).run(crack6)
+            case "5":
+                let crack5 = SKAction.setTexture(SKTexture(imageNamed: "redGoal4"))
+                (Global.gameData.skView.scene?.childNode(withName: "redGoal") as! SKSpriteNode).run(crack5)
+            case "4":
+                let crack4 = SKAction.setTexture(SKTexture(imageNamed: "redGoal5"))
+                (Global.gameData.skView.scene?.childNode(withName: "redGoal") as! SKSpriteNode).run(crack4)
+            case "3":
+                let crack3 = SKAction.setTexture(SKTexture(imageNamed: "redGoal6"))
+                (Global.gameData.skView.scene?.childNode(withName: "redGoal") as! SKSpriteNode).run(crack3)
+            case "2":
+                let crack2 = SKAction.setTexture(SKTexture(imageNamed: "redGoal7"))
+                (Global.gameData.skView.scene?.childNode(withName: "redGoal") as! SKSpriteNode).run(crack2)
+            case "1":
+                let crack1 = SKAction.setTexture(SKTexture(imageNamed: "redGoal8"))
+                (Global.gameData.skView.scene?.childNode(withName: "redGoal") as! SKSpriteNode).run(crack1)
+            case "0":
+                (Global.gameData.skView.scene?.childNode(withName: "redGoal") as? SKSpriteNode)?.removeFromParent()
+                print("blueWon")
+                Global.gameData.playerShip!.setGameOver(winner: "blueWon")
+            default:
+                print("it cracked a lil")
+            }
+                
+            
+          //  AstroBall().setColorHP(redHPString: redHP, blueHPString: blueHP)
+            
+                   AstroBall().setColorHP(redHPString: redHP, blueHPString: blueHP)
+           // (AstroBall().childNode(withName: "redHPLabel") as! SKLabelNode).text = (redHP as! String)
+                // (AstroBall().childNode(withName: "blueHPLabel") as! SKLabelNode).text = (blueHP as! String)
+           /*
+         
+
+            if redHP == "0" {
+               
             }
             else if blueHP == "0" {
                     print("blueWon")
                     Global.gameData.playerShip!.setGameOver(winner: "blueWon")
                 }
+
+          */
+
+            }
+
         })
     }
     public func ListenForShots(ref: DatabaseReference, spaceShip: SpaceshipBase ){
@@ -308,7 +392,6 @@ public class MultiplayerHandler{
                     }
                 }
                 if Global.gameData.isHost {
-                    print("killed it")
                     MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)").removeValue()
                     Global.gameData.isHost = false
                 }
@@ -362,6 +445,7 @@ public class MultiplayerHandler{
     }
     
     public func ListenToGeometry(){
+        
         for i in 0..<geoRefs.count{
             geoRefs[i].observe(.value, with: { (Snapshot) in
                 if !Snapshot.exists() || Global.gameData.gameState != GameStates.AstroBall{
@@ -373,11 +457,17 @@ public class MultiplayerHandler{
                 let jsonData = snapVal.data(using: .utf8)
                 let payload = try! JSONDecoder().decode(Payload.self, from: jsonData!)
                 if payload.posX != nil{
+                    guard let pepe = astroballScene.geo[i].position.x as? String else {
+                        return
+                    }
                     astroballScene.geo[i].position.x = payload.posX!
                     astroballScene.geo[i].position.y = payload.posY!
                     astroballScene.geo[i].physicsBody?.velocity = payload.velocity!
                     astroballScene.geo[i].zRotation = payload.angleRad
                 } else {
+                    guard let pepe = astroballScene.geo[i].physicsBody?.velocity else {
+                        return
+                    }
                     astroballScene.geo[i].physicsBody?.velocity = payload.velocity!
                     astroballScene.geo[i].zRotation = payload.angleRad
                 }

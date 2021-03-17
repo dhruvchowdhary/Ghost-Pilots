@@ -9,8 +9,8 @@ class AstroBall: GameSceneBase {
     var framesTilPos = 10
     var astroball: SKSpriteNode?
     let astroballRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Astroball")
-    var redHP = 5
-    var blueHP = 5
+    var redHP = 9
+    var blueHP = 9
     
     var redHPLabel = SKLabelNode(text: "0")
     var blueHPLabel = SKLabelNode(text: "0")
@@ -122,39 +122,49 @@ class AstroBall: GameSceneBase {
             secondNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
             
-        }
-        
-        else if firstNode.name == "parent" && secondNode.name == "playerWeapon" {
-            print("player is shot")
-            secondNode.removeFromParent()
-            liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
-            
-        }
-        
-        else if firstNode.name == "astroball" && secondNode.name == "redGoal" {
-            if Global.gameData.isHost {
+
+        } else if firstNode.name == "astroball" && secondNode.name == "redGoal" {
+         
+           if Global.gameData.isHost {
                 DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: String(redHP - 1))
             }
             redHP = redHP - 1
-     //       setColorHP(redHPString: "\(redHP)", blueHPString: "\(blueHP)")
+        //
+            
+        } else if firstNode.name == "astroball" && secondNode.name == "blueGoal" {
+        if Global.gameData.isHost {
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: String(blueHP - 1))
         }
-        
-        else if firstNode.name == "astroball" && secondNode.name == "blueGoal" {
-            if Global.gameData.isHost {
-                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: String(blueHP - 1))
-            }
-            blueHP = blueHP - 1
-       //     setColorHP(redHPString: "\(redHP)", blueHPString: "\(blueHP)")
+        blueHP = blueHP - 1
+
         }
+//        if firstNode.name == "astroball"{
+//            if Global.gameData.isHost {
+//                if framesTilPos < 0 {
+//                    let payload = Payload(posX: astroball!.position.x, posY: astroball!.position.y, angleRad: astroball!.zRotation, velocity: astroball!.physicsBody!.velocity)
+//                    let data = try! JSONEncoder().encode(payload)
+//                    let json = String(data: data, encoding: .utf8)!
+//                    astroballRef.setValue(json)
+//
+//                    for g in 0..<geo.count {
+//                        let payload = Payload(posX: geo[g].position.x, posY: geo[g].position.y, angleRad: geo[g].zRotation, velocity: geo[g].physicsBody!.velocity)
+//                        let data = try! JSONEncoder().encode(payload)
+//                        let json = String(data: data, encoding: .utf8)!
+//                        Global.multiplayerHandler.geoRefs[g].setValue(json)
+//                    }
+//
+//                    framesTilPos = 0
+//                } else {
+//                    framesTilPos -= 1
+//                }
+//            }
+//
+//        }
     }
     
     func setColorHP(redHPString: String, blueHPString: String) {
         blueHPLabel.text = "\(blueHPString)"
         redHPLabel.text = "\(redHPString)"
-        
-        
-        print(redHPString)
-        print(blueHPString)
        print("labels set")
     }
     
@@ -231,32 +241,32 @@ class AstroBall: GameSceneBase {
                 let data = try! JSONEncoder().encode(payload)
                 let json = String(data: data, encoding: .utf8)!
                 astroballRef.setValue(json)
-                
+
                 for g in 0..<geo.count {
                     let payload = Payload(posX: geo[g].position.x, posY: geo[g].position.y, angleRad: geo[g].zRotation, velocity: geo[g].physicsBody!.velocity)
                     let data = try! JSONEncoder().encode(payload)
                     let json = String(data: data, encoding: .utf8)!
                     Global.multiplayerHandler.geoRefs[g].setValue(json)
                 }
-                
-                framesTilPos = 2
+
+                framesTilPos = 0
             } else {
-                let payload = Payload(posX: nil, posY: nil, angleRad: astroball!.zRotation, velocity: astroball!.physicsBody!.velocity)
-                let data = try! JSONEncoder().encode(payload)
-                let json = String(data: data, encoding: .utf8)!
-                astroballRef.setValue(json)
-                
-                for g in 0..<geo.count {
-                    let payload = Payload(posX: nil, posY: nil, angleRad: geo[g].zRotation, velocity: geo[g].physicsBody!.velocity)
-                    let data = try! JSONEncoder().encode(payload)
-                    let json = String(data: data, encoding: .utf8)!
-                    Global.multiplayerHandler.geoRefs[g].setValue(json)
-                }
-                
+//                let payload = Payload(posX: nil, posY: nil, angleRad: astroball!.zRotation, velocity: astroball!.physicsBody!.velocity)
+//                let data = try! JSONEncoder().encode(payload)
+//                let json = String(data: data, encoding: .utf8)!
+//                astroballRef.setValue(json)
+//
+//                for g in 0..<geo.count {
+//                    let payload = Payload(posX: nil, posY: nil, angleRad: geo[g].zRotation, velocity: geo[g].physicsBody!.velocity)
+//                    let data = try! JSONEncoder().encode(payload)
+//                    let json = String(data: data, encoding: .utf8)!
+//                    Global.multiplayerHandler.geoRefs[g].setValue(json)
+//                }
+
                 framesTilPos -= 1
             }
-            
-            
+
+
         }
     }
 }
