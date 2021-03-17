@@ -11,9 +11,8 @@ class AstroBall: GameSceneBase {
     let astroballRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Astroball")
     var redHP = 9
     var blueHP = 9
-    
-    var redHPLabel = SKLabelNode(text: "0")
-    var blueHPLabel = SKLabelNode(text: "0")
+    var redHPLabel = SKLabelNode(text: "9")
+    var blueHPLabel = SKLabelNode(text: "9")
      
     public override func didMove(to view: SKView) {
         
