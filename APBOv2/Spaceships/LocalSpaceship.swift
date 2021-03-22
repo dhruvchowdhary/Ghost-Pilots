@@ -260,6 +260,7 @@ public class LocalSpaceship: SpaceshipBase {
                print("ffa ended")
             print(winner)
                 
+            indicateEnd = true
                 
             case "astroball":
                 print("astroball ended")
