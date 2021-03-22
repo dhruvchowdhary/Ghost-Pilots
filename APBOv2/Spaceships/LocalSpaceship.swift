@@ -262,10 +262,20 @@ public class LocalSpaceship: SpaceshipBase {
                     self.winnerLabel.text = "\(winner) WON!"
                     spaceShipParent.addChild(winnerLabel)
                 }
-               print("ffa ended")
-            print(winner)
+                print("ffa ended")
+                print(winner)
                 
-            indicateEnd = true
+                indicateEnd = true
+                let wait1 = SKAction.wait(forDuration: 5)
+                spaceShipNode.run(wait1, completion:  {
+                    if Global.gameData.isHost {
+                        self.gameOver.removeFromParent()
+                        GameOverFX?.removeFromParent()
+                        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Lobby")
+                        
+                    }
+                    
+                })
                 
             case "astroball":
                 print("astroball ended")
