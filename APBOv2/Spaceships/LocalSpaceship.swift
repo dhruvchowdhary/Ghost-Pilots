@@ -245,7 +245,8 @@ public class LocalSpaceship: SpaceshipBase {
         let GameOverFX = SKEmitterNode(fileNamed: "GameOverFX")
         
         if indicateEnd == false {
-            print("GAME OVER!!!!!")
+            print(Global.gameData.host)
+            print(Global.gameData.isHost)
             let generator = UIImpactFeedbackGenerator(style: .medium)
             generator.impactOccurred()
             

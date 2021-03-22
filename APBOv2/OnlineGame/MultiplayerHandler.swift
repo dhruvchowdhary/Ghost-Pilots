@@ -78,6 +78,7 @@ public class MultiplayerHandler{
         hostRef?.observe(DataEventType.value, with: { (snapshot) in
             if snapshot.value as! String == Global.playerData.playerID
             {
+                print("im host")
                 Global.gameData.isHost = true
             }
             Global.gameData.host = snapshot.value as! String
