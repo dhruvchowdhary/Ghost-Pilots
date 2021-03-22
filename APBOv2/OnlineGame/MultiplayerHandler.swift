@@ -110,7 +110,6 @@ public class MultiplayerHandler{
     }
     
     public func ListenForInfectedChanges() {
-        if Global.gameData.gameState == GameStates.Infection {
         self.infectedRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/InfectedList")
         infectedRef?.observe(DataEventType.value, with: { (snapshot) in
             var infectedList: [String] = []
@@ -137,13 +136,8 @@ public class MultiplayerHandler{
             }
         })
     }
-    }
     
     public func ListenForEliminatedChanges() {
-        
-  //      if Global.gameData.gameState == GameStates.FFA {
-            
-            
         self.eliminatedRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/EliminatedList")
         eliminatedRef?.observe(DataEventType.value, with: { (snapshot) in
             var eliminatedList: [String] = []

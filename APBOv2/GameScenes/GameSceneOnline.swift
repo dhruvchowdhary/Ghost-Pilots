@@ -16,9 +16,6 @@ class GameSceneOnline: GameSceneBase {
     }
     
     override func didBegin(_ contact: SKPhysicsContact) {
-        if !Global.gameData.isHost{
-            Global.multiplayerHandler.ListenToGeometry()
-        }
         
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }

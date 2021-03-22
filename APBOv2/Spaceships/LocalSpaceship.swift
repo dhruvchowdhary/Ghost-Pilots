@@ -275,10 +275,9 @@ public class LocalSpaceship: SpaceshipBase {
                     if Global.gameData.isHost {
                         self.gameOver.removeFromParent()
                         GameOverFX?.removeFromParent()
+                        print("pushtolobby")
                         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Lobby")
-                        
                     }
-                    
                 })
                 
             case "astroball":
