@@ -169,7 +169,7 @@ public class MultiplayerHandler{
                                     }
                                 }
                              
-                                let zoomOut = SKAction.scale(to: 1.7, duration: 0.001)
+                                let zoomOut = SKAction.scale(to: 1.4, duration: 0.001)
                           
                                 Global.gameData.playerShip?.spaceShipParent.childNode(withName: "bulletRotator")?.removeFromParent()
                                 
