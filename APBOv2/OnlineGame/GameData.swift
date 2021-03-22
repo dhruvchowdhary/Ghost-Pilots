@@ -77,6 +77,7 @@ public class GameData{
             Global.multiplayerHandler.ClearInfectedList()
             Global.multiplayerHandler.ClearEliminatedList()
         }
+        MultiplayerHandler.ref.child("Games/\(gameID)/MainGame/\(Global.playerData.playerID)/Shots").removeValue()
         if !toLobby {
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(Global.playerData.playerID)", Value: "PePeGone")
             host = ""
