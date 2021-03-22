@@ -146,10 +146,10 @@ public class MultiplayerHandler{
                 if e.value as! String == "true"{
                     for i in 0..<Global.gameData.shipsToUpdate.count {
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
-                            Global.gameData.shipsToUpdate[i].spaceShipParent.physicsBody = nil
                             Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.removeFromParent()
-                            
                         
+                            Global.gameData.shipsToUpdate[i].spaceShipParent.physicsBody = nil
+                           
                             
                       //      Global.gameData.playerShip?.spaceShipHud.position = CGPoint(x: frame.midX, y: frame.midY)
                    //         let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
