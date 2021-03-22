@@ -70,8 +70,13 @@ class AstroBall: GameSceneBase {
                        addChild(BulletExplosion)
                   //  borderShape.strokeColor
                    }
-            secondNode.removeFromParent()
-            liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
+            if secondNode.name == "playerWeapon" {
+                secondNode.removeFromParent()
+                liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
+            } else {
+                firstNode.removeFromParent()
+                liveBullets.remove(at: liveBullets.firstIndex(of: firstNode as! SKSpriteNode)!)
+            }
             
             
         }
