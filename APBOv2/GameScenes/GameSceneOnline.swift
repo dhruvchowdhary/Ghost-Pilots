@@ -6,6 +6,14 @@ import AudioToolbox
 
 class GameSceneOnline: GameSceneBase {
     
+    
+    override func setUp() {
+        Global.gameData.gameState = GameStates.FFA
+        if !Global.gameData.isHost{
+            Global.multiplayerHandler.ListenToGeometry()
+        }
+    }
+    
     override func didBegin(_ contact: SKPhysicsContact) {
         if !Global.gameData.isHost{
             Global.multiplayerHandler.ListenToGeometry()
