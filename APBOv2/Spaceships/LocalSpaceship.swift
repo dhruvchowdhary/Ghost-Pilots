@@ -254,6 +254,10 @@ public class LocalSpaceship: SpaceshipBase {
                 if winner == Global.playerData.playerID {
                     let winnerImage = SKAction.setTexture(SKTexture(imageNamed: "winner"))
                     gameOver.run(winnerImage)
+                    gameOver.zPosition = 1000
+                    gameOver.size = CGSize(width: 1469 / 1.5, height: 311 / 1.5)
+                    spaceShipHud.addChild(gameOver)
+                    gameOver.alpha = 1
                 } else {
                     self.winnerLabel.position = CGPoint(x: -((Global.gameData.playerShip?.spaceShipParent.position.x)!), y: -((Global.gameData.playerShip?.spaceShipParent.position.y)!))
                     winnerLabel.zPosition = 10
