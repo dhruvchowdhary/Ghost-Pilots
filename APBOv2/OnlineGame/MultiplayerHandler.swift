@@ -141,7 +141,7 @@ public class MultiplayerHandler{
     
     public func ListenForEliminatedChanges() {
         
-        if Global.gameData.gameState == GameStates.FFA {
+  //      if Global.gameData.gameState == GameStates.FFA {
             
             
         self.eliminatedRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/EliminatedList")
@@ -188,7 +188,7 @@ public class MultiplayerHandler{
                 }
             }
         })
-        }
+   //     }
     }
     
     public func ListenForAstroBallChanges() {
