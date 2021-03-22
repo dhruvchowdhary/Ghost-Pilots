@@ -157,6 +157,13 @@ public class MultiplayerHandler{
 
                             eliminatedList.append(e.key)
                             if Global.playerData.playerID == e.key {
+                                let hud = SKScene(fileNamed: "Hud.sks")
+                                for x in hud!.children {
+                                    print("removing stuff")
+                                    if x.name != "backButtonNode" {
+                                        x.removeFromParent()
+                                    }
+                                }
                                 print("dead camera set")
                                 Global.gameData.playerShip?.spaceShipHud.position = CGPoint(x: 0, y: 0)
                             }
