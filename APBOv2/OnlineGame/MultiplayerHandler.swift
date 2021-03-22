@@ -166,6 +166,11 @@ public class MultiplayerHandler{
                                         x.alpha = 0
                                     }
                                 }
+                                
+                                
+                                Global.gameData.playerShip?.spaceShipParent.childNode(withName: "bulletRotator")?.removeFromParent()
+
+                                
                    /*            let hud = SKScene(fileNamed: "Hud.sks")
                                 for x in hud!.children {
                                     print("removing stuff")
