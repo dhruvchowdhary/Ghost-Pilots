@@ -161,12 +161,11 @@ public class MultiplayerHandler{
                                 for x in hud!.children {
                                     print("removing stuff")
                                     if x.name != "backButtonNode" {
-                                        x.removeFromParent()
+                                        x.alpha = 0
                                     }
                                 }
                                 print("dead camera set")
-                                
-                                Global.gameData.playerShip?.spaceShipHud.position = CGPoint(x: -(Global.gameData.playerShip?.spaceShipHud.position.x)!, y: -(Global.gameData.playerShip?.spaceShipHud.position.y)!)
+                                Global.gameData.playerShip?.spaceShipHud.position = CGPoint(x: -(Global.gameData.playerShip?.spaceShipParent.position.x)!, y: -(Global.gameData.playerShip?.spaceShipParent.position.y)!)
                             }
                         }
                         //   print(infectedList.count)
