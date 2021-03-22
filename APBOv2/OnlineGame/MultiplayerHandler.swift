@@ -16,10 +16,10 @@ public class MultiplayerHandler{
     var geoRefs: [DatabaseReference] = []
     var currentBulletCounts: [(String, Int)] = []
     var hasFoundGame = false
-
+    
     public static var ref: DatabaseReference! = Database.database().reference()
-
-
+    
+    
     /// The host will do this, then this will call ReccieveUniqueGameCode
     public static func GenerateUniqueGameCode(){
         let code = Int.random(in: 10000...99999)
@@ -31,7 +31,7 @@ public class MultiplayerHandler{
             }
         }
     }
-
+    
     public func listenForGuestChanges(){
         self.guestsRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerList")
         guestsRef?.observe(DataEventType.value, with: { (snapshot) in
@@ -68,11 +68,11 @@ public class MultiplayerHandler{
             }
         })
     }
-
+    
     public func StopListenForGuestChanges(){
         guestsRef?.removeAllObservers()
     }
-
+    
     public func ListenForHostChanges(){
         self.hostRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Host")
         hostRef?.observe(DataEventType.value, with: { (snapshot) in
@@ -83,11 +83,11 @@ public class MultiplayerHandler{
             Global.gameData.host = snapshot.value as! String
         })
     }
-
+    
     public func StopListenForHostChanges(){
         self.hostRef?.removeAllObservers()
     }
-
+    
     public func ListenForPosPayload(ref: DatabaseReference, shipSprite: SKNode){
         ref.observe(DataEventType.value) { ( snapshot ) in
             if (snapshot.exists()) {
@@ -108,7 +108,7 @@ public class MultiplayerHandler{
             }
         }
     }
-
+    
     public func ListenForInfectedChanges() {
         self.infectedRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/InfectedList")
         infectedRef?.observe(DataEventType.value, with: { (snapshot) in
@@ -120,7 +120,7 @@ public class MultiplayerHandler{
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
                             let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
                             Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(infected)
-
+                            
                             infectedList.append(e.key)
                         }
                         //   print(infectedList.count)
@@ -136,7 +136,7 @@ public class MultiplayerHandler{
             }
         })
     }
-
+    
     public func ListenForEliminatedChanges() {
         self.eliminatedRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/EliminatedList")
         eliminatedRef?.observe(DataEventType.value, with: { (snapshot) in
@@ -148,18 +148,8 @@ public class MultiplayerHandler{
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
                             Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")?.removeFromParent()
                             Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "nametag")?.removeFromParent()
-
-
-
                             Global.gameData.shipsToUpdate[i].spaceShipParent.physicsBody = nil
                             
-                            
-
-
-                      //      Global.gameData.playerShip?.spaceShipHud.position = CGPoint(x: frame.midX, y: frame.midY)
-                   //         let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
-                    //        Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(infected)
-
                             eliminatedList.append(e.key)
                             if Global.playerData.playerID == e.key {
                                 for x in Global.gameData.shipsToUpdate[i].spaceShipHud.children {
@@ -168,27 +158,16 @@ public class MultiplayerHandler{
                                         x.alpha = 0
                                     }
                                 }
-                             
+                                
                                 let zoomOut = SKAction.scale(to: 1.4, duration: 0.001)
-                          
+                                
                                 Global.gameData.playerShip?.spaceShipParent.childNode(withName: "bulletRotator")?.removeFromParent()
-                                
                                 Global.gameData.playerShip?.spaceShipHud.childNode(withName: "camera")?.run(zoomOut)
-
                                 
-                   /*            let hud = SKScene(fileNamed: "Hud.sks")
-                                for x in hud!.children {
-                                    print("removing stuff")
-                                    if x.name != "backButtonNode" {
-                                        x.alpha = 0
-                                    }
-                                }*/
                                 print("dead camera set")
                                 Global.gameData.playerShip?.spaceShipHud.position = CGPoint(x: -(Global.gameData.playerShip?.spaceShipParent.position.x)!, y: -(Global.gameData.playerShip?.spaceShipParent.position.y)!)
                             }
                         }
-                        //   print(infectedList.count)
-                        //   print(Global.gameData.shipsToUpdate.count)
                         if Global.gameData.shipsToUpdate.count > 1 {
                             if eliminatedList.count == Global.gameData.shipsToUpdate.count - 1 {
                                 for i in 0..<Global.gameData.shipsToUpdate.count {
@@ -196,7 +175,7 @@ public class MultiplayerHandler{
                                         Global.gameData.playerShip!.setGameOver(winner: "\(Global.gameData.shipsToUpdate[i].playerID)")
                                     }
                                 }
-                              
+                                
                             }
                         }
                     }
@@ -373,6 +352,10 @@ public class MultiplayerHandler{
 
     public func StopListenForInfectedChanges(){
         self.infectedRef?.removeAllObservers()
+    }
+    
+    public func StopListenForColorChanges(){
+        self.colorRef?.removeAllObservers()
     }
 
     public func StopListenForEliminatedChanges(){

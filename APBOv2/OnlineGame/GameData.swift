@@ -60,6 +60,7 @@ public class GameData{
     
     public func ResetGameData(toLobby: Bool){
         Global.multiplayerHandler.StopListenForInfectedChanges()
+  //      Global.multiplayerHandler.StopListenForColorChanges()
         Global.multiplayerHandler.StopListenForEliminatedChanges()
         Global.multiplayerHandler.StopListenToAstroball()
         Global.multiplayerHandler.StopListenForAstroBallChanges()

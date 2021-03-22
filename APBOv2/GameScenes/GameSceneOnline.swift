@@ -40,9 +40,7 @@ class GameSceneOnline: GameSceneBase {
             secondNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/EliminatedList/\(Global.playerData.playerID)", Value: "true")
-        //    ListenForInfectedChanges(playerID: Global.playerData.playerID!, secondNode: secondNode)
-           // Global.multiplayerHandler.ListenForInfectedChanges(username: Global.playerData.username, secondNode: firstNode)
-            
+
         }
         
         else if firstNode.name == "playerWeapon" && secondNode.name == "remoteparent" {
@@ -51,21 +49,8 @@ class GameSceneOnline: GameSceneBase {
             liveBullets.remove(at: liveBullets.firstIndex(of: firstNode as! SKSpriteNode)!)
             
             
-         //   Global.multiplayerHandler.ListenForInfectedChanges(username: Global.playerData.username, secondNode: secondNode)
-    //        if remoteparent isin infectedlist {
-     //       }
             
         }
-        /*
-        
-        else if firstNode.name == "parent" && secondNode.name == "remoteparent" {
-            print("ship was shot by bullet")
-            
-        
-            let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
-            firstNode.childNode(withName: "shipnode")!.run(infected)
-            
-        }
- */
+
     }
 }
