@@ -65,6 +65,9 @@ public class GameData{
         Global.multiplayerHandler.StopListenToAstroball()
         Global.multiplayerHandler.StopListenForAstroBallChanges()
         
+        let zoomOut = SKAction.scale(to: 1, duration: 0.001)
+        Global.gameData.camera.run(zoomOut)
+        
         for x in shipsToUpdate{
             if let ship = x as? RemoteSpaceship {
                 ship.StopListenToShip()
