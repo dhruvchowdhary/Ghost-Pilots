@@ -16,6 +16,7 @@ class AstroBall: GameSceneBase {
   
     
     override func setUp() {
+        Global.multiplayerHandler.ListenForAstroBallChanges()
         redHPLabel.zPosition = 100
         redHPLabel.fontColor = UIColor(red: 255/255, green: 85/255, blue: 85/255, alpha:1)
         redHPLabel.fontSize = 95
