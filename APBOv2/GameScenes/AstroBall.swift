@@ -16,19 +16,19 @@ class AstroBall: GameSceneBase {
      
     public override func didMove(to view: SKView) {
         
-        redHPLabel.position = CGPoint(x: frame.midX + 600, y: frame.midY)
         redHPLabel.zPosition = 100
         redHPLabel.fontColor = UIColor(red: 255/255, green: 85/255, blue: 85/255, alpha:1)
         redHPLabel.fontSize = 95
+        redHPLabel.position = CGPoint(x: frame.midX + 625, y: frame.midY)
         redHPLabel.fontName = "AvenirNext-Bold"
         redHPLabel.text = String(redHP)
         redHPLabel.name = "redHPLabel"
         addChild(redHPLabel)
         
-        blueHPLabel.position = CGPoint(x: frame.midX - 600, y: frame.midY)
         blueHPLabel.zPosition = 100
         blueHPLabel.fontColor =  UIColor(red: 0/255, green: 121/255, blue: 255/255, alpha:1)
         blueHPLabel.fontSize = 95
+        blueHPLabel.position = CGPoint(x: frame.midX - 625, y: frame.midY)
         blueHPLabel.fontName = "AvenirNext-Bold"
         blueHPLabel.text = String(blueHP)
         blueHPLabel.name = "blueHPLabel"
@@ -193,7 +193,6 @@ class AstroBall: GameSceneBase {
         
         let blueGoal = SKSpriteNode(imageNamed: "blueGoal")
         
-        
         blueGoal.zPosition = 5
         blueGoal.name = "blueGoal"
         blueGoal.physicsBody = SKPhysicsBody(texture: blueGoal.texture!, size: blueGoal.texture!.size())
@@ -201,7 +200,6 @@ class AstroBall: GameSceneBase {
         blueGoal.physicsBody!.categoryBitMask = CollisionType.border.rawValue
         blueGoal.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         blueGoal.physicsBody!.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
-        
         
         blueGoal.position = CGPoint(x: -800, y: frame.midY)
         blueGoal.physicsBody?.isDynamic = false
