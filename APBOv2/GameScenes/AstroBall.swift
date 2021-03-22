@@ -105,7 +105,7 @@ class AstroBall: GameSceneBase {
        // print("second Node is  \(String(describing: secondNode.name))")
         
         
-        if (firstNode.name == "border" || firstNode.name == "astroball" || firstNode.name == "blueGoal" || firstNode.name == "redGoal") && secondNode.name == "playerWeapon" {
+        if (((firstNode.name == "border" || firstNode.name == "astroball" || firstNode.name == "blueGoal") && secondNode.name == "playerWeapon") || (firstNode.name == "playerWeapon" && secondNode.name == "redGoal")) {
                    if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
                        BulletExplosion.position = secondNode.position
                        addChild(BulletExplosion)
