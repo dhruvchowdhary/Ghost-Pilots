@@ -162,7 +162,7 @@ public class MultiplayerHandler{
                             if Global.playerData.playerID == e.key {
                                 for x in Global.gameData.shipsToUpdate[i].spaceShipHud.children {
                                     print("removing stuff")
-                                    if x.name != "backButtonNode" {
+                                    if x.name != "backButton" {
                                         x.alpha = 0
                                     }
                                 }
