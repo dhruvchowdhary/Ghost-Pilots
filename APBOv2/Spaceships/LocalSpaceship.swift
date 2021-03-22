@@ -251,12 +251,17 @@ public class LocalSpaceship: SpaceshipBase {
             
             switch Global.gameData.mode {
             case "ffa":
-                self.winnerLabel.position = CGPoint(x: -((Global.gameData.playerShip?.spaceShipParent.position.x)!), y: -((Global.gameData.playerShip?.spaceShipParent.position.y)!))
-                winnerLabel.zPosition = 10
-                self.winnerLabel.fontSize = 40
-                self.winnerLabel.fontName = "AvernirNext-Bold"
-                self.winnerLabel.text = "\(winner) WON!"
-                spaceShipParent.addChild(winnerLabel)
+                if winner == Global.playerData.playerID {
+                    let winnerImage = SKAction.setTexture(SKTexture(imageNamed: "winner"))
+                    gameOver.run(winnerImage)
+                } else {
+                    self.winnerLabel.position = CGPoint(x: -((Global.gameData.playerShip?.spaceShipParent.position.x)!), y: -((Global.gameData.playerShip?.spaceShipParent.position.y)!))
+                    winnerLabel.zPosition = 10
+                    self.winnerLabel.fontSize = 40
+                    self.winnerLabel.fontName = "AvernirNext-Bold"
+                    self.winnerLabel.text = "\(winner) WON!"
+                    spaceShipParent.addChild(winnerLabel)
+                }
                print("ffa ended")
             print(winner)
                 
