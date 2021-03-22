@@ -1,4 +1,9 @@
 
+import Foundation
+import SpriteKit
+import CoreMotion
+import AudioToolbox
+
 class GameSceneOnline: GameSceneBase {
     
     override func didBegin(_ contact: SKPhysicsContact) {
