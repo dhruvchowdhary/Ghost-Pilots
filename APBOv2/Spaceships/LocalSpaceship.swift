@@ -258,7 +258,9 @@ public class LocalSpaceship: SpaceshipBase {
                 self.winnerLabel.text = "\(winner) WON!"
                 spaceShipParent.addChild(winnerLabel)
                print("ffa ended")
-                print(winner)
+            print(winner)
+                
+                
             case "astroball":
                 print("astroball ended")
                 if winner == "redWon" {

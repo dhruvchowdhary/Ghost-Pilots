@@ -152,6 +152,8 @@ public class MultiplayerHandler{
 
 
                             Global.gameData.shipsToUpdate[i].spaceShipParent.physicsBody = nil
+                            
+                            
 
 
                       //      Global.gameData.playerShip?.spaceShipHud.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -167,9 +169,9 @@ public class MultiplayerHandler{
                                     }
                                 }
                              
-                                let zoomOut = SKAction.scale(to: 2.5, duration: 0.001)
+                                let zoomOut = SKAction.scale(to: 1.7, duration: 0.001)
                           
-                                
+                                Global.gameData.playerShip?.spaceShipParent.childNode(withName: "bulletRotator")?.removeFromParent()
                                 
                                 Global.gameData.playerShip?.spaceShipHud.childNode(withName: "camera")?.run(zoomOut)
 
