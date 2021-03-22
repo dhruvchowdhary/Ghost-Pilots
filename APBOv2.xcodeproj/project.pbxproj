@@ -84,6 +84,7 @@
 		810C93102601137200C298C8 /* InfectionGameOver.sks in Resources */ = {isa = PBXBuildFile; fileRef = 810C930F2601137200C298C8 /* InfectionGameOver.sks */; };
 		810C9334260130F100C298C8 /* InfectionGameOver.sks in Resources */ = {isa = PBXBuildFile; fileRef = 810C9333260130F100C298C8 /* InfectionGameOver.sks */; };
 		810C933C2601319600C298C8 /* GameOverFX.sks in Resources */ = {isa = PBXBuildFile; fileRef = 810C933B2601319600C298C8 /* GameOverFX.sks */; };
+		810C935226085D3C00C298C8 /* GameSceneOnline.sks in Resources */ = {isa = PBXBuildFile; fileRef = 810C935126085D3C00C298C8 /* GameSceneOnline.sks */; };
 		81135EED25E8312300B0F59F /* LoadLevelsMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81135EE925E8312200B0F59F /* LoadLevelsMenu.sks */; };
 		81135EEE25E8312300B0F59F /* Level1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81135EEA25E8312300B0F59F /* Level1.swift */; };
 		81135EEF25E8312300B0F59F /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81135EEB25E8312300B0F59F /* Level1.sks */; };
@@ -205,6 +206,7 @@
 		810C930F2601137200C298C8 /* InfectionGameOver.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = InfectionGameOver.sks; path = APBOv2/Particles/InfectionGameOver.sks; sourceTree = SOURCE_ROOT; };
 		810C9333260130F100C298C8 /* InfectionGameOver.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = InfectionGameOver.sks; sourceTree = "<group>"; };
 		810C933B2601319600C298C8 /* GameOverFX.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameOverFX.sks; sourceTree = "<group>"; };
+		810C935126085D3C00C298C8 /* GameSceneOnline.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneOnline.sks; sourceTree = "<group>"; };
 		81135EE925E8312200B0F59F /* LoadLevelsMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = LoadLevelsMenu.sks; path = APBOv2/TurretBoss/LoadLevelsMenu.sks; sourceTree = SOURCE_ROOT; };
 		81135EEA25E8312300B0F59F /* Level1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level1.swift; sourceTree = "<group>"; };
 		81135EEB25E8312300B0F59F /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 				8177393425F9DAE20054FC06 /* Infection.swift */,
 				81A4CEDF25FA8C2C001C2602 /* Infection.sks */,
 				CEF30A1E25CA65CC007B8B39 /* GameSceneOnline.swift */,
+				810C935126085D3C00C298C8 /* GameSceneOnline.sks */,
 			);
 			path = GameScenes;
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 				74CF6857258201BA000C4E47 /* pilotSquish3.wav in Resources */,
 				74CF6895258D787C000C4E47 /* Tutorial.sks in Resources */,
 				81135EED25E8312300B0F59F /* LoadLevelsMenu.sks in Resources */,
+				810C935226085D3C00C298C8 /* GameSceneOnline.sks in Resources */,
 				74CF687E25830C93000C4E47 /* bluePlayer.sks in Resources */,
 				74CF686025828E80000C4E47 /* menuThumpnew.wav in Resources */,
 				74CF687325829F9C000C4E47 /* revivenew.wav in Resources */,
