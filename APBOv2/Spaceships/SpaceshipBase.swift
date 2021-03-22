@@ -61,6 +61,7 @@ public class SpaceshipBase {
         
         Global.multiplayerHandler.ListenForAstroBallChanges()
         Global.multiplayerHandler.ListenForInfectedChanges()
+        Global.multiplayerHandler.ListenForEliminatedChanges()
         Global.multiplayerHandler.ListenForColorChanges()
 
 

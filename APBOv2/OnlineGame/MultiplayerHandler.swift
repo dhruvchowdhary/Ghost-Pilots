@@ -9,6 +9,7 @@ public class MultiplayerHandler{
     var mapRef: DatabaseReference?
     var modeRef: DatabaseReference?
     var infectedRef: DatabaseReference?
+    var eliminatedRef: DatabaseReference?
     var astroBallRef: DatabaseReference?
     var colorRef: DatabaseReference?
     var astroballRef: DatabaseReference?
@@ -126,6 +127,34 @@ public class MultiplayerHandler{
                         //   print(Global.gameData.shipsToUpdate.count)
                         if Global.gameData.shipsToUpdate.count > 1 {
                             if infectedList.count == Global.gameData.shipsToUpdate.count {
+                                //  print("gameover!!!!")
+                                Global.gameData.playerShip!.setGameOver(winner: "infected")
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    }
+    
+    public func ListenForEliminatedChanges() {
+        self.eliminatedRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/EliminatedList")
+        eliminatedRef?.observe(DataEventType.value, with: { (snapshot) in
+            var eliminatedList: [String] = []
+            for child in snapshot.children {
+                let e = child as! DataSnapshot
+                if e.value as! String == "true"{
+                    for i in 0..<Global.gameData.shipsToUpdate.count {
+                        if Global.gameData.shipsToUpdate[i].playerID == e.key {
+                            let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
+                            Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(infected)
+                            
+                            eliminatedList.append(e.key)
+                        }
+                        //   print(infectedList.count)
+                        //   print(Global.gameData.shipsToUpdate.count)
+                        if Global.gameData.shipsToUpdate.count > 1 {
+                            if eliminatedList.count == Global.gameData.shipsToUpdate.count {
                                 //  print("gameover!!!!")
                                 Global.gameData.playerShip!.setGameOver(winner: "infected")
                             }
@@ -304,6 +333,10 @@ public class MultiplayerHandler{
     
     public func StopListenForInfectedChanges(){
         self.infectedRef?.removeAllObservers()
+    }
+    
+    public func StopListenForEliminatedChanges(){
+        self.eliminatedRef?.removeAllObservers()
     }
     
     public func StopListenForMapChanges(){
