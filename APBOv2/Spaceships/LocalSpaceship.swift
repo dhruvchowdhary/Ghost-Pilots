@@ -253,8 +253,8 @@ public class LocalSpaceship: SpaceshipBase {
             case "ffa":
                 self.winnerLabel.position = CGPoint(x: -((Global.gameData.playerShip?.spaceShipParent.position.x)!), y: -((Global.gameData.playerShip?.spaceShipParent.position.y)!))
                 winnerLabel.zPosition = 10
-                self.winnerLabel.fontSize = 40
-                self.winnerLabel.fontName = "AvernirNext-Bold"
+                self.winnerLabel.fontSize = 80
+                self.winnerLabel.fontName = "AvenirNext-Bold"
                 self.winnerLabel.text = "\(winner) WON!"
                 spaceShipParent.addChild(winnerLabel)
                print("ffa ended")
