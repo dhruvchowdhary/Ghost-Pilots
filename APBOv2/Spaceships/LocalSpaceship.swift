@@ -251,6 +251,7 @@ public class LocalSpaceship: SpaceshipBase {
             switch Global.gameData.mode {
             case "ffa":
                print("ffa ended")
+                print(winner)
             case "astroball":
                 print("astroball ended")
                 if winner == "redWon" {

@@ -167,7 +167,7 @@ public class MultiplayerHandler{
                                     }
                                 }
                              
-                                let zoomOut = SKAction.scale(to: 0.5, duration: 0.001)
+                                let zoomOut = SKAction.scale(to: 2.5, duration: 0.001)
                           
                                 
                                 
@@ -188,9 +188,13 @@ public class MultiplayerHandler{
                         //   print(infectedList.count)
                         //   print(Global.gameData.shipsToUpdate.count)
                         if Global.gameData.shipsToUpdate.count > 1 {
-                            if eliminatedList.count == Global.gameData.shipsToUpdate.count {
-                                //  print("gameover!!!!")
-                                Global.gameData.playerShip!.setGameOver(winner: "infected")
+                            if eliminatedList.count == Global.gameData.shipsToUpdate.count - 1 {
+                                for i in 0..<Global.gameData.shipsToUpdate.count {
+                                    if Global.gameData.shipsToUpdate[i].playerID != e.key {
+                                        Global.gameData.playerShip!.setGameOver(winner: "\(Global.gameData.shipsToUpdate[i].playerID)")
+                                    }
+                                }
+                              
                             }
                         }
                     }
