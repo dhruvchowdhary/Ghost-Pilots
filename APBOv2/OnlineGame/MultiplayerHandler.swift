@@ -166,9 +166,12 @@ public class MultiplayerHandler{
                                         x.alpha = 0
                                     }
                                 }
+                             
+                                let zoomOut = SKAction.scale(to: 0.5, duration: 0.001)
+                          
                                 
                                 
-                                Global.gameData.playerShip?.spaceShipParent.childNode(withName: "bulletRotator")?.removeFromParent()
+                                Global.gameData.playerShip?.spaceShipHud.childNode(withName: "camera")?.run(zoomOut)
 
                                 
                    /*            let hud = SKScene(fileNamed: "Hud.sks")
