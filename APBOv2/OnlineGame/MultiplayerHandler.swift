@@ -146,8 +146,9 @@ public class MultiplayerHandler{
                 if e.value as! String == "true"{
                     for i in 0..<Global.gameData.shipsToUpdate.count {
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
-                            let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
-                            Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(infected)
+                            Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.alpha = 0
+                   //         let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
+                    //        Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(infected)
                             
                             eliminatedList.append(e.key)
                         }
