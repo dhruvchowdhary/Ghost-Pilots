@@ -17,11 +17,15 @@ var gameOver = false
 class Infection: GameSceneBase {
     var infectedRef: DatabaseReference?
     
-  
-    override func didBegin(_ contact: SKPhysicsContact) {
+    override func setUp() {
+        Global.gameData.gameState = GameStates.Infection
         if !Global.gameData.isHost{
             Global.multiplayerHandler.ListenToGeometry()
         }
+    }
+  
+    override func didBegin(_ contact: SKPhysicsContact) {
+        
         
         guard let nodeA = contact.bodyA.node else { return }
         guard let nodeB = contact.bodyB.node else { return }

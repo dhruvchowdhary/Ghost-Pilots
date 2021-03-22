@@ -13,9 +13,9 @@ class AstroBall: GameSceneBase {
     var blueHP = 9
     var redHPLabel = SKLabelNode(text: "9")
     var blueHPLabel = SKLabelNode(text: "9")
-     
-    public override func didMove(to view: SKView) {
-        
+  
+    
+    override func setUp() {
         redHPLabel.zPosition = 100
         redHPLabel.fontColor = UIColor(red: 255/255, green: 85/255, blue: 85/255, alpha:1)
         redHPLabel.fontSize = 95
@@ -24,6 +24,8 @@ class AstroBall: GameSceneBase {
         redHPLabel.text = String(redHP)
         redHPLabel.name = "redHPLabel"
         addChild(redHPLabel)
+        
+        loadBall()
         
         blueHPLabel.zPosition = 100
         blueHPLabel.fontColor =  UIColor(red: 0/255, green: 121/255, blue: 255/255, alpha:1)
@@ -40,57 +42,13 @@ class AstroBall: GameSceneBase {
         }
         
         Global.gameData.gameState = GameStates.AstroBall
-        Global.multiplayerHandler.SetGeoRefs()
+       
         
         if !Global.gameData.isHost{
             Global.multiplayerHandler.ListenToAstroball()
             Global.multiplayerHandler.ListenToGeometry()
         }
-        
-        
-        for ship in Global.gameData.shipsToUpdate{
-            ship.spaceShipParent.removeFromParent()
-            addChild(ship.spaceShipParent)
-            ship.spaceShipParent.physicsBody!.mass = 10
-            ship.spaceShipParent.position = CGPoint(x: loadShipPosX, y: loadShipPosY)
-            loadShipPosX = loadShipPosX + 50
-            
-            if !Global.gameData.isHost {
-                
-            }
-        }
-        // World physics
-        //physicsWorld.gravity = .zero
-        self.physicsWorld.contactDelegate = self
-        
-        // Sets up the boundries
-        selectmap()
-        loadBall()
-        
-        camera = Global.gameData.camera
-        
-        // Background
-        backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)
-        if let particles = SKEmitterNode(fileNamed: "Starfield") {
-            particles.position = CGPoint(x: frame.midX, y: frame.midY)
-            particles.zPosition = -100
-            addChild(particles)
-        }
-        
-        Global.gameData.gameScene = self
-        
-        // Dims the screen on game paused
-        self.dimPanel.zPosition = 50
-        self.dimPanel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        self.addChild(self.dimPanel)
-        self.dimPanel.alpha = 0;
-        
-    for ship in Global.gameData.shipsToUpdate{
-        ship.thruster1?.targetNode = self.scene
-    //    ship.pilotThrust1?.targetNode = self.scene
-        }
     }
-    
     
     public override func didBegin(_ contact: SKPhysicsContact) {
         guard let nodeA = contact.bodyA.node else { return }

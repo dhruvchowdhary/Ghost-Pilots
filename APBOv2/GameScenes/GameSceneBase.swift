@@ -90,6 +90,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     var loadShipPosX =  -800
     var loadShipPosY =  300
     public override func didMove(to view: SKView) {
+        Global.multiplayerHandler.SetGeoRefs()
+        
         for ship in Global.gameData.shipsToUpdate{
             ship.spaceShipParent.removeFromParent()
             addChild(ship.spaceShipParent)
@@ -114,7 +116,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         
         // Sets up the boundries
         selectmap()
-        
+        setUp()
         camera = Global.gameData.camera
         
         
@@ -138,6 +140,10 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
             ship.thruster1?.targetNode = self.scene
             //ship.pilotThrust1?.targetNode = self.scene
         }
+    }
+    
+    func setUp() {
+        
     }
     public override func update(_ currentTime: TimeInterval) {
         if Global.gameData.isBackground {
