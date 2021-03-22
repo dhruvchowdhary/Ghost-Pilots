@@ -148,11 +148,11 @@ public class MultiplayerHandler{
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
                             Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")?.removeFromParent()
                             Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "nametag")?.removeFromParent()
-                            
-                            
+
+
 
                             Global.gameData.shipsToUpdate[i].spaceShipParent.physicsBody = nil
-                           
+
 
                       //      Global.gameData.playerShip?.spaceShipHud.position = CGPoint(x: frame.midX, y: frame.midY)
                    //         let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
@@ -160,19 +160,19 @@ public class MultiplayerHandler{
 
                             eliminatedList.append(e.key)
                             if Global.playerData.playerID == e.key {
-                                let hud = SKScene(fileNamed: "Hud.sks")
-                                for x in hud!.children {
+                                for x in Global.gameData.shipsToUpdate[i].spaceShipHud.children {
                                     print("removing stuff")
                                     if x.name != "backButtonNode" {
                                         x.alpha = 0
                                     }
                                 }
-                                
-                                
-                                
-                                Global.gameData.playerShip?.spaceShipParent.childNode(withName: bulletRotator)?.removeFromParent()
-                                
-
+                   /*            let hud = SKScene(fileNamed: "Hud.sks")
+                                for x in hud!.children {
+                                    print("removing stuff")
+                                    if x.name != "backButtonNode" {
+                                        x.alpha = 0
+                                    }
+                                }*/
                                 print("dead camera set")
                                 Global.gameData.playerShip?.spaceShipHud.position = CGPoint(x: -(Global.gameData.playerShip?.spaceShipParent.position.x)!, y: -(Global.gameData.playerShip?.spaceShipParent.position.y)!)
                             }
