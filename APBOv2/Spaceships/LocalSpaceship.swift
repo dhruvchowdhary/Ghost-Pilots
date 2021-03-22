@@ -245,8 +245,6 @@ public class LocalSpaceship: SpaceshipBase {
         let GameOverFX = SKEmitterNode(fileNamed: "GameOverFX")
         
         if indicateEnd == false {
-            print(Global.gameData.host)
-            print(Global.gameData.isHost)
             let generator = UIImpactFeedbackGenerator(style: .medium)
             generator.impactOccurred()
             
@@ -263,16 +261,16 @@ public class LocalSpaceship: SpaceshipBase {
                     self.winnerLabel.position = CGPoint(x: -((Global.gameData.playerShip?.spaceShipParent.position.x)!), y: -((Global.gameData.playerShip?.spaceShipParent.position.y)!))
                     winnerLabel.zPosition = 10
                     self.winnerLabel.fontSize = 40
-                    self.winnerLabel.fontName = "AvernirNext-Bold"
+                    self.winnerLabel.fontName = "AvenirNext-Bold"
                     self.winnerLabel.text = "\(winner) WON!"
                     spaceShipParent.addChild(winnerLabel)
                 }
                 print("ffa ended")
                 print(winner)
-                
                 indicateEnd = true
                 let wait1 = SKAction.wait(forDuration: 5)
-                spaceShipNode.run(wait1, completion:  {
+                spaceShipParent.run(wait1, completion:  {
+                    print(Global.gameData.isHost)
                     if Global.gameData.isHost {
                         self.gameOver.removeFromParent()
                         GameOverFX?.removeFromParent()

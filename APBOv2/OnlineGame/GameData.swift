@@ -72,6 +72,7 @@ public class GameData{
         }
         if isHost {
             Global.multiplayerHandler.ClearInfectedList()
+            Global.multiplayerHandler.ClearEliminatedList()
         }
         if !toLobby {
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(Global.playerData.playerID)", Value: "PePeGone")
