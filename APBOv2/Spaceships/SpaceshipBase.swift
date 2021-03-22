@@ -37,6 +37,8 @@ public class SpaceshipBase {
         spaceShipParent.addChild(shipLabel)
         shipLabel.fontName = "AvenirNext-Bold"
         shipLabel.position = CGPoint(x: 0, y: 35)
+        
+        shipLabel.name = "nametag"
 
         spaceShipParent.addChild(spaceShipNode)
         spaceShipParent.addChild(spaceShipHud)

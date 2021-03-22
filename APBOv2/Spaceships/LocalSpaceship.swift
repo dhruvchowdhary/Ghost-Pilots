@@ -93,6 +93,7 @@ public class LocalSpaceship: SpaceshipBase {
             unfiredBullets[i].position.y = CGFloat(50 * sin(Double.pi * Double(i) * 0.6666666))
             unfiredBulletRotator.addChild(unfiredBullets[i])
         }
+        unfiredBulletRotator.name = "bulletRotator"
         spaceShipParent.addChild(unfiredBulletRotator)
         
         

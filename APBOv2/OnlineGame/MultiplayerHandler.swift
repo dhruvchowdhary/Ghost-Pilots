@@ -147,6 +147,9 @@ public class MultiplayerHandler{
                     for i in 0..<Global.gameData.shipsToUpdate.count {
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
                             Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")?.removeFromParent()
+                            Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "nametag")?.removeFromParent()
+                            
+                            
 
                             Global.gameData.shipsToUpdate[i].spaceShipParent.physicsBody = nil
                            
@@ -164,6 +167,12 @@ public class MultiplayerHandler{
                                         x.alpha = 0
                                     }
                                 }
+                                
+                                
+                                
+                                Global.gameData.playerShip?.spaceShipParent.childNode(withName: bulletRotator)?.removeFromParent()
+                                
+
                                 print("dead camera set")
                                 Global.gameData.playerShip?.spaceShipHud.position = CGPoint(x: -(Global.gameData.playerShip?.spaceShipParent.position.x)!, y: -(Global.gameData.playerShip?.spaceShipParent.position.y)!)
                             }
