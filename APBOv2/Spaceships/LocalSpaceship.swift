@@ -251,7 +251,7 @@ public class LocalSpaceship: SpaceshipBase {
             
             switch Global.gameData.mode {
             case "ffa":
-                self.winnerLabel.position = CGPoint(x: 0, y: 0)
+                self.winnerLabel.position = CGPoint(x: -((Global.gameData.playerShip?.spaceShipParent.position.x)!), y: -((Global.gameData.playerShip?.spaceShipParent.position.y)!))
                 winnerLabel.zPosition = 10
                 self.winnerLabel.fontSize = 40
                 self.winnerLabel.fontName = "AvernirNext-Bold"
