@@ -156,6 +156,10 @@ public class MultiplayerHandler{
                     //        Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(infected)
                             
                             eliminatedList.append(e.key)
+                            if Global.playerData.playerID == e.key {
+                                print("dead camera set")
+                                Global.gameData.playerShip?.spaceShipHud.position = CGPoint(x: 0, y: 0)
+                            }
                         }
                         //   print(infectedList.count)
                         //   print(Global.gameData.shipsToUpdate.count)
