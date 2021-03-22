@@ -261,7 +261,7 @@ class LobbyMenu: SKScene {
         switch Global.gameData.mode {
         case "ffa":
             Global.gameData.gameState = GameStates.FFA
-            Global.loadScene(s: "GameSceneBase")
+            Global.loadScene(s: "GameSceneOnline")
         case "astroball":
             Global.gameData.gameState = GameStates.AstroBall
             Global.loadScene(s: "AstroBall")
@@ -270,7 +270,7 @@ class LobbyMenu: SKScene {
             Global.loadScene(s: "Infection")
         default:
             Global.gameData.gameState = GameStates.FFA
-            Global.loadScene(s: "GameSceneBase")
+            Global.loadScene(s: "GameSceneOnline")
         }
     }
     
