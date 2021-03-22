@@ -165,6 +165,7 @@ public class MultiplayerHandler{
                                     }
                                 }
                                 print("dead camera set")
+                                
                                 Global.gameData.playerShip?.spaceShipHud.position = CGPoint(x: -(Global.gameData.playerShip?.spaceShipHud.position.x)!, y: -(Global.gameData.playerShip?.spaceShipHud.position.y)!)
                             }
                         }
