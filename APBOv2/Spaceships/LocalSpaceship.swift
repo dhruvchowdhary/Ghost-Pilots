@@ -35,6 +35,7 @@ public class LocalSpaceship: SpaceshipBase {
     var currentShotCountBuddy = 0;
     
     let gameOver = SKSpriteNode(imageNamed: "infectiongameover")
+    var winnerLabel = SKLabelNode(text: "____ WON!")
     
     init(imageTexture: String) {
         super.init(playerId: Global.playerData.playerID)
@@ -250,6 +251,12 @@ public class LocalSpaceship: SpaceshipBase {
             
             switch Global.gameData.mode {
             case "ffa":
+                self.winnerLabel.position = CGPoint(x: 0, y: 0)
+                winnerLabel.zPosition = 10
+                self.winnerLabel.fontSize = 40
+                self.winnerLabel.fontName = "AvernirNext-Bold"
+                self.winnerLabel.text = "\(winner) WON!"
+                spaceShipParent.addChild(winnerLabel)
                print("ffa ended")
                 print(winner)
             case "astroball":
