@@ -19,6 +19,7 @@ class Infection: GameSceneBase {
     
     override func setUp() {
         Global.gameData.gameState = GameStates.Infection
+        Global.multiplayerHandler.ListenForInfectedChanges()
         if !Global.gameData.isHost{
             Global.multiplayerHandler.ListenToGeometry()
         }
