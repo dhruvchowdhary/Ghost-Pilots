@@ -146,7 +146,7 @@ class AstroBall: GameSceneBase {
         astroball.physicsBody!.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue | CollisionType.border.rawValue
         
         astroball.zPosition = 4
-        astroball.physicsBody!.mass = 1
+        astroball.physicsBody!.mass = 3
         astroball.physicsBody!.friction = 0
         astroball.physicsBody!.linearDamping = 0
         astroball.physicsBody!.angularDamping = 0

@@ -239,7 +239,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         addChild(borderShape)
         
         let cubePos = 200
-        let cubesize = 150
+        let cubesize = 150 / 1.5
         
         let cube1 = SKSpriteNode(imageNamed: "cube")
         cube1.size = CGSize(width: cubesize, height: cubesize)
@@ -405,8 +405,8 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         addChild(borderShape)
         
         let hexPos = 300
-        let hexWidth = 477 / 2
-        let hexHeight = 413 / 2
+        let hexWidth = 477 / 3
+        let hexHeight = 413 / 3
         
         
         
