@@ -150,7 +150,7 @@ class AstroBall: GameSceneBase {
         astroball.physicsBody!.friction = 0
         astroball.physicsBody!.linearDamping = 0
         astroball.physicsBody!.angularDamping = 0
-        astroball.physicsBody!.restitution = 1
+        astroball.physicsBody!.restitution = 1.5
         astroball.physicsBody!.isDynamic = true
     
         addChild(astroball)
