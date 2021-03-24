@@ -19,12 +19,6 @@ class LoadIntro: SKScene {
             Global.loadScene(s: "MainMenu")
         }
         self.run(SKAction.sequence([wait1,action1]))
-        
-        GADMobileAds.sharedInstance().start(completionHandler: {_ in
-            let request = GADRequest()
-            GADInterstitialAdBeta.load(withAdUnitID: "ca-app-pub-3940256099942544/4411468910", request: request, completionHandler: { [self] ad, error in
-                Global.gameData.interstitial = ad
-            })
-        })
+        Global.adHandler.setup()
     }
 }

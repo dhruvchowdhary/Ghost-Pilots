@@ -111,6 +111,7 @@
 		CE9C6D9C25E8275800D47FCC /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9925E8275800D47FCC /* GameScene.sks */; };
 		CE9C6D9D25E8275800D47FCC /* GameSceneBase.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */; };
 		CE9C6D9E25E8275800D47FCC /* Hud.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9B25E8275800D47FCC /* Hud.sks */; };
+		CEC60745260BBA5D005F5538 /* AdHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC60744260BBA5D005F5538 /* AdHandler.swift */; };
 		CEDECCD725F4C18E00C01A7D /* SoloMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEDECCD925F4C18E00C01A7D /* SoloMenu.sks */; };
 		CEF309CF25C1E86D007B8B39 /* DataPusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309CE25C1E86D007B8B39 /* DataPusher.swift */; };
 		CEF309D825C1EAC0007B8B39 /* MultiplayerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */; };
@@ -234,6 +235,7 @@
 		CE9C6D9925E8275800D47FCC /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneBase.sks; sourceTree = "<group>"; };
 		CE9C6D9B25E8275800D47FCC /* Hud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Hud.sks; sourceTree = "<group>"; };
+		CEC60744260BBA5D005F5538 /* AdHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdHandler.swift; sourceTree = "<group>"; };
 		CEDECCD825F4C18E00C01A7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Base; path = Base.lproj/SoloMenu.sks; sourceTree = "<group>"; };
 		CEF309CE25C1E86D007B8B39 /* DataPusher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPusher.swift; sourceTree = "<group>"; };
 		CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerHandler.swift; sourceTree = "<group>"; };
@@ -502,6 +504,7 @@
 				CEF309FA25C33700007B8B39 /* Global.swift */,
 				CEF309FE25C337D7007B8B39 /* PlayerData.swift */,
 				CEF30A2A25CB0C39007B8B39 /* Payload.swift */,
+				CEC60744260BBA5D005F5538 /* AdHandler.swift */,
 			);
 			path = OnlineGame;
 			sourceTree = "<group>";
@@ -735,6 +738,7 @@
 				74CF6899258D78E2000C4E47 /* Tutorial.swift in Sources */,
 				CEF30A1F25CA65CC007B8B39 /* GameSceneOnline.swift in Sources */,
 				8177393525F9DAE20054FC06 /* Infection.swift in Sources */,
+				CEC60745260BBA5D005F5538 /* AdHandler.swift in Sources */,
 				74235B2025A7724400AC4675 /* GameCenter.swift in Sources */,
 				748FC4B625DD98E500756B4A /* HostMenu.swift in Sources */,
 				81135EF025E8312300B0F59F /* LoadLevelsMenu.swift in Sources */,
