@@ -92,14 +92,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     public override func didMove(to view: SKView) {
         Global.multiplayerHandler.SetGeoRefs()
         
-        for ship in Global.gameData.shipsToUpdate{
-            ship.spaceShipParent.removeFromParent()
-            addChild(ship.spaceShipParent)
-            ship.spaceShipParent.physicsBody!.mass = 10
-            ship.spaceShipParent.position = CGPoint(x: loadShipPosX, y: loadShipPosY)
-            loadShipPosX = loadShipPosX + 50
-        }
-        
+        SetPosition()
         Global.multiplayerHandler.SetGeoRefs()
         if !Global.gameData.isHost{
             Global.multiplayerHandler.ListenToGeometry()
@@ -509,6 +502,16 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         borderShape.zPosition = 5
         
         addChild(borderShape)
+    }
+    
+    func SetPosition() {
+        for ship in Global.gameData.shipsToUpdate{
+            ship.spaceShipParent.removeFromParent()
+            addChild(ship.spaceShipParent)
+            ship.spaceShipParent.physicsBody!.mass = 10
+            ship.spaceShipParent.position = CGPoint(x: loadShipPosX, y: loadShipPosY)
+            loadShipPosX = loadShipPosX + 50
+        }
     }
     
     func selectmap() {
