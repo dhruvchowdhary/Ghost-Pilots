@@ -31,8 +31,8 @@ class Infection: GameSceneBase {
             Global.gameData.playerShip?.spaceShipParent.position = CGPoint(x: 800, y: -300)
         } else { //color should be "apboGreen"
             print(Global.playerData.color)
-            Global.gameData.playerShip?.spaceShipNode.zRotation = .pi
-            Global.gameData.playerShip?.spaceShipParent.position = CGPoint(x: -800, y: 300)
+            Global.gameData.playerShip?.spaceShipNode.zRotation = CGFloat.random(in: 0 ... .pi*2)
+            Global.gameData.playerShip?.spaceShipParent.position = CGPoint(x: 0, y: 0)
         }
         for ship in Global.gameData.shipsToUpdate {
             ship.spaceShipParent.removeFromParent()
