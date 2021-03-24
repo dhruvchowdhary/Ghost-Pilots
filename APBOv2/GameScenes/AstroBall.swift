@@ -43,11 +43,25 @@ class AstroBall: GameSceneBase {
         }
         
         Global.gameData.gameState = GameStates.AstroBall
-       
         
         if !Global.gameData.isHost{
             Global.multiplayerHandler.ListenToAstroball()
             Global.multiplayerHandler.ListenToGeometry()
+        }
+    }
+    override func SetPosition() {
+        if Global.playerData.color == "apboBlue" {
+            print(Global.playerData.color)
+            Global.gameData.playerShip?.spaceShipParent.position = CGPoint(x: -800, y: 300)
+        } else { //color should be "player"
+            print(Global.playerData.color)
+            Global.gameData.playerShip?.spaceShipNode.zRotation = .pi
+            Global.gameData.playerShip?.spaceShipParent.position = CGPoint(x: 800, y: 300)
+        }
+        for ship in Global.gameData.shipsToUpdate {
+            ship.spaceShipParent.removeFromParent()
+            addChild(ship.spaceShipParent)
+            ship.spaceShipParent.physicsBody!.mass = 10
         }
     }
     

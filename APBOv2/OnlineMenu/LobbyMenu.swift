@@ -311,6 +311,7 @@ class LobbyMenu: SKScene {
             colorIndex = index
             if isPlayer {
                 DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex%2]!)
+                Global.playerData.color = self.intToColor[self.colorIndex%2]!
                 userColor.selectedHandlers = {
                     if self.colorIndex == 1 {
                         self.colorIndex = 0
@@ -318,6 +319,7 @@ class LobbyMenu: SKScene {
                         self.colorIndex = 1
                     }
                     userColor.texture = SKTexture(imageNamed: self.intToColor[self.colorIndex%2]!)
+                    Global.playerData.color = self.intToColor[self.colorIndex%2]!
                     DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex%2]!)
                     userColor.alpha = 1
                 }

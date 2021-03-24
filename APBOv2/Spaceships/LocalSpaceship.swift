@@ -264,6 +264,12 @@ public class LocalSpaceship: SpaceshipBase {
                     self.winnerLabel.fontName = "AvenirNext-Bold"
                     self.winnerLabel.text = "\(winner) WON!"
                     spaceShipParent.addChild(winnerLabel)
+                    GameOverFX!.zPosition = 99
+                    GameOverFX!.alpha = 1
+                    GameOverFX?.particleColorSequence = nil
+                    GameOverFX?.particleColorBlendFactor = 1.0
+                    GameOverFX?.particleColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha:1)
+                    self.spaceShipHud.addChild(GameOverFX!)
                 }
                 print("ffa ended")
                 print(winner)
