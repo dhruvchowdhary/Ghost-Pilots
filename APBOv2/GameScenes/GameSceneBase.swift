@@ -28,6 +28,13 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     var ejectButtonNode: MSButtonNode!
     var reviveButtonNode: MSButtonNode!
     
+    public var topLeft = CGPoint(x: -800, y: 300)
+    public var topRight = CGPoint(x: 800, y: 300)
+    public var bottomLeft = CGPoint(x: -800, y: -300)
+    public var bottomRight = CGPoint(x: 800, y: -300)
+    public var topMiddle = CGPoint(x: 0, y: 300)
+    public var bottomMiddle = CGPoint(x: 0, y: -300)
+    
     var poweruprandInt = 0
     var currentShip = "player1"
     let playerHealthBar = SKSpriteNode()

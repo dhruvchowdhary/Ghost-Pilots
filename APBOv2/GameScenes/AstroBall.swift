@@ -51,10 +51,8 @@ class AstroBall: GameSceneBase {
     }
     override func SetPosition() {
         if Global.playerData.color == "apboBlue" {
-            print(Global.playerData.color)
             Global.gameData.playerShip?.spaceShipParent.position = CGPoint(x: -800, y: 300)
         } else { //color should be "player"
-            print(Global.playerData.color)
             Global.gameData.playerShip?.spaceShipNode.zRotation = .pi
             Global.gameData.playerShip?.spaceShipParent.position = CGPoint(x: 800, y: 300)
         }

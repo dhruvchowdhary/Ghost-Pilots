@@ -24,6 +24,22 @@ class Infection: GameSceneBase {
             Global.multiplayerHandler.ListenToGeometry()
         }
     }
+    
+    override func SetPosition() {
+        if Global.playerData.color != "apboGreen" {
+            print(Global.playerData.color)
+            Global.gameData.playerShip?.spaceShipParent.position = CGPoint(x: 800, y: -300)
+        } else { //color should be "apboGreen"
+            print(Global.playerData.color)
+            Global.gameData.playerShip?.spaceShipNode.zRotation = .pi
+            Global.gameData.playerShip?.spaceShipParent.position = CGPoint(x: -800, y: 300)
+        }
+        for ship in Global.gameData.shipsToUpdate {
+            ship.spaceShipParent.removeFromParent()
+            addChild(ship.spaceShipParent)
+            ship.spaceShipParent.physicsBody!.mass = 10
+        }
+    }
   
     override func didBegin(_ contact: SKPhysicsContact) {
         

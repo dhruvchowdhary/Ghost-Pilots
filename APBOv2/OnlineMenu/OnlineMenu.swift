@@ -172,7 +172,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var maxLength = 0
         if activeTextField == usernameBox {
-            maxLength = 10
+            maxLength = 8
         } else {
             maxLength = 5
         }
