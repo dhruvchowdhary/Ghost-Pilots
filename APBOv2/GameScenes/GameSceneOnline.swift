@@ -32,9 +32,10 @@ class GameSceneOnline: GameSceneBase {
                     Global.gameData.playerShip?.spaceShipNode.zRotation = .pi/2
                 case 4:
                     Global.gameData.playerShip?.spaceShipParent.position = topMiddle
+                    Global.gameData.playerShip?.spaceShipNode.zRotation = .pi*3/2
                 case 5:
                     Global.gameData.playerShip?.spaceShipParent.position = bottomMiddle
-                    Global.gameData.playerShip?.spaceShipNode.zRotation = .pi
+                    Global.gameData.playerShip?.spaceShipNode.zRotation = .pi/2
                 default:
                     Global.gameData.playerShip?.spaceShipParent.position = topLeft
                 }
