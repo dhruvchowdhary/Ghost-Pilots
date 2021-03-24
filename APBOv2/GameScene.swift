@@ -247,7 +247,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         reviveButtonNode = self.childNode(withName: "reviveButton") as? MSButtonNode
         reviveButtonNode.alpha = 0
         reviveButtonNode.selectedHandler = {
-            GameViewController().playAd()
+//            GameViewController().playAd()
         }
         
         phaseButtonNode = self.childNode(withName: "phaseButton") as? MSButtonNode

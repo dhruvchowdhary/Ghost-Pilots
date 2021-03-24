@@ -13,6 +13,7 @@ class SoloMenu: SKScene {
     
     override func didMove(to view: SKView) {
         Global.gameData.gameState = GameStates.SoloMenu
+        Global.gameData.interstitial?.present(fromRootViewController: Global.gameViewController!)
         
         useCount += 1 //Increment the useCount
         UserDefaults.standard.set(useCount, forKey: "useCount")

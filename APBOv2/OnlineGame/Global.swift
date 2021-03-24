@@ -6,6 +6,7 @@ public struct Global {
     public static var playerData = PlayerData()
     public static var gameData = GameData()
     public static let multiplayerHandler = MultiplayerHandler()
+    public static var gameViewController: GameViewController?
     
     static func loadScene(s: String) {
         

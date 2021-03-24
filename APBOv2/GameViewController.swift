@@ -12,37 +12,41 @@ import GameplayKit
 import GameKit
 import GoogleMobileAds
 
-class GameViewController: UIViewController, GKGameCenterControllerDelegate, GADRewardedAdDelegate {
-    var rewardedAd: GADRewardedAd?
-    /// Tells the delegate that the user earned a reward.
-    func rewardedAd(_ rewardedAd: GADRewardedAd, userDidEarn reward: GADAdReward) {
-      print("Reward received with currency: \(reward.type), amount \(reward.amount).")
-    }
-    /// Tells the delegate that the rewarded ad was presented.
-    func rewardedAdDidPresent(_ rewardedAd: GADRewardedAd) {
-      print("Rewarded ad presented.")
-    }
-    /// Tells the delegate that the rewarded ad was dismissed.
-    func rewardedAdDidDismiss(_ rewardedAd: GADRewardedAd) {
-      print("Rewarded ad dismissed.")
- //       rewardedAd = createAndLoadRewardedAd()
-    }
-    /// Tells the delegate that the rewarded ad failed to present.
-    func rewardedAd(_ rewardedAd: GADRewardedAd, didFailToPresentWithError error: Error) {
-      print("Rewarded ad failed to present.")
-    }
+public class GameViewController: UIViewController, GKGameCenterControllerDelegate {
     
+
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        rewardedAd = GADRewardedAd(adUnitID: "ca-app-pub-3940256099942544~1458002511")
-        rewardedAd?.load(GADRequest()) { error in
-          if let error = error {
-            print("Loading failed: \(error)")
-          } else {
-            print("Loading Succeeded")
-          }
-        }
+//    var rewardedAd: GADRewardedAd?
+//    /// Tells the delegate that the user earned a reward.
+//    func rewardedAd(_ rewardedAd: GADRewardedAd, userDidEarn reward: GADAdReward) {
+//      print("Reward received with currency: \(reward.type), amount \(reward.amount).")
+//    }
+//    /// Tells the delegate that the rewarded ad was presented.
+//    func rewardedAdDidPresent(_ rewardedAd: GADRewardedAd) {
+//      print("Rewarded ad presented.")
+//    }
+//    /// Tells the delegate that the rewarded ad was dismissed.
+//    func rewardedAdDidDismiss(_ rewardedAd: GADRewardedAd) {
+//      print("Rewarded ad dismissed.")
+// //       rewardedAd = createAndLoadRewardedAd()
+//    }
+//    /// Tells the delegate that the rewarded ad failed to present.
+//    func rewardedAd(_ rewardedAd: GADRewardedAd, didFailToPresentWithError error: Error) {
+//      print("Rewarded ad failed to present.")
+//    }
+//
+    
+    public override func viewDidLoad() {
+        Global.gameViewController = self
+//        super.viewDidLoad()
+//        rewardedAd = GADRewardedAd(adUnitID: "ca-app-pub-3940256099942544~1458002511")
+//        rewardedAd?.load(GADRequest()) { error in
+//          if let error = error {
+//            print("Loading failed: \(error)")
+//          } else {
+//            print("Loading Succeeded")
+//          }
+//        }
         
         GameCenter.shared.viewController = self
         NotificationCenter.default.addObserver(self, selector: #selector(showLeaderboard), name: NSNotification.Name(rawValue: "showLeaderboard"), object: nil)
@@ -70,26 +74,26 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GADR
         }
     }
     
-    func createAndLoadRewardedAd() -> GADRewardedAd? {
-      rewardedAd = GADRewardedAd(adUnitID: "ca-app-pub-3940256099942544~1033173712")
-      rewardedAd?.load(GADRequest()) { error in
-        if let error = error {
-          print("Loading failed: \(error)")
-        } else {
-          print("Loading Succeeded")
-        }
-      }
-      return rewardedAd
-    }
-    func playAd() {
-        if rewardedAd?.isReady == true {
-           rewardedAd?.present(fromRootViewController: self, delegate:self)
-        } else {
-            print("ad is not ready?")
-        }
-    }
+//    func createAndLoadRewardedAd() -> GADRewardedAd? {
+//      rewardedAd = GADRewardedAd(adUnitID: "ca-app-pub-3940256099942544~1033173712")
+//      rewardedAd?.load(GADRequest()) { error in
+//        if let error = error {
+//          print("Loading failed: \(error)")
+//        } else {
+//          print("Loading Succeeded")
+//        }
+//      }
+//      return rewardedAd
+//    }
+//    func playAd() {
+//        if rewardedAd?.isReady == true {
+//           rewardedAd?.present(fromRootViewController: self, delegate:self)
+//        } else {
+//            print("ad is not ready?")
+//        }
+//    }
     
-    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+    public func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
         self.dismiss(animated: true, completion: nil)
     }
     @objc func showLeaderboard(){
@@ -102,11 +106,11 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GADR
         self.present(gcViewController, animated: true, completion: nil)
     }
     
-    override var shouldAutorotate: Bool {
+    public override var shouldAutorotate: Bool {
         return true
     }
     
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
             return .allButUpsideDown
         } else {
@@ -114,7 +118,7 @@ class GameViewController: UIViewController, GKGameCenterControllerDelegate, GADR
         }
     }
     
-    override var prefersStatusBarHidden: Bool {
+    public override var prefersStatusBarHidden: Bool {
         return true
     }
 }

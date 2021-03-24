@@ -18,7 +18,7 @@ public class GameData{
     public var infected = false
     public var gameState: GameStates = GameStates.MainMenu
     public var speedMultiplier: CGFloat = 1.0
-    
+    public var interstitial: GADInterstitialAdBeta?
     
     
     // =================

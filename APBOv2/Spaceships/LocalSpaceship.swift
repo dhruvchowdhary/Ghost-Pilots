@@ -105,7 +105,6 @@ public class LocalSpaceship: SpaceshipBase {
         reviveButtonNode = spaceShipHud.childNode(withName: "reviveButton") as? MSButtonNode
         reviveButtonNode.alpha = 0
         reviveButtonNode.selectedHandler = {
-            GameViewController().playAd()
         }
         
         phaseButtonNode = spaceShipHud.childNode(withName: "phaseButton") as? MSButtonNode
