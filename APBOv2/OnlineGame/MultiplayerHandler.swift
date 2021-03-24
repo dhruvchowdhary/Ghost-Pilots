@@ -172,7 +172,7 @@ public class MultiplayerHandler{
                     }
                 }
             }
-            if eliminatedList.count >= Global.gameData.shipsToUpdate.count - 1 {
+            if eliminatedList.count >= Global.gameData.shipsToUpdate.count - 1 && Global.gameData.shipsToUpdate.count > 1 {
                 if !eliminatedList.contains(Global.playerData.playerID){
                     Global.gameData.playerShip!.setGameOver(winner: Global.playerData.playerID)
                 } else {
