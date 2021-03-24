@@ -169,15 +169,17 @@ public class MultiplayerHandler{
                                 Global.gameData.playerShip?.spaceShipHud.position = CGPoint(x: -(Global.gameData.playerShip?.spaceShipParent.position.x)!, y: -(Global.gameData.playerShip?.spaceShipParent.position.y)!)
                             }
                         }
-                        if Global.gameData.shipsToUpdate.count > 1 {
-                            if eliminatedList.count == Global.gameData.shipsToUpdate.count - 1 {
-                                for i in 0..<Global.gameData.shipsToUpdate.count {
-                                    if Global.gameData.shipsToUpdate[i].playerID != e.key {
-                                        Global.gameData.playerShip!.setGameOver(winner: "\(Global.gameData.shipsToUpdate[i].playerID)")
-                                    }
-                                }
-                                
-                            }
+                    }
+                }
+            }
+            if eliminatedList.count >= Global.gameData.shipsToUpdate.count - 1 {
+                if !eliminatedList.contains(Global.playerData.playerID){
+                    Global.gameData.playerShip!.setGameOver(winner: Global.playerData.playerID)
+                } else {
+                    for j in Global.gameData.shipsToUpdate {
+                        if !eliminatedList.contains(j.playerID) {
+                            Global.gameData.playerShip!.setGameOver(winner: j.playerID)
+                            return
                         }
                     }
                 }
