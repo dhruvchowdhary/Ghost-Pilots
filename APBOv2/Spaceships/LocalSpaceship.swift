@@ -256,6 +256,14 @@ public class LocalSpaceship: SpaceshipBase {
                     gameOver.size = CGSize(width: 1469 / 1.5, height: 311 / 1.5)
                     spaceShipHud.addChild(gameOver)
                     gameOver.alpha = 1
+                    
+                    GameOverFX!.zPosition = 99
+                    GameOverFX!.alpha = 1
+                    GameOverFX?.particleColorSequence = nil
+                    GameOverFX?.particleColorBlendFactor = 1.0
+                    GameOverFX?.particleColor = UIColor(red: 20/255, green: 20/255, blue: 20/255, alpha:1)
+                    self.spaceShipHud.addChild(GameOverFX!)
+                    
                 } else {
                     self.winnerLabel.position = CGPoint(x: -((Global.gameData.playerShip?.spaceShipParent.position.x)!), y: -((Global.gameData.playerShip?.spaceShipParent.position.y)!))
                     winnerLabel.zPosition = 10
@@ -263,12 +271,7 @@ public class LocalSpaceship: SpaceshipBase {
                     self.winnerLabel.fontName = "AvenirNext-Bold"
                     self.winnerLabel.text = "\(winner) WON!"
                     spaceShipParent.addChild(winnerLabel)
-                    GameOverFX!.zPosition = 99
-                    GameOverFX!.alpha = 1
-                    GameOverFX?.particleColorSequence = nil
-                    GameOverFX?.particleColorBlendFactor = 1.0
-                    GameOverFX?.particleColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha:1)
-                    self.spaceShipHud.addChild(GameOverFX!)
+                   
                 }
                 print("ffa ended")
                 print(winner)

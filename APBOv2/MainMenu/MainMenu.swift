@@ -27,11 +27,22 @@ class MainMenu: SKScene {
     let greenParticles = SKEmitterNode(fileNamed: "greenPlayer")
     let yellowParticles = SKEmitterNode(fileNamed: "yellowPlayer")
     
+    let polynite = SKSpriteNode(imageNamed: "polynite2")
+    let polyniteBox = SKSpriteNode(imageNamed: "polynitebox")
+    let polyniteLabel = SKLabelNode(text: "0")
+    var polyniteAmount = UserDefaults.standard.integer(forKey: "polyniteAmount")
     
     override func didMove(to view: SKView) {
         /* Setup your scene here */
         
+        
+        
+        
+
         Global.gameData.skView = self.view!
+        
+        
+        
         
         title.fontName = "AvenirNext-Bold"
         title.position = CGPoint(x: frame.midX, y: frame.midY + 195)
@@ -39,6 +50,33 @@ class MainMenu: SKScene {
         title.zPosition = 2
         title.fontSize = 160
         addChild(title)
+        
+        polyniteBox.size = CGSize(width: 391.466, height: 140.267 )
+        
+        polyniteBox.position = CGPoint(x: frame.midX + 655, y: frame.midX - 285)
+        polyniteBox.zPosition = 9
+        addChild(polyniteBox)
+        
+        polynite.position = CGPoint(x: polyniteBox.position.x - 120 , y: polyniteBox.position.y)
+        polynite.zPosition = 10
+        polynite.size = CGSize(width: 104, height: 102.934 )
+        
+        
+        addChild(polynite)
+        
+        
+        polyniteLabel.text = "\(polyniteAmount)"
+        
+        polyniteLabel.position = CGPoint(x: polyniteBox.position.x , y: polyniteBox.position.y - 30)
+        
+        polyniteLabel.fontName = "AvenirNext-Bold"
+     
+        polyniteLabel.fontColor = UIColor.black
+        polyniteLabel.zPosition = 10
+        polyniteLabel.fontSize = 80
+        addChild(polyniteLabel)
+        
+        
         
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
