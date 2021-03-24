@@ -18,7 +18,6 @@ public class GameData{
     public var infected = false
     public var gameState: GameStates = GameStates.MainMenu
     public var speedMultiplier: CGFloat = 1.0
-    public var interstitial: GADInterstitialAdBeta?
     
     
     // =================
@@ -59,6 +58,8 @@ public class GameData{
 
     
     public func ResetGameData(toLobby: Bool){
+        Global.adHandler.presentInterstitialGeneral()
+        
         Global.multiplayerHandler.StopListenForInfectedChanges()
   //      Global.multiplayerHandler.StopListenForColorChanges()
         Global.multiplayerHandler.StopListenForEliminatedChanges()
@@ -94,6 +95,8 @@ public class GameData{
             }
             gameID = 666
         }
+        
+        
         Global.gameData.playerShip?.spaceShipHud.position = .zero
         shipsToUpdate = []
         playerShip?.spaceShipParent.removeFromParent()
