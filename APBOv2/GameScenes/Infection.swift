@@ -27,10 +27,32 @@ class Infection: GameSceneBase {
     
     override func SetPosition() {
         if Global.playerData.color != "apboGreen" {
-            print(Global.playerData.color)
-            Global.gameData.playerShip?.spaceShipParent.position = CGPoint(x: 800, y: -300)
+            for i in 0..<Global.gameData.shipsToUpdate.count {
+                if Global.gameData.shipsToUpdate[i].playerID == Global.playerData.playerID {
+                    switch i {
+                    case 0:
+                        Global.gameData.playerShip?.spaceShipParent.position = topLeft
+                    case 1:
+                        Global.gameData.playerShip?.spaceShipParent.position = bottomRight
+                        Global.gameData.playerShip?.spaceShipNode.zRotation = .pi
+                    case 2:
+                        Global.gameData.playerShip?.spaceShipParent.position = topRight
+                        Global.gameData.playerShip?.spaceShipNode.zRotation = .pi*3/2
+                    case 3:
+                        Global.gameData.playerShip?.spaceShipParent.position = bottomLeft
+                        Global.gameData.playerShip?.spaceShipNode.zRotation = .pi/2
+                    case 4:
+                        Global.gameData.playerShip?.spaceShipParent.position = topMiddle
+                        Global.gameData.playerShip?.spaceShipNode.zRotation = .pi*3/2
+                    case 5:
+                        Global.gameData.playerShip?.spaceShipParent.position = bottomMiddle
+                        Global.gameData.playerShip?.spaceShipNode.zRotation = .pi/2
+                    default:
+                        Global.gameData.playerShip?.spaceShipParent.position = topLeft
+                    }
+                }
+            }
         } else { //color should be "apboGreen"
-            print(Global.playerData.color)
             Global.gameData.playerShip?.spaceShipNode.zRotation = CGFloat.random(in: 0 ... .pi*2)
             Global.gameData.playerShip?.spaceShipParent.position = CGPoint(x: 0, y: 0)
         }
