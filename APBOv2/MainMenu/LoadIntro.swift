@@ -5,6 +5,8 @@ class LoadIntro: SKScene {
     let intropilot = SKSpriteNode(imageNamed: "intropilot")
     
     override func didMove(to view: SKView) {
+        
+        Global.adHandler.setup()
         /* Setup your scene here */
         Global.gameData.skView = self.view!
         
@@ -19,6 +21,6 @@ class LoadIntro: SKScene {
             Global.loadScene(s: "MainMenu")
         }
         self.run(SKAction.sequence([wait1,action1]))
-        Global.adHandler.setup()
-    }
+        
+        }
 }

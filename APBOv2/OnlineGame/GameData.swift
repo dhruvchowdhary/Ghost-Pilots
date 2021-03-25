@@ -18,11 +18,37 @@ public class GameData{
     public var infected = false
     public var gameState: GameStates = GameStates.MainMenu
     public var speedMultiplier: CGFloat = 1.0
+    public var polyniteCount = 0
     
+    
+    init() {
+        MultiplayerHandler.ref.child("Users/\(Global.playerData.playerID)").observeSingleEvent(of: .value) {
+            snapshot in
+            if (snapshot.exists()) {
+                self.polyniteCount = Int(snapshot.value as! String)!
+            } else {
+                DataPusher.PushData(path: "Users\(Global.playerData.playerID)", Value: "0")
+            }
+        }
+    }
+    
+    public func addPolyniteCount(delta: Int){
+        polyniteCount += delta
+        DataPusher.PushData(path: "Users\(Global.playerData.playerID)", Value: String(polyniteCount))
+    }
+    
+    public func spendPolynite(amountToSpend: Int) -> Bool{
+        if amountToSpend > polyniteCount {
+            return false
+        } else {
+            polyniteCount -= amountToSpend
+            DataPusher.PushData(path: "Users\(Global.playerData.playerID)", Value: String(polyniteCount))
+        }
+        return true
+    }
     
     // =================
     // For the Host to run
-    
     public func CreateNewGame(){
         isHost = true
         MultiplayerHandler.GenerateUniqueGameCode()
@@ -58,7 +84,6 @@ public class GameData{
 
     
     public func ResetGameData(toLobby: Bool){
-        Global.adHandler.presentInterstitialGeneral()
         
         Global.multiplayerHandler.StopListenForInfectedChanges()
   //      Global.multiplayerHandler.StopListenForColorChanges()
@@ -80,6 +105,7 @@ public class GameData{
         }
         MultiplayerHandler.ref.child("Games/\(gameID)/MainGame/\(Global.playerData.playerID)/Shots").removeValue()
         if !toLobby {
+            Global.adHandler.presentInterstitialGeneral()
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(Global.playerData.playerID)", Value: "PePeGone")
             host = ""
             map = "OnlineCubis"
