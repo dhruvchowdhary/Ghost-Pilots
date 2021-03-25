@@ -27,7 +27,7 @@ class MainMenu: SKScene {
     let greenParticles = SKEmitterNode(fileNamed: "greenPlayer")
     let yellowParticles = SKEmitterNode(fileNamed: "yellowPlayer")
     let orangeParticles = SKEmitterNode(fileNamed: "orangePlayer")
-    let pinkParticles = SKEmitterNode(fileNamed: "pinkPlayer")
+  //  let pinkParticles = SKEmitterNode(fileNamed: "pinkPlayer")
     let purpleParticles = SKEmitterNode(fileNamed: "purplePlayer")
     
     let polynite = SKSpriteNode(imageNamed: "polynite2")
@@ -84,7 +84,7 @@ class MainMenu: SKScene {
         randomParticle(party: greenParticles!)
         randomParticle(party: yellowParticles!)
         randomParticle(party: orangeParticles!)
-        randomParticle(party: pinkParticles!)
+  //      randomParticle(party: pinkParticles!)
         randomParticle(party: purpleParticles!)
         addChild(playerParticles!)
         addChild(ghostParticles!)
@@ -95,7 +95,7 @@ class MainMenu: SKScene {
         addChild(greenParticles!)
         addChild(yellowParticles!)
         addChild(orangeParticles!)
-        addChild(pinkParticles!)
+  //      addChild(pinkParticles!)
         addChild(purpleParticles!)
         let timer = Timer.scheduledTimer(withTimeInterval: 31, repeats: true) { (timer) in
             self.randomParticle(party: self.playerParticles!)
@@ -107,7 +107,7 @@ class MainMenu: SKScene {
             self.randomParticle(party: self.greenParticles!)
             self.randomParticle(party: self.yellowParticles!)
             self.randomParticle(party: self.orangeParticles!)
-            self.randomParticle(party: self.pinkParticles!)
+    //        self.randomParticle(party: self.pinkParticles!)
             self.randomParticle(party: self.purpleParticles!)
 
             self.playerParticles?.resetSimulation()
@@ -119,7 +119,7 @@ class MainMenu: SKScene {
             self.greenParticles?.resetSimulation()
             self.yellowParticles?.resetSimulation()
             self.orangeParticles?.resetSimulation()
-            self.pinkParticles?.resetSimulation()
+    //        self.pinkParticles?.resetSimulation()
             self.purpleParticles?.resetSimulation()
         }
         
