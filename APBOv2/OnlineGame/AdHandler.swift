@@ -53,6 +53,7 @@ public class AdHandler {
             
             GADAppOpenAd.load(withAdUnitID: self.appOpenID!, request: GADRequest(), orientation: UIInterfaceOrientation.landscapeRight, completionHandler: { [self] ad, error in
                 appOpen = ad
+                
             })
             
             GADInterstitialAdBeta.load(withAdUnitID: self.interstitialVideoID!, request: GADRequest(), completionHandler: { [self] ad, error in
