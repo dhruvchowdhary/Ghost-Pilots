@@ -93,12 +93,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var direction = 0.0
     let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 20000, height: 10000) )
     
-    let points = SKLabelNode(text: "0")
+    let points = SKLabelNode(text: "\(Global.gameData.score)")
     let pointsLabel = SKLabelNode(text: "Points")
     var enemyPoints = SKLabelNode(text: "+1")
     let highScoreLabel = SKLabelNode(text: "High Score")
     let highScorePoints = SKLabelNode(text: "0")
-    var numPoints = 0
+    var numPoints = Global.gameData.score
     var highScore = 0
     var speedAdd = 0
     
@@ -247,7 +247,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         reviveButtonNode = self.childNode(withName: "reviveButton") as? MSButtonNode
         reviveButtonNode.alpha = 0
         reviveButtonNode.selectedHandler = {
-//            GameViewController().playAd()
+            Global.gameData.score = self.numPoints
+            Global.gameData.revived = true
+            Global.adHandler.presentRewardedForRevive()
         }
         
         phaseButtonNode = self.childNode(withName: "phaseButton") as? MSButtonNode
@@ -1877,7 +1879,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         isGameOver = true
         
         self.playAgainButtonNode.alpha = 1
-        self.reviveButtonNode.alpha = 1
+        if !Global.gameData.revived {
+            self.reviveButtonNode.alpha = 1
+        }
         self.backButtonNode.alpha = 1
         self.pauseButtonNode.alpha = 0
         self.turnButtonNode.alpha = 0

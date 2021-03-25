@@ -4,6 +4,8 @@ import Firebase
 
 // Created on game creation
 public class GameData{
+    public var score = 0
+    public var revived = false
     public var gameID = 00000
     public var shipsToUpdate: [SpaceshipBase] = []
     public var playerShip: LocalSpaceship? //Also included in shipsToUpdate
