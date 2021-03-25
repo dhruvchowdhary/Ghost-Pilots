@@ -55,6 +55,10 @@ public class AdHandler {
                 appOpen = ad
             })
             
+            GADRewardedAdBeta.load(withAdUnitID: self.rewardedID!, request: GADRequest(), completionHandler: { [self] ad, error in
+                rewarded = ad
+            })
+            
             GADInterstitialAdBeta.load(withAdUnitID: self.interstitialVideoID!, request: GADRequest(), completionHandler: { [self] ad, error in
                 interstitialVideo = ad
             })
@@ -97,6 +101,19 @@ public class AdHandler {
         interstitialVideo!.present(fromRootViewController: controller!)
         GADInterstitialAdBeta.load(withAdUnitID: interstitialGeneralID!, request: GADRequest(), completionHandler: { [self] ad, error in
             interstitialVideo = ad
+        })
+    }
+    
+    func presentRewardedForRevive(){
+        if !isReady{
+            fatalError("Why would you do that. Thats just a bad idea.")
+        }
+        rewarded!.present(fromRootViewController: controller!, userDidEarnRewardHandler: {
+            print("should load endless again")
+            Global.loadSceneSolo(s: "GameScene")
+        })
+        GADRewardedAdBeta.load(withAdUnitID: rewardedID!, request: GADRequest(), completionHandler: { [self] ad, error in
+            rewarded = ad
         })
     }
     

@@ -32,4 +32,24 @@ public struct Global {
         gameData.skView.presentScene(scene)
     
     }
+    
+    static func loadSceneSolo(s: String) {
+        
+        /* 2) Load Game scene */
+        guard let scene = SKScene(fileNamed: s) else {
+            print("Could not make \(s), check the name is spelled correctly")
+            return
+        }
+        /* 3) Ensure correct aspect mode */
+        scene.scaleMode = .aspectFill
+        
+        gameData.skView.showsPhysics = false
+        gameData.skView.showsDrawCount = false
+        gameData.skView.showsFPS = false
+        
+        // Run in main thread
+        /* 4) Start game scene */
+        gameData.skView.presentScene(scene)
+    
+    }
 }
