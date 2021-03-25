@@ -390,7 +390,7 @@ public class LocalSpaceship: SpaceshipBase {
                   })
                 
             default:
-//                print("default ended")
+                print("default ended")
                
             }
         }
