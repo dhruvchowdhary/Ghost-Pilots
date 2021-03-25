@@ -18,14 +18,17 @@ class MainMenu: SKScene {
     var scenesAreLoaded = false;
     
     let title = SKLabelNode(text: "GHOST PILOTS")
-    let playerParticles = SKEmitterNode(fileNamed: "Player")
     let ghostParticles = SKEmitterNode(fileNamed: "ghost")
     let enemyParticles = SKEmitterNode(fileNamed: "enemy")
     let enemy2Particles = SKEmitterNode(fileNamed: "enemy2")
     let enemy3Particles = SKEmitterNode(fileNamed: "enemy3")
+    let playerParticles = SKEmitterNode(fileNamed: "Player")
     let blueParticles = SKEmitterNode(fileNamed: "bluePlayer")
     let greenParticles = SKEmitterNode(fileNamed: "greenPlayer")
     let yellowParticles = SKEmitterNode(fileNamed: "yellowPlayer")
+    let orangeParticles = SKEmitterNode(fileNamed: "orangePlayer")
+    let pinkParticles = SKEmitterNode(fileNamed: "pinkPlayer")
+    let purpleParticles = SKEmitterNode(fileNamed: "purplePlayer")
     
     let polynite = SKSpriteNode(imageNamed: "polynite2")
     let polyniteBox = SKSpriteNode(imageNamed: "polynitebox")
@@ -34,16 +37,8 @@ class MainMenu: SKScene {
     
     override func didMove(to view: SKView) {
         /* Setup your scene here */
-        
-        
-        
-        
-
         Global.gameData.skView = self.view!
-        
-        
-        
-        
+
         title.fontName = "AvenirNext-Bold"
         title.position = CGPoint(x: frame.midX, y: frame.midY + 195)
         title.fontColor = UIColor.white
@@ -52,7 +47,6 @@ class MainMenu: SKScene {
         addChild(title)
         
         polyniteBox.size = CGSize(width: 391.466, height: 140.267 )
-        
         polyniteBox.position = CGPoint(x: frame.midX + 655, y: frame.midX - 285)
         polyniteBox.zPosition = 9
         addChild(polyniteBox)
@@ -60,17 +54,12 @@ class MainMenu: SKScene {
         polynite.position = CGPoint(x: polyniteBox.position.x - 120 , y: polyniteBox.position.y)
         polynite.zPosition = 10
         polynite.size = CGSize(width: 104, height: 102.934 )
-        
-        
         addChild(polynite)
         
         
         polyniteLabel.text = "\(polyniteAmount)"
-        
         polyniteLabel.position = CGPoint(x: polyniteBox.position.x , y: polyniteBox.position.y - 30)
-        
         polyniteLabel.fontName = "AvenirNext-Bold"
-     
         polyniteLabel.fontColor = UIColor.black
         polyniteLabel.zPosition = 10
         polyniteLabel.fontSize = 80
@@ -94,6 +83,9 @@ class MainMenu: SKScene {
         randomParticle(party: blueParticles!)
         randomParticle(party: greenParticles!)
         randomParticle(party: yellowParticles!)
+        randomParticle(party: orangeParticles!)
+        randomParticle(party: pinkParticles!)
+        randomParticle(party: purpleParticles!)
         addChild(playerParticles!)
         addChild(ghostParticles!)
         addChild(enemyParticles!)
@@ -102,6 +94,9 @@ class MainMenu: SKScene {
         addChild(blueParticles!)
         addChild(greenParticles!)
         addChild(yellowParticles!)
+        addChild(orangeParticles!)
+        addChild(pinkParticles!)
+        addChild(purpleParticles!)
         let timer = Timer.scheduledTimer(withTimeInterval: 31, repeats: true) { (timer) in
             self.randomParticle(party: self.playerParticles!)
             self.randomParticle(party: self.ghostParticles!)
@@ -111,6 +106,9 @@ class MainMenu: SKScene {
             self.randomParticle(party: self.blueParticles!)
             self.randomParticle(party: self.greenParticles!)
             self.randomParticle(party: self.yellowParticles!)
+            self.randomParticle(party: self.orangeParticles!)
+            self.randomParticle(party: self.pinkParticles!)
+            self.randomParticle(party: self.purpleParticles!)
 
             self.playerParticles?.resetSimulation()
             self.ghostParticles?.resetSimulation()
@@ -120,6 +118,9 @@ class MainMenu: SKScene {
             self.blueParticles?.resetSimulation()
             self.greenParticles?.resetSimulation()
             self.yellowParticles?.resetSimulation()
+            self.orangeParticles?.resetSimulation()
+            self.pinkParticles?.resetSimulation()
+            self.purpleParticles?.resetSimulation()
         }
         
         /* Set UI connections */

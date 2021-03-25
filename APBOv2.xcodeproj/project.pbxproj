@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		028FEFE725F7EFC600D519A5 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028FEFE625F7EFC600D519A5 /* GameData.swift */; };
+		02E4487E260C49910050E49D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02E4487C260C49910050E49D /* Assets.xcassets */; };
+		02E44886260CEDA20050E49D /* orangePlayer.sks in Resources */ = {isa = PBXBuildFile; fileRef = 02E44885260CEDA20050E49D /* orangePlayer.sks */; };
+		02E4488A260CEF770050E49D /* pinkPlayer.sks in Resources */ = {isa = PBXBuildFile; fileRef = 02E44889260CEF770050E49D /* pinkPlayer.sks */; };
+		02E4488D260CF0500050E49D /* purplePlayer.sks in Resources */ = {isa = PBXBuildFile; fileRef = 02E4488C260CF0500050E49D /* purplePlayer.sks */; };
 		4334487CB521F6ACB8FA20C5 /* Pods_APBOv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F8ACF3585F6FBBF6F50A6C /* Pods_APBOv2.framework */; };
 		74235B1E2590FCFC00AC4675 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74235B1D2590FCFC00AC4675 /* GameKit.framework */; };
 		74235B2025A7724400AC4675 /* GameCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74235B1F25A7724400AC4675 /* GameCenter.swift */; };
@@ -127,6 +131,10 @@
 
 /* Begin PBXFileReference section */
 		028FEFE625F7EFC600D519A5 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
+		02E4487C260C49910050E49D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		02E44885260CEDA20050E49D /* orangePlayer.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = orangePlayer.sks; sourceTree = "<group>"; };
+		02E44889260CEF770050E49D /* pinkPlayer.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = pinkPlayer.sks; sourceTree = "<group>"; };
+		02E4488C260CF0500050E49D /* purplePlayer.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = purplePlayer.sks; sourceTree = "<group>"; };
 		6BEC5117A23B6C351E6D91CF /* Pods-APBOv2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APBOv2.release.xcconfig"; path = "Target Support Files/Pods-APBOv2/Pods-APBOv2.release.xcconfig"; sourceTree = "<group>"; };
 		74235B1D2590FCFC00AC4675 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		74235B1F25A7724400AC4675 /* GameCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenter.swift; sourceTree = "<group>"; };
@@ -466,6 +474,10 @@
 				74CF687D25830C93000C4E47 /* bluePlayer.sks */,
 				74CF687F25830C99000C4E47 /* greenPlayer.sks */,
 				74CF688125830CA0000C4E47 /* yellowPlayer.sks */,
+				02E44885260CEDA20050E49D /* orangePlayer.sks */,
+				02E44889260CEF770050E49D /* pinkPlayer.sks */,
+				02E4488C260CF0500050E49D /* purplePlayer.sks */,
+				02E4487C260C49910050E49D /* Assets.xcassets */,
 			);
 			path = MainMenu;
 			sourceTree = "<group>";
@@ -639,6 +651,7 @@
 				8186856225F9AD6C00B9CBF3 /* astroImages.atlas in Resources */,
 				74CF6867258296A8000C4E47 /* revive.wav in Resources */,
 				74CF6848257FDF30000C4E47 /* PilotBlood.sks in Resources */,
+				02E4488A260CEF770050E49D /* pinkPlayer.sks in Resources */,
 				CE9C6D9D25E8275800D47FCC /* GameSceneBase.sks in Resources */,
 				74CF6846257C4E26000C4E47 /* PilotThrust.sks in Resources */,
 				74CF6888258403B3000C4E47 /* enemy3.sks in Resources */,
@@ -651,9 +664,12 @@
 				815799E925917EFD00734A45 /* BulletExplosion.sks in Resources */,
 				74C3CFB4253F3BE900757586 /* Actions.sks in Resources */,
 				748500B425E76C970063F73B /* GoogleService-Info.plist in Resources */,
+				02E4487E260C49910050E49D /* Assets.xcassets in Resources */,
+				02E44886260CEDA20050E49D /* orangePlayer.sks in Resources */,
 				748500B025E6C0910063F73B /* LobbyMenu.sks in Resources */,
 				8157B31225F4681E005E59C5 /* PilotFX.sks in Resources */,
 				CE9C6D9C25E8275800D47FCC /* GameScene.sks in Resources */,
+				02E4488D260CF0500050E49D /* purplePlayer.sks in Resources */,
 				81708DC825A565C50030C2C4 /* TurretBossMenu.sks in Resources */,
 				810C930C25FDEA3800C298C8 /* ffaImages.atlas in Resources */,
 				749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */,
