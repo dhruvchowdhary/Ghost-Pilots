@@ -293,12 +293,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
         backButtonNode.alpha = 0
         backButtonNode.selectedHandlers = {
+            Global.gameData.score = 0
+            Global.gameData.revived = false
             Global.loadScene(s: "SoloMenu")
         }
         
         restartButtonNode = self.childNode(withName: "restartButton") as? MSButtonNode
         restartButtonNode.alpha = 0
         restartButtonNode.selectedHandlers = {
+            Global.gameData.score = 0
+            Global.gameData.revived = false
             /* 1) Grab reference to our SpriteKit view */
             guard let skView = self.view as SKView? else {
                 print("Could not get Skview")
@@ -326,6 +330,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playAgainButtonNode = self.childNode(withName: "playAgainButton") as? MSButtonNode
         playAgainButtonNode.alpha = 0
         playAgainButtonNode.selectedHandlers = {
+            Global.gameData.score = 0
+            Global.gameData.revived = false
             /* 1) Grab reference to our SpriteKit view */
             guard let skView = self.view as SKView? else {
                 print("Could not get Skview")
