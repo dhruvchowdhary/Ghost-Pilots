@@ -12,7 +12,7 @@ class Campaign: SKScene {
             }
         }
         
-        swipeGuesture.direction = .
+        //swipeGuesture.direction = .
         //Global.gameData.skView.addGestureRecognizer(<#T##gestureRecognizer: UIGestureRecognizer##UIGestureRecognizer#>)
     }
     
