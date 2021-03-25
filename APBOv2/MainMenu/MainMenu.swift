@@ -26,14 +26,11 @@ class MainMenu: SKScene {
     let blueParticles = SKEmitterNode(fileNamed: "bluePlayer")
     let greenParticles = SKEmitterNode(fileNamed: "greenPlayer")
     let yellowParticles = SKEmitterNode(fileNamed: "yellowPlayer")
-<<<<<<< Updated upstream
     let orangeParticles = SKEmitterNode(fileNamed: "orangePlayer")
   //  let pinkParticles = SKEmitterNode(fileNamed: "pinkPlayer")
     let purpleParticles = SKEmitterNode(fileNamed: "purplePlayer")
     
-=======
     var buttonShop: MSButtonNode!
->>>>>>> Stashed changes
     let polynite = SKSpriteNode(imageNamed: "polynite2")
     let polyniteBox = SKSpriteNode(imageNamed: "polynitebox")
     let polyniteLabel = SKLabelNode(text: "0")
@@ -50,37 +47,26 @@ class MainMenu: SKScene {
         title.fontSize = 120
         addChild(title)
         
-<<<<<<< Updated upstream
-        polyniteBox.size = CGSize(width: 391.466, height: 140.267 )
-        polyniteBox.position = CGPoint(x: frame.midX + 655, y: frame.midX - 285)
-=======
+
         polyniteBox.size = CGSize(width: 391.466 / 1.5, height: 140.267 / 1.5)
         
         polyniteBox.position = CGPoint(x: frame.midX + 720, y: frame.midY + 340)
->>>>>>> Stashed changes
         polyniteBox.zPosition = 9
         addChild(polyniteBox)
         
         polynite.position = CGPoint(x: polyniteBox.position.x - 80 , y: polyniteBox.position.y)
         polynite.zPosition = 10
-<<<<<<< Updated upstream
-        polynite.size = CGSize(width: 104, height: 102.934 )
-=======
+
         polynite.size = CGSize(width: 104 / 1.5, height: 102.934 / 1.5 )
         
-        
->>>>>>> Stashed changes
         addChild(polynite)
         
         
         polyniteLabel.text = "\(polyniteAmount)"
-<<<<<<< Updated upstream
-        polyniteLabel.position = CGPoint(x: polyniteBox.position.x , y: polyniteBox.position.y - 30)
-=======
-        
+
         polyniteLabel.position = CGPoint(x: polyniteBox.position.x , y: polyniteBox.position.y - 20)
         
->>>>>>> Stashed changes
+
         polyniteLabel.fontName = "AvenirNext-Bold"
         polyniteLabel.fontColor = UIColor.black
         polyniteLabel.zPosition = 10
