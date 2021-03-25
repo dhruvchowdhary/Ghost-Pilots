@@ -11,6 +11,7 @@ class RemoteSpaceship: SpaceshipBase {
         spaceShipNode.name = "shipnode"
         spaceShipParent.addChild(spaceShipNode)
         spaceShipNode.addChild(thruster1!)
+        spaceShipNode.addChild(shipLightningBolt!)
         
         spaceShipParent.name = "remoteparent"
         spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)

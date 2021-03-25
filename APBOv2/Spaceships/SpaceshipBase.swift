@@ -20,6 +20,7 @@ public class SpaceshipBase {
     let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
     
     let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
+    let shipLightningBolt = SKEmitterNode(fileNamed: "shiplightningbolt")
     
     var timeUntilNextBullet: Double = 0.8;
 
@@ -42,12 +43,12 @@ public class SpaceshipBase {
 
         spaceShipParent.addChild(spaceShipNode)
         spaceShipParent.addChild(spaceShipHud)
-            
+       /*
         thruster1?.name = "thruster1"
         thruster1?.position = CGPoint(x: -30, y: 0)
         
         thruster1?.zPosition = -5
-        spaceShipNode.addChild(thruster1!)
+      
         
         
         pilotThrust1?.name = "pilotThrust1"
@@ -57,6 +58,7 @@ public class SpaceshipBase {
         //spaceShipNode.addChild(pilotThrust1!)
         
         pilotThrust1?.alpha = 0
+ */
         
         posRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/MainGame/\(playerId)/Pos")
         shotsRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/MainGame/\(playerId)/Shots")

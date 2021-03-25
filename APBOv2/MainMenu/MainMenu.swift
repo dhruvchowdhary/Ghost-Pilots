@@ -26,10 +26,14 @@ class MainMenu: SKScene {
     let blueParticles = SKEmitterNode(fileNamed: "bluePlayer")
     let greenParticles = SKEmitterNode(fileNamed: "greenPlayer")
     let yellowParticles = SKEmitterNode(fileNamed: "yellowPlayer")
+<<<<<<< Updated upstream
     let orangeParticles = SKEmitterNode(fileNamed: "orangePlayer")
   //  let pinkParticles = SKEmitterNode(fileNamed: "pinkPlayer")
     let purpleParticles = SKEmitterNode(fileNamed: "purplePlayer")
     
+=======
+    var buttonShop: MSButtonNode!
+>>>>>>> Stashed changes
     let polynite = SKSpriteNode(imageNamed: "polynite2")
     let polyniteBox = SKSpriteNode(imageNamed: "polynitebox")
     let polyniteLabel = SKLabelNode(text: "0")
@@ -40,30 +44,49 @@ class MainMenu: SKScene {
         Global.gameData.skView = self.view!
 
         title.fontName = "AvenirNext-Bold"
-        title.position = CGPoint(x: frame.midX, y: frame.midY + 195)
+        title.position = CGPoint(x: frame.midX, y: frame.midY + 180)
         title.fontColor = UIColor.white
         title.zPosition = 2
-        title.fontSize = 160
+        title.fontSize = 120
         addChild(title)
         
+<<<<<<< Updated upstream
         polyniteBox.size = CGSize(width: 391.466, height: 140.267 )
         polyniteBox.position = CGPoint(x: frame.midX + 655, y: frame.midX - 285)
+=======
+        polyniteBox.size = CGSize(width: 391.466 / 1.5, height: 140.267 / 1.5)
+        
+        polyniteBox.position = CGPoint(x: frame.midX + 720, y: frame.midY + 340)
+>>>>>>> Stashed changes
         polyniteBox.zPosition = 9
         addChild(polyniteBox)
         
-        polynite.position = CGPoint(x: polyniteBox.position.x - 120 , y: polyniteBox.position.y)
+        polynite.position = CGPoint(x: polyniteBox.position.x - 80 , y: polyniteBox.position.y)
         polynite.zPosition = 10
+<<<<<<< Updated upstream
         polynite.size = CGSize(width: 104, height: 102.934 )
+=======
+        polynite.size = CGSize(width: 104 / 1.5, height: 102.934 / 1.5 )
+        
+        
+>>>>>>> Stashed changes
         addChild(polynite)
         
         
         polyniteLabel.text = "\(polyniteAmount)"
+<<<<<<< Updated upstream
         polyniteLabel.position = CGPoint(x: polyniteBox.position.x , y: polyniteBox.position.y - 30)
+=======
+        
+        polyniteLabel.position = CGPoint(x: polyniteBox.position.x , y: polyniteBox.position.y - 20)
+        
+>>>>>>> Stashed changes
         polyniteLabel.fontName = "AvenirNext-Bold"
         polyniteLabel.fontColor = UIColor.black
         polyniteLabel.zPosition = 10
-        polyniteLabel.fontSize = 80
+        polyniteLabel.fontSize = 80 / 1.5
         addChild(polyniteLabel)
+        
         
         
         
@@ -124,6 +147,20 @@ class MainMenu: SKScene {
         }
         
         /* Set UI connections */
+        
+        buttonShop = self.childNode(withName: "shop") as? MSButtonNode
+        buttonShop.selectedHandler = {
+            self.buttonShop.alpha = 0.7
+        }
+        buttonShop.selectedHandlers = {
+            Global.loadScene(s: "Shop")
+        }
+      //  addChild(buttonShop)
+        buttonShop.position = CGPoint(x: polyniteBox.position.x , y: polyniteBox.position.y - 140)
+        buttonShop.size = CGSize(width: 430 / 1.64765, height: 248 / 1.64765)
+        buttonShop.zPosition = 9
+        
+        
         buttonPlay = self.childNode(withName: "soloButton") as? MSButtonNode
         buttonPlay.selectedHandler = {
             self.buttonPlay.alpha = 0.7

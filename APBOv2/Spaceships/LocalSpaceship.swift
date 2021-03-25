@@ -43,6 +43,7 @@ public class LocalSpaceship: SpaceshipBase {
         spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
         spaceShipParent.addChild(spaceShipNode)
         spaceShipNode.addChild(thruster1!)
+        spaceShipNode.addChild(shipLightningBolt!)
         
         
        // print("redWonnnn")
