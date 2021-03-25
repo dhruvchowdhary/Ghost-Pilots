@@ -107,7 +107,6 @@ public class GameData{
         }
         MultiplayerHandler.ref.child("Games/\(gameID)/MainGame/\(Global.playerData.playerID)/Shots").removeValue()
         if !toLobby {
-            Global.adHandler.presentInterstitialGeneral()
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(Global.playerData.playerID)", Value: "PePeGone")
             host = ""
             map = "OnlineCubis"

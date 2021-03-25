@@ -19,6 +19,14 @@ public class AdHandler {
     private var rewardedInterstitialID: String?
     private var rewardedID: String?
     
+    private let handler = {
+        GADRewardedAdBeta.load(withAdUnitID: Global.adHandler.rewardedID!, request: GADRequest(), completionHandler: {
+            ad, error in
+            Global.adHandler.rewarded = ad
+            Global.loadSceneSolo(s: "GameScene")
+        })
+    }
+    
     //========================= *** SUPER IMPORTANT ***
     private var inTestMode = true
     //========================= *** MUST BE ENABLED FOR TESTING ***
@@ -53,15 +61,16 @@ public class AdHandler {
             
             GADAppOpenAd.load(withAdUnitID: self.appOpenID!, request: GADRequest(), orientation: UIInterfaceOrientation.landscapeRight, completionHandler: { [self] ad, error in
                 appOpen = ad
-                
             })
             
             GADRewardedAdBeta.load(withAdUnitID: self.rewardedID!, request: GADRequest(), completionHandler: { [self] ad, error in
                 rewarded = ad
+                //rewarded!.present(fromRootViewController: controller!, userDidEarnRewardHandler: handler)
             })
             
             GADInterstitialAdBeta.load(withAdUnitID: self.interstitialVideoID!, request: GADRequest(), completionHandler: { [self] ad, error in
                 interstitialVideo = ad
+                
             })
             
             GADInterstitialAdBeta.load(withAdUnitID: self.interstitialImageID!, request: GADRequest(), completionHandler: { [self] ad, error in
@@ -109,13 +118,7 @@ public class AdHandler {
         if !isReady{
             fatalError("Why would you do that. Thats just a bad idea.")
         }
-        rewarded!.present(fromRootViewController: controller!, userDidEarnRewardHandler: {
-            print("should load endless again")
-            Global.loadSceneSolo(s: "GameScene")
-        })
-        GADRewardedAdBeta.load(withAdUnitID: rewardedID!, request: GADRequest(), completionHandler: { [self] ad, error in
-            rewarded = ad
-        })
+        rewarded!.present(fromRootViewController: controller!, userDidEarnRewardHandler: handler)
     }
     
     func presentAppOpen(){
