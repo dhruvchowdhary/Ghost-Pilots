@@ -90,7 +90,7 @@ class Infection: GameSceneBase {
             
         }
         else if firstNode.name == "parent" && secondNode.name == "playerWeapon" {
-            print("ship was shot by bullet")
+//            print("ship was shot by bullet")
             
             secondNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
@@ -101,7 +101,7 @@ class Infection: GameSceneBase {
         }
         
         else if firstNode.name == "playerWeapon" && secondNode.name == "remoteparent" {
-            print("ship was shot by bullet")
+//            print("ship was shot by bullet")
             firstNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: firstNode as! SKSpriteNode)!)
             

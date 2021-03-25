@@ -111,7 +111,7 @@ public class LocalSpaceship: SpaceshipBase {
         phaseButtonNode.alpha = 0
         phaseButtonNode.selectedHandler = {
             if self.isPlayerAlive == false {
-                print("is phase")
+//                print("is phase")
                 self.pilot.alpha = 0.7
                 self.phaseButtonNode.alpha = 0.6
                 self.isPhase = true
@@ -119,7 +119,7 @@ public class LocalSpaceship: SpaceshipBase {
         }
         phaseButtonNode.selectedHandlers = {
             if self.isPlayerAlive == false && !self.isGameOver {
-                print("not phase")
+//                print("not phase")
                 self.pilot.alpha = 1
                 self.phaseButtonNode.alpha = 0.8
                 self.isPhase = false
@@ -278,17 +278,17 @@ public class LocalSpaceship: SpaceshipBase {
                 indicateEnd = true
                 let wait1 = SKAction.wait(forDuration: 5)
                 spaceShipParent.run(wait1, completion:  {
-                    print(Global.gameData.isHost)
+//                    print(Global.gameData.isHost)
                     if Global.gameData.isHost {
                         self.gameOver.removeFromParent()
                         GameOverFX?.removeFromParent()
-                        print("pushtolobby")
+//                        print("pushtolobby")
                         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Lobby")
                     }
                 })
                 
             case "astroball":
-                print("astroball ended")
+//                print("astroball ended")
                 if winner == "redWon" {
                     let redWon = SKAction.setTexture(SKTexture(imageNamed: "astroballredwin"))
  
@@ -301,7 +301,7 @@ public class LocalSpaceship: SpaceshipBase {
                     //gameOver.run(scaleAction)
                     gameOver.alpha = 1
                     
-                    print("redWonnnn")
+//                    print("redWonnnn")
                     GameOverFX!.zPosition = 99
                     GameOverFX!.alpha = 1
                     GameOverFX?.particleColorSequence = nil
@@ -312,7 +312,7 @@ public class LocalSpaceship: SpaceshipBase {
                   
                     
                     
-                    print("uh ohred")
+//                    print("uh ohred")
                     indicateEnd = true
                     let wait1 = SKAction.wait(forDuration: 5)
                     spaceShipNode.run(wait1, completion:  {
@@ -337,14 +337,14 @@ public class LocalSpaceship: SpaceshipBase {
                     //gameOver.run(scaleAction)
                     gameOver.alpha = 1
                     
-                    print("bluewonnnn")
+//                    print("bluewonnnn")
                     GameOverFX!.zPosition = 99
                     GameOverFX!.alpha = 1
                     GameOverFX?.particleColorSequence = nil
                     GameOverFX?.particleColorBlendFactor = 1.0
                     GameOverFX?.particleColor = UIColor(red: 0/255, green: 121/255, blue: 255/255, alpha:1)
                     self.spaceShipHud.addChild(GameOverFX!)
-                    print("uh ohblue")
+//                    print("uh ohblue")
                     indicateEnd = true
                     let wait1 = SKAction.wait(forDuration: 5)
                     spaceShipNode.run(wait1, completion:  {
@@ -390,7 +390,7 @@ public class LocalSpaceship: SpaceshipBase {
                   })
                 
             default:
-                print("default ended")
+//                print("default ended")
                
             }
         }

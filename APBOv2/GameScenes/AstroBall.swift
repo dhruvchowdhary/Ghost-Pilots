@@ -93,7 +93,7 @@ class AstroBall: GameSceneBase {
             
         }
         else if firstNode.name == "parent" && secondNode.name == "playerWeapon" {
-            print("player is shot")
+//            print("player is shot")
             secondNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
             
@@ -140,7 +140,7 @@ class AstroBall: GameSceneBase {
     func setColorHP(redHPString: String, blueHPString: String) {
         blueHPLabel.text = "\(blueHPString)"
         redHPLabel.text = "\(redHPString)"
-       print("labels set")
+//       print("labels set")
     }
     
     func loadBall() {

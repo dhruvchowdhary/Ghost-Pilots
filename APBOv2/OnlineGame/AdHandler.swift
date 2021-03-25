@@ -8,7 +8,7 @@ public class AdHandler {
     private var interstitialGeneral: GADInterstitialAdBeta?
     private var interstitialVideo: GADInterstitialAdBeta?
     private var rewardedInterstitial: GADRewardedInterstitialAd?
-    private var rewarded: GADRewardedAdBeta?
+    public var rewarded: GADRewardedAdBeta?
     
     // Track the AD IDs for each ad type
     private var bannerID: String?
@@ -17,14 +17,10 @@ public class AdHandler {
     private var interstitialVideoID: String?
     private var interstitialGeneralID: String?
     private var rewardedInterstitialID: String?
-    private var rewardedID: String?
+    public var rewardedID: String?
     
     private let handler = {
-        GADRewardedAdBeta.load(withAdUnitID: Global.adHandler.rewardedID!, request: GADRequest(), completionHandler: {
-            ad, error in
-            Global.adHandler.rewarded = ad
-            Global.loadSceneSolo(s: "GameScene")
-        })
+        Global.loadSceneSolo(s: "GameScene")
     }
     
     //========================= *** SUPER IMPORTANT ***
@@ -65,6 +61,7 @@ public class AdHandler {
             
             GADRewardedAdBeta.load(withAdUnitID: self.rewardedID!, request: GADRequest(), completionHandler: { [self] ad, error in
                 rewarded = ad
+                rewarded!.fullScreenContentDelegate = controller as? GADFullScreenContentDelegate
                 //rewarded!.present(fromRootViewController: controller!, userDidEarnRewardHandler: handler)
             })
             
@@ -119,6 +116,10 @@ public class AdHandler {
             fatalError("Why would you do that. Thats just a bad idea.")
         }
         rewarded!.present(fromRootViewController: controller!, userDidEarnRewardHandler: handler)
+//        GADRewardedAdBeta.load(withAdUnitID: Global.adHandler.rewardedID!, request: GADRequest(), completionHandler: {
+//            ad, error in
+//            Global.adHandler.rewarded = ad
+//        })
     }
     
     func presentAppOpen(){

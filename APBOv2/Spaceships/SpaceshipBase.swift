@@ -93,7 +93,7 @@ public class SpaceshipBase {
     }
 
     public func Shoot(shotType: Int){
-        print (Global.gameData.shipsToUpdate)
+//        print (Global.gameData.shipsToUpdate)
         switch shotType {
         case 0:
             if unfiredBulletsCount > 0 {

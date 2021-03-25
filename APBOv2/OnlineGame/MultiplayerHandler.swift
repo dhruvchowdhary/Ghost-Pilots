@@ -390,7 +390,6 @@ public class MultiplayerHandler{
         }
         
         
-        
         public func ListenForGameStatus(){
             statusRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/Status")
             statusRef!.observe(.value) { ( snapshot ) in

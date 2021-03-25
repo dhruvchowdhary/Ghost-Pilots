@@ -12,8 +12,18 @@ import GameplayKit
 import GameKit
 import GoogleMobileAds
 
-public class GameViewController: UIViewController, GKGameCenterControllerDelegate {
+var shouldReloadScene = false
+
+public class GameViewController: UIViewController, GKGameCenterControllerDelegate, GADFullScreenContentDelegate {
+    public var fullScreenContentDelegate: GADFullScreenContentDelegate?
     
+    public func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+        print("1")
+        GADRewardedAdBeta.load(withAdUnitID: Global.adHandler.rewardedID!, request: GADRequest(), completionHandler: {
+            ad, error in
+            Global.adHandler.rewarded = ad
+        })
+    }
 
     
 //    var rewardedAd: GADRewardedAd?
