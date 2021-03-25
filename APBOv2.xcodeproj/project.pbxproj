@@ -116,6 +116,8 @@
 		CE9C6D9D25E8275800D47FCC /* GameSceneBase.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */; };
 		CE9C6D9E25E8275800D47FCC /* Hud.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9B25E8275800D47FCC /* Hud.sks */; };
 		CEC60745260BBA5D005F5538 /* AdHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC60744260BBA5D005F5538 /* AdHandler.swift */; };
+		CEC60749260CF59D005F5538 /* Campaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC60748260CF59D005F5538 /* Campaign.swift */; };
+		CEC6074C260CF982005F5538 /* Campaign.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEC6074B260CF982005F5538 /* Campaign.sks */; };
 		CEDECCD725F4C18E00C01A7D /* SoloMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEDECCD925F4C18E00C01A7D /* SoloMenu.sks */; };
 		CEF309CF25C1E86D007B8B39 /* DataPusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309CE25C1E86D007B8B39 /* DataPusher.swift */; };
 		CEF309D825C1EAC0007B8B39 /* MultiplayerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */; };
@@ -244,6 +246,8 @@
 		CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneBase.sks; sourceTree = "<group>"; };
 		CE9C6D9B25E8275800D47FCC /* Hud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Hud.sks; sourceTree = "<group>"; };
 		CEC60744260BBA5D005F5538 /* AdHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdHandler.swift; sourceTree = "<group>"; };
+		CEC60748260CF59D005F5538 /* Campaign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campaign.swift; sourceTree = "<group>"; };
+		CEC6074B260CF982005F5538 /* Campaign.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Campaign.sks; sourceTree = "<group>"; };
 		CEDECCD825F4C18E00C01A7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Base; path = Base.lproj/SoloMenu.sks; sourceTree = "<group>"; };
 		CEF309CE25C1E86D007B8B39 /* DataPusher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPusher.swift; sourceTree = "<group>"; };
 		CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerHandler.swift; sourceTree = "<group>"; };
@@ -318,6 +322,8 @@
 				81135EEC25E8312300B0F59F /* LoadLevelsMenu.swift */,
 				748CEDB3256C151F005DF246 /* SoloMenu.swift */,
 				CEDECCD925F4C18E00C01A7D /* SoloMenu.sks */,
+				CEC60748260CF59D005F5538 /* Campaign.swift */,
+				CEC6074B260CF982005F5538 /* Campaign.sks */,
 			);
 			path = SoloMenu;
 			sourceTree = "<group>";
@@ -680,6 +686,7 @@
 				74CF685525820076000C4E47 /* pilotSquish2.wav in Resources */,
 				815799E72591136900734A45 /* RespawnExplosion.sks in Resources */,
 				74CF68502581F781000C4E47 /* menuThump.wav in Resources */,
+				CEC6074C260CF982005F5538 /* Campaign.sks in Resources */,
 				816EE12A259265D10053AE35 /* TurretShootingExplosion.sks in Resources */,
 				810C933C2601319600C298C8 /* GameOverFX.sks in Resources */,
 				749EBC58255AF9E7003EA0B3 /* waves.json in Resources */,
@@ -771,6 +778,7 @@
 				CEF30A2B25CB0C39007B8B39 /* Payload.swift in Sources */,
 				748CEDC4256D7362005DF246 /* OnlineMenu.swift in Sources */,
 				81708DC425A376650030C2C4 /* TurretBossMenu.swift in Sources */,
+				CEC60749260CF59D005F5538 /* Campaign.swift in Sources */,
 				CEF30A2525CA65EF007B8B39 /* LocalSpaceship.swift in Sources */,
 				81EA5C5925F4414200A127A7 /* Level3.swift in Sources */,
 				74C3CFB0253F3BE900757586 /* AppDelegate.swift in Sources */,
