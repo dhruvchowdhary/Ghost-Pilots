@@ -74,7 +74,7 @@ public class SpaceshipBase {
 
     func UpdateShip(deltaTime: Double){
         
-        unfiredBulletRotator.zRotation -= CGFloat(Double.pi/35)
+        unfiredBulletRotator.zRotation -= CGFloat(Double.pi/70)
         UniqueUpdateShip(deltaTime: deltaTime)
 
         // For online only, but no control yet
