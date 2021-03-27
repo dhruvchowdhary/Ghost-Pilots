@@ -26,6 +26,7 @@ class LoadLevelsMenu: SKScene {
             /* Set UI connections */
             backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
             backButtonNode.selectedHandlers = {
+            
                 self.loadMainMenu()
                 //       skView.presentScene(scene)
             }
@@ -34,16 +35,34 @@ class LoadLevelsMenu: SKScene {
         level1ButtonNode.selectedHandlers = {
             self.loadLevel1()
         }
+        level1ButtonNode.selectedHandler = {
+            self.level1ButtonNode.alpha = 1
+
+        }
         
         level2ButtonNode = self.childNode(withName: "level2") as? MSButtonNode
         level2ButtonNode.selectedHandlers = {
             self.loadLevel2()
+        }
+        level2ButtonNode.selectedHandler = {
+            self.level2ButtonNode.alpha = 1
+
         }
         
         level3ButtonNode = self.childNode(withName: "level3") as? MSButtonNode
         level3ButtonNode.selectedHandlers = {
             self.loadLevel3()
         }
+        level3ButtonNode.selectedHandler = {
+            self.level3ButtonNode.alpha = 1
+
+        }
+        
+        loadPath()
+        
+        level1ButtonNode.position = CGPoint(x: -700, y: -240)
+        level2ButtonNode.position = CGPoint(x: -500, y: 240)
+        level3ButtonNode.position = CGPoint(x: -300, y: -180)
             
             
             if UIDevice.current.userInterfaceIdiom != .pad {
@@ -57,6 +76,30 @@ class LoadLevelsMenu: SKScene {
     
     }
     
+    func loadPath() {
+        
+        let path = UIBezierPath()
+         
+         UIColor.white.setStroke()
+         path.lineWidth = 20
+
+        path.move(to: .zero)
+         path.stroke()
+         
+     path.addLine(to: CGPoint(x: 200 , y: 480))
+        path.addLine(to: CGPoint(x: 400 , y: 60))
+
+     
+     let shapeNode = SKShapeNode(path: path.cgPath)
+     shapeNode.position.x = -700
+     shapeNode.position.y = -240
+        shapeNode.strokeColor = UIColor.white
+     shapeNode.zPosition = 2
+     shapeNode.lineWidth = 10
+     shapeNode.alpha = 1
+     addChild(shapeNode)
+  
+    }
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
         let sceneView = self.scene!.view! as UIView
         let shakeAnimation = CABasicAnimation(keyPath: "position")
