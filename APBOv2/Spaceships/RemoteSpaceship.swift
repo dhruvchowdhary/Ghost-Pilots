@@ -30,7 +30,7 @@ class RemoteSpaceship: SpaceshipBase {
     }
     
     override func UniqueUpdateShip(deltaTime: Double) {
-        let velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 220, dy: sin(spaceShipNode.zRotation) * 220 * Global.gameData.speedMultiplier))
+        let velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 260, dy: sin(spaceShipNode.zRotation) * 260 * Global.gameData.speedMultiplier))
         spaceShipParent.physicsBody?.velocity = velocity
     }
     

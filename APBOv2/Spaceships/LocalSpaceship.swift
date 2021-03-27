@@ -142,7 +142,7 @@ public class LocalSpaceship: SpaceshipBase {
             self.turnButtonNode.xScale = self.turnButtonNode.xScale * 1.1
             self.turnButtonNode.yScale = self.turnButtonNode.yScale * 1.1
             if self.doubleTap == 1 {
-                self.spaceShipNode.zRotation = self.spaceShipNode.zRotation - 3.141592/2 + self.rotation + 0.24
+                self.spaceShipNode.zRotation = self.spaceShipNode.zRotation - 3.141592/2 + self.rotation + 0.35
                 let movement = SKAction.moveBy(x: 60 * cos(self.spaceShipNode.zRotation), y: 60 * sin(self.spaceShipNode.zRotation), duration: 0.15)
                 self.spaceShipParent.run(movement)
                 self.thruster1?.particleColorSequence = nil
@@ -418,7 +418,7 @@ public class LocalSpaceship: SpaceshipBase {
                     spaceShipParent.physicsBody?.velocity = velocity
                 }
             } else {
-                let velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 220, dy: sin(spaceShipNode.zRotation) * 220 * Global.gameData.speedMultiplier))
+                let velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 260, dy: sin(spaceShipNode.zRotation) * 260 * Global.gameData.speedMultiplier))
                 spaceShipParent.physicsBody?.velocity = velocity
             }
         
