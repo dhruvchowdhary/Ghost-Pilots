@@ -7,8 +7,24 @@ class Campaign: SKScene {
     let linesMaster = SKNode()
     var completedLevels: [Int] = []
     let save = UserDefaults.standard
+    let cameraNode =  SKCameraNode()
+    var previousCameraPoint = CGPoint.zero
+    
+    override func didMove(to view: SKView) {
+        
+       
+     
+        let panGesture = UIPanGestureRecognizer()
+            panGesture.addTarget(self, action: #selector(panGestureAction(_:)))
+        view.addGestureRecognizer(panGesture)
+    }
     
     override func sceneDidLoad() {
+        
+      
+        addChild(cameraNode)
+        camera = cameraNode
+        
         if (save.value(forKey: "completedLevels") != nil) {
             completedLevels = save.value(forKey: "completedLevels") as! [Int]
         }
@@ -84,5 +100,36 @@ class Campaign: SKScene {
         }
         addChild(linesMaster)
     }
+    
+    @objc func panGestureAction(_ sender: UIPanGestureRecognizer) {
+       // The camera has a weak reference, so test it
+       guard let camera = self.camera else {
+         return
+       }
+        
+      //  let zoomInActionipad = SKAction.scale(to: 1.7, duration: 0.01)
+        
+    
+
+          //  camera.run(zoomInActionipad)
+            
+       // If the movement just began, save the first camera position
+       if sender.state == .began {
+         previousCameraPoint = camera.position
+       }
+       // Perform the translation
+       let translation = sender.translation(in: self.view)
+       
+       var newPosition = CGPoint(
+         x: previousCameraPoint.x + translation.x * -1,
+         y: previousCameraPoint.y
+       )
+        if newPosition.x < 0 { newPosition.x = 0}
+       camera.position = newPosition
+        
+    
+     }
+    
+    
     
 }

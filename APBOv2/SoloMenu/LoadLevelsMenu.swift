@@ -2,7 +2,7 @@ import SpriteKit
 import StoreKit
 
 class LoadLevelsMenu: SKScene {
-    //let cameraNode =  SKCameraNode()
+    let cameraNode =  SKCameraNode()
     
     var previousCameraPoint = CGPoint.zero
     
@@ -16,12 +16,12 @@ class LoadLevelsMenu: SKScene {
     var difficulty = UserDefaults.standard.integer(forKey: "difficulty")
     
     override func didMove(to view: SKView) {
-        /*
+        
         addChild(cameraNode)
         camera = cameraNode
-        cameraNode.position.x = frame.width / 2
-        cameraNode.position.y = frame.height / 2
-        */
+       // cameraNode.position.x = frame.width / 2
+       // cameraNode.position.y = frame.height / 2
+        
        
         
         let panGesture = UIPanGestureRecognizer()
@@ -95,6 +95,13 @@ class LoadLevelsMenu: SKScene {
        guard let camera = self.camera else {
          return
        }
+        
+        let zoomInActionipad = SKAction.scale(to: 1.7, duration: 0.01)
+        
+    
+
+            camera.run(zoomInActionipad)
+            
        // If the movement just began, save the first camera position
        if sender.state == .began {
          previousCameraPoint = camera.position
