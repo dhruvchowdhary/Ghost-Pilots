@@ -38,7 +38,8 @@ class SoloMenu: SKScene {
 //                Global.gameData.playerShip = e
 //                Global.gameData.shipsToUpdate.append(e)
 //                self.loadScene(s: "GameSceneBase")
-                Global.loadScene(s: "MainMenu")
+                //Global.loadScene(s: "MainMenu")
+                Global.loadScene(s: "Campaign")
             }
             
             if UIDevice.current.userInterfaceIdiom != .pad {
