@@ -5,19 +5,22 @@ class Campaign: SKScene {
     var levelNodes: [MSButtonNode] = []
     var levelStrings: [String] = []
     let linesMaster = SKNode()
-    var completedLevels: [Int] = []
+    var completedLevels: [Int] = [-1]
     let save = UserDefaults.standard
     
     override func sceneDidLoad() {
         if (save.value(forKey: "completedLevels") != nil) {
             completedLevels = save.value(forKey: "completedLevels") as! [Int]
+        } else {
+            save.setValue (completedLevels, forKey: "completedLevels")
         }
         
         levelNodes =
         [
             MSButtonNode(imageNamed: "lvl1"),
             MSButtonNode(imageNamed: "lvl2"),
-            MSButtonNode(imageNamed: "lvl3")
+            MSButtonNode(imageNamed: "lvl3"),
+            MSButtonNode(imageNamed: "")
         ]
         
         levelStrings =
@@ -48,14 +51,20 @@ class Campaign: SKScene {
             node.position.x += CGFloat(75 * i)
             node.zPosition = 5
             
-            // ShadeNode
-            
-            node.selectedHandlers = {
-                if i != 0 {
-                    if self.completedLevels.contains(i-1){
-                        
-                    }
+            // ShadeNode and set handlers
+            if completedLevels.contains(i-1){
+                print(i)
+                levelNodes[i].selectedHandler = {
+                    print(i)
+                    //Global.loadScene(s: self.levelStrings[i])
                 }
+            } else {
+                node.selectedHandler = {
+                    print("dont enter")
+                    print(i)
+                }
+                node.color = UIColor.darkGray
+                node.colorBlendFactor = 0.8
             }
             
             scene?.addChild(node)
@@ -80,6 +89,10 @@ class Campaign: SKScene {
             newLine.isUserInteractionEnabled = false
             newLine.zPosition = 0
             newLine.lineWidth += 3
+            if !completedLevels.contains(i-1){
+                newLine.fillColor = UIColor.darkGray
+                newLine.strokeColor = UIColor.darkGray
+            }
             linesMaster.addChild(newLine)
         }
         addChild(linesMaster)
