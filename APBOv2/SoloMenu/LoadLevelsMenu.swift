@@ -2,6 +2,9 @@ import SpriteKit
 import StoreKit
 
 class LoadLevelsMenu: SKScene {
+    //let cameraNode =  SKCameraNode()
+    
+    var previousCameraPoint = CGPoint.zero
     
     /* UI Connections */
     var buttonPlay: MSButtonNode!
@@ -13,6 +16,17 @@ class LoadLevelsMenu: SKScene {
     var difficulty = UserDefaults.standard.integer(forKey: "difficulty")
     
     override func didMove(to view: SKView) {
+        /*
+        addChild(cameraNode)
+        camera = cameraNode
+        cameraNode.position.x = frame.width / 2
+        cameraNode.position.y = frame.height / 2
+        */
+       
+        
+        let panGesture = UIPanGestureRecognizer()
+            panGesture.addTarget(self, action: #selector(panGestureAction(_:)))
+        view.addGestureRecognizer(panGesture)
     
             /* Setup your scene here */
             if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -75,6 +89,25 @@ class LoadLevelsMenu: SKScene {
     
     
     }
+    
+    @objc func panGestureAction(_ sender: UIPanGestureRecognizer) {
+       // The camera has a weak reference, so test it
+       guard let camera = self.camera else {
+         return
+       }
+       // If the movement just began, save the first camera position
+       if sender.state == .began {
+         previousCameraPoint = camera.position
+       }
+       // Perform the translation
+       let translation = sender.translation(in: self.view)
+       let newPosition = CGPoint(
+         x: previousCameraPoint.x + translation.x * -1,
+         y: previousCameraPoint.y + translation.y
+       )
+       camera.position = newPosition
+     }
+    
     
     func loadPath() {
         
