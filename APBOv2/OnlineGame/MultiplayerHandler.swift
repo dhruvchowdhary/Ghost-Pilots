@@ -60,6 +60,17 @@ public class MultiplayerHandler{
                     }
                 } else {
                     playerList.append(e.key)
+                    if playerList.count < 6 {
+                        Global.gameData.isFull = false
+                        if Global.gameData.isHost {
+                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/isFull", Value: "FALSE")
+                        }
+                    } else {
+                        Global.gameData.isFull = true
+                        if Global.gameData.isHost {
+                            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/isFull", Value: "TRUE")
+                        }
+                    }
                 }
             }
             if Global.gameData.gameState == GameStates.LobbyMenu {

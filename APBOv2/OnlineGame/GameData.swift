@@ -17,6 +17,7 @@ public class GameData{
     public var isBackground = false;
     public var map = "OnlineCubis"
     public var mode = "ffa"
+    public var isFull = false
     public var infected = false
     public var gameState: GameStates = GameStates.MainMenu
     public var speedMultiplier: CGFloat = 1.0

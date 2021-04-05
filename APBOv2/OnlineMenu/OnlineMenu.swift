@@ -128,10 +128,17 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                 } else {
                     self.ref.child("Games/\(self.codeBox.text!)").observeSingleEvent(of: .value){ snapshot in
                         if snapshot.exists() {
-                            DataPusher.PushData(path: "Games/\(self.codeBox.text!)/PlayerList/\(self.usernameBox.text!)", Value: "PePeNotGone")
-                            Global.gameData.gameID = Int(self.codeBox.text!)!
-                            Global.gameData.isHost = false
-                            self.loadLobbyMenu()
+                            self.ref.child("Games/\(self.codeBox.text!)/isFull").observeSingleEvent(of: .value){ snapshot in
+                                if snapshot.value as! String == "FALSE" {
+                                    DataPusher.PushData(path: "Games/\(self.codeBox.text!)/PlayerList/\(self.usernameBox.text!)", Value: "PePeNotGone")
+                                    Global.gameData.gameID = Int(self.codeBox.text!)!
+                                    Global.gameData.isHost = false
+                                    self.loadLobbyMenu()
+                                } else {
+                                    print("lobby is full")
+                                    //do somethin
+                                }
+                            }
                         } else {
                             print(self.codeBox.text!)
                             self.codeBox.shake()
