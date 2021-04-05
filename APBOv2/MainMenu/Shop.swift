@@ -12,8 +12,20 @@ class Shop: SKScene {
     
     /* UI Connections */
     var backButtonNode: MSButtonNode!
+    var trailsButtonNode: MSButtonNode!
+    var skinsButtonNode: MSButtonNode!
     var shopLightningBoltButtonNode: MSButtonNode!
     let trailLabel = SKLabelNode(text: "TRAILS")
+    
+    let polynite = SKSpriteNode(imageNamed: "polynite2")
+    let polyniteBox = SKSpriteNode(imageNamed: "polynitebox")
+    let polyniteLabel = SKLabelNode(text: "0")
+    var polyniteAmount = UserDefaults.standard.integer(forKey: "polyniteAmount")
+    let skins = SKNode()
+    let trails = SKNode()
+    
+    var shopTab = "skins"
+    
     
     override func didMove(to view: SKView) {
         /* Setup your scene here */
@@ -35,12 +47,69 @@ class Shop: SKScene {
             addChild(shopDisplay)
         shopDisplay.zPosition = 5
         
-        trailLabel.fontName = "AvenirNext-Bold"
-        trailLabel.position = CGPoint(x: frame.midX, y: frame.midY + 130)
-        trailLabel.fontColor = UIColor.black
-        trailLabel.zPosition = 3
-        trailLabel.fontSize = 60
-        addChild(trailLabel)
+     
+       
+        
+        polyniteBox.size = CGSize(width: 391.466 / 1.5, height: 140.267 / 1.5)
+        polyniteBox.position = CGPoint(x: frame.midX + 720, y: frame.midY + 340)
+        polyniteBox.zPosition = 9
+        addChild(polyniteBox)
+        
+        polynite.position = CGPoint(x: polyniteBox.position.x - 80 , y: polyniteBox.position.y)
+        polynite.zPosition = 10
+        polynite.size = CGSize(width: 104 / 1.5, height: 102.934 / 1.5 )
+        addChild(polynite)
+        
+        polyniteLabel.text = "\(polyniteAmount)"
+        polyniteLabel.position = CGPoint(x: polyniteBox.position.x , y: polyniteBox.position.y - 20)
+        polyniteLabel.fontName = "AvenirNext-Bold"
+        polyniteLabel.fontColor = UIColor.black
+        polyniteLabel.zPosition = 10
+        polyniteLabel.fontSize = 80 / 1.5
+        addChild(polyniteLabel)
+        
+        trailsButtonNode = self.childNode(withName: "trailsButtonUnselected") as? MSButtonNode
+        trailsButtonNode.selectedHandlers = { [self] in
+            self.trailsButtonNode.texture = SKTexture(imageNamed: "trailsButtonSelected")
+            self.skinsButtonNode.texture = SKTexture(imageNamed: "skinsButtonUnselected")
+            self.trailsButtonNode.alpha = 1
+            self.shopTab = "trails"
+            
+            if self.shopTab == "trails" {
+                self.shopLightningBoltButtonNode.alpha = 1
+            }
+            else {
+                self.shopLightningBoltButtonNode.alpha = 0
+            }
+        }
+        
+        trailsButtonNode.selectedHandler = {
+            self.trailsButtonNode.alpha = 1
+        }
+        
+        skinsButtonNode = self.childNode(withName: "skinsButtonSelected") as? MSButtonNode
+        skinsButtonNode.selectedHandlers = {
+            self.trailsButtonNode.texture = SKTexture(imageNamed: "trailsButtonUnselected")
+            self.skinsButtonNode.texture = SKTexture(imageNamed: "skinsButtonSelected")
+            self.skinsButtonNode.alpha = 1
+            self.shopTab = "skins"
+            
+            if self.shopTab == "trails" {
+                self.shopLightningBoltButtonNode.alpha = 1
+            }
+            else {
+                self.shopLightningBoltButtonNode.alpha = 0
+            }
+            
+        }
+        
+        skinsButtonNode.selectedHandler = {
+            self.skinsButtonNode.alpha = 1
+        }
+        
+        
+        trailsButtonNode.position = CGPoint(x: frame.midX + 150 , y: frame.midY + 100 )
+        skinsButtonNode.position = CGPoint(x: frame.midX - 150, y: frame.midY + 100)
         
         
         backButtonNode = self.childNode(withName: "back") as? MSButtonNode
@@ -83,14 +152,16 @@ class Shop: SKScene {
     
     func loadShop() {
         shopLightningBoltButtonNode = self.childNode(withName: "shoplightningbolt") as? MSButtonNode
+        shopLightningBoltButtonNode.alpha = 0
         shopLightningBoltButtonNode.selectedHandlers = {
           print("buy lightning")
         //       skView.presentScene(scene)
         }
         
-        shopLightningBoltButtonNode.position = CGPoint(x: frame.midX - 400, y: frame.midY - 70)
+        shopLightningBoltButtonNode.position = CGPoint(x: frame.midX, y: trailsButtonNode.position.y - 250)
         
     }
+    
     
     func loadMainMenu() {
         /* 1) Grab reference to our SpriteKit view */
