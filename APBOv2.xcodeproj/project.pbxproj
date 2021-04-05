@@ -288,8 +288,8 @@
 				810C92FC25FB341F00C298C8 /* LoadIntro.sks */,
 				748CEDAD25658207005DF246 /* MainMenu.swift */,
 				748CEDA025657B65005DF246 /* MainMenu.sks */,
-				810C935A260D305500C298C8 /* Shop.sks */,
 				810C9359260D305500C298C8 /* Shop.swift */,
+				810C935A260D305500C298C8 /* Shop.sks */,
 			);
 			path = MainMenu;
 			sourceTree = "<group>";
