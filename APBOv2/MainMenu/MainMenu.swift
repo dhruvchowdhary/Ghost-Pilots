@@ -155,9 +155,14 @@ class MainMenu: SKScene {
      //       tutorialButtonNode.position.y =  (frame.midY - 410) * CGFloat(scale)
      //       tutorialButtonNode.setScale(CGFloat(1.25 * scale))
         } else if UIScreen.main.bounds.width > 779 {
+            buttonShop.position.x = frame.midX + 710
             tutorialButtonNode.position.x = frame.midX - 720
             tutorialButtonNode.position.y =  frame.midY - 290
         } else {
+            polyniteBox.position.x = frame.midX + 600
+            polynite.position.x = polyniteBox.position.x - 80
+            polyniteLabel.position.x = polyniteBox.position.x
+            buttonShop.position.x = polyniteBox.position.x
             tutorialButtonNode.position.x = frame.midX - 620
             tutorialButtonNode.position.y =  frame.midY - 300
         }
