@@ -6,7 +6,7 @@ class LobbyMenu: SKScene {
     var startButtonNode: MSButtonNode!
     
     var codeLabel = SKLabelNode(text: "00000")
-    var playercountLabel = SKLabelNode(text: "1/∞")
+    var playercountLabel = SKLabelNode(text: "1/6")
     var playerLabel = SKNode()
     var playerLabelParent = SKNode()
     var user1 = SKLabelNode(text: "user1")
@@ -209,7 +209,7 @@ class LobbyMenu: SKScene {
             newuser.position.x = frame.midX - 120
             newuser.position.y += CGFloat(200 - index*100)
             playerLabelParent.addChild(newuser)
-            playercountLabel.text = "\(playerList.count)/∞"
+            playercountLabel.text = "\(playerList.count)/6"
         }
     }
     
