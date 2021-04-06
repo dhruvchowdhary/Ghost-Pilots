@@ -89,6 +89,7 @@ public class GameData{
     public func ResetGameData(toLobby: Bool){
         
         Global.multiplayerHandler.StopListenForInfectedChanges()
+        Global.multiplayerHandler.StopListenForPilotChanges()
   //      Global.multiplayerHandler.StopListenForColorChanges()
         Global.multiplayerHandler.StopListenForEliminatedChanges()
         Global.multiplayerHandler.StopListenToAstroball()
@@ -105,6 +106,8 @@ public class GameData{
         if isHost {
             Global.multiplayerHandler.ClearInfectedList()
             Global.multiplayerHandler.ClearEliminatedList()
+            Global.multiplayerHandler.ClearPilotList()
+            
         }
         MultiplayerHandler.ref.child("Games/\(gameID)/MainGame/\(Global.playerData.playerID)/Shots").removeValue()
         if !toLobby {

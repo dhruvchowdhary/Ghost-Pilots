@@ -9,6 +9,7 @@ public class MultiplayerHandler{
     var mapRef: DatabaseReference?
     var modeRef: DatabaseReference?
     var infectedRef: DatabaseReference?
+    var pilotRef: DatabaseReference?
     var eliminatedRef: DatabaseReference?
     var astroBallRef: DatabaseReference?
     var colorRef: DatabaseReference?
@@ -148,6 +149,42 @@ public class MultiplayerHandler{
             }
         })
     }
+    
+    public func ListenForPilotChanges() {
+        self.pilotRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PilotList")
+        pilotRef?.observe(DataEventType.value, with: { (snapshot) in
+            var pilotList: [String] = []
+            for child in snapshot.children {
+                let e = child as! DataSnapshot
+                if e.value as! String == "true"{
+                    for i in 0..<Global.gameData.shipsToUpdate.count {
+                        if Global.gameData.shipsToUpdate[i].playerID == e.key {
+                            let pilot = SKAction.setTexture(SKTexture(imageNamed: "Mike"))
+                            Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(pilot)
+                            
+                            pilotList.append(e.key)
+                            
+                            let wait1 = SKAction.wait(forDuration: 5)
+                            Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(wait1, completion:  {
+                                
+                                let ship = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
+                                Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(ship)
+                        
+                                let i = Int(pilotList.firstIndex(of: e.key)!)
+                                pilotList.remove(at: i)
+                                
+                        
+                            })
+                            
+                        }
+                        //   print(infectedList.count)
+                        //   print(Global.gameData.shipsToUpdate.count)
+                    }
+                }
+            }
+        })
+    }
+    
     
     public func ListenForEliminatedChanges() {
         self.eliminatedRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/EliminatedList")
@@ -369,6 +406,10 @@ public class MultiplayerHandler{
         public func StopListenForInfectedChanges(){
             self.infectedRef?.removeAllObservers()
         }
+    
+    public func StopListenForPilotChanges(){
+        self.pilotRef?.removeAllObservers()
+    }
         
         public func StopListenForColorChanges(){
             self.colorRef?.removeAllObservers()
@@ -423,6 +464,10 @@ public class MultiplayerHandler{
         
     public func ClearInfectedList(){
         MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/InfectedList").removeValue()
+    }
+    
+    public func ClearPilotList(){
+        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PilotList").removeValue()
     }
     
     public func ClearEliminatedList(){

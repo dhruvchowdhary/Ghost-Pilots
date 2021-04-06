@@ -78,9 +78,21 @@ class GameSceneOnline: GameSceneBase {
             
             secondNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
+            
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PilotList/\(Global.playerData.playerID)", Value: "true")
+            firstNode.name == "pilot"
+        }
+        
+        else if firstNode.name == "pilot" && secondNode.name == "playerWeapon" {
+//            print("ship was shot by bullet")
+            
+            secondNode.removeFromParent()
+            liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
+            
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/EliminatedList/\(Global.playerData.playerID)", Value: "true")
 
         }
+        
         
         else if firstNode.name == "playerWeapon" && secondNode.name == "remoteparent" {
 //            print("ship was shot by bullet")
