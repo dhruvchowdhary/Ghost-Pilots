@@ -388,7 +388,6 @@ public class MultiplayerHandler{
                     let e = child as! DataSnapshot
                     if Global.gameData.gameState == GameStates.LobbyMenu {
                         //               if Global.playerData.playerID != e.key {
-                        print(e)
                         let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
                         let color = SKAction.setTexture(SKTexture(imageNamed: e.value! as! String))
                         lobbyScene.childNode(withName: "pepe")!.childNode(withName: e.key)?.childNode(withName: "colorButtonNode")?.run(color)
