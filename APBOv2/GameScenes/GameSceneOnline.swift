@@ -9,6 +9,7 @@ class GameSceneOnline: GameSceneBase {
     
     override func setUp() {
         Global.gameData.gameState = GameStates.FFA
+        Global.multiplayerHandler.ListenForPilotChanges()
         Global.multiplayerHandler.ListenForEliminatedChanges()
         if !Global.gameData.isHost{
             Global.multiplayerHandler.ListenToGeometry()
