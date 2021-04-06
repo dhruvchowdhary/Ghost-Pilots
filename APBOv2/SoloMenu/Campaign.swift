@@ -55,24 +55,23 @@ class Campaign: SKScene {
         
         for i in 0..<levelNodes.count {
             let node = levelNodes[i]
+            node.isUserInteractionEnabled = true
             
             // Scale the node here
-            node.xScale = 0.07
-            node.yScale = 0.07
+            node.xScale = 0.06
+            node.yScale = 0.06
             
             // Position node
             node.position.y = 100
             node.position.y += CGFloat(-200 * (i % 2))
-            node.position.x = -300
-            node.position.x += CGFloat(75 * i)
+            node.position.x = -275
+            node.position.x += CGFloat(85 * i)
             node.zPosition = 5
             
             // ShadeNode and set handlers
             if completedLevels.contains(i-1){
-                print(i)
                 levelNodes[i].selectedHandler = {
-                    print(i)
-                    //Global.loadScene(s: self.levelStrings[i])
+                    Global.loadScene(s: self.levelStrings[i])
                 }
             } else {
                 node.selectedHandler = {
