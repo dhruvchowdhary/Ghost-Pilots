@@ -42,9 +42,7 @@ public class MultiplayerHandler{
                 if e.value as! String == "PePeKicked"{
                     if (e.key == Global.playerData.playerID){
                         // Uh oh mario, we have been removed from the game
-                        let scene = OnlineMenu()
-                        Global.gameData.skView.presentScene(scene)
-                        scene.KickedFromGame()
+                        Global.loadScene(s: "OnlineMenu")
                     }
                 }
                 if e.value as! String == "PePeKicked" || e.value as! String == "PePeGone"{
