@@ -196,7 +196,7 @@ class LobbyMenu: SKScene {
                 let userKick = newuser.childNode(withName: "kickButtonNode") as! MSButtonNode
                 userKick.selectedHandlers = {
                     //kick em
-                    DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(String(describing: userKick.parent!.name))", Value: "PePeKicked")
+                    DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(userKick.parent!.name!)", Value: "PePeKicked")
                 }
             }
             let userColor = newuser.childNode(withName: "colorButtonNode") as! MSButtonNode
