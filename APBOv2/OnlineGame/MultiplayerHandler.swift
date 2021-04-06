@@ -167,7 +167,12 @@ public class MultiplayerHandler{
                                 
                                 let ship = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
                                 Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(ship)
-                        
+                                
+                              
+                                Global.gameData.shipsToUpdate[i].spaceShipParent.name = "remoteparent"
+                                
+                                Global.gameData.playerShip?.spaceShipParent.name  = "parent"
+                                
                                 let i = Int(pilotList.firstIndex(of: e.key)!)
                                 pilotList.remove(at: i)
                                 
