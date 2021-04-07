@@ -12,16 +12,15 @@ class Campaign: SKScene {
     
     override func didMove(to view: SKView) {
         
-       
-     
+        
         let panGesture = UIPanGestureRecognizer()
-            panGesture.addTarget(self, action: #selector(panGestureAction(_:)))
+        panGesture.addTarget(self, action: #selector(panGestureAction(_:)))
         view.addGestureRecognizer(panGesture)
     }
     
     override func sceneDidLoad() {
         
-      
+        
         addChild(cameraNode)
         camera = cameraNode
         
@@ -32,19 +31,22 @@ class Campaign: SKScene {
         }
         
         levelNodes =
-        [
-            MSButtonNode(imageNamed: "lvl1"),
-            MSButtonNode(imageNamed: "lvl2"),
-            MSButtonNode(imageNamed: "lvl3"),
-            MSButtonNode(imageNamed: "")
-        ]
+            [
+                MSButtonNode(imageNamed: "lvl1"),
+                MSButtonNode(imageNamed: "lvl2"),
+                MSButtonNode(imageNamed: "lvl3"),
+                MSButtonNode(imageNamed: "lvl3"),
+                MSButtonNode(imageNamed: "lvl3")
+            ]
         
         levelStrings =
-        [
-            "Level1",
-            "Level2",
-            "Level3"
-        ]
+            [
+                "Level1",
+                "Level2",
+                "Level3"
+            ]
+        
+        
         
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -62,10 +64,14 @@ class Campaign: SKScene {
             node.yScale = 0.06
             
             // Position node
-            node.position.y = 100
-            node.position.y += CGFloat(-200 * (i % 2))
-            node.position.x = -275
-            node.position.x += CGFloat(85 * i)
+            if i != 0 {
+                node.position = levelNodes[i-1].position
+            } else {
+                node.position.x = -300
+            }
+            
+            node.position.y = CGFloat(-100 + 200 * (i % 2))
+            node.position.x += CGFloat(150)
             node.zPosition = 5
             
             // ShadeNode and set handlers
@@ -82,9 +88,18 @@ class Campaign: SKScene {
                 node.colorBlendFactor = 0.8
             }
             
+            // Does this level have Unique Properties? - add it here in the case switch
+                        switch i {
+                        case 2:
+                            node.position.y += 100
+                            node.position.x += 300
+                            node.xScale = 0.2
+                        default:
+                            print("should be a normal lvl")
+                        }
+            
             scene?.addChild(node)
         }
-        
         drawLines()
     }
     
@@ -110,37 +125,38 @@ class Campaign: SKScene {
             }
             linesMaster.addChild(newLine)
         }
+        linesMaster.zPosition = -10
         addChild(linesMaster)
     }
     
     @objc func panGestureAction(_ sender: UIPanGestureRecognizer) {
-       // The camera has a weak reference, so test it
-       guard let camera = self.camera else {
-         return
-       }
+        // The camera has a weak reference, so test it
+        guard let camera = self.camera else {
+            return
+        }
         
-      //  let zoomInActionipad = SKAction.scale(to: 1.7, duration: 0.01)
+        //  let zoomInActionipad = SKAction.scale(to: 1.7, duration: 0.01)
         
-    
-
-          //  camera.run(zoomInActionipad)
-            
-       // If the movement just began, save the first camera position
-       if sender.state == .began {
-         previousCameraPoint = camera.position
-       }
-       // Perform the translation
-       let translation = sender.translation(in: self.view)
-       
-       var newPosition = CGPoint(
-         x: previousCameraPoint.x + translation.x * -1,
-         y: previousCameraPoint.y
-       )
+        
+        
+        //  camera.run(zoomInActionipad)
+        
+        // If the movement just began, save the first camera position
+        if sender.state == .began {
+            previousCameraPoint = camera.position
+        }
+        // Perform the translation
+        let translation = sender.translation(in: self.view)
+        
+        var newPosition = CGPoint(
+            x: previousCameraPoint.x + translation.x * -1,
+            y: previousCameraPoint.y
+        )
         if newPosition.x < 0 { newPosition.x = 0}
-       camera.position = newPosition
+        camera.position = newPosition
         
-    
-     }
+        
+    }
     
     
     
