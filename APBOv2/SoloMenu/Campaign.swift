@@ -10,11 +10,12 @@ class Campaign: SKScene {
     let cameraNode =  SKCameraNode()
     var previousCameraPoint = CGPoint.zero
     var backButtonNode: MSButtonNode?
+    let panGesture = UIPanGestureRecognizer()
+    var currentHandler = {}
     
     override func didMove(to view: SKView) {
         
         
-        let panGesture = UIPanGestureRecognizer()
         panGesture.addTarget(self, action: #selector(panGestureAction(_:)))
         view.addGestureRecognizer(panGesture)
     }
@@ -24,6 +25,7 @@ class Campaign: SKScene {
         
         addChild(cameraNode)
         camera = cameraNode
+        camera?.zPosition = 100
         
         if (save.value(forKey: "completedLevels") != nil) {
             completedLevels = save.value(forKey: "completedLevels") as! [Int]
@@ -37,8 +39,10 @@ class Campaign: SKScene {
                 MSButtonNode(imageNamed: "lvl1"),
                 MSButtonNode(imageNamed: "lvl2"),
                 MSButtonNode(imageNamed: "lvl3"),
-                MSButtonNode(imageNamed: "lvl3"),
-                MSButtonNode(imageNamed: "lvl3")
+                MSButtonNode(imageNamed: "easy"),
+                MSButtonNode(imageNamed: "medium"),
+                MSButtonNode(imageNamed: "hard"),
+                MSButtonNode(imageNamed: "expert")
             ]
         
         levelStrings =
@@ -46,14 +50,27 @@ class Campaign: SKScene {
                 "GameScene",
                 "Level1",
                 "Level2",
-                "Level3"
+                "Level3",
+                "TurretBoss",
+                "TurretBoss",
+                "TurretBoss",
+                "TurretBoss"
             ]
         
         
         backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
-        backButtonNode!.alpha = 0
+        backButtonNode?.removeFromParent()
+        camera?.addChild(backButtonNode!)
+        
+        // Here is where i position the stuff
+        backButtonNode?.xScale = 0.5
+        backButtonNode?.yScale = 0.5
+        backButtonNode?.position = CGPoint(x: -325,y: 125)
+        backButtonNode?.zPosition = -10
+        
+        
         backButtonNode!.selectedHandlers = {
-            Global.loadScene(s: "Campaign")
+            Global.loadScene(s: "MainMenu")
         }
             
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -66,6 +83,7 @@ class Campaign: SKScene {
         for i in 0..<levelNodes.count {
             let node = levelNodes[i]
             node.isUserInteractionEnabled = true
+            node.state = .MSButtonStopAlphaChanges
             
             // Scale the node here
             node.xScale = 0.06
@@ -82,26 +100,47 @@ class Campaign: SKScene {
             node.position.x += CGFloat(150)
             node.zPosition = 5
             
+            node.color = UIColor.yellow
+            
+            node.selectedHandler = {
+                node.colorBlendFactor += 0.2
+                
+                // Set difficuties for turret bosses
+                switch i {
+                case 4,5,6,7:
+                    UserDefaults.standard.setValue(i-3, forKey: "difficulty")
+                default:
+                    print("ok")
+                }
+                self.currentHandler = {
+                    node.colorBlendFactor -= 0.2
+                }
+            }
+            
             // ShadeNode and set handlers
             if completedLevels.contains(i-1){
-                levelNodes[i].selectedHandler = {
+                levelNodes[i].selectedHandlers = {
+                    self.view!.removeGestureRecognizer(self.panGesture)
                     Global.loadScene(s: self.levelStrings[i])
                 }
             } else {
-                node.selectedHandler = {
-                    print("dont enter")
-                    print(i)
+                node.selectedHandlers = {
+                    print("This stall is occupied")
+                    //Possible alert the player msg here later
                 }
-                node.color = UIColor.darkGray
-                node.colorBlendFactor = 0.8
+                node.alpha = 0.3
             }
             
             // Does this level have Unique Properties? - add it here in the case switch
             switch i {
-            case 2:
-                node.position.y += 100
-                node.position.x += 300
+            case 0:
+                node.position.y = 0
+                node.position.x = -100
                 node.xScale = 0.2
+                node.yScale = 0.2
+            case 1:
+                node.position.y -= 100
+                node.position.x += 150
             default:
                 print("should be a normal lvl")
             }
@@ -145,13 +184,13 @@ class Campaign: SKScene {
         
         //  let zoomInActionipad = SKAction.scale(to: 1.7, duration: 0.01)
         
-        
-        
         //  camera.run(zoomInActionipad)
         
         // If the movement just began, save the first camera position
         if sender.state == .began {
             previousCameraPoint = camera.position
+            currentHandler()
+            currentHandler = {}
         }
         // Perform the translation
         let translation = sender.translation(in: self.view)
