@@ -337,7 +337,6 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         turnButtonNode.selectedHandler = {
             
             self.turnButtonNode.alpha = 0.6
-            
             self.turnButtonNode.setScale(1.1)
             
             if self.varisPaused==1 && self.isPlayerAlive {
