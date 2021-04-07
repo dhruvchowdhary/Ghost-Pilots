@@ -32,7 +32,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
     var ref: DatabaseReference!
 
     override func didMove(to view: SKView) {
-        Global.gameViewController?.doPopUp()
+        Global.gameViewController!.doPopUp()
         Global.gameData.gameState = GameStates.OnlineMenu
         
         usernameBox = UITextField(frame: CGRect(x: view.bounds.width/2 - 95, y: view.bounds.height/2 - 130, width: 190, height: 60))
