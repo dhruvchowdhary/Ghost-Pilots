@@ -5,10 +5,11 @@ class Campaign: SKScene {
     var levelNodes: [MSButtonNode] = []
     var levelStrings: [String] = []
     let linesMaster = SKNode()
-    var completedLevels: [Int] = [-1]
+    var completedLevels: [Int] = [-1,0]
     let save = UserDefaults.standard
     let cameraNode =  SKCameraNode()
     var previousCameraPoint = CGPoint.zero
+    var backButtonNode: MSButtonNode?
     
     override func didMove(to view: SKView) {
         
@@ -32,6 +33,7 @@ class Campaign: SKScene {
         
         levelNodes =
             [
+                MSButtonNode(imageNamed: "Mike"),
                 MSButtonNode(imageNamed: "lvl1"),
                 MSButtonNode(imageNamed: "lvl2"),
                 MSButtonNode(imageNamed: "lvl3"),
@@ -41,13 +43,19 @@ class Campaign: SKScene {
         
         levelStrings =
             [
+                "GameScene",
                 "Level1",
                 "Level2",
                 "Level3"
             ]
         
         
-        
+        backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
+        backButtonNode!.alpha = 0
+        backButtonNode!.selectedHandlers = {
+            Global.loadScene(s: "Campaign")
+        }
+            
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
             //      particles.advanceSimulationTime(60)
@@ -89,14 +97,14 @@ class Campaign: SKScene {
             }
             
             // Does this level have Unique Properties? - add it here in the case switch
-                        switch i {
-                        case 2:
-                            node.position.y += 100
-                            node.position.x += 300
-                            node.xScale = 0.2
-                        default:
-                            print("should be a normal lvl")
-                        }
+            switch i {
+            case 2:
+                node.position.y += 100
+                node.position.x += 300
+                node.xScale = 0.2
+            default:
+                print("should be a normal lvl")
+            }
             
             scene?.addChild(node)
         }

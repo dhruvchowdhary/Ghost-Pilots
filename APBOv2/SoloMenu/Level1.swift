@@ -90,10 +90,12 @@ class Level1: SKScene, SKPhysicsContactDelegate {
     let bullet1 = SKSpriteNode(imageNamed: "bullet")
     let bullet2 = SKSpriteNode(imageNamed: "bullet")
     let bullet3 = SKSpriteNode(imageNamed: "bullet")
+    var levelInt = 1
     let shape = SKShapeNode()
     
     override func didMove(to view: SKView) {
         
+        setLevelInt()
         loadBluePilot()
         createPath()
         addChild(cameraNode)
@@ -2059,7 +2061,12 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         //  self.scene?.view?.isPaused = true
     }
     
+    func setLevelInt(){
+        levelInt = 1
+    }
+    
     func victoryScreen() {
+        Global.gameData.addCompletedLevel(i: levelInt)
         
         //     isPlayerAlive = false
         isGameOver = true
@@ -2085,8 +2092,6 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         addChild(victory)
         //   self.scene?.view?.isPaused = true
     }
-    
-    
     
 }
 

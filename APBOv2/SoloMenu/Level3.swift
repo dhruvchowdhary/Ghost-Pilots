@@ -10,6 +10,9 @@ import Foundation
 import SpriteKit
 
 class Level3: Level1 {
+    override func setLevelInt() {
+        levelInt = 3
+    }
     
     override func createPath() {
            path = UIBezierPath()

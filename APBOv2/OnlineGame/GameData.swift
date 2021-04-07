@@ -132,6 +132,16 @@ public class GameData{
         shipsToUpdate = []
         playerShip?.spaceShipParent.removeFromParent()
     }
+    
+    public func addCompletedLevel(i: Int){
+        var completedLevels = UserDefaults.standard.value(forKey: "completedLevels") as! [Int]
+        if completedLevels.contains(i){
+            return
+        } else {
+            completedLevels.append(i)
+            UserDefaults.standard.setValue (completedLevels, forKey: "completedLevels")
+        }
+    }
 }
 
 public enum GameStates {
