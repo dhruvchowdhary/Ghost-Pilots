@@ -13,6 +13,7 @@ import GameKit
 import GoogleMobileAds
 
 var shouldReloadScene = false
+var popUpWindow: PopUpWindow!
 
 public class GameViewController: UIViewController, GKGameCenterControllerDelegate, GADFullScreenContentDelegate {
     public var fullScreenContentDelegate: GADFullScreenContentDelegate?
@@ -115,6 +116,24 @@ public class GameViewController: UIViewController, GKGameCenterControllerDelegat
         self.navigationController?.pushViewController(gcViewController, animated: true)
         self.present(gcViewController, animated: true, completion: nil)
     }
+    
+    public func doPopUp() {
+        popUpWindow = PopUpWindow(title: "", text: "Sorry, that email address is already used!", buttontext: "OK")
+        self.present(popUpWindow, animated: true, completion: nil)
+    }
+    
+    public func showAlertButtonTapped() {
+
+            // create the alert
+        let alert = UIAlertController(title: "My Title", message: "This is my message.", preferredStyle: .alert)
+     //   let alert2 =
+
+            // add an action (button)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.destructive, handler: nil))
+
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+        }
     
     public override var shouldAutorotate: Bool {
         return true

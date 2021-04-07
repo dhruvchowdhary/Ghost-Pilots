@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		028FEFE725F7EFC600D519A5 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028FEFE625F7EFC600D519A5 /* GameData.swift */; };
+		029A1ABC261CD00800AA0012 /* PopUpWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029A1ABB261CD00800AA0012 /* PopUpWindow.swift */; };
 		02E4487E260C49910050E49D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02E4487C260C49910050E49D /* Assets.xcassets */; };
 		02E44886260CEDA20050E49D /* orangePlayer.sks in Resources */ = {isa = PBXBuildFile; fileRef = 02E44885260CEDA20050E49D /* orangePlayer.sks */; };
 		02E4488A260CEF770050E49D /* pinkPlayer.sks in Resources */ = {isa = PBXBuildFile; fileRef = 02E44889260CEF770050E49D /* pinkPlayer.sks */; };
@@ -136,6 +137,7 @@
 
 /* Begin PBXFileReference section */
 		028FEFE625F7EFC600D519A5 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
+		029A1ABB261CD00800AA0012 /* PopUpWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpWindow.swift; sourceTree = "<group>"; };
 		02E4487C260C49910050E49D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		02E44885260CEDA20050E49D /* orangePlayer.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = orangePlayer.sks; sourceTree = "<group>"; };
 		02E44889260CEF770050E49D /* pinkPlayer.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = pinkPlayer.sks; sourceTree = "<group>"; };
@@ -320,14 +322,14 @@
 		748CEDB7256C1AD4005DF246 /* SoloMenu */ = {
 			isa = PBXGroup;
 			children = (
-				81135EEB25E8312300B0F59F /* Level1.sks */,
 				81135EEA25E8312300B0F59F /* Level1.swift */,
+				81135EEB25E8312300B0F59F /* Level1.sks */,
 				81135EF225F14E5800B0F59F /* Level2.swift */,
 				81135EF525F1514C00B0F59F /* Level2.sks */,
-				81EA5C5B25F4416800A127A7 /* Level3.sks */,
 				81EA5C5825F4414200A127A7 /* Level3.swift */,
-				81135EE925E8312200B0F59F /* LoadLevelsMenu.sks */,
+				81EA5C5B25F4416800A127A7 /* Level3.sks */,
 				81135EEC25E8312300B0F59F /* LoadLevelsMenu.swift */,
+				81135EE925E8312200B0F59F /* LoadLevelsMenu.sks */,
 				748CEDB3256C151F005DF246 /* SoloMenu.swift */,
 				CEDECCD925F4C18E00C01A7D /* SoloMenu.sks */,
 				CEC60748260CF59D005F5538 /* Campaign.swift */,
@@ -397,9 +399,10 @@
 				74C3CFCF25506CEA00757586 /* Particles */,
 				74CF68512581F7A9000C4E47 /* Sounds */,
 				748CEDB02566F215005DF246 /* Enemies */,
-				748CEDAA25657F2E005DF246 /* MSButtonNode.swift */,
 				74C3CFB5253F3BE900757586 /* GameScene.swift */,
 				CE9C6D9925E8275800D47FCC /* GameScene.sks */,
+				748CEDAA25657F2E005DF246 /* MSButtonNode.swift */,
+				029A1ABB261CD00800AA0012 /* PopUpWindow.swift */,
 				74C3CFB7253F3BE900757586 /* GameViewController.swift */,
 				74235B1F25A7724400AC4675 /* GameCenter.swift */,
 				74C3CFB3253F3BE900757586 /* Actions.sks */,
@@ -782,6 +785,7 @@
 				CEF309CF25C1E86D007B8B39 /* DataPusher.swift in Sources */,
 				74C3CFDB2553100200757586 /* EnemyNode.swift in Sources */,
 				748CEDBE256D6EF8005DF246 /* TurretBoss.swift in Sources */,
+				029A1ABC261CD00800AA0012 /* PopUpWindow.swift in Sources */,
 				81135EF325F14E5800B0F59F /* Level2.swift in Sources */,
 				748CEDB4256C151F005DF246 /* SoloMenu.swift in Sources */,
 				CEF309FF25C337D7007B8B39 /* PlayerData.swift in Sources */,
