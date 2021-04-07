@@ -63,9 +63,12 @@ class Campaign: SKScene {
         camera?.addChild(backButtonNode!)
         
         // Here is where i position the stuff
-        backButtonNode?.xScale = 0.5
-        backButtonNode?.yScale = 0.5
-        backButtonNode?.position = CGPoint(x: -325,y: 125)
+        if UIDevice.current.userInterfaceIdiom != .pad {
+            if UIScreen.main.bounds.width < 779 {
+                backButtonNode!.position.x = -600
+                backButtonNode!.position.y =  300
+            }
+        }
         backButtonNode?.zPosition = -10
         
         
