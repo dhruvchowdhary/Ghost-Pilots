@@ -175,6 +175,7 @@ public class MultiplayerHandler{
                                 
                                 let i = Int(pilotList.firstIndex(of: e.key)!)
                                 pilotList.remove(at: i)
+                                MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PilotList/\(e.key)").removeValue()
                                 
                         
                             })
