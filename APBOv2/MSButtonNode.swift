@@ -2,10 +2,11 @@
 import SpriteKit
 
 enum MSButtonNodeState {
-    case MSButtonNodeStateActive, MSButtonNodeStateSelected, MSButtonNodeStateHidden
+    case MSButtonNodeStateActive, MSButtonNodeStateSelected, MSButtonNodeStateHidden, MSButtonStopAlphaChanges
 }
 //mm
 class MSButtonNode: SKSpriteNode {
+    var isAlphaSwitching = true
     
     //test
     /* Setup a dummy action closure */
@@ -24,7 +25,9 @@ class MSButtonNode: SKSpriteNode {
                 break
             case .MSButtonNodeStateSelected:
                 /* Semi transparent */
-                self.alpha = 0.7
+                if isAlphaSwitching{
+                    self.alpha = 0.7
+                }
                 break
             case .MSButtonNodeStateHidden:
                 /* Disable touch */
@@ -33,6 +36,9 @@ class MSButtonNode: SKSpriteNode {
                 /* Hide */
          //       self.alpha = 0
                 break
+            case .MSButtonStopAlphaChanges:
+                isAlphaSwitching = false
+                
             }
         }
     }
