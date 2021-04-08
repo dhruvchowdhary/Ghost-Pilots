@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/90306997/Desktop/ghost-main/APBOv2/Campaign instantiables/CPLevelBase.sks">
-   </FileRef>
-   <FileRef
       location = "group:APBOv2.xcodeproj">
    </FileRef>
    <FileRef
