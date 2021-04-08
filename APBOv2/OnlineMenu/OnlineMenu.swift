@@ -32,7 +32,6 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
     var ref: DatabaseReference!
 
     override func didMove(to view: SKView) {
-        Global.gameViewController!.doPopUp()
         Global.gameData.gameState = GameStates.OnlineMenu
         
         usernameBox = UITextField(frame: CGRect(x: view.bounds.width/2 - 95, y: view.bounds.height/2 - 130, width: 190, height: 60))
@@ -138,7 +137,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                                     self.loadLobbyMenu()
                                 } else {
                                     print("lobby is full")
-                                    //do somethin
+                                    Global.gameViewController!.doPopUp(popUpText: "The game you tried to join is full.")
                                 }
                             }
                         } else {

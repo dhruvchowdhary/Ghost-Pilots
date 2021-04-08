@@ -23,7 +23,8 @@ private class PopUpWindowView: UIView {
         backgroundColor = UIColor.black.withAlphaComponent(0.3)
         
         // Popup Background
-        popupView.backgroundColor = UIColor.blue
+        popupView.isUserInteractionEnabled = true
+        popupView.backgroundColor = UIColor.black
         popupView.layer.borderWidth = BorderWidth
         popupView.layer.masksToBounds = true
         popupView.layer.borderColor = UIColor.white.cgColor
@@ -40,7 +41,8 @@ private class PopUpWindowView: UIView {
         
         // Popup Text
         popupText.textColor = UIColor.white
-        popupText.font = UIFont.systemFont(ofSize: 16.0, weight: .semibold)
+        popupText.font = UIFont(name: "AvenirNext-Bold", size: 18)
+            //UIFont.systemFont(ofSize: 16.0, weight: .semibold)
         popupText.numberOfLines = 0
         popupText.textAlignment = .center
         
@@ -55,7 +57,6 @@ private class PopUpWindowView: UIView {
         
         // Add the popupView(box) in the PopUpWindowView (semi-transparent background)
         addSubview(popupView)
-        
         
         // PopupView constraints
         popupView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,18 +79,18 @@ private class PopUpWindowView: UIView {
         // PopupText constraints
         popupText.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            popupText.heightAnchor.constraint(equalToConstant: 0),
-            popupText.topAnchor.constraint(equalTo: popupTitle.bottomAnchor, constant: 0),
+            popupText.heightAnchor.constraint(equalToConstant: 67),
+            popupText.topAnchor.constraint(equalTo: popupTitle.bottomAnchor, constant: 8),
             popupText.leadingAnchor.constraint(equalTo: popupView.leadingAnchor, constant: 15),
             popupText.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -15),
-            popupText.bottomAnchor.constraint(equalTo: popupButton.topAnchor, constant: 0)
+            popupText.bottomAnchor.constraint(equalTo: popupButton.topAnchor, constant: -8)
             ])
 
         
         // PopupButton constraints
         popupButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            popupButton.heightAnchor.constraint(equalToConstant: 44),
+            popupButton.heightAnchor.constraint(equalToConstant: 0),
             popupButton.leadingAnchor.constraint(equalTo: popupView.leadingAnchor, constant: BorderWidth),
             popupButton.trailingAnchor.constraint(equalTo: popupView.trailingAnchor, constant: -BorderWidth),
             popupButton.bottomAnchor.constraint(equalTo: popupView.bottomAnchor, constant: -BorderWidth)
@@ -115,9 +116,13 @@ class PopUpWindow: UIViewController {
         popUpWindowView.popupText.text = text
         popUpWindowView.popupButton.setTitle(buttontext, for: .normal)
       
-        popUpWindowView.popupButton.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
-       
-        view = popUpWindowView
+     //   popUpWindowView.popupButton.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
+     //   popUpWindowView.popupView.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(dismissView))
+     //   popUpWindowView.popupView.addGestureRecognizer(gesture)
+        view.addGestureRecognizer(gesture)
+        view.addSubview(popUpWindowView)
+        popUpWindowView.frame = CGRect(x: view.center.x, y: view.center.y, width: 0, height: 0)
     }
 
     required init(coder aDecoder: NSCoder) {

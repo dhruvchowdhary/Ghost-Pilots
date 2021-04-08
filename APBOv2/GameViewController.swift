@@ -117,8 +117,8 @@ public class GameViewController: UIViewController, GKGameCenterControllerDelegat
         self.present(gcViewController, animated: true, completion: nil)
     }
     
-    public func doPopUp() {
-        popUpWindow = PopUpWindow(title: "", text: "Sorry, that email address is already used!", buttontext: "OK")
+    public func doPopUp(popUpText: String) {
+        popUpWindow = PopUpWindow(title: "", text: popUpText, buttontext: "")
         self.present(popUpWindow, animated: true, completion: nil)
     }
     
