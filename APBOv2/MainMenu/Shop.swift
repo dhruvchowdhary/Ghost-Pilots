@@ -45,7 +45,14 @@ class Shop: SKScene {
         Global.gameData.skView = self.view!
         
         shopEquip.alpha = 0
+        
+        shopEquip.xScale = 0.3
+        shopEquip.yScale = 0.3
         addChild(shopEquip)
+        
+        shopEquip.zPosition = 6
+        
+        Global.gameData.addPolyniteCount(delta: 900)
         
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -159,6 +166,10 @@ class Shop: SKScene {
                     // purchasing
                     
                     print("bought \(trailStrings[i])")
+                    Global.gameData.spendPolynite(amountToSpend: trailPrices[i])
+                    polyniteLabel.text = "\(Global.gameData.polyniteCount)"
+                    purchasedTrails.append(trailStrings[i])
+                    shopEquip.alpha = 1
                     // subtract polynite according to price
                     
                     //node.alpha = 0.3
@@ -215,6 +226,11 @@ class Shop: SKScene {
                     
                     print("bought \(decalStrings[i])")
                     // subtract polynite according to price
+                    Global.gameData.spendPolynite(amountToSpend: decalPrices[i])
+                    polyniteLabel.text = "\(Global.gameData.polyniteCount)"
+                    
+                    shopEquip.alpha = 1
+                    purchasedDecals.append(decalStrings[i])
                     
                     //node.alpha = 0.3
                     
@@ -302,7 +318,7 @@ class Shop: SKScene {
         } else {
             polyniteBox.position.x = frame.midX + 600
             polynite.position.x = polyniteBox.position.x - 80
-            polyniteLabel.position.x = polyniteBox.position.x
+            polyniteLabel.position.x = polyniteBox.position.x + 50
         }
         
         let borderShape = SKShapeNode()

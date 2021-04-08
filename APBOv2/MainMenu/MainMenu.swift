@@ -161,7 +161,7 @@ class MainMenu: SKScene {
         } else {
             polyniteBox.position.x = frame.midX + 600
             polynite.position.x = polyniteBox.position.x - 80
-            polyniteLabel.position.x = polyniteBox.position.x
+            polyniteLabel.position.x = polyniteBox.position.x + 50
             buttonShop.position.x = polyniteBox.position.x
             tutorialButtonNode.position.x = frame.midX - 620
             tutorialButtonNode.position.y =  frame.midY - 300
