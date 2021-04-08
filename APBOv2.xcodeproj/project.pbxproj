@@ -122,6 +122,9 @@
 		CEC60745260BBA5D005F5538 /* AdHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC60744260BBA5D005F5538 /* AdHandler.swift */; };
 		CEC60749260CF59D005F5538 /* Campaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC60748260CF59D005F5538 /* Campaign.swift */; };
 		CEC6074C260CF982005F5538 /* Campaign.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEC6074B260CF982005F5538 /* Campaign.sks */; };
+		CEC60764261F70C5005F5538 /* CPSpaceshipBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC60763261F70C5005F5538 /* CPSpaceshipBase.swift */; };
+		CEC60769261F7127005F5538 /* CPLevelBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC60768261F7127005F5538 /* CPLevelBase.swift */; };
+		CEC6076D261F733B005F5538 /* CPPlayerShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC6076C261F733B005F5538 /* CPPlayerShip.swift */; };
 		CEDECCD725F4C18E00C01A7D /* SoloMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEDECCD925F4C18E00C01A7D /* SoloMenu.sks */; };
 		CEF309CF25C1E86D007B8B39 /* DataPusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309CE25C1E86D007B8B39 /* DataPusher.swift */; };
 		CEF309D825C1EAC0007B8B39 /* MultiplayerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */; };
@@ -256,6 +259,10 @@
 		CEC60744260BBA5D005F5538 /* AdHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdHandler.swift; sourceTree = "<group>"; };
 		CEC60748260CF59D005F5538 /* Campaign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campaign.swift; sourceTree = "<group>"; };
 		CEC6074B260CF982005F5538 /* Campaign.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Campaign.sks; sourceTree = "<group>"; };
+		CEC60763261F70C5005F5538 /* CPSpaceshipBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPSpaceshipBase.swift; sourceTree = "<group>"; };
+		CEC60768261F7127005F5538 /* CPLevelBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPLevelBase.swift; sourceTree = "<group>"; };
+		CEC6076C261F733B005F5538 /* CPPlayerShip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPPlayerShip.swift; sourceTree = "<group>"; };
+		CEC6076F261F80C9005F5538 /* CPLevelBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = CPLevelBase.sks; path = "/Users/90306997/Desktop/ghost-main/APBOv2/Campaign instantiables/CPLevelBase.sks"; sourceTree = "<absolute>"; };
 		CEDECCD825F4C18E00C01A7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Base; path = Base.lproj/SoloMenu.sks; sourceTree = "<group>"; };
 		CEF309CE25C1E86D007B8B39 /* DataPusher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPusher.swift; sourceTree = "<group>"; };
 		CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerHandler.swift; sourceTree = "<group>"; };
@@ -386,6 +393,7 @@
 				810C930B25FDEA3800C298C8 /* ffaImages.atlas */,
 				810C930825FDEA3100C298C8 /* astroImages.atlas */,
 				810C930525FDEA0F00C298C8 /* infectionImages.atlas */,
+				CEC60767261F70F1005F5538 /* Campaign instantiables */,
 				CEF30A1925CA65AC007B8B39 /* GameScenes */,
 				CEF30A1825CA65A2007B8B39 /* Spaceships */,
 				CEF309D225C1E9F3007B8B39 /* OnlineGame */,
@@ -516,6 +524,17 @@
 				6BEC5117A23B6C351E6D91CF /* Pods-APBOv2.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		CEC60767261F70F1005F5538 /* Campaign instantiables */ = {
+			isa = PBXGroup;
+			children = (
+				CEC6076F261F80C9005F5538 /* CPLevelBase.sks */,
+				CEC60763261F70C5005F5538 /* CPSpaceshipBase.swift */,
+				CEC6076C261F733B005F5538 /* CPPlayerShip.swift */,
+				CEC60768261F7127005F5538 /* CPLevelBase.swift */,
+			);
+			path = "Campaign instantiables";
 			sourceTree = "<group>";
 		};
 		CEF309CD25C1E82A007B8B39 /* Firebase */ = {
@@ -774,6 +793,8 @@
 				8177393225F9D9880054FC06 /* AstroBall.swift in Sources */,
 				74CF6899258D78E2000C4E47 /* Tutorial.swift in Sources */,
 				CEF30A1F25CA65CC007B8B39 /* GameSceneOnline.swift in Sources */,
+				CEC6076D261F733B005F5538 /* CPPlayerShip.swift in Sources */,
+				CEC60764261F70C5005F5538 /* CPSpaceshipBase.swift in Sources */,
 				8177393525F9DAE20054FC06 /* Infection.swift in Sources */,
 				CEC60745260BBA5D005F5538 /* AdHandler.swift in Sources */,
 				74235B2025A7724400AC4675 /* GameCenter.swift in Sources */,
@@ -784,6 +805,7 @@
 				749EBC5C255AFA58003EA0B3 /* Bundle-Decoding.swift in Sources */,
 				CEF309CF25C1E86D007B8B39 /* DataPusher.swift in Sources */,
 				74C3CFDB2553100200757586 /* EnemyNode.swift in Sources */,
+				CEC60769261F7127005F5538 /* CPLevelBase.swift in Sources */,
 				748CEDBE256D6EF8005DF246 /* TurretBoss.swift in Sources */,
 				029A1ABC261CD00800AA0012 /* PopUpWindow.swift in Sources */,
 				81135EF325F14E5800B0F59F /* Level2.swift in Sources */,

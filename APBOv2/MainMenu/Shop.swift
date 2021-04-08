@@ -20,7 +20,7 @@ class Shop: SKScene {
     let polynite = SKSpriteNode(imageNamed: "polynite2")
     let polyniteBox = SKSpriteNode(imageNamed: "polynitebox")
     let polyniteLabel = SKLabelNode(text: "0")
-    var polyniteAmount = UserDefaults.standard.integer(forKey: "polyniteAmount")
+    var polyniteAmount = Global.gameData.polyniteCount
     let skins = SKNode()
     let trails = SKNode()
     

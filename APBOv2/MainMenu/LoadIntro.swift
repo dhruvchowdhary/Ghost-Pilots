@@ -21,6 +21,14 @@ class LoadIntro: SKScene {
             Global.loadScene(s: "MainMenu")
         }
         self.run(SKAction.sequence([wait1,action1]))
-        
+        MultiplayerHandler.ref.child("Users/\(UIDevice.current.identifierForVendor!)/Polynite").observeSingleEvent(of: .value) {
+            snapshot in
+            if (snapshot.exists()) {
+                Global.gameData.polyniteCount = Int(snapshot.value as! String)!
+            } else {
+                DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/Polynite", Value: "0")
+            }
         }
+        
+    }
 }

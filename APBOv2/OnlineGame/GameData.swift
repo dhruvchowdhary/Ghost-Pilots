@@ -25,19 +25,11 @@ public class GameData{
     
     
     init() {
-        MultiplayerHandler.ref.child("Users/\(Global.playerData.playerID)").observeSingleEvent(of: .value) {
-            snapshot in
-            if (snapshot.exists()) {
-                self.polyniteCount = Int(snapshot.value as! String)!
-            } else {
-                DataPusher.PushData(path: "Users\(Global.playerData.playerID)", Value: "0")
-            }
-        }
     }
     
     public func addPolyniteCount(delta: Int){
         polyniteCount += delta
-        DataPusher.PushData(path: "Users\(Global.playerData.playerID)", Value: String(polyniteCount))
+        DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/Polynite", Value: String(polyniteCount))
     }
     
     public func spendPolynite(amountToSpend: Int) -> Bool{
@@ -45,7 +37,7 @@ public class GameData{
             return false
         } else {
             polyniteCount -= amountToSpend
-            DataPusher.PushData(path: "Users\(Global.playerData.playerID)", Value: String(polyniteCount))
+            DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/Polynite", Value: String(polyniteCount))
         }
         return true
     }

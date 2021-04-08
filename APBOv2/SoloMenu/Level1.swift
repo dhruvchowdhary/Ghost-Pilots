@@ -90,10 +90,15 @@ class Level1: SKScene, SKPhysicsContactDelegate {
     let bullet1 = SKSpriteNode(imageNamed: "bullet")
     let bullet2 = SKSpriteNode(imageNamed: "bullet")
     let bullet3 = SKSpriteNode(imageNamed: "bullet")
+    
     var levelInt = 1
     let shape = SKShapeNode()
     
     override func didMove(to view: SKView) {
+        
+        bullet1.physicsBody = nil
+        bullet3.physicsBody = nil
+        bullet2.physicsBody = nil
         
         setLevelInt()
         loadBluePilot()
