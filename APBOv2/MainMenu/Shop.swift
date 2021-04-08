@@ -20,11 +20,23 @@ class Shop: SKScene {
     let polynite = SKSpriteNode(imageNamed: "polynite2")
     let polyniteBox = SKSpriteNode(imageNamed: "polynitebox")
     let polyniteLabel = SKLabelNode(text: "0")
-    var polyniteAmount = Global.gameData.polyniteCount
-    let skins = SKNode()
-    let trails = SKNode()
-    
     var shopTab = "skins"
+    
+    let shopEquip = SKSpriteNode(imageNamed: "shopEquip")
+    
+    var decalNodes: [MSButtonNode] = []
+    var decalStrings: [String] = []
+    var decalPrices: [Int] = []
+    var purchasedDecals: [String] = []
+    var equippedDecal = UserDefaults.standard.string(forKey: "equippedDecal")
+    
+    var trailNodes: [MSButtonNode] = []
+    var trailStrings: [String] = []
+    var trailPrices: [Int] = []
+    var purchasedTrails: [String] = []
+    
+    var equippedTrail = UserDefaults.standard.string(forKey: "equippedTrail")
+    
     
     
     override func didMove(to view: SKView) {
@@ -32,6 +44,8 @@ class Shop: SKScene {
         
         Global.gameData.skView = self.view!
         
+        shopEquip.alpha = 0
+        addChild(shopEquip)
         
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -68,6 +82,154 @@ class Shop: SKScene {
         polyniteLabel.fontSize = 80 / 1.5
         addChild(polyniteLabel)
         
+        
+        
+        
+        decalNodes =
+            [
+                MSButtonNode(imageNamed: "decalNodeStripe")
+            ]
+        
+      
+        
+        decalStrings =
+            [
+                "decalStripe"
+            ]
+        
+        decalPrices =
+            [
+                500
+            ]
+        
+        trailNodes =
+            [
+                MSButtonNode(imageNamed: "trailNodeLightning")
+            ]
+        
+        trailStrings =
+            [
+                "trailLightning"
+            ]
+        trailPrices =
+            [
+                100
+            ]
+        
+        for i in 0..<trailNodes.count {
+            
+           
+            
+            let node = trailNodes[i]
+            node.isUserInteractionEnabled = true
+            node.state = .MSButtonStopAlphaChanges
+            
+            // Scale the node here
+            node.xScale = 0.3
+            node.yScale = 0.3
+            node.alpha = 0
+            
+            // Position node
+            if i != 0 {
+                node.position.x = trailNodes[i-1].position.x + 400
+                node.position.y = trailNodes[i-1].position.y
+            } else {
+                node.position.y = frame.midY - 150
+                node.position.x = frame.midX - 400
+            }
+            
+    
+            node.zPosition = 5
+            
+            node.selectedHandler = { [self] in
+                
+                
+                // ShadeNode and set handlers
+                
+                if purchasedTrails.contains(trailStrings[i]){
+                    //already Purchased! might be equip function
+                    
+                    shopEquip.position = node.position
+                    UserDefaults.standard.setValue(trailStrings[i], forKey: "equippedTrail")
+                    
+                
+                    print("\(trailStrings[i]) equipped")
+                    
+                } else {
+                    // purchasing
+                    
+                    print("bought \(trailStrings[i])")
+                    // subtract polynite according to price
+                    
+                    //node.alpha = 0.3
+                    
+                }
+            }
+            
+            // Does this level have Unique Properties? - add it here in the case switch
+            
+            scene?.addChild(node)
+        }
+        
+        
+        for i in 0..<decalNodes.count {
+            
+           
+            
+            let node = decalNodes[i]
+            node.isUserInteractionEnabled = true
+            node.state = .MSButtonStopAlphaChanges
+            node.alpha = 1
+            // Scale the node here
+            node.xScale = 0.3
+            node.yScale = 0.3
+            
+            // Position node
+            if i != 0 {
+                node.position.x = decalNodes[i-1].position.x + 300
+                node.position.y = decalNodes[i-1].position.y
+            } else {
+                node.position.y = frame.midY - 150
+                node.position.x = frame.midX
+            }
+            
+     
+       
+            node.zPosition = 5
+            
+            node.selectedHandler = { [self] in
+                
+                
+                // ShadeNode and set handlers
+                
+                if purchasedDecals.contains(decalStrings[i]){
+                    
+                    shopEquip.position = node.position
+                    
+                    UserDefaults.standard.setValue(decalStrings[i], forKey: "equippedDecal")
+                   
+                    print("\(decalStrings[i]) equipped")
+                    
+                } else {
+                    // purchasing
+                    
+                    print("bought \(decalStrings[i])")
+                    // subtract polynite according to price
+                    
+                    //node.alpha = 0.3
+                    
+                }
+            }
+            
+            // Does this level have Unique Properties? - add it here in the case switch
+            
+            scene?.addChild(node)
+        }
+        
+        
+        
+        
+        
         trailsButtonNode = self.childNode(withName: "trailsButtonUnselected") as? MSButtonNode
         trailsButtonNode.selectedHandlers = { [self] in
             self.trailsButtonNode.texture = SKTexture(imageNamed: "trailsButtonSelected")
@@ -75,12 +237,18 @@ class Shop: SKScene {
             self.trailsButtonNode.alpha = 1
             self.shopTab = "trails"
             
-            if self.shopTab == "trails" {
-                self.shopLightningBoltButtonNode.alpha = 1
+            for i in 0..<trailNodes.count {
+                trailNodes[i].alpha = 1
             }
-            else {
-                self.shopLightningBoltButtonNode.alpha = 0
+            
+            for i in 0..<decalNodes.count {
+                decalNodes[i].alpha = 0
             }
+            
+            
+            
+            
+        
         }
         
         trailsButtonNode.selectedHandler = {
@@ -88,18 +256,21 @@ class Shop: SKScene {
         }
         
         skinsButtonNode = self.childNode(withName: "skinsButtonSelected") as? MSButtonNode
-        skinsButtonNode.selectedHandlers = {
+        skinsButtonNode.selectedHandlers = { [self] in
             self.trailsButtonNode.texture = SKTexture(imageNamed: "trailsButtonUnselected")
             self.skinsButtonNode.texture = SKTexture(imageNamed: "skinsButtonSelected")
             self.skinsButtonNode.alpha = 1
             self.shopTab = "skins"
             
-            if self.shopTab == "trails" {
-                self.shopLightningBoltButtonNode.alpha = 1
+            for i in 0..<decalNodes.count {
+                decalNodes[i].alpha = 1
             }
-            else {
-                self.shopLightningBoltButtonNode.alpha = 0
+            
+            for i in 0..<trailNodes.count {
+                trailNodes[i].alpha = 0
             }
+            
+
             
         }
         
@@ -155,20 +326,9 @@ class Shop: SKScene {
         borderShape.zPosition = 2
         
         addChild(borderShape)
-        loadShop()
+     
     }
-    
-    func loadShop() {
-        shopLightningBoltButtonNode = self.childNode(withName: "shoplightningbolt") as? MSButtonNode
-        shopLightningBoltButtonNode.alpha = 0
-        shopLightningBoltButtonNode.selectedHandlers = {
-          print("buy lightning")
-        //       skView.presentScene(scene)
-        }
-        
-        shopLightningBoltButtonNode.position = CGPoint(x: frame.midX, y: trailsButtonNode.position.y - 250)
-        
-    }
+ 
     
     
     func loadMainMenu() {
