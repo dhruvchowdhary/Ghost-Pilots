@@ -129,15 +129,22 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                 } else {
                     self.ref.child("Games/\(self.codeBox.text!)").observeSingleEvent(of: .value){ snapshot in
                         if snapshot.exists() {
-                            self.ref.child("Games/\(self.codeBox.text!)/isFull").observeSingleEvent(of: .value){ snapshot in
-                                if snapshot.value as! String == "FALSE" {
-                                    DataPusher.PushData(path: "Games/\(self.codeBox.text!)/PlayerList/\(self.usernameBox.text!)", Value: "PePeNotGone")
-                                    Global.gameData.gameID = Int(self.codeBox.text!)!
-                                    Global.gameData.isHost = false
-                                    self.loadLobbyMenu()
+                            self.ref.child("Games/\(self.codeBox.text!)/Status").observeSingleEvent(of: .value){ snapshot in
+                                if snapshot.value as! String == "Lobby" {
+                                    self.ref.child("Games/\(self.codeBox.text!)/isFull").observeSingleEvent(of: .value){ snapshot in
+                                        if snapshot.value as! String == "FALSE" {
+                                            DataPusher.PushData(path: "Games/\(self.codeBox.text!)/PlayerList/\(self.usernameBox.text!)", Value: "PePeNotGone")
+                                            Global.gameData.gameID = Int(self.codeBox.text!)!
+                                            Global.gameData.isHost = false
+                                            self.loadLobbyMenu()
+                                        } else {
+                                            print("lobby is full")
+                                            Global.gameViewController!.doPopUp(popUpText: "The game you tried to join is full.")
+                                        }
+                                    }
                                 } else {
-                                    print("lobby is full")
-                                    Global.gameViewController!.doPopUp(popUpText: "The game you tried to join is full.")
+                                    print("game has already started")
+                                    Global.gameViewController!.doPopUp(popUpText: "The game you tried to join has already started. Try joining when the game has ended.")
                                 }
                             }
                         } else {

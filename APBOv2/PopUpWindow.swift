@@ -44,6 +44,7 @@ private class PopUpWindowView: UIView {
         popupText.font = UIFont(name: "AvenirNext-Bold", size: 18)
             //UIFont.systemFont(ofSize: 16.0, weight: .semibold)
         popupText.numberOfLines = 0
+        popupText.adjustsFontSizeToFitWidth = true
         popupText.textAlignment = .center
         
         // Popup Button
