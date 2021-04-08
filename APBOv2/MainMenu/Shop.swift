@@ -124,7 +124,15 @@ class Shop: SKScene {
                 backButtonNode.position.y =  300
             }
         }
-        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            
+        } else if UIScreen.main.bounds.width > 779 {
+            
+        } else {
+            polyniteBox.position.x = frame.midX + 600
+            polynite.position.x = polyniteBox.position.x - 80
+            polyniteLabel.position.x = polyniteBox.position.x
+        }
         
         let borderShape = SKShapeNode()
         
