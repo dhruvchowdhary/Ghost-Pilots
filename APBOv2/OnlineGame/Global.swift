@@ -8,7 +8,6 @@ public struct Global {
     public static let multiplayerHandler = MultiplayerHandler()
     public static var gameViewController: GameViewController?
     public static let adHandler = AdHandler()
-    public static var shopData = ShopData()
     
     static func loadScene(s: String) {
         

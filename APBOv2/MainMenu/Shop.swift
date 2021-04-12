@@ -37,6 +37,12 @@ class Shop: SKScene {
     
    // var equippedTrail = UserDefaults.standard.string(forKey: "equippedTrail")
     
+    public var lockerDecals: [String] = []
+    public var lockerTrails: [String] = []
+    public var equippedDecal: String = "default"
+    public var equippedTrail: String = "default"
+    
+    
     
     
     override func didMove(to view: SKView) {
@@ -153,11 +159,11 @@ class Shop: SKScene {
                 
                 // ShadeNode and set handlers
                 
-                if Global.gameData.lockerTrails.contains(trailStrings[i]){
+                if lockerTrails.contains(trailStrings[i]){
                     //already Purchased! might be equip function
                     
                     shopEquip.position = node.position
-                    UserDefaults.standard.setValue(trailStrings[i], forKey: "equippedTrail")
+                  //  UserDefaults.standard.setValue(trailStrings[i], forKey: "equippedTrail")
                     
                 
                     print("\(trailStrings[i]) equipped")
@@ -168,7 +174,13 @@ class Shop: SKScene {
                     print("bought \(trailStrings[i])")
                     Global.gameData.spendPolynite(amountToSpend: trailPrices[i])
                     polyniteLabel.text = "\(Global.gameData.polyniteCount)"
-                    Global.gameData.lockerTrails.append(trailStrings[i])
+                 lockerTrails.append(trailStrings[i])
+                    
+                    let shopPayload = ShopPayload(lockerDecals: lockerDecals, lockerTrails: lockerTrails, equippedDecal: equippedDecal, equippedTrail: equippedTrail)
+                    let data = try! JSONEncoder().encode(shopPayload)
+                    let json = String(data: data, encoding: .utf8)!
+                    
+                    
                     shopEquip.alpha = 1
                     // subtract polynite according to price
                     

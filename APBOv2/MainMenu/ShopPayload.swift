@@ -1,7 +1,7 @@
 import Foundation
-import Firebase
+import SpriteKit
 
-public class ShopData{
+struct ShopPayload : Codable {
     public var lockerDecals: [String] = []
     public var lockerTrails: [String] = []
     public var equippedDecal: String = "default"
