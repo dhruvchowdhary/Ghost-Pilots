@@ -21,6 +21,7 @@ public class SpaceshipBase {
     
     let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
     let shipLightningBolt = SKEmitterNode(fileNamed: "shiplightningbolt")
+    let decalStripe = SKSpriteNode(imageNamed: "decalStripe")
     
     var timeUntilNextBullet: Double = 0.8;
 

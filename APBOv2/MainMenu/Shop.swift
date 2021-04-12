@@ -27,15 +27,15 @@ class Shop: SKScene {
     var decalNodes: [MSButtonNode] = []
     var decalStrings: [String] = []
     var decalPrices: [Int] = []
-    var purchasedDecals: [String] = []
-    var equippedDecal = UserDefaults.standard.string(forKey: "equippedDecal")
+    //var purchasedDecals: [String] = []
+    //var equippedDecal = UserDefaults.standard.string(forKey: "equippedDecal")
     
     var trailNodes: [MSButtonNode] = []
     var trailStrings: [String] = []
     var trailPrices: [Int] = []
-    var purchasedTrails: [String] = []
+    //var purchasedTrails: [String] = []
     
-    var equippedTrail = UserDefaults.standard.string(forKey: "equippedTrail")
+   // var equippedTrail = UserDefaults.standard.string(forKey: "equippedTrail")
     
     
     
@@ -153,7 +153,7 @@ class Shop: SKScene {
                 
                 // ShadeNode and set handlers
                 
-                if purchasedTrails.contains(trailStrings[i]){
+                if Global.gameData.lockerTrails.contains(trailStrings[i]){
                     //already Purchased! might be equip function
                     
                     shopEquip.position = node.position
@@ -168,7 +168,7 @@ class Shop: SKScene {
                     print("bought \(trailStrings[i])")
                     Global.gameData.spendPolynite(amountToSpend: trailPrices[i])
                     polyniteLabel.text = "\(Global.gameData.polyniteCount)"
-                    purchasedTrails.append(trailStrings[i])
+                    Global.gameData.lockerTrails.append(trailStrings[i])
                     shopEquip.alpha = 1
                     // subtract polynite according to price
                     
@@ -213,11 +213,11 @@ class Shop: SKScene {
                 
                 // ShadeNode and set handlers
                 
-                if purchasedDecals.contains(decalStrings[i]){
+                if Global.gameData.lockerDecals.contains(decalStrings[i]){
                     
                     shopEquip.position = node.position
                     
-                    UserDefaults.standard.setValue(decalStrings[i], forKey: "equippedDecal")
+                    DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/equippedDecal", Value: decalStrings[i])
                    
                     print("\(decalStrings[i]) equipped")
                     
@@ -227,11 +227,20 @@ class Shop: SKScene {
                     print("bought \(decalStrings[i])")
                     // subtract polynite according to price
                     Global.gameData.spendPolynite(amountToSpend: decalPrices[i])
+                    
+                    
+                    
+                
+                    
+                    Global.gameData.lockerDecals.append(decalStrings[i])
+                    
+              
+                    
+                    
                     polyniteLabel.text = "\(Global.gameData.polyniteCount)"
                     
                     shopEquip.alpha = 1
-                    purchasedDecals.append(decalStrings[i])
-                    
+              
                     //node.alpha = 0.3
                     
                 }
