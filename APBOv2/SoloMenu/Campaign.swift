@@ -90,8 +90,8 @@ class Campaign: SKScene {
             node.state = .MSButtonStopAlphaChanges
             
             // Scale the node here
-            node.xScale = 0.06
-            node.yScale = 0.06
+            node.xScale = 0.16
+            node.yScale = 0.16
             
             // Position node
             if i != 0 {
@@ -100,8 +100,8 @@ class Campaign: SKScene {
                 node.position.x = -300
             }
             
-            node.position.y = CGFloat(-100 + 200 * (i % 2))
-            node.position.x += CGFloat(150)
+            node.position.y = CGFloat(-250 + 500 * (i % 2))
+            node.position.x += CGFloat(400)
             node.zPosition = 5
             
             node.color = UIColor.yellow
@@ -140,11 +140,14 @@ class Campaign: SKScene {
             case 0:
                 node.position.y = 0
                 node.position.x = -100
-                node.xScale = 0.2
-                node.yScale = 0.2
+                node.xScale = 1
+                node.yScale = 1
             case 1:
                 node.position.y -= 100
                 node.position.x += 150
+            case 4,5,6,7:
+                node.xScale = 1
+                node.yScale = 1
             default:
                 print("should be a normal lvl")
             }

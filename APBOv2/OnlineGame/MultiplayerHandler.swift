@@ -165,9 +165,11 @@ public class MultiplayerHandler{
                             
                             let wait1 = SKAction.wait(forDuration: 5)
                             Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(wait1, completion:  {
-                                
-                                let ship = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
-                                Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(ship)
+                                self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerColor/\(e.key)")
+                                self.colorRef?.observe(DataEventType.value, with: {(snapshot) in
+                                    let ship = SKAction.setTexture(SKTexture(imageNamed: snapshot.value as! String))
+                                    Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(ship)
+                                })
                                 
                               
                                 Global.gameData.shipsToUpdate[i].spaceShipParent.name = "remoteparent"

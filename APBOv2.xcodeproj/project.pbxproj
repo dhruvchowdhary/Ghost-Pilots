@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		022C0567261F9A0C00F811E5 /* CPLevelBase.sks in Resources */ = {isa = PBXBuildFile; fileRef = 022C0566261F9A0C00F811E5 /* CPLevelBase.sks */; };
 		028FEFE725F7EFC600D519A5 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028FEFE625F7EFC600D519A5 /* GameData.swift */; };
 		029A1ABC261CD00800AA0012 /* PopUpWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029A1ABB261CD00800AA0012 /* PopUpWindow.swift */; };
 		02E4487E260C49910050E49D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02E4487C260C49910050E49D /* Assets.xcassets */; };
@@ -120,6 +121,7 @@
 		CE9C6D9C25E8275800D47FCC /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9925E8275800D47FCC /* GameScene.sks */; };
 		CE9C6D9D25E8275800D47FCC /* GameSceneBase.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */; };
 		CE9C6D9E25E8275800D47FCC /* Hud.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9B25E8275800D47FCC /* Hud.sks */; };
+		CEB716E52624BE0A003FB440 /* CPLevel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB716E42624BE0A003FB440 /* CPLevel1.swift */; };
 		CEC60745260BBA5D005F5538 /* AdHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC60744260BBA5D005F5538 /* AdHandler.swift */; };
 		CEC60749260CF59D005F5538 /* Campaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC60748260CF59D005F5538 /* Campaign.swift */; };
 		CEC6074C260CF982005F5538 /* Campaign.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEC6074B260CF982005F5538 /* Campaign.sks */; };
@@ -140,6 +142,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		022C0566261F9A0C00F811E5 /* CPLevelBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CPLevelBase.sks; sourceTree = "<group>"; };
 		028FEFE625F7EFC600D519A5 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		029A1ABB261CD00800AA0012 /* PopUpWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpWindow.swift; sourceTree = "<group>"; };
 		02E4487C260C49910050E49D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -258,13 +261,13 @@
 		CE9C6D9925E8275800D47FCC /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneBase.sks; sourceTree = "<group>"; };
 		CE9C6D9B25E8275800D47FCC /* Hud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Hud.sks; sourceTree = "<group>"; };
+		CEB716E42624BE0A003FB440 /* CPLevel1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPLevel1.swift; sourceTree = "<group>"; };
 		CEC60744260BBA5D005F5538 /* AdHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdHandler.swift; sourceTree = "<group>"; };
 		CEC60748260CF59D005F5538 /* Campaign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campaign.swift; sourceTree = "<group>"; };
 		CEC6074B260CF982005F5538 /* Campaign.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Campaign.sks; sourceTree = "<group>"; };
 		CEC60763261F70C5005F5538 /* CPSpaceshipBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPSpaceshipBase.swift; sourceTree = "<group>"; };
 		CEC60768261F7127005F5538 /* CPLevelBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPLevelBase.swift; sourceTree = "<group>"; };
 		CEC6076C261F733B005F5538 /* CPPlayerShip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPPlayerShip.swift; sourceTree = "<group>"; };
-		CEC6076F261F80C9005F5538 /* CPLevelBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = CPLevelBase.sks; path = "/Users/90306997/Desktop/ghost-main/APBOv2/Campaign instantiables/CPLevelBase.sks"; sourceTree = "<absolute>"; };
 		CEDECCD825F4C18E00C01A7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = Base; path = Base.lproj/SoloMenu.sks; sourceTree = "<group>"; };
 		CEF309CE25C1E86D007B8B39 /* DataPusher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPusher.swift; sourceTree = "<group>"; };
 		CEF309D725C1EAC0007B8B39 /* MultiplayerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerHandler.swift; sourceTree = "<group>"; };
@@ -532,10 +535,11 @@
 		CEC60767261F70F1005F5538 /* Campaign instantiables */ = {
 			isa = PBXGroup;
 			children = (
-				CEC6076F261F80C9005F5538 /* CPLevelBase.sks */,
 				CEC60763261F70C5005F5538 /* CPSpaceshipBase.swift */,
+				022C0566261F9A0C00F811E5 /* CPLevelBase.sks */,
 				CEC6076C261F733B005F5538 /* CPPlayerShip.swift */,
 				CEC60768261F7127005F5538 /* CPLevelBase.swift */,
+				CEB716E42624BE0A003FB440 /* CPLevel1.swift */,
 			);
 			path = "Campaign instantiables";
 			sourceTree = "<group>";
@@ -707,6 +711,7 @@
 				748500B425E76C970063F73B /* GoogleService-Info.plist in Resources */,
 				02E4487E260C49910050E49D /* Assets.xcassets in Resources */,
 				02E44886260CEDA20050E49D /* orangePlayer.sks in Resources */,
+				022C0567261F9A0C00F811E5 /* CPLevelBase.sks in Resources */,
 				748500B025E6C0910063F73B /* LobbyMenu.sks in Resources */,
 				8157B31225F4681E005E59C5 /* PilotFX.sks in Resources */,
 				CE9C6D9C25E8275800D47FCC /* GameScene.sks in Resources */,
@@ -809,6 +814,7 @@
 				749EBC5C255AFA58003EA0B3 /* Bundle-Decoding.swift in Sources */,
 				CEF309CF25C1E86D007B8B39 /* DataPusher.swift in Sources */,
 				74C3CFDB2553100200757586 /* EnemyNode.swift in Sources */,
+				CEB716E52624BE0A003FB440 /* CPLevel1.swift in Sources */,
 				CEC60769261F7127005F5538 /* CPLevelBase.swift in Sources */,
 				748CEDBE256D6EF8005DF246 /* TurretBoss.swift in Sources */,
 				029A1ABC261CD00800AA0012 /* PopUpWindow.swift in Sources */,

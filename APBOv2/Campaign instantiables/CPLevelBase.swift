@@ -5,11 +5,17 @@ class CPLevelBase: SKScene {
     var aiManagedShips: [CPSpaceshipBase] = []
     var playerShip: CPSpaceshipBase?
     var isSetup = false
+    var boundriesNode: SKSpriteNode?
     
-    override func didMove(to view: SKView) {
-        
-        isSetup = true
+    // this will be overriden in the levels and then callback manual setup
+    override func didMove(to view: SKView) {}
+    
+    // This is called by the base class when the proper arrays have been updated
+    func ManualSetup(){
+        addChild(boundriesNode!)
+        addChild((playerShip?.shipNode)!)
     }
+    
     
     override func update(_ currentTime: TimeInterval) {
         if !isSetup{return}
@@ -18,6 +24,8 @@ class CPLevelBase: SKScene {
             ship.handleAImovement(playerShip: playerShip!)
         }
     }
+    
+    
 }
 
 struct CPSetup {
