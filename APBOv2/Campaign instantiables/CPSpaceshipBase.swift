@@ -8,6 +8,8 @@ class CPSpaceshipBase {
     var bulletRegenRate: Float
     var canRotateBothDirections: Bool
     var isAiHandled: Bool
+    var currentRotate: RotateDir
+    var isMoving: Bool
     
     init (spaceshipSetup: CPSpaceshipSetup){
         shipNode = spaceshipSetup.shipNode
@@ -17,6 +19,31 @@ class CPSpaceshipBase {
         bulletRegenRate = spaceshipSetup.bulletRegenRate
         canRotateBothDirections = false
         isAiHandled = spaceshipSetup.isAiHandled
+        currentRotate = RotateDir.NoRotate
+        isMoving = spaceshipSetup.isMoving
+    }
+    
+    func shipUpdate(){
+        if isMoving {
+            // Set ship movement and rotation
+        }
+    }
+    
+    public func Shoot(shotType: ShotType){
+        switch shotType {
+        case .Bullet:
+            print("Bullet")
+        case .Laser:
+            print("Laser")
+        case .Mine:
+            print("Mine")
+        case .TripleShot:
+            print("TripleShot")
+        }
+    }
+    
+    func turn(dir: RotateDir){
+        
     }
     
     func destroyShip(){}
@@ -26,6 +53,8 @@ class CPSpaceshipBase {
 }
 
 struct CPSpaceshipSetup {
+    // Defaults to create a player ship
+    
     init(imageNamed: String ){
         shipNode = SKSpriteNode(imageNamed: imageNamed)
         shipPhisics = SKPhysicsBody(texture: SKTexture(imageNamed: imageNamed), size: SKTexture(imageNamed: imageNamed).size())
@@ -35,11 +64,24 @@ struct CPSpaceshipSetup {
     var shipPhisics: SKPhysicsBody
     var isBulletOrbitVisible = false
     var bulletRegenRate: Float = 1.0 // Sec
-    var shipRotationSpeed: Float = 1.0 //radians
+    var shipRotationSpeed: Float = 1.0 // (pi/6) per sec
     var canRotateBothDirections = false
     var isAiHandled = false
-    
-    // Everything beyond is possible for later
-    // var destroyShipAnims:
-    // var
+    var isPresetAi = false
+    var presetAiType = PresetAi.Chaser
+    var isMoving = true
+}
+
+
+
+enum PresetAi {
+    case Chaser
+}
+
+enum RotateDir {
+    case Clockwise, CounterClock, NoRotate
+}
+
+enum ShotType {
+    case Bullet, Laser, Mine, TripleShot
 }

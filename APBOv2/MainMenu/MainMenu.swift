@@ -137,7 +137,7 @@ class MainMenu: SKScene {
             self.buttonPlay.alpha = 0.7
         }
         buttonPlay.selectedHandlers = {
-            Global.loadScene(s: "SoloMenu")
+            Global.loadScene(s: "Campaign")
         }
         
         buttonOnline = self.childNode(withName: "onlineButton") as? MSButtonNode
