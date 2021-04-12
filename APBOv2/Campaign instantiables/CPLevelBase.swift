@@ -5,7 +5,7 @@ class CPLevelBase: SKScene {
     var aiManagedShips: [CPSpaceshipBase] = []
     var playerShip: CPSpaceshipBase?
     var isSetup = false
-    var boundriesNode: SKSpriteNode?
+    var boundriesNode: SKNode?
     
     // this will be overriden in the levels and then callback manual setup
     override func didMove(to view: SKView) {}
