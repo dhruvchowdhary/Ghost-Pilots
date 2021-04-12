@@ -120,6 +120,7 @@
 		CE9C6D9C25E8275800D47FCC /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9925E8275800D47FCC /* GameScene.sks */; };
 		CE9C6D9D25E8275800D47FCC /* GameSceneBase.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */; };
 		CE9C6D9E25E8275800D47FCC /* Hud.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9B25E8275800D47FCC /* Hud.sks */; };
+		CEB716E52624BE0A003FB440 /* CPLevel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB716E42624BE0A003FB440 /* CPLevel1.swift */; };
 		CEC60745260BBA5D005F5538 /* AdHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC60744260BBA5D005F5538 /* AdHandler.swift */; };
 		CEC60749260CF59D005F5538 /* Campaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC60748260CF59D005F5538 /* Campaign.swift */; };
 		CEC6074C260CF982005F5538 /* Campaign.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEC6074B260CF982005F5538 /* Campaign.sks */; };
@@ -258,6 +259,7 @@
 		CE9C6D9925E8275800D47FCC /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneBase.sks; sourceTree = "<group>"; };
 		CE9C6D9B25E8275800D47FCC /* Hud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Hud.sks; sourceTree = "<group>"; };
+		CEB716E42624BE0A003FB440 /* CPLevel1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPLevel1.swift; sourceTree = "<group>"; };
 		CEC60744260BBA5D005F5538 /* AdHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdHandler.swift; sourceTree = "<group>"; };
 		CEC60748260CF59D005F5538 /* Campaign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campaign.swift; sourceTree = "<group>"; };
 		CEC6074B260CF982005F5538 /* Campaign.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Campaign.sks; sourceTree = "<group>"; };
@@ -534,6 +536,7 @@
 				022C0566261F9A0C00F811E5 /* CPLevelBase.sks */,
 				CEC6076C261F733B005F5538 /* CPPlayerShip.swift */,
 				CEC60768261F7127005F5538 /* CPLevelBase.swift */,
+				CEB716E42624BE0A003FB440 /* CPLevel1.swift */,
 			);
 			path = "Campaign instantiables";
 			sourceTree = "<group>";
@@ -807,6 +810,7 @@
 				749EBC5C255AFA58003EA0B3 /* Bundle-Decoding.swift in Sources */,
 				CEF309CF25C1E86D007B8B39 /* DataPusher.swift in Sources */,
 				74C3CFDB2553100200757586 /* EnemyNode.swift in Sources */,
+				CEB716E52624BE0A003FB440 /* CPLevel1.swift in Sources */,
 				CEC60769261F7127005F5538 /* CPLevelBase.swift in Sources */,
 				748CEDBE256D6EF8005DF246 /* TurretBoss.swift in Sources */,
 				029A1ABC261CD00800AA0012 /* PopUpWindow.swift in Sources */,
