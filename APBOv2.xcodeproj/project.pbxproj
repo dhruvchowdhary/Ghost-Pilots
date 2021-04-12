@@ -101,6 +101,7 @@
 		81135EF325F14E5800B0F59F /* Level2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81135EF225F14E5800B0F59F /* Level2.swift */; };
 		81135EF625F1514C00B0F59F /* Level2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81135EF525F1514C00B0F59F /* Level2.sks */; };
 		8133262725F9A1CD00D857D7 /* ffaImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 8133262625F9A1CD00D857D7 /* ffaImages.atlas */; };
+		81519B1A2624B9FA00158AF5 /* ShopPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81519B192624B9FA00158AF5 /* ShopPayload.swift */; };
 		815799E52591079800734A45 /* pilotImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 815799E42591079800734A45 /* pilotImages.atlas */; };
 		815799E72591136900734A45 /* RespawnExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 815799E62591136900734A45 /* RespawnExplosion.sks */; };
 		815799E925917EFD00734A45 /* BulletExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 815799E825917EFD00734A45 /* BulletExplosion.sks */; };
@@ -239,6 +240,7 @@
 		81135EF225F14E5800B0F59F /* Level2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2.swift; sourceTree = "<group>"; };
 		81135EF525F1514C00B0F59F /* Level2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level2.sks; sourceTree = "<group>"; };
 		8133262625F9A1CD00D857D7 /* ffaImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = ffaImages.atlas; sourceTree = "<group>"; };
+		81519B192624B9FA00158AF5 /* ShopPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPayload.swift; sourceTree = "<group>"; };
 		815799E42591079800734A45 /* pilotImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = pilotImages.atlas; sourceTree = "<group>"; };
 		815799E62591136900734A45 /* RespawnExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RespawnExplosion.sks; sourceTree = "<group>"; };
 		815799E825917EFD00734A45 /* BulletExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BulletExplosion.sks; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				748CEDA025657B65005DF246 /* MainMenu.sks */,
 				810C9359260D305500C298C8 /* Shop.swift */,
 				810C935A260D305500C298C8 /* Shop.sks */,
+				81519B192624B9FA00158AF5 /* ShopPayload.swift */,
 			);
 			path = MainMenu;
 			sourceTree = "<group>";
@@ -797,6 +800,7 @@
 				CEF309FB25C33700007B8B39 /* Global.swift in Sources */,
 				8177393225F9D9880054FC06 /* AstroBall.swift in Sources */,
 				74CF6899258D78E2000C4E47 /* Tutorial.swift in Sources */,
+				81519B1A2624B9FA00158AF5 /* ShopPayload.swift in Sources */,
 				CEF30A1F25CA65CC007B8B39 /* GameSceneOnline.swift in Sources */,
 				CEC6076D261F733B005F5538 /* CPPlayerShip.swift in Sources */,
 				CEC60764261F70C5005F5538 /* CPSpaceshipBase.swift in Sources */,
