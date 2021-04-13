@@ -225,7 +225,7 @@ class Shop: SKScene {
                 
                 // ShadeNode and set handlers
                 
-                if Global.gameData.lockerDecals.contains(decalStrings[i]){
+            /*    if Global.gameData.lockerDecals.contains(decalStrings[i]){
                     
                     shopEquip.position = node.position
                     
@@ -255,7 +255,7 @@ class Shop: SKScene {
               
                     //node.alpha = 0.3
                     
-                }
+                } */
             }
             
             // Does this level have Unique Properties? - add it here in the case switch
