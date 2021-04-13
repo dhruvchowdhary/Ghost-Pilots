@@ -158,18 +158,23 @@ public class MultiplayerHandler{
                 if e.value as! String == "true"{
                     for i in 0..<Global.gameData.shipsToUpdate.count {
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
-                            let pilot = SKAction.setTexture(SKTexture(imageNamed: "Mike"))
+                            self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerColor/\(e.key)")
+                            self.colorRef?.observe(DataEventType.value, with: {(snapshot) in
+                                
+                            
+                                let pilot = SKAction.setTexture(SKTexture(imageNamed: "\(snapshot.value!)"+"Pilot"))
+                                print("\(snapshot.value!)"+"Pilot")
                             Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(pilot)
                             
                             pilotList.append(e.key)
                             
                             let wait1 = SKAction.wait(forDuration: 5)
                             Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(wait1, completion:  {
-                                self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerColor/\(e.key)")
-                                self.colorRef?.observe(DataEventType.value, with: {(snapshot) in
+                 //               self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerColor/\(e.key)")
+                //                self.colorRef?.observe(DataEventType.value, with: {(snapshot) in
                                     let ship = SKAction.setTexture(SKTexture(imageNamed: snapshot.value as! String))
                                     Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(ship)
-                                })
+                                
                                 
                               
                                 Global.gameData.shipsToUpdate[i].spaceShipParent.name = "remoteparent"
@@ -182,6 +187,7 @@ public class MultiplayerHandler{
                                 
                         
                             })
+                        })
                             
                         }
                         //   print(infectedList.count)
