@@ -14,11 +14,11 @@ class Shop: SKScene {
     var backButtonNode: MSButtonNode!
     var trailsButtonNode: MSButtonNode!
     var skinsButtonNode: MSButtonNode!
-<<<<<<< Updated upstream
+
     var shopLightningBoltButtonNode: MSButtonNode!
-=======
+
     //  var shopLightningBoltButtonNode: MSButtonNode!
->>>>>>> Stashed changes
+
     let trailLabel = SKLabelNode(text: "TRAILS")
     
     let polynite = SKSpriteNode(imageNamed: "polynite2")
@@ -55,9 +55,8 @@ class Shop: SKScene {
     override func didMove(to view: SKView) {
         /* Setup your scene here */
         
-<<<<<<< Updated upstream
         Global.gameData.skView = self.view!
-=======
+
         
         //loading shop
         let shopRef = MultiplayerHandler.ref.child("Users/\(UIDevice.current.identifierForVendor!)/ShopStuff")
@@ -93,7 +92,7 @@ class Shop: SKScene {
         let data = try! JSONEncoder().encode(shopPayload)
         let json = String(data: data, encoding: .utf8)!
         DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/ShopStuff", Value: json)
->>>>>>> Stashed changes
+
         
         shopEquip.alpha = 0
         shopEquip.xScale = 0.3
@@ -282,26 +281,18 @@ class Shop: SKScene {
             node.zPosition = 5
             
             node.selectedHandler = { [self] in
+
                 
-<<<<<<< Updated upstream
-=======
-                
-                
->>>>>>> Stashed changes
-                
-                // ShadeNode and set handlers
-                
-            /*    if Global.gameData.lockerDecals.contains(decalStrings[i]){
+                if lockerDecals.contains(decalStrings[i]){
                     
                     shopEquip.position = node.position
                     
-<<<<<<< Updated upstream
+
                     DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/equippedDecal", Value: decalStrings[i])
                    
-=======
+
                     equippedDecal = decalStrings[i]
-                    
->>>>>>> Stashed changes
+
                     print("\(decalStrings[i]) equipped")
                     
                 } else {
@@ -311,20 +302,13 @@ class Shop: SKScene {
                     // subtract polynite according to price
                     Global.gameData.spendPolynite(amountToSpend: decalPrices[i])
                     
+   
                     
-<<<<<<< Updated upstream
-                    
-                
-                    
-                    Global.gameData.lockerDecals.append(decalStrings[i])
-                    
-              
-                    
-                    
-=======
                     lockerDecals.append(decalStrings[i])
                     
->>>>>>> Stashed changes
+
+                    lockerDecals.append(decalStrings[i])
+
                     polyniteLabel.text = "\(Global.gameData.polyniteCount)"
                     
                     shopEquip.alpha = 1
@@ -335,7 +319,7 @@ class Shop: SKScene {
                     node.texture = SKTexture(imageNamed: decalStrings[i] + "Purchased")
                     
                     
-                } */
+                }
             }
             
             checkForDecalStuff(node: node, string: decalStrings[i])
@@ -354,10 +338,11 @@ class Shop: SKScene {
             self.trailsButtonNode.alpha = 1
             self.shopTab = "trails"
             
-<<<<<<< Updated upstream
+
             for i in 0..<trailNodes.count {
                 trailNodes[i].alpha = 1
-=======
+            }
+
             for i in 0..<decalNodes.count {
                 decalNodes[i].alpha = 0
             }
@@ -377,7 +362,7 @@ class Shop: SKScene {
             for i in 0..<trailNodes.count {
                 trailNodes[i].alpha = 1
                 checkForTrailStuff(node: trailNodes[i], string: trailStrings[i])
->>>>>>> Stashed changes
+
             }
             
             //  print(decalNodes.count)
@@ -402,11 +387,9 @@ class Shop: SKScene {
             
             for i in 0..<decalNodes.count {
                 decalNodes[i].alpha = 1
-<<<<<<< Updated upstream
-=======
-                
+     
                 checkForDecalStuff(node: decalNodes[i], string: decalStrings[i])
->>>>>>> Stashed changes
+
             }
             
             
@@ -534,10 +517,6 @@ class Shop: SKScene {
     }
     
 }
-
-
-
-
 
 
 
