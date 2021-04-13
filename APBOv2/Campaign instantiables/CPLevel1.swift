@@ -24,6 +24,7 @@ class CPLevel1 : CPLevelBase {
         
         playerShip = CPSpaceshipBase(spaceshipSetup: CPSpaceshipSetup(imageNamed: "Player"))
         ManualSetup()
+
     }
     
 }
