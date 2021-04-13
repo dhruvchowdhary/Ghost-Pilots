@@ -14,7 +14,7 @@ class Shop: SKScene {
     var backButtonNode: MSButtonNode!
     var trailsButtonNode: MSButtonNode!
     var skinsButtonNode: MSButtonNode!
-    var shopLightningBoltButtonNode: MSButtonNode!
+  //  var shopLightningBoltButtonNode: MSButtonNode!
     let trailLabel = SKLabelNode(text: "TRAILS")
     
     let polynite = SKSpriteNode(imageNamed: "polynite2")
@@ -47,6 +47,39 @@ class Shop: SKScene {
     
     override func didMove(to view: SKView) {
         /* Setup your scene here */
+        
+        
+        
+      let shopRef = MultiplayerHandler.ref.child("Users/\(UIDevice.current.identifierForVendor!)/ShopStuff")
+        shopRef.observe(.value, with: { [self] (Snapshot) in
+                if !Snapshot.exists(){
+                    return
+                }
+                let snapVal = Snapshot.value as! String
+                let jsonData = snapVal.data(using: .utf8)
+                let payload = try! JSONDecoder().decode(ShopPayload.self, from: jsonData!)
+                
+                if payload.equippedTrail != nil{
+                    equippedDecal = payload.equippedDecal
+                    equippedTrail = payload.equippedTrail
+                    lockerTrails = payload.lockerTrails
+                    lockerDecals = payload.lockerDecals
+                    print(equippedDecal)
+                    
+                    for i in 0..<decalNodes.count {
+                        decalNodes[i].alpha = 1
+                        if decalStrings[i] == equippedDecal {
+                            shopEquip.alpha = 1
+                            shopEquip.position = decalNodes[i].position
+                        }
+                    }
+                    
+                }
+            
+        })
+        
+        print(equippedDecal)
+        
         
         Global.gameData.skView = self.view!
         
@@ -161,12 +194,13 @@ class Shop: SKScene {
                 
                 if lockerTrails.contains(trailStrings[i]){
                     //already Purchased! might be equip function
-                    
+                    equippedTrail = trailStrings[i]
                     shopEquip.position = node.position
                   //  UserDefaults.standard.setValue(trailStrings[i], forKey: "equippedTrail")
                     
                 
                     print("\(trailStrings[i]) equipped")
+                    shopEquip.alpha = 1
                     
                 } else {
                     // purchasing
@@ -176,10 +210,7 @@ class Shop: SKScene {
                     polyniteLabel.text = "\(Global.gameData.polyniteCount)"
                  lockerTrails.append(trailStrings[i])
                     
-                    let shopPayload = ShopPayload(lockerDecals: lockerDecals, lockerTrails: lockerTrails, equippedDecal: equippedDecal, equippedTrail: equippedTrail)
-                    let data = try! JSONEncoder().encode(shopPayload)
-                    let json = String(data: data, encoding: .utf8)!
-                    
+                    shopEquip.position = node.position
                     
                     shopEquip.alpha = 1
                     // subtract polynite according to price
@@ -187,6 +218,10 @@ class Shop: SKScene {
                     //node.alpha = 0.3
                     
                 }
+                let shopPayload = ShopPayload(lockerDecals: lockerDecals, lockerTrails: lockerTrails, equippedDecal: equippedDecal, equippedTrail: equippedTrail)
+                let data = try! JSONEncoder().encode(shopPayload)
+                let json = String(data: data, encoding: .utf8)!
+                DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/ShopStuff", Value: json)
             }
             
             // Does this level have Unique Properties? - add it here in the case switch
@@ -222,16 +257,20 @@ class Shop: SKScene {
             
             node.selectedHandler = { [self] in
                 
+
+                
                 
                 // ShadeNode and set handlers
                 
-                if Global.gameData.lockerDecals.contains(decalStrings[i]){
-                    
+                if lockerDecals.contains(decalStrings[i]){
+                    // equipping
                     shopEquip.position = node.position
                     
-                    DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/equippedDecal", Value: decalStrings[i])
+                    equippedDecal = decalStrings[i]
                    
                     print("\(decalStrings[i]) equipped")
+                    shopEquip.alpha = 1
+                    
                     
                 } else {
                     // purchasing
@@ -244,10 +283,10 @@ class Shop: SKScene {
                     
                 
                     
-                    Global.gameData.lockerDecals.append(decalStrings[i])
+                    lockerDecals.append(decalStrings[i])
                     
               
-                    
+                    shopEquip.position = node.position
                     
                     polyniteLabel.text = "\(Global.gameData.polyniteCount)"
                     
@@ -256,15 +295,22 @@ class Shop: SKScene {
                     //node.alpha = 0.3
                     
                 }
+                let shopPayload = ShopPayload(lockerDecals: lockerDecals, lockerTrails: lockerTrails, equippedDecal: equippedDecal, equippedTrail: equippedTrail)
+                let data = try! JSONEncoder().encode(shopPayload)
+                let json = String(data: data, encoding: .utf8)!
+                DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/ShopStuff", Value: json)
+                
             }
             
             // Does this level have Unique Properties? - add it here in the case switch
             
             scene?.addChild(node)
+            
+            
         }
         
         
-        
+  
         
         
         trailsButtonNode = self.childNode(withName: "trailsButtonUnselected") as? MSButtonNode
@@ -274,8 +320,22 @@ class Shop: SKScene {
             self.trailsButtonNode.alpha = 1
             self.shopTab = "trails"
             
+            
+            shopEquip.alpha = 0
+            
+            
+            let shopPayload = ShopPayload(lockerDecals: lockerDecals, lockerTrails: lockerTrails, equippedDecal: equippedDecal, equippedTrail: equippedTrail)
+            let data = try! JSONEncoder().encode(shopPayload)
+            let json = String(data: data, encoding: .utf8)!
+            DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/ShopStuff", Value: json)
+        
+            
             for i in 0..<trailNodes.count {
                 trailNodes[i].alpha = 1
+                if trailStrings[i] == equippedTrail {
+                    shopEquip.alpha = 1
+                    shopEquip.position = trailNodes[i].position
+                }
             }
             
             for i in 0..<decalNodes.count {
@@ -298,9 +358,20 @@ class Shop: SKScene {
             self.skinsButtonNode.texture = SKTexture(imageNamed: "skinsButtonSelected")
             self.skinsButtonNode.alpha = 1
             self.shopTab = "skins"
+            shopEquip.alpha = 0
+            
+            let shopPayload = ShopPayload(lockerDecals: lockerDecals, lockerTrails: lockerTrails, equippedDecal: equippedDecal, equippedTrail: equippedTrail)
+            let data = try! JSONEncoder().encode(shopPayload)
+            let json = String(data: data, encoding: .utf8)!
+            DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/ShopStuff", Value: json)
+            
             
             for i in 0..<decalNodes.count {
                 decalNodes[i].alpha = 1
+                if decalStrings[i] == equippedDecal {
+                    shopEquip.alpha = 1
+                    shopEquip.position = decalNodes[i].position
+                }
             }
             
             for i in 0..<trailNodes.count {
