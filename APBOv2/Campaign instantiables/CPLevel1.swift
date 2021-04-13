@@ -4,7 +4,6 @@ import SpriteKit
 class CPLevel1 : CPLevelBase {
     
     override func didMove(to view: SKView) {
-<<<<<<< Updated upstream
         let borderShape = SKShapeNode()
         
         borderShape.path = UIBezierPath(roundedRect: CGRect(x: -1000, y: -1000, width: 2000, height: 2000), cornerRadius: 40).cgPath
@@ -25,11 +24,6 @@ class CPLevel1 : CPLevelBase {
         
         playerShip = CPSpaceshipBase(spaceshipSetup: CPSpaceshipSetup(imageNamed: "Player"))
         ManualSetup()
-=======
-       // boundriesNode =
-       // playerShip = CPSpaceshipBase(spaceshipSetup: CPSpaceshipSetup())
-       // ManualSetup()
->>>>>>> Stashed changes
     }
     
 }

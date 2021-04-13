@@ -167,19 +167,26 @@ public class MultiplayerHandler{
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation = Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation - CGFloat(Double.pi/2)
                                 
                                 pilotList.append(e.key)
+                                if Global.gameData.shipsToUpdate[i].playerID == Global.playerData.playerID {
+                                    Global.gameData.isPilot = true
+                                }
                                 // turn pilot to ship with right color
-                                let wait1 = SKAction.wait(forDuration: 5)
+                                let wait1 = SKAction.wait(forDuration: 10)
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.run(wait1, completion:  {
                                     let ship = SKAction.setTexture(SKTexture(imageNamed: snapshot.value as! String), resize: true)
                                     Global.gameData.shipsToUpdate[i].spaceShipNode.run(ship)
                                     Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation = Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation + CGFloat(Double.pi/2)
-                                    
+                                    print(Global.gameData.shipsToUpdate[i].playerID)
+                                    if Global.gameData.shipsToUpdate[i].playerID == Global.playerData.playerID {
+                                        Global.gameData.isPilot = false
+                                    }
                                     Global.gameData.shipsToUpdate[i].spaceShipParent.name = "remoteparent"
                                     Global.gameData.playerShip?.spaceShipParent.name  = "parent"
                                     
                                     let i = Int(pilotList.firstIndex(of: e.key)!)
                                     pilotList.remove(at: i)
                                     MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PilotList/\(e.key)").removeValue()
+
                                 })
                             })
                         }

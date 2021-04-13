@@ -19,6 +19,7 @@ public class GameData{
     public var mode = "ffa"
     public var isFull = false
     public var infected = false
+    public var isPilot = false
     public var gameState: GameStates = GameStates.MainMenu
     public var speedMultiplier: CGFloat = 1.0
     public var polyniteCount = 0

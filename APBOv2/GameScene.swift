@@ -441,12 +441,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         shootButtonNode = self.childNode(withName: "shootButton") as? MSButtonNode
-        
-        /*
-        shootButtonNode.position.x = frame.minX + 100
-         shootButtonNode.position.y = frame.minY + 100
-        */
-        
         shootButtonNode.selectedHandler = { [self] in
             self.shootButtonNode.alpha = 0.6
             self.shootButtonNode.setScale(1.1)
@@ -456,18 +450,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
              //       self.numPoints += 100
                 //    self.points.text = "\(self.numPoints)"
                     if self.numAmmo > 0 {
-                        
                         if self.powerupMode == 0 {
-                            
-                            
                             if let ShootingExplosion = SKEmitterNode(fileNamed: "ShootingExplosion") {
                                 self.player.addChild(ShootingExplosion)
                                 ShootingExplosion.particleColorSequence = nil
                                 ShootingExplosion.particleColorBlendFactor = 1.0
                                 ShootingExplosion.position.x = 35
                                 ShootingExplosion.particleColor = UIColor(red: 255.0/255, green: 255.0/255, blue: 255.0/255, alpha:1)
-                                
-                                      }
+                            }
                         
                             
                             self.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
@@ -511,8 +501,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         
                         else if self.powerupMode == 1 {
                           
-                           
-                            
                             if self.i > 0 {
                                 
                                 if let ShootingExplosion = SKEmitterNode(fileNamed: "ShootingExplosion") {
@@ -696,7 +684,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             
                             
                             print("mine")
-                            
                             let mine = SKSpriteNode(imageNamed: "mineRing")
 
                             mine.name = "mine"
