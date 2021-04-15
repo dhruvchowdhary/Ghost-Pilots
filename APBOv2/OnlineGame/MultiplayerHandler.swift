@@ -160,7 +160,7 @@ public class MultiplayerHandler{
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
                             // turn ship to pilot with right color
                             self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerColor/\(e.key)")
-                            self.colorRef?.observe(DataEventType.value, with: {(snapshot) in
+                            self.colorRef?.observeSingleEvent(of: DataEventType.value, with: {(snapshot) in
                                 let pilot = SKAction.setTexture(SKTexture(imageNamed: "\(snapshot.value!)"+"Pilot"))
                                 
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.run(pilot)
