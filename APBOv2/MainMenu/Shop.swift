@@ -225,37 +225,37 @@ class Shop: SKScene {
                 
                 // ShadeNode and set handlers
                 
-                if Global.gameData.lockerDecals.contains(decalStrings[i]){
-                    
-                    shopEquip.position = node.position
-                    
-                    DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/equippedDecal", Value: decalStrings[i])
-                   
-                    print("\(decalStrings[i]) equipped")
-                    
-                } else {
-                    // purchasing
-                    
-                    print("bought \(decalStrings[i])")
-                    // subtract polynite according to price
-                    Global.gameData.spendPolynite(amountToSpend: decalPrices[i])
-                    
-                    
-                    
-                
-                    
-                    Global.gameData.lockerDecals.append(decalStrings[i])
-                    
-              
-                    
-                    
-                    polyniteLabel.text = "\(Global.gameData.polyniteCount)"
-                    
-                    shopEquip.alpha = 1
-              
-                    //node.alpha = 0.3
-                    
-                }
+//                if Global.gameData.lockerDecals.contains(decalStrings[i]){
+//
+//                    shopEquip.position = node.position
+//
+//                    DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/equippedDecal", Value: decalStrings[i])
+//
+//                    print("\(decalStrings[i]) equipped")
+//
+//                } else {
+//                    // purchasing
+//
+//                    print("bought \(decalStrings[i])")
+//                    // subtract polynite according to price
+//                    Global.gameData.spendPolynite(amountToSpend: decalPrices[i])
+//
+//
+//
+//
+//
+//                    Global.gameData.lockerDecals.append(decalStrings[i])
+//
+//
+//
+//
+//                    polyniteLabel.text = "\(Global.gameData.polyniteCount)"
+//
+//                    shopEquip.alpha = 1
+//
+//                    //node.alpha = 0.3
+//
+//                }
             }
             
             // Does this level have Unique Properties? - add it here in the case switch
