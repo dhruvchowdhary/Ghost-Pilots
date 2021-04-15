@@ -314,7 +314,7 @@ class Shop: SKScene {
                         //if enough then
                         if Global.gameData.polyniteCount >= decalPrices[i]
                         {
-                            loadPopup(index: i, node: node, type: "trail")
+                            loadPopup(index: i, node: node, type: "decal")
                         }
                         else {
                             Global.gameViewController!.doPopUp(popUpText: "NOT ENOUGH CREDITS")

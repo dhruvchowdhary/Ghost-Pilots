@@ -46,6 +46,20 @@ public class LocalSpaceship: SpaceshipBase {
         spaceShipNode.addChild(shipLightningBolt!)
         
         
+        switch (Global.gameData.selectedSkin) {
+        case SelectedSkin.SWIRL:
+        
+            let equippedDecal = SKSpriteNode(imageNamed: SelectedSkin.SWIRL.rawValue)
+            spaceShipNode.addChild(equippedDecal)
+            print("equipping decal in local")
+            
+        case SelectedSkin.TIGER:
+            let equippedDecal = SKSpriteNode(imageNamed: SelectedSkin.TIGER.rawValue)
+            spaceShipNode.addChild(equippedDecal)
+            print("equipping decal in local")
+        default:
+            print("this los3r has no sk1ns N00b")
+        }
        // print("redWonnnn")
        
         
