@@ -247,7 +247,7 @@ class Shop: SKScene {
                     } else {
                         // purchasing
                         //check if enough creds
-                        if Global.gameData.polyniteCount > trailPrices[i]
+                        if Global.gameData.polyniteCount >= trailPrices[i]
                         {
                             loadPopup(index: i, node: node, type: "trail")
                         }
@@ -312,7 +312,7 @@ class Shop: SKScene {
                     } else {
                         // purchasing
                         //if enough then
-                        if Global.gameData.polyniteCount > decalPrices[i]
+                        if Global.gameData.polyniteCount >= decalPrices[i]
                         {
                             loadPopup(index: i, node: node, type: "trail")
                         }
