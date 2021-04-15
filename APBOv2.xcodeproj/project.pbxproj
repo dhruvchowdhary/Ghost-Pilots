@@ -122,6 +122,10 @@
 		CE9C6D9D25E8275800D47FCC /* GameSceneBase.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */; };
 		CE9C6D9E25E8275800D47FCC /* Hud.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9B25E8275800D47FCC /* Hud.sks */; };
 		CEB716E52624BE0A003FB440 /* CPLevel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB716E42624BE0A003FB440 /* CPLevel1.swift */; };
+		CEB716F32624C61D003FB440 /* CPLevel1.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEB716F02624C61C003FB440 /* CPLevel1.sks */; };
+		CEB716F42624C61D003FB440 /* CPLevel2.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEB716F12624C61C003FB440 /* CPLevel2.sks */; };
+		CEB716F52624C61D003FB440 /* CPLevel3.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEB716F22624C61D003FB440 /* CPLevel3.sks */; };
+		CEB7170526289B59003FB440 /* CPCollisionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB7170426289B58003FB440 /* CPCollisionHandler.swift */; };
 		CEC60745260BBA5D005F5538 /* AdHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC60744260BBA5D005F5538 /* AdHandler.swift */; };
 		CEC60749260CF59D005F5538 /* Campaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC60748260CF59D005F5538 /* Campaign.swift */; };
 		CEC6074C260CF982005F5538 /* Campaign.sks in Resources */ = {isa = PBXBuildFile; fileRef = CEC6074B260CF982005F5538 /* Campaign.sks */; };
@@ -262,6 +266,10 @@
 		CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneBase.sks; sourceTree = "<group>"; };
 		CE9C6D9B25E8275800D47FCC /* Hud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Hud.sks; sourceTree = "<group>"; };
 		CEB716E42624BE0A003FB440 /* CPLevel1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPLevel1.swift; sourceTree = "<group>"; };
+		CEB716F02624C61C003FB440 /* CPLevel1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CPLevel1.sks; sourceTree = "<group>"; };
+		CEB716F12624C61C003FB440 /* CPLevel2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CPLevel2.sks; sourceTree = "<group>"; };
+		CEB716F22624C61D003FB440 /* CPLevel3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CPLevel3.sks; sourceTree = "<group>"; };
+		CEB7170426289B58003FB440 /* CPCollisionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPCollisionHandler.swift; sourceTree = "<group>"; };
 		CEC60744260BBA5D005F5538 /* AdHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdHandler.swift; sourceTree = "<group>"; };
 		CEC60748260CF59D005F5538 /* Campaign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Campaign.swift; sourceTree = "<group>"; };
 		CEC6074B260CF982005F5538 /* Campaign.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Campaign.sks; sourceTree = "<group>"; };
@@ -345,8 +353,6 @@
 				81135EE925E8312200B0F59F /* LoadLevelsMenu.sks */,
 				748CEDB3256C151F005DF246 /* SoloMenu.swift */,
 				CEDECCD925F4C18E00C01A7D /* SoloMenu.sks */,
-				CEC60748260CF59D005F5538 /* Campaign.swift */,
-				CEC6074B260CF982005F5538 /* Campaign.sks */,
 			);
 			path = SoloMenu;
 			sourceTree = "<group>";
@@ -399,7 +405,7 @@
 				810C930B25FDEA3800C298C8 /* ffaImages.atlas */,
 				810C930825FDEA3100C298C8 /* astroImages.atlas */,
 				810C930525FDEA0F00C298C8 /* infectionImages.atlas */,
-				CEC60767261F70F1005F5538 /* Campaign instantiables */,
+				CEB716F82624C930003FB440 /* Campaign */,
 				CEF30A1925CA65AC007B8B39 /* GameScenes */,
 				CEF30A1825CA65A2007B8B39 /* Spaceships */,
 				CEF309D225C1E9F3007B8B39 /* OnlineGame */,
@@ -532,16 +538,46 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		CEC60767261F70F1005F5538 /* Campaign instantiables */ = {
+		CEB716E82624C545003FB440 /* Campaign Blank SKS */ = {
+			isa = PBXGroup;
+			children = (
+				CEC6074B260CF982005F5538 /* Campaign.sks */,
+				022C0566261F9A0C00F811E5 /* CPLevelBase.sks */,
+				CEB716F02624C61C003FB440 /* CPLevel1.sks */,
+				CEB716F12624C61C003FB440 /* CPLevel2.sks */,
+				CEB716F22624C61D003FB440 /* CPLevel3.sks */,
+			);
+			path = "Campaign Blank SKS";
+			sourceTree = "<group>";
+		};
+		CEB716F82624C930003FB440 /* Campaign */ = {
+			isa = PBXGroup;
+			children = (
+				CEB7170426289B58003FB440 /* CPCollisionHandler.swift */,
+				CEC60748260CF59D005F5538 /* Campaign.swift */,
+				CEB716F92624C94E003FB440 /* Campaign Levels */,
+				CEC60767261F70F1005F5538 /* Campaign Ships */,
+			);
+			path = Campaign;
+			sourceTree = "<group>";
+		};
+		CEB716F92624C94E003FB440 /* Campaign Levels */ = {
+			isa = PBXGroup;
+			children = (
+				CEB716E42624BE0A003FB440 /* CPLevel1.swift */,
+				CEC60768261F7127005F5538 /* CPLevelBase.swift */,
+				CEB716E82624C545003FB440 /* Campaign Blank SKS */,
+			);
+			path = "Campaign Levels";
+			sourceTree = "<group>";
+		};
+		CEC60767261F70F1005F5538 /* Campaign Ships */ = {
 			isa = PBXGroup;
 			children = (
 				CEC60763261F70C5005F5538 /* CPSpaceshipBase.swift */,
-				022C0566261F9A0C00F811E5 /* CPLevelBase.sks */,
 				CEC6076C261F733B005F5538 /* CPPlayerShip.swift */,
-				CEC60768261F7127005F5538 /* CPLevelBase.swift */,
-				CEB716E42624BE0A003FB440 /* CPLevel1.swift */,
 			);
-			path = "Campaign instantiables";
+			path = "Campaign Ships";
 			sourceTree = "<group>";
 		};
 		CEF309CD25C1E82A007B8B39 /* Firebase */ = {
@@ -673,6 +709,7 @@
 				74CF6857258201BA000C4E47 /* pilotSquish3.wav in Resources */,
 				74CF6895258D787C000C4E47 /* Tutorial.sks in Resources */,
 				81135EED25E8312300B0F59F /* LoadLevelsMenu.sks in Resources */,
+				CEB716F52624C61D003FB440 /* CPLevel3.sks in Resources */,
 				810C935226085D3C00C298C8 /* GameSceneOnline.sks in Resources */,
 				74CF687E25830C93000C4E47 /* bluePlayer.sks in Resources */,
 				74CF686025828E80000C4E47 /* menuThumpnew.wav in Resources */,
@@ -690,6 +727,7 @@
 				74CF688A25843DA9000C4E47 /* explosionnew.wav in Resources */,
 				74C3CFD225506D0300757586 /* Thrusters.sks in Resources */,
 				74CF686225829627000C4E47 /* miniLaser.aiff in Resources */,
+				CEB716F42624C61D003FB440 /* CPLevel2.sks in Resources */,
 				74CF684E2581EF1D000C4E47 /* Laser2.wav in Resources */,
 				74C3CFC0253F3BED00757586 /* LaunchScreen.storyboard in Resources */,
 				81135EEF25E8312300B0F59F /* Level1.sks in Resources */,
@@ -728,6 +766,7 @@
 				74CF68502581F781000C4E47 /* menuThump.wav in Resources */,
 				CEC6074C260CF982005F5538 /* Campaign.sks in Resources */,
 				816EE12A259265D10053AE35 /* TurretShootingExplosion.sks in Resources */,
+				CEB716F32624C61D003FB440 /* CPLevel1.sks in Resources */,
 				810C933C2601319600C298C8 /* GameOverFX.sks in Resources */,
 				749EBC58255AF9E7003EA0B3 /* waves.json in Resources */,
 				810C930925FDEA3200C298C8 /* astroImages.atlas in Resources */,
@@ -828,6 +867,7 @@
 				CEC60749260CF59D005F5538 /* Campaign.swift in Sources */,
 				CEF30A2525CA65EF007B8B39 /* LocalSpaceship.swift in Sources */,
 				81EA5C5925F4414200A127A7 /* Level3.swift in Sources */,
+				CEB7170526289B59003FB440 /* CPCollisionHandler.swift in Sources */,
 				810C935B260D305500C298C8 /* Shop.swift in Sources */,
 				74C3CFB0253F3BE900757586 /* AppDelegate.swift in Sources */,
 				748500AE25E6C0730063F73B /* LobbyMenu.swift in Sources */,

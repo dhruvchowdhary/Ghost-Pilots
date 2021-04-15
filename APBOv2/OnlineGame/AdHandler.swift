@@ -61,7 +61,7 @@ public class AdHandler {
             
             GADRewardedAdBeta.load(withAdUnitID: self.rewardedID!, request: GADRequest(), completionHandler: { [self] ad, error in
                 rewarded = ad
-                rewarded!.fullScreenContentDelegate = controller as? GADFullScreenContentDelegate
+                rewarded!.fullScreenContentDelegate = controller
                 //rewarded!.present(fromRootViewController: controller!, userDidEarnRewardHandler: handler)
             })
             

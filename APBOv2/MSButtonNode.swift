@@ -45,6 +45,7 @@ class MSButtonNode: SKSpriteNode {
     override init(texture texture: SKTexture!, color color: UIColor!, size size: CGSize)
     {
         super.init(texture: texture, color: color, size: size)
+        isUserInteractionEnabled = true
     }
     /* Support for NSKeyedArchiver (loading objects from SK Scene Editor */
     required init?(coder aDecoder: NSCoder) {

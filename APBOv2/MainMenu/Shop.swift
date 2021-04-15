@@ -306,7 +306,6 @@ class Shop: SKScene {
             node.zPosition = 5
             
             node.selectedHandler = { [self] in
-
                 
                 if lockerDecals.contains(decalStrings[i]){
                     

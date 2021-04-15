@@ -74,7 +74,8 @@ class Campaign: SKScene {
         
         backButtonNode!.selectedHandlers = {
             self.view!.removeGestureRecognizer(self.panGesture)
-            Global.loadScene(s: "MainMenu")
+            //Global.loadScene(s: "MainMenu")
+            Global.loadScene(s: "CPLevel1")
         }
             
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -203,7 +204,7 @@ class Campaign: SKScene {
         let translation = sender.translation(in: self.view)
         
         var newPosition = CGPoint(
-            x: previousCameraPoint.x + translation.x * -1,
+            x: previousCameraPoint.x + translation.x * -2,
             y: previousCameraPoint.y
         )
         if newPosition.x < 0 { newPosition.x = 0}
