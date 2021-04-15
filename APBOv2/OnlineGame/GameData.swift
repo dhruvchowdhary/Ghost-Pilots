@@ -81,7 +81,7 @@ public class GameData{
 
     
     public func ResetGameData(toLobby: Bool){
-        
+        isPilot = false
         Global.multiplayerHandler.StopListenForInfectedChanges()
         Global.multiplayerHandler.StopListenForPilotChanges()
   //      Global.multiplayerHandler.StopListenForColorChanges()

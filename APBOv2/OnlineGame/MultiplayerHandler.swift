@@ -161,24 +161,32 @@ public class MultiplayerHandler{
                             // turn ship to pilot with right color
                             self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerColor/\(e.key)")
                             self.colorRef?.observe(DataEventType.value, with: {(snapshot) in
-                                let pilot = SKAction.setTexture(SKTexture(imageNamed: "\(snapshot.value!)"+"Pilot"), resize: true)
+                                let pilot = SKAction.setTexture(SKTexture(imageNamed: "\(snapshot.value!)"+"Pilot"))
                                 
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.run(pilot)
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation = Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation - CGFloat(Double.pi/2)
-                                
+                                Global.gameData.shipsToUpdate[i].spaceShipNode.size = CGSize(width: 40, height: 40)
+                                let shipThrust = Global.gameData.shipsToUpdate[i].spaceShipNode.childNode(withName: "thruster1") as! SKEmitterNode
+                                let pilotThrust = Global.gameData.shipsToUpdate[i].spaceShipNode.childNode(withName: "pilotThrust1") as! SKEmitterNode
+                                pilotThrust.particleAlpha = 1
+                                shipThrust.particleAlpha = 0
                                 pilotList.append(e.key)
                                 if Global.gameData.shipsToUpdate[i].playerID == Global.playerData.playerID {
                                     Global.gameData.isPilot = true
+                                    Global.gameData.playerShip?.spaceShipParent.childNode(withName: "bulletRotator")?.isHidden = true
                                 }
                                 // turn pilot to ship with right color
                                 let wait1 = SKAction.wait(forDuration: 10)
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.run(wait1, completion:  {
+                                    shipThrust.particleAlpha = 1
+                                    pilotThrust.particleAlpha = 0
                                     let ship = SKAction.setTexture(SKTexture(imageNamed: snapshot.value as! String), resize: true)
                                     Global.gameData.shipsToUpdate[i].spaceShipNode.run(ship)
                                     Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation = Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation + CGFloat(Double.pi/2)
                                     print(Global.gameData.shipsToUpdate[i].playerID)
                                     if Global.gameData.shipsToUpdate[i].playerID == Global.playerData.playerID {
                                         Global.gameData.isPilot = false
+                                        Global.gameData.playerShip?.spaceShipParent.childNode(withName: "bulletRotator")?.isHidden = false
                                     }
                                     Global.gameData.shipsToUpdate[i].spaceShipParent.name = "remoteparent"
                                     Global.gameData.playerShip?.spaceShipParent.name  = "parent"
@@ -190,8 +198,6 @@ public class MultiplayerHandler{
                                 })
                             })
                         }
-                        //   print(infectedList.count)
-                        //   print(Global.gameData.shipsToUpdate.count)
                     }
                 }
             }

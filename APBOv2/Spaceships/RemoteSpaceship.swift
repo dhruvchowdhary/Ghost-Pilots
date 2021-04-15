@@ -10,6 +10,7 @@ class RemoteSpaceship: SpaceshipBase {
         spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
         spaceShipNode.name = "shipnode"
         spaceShipParent.addChild(spaceShipNode)
+        spaceShipNode.addChild(pilotThrust1!)
         spaceShipNode.addChild(thruster1!)
         spaceShipNode.addChild(shipLightningBolt!)
         

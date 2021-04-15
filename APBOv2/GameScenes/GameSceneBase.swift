@@ -93,7 +93,6 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
     
     var geo: [SKSpriteNode] = []
     
-    
     var loadShipPosX =  -800
     var loadShipPosY =  300
     public override func didMove(to view: SKView) {
@@ -138,7 +137,7 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         
         for ship in Global.gameData.shipsToUpdate{
             ship.thruster1?.targetNode = self.scene
-            //ship.pilotThrust1?.targetNode = self.scene
+            ship.pilotThrust1?.targetNode = self.scene
             ship.shipLightningBolt?.targetNode = self.scene
         }
     }
