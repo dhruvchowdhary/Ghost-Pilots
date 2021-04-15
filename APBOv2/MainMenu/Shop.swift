@@ -147,7 +147,7 @@ class Shop: SKScene {
         addChild(polynite)
         
         polyniteLabel.text = "\(Global.gameData.polyniteCount)"
-        polyniteLabel.position = CGPoint(x: polyniteBox.position.x , y: polyniteBox.position.y - 20)
+        polyniteLabel.position = CGPoint(x: polyniteBox.position.x + 20 , y: polyniteBox.position.y - 20)
         polyniteLabel.fontName = "AvenirNext-Bold"
         polyniteLabel.fontColor = UIColor.black
         polyniteLabel.zPosition = 10
@@ -253,6 +253,7 @@ class Shop: SKScene {
                         }
                         else {
                             Global.gameViewController!.doPopUp(popUpText: "NOT ENOUGH CREDITS")
+                            print("not enoug credit")
                         }
                         
                         
@@ -311,11 +312,14 @@ class Shop: SKScene {
                     } else {
                         // purchasing
                         //if enough then
-                        loadPopup(index: i, node: node, type: "decal")
-                        
-                        //else show not enough polynite alert
-                        
-
+                        if Global.gameData.polyniteCount > decalPrices[i]
+                        {
+                            loadPopup(index: i, node: node, type: "trail")
+                        }
+                        else {
+                            Global.gameViewController!.doPopUp(popUpText: "NOT ENOUGH CREDITS")
+                            print("not enoug credit")
+                        }
                         
                     }
                     pushShopStuff()
@@ -569,7 +573,7 @@ class Shop: SKScene {
         } else {
             polyniteBox.position.x = frame.midX + 600
             polynite.position.x = polyniteBox.position.x - 80
-            polyniteLabel.position.x = polyniteBox.position.x + 50
+            polyniteLabel.position.x = polyniteBox.position.x + 60
         }
         
         let borderShape = SKShapeNode()
