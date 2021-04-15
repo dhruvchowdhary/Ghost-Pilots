@@ -34,7 +34,7 @@ class RemoteSpaceship: SpaceshipBase {
     
     override func UniqueUpdateShip(deltaTime: Double) {
         if !isPilot {
-        velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 260, dy: sin(spaceShipNode.zRotation) * 260 * Global.gameData.speedMultiplier))
+            velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 260, dy: sin(spaceShipNode.zRotation) * 260 * Global.gameData.speedMultiplier))
         } else {
             velocity = CGVector(dx: 0, dy: 0)
         }
