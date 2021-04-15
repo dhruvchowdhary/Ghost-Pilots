@@ -117,7 +117,7 @@ class Shop: SKScene {
         
         Global.gameData.skView = self.view!
 
-        Global.gameData.addPolyniteCount(delta: 900)
+        Global.gameData.addPolyniteCount(delta: 100)
         
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
