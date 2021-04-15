@@ -23,6 +23,9 @@ public class GameData{
     public var gameState: GameStates = GameStates.MainMenu
     public var speedMultiplier: CGFloat = 1.0
     public var polyniteCount = 0
+    public var selectedSkin: SelectedSkin = SelectedSkin.none
+    public var selectedTrail: SelectedTrail = SelectedTrail.none
+    
 
 
     
@@ -140,4 +143,12 @@ public class GameData{
 
 public enum GameStates {
     case MainMenu, OnlineMenu, SoloMenu, LobbyMenu, AstroBall, Infection, FFA, HostMenu, Endless, TurretBoss, Levels
+}
+
+public enum SelectedSkin: String {
+    case none, TIGER, SWIRL
+}
+
+public enum SelectedTrail: String {
+    case none, LIGHTNING
 }

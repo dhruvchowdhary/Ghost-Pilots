@@ -14,6 +14,8 @@ class Shop: SKScene {
     var backButtonNode: MSButtonNode!
     var trailsButtonNode: MSButtonNode!
     var skinsButtonNode: MSButtonNode!
+    var buyButtonNode: MSButtonNode!
+    var cancelButtonNode: MSButtonNode!
 
     var shopLightningBoltButtonNode: MSButtonNode!
 
@@ -50,7 +52,7 @@ class Shop: SKScene {
     public var equippedTrail: String = "default"
     
     
-    
+    var isBuying = false
     
     override func didMove(to view: SKView) {
         /* Setup your scene here */
@@ -60,7 +62,7 @@ class Shop: SKScene {
         
         //loading shop
         let shopRef = MultiplayerHandler.ref.child("Users/\(UIDevice.current.identifierForVendor!)/ShopStuff")
-        shopRef.observe(.value, with: { [self] (Snapshot) in
+        shopRef.observeSingleEvent(of:.value, with: { [self] (Snapshot) in
             if !Snapshot.exists(){
                 return
             }
@@ -77,6 +79,7 @@ class Shop: SKScene {
                 
                 for i in 0..<decalNodes.count {
                     decalNodes[i].alpha = 1
+                    print("hello sir")
                     if decalStrings[i] == equippedDecal {
                         shopEquip.alpha = 1
                         shopEquip.position = decalNodes[i].position
@@ -88,11 +91,30 @@ class Shop: SKScene {
         })
         
         
-        let shopPayload = ShopPayload(lockerDecals: lockerDecals, lockerTrails: lockerTrails, equippedDecal: equippedDecal, equippedTrail: equippedTrail)
-        let data = try! JSONEncoder().encode(shopPayload)
-        let json = String(data: data, encoding: .utf8)!
-        DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/ShopStuff", Value: json)
-
+       pushShopStuff()
+        
+        
+        
+        
+        let buyPopup = SKShapeNode()
+        
+        
+        let buyPopupWidth = 600
+        let buyPopupHeight = 600
+        
+        buyPopup.path = UIBezierPath(roundedRect: CGRect(x: -buyPopupWidth/2, y: -buyPopupHeight/2, width: buyPopupWidth, height: buyPopupHeight), cornerRadius: 40).cgPath
+        //borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
+        buyPopup.fillColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha:1)
+        buyPopup.strokeColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha:1)
+        buyPopup.lineWidth = 20
+        buyPopup.name = "buyPopup"
+        
+        buyPopup.zPosition = 20
+        buyPopup.alpha = 0
+        
+        
+        addChild(buyPopup)
+        
         
         shopEquip.alpha = 0
         shopEquip.xScale = 0.3
@@ -101,20 +123,8 @@ class Shop: SKScene {
         
         shopEquip.zPosition = 6
         
-        
-        
-        
-        
-        
-        // print(equippedDecal)
-        
-        
         Global.gameData.skView = self.view!
-        
-        
-        
-        
-        
+
         Global.gameData.addPolyniteCount(delta: 900)
         
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -130,7 +140,7 @@ class Shop: SKScene {
         shopDisplay.size =  CGSize(width: 298.611 / 1.2 , height: 172.222 / 1.2)
         addChild(shopDisplay)
         shopDisplay.zPosition = 5
-        
+  
         
         
         
@@ -152,6 +162,27 @@ class Shop: SKScene {
         polyniteLabel.fontSize = 80 / 1.5
         addChild(polyniteLabel)
         
+        buyButtonNode = self.childNode(withName: "buttonBuy") as? MSButtonNode
+        buyButtonNode.selectedHandlers = {
+            self.buyButtonNode.alpha = 0
+            self.isBuying = true
+        }
+        cancelButtonNode = self.childNode(withName: "buttonCancel") as? MSButtonNode
+        cancelButtonNode.selectedHandlers = {
+            buyPopup.removeAllChildren()
+            self.cancelButtonNode.alpha = 0
+            buyPopup.alpha = 0
+            self.buyButtonNode.alpha = 0
+            
+        }
+        
+        buyButtonNode.position = CGPoint(x: frame.midX + 150 , y: buyPopup.position.y - 200)
+        cancelButtonNode.position = CGPoint(x: frame.midX - 150, y: buyPopup.position.y - 200)
+        buyButtonNode.zPosition = 9
+        cancelButtonNode.zPosition = 9
+        buyButtonNode.alpha = 0
+        cancelButtonNode.alpha = 0
+        
         decalNodes =
             [
                 MSButtonNode(imageNamed: "decalNodeStripe"), MSButtonNode(imageNamed: "decalNodeSwirl")
@@ -161,7 +192,7 @@ class Shop: SKScene {
         
         decalStrings =
             [
-                "decalStripe", "decalSwirl"
+                "TIGER", "SWIRLS"
             ]
         
         decalPrices =
@@ -176,7 +207,7 @@ class Shop: SKScene {
         
         trailStrings =
             [
-                "trailLightning"
+                "LIGHTNING"
             ]
         trailPrices =
             [
@@ -215,50 +246,46 @@ class Shop: SKScene {
                 
                 if lockerTrails.contains(trailStrings[i]){
                     //already Purchased! might be equip function
-                    
+                    shopEquip.alpha = 1
                     shopEquip.position = node.position
-                    //  UserDefaults.standard.setValue(trailStrings[i], forKey: "equippedTrail")
-                    
-                    
+
                     print("\(trailStrings[i]) equipped")
+                    
+                    equippedTrail = trailStrings[i]
+                    
+                    
+                    
+                    Global.gameData.selectedTrail = SelectedTrail(rawValue: equippedTrail)!
+
+                    
+
+                    
                     
                 } else {
                     // purchasing
+                    //check if enough creds
                     
-                    print("bought \(trailStrings[i])")
-                    Global.gameData.spendPolynite(amountToSpend: trailPrices[i])
-                    polyniteLabel.text = "\(Global.gameData.polyniteCount)"
+                    //if enough then
+                    loadPopup(index: i, node: node, type: "trail")
                     
-                    
-                    let shopPayload = ShopPayload(lockerDecals: lockerDecals, lockerTrails: lockerTrails, equippedDecal: equippedDecal, equippedTrail: equippedTrail)
-                    let data = try! JSONEncoder().encode(shopPayload)
-                    let json = String(data: data, encoding: .utf8)!
-                    
-                    
-                    shopEquip.alpha = 1
-                    // prompt buy menu, if bougt then vvv
-                    
-                    lockerTrails.append(trailStrings[i])
-                    
-                    node.texture = SKTexture(imageNamed: trailStrings[i] + "Purchased")
-                    print(trailStrings[i] + "Purchased")
+                    //if buy button clicked
+                    if isBuying == true {
+                    buyingTrail(i: i, node: node)
+                    }
                 }
+                pushShopStuff()
+                
             }
             
             ///check stuff
             checkForTrailStuff(node: node, string: trailStrings[i])
-            
-            
-            
-            
             scene?.addChild(node)
         }
         
         
         for i in 0..<decalNodes.count {
             
-            
-            
+ 
             let node = decalNodes[i]
             node.isUserInteractionEnabled = true
             node.state = .MSButtonStopAlphaChanges
@@ -276,8 +303,6 @@ class Shop: SKScene {
                 node.position.x = frame.midX - 150
             }
             
-            
-            
             node.zPosition = 5
             
             node.selectedHandler = { [self] in
@@ -286,40 +311,32 @@ class Shop: SKScene {
                 if lockerDecals.contains(decalStrings[i]){
                     
                     shopEquip.position = node.position
-                    
+                    shopEquip.alpha = 1
 
-                    DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/equippedDecal", Value: decalStrings[i])
+                //    DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/equippedDecal", Value: decalStrings[i])
                    
 
                     equippedDecal = decalStrings[i]
+                    Global.gameData.selectedSkin = SelectedSkin(rawValue: equippedDecal)!
 
                     print("\(decalStrings[i]) equipped")
                     
+                    
+                    
                 } else {
                     // purchasing
+                    //if enough then
+                    loadPopup(index: i, node: node, type: "decal")
                     
-                    print("bought \(decalStrings[i])")
-                    // subtract polynite according to price
-                    Global.gameData.spendPolynite(amountToSpend: decalPrices[i])
+                    //else show not enough polynite alert
                     
-   
-                    
-                    lockerDecals.append(decalStrings[i])
-                    
-
-                    lockerDecals.append(decalStrings[i])
-
-                    polyniteLabel.text = "\(Global.gameData.polyniteCount)"
-                    
-                    shopEquip.alpha = 1
-                    
-                    
-                    
-                    shopEquip.position = node.position
-                    node.texture = SKTexture(imageNamed: decalStrings[i] + "Purchased")
-                    
+                    //if buy button clicked
+                    if isBuying == true {
+                    buyingDecal(i: i, node: node)
+                    }
                     
                 }
+                pushShopStuff()
             }
             
             checkForDecalStuff(node: node, string: decalStrings[i])
@@ -333,44 +350,23 @@ class Shop: SKScene {
         
         trailsButtonNode = self.childNode(withName: "trailsButtonUnselected") as? MSButtonNode
         trailsButtonNode.selectedHandlers = { [self] in
+            shopEquip.alpha = 0
             self.trailsButtonNode.texture = SKTexture(imageNamed: "trailsButtonSelected")
             self.skinsButtonNode.texture = SKTexture(imageNamed: "skinsButtonUnselected")
             self.trailsButtonNode.alpha = 1
             self.shopTab = "trails"
             
-
-            for i in 0..<trailNodes.count {
-                trailNodes[i].alpha = 1
-            }
-
             for i in 0..<decalNodes.count {
                 decalNodes[i].alpha = 0
             }
-            
-            
-            
-            
-            shopEquip.alpha = 0
-            
-            
-            let shopPayload = ShopPayload(lockerDecals: lockerDecals, lockerTrails: lockerTrails, equippedDecal: equippedDecal, equippedTrail: equippedTrail)
-            let data = try! JSONEncoder().encode(shopPayload)
-            let json = String(data: data, encoding: .utf8)!
-            DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/ShopStuff", Value: json)
-            
+
+
             
             for i in 0..<trailNodes.count {
                 trailNodes[i].alpha = 1
                 checkForTrailStuff(node: trailNodes[i], string: trailStrings[i])
 
             }
-            
-            //  print(decalNodes.count)
-            
-            
-            
-            
-            
             
         }
         
@@ -384,17 +380,14 @@ class Shop: SKScene {
             self.skinsButtonNode.texture = SKTexture(imageNamed: "skinsButtonSelected")
             self.skinsButtonNode.alpha = 1
             self.shopTab = "skins"
-            
+            shopEquip.alpha = 0
             for i in 0..<decalNodes.count {
                 decalNodes[i].alpha = 1
      
                 checkForDecalStuff(node: decalNodes[i], string: decalStrings[i])
 
             }
-            
-            
-            
-            
+
             for i in 0..<trailNodes.count {
                 trailNodes[i].alpha = 0
             }
@@ -415,7 +408,96 @@ class Shop: SKScene {
         backButtonNode = self.childNode(withName: "back") as? MSButtonNode
         backButtonNode.selectedHandlers = {
             self.loadMainMenu()
-            //       skView.presentScene(scene)
+        }
+        
+
+        func loadPopup(index: Int, node: MSButtonNode, type: String) {
+            var item = SKSpriteNode()
+            var itemName = SKLabelNode()
+            var prompt = SKLabelNode()
+            
+            
+            
+            
+            if type == "decal" {
+                item = SKSpriteNode(imageNamed: decalStrings[index] + "Purchased")
+                itemName = SKLabelNode(text: decalStrings[index])
+                prompt = SKLabelNode(text: "PURCHASE " + decalStrings[index] + " FOR " + String(decalPrices[index]) + " POLYNITE?")
+            }
+            else if type == "trail" {
+                item = SKSpriteNode(imageNamed: trailStrings[index] + "Purchased")
+                itemName = SKLabelNode(text: trailStrings[index])
+                prompt = SKLabelNode(text: "PURCHASE " + trailStrings[index] + " FOR " + String(trailPrices[index]) + " POLYNITE?")
+            }
+           
+            itemName.position = CGPoint(x: frame.midX, y: buyPopup.position.y + 200)
+            itemName.zPosition = 5
+            itemName.fontColor = UIColor.black
+            itemName.fontSize = 65
+            itemName.fontName = "AvenirNext-Bold"
+            
+            prompt.position = CGPoint(x: frame.midX, y: buyPopup.position.y - 110)
+            prompt.zPosition = 5
+            prompt.fontColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha:1)
+            prompt.fontSize = 30
+            prompt.fontName = "AvenirNext-Bold"
+           // item.size = item.texture.size()
+                 item.size = CGSize(width: 300, height: 300)
+            item.zPosition = 3
+            
+            buyPopup.addChild(itemName)
+            buyPopup.addChild(prompt)
+            buyPopup.addChild(item)
+       //     addChild(itemName)
+            
+            buyPopup.alpha = 1
+            buyButtonNode.alpha = 1
+            
+            cancelButtonNode.alpha = 1
+        }
+        func buyingTrail(i: Int, node: MSButtonNode) {
+            print("bought \(trailStrings[i])")
+            Global.gameData.spendPolynite(amountToSpend: trailPrices[i])
+            polyniteLabel.text = "\(Global.gameData.polyniteCount)"
+            
+            
+            
+            shopEquip.alpha = 1
+            shopEquip.position = node.position
+            
+            // prompt buy menu, if bougt then vvv
+            
+            lockerTrails.append(trailStrings[i])
+            
+            node.texture = SKTexture(imageNamed: trailStrings[i] + "Purchased")
+            print(trailStrings[i] + "Purchased")
+            
+            equippedTrail = trailStrings[i]
+            Global.gameData.selectedTrail = SelectedTrail(rawValue: equippedTrail)!
+            
+            
+        }
+        
+        
+        func buyingDecal(i: Int, node: MSButtonNode) {
+            
+            print("bought \(decalStrings[i])")
+            // subtract polynite according to price
+            Global.gameData.spendPolynite(amountToSpend: decalPrices[i])
+            
+            lockerDecals.append(decalStrings[i])
+
+            polyniteLabel.text = "\(Global.gameData.polyniteCount)"
+            
+            shopEquip.alpha = 1
+
+            shopEquip.position = node.position
+            node.texture = SKTexture(imageNamed: decalStrings[i] + "Purchased")
+            equippedDecal = decalStrings[i]
+
+            Global.gameData.selectedSkin = SelectedSkin(rawValue: equippedDecal)!
+            
+            
         }
         
         if UIDevice.current.userInterfaceIdiom != .pad {
@@ -446,24 +528,19 @@ class Shop: SKScene {
         borderShape.strokeColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha:1)
         borderShape.lineWidth = 20
         borderShape.name = "border"
-        borderShape.physicsBody = SKPhysicsBody(edgeChainFrom: borderShape.path!)
-        
-        borderShape.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        borderShape.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        borderShape.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        
-        borderShape.zPosition = 2
+
         
         addChild(borderShape)
         
     }
     
     func checkForTrailStuff(node: MSButtonNode, string: String) {
-        
+      //  shopEquip.alpha = 0
         if lockerTrails.contains(string) {
             node.texture = SKTexture(imageNamed: string + "Purchased")
         }
         if equippedTrail == string {
+            print("equipping \(equippedTrail)")
             shopEquip.position = node.position
             
             shopEquip.alpha = 1
@@ -472,19 +549,27 @@ class Shop: SKScene {
     }
     
     func checkForDecalStuff(node: MSButtonNode, string: String) {
-        
+   //     shopEquip.alpha = 0
         if lockerDecals.contains(string) {
             node.texture = SKTexture(imageNamed: string + "Purchased")
         }
         if equippedDecal == string {
-            shopEquip.position = node.position
-            
             shopEquip.alpha = 1
+            print("equipping \(equippedDecal)")
+            shopEquip.position = node.position
+          //  print(equippedDecal)
+            
         }
         
     }
     
-    
+    func pushShopStuff() {
+        let shopPayload = ShopPayload(lockerDecals: lockerDecals, lockerTrails: lockerTrails, equippedDecal: equippedDecal, equippedTrail: equippedTrail)
+        let data = try! JSONEncoder().encode(shopPayload)
+        let json = String(data: data, encoding: .utf8)!
+        DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/ShopStuff", Value: json)
+        print(json)
+    }
     
     
     func loadMainMenu() {
