@@ -17,9 +17,8 @@ public class SpaceshipBase {
         [SKSpriteNode(imageNamed: "bullet"),
          SKSpriteNode(imageNamed: "bullet"),
          SKSpriteNode(imageNamed: "bullet")]
-    let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
-    
-    let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
+    public let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
+    public let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
     let shipLightningBolt = SKEmitterNode(fileNamed: "shiplightningbolt")
     let decalStripe = SKSpriteNode(imageNamed: "decalStripe")
     
@@ -44,9 +43,11 @@ public class SpaceshipBase {
 
         spaceShipParent.addChild(spaceShipNode)
         spaceShipParent.addChild(spaceShipHud)
-       /*
+       
         thruster1?.name = "thruster1"
-        thruster1?.position = CGPoint(x: -30, y: 0)
+        pilotThrust1?.name = "pilotThrust1"
+        pilotThrust1?.particleAlpha = 0
+    /*    thruster1?.position = CGPoint(x: -30, y: 0)
         
         thruster1?.zPosition = -5
       

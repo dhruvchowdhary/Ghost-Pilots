@@ -5,7 +5,6 @@ import AudioToolbox
 public class LocalSpaceship: SpaceshipBase {
     
     public var isRotating = false;
-    
     public var isRecoiling = false
     public var recoilTimer: Double = 0
     
@@ -15,14 +14,14 @@ public class LocalSpaceship: SpaceshipBase {
     var turnButtonNode: MSButtonNode!
     var shootButtonNode: MSButtonNode!
     var pauseButtonNode: MSButtonNode!
-    
+    var velocity = CGVector(dx: 0, dy: 0)
     var rotation = CGFloat(0)
     var isPlayerAlive = true
     private var pilot = SKSpriteNode()
     var isPhase = false
     var isGameOver = false
     var indicateEnd = false
-    
+    var pilotForward = false
     var playerShields = 1
     var powerupMode = 0
     var doubleTap = 0
@@ -42,6 +41,7 @@ public class LocalSpaceship: SpaceshipBase {
         spaceShipNode.removeFromParent()
         spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
         spaceShipParent.addChild(spaceShipNode)
+        spaceShipNode.addChild(pilotThrust1!)
         spaceShipNode.addChild(thruster1!)
         spaceShipNode.addChild(shipLightningBolt!)
         
@@ -64,8 +64,8 @@ public class LocalSpaceship: SpaceshipBase {
         
         pilotThrust1!.zPosition = -5
         spaceShipNode.addChild(pilotThrust1!)
-        
-        pilotThrust1!.alpha = 0
+         
+         pilotThrust1!.alpha = 0
         */
        // spaceShipNode.physicsBody = SKPhysicsBody.init(texture: spaceShipNode.texture!, size: spaceShipNode.size)
         spaceShipNode.name = "shipnode"
@@ -139,8 +139,7 @@ public class LocalSpaceship: SpaceshipBase {
         turnButtonNode = spaceShipHud.childNode(withName: "turnButton") as? MSButtonNode
         turnButtonNode.selectedHandler = {
             self.isRotating = true
-            self.turnButtonNode.xScale = self.turnButtonNode.xScale * 1.1
-            self.turnButtonNode.yScale = self.turnButtonNode.yScale * 1.1
+            self.turnButtonNode.setScale(1.1)
             if self.doubleTap == 1 {
                 self.spaceShipNode.zRotation = self.spaceShipNode.zRotation - 3.141592/2 + self.rotation + 0.35
                 let movement = SKAction.moveBy(x: 60 * cos(self.spaceShipNode.zRotation), y: 60 * sin(self.spaceShipNode.zRotation), duration: 0.15)
@@ -166,8 +165,7 @@ public class LocalSpaceship: SpaceshipBase {
                 self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
             }
             self.isRotating = false
-            self.turnButtonNode.xScale = self.turnButtonNode.xScale / 1.1
-            self.turnButtonNode.yScale = self.turnButtonNode.yScale / 1.1
+            self.turnButtonNode.setScale(1)
         }
         
         pauseButtonNode = spaceShipHud.childNode(withName: "pause") as? MSButtonNode
@@ -176,23 +174,28 @@ public class LocalSpaceship: SpaceshipBase {
         shootButtonNode = spaceShipHud.childNode(withName: "shootButton") as? MSButtonNode
         shootButtonNode.selectedHandler = {
             self.shootButtonNode.alpha = 0.6
-            self.shootButtonNode.xScale = self.shootButtonNode.xScale * 1.1
-            self.shootButtonNode.yScale = self.shootButtonNode.yScale * 1.1
-            
-            if self.isPlayerAlive && self.unfiredBullets.count > 0 {
-                Global.gameData.playerShip?.Shoot(shotType: 0)
-                self.shotsRef.child("shot " + String(self.currentShotCountBuddy)).setValue("e")
-                self.currentShotCountBuddy += 1;
-                
-          //   self.spaceShipNode.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
+            self.shootButtonNode.setScale(1.1)
+            if !Global.gameData.isPilot {
+                if self.unfiredBullets.count > 0 {
+                    Global.gameData.playerShip?.Shoot(shotType: 0)
+                    self.shotsRef.child("shot " + String(self.currentShotCountBuddy)).setValue("e")
+                    self.currentShotCountBuddy += 1;
+                    //   self.spaceShipNode.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
+                }
+            } else {
+                self.pilotForward = true
+                self.pilotThrust1?.particleAlpha = 1
             }
         }
         shootButtonNode.selectedHandlers = {
-            self.shootButtonNode.xScale = self.shootButtonNode.xScale/1.1
-            self.shootButtonNode.yScale = self.shootButtonNode.yScale/1.1
+            self.shootButtonNode.setScale(1)
             if !self.isGameOver {
                 self.shootButtonNode.alpha = 0.8
-                self.pilotThrust1?.particleAlpha = 0
+                if Global.gameData.isPilot {
+                    self.pilotForward = false
+                    self.velocity = CGVector(dx: self.velocity.dx*0.5, dy: self.velocity.dy*0.5)
+                    self.pilotThrust1?.particleAlpha = 0
+                }
             } else {
                 self.shootButtonNode.alpha = 0
             }
@@ -309,9 +312,7 @@ public class LocalSpaceship: SpaceshipBase {
                     GameOverFX?.particleColorBlendFactor = 1.0
                     GameOverFX?.particleColor = UIColor(red: 255/255, green: 85/255, blue: 85/255, alpha:1)
                     self.spaceShipHud.addChild(GameOverFX!)
-                    
-                  
-                    
+                            
                     
 //                    print("uh ohred")
                     indicateEnd = true
@@ -401,7 +402,6 @@ public class LocalSpaceship: SpaceshipBase {
     override func UniqueUpdateShip(deltaTime: Double) {
         
 
-    
             // Handle rotation and movement
             if (isRotating){
                 spaceShipNode.zRotation -= CGFloat(Double.pi * 1.3 * deltaTime)
@@ -409,19 +409,17 @@ public class LocalSpaceship: SpaceshipBase {
             
             if isRecoiling {
                 recoilTimer -= deltaTime
-                if recoilTimer < 0
-                {
+                if recoilTimer < 0 {
                     isRecoiling = false
+                } else {
+                    velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 220, dy: sin(spaceShipNode.zRotation) * 220 * Global.gameData.speedMultiplier))
                 }
-                else {
-                    let velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 220, dy: sin(spaceShipNode.zRotation) * 220 * Global.gameData.speedMultiplier))
-                    spaceShipParent.physicsBody?.velocity = velocity
-                }
-            } else {
-                let velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 260, dy: sin(spaceShipNode.zRotation) * 260 * Global.gameData.speedMultiplier))
-                spaceShipParent.physicsBody?.velocity = velocity
+            } else if !Global.gameData.isPilot {
+                velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 260, dy: sin(spaceShipNode.zRotation) * 260 * Global.gameData.speedMultiplier))
+            } else if pilotForward {
+                velocity = (CGVector(dx: cos(self.spaceShipNode.zRotation + CGFloat(Double.pi/2)) * 260, dy: sin(self.spaceShipNode.zRotation + CGFloat(Double.pi/2)) * 260 * Global.gameData.speedMultiplier))
             }
-        
+        spaceShipParent.physicsBody?.velocity = velocity
         
         if framesTilPos < 0 {
             let payload = Payload(posX: spaceShipParent.position.x, posY: spaceShipParent.position.y, angleRad: spaceShipNode.zRotation, velocity: nil)
