@@ -162,7 +162,9 @@ public class MultiplayerHandler{
                             self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerColor/\(e.key)")
                             self.colorRef?.observeSingleEvent(of: DataEventType.value, with: {(snapshot) in
                                 let pilot = SKAction.setTexture(SKTexture(imageNamed: "\(snapshot.value!)"+"Pilot"))
-                                
+                                if let ship = Global.gameData.shipsToUpdate[i] as? RemoteSpaceship {
+                                    ship.isPilot = true
+                                }
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.run(pilot)
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation = Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation - CGFloat(Double.pi/2)
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.size = CGSize(width: 40, height: 40)
@@ -180,6 +182,9 @@ public class MultiplayerHandler{
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.run(wait1, completion:  {
                                     shipThrust.particleAlpha = 1
                                     pilotThrust.particleAlpha = 0
+                                    if let ship = Global.gameData.shipsToUpdate[i] as? RemoteSpaceship {
+                                        ship.isPilot = false
+                                    }
                                     let ship = SKAction.setTexture(SKTexture(imageNamed: snapshot.value as! String), resize: true)
                                     Global.gameData.shipsToUpdate[i].spaceShipNode.run(ship)
                                     Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation = Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation + CGFloat(Double.pi/2)
@@ -194,7 +199,7 @@ public class MultiplayerHandler{
                                     let i = Int(pilotList.firstIndex(of: e.key)!)
                                     pilotList.remove(at: i)
                                     MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PilotList/\(e.key)").removeValue()
-
+                                    
                                 })
                             })
                         }

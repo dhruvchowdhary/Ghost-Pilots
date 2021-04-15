@@ -59,8 +59,8 @@ class GameSceneOnline: GameSceneBase {
         let firstNode = sortedNodes[0]
         let secondNode = sortedNodes[1]
 
-        //print("first Node is   \(String(describing: firstNode.name))")
-     //   print("second Node is  \(String(describing: secondNode.name))")
+      //  print("first Node is   \(String(describing: firstNode.name))")
+      //  print("second Node is  \(String(describing: secondNode.name))")
 
 
         if firstNode.name == "border" && secondNode.name == "playerWeapon" {
@@ -71,21 +71,20 @@ class GameSceneOnline: GameSceneBase {
                    }
             secondNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
-            
-            
+
         }
         else if firstNode.name == "parent" && secondNode.name == "playerWeapon" {
-//            print("ship was shot by bullet")
+//            print("my ship was shot by bullet")
             
             secondNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
             
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PilotList/\(Global.playerData.playerID)", Value: "true")
-            firstNode.name == "pilot"
+            firstNode.name = "pilot"
         }
         
         else if firstNode.name == "pilot" && secondNode.name == "playerWeapon" {
-//            print("ship was shot by bullet")
+//            print("my pilot was shot by bullet")
             
             secondNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
@@ -93,14 +92,17 @@ class GameSceneOnline: GameSceneBase {
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/EliminatedList/\(Global.playerData.playerID)", Value: "true")
 
         }
-        
+        else if firstNode.name == "pilot" && secondNode.name == "remoteparent" {
+//            print("my pilot was run over by ship")
+            
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/EliminatedList/\(Global.playerData.playerID)", Value: "true")
+
+        }
         
         else if firstNode.name == "playerWeapon" && secondNode.name == "remoteparent" {
-//            print("ship was shot by bullet")
+//            print("I shot a ship")
             firstNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: firstNode as! SKSpriteNode)!)
-            
-            
             
         }
 

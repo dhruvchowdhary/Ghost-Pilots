@@ -3,6 +3,8 @@ import SpriteKit
 import Firebase
 
 class RemoteSpaceship: SpaceshipBase {
+    public var velocity = CGVector(dx: 0, dy: 0)
+    public var isPilot = false
     
     init(playerID: String, imageTexture: String) {
         super.init(playerId: playerID)
@@ -31,14 +33,17 @@ class RemoteSpaceship: SpaceshipBase {
     }
     
     override func UniqueUpdateShip(deltaTime: Double) {
-        let velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 260, dy: sin(spaceShipNode.zRotation) * 260 * Global.gameData.speedMultiplier))
+        if !isPilot {
+        velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 260, dy: sin(spaceShipNode.zRotation) * 260 * Global.gameData.speedMultiplier))
+        } else {
+            velocity = CGVector(dx: 0, dy: 0)
+        }
         spaceShipParent.physicsBody?.velocity = velocity
     }
     
     public func StopListenToShip(){
         Global.multiplayerHandler.StopListenForPayload(ref: posRef)
         Global.multiplayerHandler.StopListenForShots(ref: shotsRef, spaceShip: self)
-        
     }
 }
 
