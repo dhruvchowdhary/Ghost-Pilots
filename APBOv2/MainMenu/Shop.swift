@@ -247,9 +247,14 @@ class Shop: SKScene {
                     } else {
                         // purchasing
                         //check if enough creds
+                        if Global.gameData.polyniteCount > trailPrices[i]
+                        {
+                            loadPopup(index: i, node: node, type: "trail")
+                        }
+                        else {
+                            Global.gameViewController!.doPopUp(popUpText: "NOT ENOUGH CREDITS")
+                        }
                         
-                        //if enough then
-                        loadPopup(index: i, node: node, type: "trail")
                         
                         
                         
