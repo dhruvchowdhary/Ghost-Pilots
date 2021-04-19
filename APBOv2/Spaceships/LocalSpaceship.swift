@@ -42,23 +42,43 @@ public class LocalSpaceship: SpaceshipBase {
         spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
         spaceShipParent.addChild(spaceShipNode)
         spaceShipNode.addChild(pilotThrust1!)
-        spaceShipNode.addChild(thruster1!)
-        spaceShipNode.addChild(shipLightningBolt!)
         
         
         switch (Global.gameData.selectedSkin) {
+        case SelectedSkin.DEFAULT:
+            print("this los3r has no decal N00b, default decal is equipped")
+            
         case SelectedSkin.SWIRL:
         
             let equippedDecal = SKSpriteNode(imageNamed: SelectedSkin.SWIRL.rawValue)
             spaceShipNode.addChild(equippedDecal)
             print("equipping decal in local")
+        
+       
             
         case SelectedSkin.TIGER:
             let equippedDecal = SKSpriteNode(imageNamed: SelectedSkin.TIGER.rawValue)
             spaceShipNode.addChild(equippedDecal)
             print("equipping decal in local")
+       
         default:
-            print("this los3r has no sk1ns N00b")
+            print("shouldbet be here")
+        }
+        
+        
+        switch (Global.gameData.selectedTrail) {
+        case SelectedTrail.DEFAULT:
+            print("this los3r has no trails N00b, default trail is equipped")
+            spaceShipNode.addChild(trailDefault!)
+            
+            
+        case SelectedTrail.LIGHTNING:
+        
+          print("equipping trail in local")
+            spaceShipNode.addChild(trailLightning!)
+        
+        default:
+            print("umm shoudlbt be here")
         }
        // print("redWonnnn")
        
@@ -158,9 +178,9 @@ public class LocalSpaceship: SpaceshipBase {
                 self.spaceShipNode.zRotation = self.spaceShipNode.zRotation - 3.141592/2 + self.rotation + 0.35
                 let movement = SKAction.moveBy(x: 60 * cos(self.spaceShipNode.zRotation), y: 60 * sin(self.spaceShipNode.zRotation), duration: 0.15)
                 self.spaceShipParent.run(movement)
-                self.thruster1?.particleColorSequence = nil
-                self.thruster1?.particleColorBlendFactor = 1.0
-                self.thruster1?.particleColor = UIColor(red: 240.0/255, green: 50.0/255, blue: 53.0/255, alpha:1)
+                self.trailDefault?.particleColorSequence = nil
+                self.trailDefault?.particleColorBlendFactor = 1.0
+                self.trailDefault?.particleColor = UIColor(red: 240.0/255, green: 50.0/255, blue: 53.0/255, alpha:1)
                 
                 self.spaceShipNode.run(SKAction.playSoundFileNamed("swishnew", waitForCompletion: false))
                 
@@ -176,7 +196,7 @@ public class LocalSpaceship: SpaceshipBase {
         turnButtonNode.selectedHandlers = {
             
             let timer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { (timer) in
-                self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
+                self.trailDefault?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
             }
             self.isRotating = false
             self.turnButtonNode.setScale(1)

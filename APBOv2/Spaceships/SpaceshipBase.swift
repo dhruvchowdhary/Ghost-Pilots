@@ -17,10 +17,8 @@ public class SpaceshipBase {
         [SKSpriteNode(imageNamed: "bullet"),
          SKSpriteNode(imageNamed: "bullet"),
          SKSpriteNode(imageNamed: "bullet")]
-    public let thruster1 = SKEmitterNode(fileNamed: "Thrusters")
+    
     public let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
-    let shipLightningBolt = SKEmitterNode(fileNamed: "shiplightningbolt")
-    let decalStripe = SKSpriteNode(imageNamed: "decalStripe")
     
     var timeUntilNextBullet: Double = 0.8;
 
@@ -29,6 +27,16 @@ public class SpaceshipBase {
 
     public var posRef: DatabaseReference = DatabaseReference()
     public var shotsRef: DatabaseReference = DatabaseReference()
+    
+    
+    // trails
+    public let trailDefault = SKEmitterNode(fileNamed: "Thrusters")
+    public let trailLightning = SKEmitterNode(fileNamed: "trailLightning")
+    
+    //decals
+    public let decalStripe = SKSpriteNode(imageNamed: "decalStripe")
+    
+
    
 
     init(playerId: String) {
@@ -44,7 +52,7 @@ public class SpaceshipBase {
         spaceShipParent.addChild(spaceShipNode)
         spaceShipParent.addChild(spaceShipHud)
        
-        thruster1?.name = "thruster1"
+       // thruster1?.name = "thruster1"
         pilotThrust1?.name = "pilotThrust1"
         pilotThrust1?.particleAlpha = 0
     /*    thruster1?.position = CGPoint(x: -30, y: 0)

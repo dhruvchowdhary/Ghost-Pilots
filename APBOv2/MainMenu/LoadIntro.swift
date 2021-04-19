@@ -42,12 +42,21 @@ class LoadIntro: SKScene {
             let payload = try! JSONDecoder().decode(ShopPayload.self, from: jsonData!)
             
             if payload.equippedTrail != "default" {
+                print("equipped trail is \(payload.equippedTrail)")
                 Global.gameData.selectedTrail = SelectedTrail(rawValue: payload.equippedTrail)!
+            }
+            else {
+                print("equipped trail is none")
+                Global.gameData.selectedTrail = SelectedTrail(rawValue: "none")!
             }
             
             if payload.equippedDecal != "default" {
-            
+                print("equipped skin is \(payload.equippedDecal)")
                 Global.gameData.selectedSkin  = SelectedSkin(rawValue: payload.equippedDecal)!
+            }
+            else {
+                print("equipped skin is none")
+                Global.gameData.selectedSkin  = SelectedSkin(rawValue: "none")!
             }
         })
         

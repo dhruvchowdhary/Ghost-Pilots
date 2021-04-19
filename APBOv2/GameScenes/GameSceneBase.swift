@@ -136,9 +136,9 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         self.dimPanel.alpha = 0;
         
         for ship in Global.gameData.shipsToUpdate{
-            ship.thruster1?.targetNode = self.scene
+            ship.trailDefault?.targetNode = self.scene
             ship.pilotThrust1?.targetNode = self.scene
-            ship.shipLightningBolt?.targetNode = self.scene
+            ship.trailLightning?.targetNode = self.scene
         }
     }
     

@@ -44,10 +44,10 @@ class Shop: SKScene {
     
     // var equippedTrail = UserDefaults.standard.string(forKey: "equippedTrail")
     
-    public var lockerDecals: [String] = []
+    public var lockerDecals: [String] = ["DEFAULT"]
     public var lockerTrails: [String] = []
-    public var equippedDecal: String = "default"
-    public var equippedTrail: String = "default"
+    public var equippedDecal: String = "DEFAULT"
+    public var equippedTrail: String = "DEFAULT"
     
     let buyPopup = SKShapeNode()
     
@@ -79,8 +79,11 @@ class Shop: SKScene {
             }
         })
         
+        // buy defaults
+        checkForDecalStuff(node: MSButtonNode(imageNamed: "DEFAULTPurchased"), string: "DEFAULT")
         
      //  pushShopStuff()
+        
         
         let buyPopupWidth = 600
         let buyPopupHeight = 600
@@ -124,8 +127,7 @@ class Shop: SKScene {
         addChild(shopDisplay)
         shopDisplay.zPosition = 5
   
-        
-        
+
         
         polyniteBox.size = CGSize(width: 391.466 / 1.5, height: 140.267 / 1.5)
         polyniteBox.position = CGPoint(x: frame.midX + 720, y: frame.midY + 340)
@@ -156,19 +158,19 @@ class Shop: SKScene {
       
         decalNodes =
             [
-                MSButtonNode(imageNamed: "decalNodeStripe"), MSButtonNode(imageNamed: "decalNodeSwirl")
+                MSButtonNode(imageNamed: "DEFAULTPurchased"), MSButtonNode(imageNamed: "decalNodeStripe"), MSButtonNode(imageNamed: "decalNodeSwirl")
             ]
         
         
         
         decalStrings =
             [
-                "TIGER", "SWIRL"
+                "DEFAULT", "TIGER", "SWIRL"
             ]
         
         decalPrices =
             [
-                500, 500
+                0,500, 500
             ]
         
         trailNodes =
@@ -278,7 +280,7 @@ class Shop: SKScene {
                     node.position.y = decalNodes[i-1].position.y
                 } else {
                     node.position.y = frame.midY - 150
-                    node.position.x = frame.midX - 150
+                    node.position.x = frame.midX - 300
                 }
                 
                 node.zPosition = 5
