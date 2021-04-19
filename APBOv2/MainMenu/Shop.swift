@@ -75,21 +75,12 @@ class Shop: SKScene {
                 lockerTrails = payload.lockerTrails
                 lockerDecals = payload.lockerDecals
                 //   print(equippedDecal)
-                
-                
                 print(payload)
-                
             }
-            
         })
         
         
      //  pushShopStuff()
-        
-        
-        
-        
-        
         
         let buyPopupWidth = 600
         let buyPopupHeight = 600

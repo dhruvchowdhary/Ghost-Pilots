@@ -30,5 +30,29 @@ class LoadIntro: SKScene {
             }
         }
         
+        let shopRef = MultiplayerHandler.ref.child("Users/\(UIDevice.current.identifierForVendor!)/ShopStuff")
+       
+            shopRef.observeSingleEvent(of:.value, with: { [self] (Snapshot) in
+            if !Snapshot.exists(){
+                return
+            }
+            
+            let snapVal = Snapshot.value as! String
+            let jsonData = snapVal.data(using: .utf8)
+            let payload = try! JSONDecoder().decode(ShopPayload.self, from: jsonData!)
+            
+            if payload.equippedTrail != "default" {
+                Global.gameData.selectedTrail = SelectedTrail(rawValue: payload.equippedTrail)!
+            }
+            
+            if payload.equippedDecal != "default" {
+            
+                Global.gameData.selectedSkin  = SelectedSkin(rawValue: payload.equippedDecal)!
+            }
+        })
+        
+        
+        
+        
     }
 }
