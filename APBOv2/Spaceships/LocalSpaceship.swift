@@ -154,7 +154,7 @@ public class LocalSpaceship: SpaceshipBase {
         turnButtonNode.selectedHandler = {
             self.isRotating = true
             self.turnButtonNode.setScale(1.1)
-            if self.doubleTap == 1 {
+            if self.doubleTap == 1 && !Global.gameData.isPilot {
                 self.spaceShipNode.zRotation = self.spaceShipNode.zRotation - 3.141592/2 + self.rotation + 0.35
                 let movement = SKAction.moveBy(x: 60 * cos(self.spaceShipNode.zRotation), y: 60 * sin(self.spaceShipNode.zRotation), duration: 0.15)
                 self.spaceShipParent.run(movement)
