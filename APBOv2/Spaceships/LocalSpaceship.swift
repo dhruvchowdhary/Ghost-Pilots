@@ -50,14 +50,14 @@ public class LocalSpaceship: SpaceshipBase {
             
         case SelectedSkin.SWIRL:
         
-            let equippedDecal = SKSpriteNode(imageNamed: SelectedSkin.SWIRL.rawValue)
+            let equippedDecal = SKSpriteNode(imageNamed: "SWIRL")
             spaceShipNode.addChild(equippedDecal)
             print("equipping decal in local")
         
        
             
         case SelectedSkin.TIGER:
-            let equippedDecal = SKSpriteNode(imageNamed: SelectedSkin.TIGER.rawValue)
+            let equippedDecal = SKSpriteNode(imageNamed: "TIGER")
             spaceShipNode.addChild(equippedDecal)
             print("equipping decal in local")
        
