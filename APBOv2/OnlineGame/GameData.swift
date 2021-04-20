@@ -23,8 +23,8 @@ public class GameData{
     public var gameState: GameStates = GameStates.MainMenu
     public var speedMultiplier: CGFloat = 1.0
     public var polyniteCount = 0
-    public var selectedSkin: SelectedSkin = SelectedSkin.DEFAULT
-    public var selectedTrail: SelectedTrail = SelectedTrail.DEFAULT
+    public var selectedSkin: SelectedSkin = SelectedSkin.DEFAULTDECAL
+    public var selectedTrail: SelectedTrail = SelectedTrail.DEFAULTTRAIL
     
 
 
@@ -146,9 +146,9 @@ public enum GameStates {
 }
 
 public enum SelectedSkin: String {
-    case DEFAULT, TIGER, SWIRL
+    case DEFAULTDECAL, TIGER , SWIRL
 }
 
 public enum SelectedTrail: String {
-    case DEFAULT, LIGHTNING
+    case DEFAULTTRAIL, LIGHTNING
 }

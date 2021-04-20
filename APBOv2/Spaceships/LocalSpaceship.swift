@@ -45,7 +45,7 @@ public class LocalSpaceship: SpaceshipBase {
         
         
         switch (Global.gameData.selectedSkin) {
-        case SelectedSkin.DEFAULT:
+        case SelectedSkin.DEFAULTDECAL:
             print("this los3r has no decal N00b, default decal is equipped")
             
         case SelectedSkin.SWIRL:
@@ -67,7 +67,7 @@ public class LocalSpaceship: SpaceshipBase {
         
         
         switch (Global.gameData.selectedTrail) {
-        case SelectedTrail.DEFAULT:
+        case SelectedTrail.DEFAULTTRAIL:
             print("this los3r has no trails N00b, default trail is equipped")
             spaceShipNode.addChild(trailDefault!)
             
