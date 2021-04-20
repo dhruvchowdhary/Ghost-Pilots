@@ -45,9 +45,9 @@ class Shop: SKScene {
     // var equippedTrail = UserDefaults.standard.string(forKey: "equippedTrail")
     
     public var lockerDecals: [String] = ["DEFAULTDECAL"]
-    public var lockerTrails: [String] = []
+    public var lockerTrails: [String] = ["DEFAULTTRAIL"]
     public var equippedDecal: String = "DEFAULTDECAL"
-    public var equippedTrail: String = "default"
+    public var equippedTrail: String = "DEFAULTTRAIL"
     
     let buyPopup = SKShapeNode()
     
@@ -175,16 +175,16 @@ class Shop: SKScene {
         
         trailNodes =
             [
-                MSButtonNode(imageNamed: "trailNodeLightning")
+                MSButtonNode(imageNamed: "DEFAULTTRAILPurchased"), MSButtonNode(imageNamed: "trailNodeLightning")
             ]
         
         trailStrings =
             [
-                "LIGHTNING"
+                "DEFAULTTRAIL", "LIGHTNING"
             ]
         trailPrices =
             [
-                100
+                0,100
             ]
         
         
@@ -205,11 +205,11 @@ class Shop: SKScene {
                 
                 // Position node
                 if i != 0 {
-                    node.position.x = trailNodes[i-1].position.x + 400
+                    node.position.x = trailNodes[i-1].position.x + 300
                     node.position.y = trailNodes[i-1].position.y
                 } else {
                     node.position.y = frame.midY - 150
-                    node.position.x = frame.midX - 400
+                    node.position.x = frame.midX - 300
                 }
                 
                 

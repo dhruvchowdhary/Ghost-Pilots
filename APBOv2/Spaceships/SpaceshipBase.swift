@@ -34,7 +34,7 @@ public class SpaceshipBase {
     public let trailLightning = SKEmitterNode(fileNamed: "trailLightning")
     
     //decals
-    public let decalStripe = SKSpriteNode(imageNamed: "decalStripe")
+  //  public let decalStripe = SKSpriteNode(imageNamed: "decalStripe")
     
 
    

@@ -52,14 +52,14 @@ public class LocalSpaceship: SpaceshipBase {
         
             let equippedDecal = SKSpriteNode(imageNamed: "SWIRL")
             spaceShipNode.addChild(equippedDecal)
-            print("equipping decal in local")
+            print("equipping decal SWIRL in local")
         
        
             
         case SelectedSkin.TIGER:
             let equippedDecal = SKSpriteNode(imageNamed: "TIGER")
             spaceShipNode.addChild(equippedDecal)
-            print("equipping decal in local")
+            print("equipping decal TIGER in local")
        
         default:
             print("shouldbet be here")
@@ -74,7 +74,7 @@ public class LocalSpaceship: SpaceshipBase {
             
         case SelectedTrail.LIGHTNING:
         
-          print("equipping trail in local")
+          print("equipping LIGHTNING in local")
             spaceShipNode.addChild(trailLightning!)
         
         default:
