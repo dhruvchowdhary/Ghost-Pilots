@@ -79,6 +79,8 @@ class LobbyMenu: SKScene {
         }
         startButtonNode = self.childNode(withName: "startButton") as? MSButtonNode
         startButtonNode.selectedHandlers = {
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerSkin", Value: Global.gameData.selectedSkin.rawValue)
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerTrail", Value: Global.gameData.selectedTrail.rawValue)
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Game")
             //====================================
         }
