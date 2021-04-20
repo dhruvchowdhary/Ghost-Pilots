@@ -44,10 +44,10 @@ class Shop: SKScene {
     
     // var equippedTrail = UserDefaults.standard.string(forKey: "equippedTrail")
     
-    public var lockerDecals: [String] = ["DEFAULT"]
+    public var lockerDecals: [String] = ["DEFAULTDECAL"]
     public var lockerTrails: [String] = []
-    public var equippedDecal: String = "DEFAULT"
-    public var equippedTrail: String = "DEFAULT"
+    public var equippedDecal: String = "DEFAULTDECAL"
+    public var equippedTrail: String = "default"
     
     let buyPopup = SKShapeNode()
     
@@ -80,7 +80,7 @@ class Shop: SKScene {
         })
         
         // buy defaults
-        checkForDecalStuff(node: MSButtonNode(imageNamed: "DEFAULTPurchased"), string: "DEFAULT")
+        checkForDecalStuff(node: MSButtonNode(imageNamed: "DEFAULTDECALPurchased"), string: "DEFAULTDECAL")
         
      //  pushShopStuff()
         
@@ -158,14 +158,14 @@ class Shop: SKScene {
       
         decalNodes =
             [
-                MSButtonNode(imageNamed: "DEFAULTPurchased"), MSButtonNode(imageNamed: "decalNodeStripe"), MSButtonNode(imageNamed: "decalNodeSwirl")
+                MSButtonNode(imageNamed: "DEFAULTDECALPurchased"), MSButtonNode(imageNamed: "decalNodeStripe"), MSButtonNode(imageNamed: "decalNodeSwirl")
             ]
         
         
         
         decalStrings =
             [
-                "DEFAULT", "TIGER", "SWIRL"
+                "DEFAULTDECAL", "TIGER", "SWIRL"
             ]
         
         decalPrices =
