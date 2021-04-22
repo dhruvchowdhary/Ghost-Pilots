@@ -114,7 +114,7 @@ class MainMenu: SKScene {
         addChild(polynite)
         
         polyniteLabel.text = "\(Global.gameData.polyniteCount)"
-        polyniteLabel.position = CGPoint(x: polyniteBox.position.x + 20 , y: polyniteBox.position.y - 20)
+        polyniteLabel.position = CGPoint(x: polyniteBox.position.x + 30 , y: polyniteBox.position.y - 20)
         polyniteLabel.fontName = "AvenirNext-Bold"
         polyniteLabel.fontColor = UIColor.black
         polyniteLabel.zPosition = 10
