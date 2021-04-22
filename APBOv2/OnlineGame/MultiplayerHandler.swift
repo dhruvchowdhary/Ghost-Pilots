@@ -159,7 +159,7 @@ public class MultiplayerHandler{
                     for i in 0..<Global.gameData.shipsToUpdate.count {
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
                             // turn ship to pilot with right color
-                            self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerColor/\(e.key)")
+                            self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(e.key)")
                             self.colorRef?.observeSingleEvent(of: DataEventType.value, with: {(snapshot) in
                                 let pilot = SKAction.setTexture(SKTexture(imageNamed: "\(snapshot.value!)"+"Pilot"))
                                 if let ship = Global.gameData.shipsToUpdate[i] as? RemoteSpaceship {
@@ -390,10 +390,11 @@ public class MultiplayerHandler{
         }
         
         public func ListenForColorChanges() {
-            self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerColor")
+            self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor")
             colorRef?.observe(DataEventType.value, with: { (snapshot) in
                 for child in snapshot.children {
                     let e = child as! DataSnapshot
+                    print("hey")
                     //    self.pullGameStatus()
                     // print(Global.gameData.status)
                     //  if Global.gameData.status == "Game" {
@@ -408,9 +409,10 @@ public class MultiplayerHandler{
         }
         
         public func ListenForColorChangesLobby() {
-            self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerColor")
+            self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor")
             colorRef?.observe(DataEventType.value, with: { (snapshot) in
                 for child in snapshot.children {
+                    print("heyyyyyyyy")
                     let e = child as! DataSnapshot
                     if Global.gameData.gameState == GameStates.LobbyMenu {
                         //               if Global.playerData.playerID != e.key {

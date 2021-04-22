@@ -79,8 +79,6 @@ class LobbyMenu: SKScene {
         }
         startButtonNode = self.childNode(withName: "startButton") as? MSButtonNode
         startButtonNode.selectedHandlers = {
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerSkin", Value: Global.gameData.selectedSkin.rawValue)
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerTrail", Value: Global.gameData.selectedTrail.rawValue)
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Game")
             //====================================
         }
@@ -217,6 +215,8 @@ class LobbyMenu: SKScene {
     }
     
     func StartGame(){
+        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerSkin", Value: Global.gameData.selectedSkin.rawValue)
+        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerTrail", Value: Global.gameData.selectedTrail.rawValue)
         if list.count > 1 {
             randInt = Global.gameData.gameID % (list.count)
         }
@@ -227,11 +227,11 @@ class LobbyMenu: SKScene {
                 case "infection":
                     if list.firstIndex(of: s) == randInt {
                         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/InfectedList/\(Global.playerData.playerID)", Value: "true")
-                        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerColor", Value: "apboGreen")
+                        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(Global.playerData.playerID)", Value: "apboGreen")
                         spaceship = LocalSpaceship(imageTexture: intToColorInfection[0]!)
                         Global.playerData.color = "apboGreen"
                     } else {
-                        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerColor", Value: "apboWhite")
+                        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(Global.playerData.playerID)", Value: "apboWhite")
                         spaceship = LocalSpaceship(imageTexture: intToColorInfection[1]!)
                         Global.playerData.color = "apboWhite"
                     }
@@ -296,7 +296,7 @@ class LobbyMenu: SKScene {
             userColor.texture = SKTexture(imageNamed: intToColor[index % 9]!)
             colorIndex = index
             if isPlayer {
-                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerColor", Value: self.intToColor[self.colorIndex]!)
+                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex]!)
                 userColor.selectedHandlers = {
                     if self.colorIndex == 8 {
                         self.colorIndex = 0
@@ -304,7 +304,7 @@ class LobbyMenu: SKScene {
                         self.colorIndex = self.colorIndex + 1
                     }
                     userColor.texture = SKTexture(imageNamed: self.intToColor[self.colorIndex]!)
-                    DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerColor", Value: self.intToColor[self.colorIndex]!)
+                    DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex]!)
                     userColor.alpha = 1
                 }
             } else {
@@ -316,7 +316,7 @@ class LobbyMenu: SKScene {
             userColor.texture = SKTexture(imageNamed: intToColor[index % 2]!)
             colorIndex = index
             if isPlayer {
-                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerColor", Value: self.intToColor[self.colorIndex%2]!)
+                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex%2]!)
                 userColor.selectedHandlers = {
                     if self.colorIndex == 1 {
                         self.colorIndex = 0
@@ -324,7 +324,7 @@ class LobbyMenu: SKScene {
                         self.colorIndex = 1
                     }
                     userColor.texture = SKTexture(imageNamed: self.intToColor[self.colorIndex%2]!)
-                    DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerColor", Value: self.intToColor[self.colorIndex%2]!)
+                    DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex%2]!)
                     userColor.alpha = 1
                 }
             } else {
@@ -335,7 +335,7 @@ class LobbyMenu: SKScene {
         default:
             userColor.texture = SKTexture(imageNamed: intToColor[index % 9]!)
             colorIndex = index
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerColor", Value: self.intToColor[self.colorIndex]!)
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex]!)
             userColor.selectedHandlers = {
                 if self.colorIndex == 8 {
                     self.colorIndex = 0
@@ -343,7 +343,7 @@ class LobbyMenu: SKScene {
                     self.colorIndex = self.colorIndex + 1
                 }
                 userColor.texture = SKTexture(imageNamed: self.intToColor[self.colorIndex]!)
-                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerColor", Value: self.intToColor[self.colorIndex]!)
+                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex]!)
                 userColor.alpha = 1
             }
         }
