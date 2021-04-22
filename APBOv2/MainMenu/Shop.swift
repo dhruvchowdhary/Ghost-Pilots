@@ -49,6 +49,10 @@ class Shop: SKScene {
     public var equippedDecal: String = "DEFAULTDECAL"
     public var equippedTrail: String = "DEFAULTTRAIL"
     
+    
+    var decalNameTitle: [SKLabelNode] = []
+    var trailNameTitle: [SKLabelNode] = []
+    
     let buyPopup = SKShapeNode()
     
     var isBuying = false
@@ -122,7 +126,7 @@ class Shop: SKScene {
         
         
         let shopDisplay = SKSpriteNode(imageNamed: "shop")
-        shopDisplay.position = CGPoint(x: frame.midX, y: frame.midY + 300)
+        shopDisplay.position = CGPoint(x: frame.midX, y: frame.midY + 320)
         shopDisplay.size =  CGSize(width: 298.611 / 1.2 , height: 172.222 / 1.2)
         addChild(shopDisplay)
         shopDisplay.zPosition = 5
@@ -140,7 +144,7 @@ class Shop: SKScene {
         addChild(polynite)
         
         polyniteLabel.text = "\(Global.gameData.polyniteCount)"
-        polyniteLabel.position = CGPoint(x: polyniteBox.position.x + 20 , y: polyniteBox.position.y - 20)
+        polyniteLabel.position = CGPoint(x: polyniteBox.position.x + 30 , y: polyniteBox.position.y - 20)
         polyniteLabel.fontName = "AvenirNext-Bold"
         polyniteLabel.fontColor = UIColor.black
         polyniteLabel.zPosition = 10
@@ -172,6 +176,10 @@ class Shop: SKScene {
             [
                 0,500, 500
             ]
+        decalNameTitle =
+            [
+                SKLabelNode(text: "DEFAULT"), SKLabelNode(text: "TIGER"), SKLabelNode(text: "SWIRL")
+            ]
         
         trailNodes =
             [
@@ -186,13 +194,23 @@ class Shop: SKScene {
             [
                 0,100
             ]
-        
+        trailNameTitle =
+            [
+                SKLabelNode(text: "DEFAULT"), SKLabelNode(text: "Lightning")
+            ]
         
         let wait1 = SKAction.wait(forDuration:0.1)
         let action1 = SKAction.run { [self] in
             for i in 0..<trailNodes.count {
                 
+                let name = trailNameTitle[i]
                 
+           
+                name.fontName = "AvenirNext-Bold"
+                name.fontColor = UIColor.black
+                name.zPosition = 10
+                name.fontSize = 80 / 1.5
+                name.alpha = 0
                 
                 let node = trailNodes[i]
                 node.isUserInteractionEnabled = true
@@ -207,10 +225,17 @@ class Shop: SKScene {
                 if i != 0 {
                     node.position.x = trailNodes[i-1].position.x + 300
                     node.position.y = trailNodes[i-1].position.y
+                    name.position.x = node.position.x
+                    name.position.y = node.position.y + 170
                 } else {
-                    node.position.y = frame.midY - 150
+                    node.position.y = frame.midY - 190
                     node.position.x = frame.midX - 300
+                    name.position.x = node.position.x
+                    name.position.y = node.position.y + 170
                 }
+                
+                node.zPosition = 5
+                name.zPosition = 5
                 
                 
                 node.zPosition = 5
@@ -233,9 +258,7 @@ class Shop: SKScene {
                         
                         Global.gameData.selectedTrail = SelectedTrail(rawValue: equippedTrail)!
 
-                        
-
-                        
+   
                         
                     } else {
                         // purchasing
@@ -248,10 +271,7 @@ class Shop: SKScene {
                             Global.gameViewController!.doPopUp(popUpText: "NOT ENOUGH CREDITS")
                             print("not enoug credit")
                         }
-                        
-                        
-                        
-                        
+       
                     }
                     pushShopStuff()
                     
@@ -260,10 +280,20 @@ class Shop: SKScene {
                 ///check stuff
                 checkForTrailStuff(node: node, string: trailStrings[i])
                 scene?.addChild(node)
+                scene?.addChild(name)
             }
             
             
             for i in 0..<decalNodes.count {
+                
+                let name = decalNameTitle[i]
+                
+           
+                name.fontName = "AvenirNext-Bold"
+                name.fontColor = UIColor.black
+                name.zPosition = 10
+                name.fontSize = 80 / 1.5
+               
                 
      
                 let node = decalNodes[i]
@@ -278,12 +308,17 @@ class Shop: SKScene {
                 if i != 0 {
                     node.position.x = decalNodes[i-1].position.x + 300
                     node.position.y = decalNodes[i-1].position.y
+                    name.position.x = node.position.x
+                    name.position.y = node.position.y + 170
                 } else {
-                    node.position.y = frame.midY - 150
+                    node.position.y = frame.midY - 190
                     node.position.x = frame.midX - 300
+                    name.position.x = node.position.x
+                    name.position.y = node.position.y + 170
                 }
                 
                 node.zPosition = 5
+                name.zPosition = 5
                 
                 node.selectedHandlers = { [self] in
                     
@@ -299,8 +334,7 @@ class Shop: SKScene {
                         Global.gameData.selectedSkin = SelectedSkin(rawValue: equippedDecal)!
 
                         print("\(decalStrings[i]) equipped")
-                        
-                        
+                                        
                         
                     } else {
                         // purchasing
@@ -322,6 +356,10 @@ class Shop: SKScene {
                 print("check decal")
                 
                 scene?.addChild(node)
+                scene?.addChild(name)
+            //    scene?.addChild(decalNameTitle[i].copy() as! SKNode)
+                
+
             }
             
             
@@ -329,13 +367,6 @@ class Shop: SKScene {
         
         self.run(SKAction.sequence([wait1,action1]))
     
-
-    
-        
-        
-        
-        
-        
         
         trailsButtonNode = self.childNode(withName: "trailsButtonUnselected") as? MSButtonNode
         trailsButtonNode.selectedHandlers = { [self] in
@@ -347,13 +378,14 @@ class Shop: SKScene {
             
             for i in 0..<decalNodes.count {
                 decalNodes[i].alpha = 0
+                decalNameTitle[i].alpha = 0
+                
             }
-
-
             
             for i in 0..<trailNodes.count {
                 trailNodes[i].alpha = 1
                 checkForTrailStuff(node: trailNodes[i], string: trailStrings[i])
+                trailNameTitle[i].alpha = 1
 
             }
             
@@ -372,13 +404,14 @@ class Shop: SKScene {
             shopEquip.alpha = 0
             for i in 0..<decalNodes.count {
                 decalNodes[i].alpha = 1
-     
+                decalNameTitle[i].alpha = 1
                 checkForDecalStuff(node: decalNodes[i], string: decalStrings[i])
 
             }
 
             for i in 0..<trailNodes.count {
                 trailNodes[i].alpha = 0
+                trailNameTitle[i].alpha = 0
             }
             
             
@@ -390,8 +423,8 @@ class Shop: SKScene {
         }
         
         
-        trailsButtonNode.position = CGPoint(x: frame.midX + 150 , y: frame.midY + 100 )
-        skinsButtonNode.position = CGPoint(x: frame.midX - 150, y: frame.midY + 100)
+        trailsButtonNode.position = CGPoint(x: frame.midX + 150 , y: frame.midY + 120 )
+        skinsButtonNode.position = CGPoint(x: frame.midX - 150, y: frame.midY + 120)
         
         
         
@@ -568,12 +601,12 @@ class Shop: SKScene {
             polynite.position.x = polyniteBox.position.x - 80
             polyniteLabel.position.x = polyniteBox.position.x + 60
         }
-        
+
         let borderShape = SKShapeNode()
         
         
         let borderwidth = 1200
-        let borderheight = 550
+        let borderheight = 590
         
         borderShape.path = UIBezierPath(roundedRect: CGRect(x: -borderwidth/2, y: -borderheight/2 - 75, width: borderwidth, height: borderheight), cornerRadius: 40).cgPath
         //borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -581,7 +614,7 @@ class Shop: SKScene {
         borderShape.strokeColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha:1)
         borderShape.lineWidth = 20
         borderShape.name = "border"
-
+        borderShape.zPosition = 1
         
         addChild(borderShape)
         
