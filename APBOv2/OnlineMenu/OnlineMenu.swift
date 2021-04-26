@@ -134,6 +134,11 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                                     self.ref.child("Games/\(self.codeBox.text!)/isFull").observeSingleEvent(of: .value){ snapshot in
                                         if snapshot.value as! String == "FALSE" {
                                             DataPusher.PushData(path: "Games/\(self.codeBox.text!)/PlayerList/\(self.usernameBox.text!)", Value: "PePeNotGone")
+                                            
+
+                                          
+
+                                            
                                             Global.gameData.gameID = Int(self.codeBox.text!)!
                                             Global.gameData.isHost = false
                                             self.loadLobbyMenu()
@@ -149,6 +154,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                             }
                         } else {
                             print(self.codeBox.text!)
+                            
                             self.codeBox.shake()
                             self.enterButtonNode.alpha = 1
                         }
@@ -182,8 +188,20 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         }
         Global.playerData.playerID = usernameBox.text!
         print(Global.playerData.playerID)
+        
+        if isEmoji(string: Global.playerData.playerID) {
+            print("is emoji")
+        }
     }
-    
+    func isEmoji(string: String) -> Bool{
+        for c in string.unicodeScalars {
+            if !c.properties.isEmoji {
+                print("not emoji")
+                return false
+            }
+        }
+        return true
+    }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var maxLength = 0
         if activeTextField == usernameBox {

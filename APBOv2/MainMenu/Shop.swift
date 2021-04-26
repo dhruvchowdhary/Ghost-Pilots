@@ -7,6 +7,22 @@
 //
 
 import SpriteKit
+import UIKit
+
+extension String {
+    func emojiToImage() -> UIImage? {
+        let dimension = 800
+        let size = CGSize(width: dimension, height: dimension)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        UIColor.clear.set()
+        let rect = CGRect(origin: CGPoint(), size: size)
+        UIRectFill(CGRect(origin: CGPoint(), size: size))
+        (self as NSString).draw(in: rect, withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: CGFloat(dimension))])
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+}
 
 class Shop: SKScene {
     
@@ -61,8 +77,9 @@ class Shop: SKScene {
         /* Setup your scene here */
         
         Global.gameData.skView = self.view!
-
-        
+        // EMOJI STUFF
+        let emojiImage = "🎂".emojiToImage()
+        let emojiTexture = SKTexture(image:emojiImage!)
         //loading shop
         let shopRef = MultiplayerHandler.ref.child("Users/\(UIDevice.current.identifierForVendor!)/ShopStuff")
         shopRef.observeSingleEvent(of:.value, with: { [self] (Snapshot) in
@@ -183,20 +200,20 @@ class Shop: SKScene {
         
         trailNodes =
             [
-                MSButtonNode(imageNamed: "DEFAULTTRAILPurchased"), MSButtonNode(imageNamed: "trailNodeLightning")
+                MSButtonNode(imageNamed: "DEFAULTTRAILPurchased"), MSButtonNode(imageNamed: "trailNodeLightning"), MSButtonNode(texture: emojiTexture)
             ]
         
         trailStrings =
             [
-                "DEFAULTTRAIL", "LIGHTNING"
+                "DEFAULTTRAIL", "LIGHTNING", "EMOJI"
             ]
         trailPrices =
             [
-                0,100
+                0,100,1000
             ]
         trailNameTitle =
             [
-                SKLabelNode(text: "DEFAULT"), SKLabelNode(text: "Lightning")
+                SKLabelNode(text: "DEFAULT"), SKLabelNode(text: "LIGHTNING"), SKLabelNode(text: "EMOJI")
             ]
         
         let wait1 = SKAction.wait(forDuration:0.1)
@@ -501,8 +518,12 @@ class Shop: SKScene {
                     buyButtonNode.alpha = 0
                     
                 }
-                
+                if index == 2 { /// for texures
+                    print("emojiiiiii stuff")
+                    item = SKSpriteNode(texture: emojiTexture)
+                } else {
                 item = SKSpriteNode(imageNamed: trailStrings[index] + "Purchased")
+                }
                 itemName = SKLabelNode(text: trailStrings[index])
                 prompt1 = SKLabelNode(text: "PURCHASE " + trailStrings[index])
                 prompt2 = SKLabelNode(text: " FOR " + String(trailPrices[index]) + " POLYNITE?")
