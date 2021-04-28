@@ -24,7 +24,7 @@ public class GameData{
     public var speedMultiplier: CGFloat = 1.0
     public var polyniteCount = 0
     public var selectedSkin: SelectedSkin = SelectedSkin.DEFAULTDECAL
-    public var selectedTrail: SelectedTrail = SelectedTrail.DEFAULTTRAIL
+    public var selectedTrail: SelectedTrail = SelectedTrail.trailDefault
     
 
 
@@ -150,5 +150,5 @@ public enum SelectedSkin: String {
 }
 
 public enum SelectedTrail: String {
-    case DEFAULTTRAIL, LIGHTNING
+    case trailDefault, trailLightning
 }

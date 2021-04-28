@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		022C0567261F9A0C00F811E5 /* CPLevelBase.sks in Resources */ = {isa = PBXBuildFile; fileRef = 022C0566261F9A0C00F811E5 /* CPLevelBase.sks */; };
+		027E28F52639CBAA004EE539 /* trailDefault.sks in Resources */ = {isa = PBXBuildFile; fileRef = 027E28F42639CBAA004EE539 /* trailDefault.sks */; };
 		028FEFE725F7EFC600D519A5 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028FEFE625F7EFC600D519A5 /* GameData.swift */; };
 		029A1ABC261CD00800AA0012 /* PopUpWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029A1ABB261CD00800AA0012 /* PopUpWindow.swift */; };
 		02E4487E260C49910050E49D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02E4487C260C49910050E49D /* Assets.xcassets */; };
@@ -147,6 +148,7 @@
 
 /* Begin PBXFileReference section */
 		022C0566261F9A0C00F811E5 /* CPLevelBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CPLevelBase.sks; sourceTree = "<group>"; };
+		027E28F42639CBAA004EE539 /* trailDefault.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trailDefault.sks; sourceTree = "<group>"; };
 		028FEFE625F7EFC600D519A5 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		029A1ABB261CD00800AA0012 /* PopUpWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpWindow.swift; sourceTree = "<group>"; };
 		02E4487C260C49910050E49D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 				74CF6847257FDF30000C4E47 /* PilotBlood.sks */,
 				74CF6841257C2EA8000C4E47 /* ShipExplosion.sks */,
 				74CF68742582CF37000C4E47 /* EnemyThruster.sks */,
+				027E28F42639CBAA004EE539 /* trailDefault.sks */,
 				74C3CFD025506D0300757586 /* Thrusters.sks */,
 				74CF6845257C4E26000C4E47 /* PilotThrust.sks */,
 				74C3CFC7253F3E3D00757586 /* Starfield.sks */,
@@ -689,6 +692,7 @@
 			files = (
 				74CF6869258296F0000C4E47 /* miniLaser2.wav in Resources */,
 				748CEDC1256D6F24005DF246 /* TurretBoss.sks in Resources */,
+				027E28F52639CBAA004EE539 /* trailDefault.sks in Resources */,
 				74CF687A25830AD6000C4E47 /* ghost.sks in Resources */,
 				81A4CEE025FA8C2C001C2602 /* Infection.sks in Resources */,
 				8133262725F9A1CD00D857D7 /* ffaImages.atlas in Resources */,

@@ -43,6 +43,8 @@ class LobbyMenu: SKScene {
     
     
     override func didMove(to view: SKView) {
+        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerSkin/\(Global.playerData.playerID)", Value: Global.gameData.selectedSkin.rawValue)
+        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerTrail/\(Global.playerData.playerID)", Value: Global.gameData.selectedTrail.rawValue)
         Global.gameData.gameState = GameStates.LobbyMenu
         
         MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PlayerList").observeSingleEvent(of: .value) { snapshot in
@@ -215,8 +217,7 @@ class LobbyMenu: SKScene {
     }
     
     func StartGame(){
-        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerSkin", Value: Global.gameData.selectedSkin.rawValue)
-        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/\(Global.playerData.playerID)/PlayerTrail", Value: Global.gameData.selectedTrail.rawValue)
+        Global.multiplayerHandler.PullTrailChanges()
         if list.count > 1 {
             randInt = Global.gameData.gameID % (list.count)
         }

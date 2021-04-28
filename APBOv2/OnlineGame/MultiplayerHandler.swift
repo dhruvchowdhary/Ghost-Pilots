@@ -168,10 +168,10 @@ public class MultiplayerHandler{
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.run(pilot)
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation = Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation - CGFloat(Double.pi/2)
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.size = CGSize(width: 40, height: 40)
-                                let shipThrust = Global.gameData.shipsToUpdate[i].spaceShipNode.childNode(withName: "thruster1") as! SKEmitterNode
+                            // need this    let shipThrust = Global.gameData.shipsToUpdate[i].spaceShipNode.childNode(withName: "thruster1") as! SKEmitterNode
                                 let pilotThrust = Global.gameData.shipsToUpdate[i].spaceShipNode.childNode(withName: "pilotThrust1") as! SKEmitterNode
                                 pilotThrust.particleAlpha = 1
-                                shipThrust.particleAlpha = 0
+                      // and this          shipThrust.particleAlpha = 0
                                 pilotList.append(e.key)
                                 if Global.gameData.shipsToUpdate[i].playerID == Global.playerData.playerID {
                                     Global.gameData.isPilot = true
@@ -180,7 +180,7 @@ public class MultiplayerHandler{
                                 // turn pilot to ship with right color
                                 let wait1 = SKAction.wait(forDuration: 10)
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.run(wait1, completion:  {
-                                    shipThrust.particleAlpha = 1
+                  // plus this                  shipThrust.particleAlpha = 1
                                     pilotThrust.particleAlpha = 0
                                     if let ship = Global.gameData.shipsToUpdate[i] as? RemoteSpaceship {
                                         ship.isPilot = false
@@ -389,12 +389,32 @@ public class MultiplayerHandler{
             })
         }
         
+    public func PullTrailChanges() {
+        print("pulled trail changes")
+        var pulledTrail = SKEmitterNode()
+        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Cosmetics/PlayerTrail").observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            for child in snapshot.children {
+                let e = child as! DataSnapshot
+                print("k")
+                //    self.pullGameStatus()
+                // print(Global.gameData.status)
+                //  if Global.gameData.status == "Game" {
+                for i in 0..<Global.gameData.shipsToUpdate.count {
+                    if Global.gameData.shipsToUpdate[i].playerID == e.key {
+                        pulledTrail = SKEmitterNode(fileNamed: e.value as! String)!
+                        Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(pulledTrail)
+                    }
+                }
+            }
+            
+        })
+    }
+    
         public func ListenForColorChanges() {
             self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor")
             colorRef?.observe(DataEventType.value, with: { (snapshot) in
                 for child in snapshot.children {
                     let e = child as! DataSnapshot
-                    print("hey")
                     //    self.pullGameStatus()
                     // print(Global.gameData.status)
                     //  if Global.gameData.status == "Game" {
@@ -412,7 +432,6 @@ public class MultiplayerHandler{
             self.colorRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor")
             colorRef?.observe(DataEventType.value, with: { (snapshot) in
                 for child in snapshot.children {
-                    print("heyyyyyyyy")
                     let e = child as! DataSnapshot
                     if Global.gameData.gameState == GameStates.LobbyMenu {
                         //               if Global.playerData.playerID != e.key {

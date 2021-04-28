@@ -66,7 +66,7 @@ public class LocalSpaceship: SpaceshipBase {
         }
         
         
-        switch (Global.gameData.selectedTrail) {
+   /*     switch (Global.gameData.selectedTrail) {
         case SelectedTrail.DEFAULTTRAIL:
             print("this los3r has no trails N00b, default trail is equipped")
             spaceShipNode.addChild(trailDefault!)
@@ -79,7 +79,7 @@ public class LocalSpaceship: SpaceshipBase {
         
         default:
             print("umm shoudlbt be here")
-        }
+        }*/
        // print("redWonnnn")
        
         
