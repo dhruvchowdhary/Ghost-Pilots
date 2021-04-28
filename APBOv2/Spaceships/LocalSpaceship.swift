@@ -44,7 +44,7 @@ public class LocalSpaceship: SpaceshipBase {
         spaceShipNode.addChild(pilotThrust1!)
         
         
-        switch (Global.gameData.selectedSkin) {
+     /*   switch (Global.gameData.selectedSkin) {
         case SelectedSkin.DEFAULTDECAL:
             print("this los3r has no decal N00b, default decal is equipped")
             
@@ -64,7 +64,7 @@ public class LocalSpaceship: SpaceshipBase {
         default:
             print("shouldbet be here")
         }
-        
+        */
         
    /*     switch (Global.gameData.selectedTrail) {
         case SelectedTrail.DEFAULTTRAIL:

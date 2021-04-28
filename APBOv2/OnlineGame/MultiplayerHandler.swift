@@ -395,7 +395,6 @@ public class MultiplayerHandler{
         MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Cosmetics/PlayerTrail").observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             for child in snapshot.children {
                 let e = child as! DataSnapshot
-                print("k")
                 //    self.pullGameStatus()
                 // print(Global.gameData.status)
                 //  if Global.gameData.status == "Game" {
@@ -403,6 +402,26 @@ public class MultiplayerHandler{
                     if Global.gameData.shipsToUpdate[i].playerID == e.key {
                         pulledTrail = SKEmitterNode(fileNamed: e.value as! String)!
                         Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(pulledTrail)
+                    }
+                }
+            }
+            
+        })
+    }
+    
+    public func PullSkinChanges() {
+        print("pulled skin changes")
+        var pulledSkin = SKSpriteNode()
+        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Cosmetics/PlayerSkin").observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            for child in snapshot.children {
+                let e = child as! DataSnapshot
+                //    self.pullGameStatus()
+                // print(Global.gameData.status)
+                //  if Global.gameData.status == "Game" {
+                for i in 0..<Global.gameData.shipsToUpdate.count {
+                    if Global.gameData.shipsToUpdate[i].playerID == e.key {
+                        pulledSkin = SKSpriteNode(imageNamed: e.value as! String)
+                        Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(pulledSkin)
                     }
                 }
             }

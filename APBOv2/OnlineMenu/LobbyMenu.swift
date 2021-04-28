@@ -218,6 +218,7 @@ class LobbyMenu: SKScene {
     
     func StartGame(){
         Global.multiplayerHandler.PullTrailChanges()
+        Global.multiplayerHandler.PullSkinChanges()
         if list.count > 1 {
             randInt = Global.gameData.gameID % (list.count)
         }
