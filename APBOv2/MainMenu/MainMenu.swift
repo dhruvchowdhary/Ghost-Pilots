@@ -103,34 +103,40 @@ class MainMenu: SKScene {
         }
         
         /* Set UI connections */
-        polyniteBox.size = CGSize(width: 391.466 / 1.5, height: 140.267 / 1.5)
-        polyniteBox.position = CGPoint(x: frame.midX + 720, y: frame.midY + 340)
-        polyniteBox.zPosition = 9
-        addChild(polyniteBox)
+//        polyniteBox.size = CGSize(width: 391.466 / 1.5, height: 140.267 / 1.5)
+//        polyniteBox.position = CGPoint(x: frame.midX + 720, y: frame.midY + 340)
+//        polyniteBox.zPosition = 9
+//        addChild(polyniteBox)
+//
+//        polynite.position = CGPoint(x: polyniteBox.position.x - 80 , y: polyniteBox.position.y)
+//        polynite.zPosition = 10
+//        polynite.size = CGSize(width: 104 / 1.5, height: 102.934 / 1.5 )
+//        addChild(polynite)
+//
         
-        polynite.position = CGPoint(x: polyniteBox.position.x - 80 , y: polyniteBox.position.y)
-        polynite.zPosition = 10
-        polynite.size = CGSize(width: 104 / 1.5, height: 102.934 / 1.5 )
-        addChild(polynite)
+        
+        let shopDisplay = MSButtonNode(imageNamed: "shopDisplay")
+        
+        scene?.addChild(shopDisplay)
+        shopDisplay.position = CGPoint(x: frame.midX + 600 , y: frame.midY - 140)
+        shopDisplay.zPosition = 9
+        shopDisplay.xScale = 0.25
+        shopDisplay.yScale = 0.25
+
+        shopDisplay.selectedHandler = {
+           shopDisplay.alpha = 0.7
+        }
+        shopDisplay.selectedHandlers = {
+            Global.loadScene(s: "Shop")
+        }
         
         polyniteLabel.text = "\(Global.gameData.polyniteCount)"
-        polyniteLabel.position = CGPoint(x: polyniteBox.position.x + 30 , y: polyniteBox.position.y - 20)
+        polyniteLabel.position = CGPoint(x: shopDisplay.position.x , y: shopDisplay.position.y - 50)
         polyniteLabel.fontName = "AvenirNext-Bold"
         polyniteLabel.fontColor = UIColor.black
         polyniteLabel.zPosition = 10
         polyniteLabel.fontSize = 80 / 1.5
         addChild(polyniteLabel)
-        
-        buttonShop = self.childNode(withName: "shop") as? MSButtonNode
-        buttonShop.position = CGPoint(x: polyniteBox.position.x , y: polyniteBox.position.y - 140)
-        buttonShop.zPosition = 9
-        buttonShop.selectedHandler = {
-            self.buttonShop.alpha = 0.7
-        }
-        buttonShop.selectedHandlers = {
-            Global.loadScene(s: "Shop")
-        }
-        
         
         buttonPlay = self.childNode(withName: "soloButton") as? MSButtonNode
         buttonPlay.selectedHandler = {
@@ -155,14 +161,13 @@ class MainMenu: SKScene {
      //       tutorialButtonNode.position.y =  (frame.midY - 410) * CGFloat(scale)
      //       tutorialButtonNode.setScale(CGFloat(1.25 * scale))
         } else if UIScreen.main.bounds.width > 779 {
-            buttonShop.position.x = frame.midX + 710
+            shopDisplay.position.x = frame.midX + 600
             tutorialButtonNode.position.x = frame.midX - 720
             tutorialButtonNode.position.y =  frame.midY - 290
         } else {
-            polyniteBox.position.x = frame.midX + 600
-            polynite.position.x = polyniteBox.position.x - 80
-            polyniteLabel.position.x = polyniteBox.position.x + 60
-            buttonShop.position.x = polyniteBox.position.x
+//            polyniteBox.position.x = frame.midX + 600
+//            polynite.position.x = polyniteBox.position.x - 80
+            shopDisplay.position.x = frame.midX + 600
             tutorialButtonNode.position.x = frame.midX - 620
             tutorialButtonNode.position.y =  frame.midY - 300
         }
