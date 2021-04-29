@@ -40,19 +40,26 @@ class Shop: SKScene {
     let polynite = SKSpriteNode(imageNamed: "polynite2")
     let polyniteBox = SKSpriteNode(imageNamed: "polynitebox")
     let polyniteLabel = SKLabelNode(text: "0")
-    var shopTab = "skins"
+    var currentTab = "skins"
     
-    let shopEquip = SKSpriteNode(imageNamed: "shopEquip")
+    let shopEquip = SKShapeNode()
+    let shopEquipLabel = SKSpriteNode(imageNamed: "equippedLabel")
     
-    var decalNodes: [MSButtonNode] = []
+    var decalButtons: [MSButtonNode] = []
     
-    
-    
+    var decalShips: [SKSpriteNode] = []
+    var decalShipColors: [SKSpriteNode] = []
+    var decalBackground: [SKShapeNode] = []
+    var decalBackgroundColor: [UIColor] = []
     var decalStrings: [String] = []
     var decalPrices: [Int] = []
+    var decalLabel: [SKSpriteNode] = []
+    var decalPriceLabel: [SKLabelNode] = []
     //var purchasedDecals: [String] = []
     //var equippedDecal = UserDefaults.standard.string(forKey: "equippedDecal")
     
+    var trailBackground: [SKShapeNode] = []
+    var trailBackgroundColor: [UIColor] = []
     var trailNodes: [MSButtonNode] = []
     var trailStrings: [String] = []
     var trailPrices: [Int] = []
@@ -73,6 +80,12 @@ class Shop: SKScene {
     
     var isBuying = false
     
+    let backgroundborderwidth = 280
+    let backgroundborderheight = 350
+    
+    var isPopupLoaded = false
+    
+    
     override func didMove(to view: SKView) {
         /* Setup your scene here */
         
@@ -80,6 +93,8 @@ class Shop: SKScene {
         // EMOJI STUFF
         let emojiImage = "🎂".emojiToImage()
         let emojiTexture = SKTexture(image:emojiImage!)
+        
+        
         //loading shop
         let shopRef = MultiplayerHandler.ref.child("Users/\(UIDevice.current.identifierForVendor!)/ShopStuff")
         shopRef.observeSingleEvent(of:.value, with: { [self] (Snapshot) in
@@ -100,10 +115,21 @@ class Shop: SKScene {
             }
         })
         
-        // buy defaults
-        checkForDecalStuff(node: MSButtonNode(imageNamed: "DEFAULTDECALPurchased"), string: "DEFAULTDECAL")
         
-     //  pushShopStuff()
+        let borderShape = SKShapeNode()
+
+        let borderwidth = 1200
+        let borderheight = 500
+        
+        borderShape.path = UIBezierPath(roundedRect: CGRect(x: -borderwidth/2, y: -borderheight/2, width: borderwidth, height: borderheight), cornerRadius: 40).cgPath
+        borderShape.position = CGPoint(x: frame.midX, y: frame.midY - 100)
+        borderShape.fillColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha:1)
+        borderShape.strokeColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha:1)
+        borderShape.lineWidth = 14
+        borderShape.name = "border"
+        borderShape.zPosition = 2
+        
+        addChild(borderShape)
         
         
         let buyPopupWidth = 600
@@ -118,20 +144,26 @@ class Shop: SKScene {
         
         buyPopup.zPosition = 20
         buyPopup.alpha = 0
-        
-        
         addChild(buyPopup)
         
         
         shopEquip.alpha = 0
-        shopEquip.xScale = 0.3
-        shopEquip.yScale = 0.3
+        shopEquip.path = UIBezierPath(roundedRect: CGRect(x: -backgroundborderwidth/2, y: -backgroundborderheight/2, width: backgroundborderwidth, height: backgroundborderheight), cornerRadius: 40).cgPath
+        
+        shopEquip.fillColor = UIColor.clear
+        shopEquip.strokeColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha:1)
+        shopEquip.lineWidth = 14
         addChild(shopEquip)
         
         shopEquip.zPosition = 6
         
+        shopEquipLabel.alpha = 0
+        addChild(shopEquipLabel)
+        shopEquipLabel.zPosition = 6
+        shopEquipLabel.xScale = 0.3
+        shopEquipLabel.yScale = 0.3
+        
         Global.gameData.skView = self.view!
-
         Global.gameData.addPolyniteCount(delta: 100)
         
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
@@ -142,26 +174,27 @@ class Shop: SKScene {
         }
         
         
-        let shopDisplay = SKSpriteNode(imageNamed: "shop")
-        shopDisplay.position = CGPoint(x: frame.midX, y: frame.midY + 320)
-        shopDisplay.size =  CGSize(width: 298.611 / 1.2 , height: 172.222 / 1.2)
+        let shopDisplay = SKSpriteNode(imageNamed: "shopDisplay")
+        shopDisplay.position = CGPoint(x: frame.midX, y: frame.midY + 280)
+        shopDisplay.xScale = 0.25
+        shopDisplay.yScale = 0.25
         addChild(shopDisplay)
-        shopDisplay.zPosition = 5
+        shopDisplay.zPosition = 1
   
 
-        
-        polyniteBox.size = CGSize(width: 391.466 / 1.5, height: 140.267 / 1.5)
-        polyniteBox.position = CGPoint(x: frame.midX + 720, y: frame.midY + 340)
-        polyniteBox.zPosition = 9
-        addChild(polyniteBox)
-        
-        polynite.position = CGPoint(x: polyniteBox.position.x - 80 , y: polyniteBox.position.y)
-        polynite.zPosition = 10
-        polynite.size = CGSize(width: 104 / 1.5, height: 102.934 / 1.5 )
-        addChild(polynite)
-        
+//
+//        polyniteBox.size = CGSize(width: 391.466 / 1.5, height: 140.267 / 1.5)
+//        polyniteBox.position = CGPoint(x: frame.midX + 720, y: frame.midY + 340)
+//        polyniteBox.zPosition = 9
+//        addChild(polyniteBox)
+//
+//        polynite.position = CGPoint(x: polyniteBox.position.x - 80 , y: polyniteBox.position.y)
+//        polynite.zPosition = 10
+//        polynite.size = CGSize(width: 104 / 1.5, height: 102.934 / 1.5 )
+//        addChild(polynite)
+//
         polyniteLabel.text = "\(Global.gameData.polyniteCount)"
-        polyniteLabel.position = CGPoint(x: polyniteBox.position.x + 30 , y: polyniteBox.position.y - 20)
+        polyniteLabel.position = CGPoint(x: shopDisplay.position.x , y: shopDisplay.position.y - 50)
         polyniteLabel.fontName = "AvenirNext-Bold"
         polyniteLabel.fontColor = UIColor.black
         polyniteLabel.zPosition = 10
@@ -173,15 +206,33 @@ class Shop: SKScene {
             self.loadMainMenu()
         }
         
+ 
+        
+     //   let redButton = MSButtonNode(color: UIColor.clear, size: CGSize(width: 80, height: 80))
         
         
-  
-      
-        decalNodes =
+        decalShips =
             [
-                MSButtonNode(imageNamed: "DEFAULTDECALPurchased"), MSButtonNode(imageNamed: "decalNodeStripe"), MSButtonNode(imageNamed: "decalNodeSwirl")
+                SKSpriteNode(imageNamed: "decalDefault"), SKSpriteNode(imageNamed: "decalTiger"), SKSpriteNode(imageNamed: "decalSwirl")
+            ]
+        decalShipColors =// could select a randomized color each tine enter shop
+            [
+                SKSpriteNode(imageNamed: "decalShipOrange"), SKSpriteNode(imageNamed: "decalShipOrange"), SKSpriteNode(imageNamed: "decalShipOrange")
+            ]
+        decalButtons =
+            [
+                MSButtonNode(color: UIColor.clear, size: CGSize(width: backgroundborderwidth, height: backgroundborderheight)), MSButtonNode(color: UIColor.clear, size: CGSize(width: backgroundborderwidth, height: backgroundborderheight)), MSButtonNode(color: UIColor.clear, size: CGSize(width: backgroundborderwidth, height: backgroundborderheight))
             ]
         
+        decalBackground =
+            [
+                SKShapeNode(), SKShapeNode(), SKShapeNode()
+            ]
+
+        decalBackgroundColor =
+            [
+               UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha:1), UIColor(red: 195/255, green: 212/255, blue: 255/255, alpha:1), UIColor(red: 195/255, green: 212/255, blue: 255/255, alpha:1)
+            ]
         
         
         decalStrings =
@@ -197,10 +248,22 @@ class Shop: SKScene {
             [
                 SKLabelNode(text: "DEFAULT"), SKLabelNode(text: "TIGER"), SKLabelNode(text: "SWIRL")
             ]
+        decalLabel =
+            [
+                SKSpriteNode(imageNamed: "priceLabel"), SKSpriteNode(imageNamed: "priceLabel"), SKSpriteNode(imageNamed: "priceLabel")
+            ]
+        decalPriceLabel =
+            [
+                SKLabelNode(text: "0"), SKLabelNode(text: "0"), SKLabelNode(text: "0")
+            ]
         
         trailNodes =
             [
                 MSButtonNode(imageNamed: "DEFAULTTRAILPurchased"), MSButtonNode(imageNamed: "trailNodeLightning"), MSButtonNode(texture: emojiTexture)
+            ]
+        trailBackgroundColor =
+            [
+                UIColor.gray, UIColor.blue, UIColor.green
             ]
         
         trailStrings =
@@ -216,13 +279,158 @@ class Shop: SKScene {
                 SKLabelNode(text: "DEFAULT"), SKLabelNode(text: "LIGHTNING"), SKLabelNode(text: "EMOJI")
             ]
         
-        let wait1 = SKAction.wait(forDuration:0.1)
+        
+        // buy defaults
+        
+        
+        
+        let wait1 = SKAction.wait(forDuration:0.2)
         let action1 = SKAction.run { [self] in
+            
+            for i in 0..<decalShips.count {
+                
+                let decalShip = decalShips[i]
+                
+                let shipSize = CGSize(width: (decalShip.texture?.size().width)! / 4, height: (decalShip.texture?.size().height)! / 4)
+                decalShip.size = shipSize
+                
+                let decalShipColor = decalShipColors[i] // could randomize
+                decalShipColor.size = shipSize
+                
+                let itemBackground = decalBackground[i]
+                
+                itemBackground.path = UIBezierPath(roundedRect: CGRect(x: -backgroundborderwidth/2, y: -backgroundborderheight/2, width: backgroundborderwidth, height: backgroundborderheight), cornerRadius: 40).cgPath
+                
+                itemBackground.fillColor = decalBackgroundColor[i]
+                itemBackground.strokeColor = UIColor.clear
+                itemBackground.lineWidth = 20
+                itemBackground.name = "itemBackground"
+                itemBackground.alpha = 1
+                
+                
+                let name = decalNameTitle[i]
+                name.fontName = "AvenirNext-Bold"
+                name.fontColor = UIColor.black
+                name.zPosition = 10
+                name.fontSize = 80 / 1.5
+               
+                let label = decalLabel[i]
+                label.xScale = 0.3
+                label.yScale = 0.3
+                label.name = "label"
+                
+                let priceLabel = decalPriceLabel[i]
+                priceLabel.text = String(decalPrices[i])
+                priceLabel.fontName = "AvenirNext-Bold"
+                priceLabel.fontColor = UIColor.black
+                priceLabel.zPosition = 7
+                priceLabel.fontSize = 55
+                priceLabel.name = "priceLabel"
+                
+                let node = decalButtons[i]
+                node.isUserInteractionEnabled = true
+                node.state = .MSButtonStopAlphaChanges
+                node.alpha = 1
+                // Scale the node here
+//                node.xScale = 0.3
+//                node.yScale = 0.3
+                
+                // Position node
+                if i != 0 {
+                    decalShip.position.x = decalShips[i-1].position.x + 300
+                    decalShip.position.y = decalShips[i-1].position.y
+                    
+                } else {
+                    decalShip.position.y = borderShape.position.y
+                    decalShip.position.x = borderShape.position.x - 300 + 110
+                }
+                node.position = decalShip.position
+                name.position.x = decalShip.position.x
+                name.position.y = decalShip.position.y + 100
+                label.position.x = decalShip.position.x
+                label.position.y = decalShip.position.y - 120
+                priceLabel.position.x = label.position.x + 30
+                priceLabel.position.y = label.position.y - 20
+                
+                
+                decalShipColor.position = decalShip.position
+                itemBackground.position = decalShip.position
+                
+                decalShip.zPosition = 7
+                decalShipColor.zPosition = 6
+                node.zPosition = 10
+                name.zPosition = 5
+                label.zPosition = 5
+                
+               
+                itemBackground.zPosition = 4
+                
+                node.selectedHandlers = { [self] in
+                    
+                    if lockerDecals.contains(decalStrings[i]){
+                        
+                        showShopEquip(node: node)
+                        equippedDecal = decalStrings[i]
+                        Global.gameData.selectedSkin = SelectedSkin(rawValue: equippedDecal)!
+
+                        print("\(decalStrings[i]) equipped")
+                                        
+                        
+                    } else {
+                        // purchasing
+                        //if enough then
+                        if Global.gameData.polyniteCount >= decalPrices[i]
+                        {
+                            if isPopupLoaded == false {
+                            loadPopup(index: i, node: node, type: "decal")
+                            }
+                        }
+                        else {
+                            Global.gameViewController!.doPopUp(popUpText: "NOT ENOUGH CREDITS")
+                            print("not enoug credit")
+                        }
+                        
+                    }
+                    pushShopStuff()
+                }
+                
+                
+                checkForDecalStuff(index: i, decalShip: decalShip, node: node, string: decalStrings[i])
+                
+                scene?.addChild(decalShip)
+                scene?.addChild(decalShipColor)
+                scene?.addChild(node)
+                scene?.addChild(name)
+                scene?.addChild(itemBackground)
+                if i != 0 {
+                    scene?.addChild(label)
+                    scene?.addChild(priceLabel)
+                }
+            //    scene?.addChild(decalNameTitle[i].copy() as! SKNode)
+                
+
+            }
+            
+          
+            
             for i in 0..<trailNodes.count {
+                
+                let itemBackground = SKShapeNode()
+                
+                
+                itemBackground.path = UIBezierPath(roundedRect: CGRect(x: -backgroundborderwidth/2, y: -backgroundborderheight/2 - 75, width: backgroundborderwidth, height: backgroundborderheight), cornerRadius: 40).cgPath
+                //borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
+                itemBackground.fillColor = trailBackgroundColor[i]
+                itemBackground.strokeColor = UIColor.clear
+                itemBackground.lineWidth = 20
+                itemBackground.name = "itemBackground"
+                itemBackground.zPosition = 5
+                itemBackground.alpha = 0
+                
                 
                 let name = trailNameTitle[i]
                 
-           
+                
                 name.fontName = "AvenirNext-Bold"
                 name.fontColor = UIColor.black
                 name.zPosition = 10
@@ -244,6 +452,8 @@ class Shop: SKScene {
                     node.position.y = trailNodes[i-1].position.y
                     name.position.x = node.position.x
                     name.position.y = node.position.y + 170
+                    
+                    
                 } else {
                     node.position.y = frame.midY - 190
                     node.position.x = frame.midX - 300
@@ -253,6 +463,8 @@ class Shop: SKScene {
                 
                 node.zPosition = 5
                 name.zPosition = 5
+                itemBackground.position = node.position
+                itemBackground.zPosition = 4
                 
                 
                 node.zPosition = 5
@@ -264,8 +476,7 @@ class Shop: SKScene {
                     
                     if lockerTrails.contains(trailStrings[i]){
                         //already Purchased! might be equip function
-                        shopEquip.alpha = 1
-                        shopEquip.position = node.position
+                       showShopEquip(node: node)
 
                         print("\(trailStrings[i]) equipped")
                         
@@ -298,114 +509,29 @@ class Shop: SKScene {
                 checkForTrailStuff(node: node, string: trailStrings[i])
                 scene?.addChild(node)
                 scene?.addChild(name)
+                scene?.addChild(itemBackground)
             }
             
-            
-            for i in 0..<decalNodes.count {
-                
-                let name = decalNameTitle[i]
-                
-           
-                name.fontName = "AvenirNext-Bold"
-                name.fontColor = UIColor.black
-                name.zPosition = 10
-                name.fontSize = 80 / 1.5
-               
-                
-     
-                let node = decalNodes[i]
-                node.isUserInteractionEnabled = true
-                node.state = .MSButtonStopAlphaChanges
-                node.alpha = 1
-                // Scale the node here
-                node.xScale = 0.3
-                node.yScale = 0.3
-                
-                // Position node
-                if i != 0 {
-                    node.position.x = decalNodes[i-1].position.x + 300
-                    node.position.y = decalNodes[i-1].position.y
-                    name.position.x = node.position.x
-                    name.position.y = node.position.y + 170
-                } else {
-                    node.position.y = frame.midY - 190
-                    node.position.x = frame.midX - 300
-                    name.position.x = node.position.x
-                    name.position.y = node.position.y + 170
-                }
-                
-                node.zPosition = 5
-                name.zPosition = 5
-                
-                node.selectedHandlers = { [self] in
-                    
-                    if lockerDecals.contains(decalStrings[i]){
-                        
-                        shopEquip.position = node.position
-                        shopEquip.alpha = 1
-
-                    //    DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/equippedDecal", Value: decalStrings[i])
-                       
-
-                        equippedDecal = decalStrings[i]
-                        Global.gameData.selectedSkin = SelectedSkin(rawValue: equippedDecal)!
-
-                        print("\(decalStrings[i]) equipped")
-                                        
-                        
-                    } else {
-                        // purchasing
-                        //if enough then
-                        if Global.gameData.polyniteCount >= decalPrices[i]
-                        {
-                            loadPopup(index: i, node: node, type: "decal")
-                        }
-                        else {
-                            Global.gameViewController!.doPopUp(popUpText: "NOT ENOUGH CREDITS")
-                            print("not enoug credit")
-                        }
-                        
-                    }
-                    pushShopStuff()
-                }
-                
-                checkForDecalStuff(node: node, string: decalStrings[i])
-                print("check decal")
-                
-                scene?.addChild(node)
-                scene?.addChild(name)
-            //    scene?.addChild(decalNameTitle[i].copy() as! SKNode)
-                
-
-            }
+          
             
             
             }
         
         self.run(SKAction.sequence([wait1,action1]))
-    
+        
+       // checkForDecalStuff(decalShip: decalShips[0], string: "DEFAULTDECAL")
         
         trailsButtonNode = self.childNode(withName: "trailsButtonUnselected") as? MSButtonNode
         trailsButtonNode.selectedHandlers = { [self] in
-            shopEquip.alpha = 0
+            hideShopEquip()
             self.trailsButtonNode.texture = SKTexture(imageNamed: "trailsButtonSelected")
             self.skinsButtonNode.texture = SKTexture(imageNamed: "skinsButtonUnselected")
             self.trailsButtonNode.alpha = 1
-            self.shopTab = "trails"
+            self.currentTab = "trails"
             
-            for i in 0..<decalNodes.count {
-                decalNodes[i].alpha = 0
-                decalNameTitle[i].alpha = 0
-                
-            }
             
-            for i in 0..<trailNodes.count {
-                trailNodes[i].alpha = 1
-                checkForTrailStuff(node: trailNodes[i], string: trailStrings[i])
-                trailNameTitle[i].alpha = 1
-
-            }
-            
+            hideDecalStuff()
+            showTrailStuff()
         }
         
         trailsButtonNode.selectedHandler = {
@@ -417,34 +543,71 @@ class Shop: SKScene {
             self.trailsButtonNode.texture = SKTexture(imageNamed: "trailsButtonUnselected")
             self.skinsButtonNode.texture = SKTexture(imageNamed: "skinsButtonSelected")
             self.skinsButtonNode.alpha = 1
-            self.shopTab = "skins"
-            shopEquip.alpha = 0
-            for i in 0..<decalNodes.count {
-                decalNodes[i].alpha = 1
-                decalNameTitle[i].alpha = 1
-                checkForDecalStuff(node: decalNodes[i], string: decalStrings[i])
-
-            }
-
-            for i in 0..<trailNodes.count {
-                trailNodes[i].alpha = 0
-                trailNameTitle[i].alpha = 0
-            }
-            
-            
-            
+            self.currentTab = "skins"
+            hideShopEquip()
+            showDecalStuff()
+            hideTrailStuff()
         }
         
         skinsButtonNode.selectedHandler = {
             self.skinsButtonNode.alpha = 1
         }
         
+        trailsButtonNode.xScale = 0.8
+        trailsButtonNode.yScale = 0.8
+        skinsButtonNode.xScale = 0.8
+        skinsButtonNode.yScale = 0.8
+        trailsButtonNode.position = CGPoint(x: frame.midX - 460 , y: borderShape.position.y - 60)
+        skinsButtonNode.position = CGPoint(x: trailsButtonNode.position.x, y: borderShape.position.y + 60)
         
-        trailsButtonNode.position = CGPoint(x: frame.midX + 150 , y: frame.midY + 120 )
-        skinsButtonNode.position = CGPoint(x: frame.midX - 150, y: frame.midY + 120)
         
+        func hideTrailStuff() {
+            for i in 0..<trailNodes.count {
+                trailNodes[i].alpha = 0
+                trailNameTitle[i].alpha = 0
+                trailBackgroundColor[i].withAlphaComponent(0)
+            }
+        }
         
+        func showTrailStuff() {
+            for i in 0..<trailNodes.count {
+                trailNodes[i].alpha = 1
+                checkForTrailStuff(node: trailNodes[i], string: trailStrings[i])
+                trailNameTitle[i].alpha = 1
+                trailBackgroundColor[i].withAlphaComponent(1)
+
+            }
+        }
         
+        func hideDecalStuff() {
+            for i in 0..<decalShips.count {
+                decalButtons[i].alpha = 0
+                decalShips[i].alpha = 0
+                decalShipColors[i].alpha = 0
+                decalNameTitle[i].alpha = 0
+                decalBackground[i].alpha = 0
+                decalLabel[i].alpha = 0
+                decalPriceLabel[i].alpha = 0
+                
+                
+                
+            }
+        }
+        
+        func showDecalStuff() {
+            for i in 0..<decalShips.count {
+                decalButtons[i].alpha = 1
+                decalShips[i].alpha = 1
+                decalShipColors[i].alpha = 1
+                decalNameTitle[i].alpha = 1
+                decalBackground[i].alpha = 1
+                decalLabel[i].alpha = 1
+                decalPriceLabel[i].alpha = 1
+                checkForDecalStuff(index: i, decalShip: decalShips[i], node: decalButtons[i], string: decalStrings[i])
+               
+
+            }
+        }
         
 
         func loadPopup(index: Int, node: MSButtonNode, type: String) {
@@ -478,10 +641,12 @@ class Shop: SKScene {
                 buyButtonNode.removeFromParent()
                 cancelButtonNode.alpha = 0
                 buyButtonNode.alpha = 0
+                
             }
             
             
             var item = SKSpriteNode()
+            var itemColor = SKSpriteNode()
             var itemName = SKLabelNode()
             var prompt1 = SKLabelNode()
             var prompt2 = SKLabelNode()
@@ -502,7 +667,8 @@ class Shop: SKScene {
                     
                 }
                 
-                item = SKSpriteNode(imageNamed: decalStrings[index] + "Purchased")
+                item = decalShips[index].copy() as! SKSpriteNode
+                itemColor = decalShipColors[index].copy() as! SKSpriteNode
                 itemName = SKLabelNode(text: decalStrings[index])
                 prompt1 = SKLabelNode(text: "PURCHASE " + decalStrings[index])
                 prompt2 = SKLabelNode(text: " FOR " + String(decalPrices[index]) + " POLYNITE?")
@@ -529,7 +695,7 @@ class Shop: SKScene {
                 prompt2 = SKLabelNode(text: " FOR " + String(trailPrices[index]) + " POLYNITE?")
             }
            
-            itemName.position = CGPoint(x: frame.midX, y: buyPopup.position.y + 200)
+            itemName.position = CGPoint(x: frame.midX, y: buyPopup.position.y + 100)
             itemName.zPosition = 5
             itemName.fontColor = UIColor.black
             itemName.fontSize = 65
@@ -546,29 +712,36 @@ class Shop: SKScene {
             prompt2.fontColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha:1)
             prompt2.fontSize = 50
             prompt2.fontName = "AvenirNext-Bold"
-           // item.size = item.texture.size()
-                 item.size = CGSize(width: 300, height: 300)
+           
+            
+            item.xScale = 1
+            item.yScale = 1
             item.zPosition = 3
-            item.position = CGPoint(x: frame.midX, y: buyPopup.position.y + 30)
+            item.position = CGPoint(x: frame.midX, y: buyPopup.position.y + 70)
+            
+            itemColor.xScale = 1
+            itemColor.yScale = 1
+            itemColor.zPosition = 3
+            itemColor.position = CGPoint(x: frame.midX, y: buyPopup.position.y + 70)
+            
+            
             
             buyPopup.addChild(itemName)
             buyPopup.addChild(prompt1)
             buyPopup.addChild(prompt2)
             buyPopup.addChild(item)
+            buyPopup.addChild(itemColor)
        //     addChild(itemName)
             
+            isPopupLoaded = true
             
         }
         func buyingTrail(i: Int, node: MSButtonNode) {
             print("bought \(trailStrings[i])")
             Global.gameData.spendPolynite(amountToSpend: trailPrices[i])
             polyniteLabel.text = "\(Global.gameData.polyniteCount)"
-            
-            
-            
-            shopEquip.alpha = 1
-            shopEquip.position = node.position
-            
+              
+            showShopEquip(node: node)
             // prompt buy menu, if bougt then vvv
             
             lockerTrails.append(trailStrings[i])
@@ -584,7 +757,6 @@ class Shop: SKScene {
             
         }
         
-        
         func buyingDecal(i: Int, node: MSButtonNode) {
             
             print("bought \(decalStrings[i])")
@@ -595,10 +767,9 @@ class Shop: SKScene {
 
             polyniteLabel.text = "\(Global.gameData.polyniteCount)"
             
-            shopEquip.alpha = 1
-
-            shopEquip.position = node.position
-            node.texture = SKTexture(imageNamed: decalStrings[i] + "Purchased")
+            showShopEquip(node: node)
+            decalLabel[i].texture = SKTexture(imageNamed: "purchasedLabel")
+            decalPriceLabel[i].removeFromParent()
             equippedDecal = decalStrings[i]
 
             Global.gameData.selectedSkin = SelectedSkin(rawValue: equippedDecal)!
@@ -623,56 +794,59 @@ class Shop: SKScene {
             polyniteLabel.position.x = polyniteBox.position.x + 60
         }
 
-        let borderShape = SKShapeNode()
-        
-        
-        let borderwidth = 1200
-        let borderheight = 590
-        
-        borderShape.path = UIBezierPath(roundedRect: CGRect(x: -borderwidth/2, y: -borderheight/2 - 75, width: borderwidth, height: borderheight), cornerRadius: 40).cgPath
-        //borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
-        borderShape.fillColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha:1)
-        borderShape.strokeColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha:1)
-        borderShape.lineWidth = 20
-        borderShape.name = "border"
-        borderShape.zPosition = 1
-        
-        addChild(borderShape)
+ 
         
     }
     
     func checkForTrailStuff(node: MSButtonNode, string: String) {
       //  shopEquip.alpha = 0
+        if currentTab == "trails" {
         if lockerTrails.contains(string) {
             node.texture = SKTexture(imageNamed: string + "Purchased")
         }
         if equippedTrail == string {
             print("equipping \(equippedTrail)")
-            shopEquip.position = node.position
-            
-            shopEquip.alpha = 1
+            showShopEquip(node: node)
+        }
         }
         
     }
     func exitPopup() {
         buyPopup.removeAllChildren()
- 
+        isPopupLoaded = false
         buyPopup.alpha = 0
       //  buyButtonNode?.removeFromParent()
         
     }
+    func showShopEquip(node: MSButtonNode) {
+        shopEquip.position = node.position
+        shopEquip.alpha = 1
+        
+        shopEquipLabel.position.x = node.position.x
+        shopEquipLabel.position.y = node.position.y - 120 // this val must match in the for loops
+        shopEquipLabel.alpha = 1
+    }
     
-    func checkForDecalStuff(node: MSButtonNode, string: String) {
+    func hideShopEquip() {
+        shopEquip.alpha = 0
+        shopEquipLabel.alpha = 0
+    }
+    func checkForDecalStuff(index: Int, decalShip: SKSpriteNode, node: MSButtonNode, string: String) {
+        if currentTab == "skins" {
    //     shopEquip.alpha = 0
+        
+        //code to show show purchased
         if lockerDecals.contains(string) {
-            node.texture = SKTexture(imageNamed: string + "Purchased")
+            print("locker contains \(string)")
+            decalLabel[index].texture = SKTexture(imageNamed: "purchasedLabel")
+            decalPriceLabel[index].alpha = 0
         }
         if equippedDecal == string {
             shopEquip.alpha = 1
             print("equipping \(equippedDecal)")
-            shopEquip.position = node.position
+            showShopEquip(node: node)
           //  print(equippedDecal)
-            
+        }
         }
         
     }
@@ -682,6 +856,7 @@ class Shop: SKScene {
         let data = try! JSONEncoder().encode(shopPayload)
         let json = String(data: data, encoding: .utf8)!
         DataPusher.PushData(path: "Users/\(UIDevice.current.identifierForVendor!)/ShopStuff", Value: json)
+       print("shop data: ")
         print(json)
     }
     
