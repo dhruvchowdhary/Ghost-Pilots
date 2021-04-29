@@ -118,6 +118,8 @@
 		81E05861262E0F99000FE245 /* trailLightning.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81E05860262E0F99000FE245 /* trailLightning.sks */; };
 		81EA5C5925F4414200A127A7 /* Level3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EA5C5825F4414200A127A7 /* Level3.swift */; };
 		81EA5C5C25F4416800A127A7 /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81EA5C5B25F4416800A127A7 /* Level3.sks */; };
+		CE42877D2637543F00D2776D /* Objects.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE42877C2637543F00D2776D /* Objects.swift */; };
+		CE4287812637547700D2776D /* Spaceships.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4287802637547700D2776D /* Spaceships.swift */; };
 		CE9C6D9C25E8275800D47FCC /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9925E8275800D47FCC /* GameScene.sks */; };
 		CE9C6D9D25E8275800D47FCC /* GameSceneBase.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */; };
 		CE9C6D9E25E8275800D47FCC /* Hud.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9B25E8275800D47FCC /* Hud.sks */; };
@@ -262,6 +264,8 @@
 		81EA5C5825F4414200A127A7 /* Level3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level3.swift; sourceTree = "<group>"; };
 		81EA5C5B25F4416800A127A7 /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
 		BF55C5AA57697F270DE41606 /* Pods-APBOv2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APBOv2.debug.xcconfig"; path = "Target Support Files/Pods-APBOv2/Pods-APBOv2.debug.xcconfig"; sourceTree = "<group>"; };
+		CE42877C2637543F00D2776D /* Objects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Objects.swift; sourceTree = "<group>"; };
+		CE4287802637547700D2776D /* Spaceships.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spaceships.swift; sourceTree = "<group>"; };
 		CE9C6D9925E8275800D47FCC /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneBase.sks; sourceTree = "<group>"; };
 		CE9C6D9B25E8275800D47FCC /* Hud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Hud.sks; sourceTree = "<group>"; };
@@ -575,7 +579,9 @@
 			isa = PBXGroup;
 			children = (
 				CEC60763261F70C5005F5538 /* CPSpaceshipBase.swift */,
+				CE42877C2637543F00D2776D /* Objects.swift */,
 				CEC6076C261F733B005F5538 /* CPPlayerShip.swift */,
+				CE4287802637547700D2776D /* Spaceships.swift */,
 			);
 			path = "Campaign Ships";
 			sourceTree = "<group>";
@@ -846,6 +852,7 @@
 				8177393525F9DAE20054FC06 /* Infection.swift in Sources */,
 				CEC60745260BBA5D005F5538 /* AdHandler.swift in Sources */,
 				74235B2025A7724400AC4675 /* GameCenter.swift in Sources */,
+				CE42877D2637543F00D2776D /* Objects.swift in Sources */,
 				748FC4B625DD98E500756B4A /* HostMenu.swift in Sources */,
 				81135EF025E8312300B0F59F /* LoadLevelsMenu.swift in Sources */,
 				028FEFE725F7EFC600D519A5 /* GameData.swift in Sources */,
@@ -856,6 +863,7 @@
 				CEB716E52624BE0A003FB440 /* CPLevel1.swift in Sources */,
 				CEC60769261F7127005F5538 /* CPLevelBase.swift in Sources */,
 				748CEDBE256D6EF8005DF246 /* TurretBoss.swift in Sources */,
+				CE4287812637547700D2776D /* Spaceships.swift in Sources */,
 				029A1ABC261CD00800AA0012 /* PopUpWindow.swift in Sources */,
 				81135EF325F14E5800B0F59F /* Level2.swift in Sources */,
 				748CEDB4256C151F005DF246 /* SoloMenu.swift in Sources */,

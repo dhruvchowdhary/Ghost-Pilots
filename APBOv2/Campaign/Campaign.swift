@@ -48,7 +48,7 @@ class Campaign: SKScene {
         levelStrings =
             [
                 "GameScene",
-                "Level1",
+                "CPLevel1",
                 "Level2",
                 "Level3",
                 "TurretBoss",

@@ -3,28 +3,48 @@ import SpriteKit
 
 class CPLevel1 : CPLevelBase {
     
-    override func didMove(to view: SKView) {
-        
-        ManualSetup()
-    }
-    
-    override func createBounds() -> SKNode {
+    override func createBounds() -> [SKNode] {
         let borderShape = SKShapeNode()
         
-        borderShape.path = UIBezierPath(roundedRect: CGRect(x: -1000, y: -1000, width: 2000, height: 2000), cornerRadius: 40).cgPath
-        //borderShape.position = CGPoint(x: frame.midX, y: frame.midY)
+        borderShape.path = UIBezierPath(roundedRect: CGRect(x: -100, y: -200, width: 2000, height: 2000), cornerRadius: 40).cgPath
         borderShape.fillColor = .clear
         borderShape.strokeColor = UIColor(red: 0/255, green: 121/255, blue: 255/255, alpha:1)
         borderShape.lineWidth = 20
-        borderShape.name = "border"
-        borderShape.physicsBody = SKPhysicsBody(edgeChainFrom: borderShape.path!)
         
-        borderShape.physicsBody!.categoryBitMask = CollisionType.border.rawValue
-        borderShape.physicsBody!.collisionBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
-        borderShape.physicsBody?.contactTestBitMask = CollisionType.player.rawValue | CollisionType.bullet.rawValue
+        return [borderShape]
+    }
+    
+    override func createGameObjects() -> [CPObject] {
+        let pepe: [CPObject] = []
+        return pepe
+    }
+    
+    override func createEnemyShips() -> [CPSpaceshipBase] {
+        var pepe: [CPSpaceshipBase] = []
         
-        borderShape.zPosition = 5
+        for _ in 0..<6{
+            pepe.append(CPChaserSpaceship(level: self))
+        }
         
-        return borderShape
+        pepe[0].shipNode?.position = CGPoint(x: 500, y: 500)
+        pepe[1].shipNode?.position = CGPoint(x: 600, y: 500)
+        pepe[2].shipNode?.position = CGPoint(x: 700, y: 500)
+        pepe[3].shipNode?.position = CGPoint(x: 500, y: 1000)
+        pepe[4].shipNode?.position = CGPoint(x: 600, y: 1000)
+        pepe[5].shipNode?.position = CGPoint(x: 700, y: 1000)
+        
+        
+        return pepe
+    }
+    
+    override func createCheckpoints() -> [CPCheckpoint] {
+        var pepe: [CPCheckpoint] = []
+        
+        let endpoint = CPCheckpoint(pos: CGPoint(x: 1700,y: 1700), texture: "player")
+        endpoint.isEndpoint = true
+        pepe.append(endpoint)
+        
+        
+        return pepe
     }
 }

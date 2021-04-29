@@ -8,19 +8,25 @@ class CPPlayerShip: CPSpaceshipBase {
     var shipParent = SKNode()
     var possibleDash = false
     
-    init() {
+    init(lvl: CPLevelBase) {
         
         //Change our ship physics to be able to rotate on walls
-        super.init(spaceshipSetup: CPSpaceshipSetup(imageNamed: "player"))
+        super.init(spaceshipSetup: CPSpaceshipSetup(imageNamed: "player"),lvl: lvl)
         
         // Create the hud to attach to player
         createHud()
         shipParent.addChild(shipNode!)
         shipParent.addChild(hudNode)
+        
+        shipNode?.physicsBody?.contactTestBitMask = 100
     }
     
     override func playerShipUpdate() {
         hudNode.position = shipNode!.position
+    }
+    
+    override func ghostMode(){
+        
     }
     
     func createHud(){
@@ -76,7 +82,6 @@ class CPPlayerShip: CPSpaceshipBase {
                 self.Dash(forwardMagnitude: 60, deltaRotation: CGFloat(-Double.pi/2), forwardDuration: 0.20, rotationDuration: 0.03)
             } else {
                 possibleDash = true
-                print("e")
                 Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false, block: {_ in
                     possibleDash = false
                 })

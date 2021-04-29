@@ -14,7 +14,6 @@ class CPSpaceshipBase {
     var shipNode: SKSpriteNode?
     var bulletRegenRate: Float
     var canRotateBothDirections: Bool
-    var isAiHandled: Bool
     var currentRotate: RotateDir
     var isMoving: Bool
     var rotationSpeed: Float
@@ -24,22 +23,29 @@ class CPSpaceshipBase {
     var rotatingBulletOffset: Double
     var bulletSpeeds: Double
     var isBulletRecharging = false
+    var level: CPLevelBase
+    var isDead = false
+    var isGhost = false
+    var attackRange: CGFloat
     
-    init (spaceshipSetup: CPSpaceshipSetup){
+    var health = 1
+    var maxHealth = 1
+    
+    init (spaceshipSetup: CPSpaceshipSetup, lvl: CPLevelBase){
         shipNode = spaceshipSetup.shipNode
         shipNode?.physicsBody = spaceshipSetup.shipPhisics
         shipSpeed = spaceshipSetup.speed
         isBulletOrbitVisible = spaceshipSetup.isBulletOrbitVisible
         bulletRegenRate = spaceshipSetup.bulletRegenRate
         canRotateBothDirections = false
-        isAiHandled = spaceshipSetup.isAiHandled
         currentRotate = RotateDir.NoRotate
         isMoving = spaceshipSetup.isMoving
         rotationSpeed = spaceshipSetup.shipRotationSpeed
         dashCD = spaceshipSetup.dashCD
         rotatingBulletOffset = spaceshipSetup.rotatingBulletOffset
         bulletSpeeds = spaceshipSetup.bulletSpeeds
-        
+        level = lvl
+        attackRange = spaceshipSetup.attackRange
         
         if isBulletOrbitVisible{
             for i in 0..<unfiredBullets.count {
@@ -52,11 +58,22 @@ class CPSpaceshipBase {
             bulletRotater.run(rotate)
             hudNode.addChild(bulletRotater)
         }
-        
+    }
+    
+    func AiMovement(playerShip: CPPlayerShip){
+        // if you want ai movement you have to override this
     }
     
     func playerShipUpdate(){
         
+    }
+    
+    func inRangeCheck(pos1: CGPoint,pos2: CGPoint, range: CGFloat) -> Bool{
+        let xDelta = ((pos1.x - pos2.x) * (pos1.x - pos2.y))
+        let yDelta = ((pos1.y - pos2.y) * (pos1.y - pos2.y))
+        if  xDelta + yDelta < (range * range){ return true }
+        
+        return false
     }
     
     public func Shoot(shotType: ShotType){
@@ -84,15 +101,13 @@ class CPSpaceshipBase {
     }
     
     func createFiringBullet() {
-        let newBul = SKSpriteNode(imageNamed: "bullet")
-        newBul.physicsBody = SKPhysicsBody(texture: newBul.texture!, size: newBul.size)
-        newBul.physicsBody?.affectedByGravity = false
-        newBul.physicsBody?.collisionBitMask = 1
+        let bulClass = CPBullet()
+        let newBul = bulClass.node as! SKSpriteNode
         
         newBul.position = shipNode!.position
         newBul.position.x += CGFloat(rotatingBulletOffset) * cos(shipNode!.zRotation)
         newBul.position.y += CGFloat(rotatingBulletOffset) * sin(shipNode!.zRotation)
-        shipNode?.scene?.addChild(newBul)
+        level.addObjectToScene(node: newBul,nodeClass: bulClass)
         newBul.zRotation = shipNode!.zRotation
         let velocity = CGVector(dx: cos(shipNode!.zRotation) * CGFloat(bulletSpeeds), dy: sin(shipNode!.zRotation) * CGFloat(bulletSpeeds))
         newBul.physicsBody?.velocity = velocity
@@ -130,9 +145,15 @@ class CPSpaceshipBase {
         }
     }
     
-    func destroyShip(){}
+    public func destroyShip(){
+        isMoving = false
+        isDead = true
+        shipNode?.removeFromParent()
+    }
     
-    func handleAImovement(playerShip: CPSpaceshipBase){}
+    func ghostMode(){
+        destroyShip()
+    }
     
     func ManualUpdate(deltaTime: CGFloat){
         playerShipUpdate()
@@ -158,6 +179,22 @@ class CPSpaceshipBase {
             shipNode?.physicsBody?.velocity = CGVector()
         }
     }
+    
+    func changeHealth(delta: Int){
+        health += delta
+        resolveHealthDelta()
+    }
+    
+    func resolveHealthDelta() {
+        if health < 0 {
+            destroyShip()
+        } else if health < 1 {
+            ghostMode()
+        } else if health > maxHealth {
+            health = maxHealth
+            // this is to prevent overheal, may be adjusted later
+        }
+    }
 }
 
 struct CPSpaceshipSetup {
@@ -177,19 +214,17 @@ struct CPSpaceshipSetup {
     var bulletRegenRate: Float = 1
     var shipRotationSpeed: Float = Float(Double.pi) * 1.3
     var canRotateBothDirections = false
-    var isAiHandled = false
-    var isPresetAi = false
-    var presetAiType = PresetAi.Chaser
     var isMoving = true
     var canDash = true
     var dashCD: TimeInterval = 0.5
     var rotatingBulletOffset: Double = 65
     var bulletSpeeds: Double = 450.0
+    var attackRange: CGFloat = 300
 }
 
 
-enum PresetAi {
-    case Chaser
+enum AiType {
+    case Chaser, None
 }
 
 enum RotateDir {

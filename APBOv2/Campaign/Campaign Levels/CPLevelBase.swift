@@ -2,20 +2,54 @@ import Foundation
 import SpriteKit
 
 class CPLevelBase: SKScene, SKPhysicsContactDelegate {
-    var aiManagedShips: [CPSpaceshipBase] = []
+    var managedShips: [CPSpaceshipBase] = []
     var playerShip: CPPlayerShip?
     var isSetup = false
-    var boundriesNode: SKNode?
+    var walls: [SKNode]?
     var lastRecordedTime: Double = 0.0
     var isGamePaused = false
-    let colHandle = CPCollisionHandler()
+    var colHandle: CPCollisionHandler?
     var LITERALLYEVERYOBJECTINTEHSCENE: [AnyObject] = []
     
     // this will be overriden in the levels and then callback manual setup
     override func didMove(to view: SKView) {
-         boundriesNode = createBounds()
-        addObjectToScene(node: boundriesNode!, nodeClass: CPObject(node: boundriesNode!))
+        walls = createBounds()
+        for i in walls! {
+            
+            // Need to set the physics body here
+            if let e = i as? SKShapeNode {
+                i.physicsBody = SKPhysicsBody(edgeChainFrom: e.path!)
+            }
+            
+            if let e = i as? SKSpriteNode {
+                i.physicsBody = SKPhysicsBody(texture: e.texture!, size: e.size)
+            }
+            
+            if (i.physicsBody == nil){
+                fatalError("I Blame Vincent")
+            }
+            
+            i.physicsBody!.categoryBitMask = CPUInt.walls
+            i.physicsBody!.collisionBitMask = CPUInt.empty
+            i.physicsBody!.contactTestBitMask = CPUInt.empty
+            
+            i.zPosition = 5
+            
+            addObjectToScene(node: i, nodeClass: CPObject(node: i, action: Actions.None))
+        }
         
+        for i in createGameObjects() {
+            addObjectToScene(node: i.node, nodeClass: i)
+        }
+        
+        for i in createEnemyShips() {
+            addObjectToScene(node: i.shipNode!, nodeClass: i)
+            managedShips.append(i)
+        }
+        
+        for i in createCheckpoints() {
+            addObjectToScene(node: i.node, nodeClass: i)
+        }
         
         self.physicsWorld.contactDelegate = self
         
@@ -23,27 +57,46 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
         createPlayerShip()
         scene?.camera = playerShip?.camera
         addObjectToScene(node: (playerShip?.shipParent)!, nodeClass: playerShip!)
-        
+        playerShip?.shipNode?.name = playerShip?.shipParent.name
         
         addBackground()
+        colHandle = CPCollisionHandler(sceneClass: self)
+        
+        
         isSetup = true
+        
     }
     
-    // This is called by the base class when the proper arrays have been updated
-    func ManualSetup(){
+    func createGameObjects() -> [CPObject]{
+        fatalError("Need to ovveride createGameObjects")
     }
     
-    func createBounds() -> SKNode{
+    func createEnemyShips() -> [CPSpaceshipBase]{
+        fatalError("Need to ovveride createEnemyShips")
+    }
+    
+    func createCheckpoints() -> [CPCheckpoint]{
+        fatalError("Need to ovveride createCheckPoints")
+    }
+    
+    func createBounds() -> [SKNode] {
         //this must be ovveridden by ech level,can use some preset options
-        fatalError("Must ovveride create bounds")
+        fatalError("Need to ovveride create bounds")
+    }
+    
+    func youLose(){
+        
+    }
+    
+    func youWin(){
+        
     }
     
     func createPlayerShip(){
-        playerShip = CPPlayerShip()
+        playerShip = CPPlayerShip(lvl: self)
     }
     
     func addBackground() {
-        // Ok fine, this does not need to be in the array
         backgroundColor = SKColor(red: 14.0/255, green: 23.0/255, blue: 57.0/255, alpha: 1)
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -55,15 +108,18 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     public func togglePause(){
         isGamePaused = !isGamePaused
         if isGamePaused {
-            speed = 0
+//            speed = 0
+            scene?.view?.isPaused = true
+            lastRecordedTime = 0
+//            for i in aiManagedShips {
+//                i.shipNode?.physicsBody?.velocity = CGVector()
+//            }
+//            playerShip?.shipNode?.physicsBody?.velocity = CGVector()
         } else {
-            speed = 1
+//            speed = 1
+            scene?.view?.isPaused = false
         }
         switchHud()
-        for i in aiManagedShips {
-            i.shipNode?.physicsBody?.velocity = CGVector()
-        }
-        playerShip?.shipNode?.physicsBody?.velocity = CGVector()
     }
     
     public func matrixMode(speed: CGFloat) {
@@ -71,7 +127,11 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     }
     
     public func didBegin(_ contact: SKPhysicsContact) {
-        colHandle.collision(nodeA: contact.bodyA.node!, nodeB: contact.bodyB.node!, possibleNodes: LITERALLYEVERYOBJECTINTEHSCENE)
+        colHandle!.collision(nodeA: contact.bodyA.node!, nodeB: contact.bodyB.node!, possibleNodes: LITERALLYEVERYOBJECTINTEHSCENE)
+    }
+    
+    func triggerExplosion(origin: CGPoint, radius: CGFloat){
+        
     }
     
     func switchHud(){
@@ -100,8 +160,8 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
         }
         
         if !isSetup{return}
-        for ship in aiManagedShips {
-            ship.handleAImovement(playerShip: playerShip!)
+        for ship in managedShips {
+            ship.AiMovement(playerShip: playerShip!)
         }
         
         playerShip?.ManualUpdate(deltaTime: CGFloat((currentTime - lastRecordedTime)))
@@ -120,41 +180,22 @@ class CPCheckpoint {
     var isCustomInteract = false
     var isStartpoint = false
     var isEndpoint = false
-    var node = SKNode()
+    var node: SKSpriteNode
     
-    init(pos: CGPoint) {
+    init(pos: CGPoint, texture: String) {
+        node = SKSpriteNode(imageNamed: texture)
         node.position = pos
-        node.physicsBody = SKPhysicsBody()
+        node.physicsBody = SKPhysicsBody(texture: node.texture!, size: node.size)
+        node.physicsBody?.affectedByGravity = false
+        
+        // ignore collisions with everything, only contacts with player
         node.physicsBody!.contactTestBitMask = 100
+        node.physicsBody?.collisionBitMask = 0
+        node.physicsBody?.contactTestBitMask = 10
+        node.physicsBody?.isDynamic = false
     }
 }
 
-class CPObject {
-    var node: SKNode
-    
-    // Movement options
-    var nodePhysics: SKPhysicsBody?
-    
-    // Activation methods
-    var preformActionOnShoot = false
-    var preformActionOnContact = false
-    
-    // Hazardous options
-    var isKill = false
-    
-    // Rewardable options
-    var rewardedObject = "NIL"
-    
-    init(imageNamed: String) {
-        let pepenode = SKSpriteNode(imageNamed: imageNamed)
-        node = pepenode
-        nodePhysics = SKPhysicsBody(texture: pepenode.texture!, size: pepenode.size)
-        node.physicsBody = nodePhysics
-        node.physicsBody?.isDynamic = false
-    }
-    
-    init (node: SKNode){
-        self.node = node
-    }
-    
+public enum Actions{
+    case HarmlessExplode, DamagingExplode, RewardObject, DirectDamage, None
 }
