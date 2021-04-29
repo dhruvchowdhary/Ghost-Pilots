@@ -401,6 +401,7 @@ public class MultiplayerHandler{
                 for i in 0..<Global.gameData.shipsToUpdate.count {
                     if Global.gameData.shipsToUpdate[i].playerID == e.key {
                         pulledTrail = SKEmitterNode(fileNamed: e.value as! String)!
+                        pulledTrail.targetNode = Global.gameData.gameScene.scene
                         Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(pulledTrail)
                     }
                 }

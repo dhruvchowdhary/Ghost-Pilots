@@ -13,31 +13,25 @@ public class SpaceshipBase {
     public var position = (0.0,0.0)
     public var angle = 0 // In degrees
     public var shipLabel = SKLabelNode(text: "name")
+    
     var unfiredBullets: [SKSpriteNode] =
         [SKSpriteNode(imageNamed: "bullet"),
          SKSpriteNode(imageNamed: "bullet"),
          SKSpriteNode(imageNamed: "bullet")]
-    
-    public let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
-    
     var timeUntilNextBullet: Double = 0.8;
-
     var unfiredBulletsCount = 0
     public var unfiredBulletRotator = SKNode();
 
     public var posRef: DatabaseReference = DatabaseReference()
     public var shotsRef: DatabaseReference = DatabaseReference()
     
-    
     // trails
     public let trailDefault = SKEmitterNode(fileNamed: "Thrusters")
     public let trailLightning = SKEmitterNode(fileNamed: "trailLightning")
+    public let pilotThrust1 = SKEmitterNode(fileNamed: "PilotThrust")
     
     //decals
   //  public let decalStripe = SKSpriteNode(imageNamed: "decalStripe")
-    
-
-   
 
     init(playerId: String) {
         self.playerID = playerId
