@@ -163,18 +163,27 @@ public class MultiplayerHandler{
                             self.colorRef?.observeSingleEvent(of: DataEventType.value, with: {(snapshot) in
                                 let pilot = SKAction.setTexture(SKTexture(imageNamed: "\(snapshot.value!)"+"Pilot"))
                                 if let ship = Global.gameData.shipsToUpdate[i] as? RemoteSpaceship {
+                                    ship.spaceShipNode.removeAllChildren()
+                                    Global.gameData.playerShip?.pilotThrust1?.removeFromParent()
+                                    ship.spaceShipNode.addChild((Global.gameData.playerShip?.pilotThrust1!)!)
+                                    
                                     ship.isPilot = true
                                 }
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.run(pilot)
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation = Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation - CGFloat(Double.pi/2)
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.size = CGSize(width: 40, height: 40)
                             // need this    let shipThrust = Global.gameData.shipsToUpdate[i].spaceShipNode.childNode(withName: "thruster1") as! SKEmitterNode
+                                
                                 let pilotThrust = Global.gameData.shipsToUpdate[i].spaceShipNode.childNode(withName: "pilotThrust1") as! SKEmitterNode
                                 pilotThrust.particleAlpha = 1
                       // and this          shipThrust.particleAlpha = 0
                                 pilotList.append(e.key)
                                 if Global.gameData.shipsToUpdate[i].playerID == Global.playerData.playerID {
                                     Global.gameData.isPilot = true
+                                    Global.gameData.shipsToUpdate[i].spaceShipNode.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+                                    Global.gameData.shipsToUpdate[i].spaceShipNode.removeAllChildren()
+                                    Global.gameData.playerShip?.pilotThrust1?.removeFromParent()
+                                    Global.gameData.shipsToUpdate[i].spaceShipNode.addChild((Global.gameData.playerShip?.pilotThrust1!)!)
                                     Global.gameData.playerShip?.spaceShipParent.childNode(withName: "bulletRotator")?.isHidden = true
                                 }
                                 // turn pilot to ship with right color

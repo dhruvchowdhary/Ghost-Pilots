@@ -14,7 +14,7 @@ public class LocalSpaceship: SpaceshipBase {
     var turnButtonNode: MSButtonNode!
     var shootButtonNode: MSButtonNode!
     var pauseButtonNode: MSButtonNode!
-    var velocity = CGVector(dx: 0, dy: 0)
+    public var velocity = CGVector(dx: 0, dy: 0)
     var rotation = CGFloat(0)
     var isPlayerAlive = true
     private var pilot = SKSpriteNode()
