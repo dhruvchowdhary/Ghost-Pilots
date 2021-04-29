@@ -9,12 +9,12 @@ class RemoteSpaceship: SpaceshipBase {
     init(playerID: String, imageTexture: String) {
         super.init(playerId: playerID)
         spaceShipNode.removeFromParent()
-        spaceShipNode = SKSpriteNode(imageNamed: imageTexture);
+        spaceShipNode = SKSpriteNode(imageNamed: imageTexture)
         spaceShipNode.name = "shipnode"
         spaceShipParent.addChild(spaceShipNode)
         spaceShipNode.addChild(pilotThrust1!)
-        spaceShipNode.addChild(trailDefault!)
-        spaceShipNode.addChild(trailLightning!)
+      //  spaceShipNode.addChild(trailDefault!)
+      //  spaceShipNode.addChild(trailLightning!)
         
         spaceShipParent.name = "remoteparent"
         spaceShipParent.physicsBody = SKPhysicsBody.init(circleOfRadius: 24)

@@ -61,9 +61,9 @@ class Shop: SKScene {
     // var equippedTrail = UserDefaults.standard.string(forKey: "equippedTrail")
     
     public var lockerDecals: [String] = ["DEFAULTDECAL"]
-    public var lockerTrails: [String] = ["DEFAULTTRAIL"]
+    public var lockerTrails: [String] = ["trailDefault"]
     public var equippedDecal: String = "DEFAULTDECAL"
-    public var equippedTrail: String = "DEFAULTTRAIL"
+    public var equippedTrail: String = "trailDefault"
     
     
     var decalNameTitle: [SKLabelNode] = []
@@ -205,7 +205,7 @@ class Shop: SKScene {
         
         trailStrings =
             [
-                "DEFAULTTRAIL", "LIGHTNING", "EMOJI"
+                "trailDefault", "trailLightning", "EMOJI"
             ]
         trailPrices =
             [

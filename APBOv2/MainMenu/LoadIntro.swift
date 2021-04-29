@@ -41,13 +41,13 @@ class LoadIntro: SKScene {
             let jsonData = snapVal.data(using: .utf8)
             let payload = try! JSONDecoder().decode(ShopPayload.self, from: jsonData!)
             
-            if payload.equippedTrail != "default" {
+            if payload.equippedTrail != "trailDefault" {
                 print("equipped trail is \(payload.equippedTrail)")
                 Global.gameData.selectedTrail = SelectedTrail(rawValue: payload.equippedTrail)!
             }
             else {
                 print("equipped trail is none")
-                Global.gameData.selectedTrail = SelectedTrail(rawValue: "none")!
+                Global.gameData.selectedTrail = SelectedTrail(rawValue: "trailDefault")!
             }
             
             if payload.equippedDecal != "default" {
