@@ -28,6 +28,9 @@ class CPSpaceshipBase {
     var isGhost = false
     var attackRange: CGFloat
     
+    var firedBullets: [SKNode] = []
+    var firedBulletVelocites: [CGVector] = []
+    
     var health = 1
     var maxHealth = 1
     
@@ -111,6 +114,18 @@ class CPSpaceshipBase {
         newBul.zRotation = shipNode!.zRotation
         let velocity = CGVector(dx: cos(shipNode!.zRotation) * CGFloat(bulletSpeeds), dy: sin(shipNode!.zRotation) * CGFloat(bulletSpeeds))
         newBul.physicsBody?.velocity = velocity
+        
+        newBul.physicsBody?.categoryBitMask = CPUInt.bullet
+        newBul.physicsBody?.contactTestBitMask = CPUInt.player | CPUInt.bullet | CPUInt.enemy | CPUInt.immovableObject | CPUInt.object | CPUInt.walls
+        
+        firedBullets.append(newBul)
+        firedBulletVelocites.append(newBul.physicsBody!.velocity)
+        
+        // There is no feasable way to have 10 sec bullet
+        Timer.scheduledTimer(withTimeInterval: TimeInterval(10), repeats: false) { (timer) in
+            self.firedBullets.removeFirst()
+            self.firedBulletVelocites.removeFirst()
+        }
     }
     
     public func Dash(forwardMagnitude: CGFloat, deltaRotation: CGFloat, forwardDuration: Double, rotationDuration: Double){
@@ -123,8 +138,19 @@ class CPSpaceshipBase {
             })
             
             canDash = false
-            let timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(dashCD), repeats: false) { (timer) in
+            Timer.scheduledTimer(withTimeInterval: TimeInterval(dashCD), repeats: false) { (timer) in
                 self.canDash = true
+            }
+        }
+    }
+    
+    func togglePause(isPaused: Bool){
+        shipNode?.physicsBody!.velocity = CGVector()
+        for i in firedBullets {
+            if isPaused{
+                i.physicsBody!.velocity = CGVector()
+            } else {
+                i.physicsBody!.velocity = firedBulletVelocites[firedBullets.firstIndex(of: i)!]
             }
         }
     }

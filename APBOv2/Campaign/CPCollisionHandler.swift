@@ -27,10 +27,14 @@ class CPCollisionHandler {
         let classB = possibleNodes[Int(nodeB.name!)!]
         
         // Checkpoint testing
-        if let checkpoint = classA as? CPCheckpoint{
-            handleCheckpoint(cp: checkpoint)
+        if let checkpoint = classA as? CPCheckpoint {
+            if let player = classB as? CPPlayerShip {
+                handleCheckpoint(cp: checkpoint)
+            }
         } else if let checkpoint = classB as? CPCheckpoint{
-            handleCheckpoint(cp: checkpoint)
+            if let player = classA as? CPPlayerShip {
+                handleCheckpoint(cp: checkpoint)
+            }
             
         // Obj testing
         } else if let obj = classA as? CPObject {
@@ -40,18 +44,10 @@ class CPCollisionHandler {
             ObjAndUnknown(obj: obj, unknown: classA)
         }
         
-        // Figure out which nodes we are dealing with
-        
-        
-        // Check if we have hit any checkpoints - these only interact with the player
-        
-        // if we didnt hit any spaceships, it might be a stray bullet
-        
-        // We probably dont need to handle this
     }
     
     func ObjAndUnknown(obj: CPObject, unknown: AnyObject){
-        print("we here")
+        print("ok")
         if let obj2 = unknown as? CPObject {
             objAndObj(obj1: obj, obj2: obj2)
         }
@@ -120,12 +116,8 @@ class CPCollisionHandler {
     }
     
     func objAndObj(obj1: CPObject, obj2: CPObject){
-        if obj1.isBreakable {
-            obj1.health -= 1
-        }
-        if obj2.isBreakable{
-            obj2.health -= 1
-        }
+        obj1.changeHealth(delta: -1)
+        obj2.changeHealth(delta: -1)
     }
     
     func playerAndEnemy(player: CPPlayerShip, enemy: CPSpaceshipBase) {

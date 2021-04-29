@@ -545,6 +545,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		CE57608F263B1DFB00D3964F /* Campaign Objects */ = {
+			isa = PBXGroup;
+			children = (
+				CE42877C2637543F00D2776D /* Objects.swift */,
+			);
+			path = "Campaign Objects";
+			sourceTree = "<group>";
+		};
 		CEB716E82624C545003FB440 /* Campaign Blank SKS */ = {
 			isa = PBXGroup;
 			children = (
@@ -563,6 +571,7 @@
 				CEB7170426289B58003FB440 /* CPCollisionHandler.swift */,
 				CEC60748260CF59D005F5538 /* Campaign.swift */,
 				CEB716F92624C94E003FB440 /* Campaign Levels */,
+				CE57608F263B1DFB00D3964F /* Campaign Objects */,
 				CEC60767261F70F1005F5538 /* Campaign Ships */,
 			);
 			path = Campaign;
@@ -582,7 +591,6 @@
 			isa = PBXGroup;
 			children = (
 				CEC60763261F70C5005F5538 /* CPSpaceshipBase.swift */,
-				CE42877C2637543F00D2776D /* Objects.swift */,
 				CEC6076C261F733B005F5538 /* CPPlayerShip.swift */,
 				CE4287802637547700D2776D /* Spaceships.swift */,
 			);

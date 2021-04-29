@@ -18,7 +18,7 @@ class CPPlayerShip: CPSpaceshipBase {
         shipParent.addChild(shipNode!)
         shipParent.addChild(hudNode)
         
-        shipNode?.physicsBody?.contactTestBitMask = 100
+        shipNode?.physicsBody?.contactTestBitMask = CPUInt.player
     }
     
     override func playerShipUpdate() {

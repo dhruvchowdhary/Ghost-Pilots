@@ -68,7 +68,7 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     }
     
     func createGameObjects() -> [CPObject]{
-        fatalError("Need to ovveride createGameObjects")
+        fatalError("Need to override createGameObjects")
     }
     
     func createEnemyShips() -> [CPSpaceshipBase]{
@@ -107,18 +107,21 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     
     public func togglePause(){
         isGamePaused = !isGamePaused
-        if isGamePaused {
-//            speed = 0
-            scene?.view?.isPaused = true
-            lastRecordedTime = 0
-//            for i in aiManagedShips {
-//                i.shipNode?.physicsBody?.velocity = CGVector()
-//            }
-//            playerShip?.shipNode?.physicsBody?.velocity = CGVector()
-        } else {
-//            speed = 1
-            scene?.view?.isPaused = false
+        
+        // All the ships and their sub bullets
+        for i in managedShips {
+            i.togglePause(isPaused: isGamePaused)
         }
+        playerShip?.togglePause(isPaused: isGamePaused)
+        
+        // Handle all skactions
+        if isGamePaused {
+            speed = 0
+            lastRecordedTime = 0
+        } else {
+            speed = 1
+        }
+        
         switchHud()
     }
     

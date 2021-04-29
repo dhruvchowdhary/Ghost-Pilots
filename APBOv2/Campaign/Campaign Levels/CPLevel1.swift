@@ -22,7 +22,7 @@ class CPLevel1 : CPLevelBase {
     override func createEnemyShips() -> [CPSpaceshipBase] {
         var pepe: [CPSpaceshipBase] = []
         
-        for _ in 0..<6{
+        for _ in 0..<20{
             pepe.append(CPChaserSpaceship(level: self))
         }
         

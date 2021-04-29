@@ -2,7 +2,7 @@ import SpriteKit
 import Foundation
 
 
-class CPObject {
+public class CPObject {
     var node: SKNode
     
     // Movement options
@@ -21,6 +21,8 @@ class CPObject {
     var blastRadius: CGFloat = 100
     var damage = 1
     
+    var deathParticles = SKEmitterNode()
+    
     // Rewardable options
     var rewardedObject = "NIL"
     
@@ -32,12 +34,22 @@ class CPObject {
         node.physicsBody?.isDynamic = false
     }
     
+    func changeHealth(delta: Int){
+        print(health)
+        if isBreakable {
+            health += delta
+            if health < 1 {
+                node.removeFromParent()
+            }
+        }
+    }
+    
     init (node: SKNode, action : Actions?){
         self.node = node
     }
 }
 
-class CPBullet: CPObject {
+public class CPBullet: CPObject {
     init(){
         super.init(imageNamed: "bullet")
         isBreakable = true
@@ -51,6 +63,8 @@ class CPBullet: CPObject {
         node.physicsBody?.collisionBitMask = 0
         nodePhysics!.categoryBitMask = CPUInt.bullet
     }
+    
+    
 }
 
 

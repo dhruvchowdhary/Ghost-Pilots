@@ -20,7 +20,8 @@ class CPChaserSpaceship : CPSpaceshipBase {
             let y = (playerShip.shipNode?.position.y)! - (shipNode?.position.y)!
             let x = (playerShip.shipNode?.position.x)! - (shipNode?.position.x)!
             shipNode?.zRotation = atan2(y,x ) - CGFloat.pi * 1 / 2
-            shipNode?.physicsBody?.velocity = CGVector(dx: (playerShip.shipNode?.position.x)! - (shipNode?.position.x)!, dy: (playerShip.shipNode?.position.y)! - (shipNode?.position.y)!)
+            
+            shipNode?.physicsBody?.velocity = CGVector(dx: x/1.5 + 100 * cos(shipNode!.zRotation), dy: y/1.5 + 100 * sin(shipNode!.zRotation))
         } else {
             if inRangeCheck(pos1: playerShip.shipNode!.position, pos2: shipNode!.position, range: attackRange){
                 isMoving = true
