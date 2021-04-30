@@ -89,7 +89,8 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     }
     
     func youWin(){
-        
+        Global.gameData.addPolyniteCount(delta: 1)
+        Global.loadScene(s: "MainMenu")
     }
     
     func createPlayerShip(){
@@ -183,6 +184,8 @@ class CPCheckpoint {
     var isCustomInteract = false
     var isStartpoint = false
     var isEndpoint = false
+    // 999 = all enemys on the scene
+    var kilsReqToUnlock = 999
     var node: SKSpriteNode
     
     init(pos: CGPoint, texture: String) {

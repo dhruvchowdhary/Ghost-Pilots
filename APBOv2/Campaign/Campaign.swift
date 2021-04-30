@@ -75,7 +75,7 @@ class Campaign: SKScene {
         backButtonNode!.selectedHandlers = {
             self.view!.removeGestureRecognizer(self.panGesture)
             //Global.loadScene(s: "MainMenu")
-            Global.loadScene(s: "CPLevel1")
+            Global.loadScene(s: "MainMenu")
         }
             
         if let particles = SKEmitterNode(fileNamed: "Starfield") {

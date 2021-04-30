@@ -7,6 +7,8 @@ class CPPlayerShip: CPSpaceshipBase {
     var focusedPoints: [(SKNode, Float)] = []
     var shipParent = SKNode()
     var possibleDash = false
+    let phaseButton = MSButtonNode(imageNamed: "phaseButton")
+    let ejectButton = MSButtonNode(imageNamed: "ejectButton")
     
     init(lvl: CPLevelBase) {
         
@@ -26,6 +28,16 @@ class CPPlayerShip: CPSpaceshipBase {
     }
     
     override func ghostMode(){
+        // If triggered manully, wont make a diff
+        health = 0
+        
+        phaseButton.zPosition = 100
+        ejectButton.zPosition = -100
+        
+        
+    }
+    
+    func enterSpaceship(){
         
     }
     
@@ -112,7 +124,6 @@ class CPPlayerShip: CPSpaceshipBase {
         hudNode.addChild(playAgainButton)
         
         
-        let phaseButton = MSButtonNode(imageNamed: "phaseButton")
         phaseButton.name = "phaseButton"
         hudNode.addChild(phaseButton)
         phaseButton.position.x = 575
@@ -136,7 +147,6 @@ class CPPlayerShip: CPSpaceshipBase {
 //        }
         
         
-        let ejectButton = MSButtonNode(imageNamed: "ejectButton")
         ejectButton.name = "ejectButton"
         hudNode.addChild(ejectButton)
         ejectButton.position.x = 575

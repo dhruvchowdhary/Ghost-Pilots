@@ -8,9 +8,7 @@ class CPChaserSpaceship : CPSpaceshipBase {
         
         var setup = CPSpaceshipSetup(imageNamed: "enemy1")
         setup.isMoving = false
-        setup.shipPhisics.contactTestBitMask = 1
-        setup.shipPhisics.collisionBitMask = 1
-        setup.shipPhisics.categoryBitMask = 11
+        setup.shipPhisics.contactTestBitMask = CPUInt.bullet | CPUInt.immovableObject | CPUInt.walls | CPUInt.object
         super.init(spaceshipSetup: setup, lvl: level)
     }
     
@@ -21,7 +19,7 @@ class CPChaserSpaceship : CPSpaceshipBase {
             let x = (playerShip.shipNode?.position.x)! - (shipNode?.position.x)!
             shipNode?.zRotation = atan2(y,x ) - CGFloat.pi * 1 / 2
             
-            shipNode?.physicsBody?.velocity = CGVector(dx: x/1.5 + 100 * cos(shipNode!.zRotation), dy: y/1.5 + 100 * sin(shipNode!.zRotation))
+            shipNode?.physicsBody?.velocity = CGVector(dx: x/2 + 200 * cos(shipNode!.zRotation), dy: y/2 + 200 * sin(shipNode!.zRotation))
         } else {
             if inRangeCheck(pos1: playerShip.shipNode!.position, pos2: shipNode!.position, range: attackRange){
                 isMoving = true

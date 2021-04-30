@@ -71,6 +71,13 @@ class CPSpaceshipBase {
         
     }
     
+    // need to work on telling the ai to rotation lock itself
+    func orientateShip(currentRotation: CGFloat, targetRotation: CGFloat){
+        if canRotateBothDirections {
+            
+        }
+    }
+    
     func inRangeCheck(pos1: CGPoint,pos2: CGPoint, range: CGFloat) -> Bool{
         let xDelta = ((pos1.x - pos2.x) * (pos1.x - pos2.y))
         let yDelta = ((pos1.y - pos2.y) * (pos1.y - pos2.y))
@@ -245,7 +252,7 @@ struct CPSpaceshipSetup {
     var dashCD: TimeInterval = 0.5
     var rotatingBulletOffset: Double = 65
     var bulletSpeeds: Double = 450.0
-    var attackRange: CGFloat = 300
+    var attackRange: CGFloat = 450
 }
 
 
