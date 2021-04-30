@@ -27,7 +27,7 @@ extension String {
 class Shop: SKScene {
     
     /* UI Connections */
-    var backButtonNode: MSButtonNode!
+    var backButtonNode: MSButtonNode?
     var trailsButtonNode: MSButtonNode!
     var skinsButtonNode: MSButtonNode!
 
@@ -83,9 +83,43 @@ class Shop: SKScene {
     
     var isPopupLoaded = false
     
+    // for scrolling shop
+    let cameraNode =  SKCameraNode()
+    var previousCameraPoint = CGPoint.zero
+    let panGesture = UIPanGestureRecognizer()
+    var currentHandler = {}
+    
     
     override func didMove(to view: SKView) {
         /* Setup your scene here */
+        //scrolling stuff
+        
+        panGesture.addTarget(self, action: #selector(panGestureAction(_:)))
+        view.addGestureRecognizer(panGesture)
+        
+        
+        
+        addChild(cameraNode)
+        camera = cameraNode
+        camera?.zPosition = 100
+        
+        backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
+        backButtonNode?.removeFromParent()
+        camera?.addChild(backButtonNode!)
+        
+        backButtonNode?.zPosition = 2
+        
+        
+        backButtonNode!.selectedHandlers = {
+            self.view!.removeGestureRecognizer(self.panGesture)
+            //Global.loadScene(s: "MainMenu")
+            print("backbutton pressed")
+            Global.loadScene(s: "MainMenu")
+            
+        }
+        
+        
+        
         
         Global.gameData.skView = self.view!
         // EMOJI STUFF
@@ -113,6 +147,40 @@ class Shop: SKScene {
             }
         })
         
+        // setting up shop visual border
+        
+        let effect = SKEffectNode()
+        camera?.addChild(effect)
+        
+        let effectBackground = SKEffectNode()
+        camera?.addChild(effectBackground)
+//
+//        effect.zPosition = 11
+
+        let backgroundSpace = SKShapeNode()
+        
+        let backgroundwidth = 2000
+        let backgroundheight = 2000
+        backgroundSpace.path = UIBezierPath(roundedRect: CGRect(x: -backgroundwidth/2, y: -backgroundheight/2, width: backgroundwidth, height: backgroundheight), cornerRadius: 40).cgPath
+        backgroundSpace.position = CGPoint(x: frame.midX, y: frame.midY - 100 )
+        backgroundSpace.fillColor = UIColor.black
+        backgroundSpace.zPosition = -420
+        
+        effectBackground.addChild(backgroundSpace)
+        
+        
+        let backgroundholewidth = 1200
+        let backgroundholeheight = 500
+        let backgroundHole = SKShapeNode()
+     
+        backgroundHole.path = UIBezierPath(roundedRect: CGRect(x: -backgroundholewidth/2, y: -backgroundholeheight/2, width: backgroundholewidth, height: backgroundholeheight), cornerRadius: 40).cgPath
+        backgroundHole.position = CGPoint(x: frame.midX, y: frame.midY)
+        backgroundHole.fillColor = UIColor.white
+        backgroundHole.alpha = 0.001
+        backgroundHole.blendMode = .replace
+        backgroundSpace.addChild(backgroundHole)
+        
+        
         
         let borderShape = SKShapeNode()
 
@@ -125,10 +193,37 @@ class Shop: SKScene {
         borderShape.strokeColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha:1)
         borderShape.lineWidth = 14
         borderShape.name = "border"
-        borderShape.zPosition = 2
+        borderShape.zPosition = -100
         
-        addChild(borderShape)
+        effect.addChild(borderShape)
         
+
+
+        let holewidth = 900
+        let holeheight = 400
+        let rectangleHole = SKShapeNode()
+        rectangleHole.name = "rectanglehole"
+        rectangleHole.path = UIBezierPath(roundedRect: CGRect(x: -holewidth/2, y: -holeheight/2, width: holewidth, height: holeheight), cornerRadius: 0).cgPath
+        rectangleHole.position = CGPoint(x: frame.midX + 115, y: frame.midY)
+        rectangleHole.fillColor = UIColor.white
+            rectangleHole.alpha = 0.001
+        rectangleHole.blendMode = .replace
+        borderShape.addChild(rectangleHole)
+        
+        
+
+        let rectangleFill = SKShapeNode()
+        rectangleFill.name = "rectangleFill"
+        rectangleFill.path = UIBezierPath(roundedRect: CGRect(x: -holewidth/2, y: -holeheight/2, width: holewidth, height: holeheight), cornerRadius: 0).cgPath
+        rectangleFill.position = CGPoint(x: rectangleHole.position.x, y: borderShape.position.y)
+        rectangleFill.fillColor = UIColor.white
+        rectangleFill.strokeColor = UIColor.white
+        rectangleFill.lineWidth = 10
+        rectangleFill.zPosition = -200
+        camera?.addChild(rectangleFill)
+        
+        
+       
         
         let buyPopupWidth = 600
         let buyPopupHeight = 600
@@ -167,8 +262,8 @@ class Shop: SKScene {
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
             //      particles.advanceSimulationTime(60)
-            particles.zPosition = -1
-            addChild(particles)
+            particles.zPosition = -400
+            effectBackground.addChild(particles)
         }
         
         
@@ -176,8 +271,9 @@ class Shop: SKScene {
         shopDisplay.position = CGPoint(x: frame.midX, y: frame.midY + 280)
         shopDisplay.xScale = 0.25
         shopDisplay.yScale = 0.25
-        addChild(shopDisplay)
-        shopDisplay.zPosition = 1
+        camera?.addChild(shopDisplay)
+        
+        shopDisplay.zPosition = 2
   
         polyniteLabel.text = "\(Global.gameData.polyniteCount)"
         polyniteLabel.position = CGPoint(x: shopDisplay.position.x , y: shopDisplay.position.y - 50)
@@ -185,12 +281,7 @@ class Shop: SKScene {
         polyniteLabel.fontColor = UIColor.black
         polyniteLabel.zPosition = 10
         polyniteLabel.fontSize = 80 / 1.5
-        addChild(polyniteLabel)
-        
-        backButtonNode = self.childNode(withName: "back") as? MSButtonNode
-        backButtonNode.selectedHandlers = {
-            self.loadMainMenu()
-        }
+        camera?.addChild(polyniteLabel)
         
         
         decalShips =
@@ -586,9 +677,15 @@ class Shop: SKScene {
         trailsButtonNode.yScale = 0.8
         skinsButtonNode.xScale = 0.8
         skinsButtonNode.yScale = 0.8
-        trailsButtonNode.position = CGPoint(x: frame.midX - 460 , y: borderShape.position.y - 60)
+        trailsButtonNode.position = CGPoint(x: frame.midX - 462 , y: borderShape.position.y - 60)
         skinsButtonNode.position = CGPoint(x: trailsButtonNode.position.x, y: borderShape.position.y + 60)
+        skinsButtonNode.zPosition = 100
+        trailsButtonNode.zPosition = 100
         
+        trailsButtonNode?.removeFromParent()
+        camera?.addChild(trailsButtonNode!)
+        skinsButtonNode?.removeFromParent()
+        camera?.addChild(skinsButtonNode!)
         
         
         func hideDecalStuff() {
@@ -772,6 +869,8 @@ class Shop: SKScene {
             isPopupLoaded = true
             
         }
+        
+        
         func buyingTrail(i: Int, node: MSButtonNode) {
             
             print("bought \(trailStrings[i])")
@@ -817,8 +916,8 @@ class Shop: SKScene {
         // adjusting for devices
         if UIDevice.current.userInterfaceIdiom != .pad {
             if UIScreen.main.bounds.width < 779 {
-                backButtonNode.position.x = -600
-                backButtonNode.position.y =  300
+                backButtonNode!.position.x = -600
+                backButtonNode!.position.y =  300
             }
         }
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -834,6 +933,39 @@ class Shop: SKScene {
  
         
     }
+    
+    @objc func panGestureAction(_ sender: UIPanGestureRecognizer) {
+        // The camera has a weak reference, so test it
+        guard let camera = self.camera else {
+            return
+        }
+        
+        //  let zoomInActionipad = SKAction.scale(to: 1.7, duration: 0.01)
+        
+        //  camera.run(zoomInActionipad)
+        
+        // If the movement just began, save the first camera position
+        if sender.state == .began {
+            previousCameraPoint = camera.position
+            currentHandler()
+            currentHandler = {}
+        }
+        // Perform the translation
+        let translation = sender.translation(in: self.view)
+        
+        var newPosition = CGPoint(
+            x: previousCameraPoint.x + translation.x * -2,
+            y: previousCameraPoint.y
+        )
+        if newPosition.x < 0 { newPosition.x = 0}
+        let rightLimit = CGFloat(800)
+        if newPosition.x > rightLimit { newPosition.x = CGFloat(rightLimit)}
+        
+        camera.position = newPosition
+        
+        
+    }
+
     
    
     func exitPopup() {
