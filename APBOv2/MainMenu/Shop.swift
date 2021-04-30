@@ -243,7 +243,7 @@ class Shop: SKScene {
         
         trailIcons =
             [
-                SKSpriteNode(imageNamed: "trailDefault"), SKSpriteNode(imageNamed: "trailLightning")
+                SKSpriteNode(imageNamed: "trailDefault"), SKSpriteNode(imageNamed: "trailLightning"), SKSpriteNode(imageNamed: "trailHeart")
             ]
         trailButtons =
             [
@@ -257,35 +257,35 @@ class Shop: SKScene {
 
         trailBackgroundColor =
             [
-               UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha:1), UIColor(red: 191/255, green: 236/255, blue: 163/255, alpha:1), UIColor(red: 195/255, green: 212/255, blue: 255/255, alpha:1)
+               UIColor(red: 236/255, green: 236/255, blue: 236/255, alpha:1), UIColor(red: 191/255, green: 236/255, blue: 163/255, alpha:1), UIColor(red: 191/255, green: 236/255, blue: 163/255, alpha:1)
             ]
         
         
         trailStrings =
             [
-                "trailDefault", "trailLightning"
+                "trailDefault", "trailLightning", "trailHeart"
             ]
         
         trailStringNames =
             [
-                "DEFAULT", "BOLT"
+                "DEFAULT", "BOLT", "HEART"
             ]
         
         trailPrices =
             [
-                0, 200
+                0, 200, 200
             ]
         trailNameTitle =
             [
-                SKLabelNode(text: "DEFAULT"), SKLabelNode(text: "BOLT")
+                SKLabelNode(text: "DEFAULT"), SKLabelNode(text: "BOLT"), SKLabelNode(text: "HEART")
             ]
         trailLabel =
             [
-                SKSpriteNode(imageNamed: "priceLabel"), SKSpriteNode(imageNamed: "priceLabel")
+                SKSpriteNode(imageNamed: "priceLabel"), SKSpriteNode(imageNamed: "priceLabel"), SKSpriteNode(imageNamed: "priceLabel")
             ]
         trailPriceLabel =
             [
-                SKLabelNode(text: "0"), SKLabelNode(text: "0")
+                SKLabelNode(text: "0"), SKLabelNode(text: "0"), SKLabelNode(text: "0")
             ]
         
         
@@ -881,7 +881,7 @@ class Shop: SKScene {
             //     shopEquip.alpha = 0
             
             //code to show show purchased
-            if lockerDecals.contains(string) {
+            if lockerTrails.contains(string) {
                 print("locker contains \(string)")
                 trailLabel[index].texture = SKTexture(imageNamed: "purchasedLabel")
                 trailPriceLabel[index].removeFromParent()

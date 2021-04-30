@@ -114,6 +114,7 @@
 		8177393225F9D9880054FC06 /* AstroBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8177393125F9D9880054FC06 /* AstroBall.swift */; };
 		8177393525F9DAE20054FC06 /* Infection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8177393425F9DAE20054FC06 /* Infection.swift */; };
 		8186856225F9AD6C00B9CBF3 /* astroImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 8186856125F9AD6C00B9CBF3 /* astroImages.atlas */; };
+		819810CB263BAA6D00417A6C /* trailHeart.sks in Resources */ = {isa = PBXBuildFile; fileRef = 819810CA263BAA6D00417A6C /* trailHeart.sks */; };
 		81A4CEE025FA8C2C001C2602 /* Infection.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81A4CEDF25FA8C2C001C2602 /* Infection.sks */; };
 		81A4CEE325FA8C56001C2602 /* AstroBall.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81A4CEE225FA8C56001C2602 /* AstroBall.sks */; };
 		81E05861262E0F99000FE245 /* trailLightning.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81E05860262E0F99000FE245 /* trailLightning.sks */; };
@@ -260,6 +261,7 @@
 		8177393125F9D9880054FC06 /* AstroBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstroBall.swift; sourceTree = "<group>"; };
 		8177393425F9DAE20054FC06 /* Infection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Infection.swift; sourceTree = "<group>"; };
 		8186856125F9AD6C00B9CBF3 /* astroImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = astroImages.atlas; sourceTree = "<group>"; };
+		819810CA263BAA6D00417A6C /* trailHeart.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trailHeart.sks; sourceTree = "<group>"; };
 		81A4CEDF25FA8C2C001C2602 /* Infection.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Infection.sks; sourceTree = "<group>"; };
 		81A4CEE225FA8C56001C2602 /* AstroBall.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = AstroBall.sks; sourceTree = "<group>"; };
 		81E05860262E0F99000FE245 /* trailLightning.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trailLightning.sks; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 				815799E62591136900734A45 /* RespawnExplosion.sks */,
 				8157B31125F4681E005E59C5 /* PilotFX.sks */,
 				74CF6847257FDF30000C4E47 /* PilotBlood.sks */,
+				819810CA263BAA6D00417A6C /* trailHeart.sks */,
 				74CF6841257C2EA8000C4E47 /* ShipExplosion.sks */,
 				74CF68742582CF37000C4E47 /* EnemyThruster.sks */,
 				027E28F42639CBAA004EE539 /* trailDefault.sks */,
@@ -779,6 +782,7 @@
 				81135EF625F1514C00B0F59F /* Level2.sks in Resources */,
 				810C92FD25FB341F00C298C8 /* LoadIntro.sks in Resources */,
 				CEDECCD725F4C18E00C01A7D /* SoloMenu.sks in Resources */,
+				819810CB263BAA6D00417A6C /* trailHeart.sks in Resources */,
 				74CF685525820076000C4E47 /* pilotSquish2.wav in Resources */,
 				815799E72591136900734A45 /* RespawnExplosion.sks in Resources */,
 				74CF68502581F781000C4E47 /* menuThump.wav in Resources */,

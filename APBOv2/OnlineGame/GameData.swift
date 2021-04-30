@@ -150,5 +150,5 @@ public enum SelectedSkin: String {
 }
 
 public enum SelectedTrail: String {
-    case trailDefault, trailLightning
+    case trailDefault, trailLightning, trailHeart
 }

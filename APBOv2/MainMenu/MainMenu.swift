@@ -118,7 +118,7 @@ class MainMenu: SKScene {
         let shopDisplay = MSButtonNode(imageNamed: "shopDisplay")
         
         scene?.addChild(shopDisplay)
-        shopDisplay.position = CGPoint(x: frame.midX + 600 , y: frame.midY - 140)
+        shopDisplay.position = CGPoint(x: frame.midX + 600 , y: frame.midY - 300)
         shopDisplay.zPosition = 9
         shopDisplay.xScale = 0.25
         shopDisplay.yScale = 0.25
