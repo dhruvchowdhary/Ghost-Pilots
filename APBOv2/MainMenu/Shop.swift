@@ -195,6 +195,7 @@ class Shop: SKScene {
         borderShape.name = "border"
         borderShape.zPosition = -100
         
+        
         effect.addChild(borderShape)
         
 
@@ -224,6 +225,20 @@ class Shop: SKScene {
         
         
        
+        
+        let tabShape = SKShapeNode()
+
+        let tabwidth = 254
+        let tabheight = 500 - 14
+        
+        tabShape.path = UIBezierPath(roundedRect: CGRect(x: -tabwidth/2, y: -tabheight/2, width: tabwidth, height: tabheight), cornerRadius: 40).cgPath
+        tabShape.position = CGPoint(x: frame.midX - 470, y: frame.midY - 100)
+        tabShape.fillColor = UIColor(red: 14/255, green: 23/255, blue: 160/255, alpha:1)
+        tabShape.strokeColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha:1)
+        tabShape.lineWidth = 14
+        borderShape.zPosition = -99
+        camera?.addChild(tabShape)
+        // dark blu UIColor(red: 14/255, green: 23/255, blue: 57/255, alpha:1)
         
         let buyPopupWidth = 600
         let buyPopupHeight = 600
@@ -440,7 +455,7 @@ class Shop: SKScene {
                     
                 } else {
                     decalShip.position.y = borderShape.position.y
-                    decalShip.position.x = borderShape.position.x - 300 + 110
+                    decalShip.position.x = borderShape.position.x - 300 + 120
                 }
                 node.position = decalShip.position
                 name.position.x = decalShip.position.x
@@ -568,7 +583,7 @@ class Shop: SKScene {
                     
                 } else {
                     trailIcon.position.y = borderShape.position.y
-                    trailIcon.position.x = borderShape.position.x - 300 + 110
+                    trailIcon.position.x = borderShape.position.x - 300 + 120
                 }
                 node.position = trailIcon.position
                 name.position.x = trailIcon.position.x
@@ -678,7 +693,7 @@ class Shop: SKScene {
         trailsButtonNode.yScale = 0.8
         skinsButtonNode.xScale = 0.8
         skinsButtonNode.yScale = 0.8
-        trailsButtonNode.position = CGPoint(x: frame.midX - 462 , y: borderShape.position.y - 60)
+        trailsButtonNode.position = CGPoint(x: frame.midX - 469 , y: borderShape.position.y - 60)
         skinsButtonNode.position = CGPoint(x: trailsButtonNode.position.x, y: borderShape.position.y + 60)
         skinsButtonNode.zPosition = 100
         trailsButtonNode.zPosition = 100
