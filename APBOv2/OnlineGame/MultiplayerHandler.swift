@@ -430,7 +430,9 @@ public class MultiplayerHandler{
                 //  if Global.gameData.status == "Game" {
                 for i in 0..<Global.gameData.shipsToUpdate.count {
                     if Global.gameData.shipsToUpdate[i].playerID == e.key && e.value as! String != "DEFAULTDECAL" {
+                        print(e.value!)
                         pulledSkin = SKSpriteNode(imageNamed: e.value as! String)
+                        pulledSkin.zPosition = 10
                         Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(pulledSkin)
                     }
                 }
