@@ -237,7 +237,7 @@ class Shop: SKScene {
         
         buyPopup.zPosition = 20
         buyPopup.alpha = 0
-        addChild(buyPopup)
+        camera?.addChild(buyPopup)
         
         
         shopEquip.alpha = 0
@@ -260,7 +260,8 @@ class Shop: SKScene {
         Global.gameData.addPolyniteCount(delta: 100)
         
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
-            particles.position = CGPoint(x: frame.midX, y: frame.midY)
+            particles.targetNode = effectBackground
+          //  particles.position = CGPoint(x: frame.midX, y: frame.midY)
             //      particles.advanceSimulationTime(60)
             particles.zPosition = -400
             effectBackground.addChild(particles)
@@ -290,7 +291,7 @@ class Shop: SKScene {
             ]
         decalShipColors =// could select a randomized color each tine enter shop
             [
-                SKSpriteNode(imageNamed: "decalShipOrange"), SKSpriteNode(imageNamed: "decalShipOrange"), SKSpriteNode(imageNamed: "decalShipOrange")
+                SKSpriteNode(imageNamed: "decalShipWhite"), SKSpriteNode(imageNamed: "decalShipWhite"), SKSpriteNode(imageNamed: "decalShipWhite")
             ]
         decalButtons =
             [
@@ -758,7 +759,7 @@ class Shop: SKScene {
            
             buyButtonNode.position = CGPoint(x: frame.midX + 130 , y: buyPopup.position.y - 210)
             buyButtonNode.zPosition = 20
-            scene?.addChild(buyButtonNode)
+            camera?.addChild(buyButtonNode)
             
             let cancelButtonNode: MSButtonNode = MSButtonNode(imageNamed: "buttonCancel")
             
@@ -768,7 +769,7 @@ class Shop: SKScene {
            
             cancelButtonNode.position = CGPoint(x: frame.midX - 130 , y: buyPopup.position.y - 210)
             cancelButtonNode.zPosition = 20
-            scene?.addChild(cancelButtonNode)
+            camera?.addChild(cancelButtonNode)
             
             cancelButtonNode.selectedHandlers = {
                 self.exitPopup()
