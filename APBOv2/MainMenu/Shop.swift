@@ -864,7 +864,7 @@ class Shop: SKScene {
             if lockerDecals.contains(string) {
                 print("locker contains \(string)")
                 decalLabel[index].texture = SKTexture(imageNamed: "purchasedLabel")
-                decalPriceLabel[index].removeFromParent()
+                decalPriceLabel[index].alpha = 0
             }
             if equippedDecal == string {
                 shopEquip.alpha = 1
@@ -884,7 +884,7 @@ class Shop: SKScene {
             if lockerTrails.contains(string) {
                 print("locker contains \(string)")
                 trailLabel[index].texture = SKTexture(imageNamed: "purchasedLabel")
-                trailPriceLabel[index].removeFromParent()
+                trailPriceLabel[index].alpha = 0
             }
             if equippedTrail == string {
                 shopEquip.alpha = 1
