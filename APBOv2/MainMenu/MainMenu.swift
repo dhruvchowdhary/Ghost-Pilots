@@ -119,9 +119,14 @@ class MainMenu: SKScene {
         
         scene?.addChild(shopDisplay)
         shopDisplay.position = CGPoint(x: frame.midX + 650 , y: frame.midY - 250)
-        shopDisplay.zPosition = 9
         shopDisplay.xScale = 0.25
         shopDisplay.yScale = 0.25
+        if UIScreen.main.bounds.width < 779 {
+            shopDisplay.position = CGPoint(x: frame.midX + 570 , y: frame.midY - 250)
+            shopDisplay.xScale = 0.21
+            shopDisplay.yScale = 0.21
+        }
+        shopDisplay.zPosition = 9
 
         shopDisplay.selectedHandler = {
            shopDisplay.alpha = 0.7
