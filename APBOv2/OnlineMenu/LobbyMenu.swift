@@ -5,6 +5,9 @@ class LobbyMenu: SKScene {
     var backButtonNode: MSButtonNode!
     var startButtonNode: MSButtonNode!
     
+    var lobbyLabelText = SKLabelNode(text: "Lobby")
+    
+    
     var codeLabel = SKLabelNode(text: "00000")
     var playercountLabel = SKLabelNode(text: "1/6")
     var playerLabel = SKNode()
@@ -24,6 +27,12 @@ class LobbyMenu: SKScene {
     var colorIndex = 0
     var kickButtonNode: MSButtonNode!
     var list: [String] = []
+    
+    
+    let cameraNode =  SKCameraNode()
+    var previousCameraPoint = CGPoint.zero
+    let panGesture = UIPanGestureRecognizer()
+    var currentHandler = {}
     
     let intToColor: Dictionary = [
         0: "player",
@@ -58,6 +67,18 @@ class LobbyMenu: SKScene {
             self.setPlayerList(playerList: playerList)
         }
         
+        
+        
+        panGesture.addTarget(self, action: #selector(panGestureAction(_:)))
+        view.addGestureRecognizer(panGesture)
+        
+        
+        
+        addChild(cameraNode)
+        camera = cameraNode
+        camera?.zPosition = 100
+        
+        
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
             //      particles.advanceSimulationTime(60)
@@ -67,8 +88,13 @@ class LobbyMenu: SKScene {
         self.sceneShake(shakeCount: 4, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
         self.run(SKAction.playSoundFileNamed("menuThumpnew", waitForCompletion: false))
         
-        backButtonNode = self.childNode(withName: "back") as? MSButtonNode
+        backButtonNode = self.childNode(withName: "backButton") as? MSButtonNode
+        backButtonNode?.removeFromParent()
+        camera?.addChild(backButtonNode!)
+        
+        backButtonNode?.zPosition = 2
         backButtonNode.selectedHandlers = {
+            self.view!.removeGestureRecognizer(self.panGesture)
             // if host give host to someone else || if no one destroy lobby/code || if not host just leave
             Global.gameData.ResetGameData(toLobby: false)
             Global.loadScene(s: "OnlineMenu")
@@ -79,27 +105,121 @@ class LobbyMenu: SKScene {
                 backButtonNode.position.y =  300
             }
         }
-        startButtonNode = self.childNode(withName: "startButton") as? MSButtonNode
-        startButtonNode.selectedHandlers = {
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Game")
-            //====================================
-        }
-        if Global.gameData.isHost {
-            startButtonNode.alpha = 1
-        }
+        
+        
+     
+        
+        user1.position = CGPoint(x: frame.midX - 140, y: frame.midY)
+        user1.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
+        setupLabel(label: user1)
+        user1.fontSize = 90
+        
+        
+        
+        
+        
+        
+        
+        let effect = SKEffectNode()
+        camera?.addChild(effect)
+        
+        let effectBackground = SKEffectNode()
+        camera?.addChild(effectBackground)
+//
+//        effect.zPosition = 11
+
+        let backgroundSpace = SKShapeNode()
+        
+        let backgroundwidth = 2000
+        let backgroundheight = 2000
+        backgroundSpace.path = UIBezierPath(roundedRect: CGRect(x: -backgroundwidth/2, y: -backgroundheight/2, width: backgroundwidth, height: backgroundheight), cornerRadius: 40).cgPath
+        backgroundSpace.position = CGPoint(x: frame.midX, y: frame.midY)
+        backgroundSpace.fillColor = UIColor.black
+        backgroundSpace.zPosition = -420
+        
+        effectBackground.addChild(backgroundSpace)
+        
+        
+        let backgroundholewidth = 1150
+        let backgroundholeheight = 580
+        let backgroundHole = SKShapeNode()
+     
+        backgroundHole.path = UIBezierPath(roundedRect: CGRect(x: -backgroundholewidth/2, y: -backgroundholeheight/2, width: backgroundholewidth, height: backgroundholeheight), cornerRadius: 40).cgPath
+        backgroundHole.position = CGPoint(x: frame.midX, y: frame.midY + 70)
+        backgroundHole.fillColor = UIColor.white
+        backgroundHole.alpha = 0.001
+        backgroundHole.blendMode = .replace
+        backgroundSpace.addChild(backgroundHole)
+        
+        
+        
+        let borderShape = SKShapeNode()
+
+        let borderwidth = backgroundholewidth
+        let borderheight = backgroundholeheight
+        
+        borderShape.path = UIBezierPath(roundedRect: CGRect(x: -backgroundholewidth/2, y: -backgroundholeheight/2, width: backgroundholewidth, height: backgroundholeheight), cornerRadius: 40).cgPath
+        borderShape.position =  backgroundHole.position
+        borderShape.fillColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha:1)
+        borderShape.strokeColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha:1)
+        borderShape.lineWidth = 14
+        borderShape.name = "border"
+        borderShape.zPosition = -100
+        
+        
+        effect.addChild(borderShape)
+        
+
+
+        let holewidth = backgroundholewidth - 60
+        let holeheight = backgroundholeheight - 100
+        let rectangleHole = SKShapeNode()
+        rectangleHole.name = "rectanglehole"
+        rectangleHole.path = UIBezierPath(roundedRect: CGRect(x: -holewidth/2, y: -holeheight/2, width: holewidth, height: holeheight), cornerRadius: 0).cgPath
+        rectangleHole.position = CGPoint(x: backgroundHole.position.x, y: backgroundHole.position.y - 80)
+        rectangleHole.fillColor = UIColor.white
+            rectangleHole.alpha = 0.001
+        rectangleHole.blendMode = .replace
+        borderShape.addChild(rectangleHole)
+        
+        
+
+        let rectangleFill = SKShapeNode()
+        rectangleFill.name = "rectangleFill"
+        rectangleFill.path = UIBezierPath(roundedRect: CGRect(x: -holewidth/2, y: -holeheight/2, width: holewidth, height: holeheight), cornerRadius: 0).cgPath
+        rectangleFill.position = CGPoint(x: rectangleHole.position.x, y: backgroundHole.position.y - 10)
+        rectangleFill.fillColor = UIColor.white
+        rectangleFill.strokeColor = UIColor.white
+        rectangleFill.lineWidth = 10
+        rectangleFill.zPosition = -200
+        camera?.addChild(rectangleFill)
+        
+        let lobbyLabel = SKShapeNode()
+
+        let lobbyLabelwidth = backgroundholewidth
+        let lobbyLabelheight = 160
+        
+        lobbyLabel.path = UIBezierPath(roundedRect: CGRect(x: -backgroundholewidth/2, y: -lobbyLabelheight/2, width: backgroundholewidth, height: lobbyLabelheight), cornerRadius: 40).cgPath
+        lobbyLabel.position =  CGPoint(x: frame.midX, y: frame.midY + 280)
+        lobbyLabel.fillColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha:1)
+        lobbyLabel.strokeColor = UIColor.clear
+        lobbyLabel.lineWidth = 14
+        lobbyLabel.name = "border"
+        lobbyLabel.zPosition = 200
+        camera?.addChild(lobbyLabel)
         
         codeLabel.position = CGPoint(x: frame.midX, y: frame.midY - 340)
-        startButtonNode.position.y = codeLabel.position.y + startButtonNode.size.height/4
+     //   startButtonNode.position.y = codeLabel.position.y + startButtonNode.size.height/4
         codeLabel.text = String(Global.gameData.gameID)
         setupLabel(label: codeLabel)
         
         playercountLabel.position = CGPoint(x: -480, y: frame.midY - 340)
         setupLabel(label: playercountLabel)
         
-        user1.position = CGPoint(x: frame.midX - 150, y: frame.midY)
-        user1.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
-        setupLabel(label: user1)
-        user1.fontSize = 90
+        setupLabel(label: lobbyLabelText)
+//
+        
+        
         
         
         colorButtonNode = self.childNode(withName: "redPlayer") as? MSButtonNode
@@ -112,7 +232,32 @@ class LobbyMenu: SKScene {
         } else {
             i = 2
         }
+        
+        startButtonNode = self.childNode(withName: "startButton") as? MSButtonNode
+        
+        startButtonNode?.removeFromParent()
+        camera?.addChild(startButtonNode!)
+        
+        
+        startButtonNode.position = CGPoint(x: frame.midX + 400 , y: borderShape.position.y - 370)
+        
+        startButtonNode.selectedHandlers = {
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Game")
+            //====================================
+        }
+        if Global.gameData.isHost {
+            startButtonNode.alpha = 1
+        }
+        
+        
         modeImageButtonNode = self.childNode(withName: "modeImage") as? MSButtonNode
+        
+        modeImageButtonNode?.removeFromParent()
+        camera?.addChild(modeImageButtonNode!)
+        
+        
+        modeImageButtonNode.position = CGPoint(x: frame.midX - 320 , y: borderShape.position.y - 370)
+        
         self.modeImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.mode)
         if Global.gameData.isHost {
             modeImageButtonNode.selectedHandlers = {
@@ -140,6 +285,12 @@ class LobbyMenu: SKScene {
             j = 2
         }
         mapImageButtonNode = self.childNode(withName: "mapImage") as? MSButtonNode
+        
+        mapImageButtonNode?.removeFromParent()
+        camera?.addChild(mapImageButtonNode!)
+        
+        
+        mapImageButtonNode.position = CGPoint(x: frame.midX + 90 , y: borderShape.position.y - 370)
         self.mapImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.map)
         if Global.gameData.isHost {
             mapImageButtonNode.selectedHandlers = {
@@ -193,13 +344,19 @@ class LobbyMenu: SKScene {
             let userLabel = newuser.childNode(withName: "user1") as! SKLabelNode
             userLabel.text = player
             let index = playerList.firstIndex(of: player)!
+
             
             if Global.gameData.isHost {
                 let userKick = newuser.childNode(withName: "kickButtonNode") as! MSButtonNode
                 userKick.selectedHandlers = {
                     //kick em
                     DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(userKick.parent!.name!)", Value: "PePeKicked")
+
+                    
                 }
+                userKick.position.x = frame.midX + 430
+                
+                userKick.position.y += newuser.position.y - 10 + 12
             }
             let userColor = newuser.childNode(withName: "colorButtonNode") as! MSButtonNode
             if player == Global.playerData.playerID {
@@ -209,10 +366,27 @@ class LobbyMenu: SKScene {
             }
             
             
-            newuser.position.x = frame.midX - 120
-            newuser.position.y += CGFloat(200 - index*100)
+            newuser.position.x = frame.midX - 100
+            newuser.position.y += CGFloat(80 - index*100)
             playerLabelParent.addChild(newuser)
             playercountLabel.text = "\(playerList.count)/6"
+            
+            let playerCell = SKShapeNode()
+
+            let playerCellwidth = 840
+            let playerCellheight = 130
+            
+            playerCell.path = UIBezierPath(roundedRect: CGRect(x: -playerCellwidth/2, y: -playerCellheight/2, width: playerCellwidth, height: playerCellheight), cornerRadius: 40).cgPath
+            playerCell.position.x = frame.midX
+            
+            playerCell.position.y += newuser.position.y + 20 + 12
+            playerCell.fillColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha:1)
+            playerCell.strokeColor = UIColor.clear
+            playerCell.lineWidth = 14
+            playerCell.zPosition = 1
+            
+            playerLabelParent.addChild(playerCell)
+            
         }
     }
     
@@ -287,7 +461,7 @@ class LobbyMenu: SKScene {
         label.fontColor = UIColor.white
         label.fontSize = 120
         label.fontName = "AvenirNext-Bold"
-        addChild(label)
+        camera?.addChild(label)
     }
     
     func setUpColors(userColor: MSButtonNode, isPlayer: Bool, index: Int){
@@ -385,6 +559,42 @@ class LobbyMenu: SKScene {
         shakeAnimation.toValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x + intensity.dx, y: sceneView.center.y + intensity.dy))
         sceneView.layer.add(shakeAnimation, forKey: "position")
     }
+    
+    @objc func panGestureAction(_ sender: UIPanGestureRecognizer) {
+        // The camera has a weak reference, so test it
+        guard let camera = self.camera else {
+            return
+        }
+        
+        //  let zoomInActionipad = SKAction.scale(to: 1.7, duration: 0.01)
+        
+        //  camera.run(zoomInActionipad)
+        
+        // If the movement just began, save the first camera position
+        if sender.state == .began {
+            previousCameraPoint = camera.position
+            currentHandler()
+            currentHandler = {}
+        }
+        // Perform the translation
+        let translation = sender.translation(in: self.view)
+        
+        var newPosition = CGPoint(
+            x: previousCameraPoint.x,
+            y: previousCameraPoint.y + translation.y * 2
+        )
+        if newPosition.y > 0 { newPosition.y = 0}
+        var bottomlimit = CGFloat(-200)
+    
+        
+        if newPosition.y < bottomlimit { newPosition.y = CGFloat(bottomlimit)}
+        
+        camera.position = newPosition
+        
+        
+    }
+
+    
     
 }
 
