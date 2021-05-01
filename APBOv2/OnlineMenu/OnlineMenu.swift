@@ -220,6 +220,11 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         self.activeTextField = textField
     }
     
+    func textFieldShouldClear(textField: UITextField) -> Bool {
+        print("CLEAR")
+        return true
+    }
+    
     func KickedFromGame() {
         
     }
@@ -253,7 +258,8 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         textBox.backgroundColor = SKColor.clear
         textBox.autocorrectionType = UITextAutocorrectionType.no
         
-        textBox.clearButtonMode = UITextField.ViewMode.whileEditing
+        textBox.clearButtonMode = UITextField.ViewMode.always
+        
         self.view!.addSubview(textBox)
     }
     

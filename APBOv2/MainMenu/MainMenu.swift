@@ -118,7 +118,7 @@ class MainMenu: SKScene {
         let shopDisplay = MSButtonNode(imageNamed: "shopDisplay")
         
         scene?.addChild(shopDisplay)
-        shopDisplay.position = CGPoint(x: frame.midX + 600 , y: frame.midY - 300)
+        shopDisplay.position = CGPoint(x: frame.midX + 650 , y: frame.midY - 250)
         shopDisplay.zPosition = 9
         shopDisplay.xScale = 0.25
         shopDisplay.yScale = 0.25
@@ -161,13 +161,13 @@ class MainMenu: SKScene {
      //       tutorialButtonNode.position.y =  (frame.midY - 410) * CGFloat(scale)
      //       tutorialButtonNode.setScale(CGFloat(1.25 * scale))
         } else if UIScreen.main.bounds.width > 779 {
-            shopDisplay.position.x = frame.midX + 600
+        //    shopDisplay.position.x = frame.midX + 600
             tutorialButtonNode.position.x = frame.midX - 720
             tutorialButtonNode.position.y =  frame.midY - 290
         } else {
 //            polyniteBox.position.x = frame.midX + 600
 //            polynite.position.x = polyniteBox.position.x - 80
-            shopDisplay.position.x = frame.midX + 600
+       //     shopDisplay.position.x = frame.midX + 600
             tutorialButtonNode.position.x = frame.midX - 620
             tutorialButtonNode.position.y =  frame.midY - 300
         }

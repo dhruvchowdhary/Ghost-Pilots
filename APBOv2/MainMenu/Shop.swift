@@ -974,7 +974,14 @@ class Shop: SKScene {
             y: previousCameraPoint.y
         )
         if newPosition.x < 0 { newPosition.x = 0}
-        let rightLimit = CGFloat(800)
+        var rightLimit = CGFloat(0)
+        if currentTab == "skins" {
+            rightLimit = CGFloat(((decalShips.count - 3) * 300))
+        }
+        else if currentTab == "trails" {
+            rightLimit = CGFloat((trailIcons.count - 3) * 300)
+        }
+        
         if newPosition.x > rightLimit { newPosition.x = CGFloat(rightLimit)}
         
         camera.position = newPosition
