@@ -279,7 +279,7 @@ class Shop: SKScene {
           //  particles.position = CGPoint(x: frame.midX, y: frame.midY)
             //      particles.advanceSimulationTime(60)
             particles.zPosition = -400
-          //  effectBackground.addChild(particles)
+            effectBackground.addChild(particles)
         }
         
         

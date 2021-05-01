@@ -137,11 +137,6 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                                     self.ref.child("Games/\(self.codeBox.text!)/isFull").observeSingleEvent(of: .value){ snapshot in
                                         if snapshot.value as! String == "FALSE" {
                                             DataPusher.PushData(path: "Games/\(self.codeBox.text!)/PlayerList/\(self.usernameBox.text!)", Value: "PePeNotGone")
-                                            
-
-                                          
-
-                                            
                                             Global.gameData.gameID = Int(self.codeBox.text!)!
                                             Global.gameData.isHost = false
                                             self.loadLobbyMenu()
@@ -157,15 +152,12 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                             }
                         } else {
                             print(self.codeBox.text!)
-                            
                             self.codeBox.shake()
                             self.enterButtonNode.alpha = 1
                         }
                     }
                 }
             }
-            
-            
             setPositions()
         }
     }
