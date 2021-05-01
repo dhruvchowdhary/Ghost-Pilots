@@ -279,7 +279,7 @@ class Shop: SKScene {
           //  particles.position = CGPoint(x: frame.midX, y: frame.midY)
             //      particles.advanceSimulationTime(60)
             particles.zPosition = -400
-            effectBackground.addChild(particles)
+          //  effectBackground.addChild(particles)
         }
         
         
@@ -657,11 +657,11 @@ class Shop: SKScene {
         
        // checkForDecalStuff(decalShip: decalShips[0], string: "DEFAULTDECAL")
         
-        trailsButtonNode = self.childNode(withName: "trailsButtonUnselected") as? MSButtonNode
+        trailsButtonNode = self.childNode(withName: "trailsButtonSelected") as? MSButtonNode
         trailsButtonNode.selectedHandlers = { [self] in
             hideShopEquip()
-            self.trailsButtonNode.texture = SKTexture(imageNamed: "trailsButtonSelected")
-            self.skinsButtonNode.texture = SKTexture(imageNamed: "skinsButtonUnselected")
+            self.trailsButtonNode.texture = SKTexture(imageNamed: "trailsButtonUnselected")
+            self.skinsButtonNode.texture = SKTexture(imageNamed: "skinsButtonSelected")
             self.trailsButtonNode.alpha = 1
             self.currentTab = "trails"
             
@@ -674,10 +674,10 @@ class Shop: SKScene {
             self.trailsButtonNode.alpha = 1
         }
         
-        skinsButtonNode = self.childNode(withName: "skinsButtonSelected") as? MSButtonNode
+        skinsButtonNode = self.childNode(withName: "skinsButtonUnselected") as? MSButtonNode
         skinsButtonNode.selectedHandlers = { [self] in
-            self.trailsButtonNode.texture = SKTexture(imageNamed: "trailsButtonUnselected")
-            self.skinsButtonNode.texture = SKTexture(imageNamed: "skinsButtonSelected")
+            self.trailsButtonNode.texture = SKTexture(imageNamed: "trailsButtonSelected")
+            self.skinsButtonNode.texture = SKTexture(imageNamed: "skinsButtonUnselected")
             self.skinsButtonNode.alpha = 1
             self.currentTab = "skins"
             hideShopEquip()

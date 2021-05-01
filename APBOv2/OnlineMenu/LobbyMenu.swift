@@ -113,7 +113,7 @@ class LobbyMenu: SKScene {
         user1.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         setupLabel(label: user1)
         user1.fontSize = 90
-        
+        camera?.addChild(user1)
         
         
         
@@ -208,15 +208,36 @@ class LobbyMenu: SKScene {
         lobbyLabel.zPosition = 200
         camera?.addChild(lobbyLabel)
         
-        codeLabel.position = CGPoint(x: frame.midX, y: frame.midY - 340)
+      
      //   startButtonNode.position.y = codeLabel.position.y + startButtonNode.size.height/4
+      
         codeLabel.text = String(Global.gameData.gameID)
-        setupLabel(label: codeLabel)
+        codeLabel.zPosition = 2
+        codeLabel.fontColor = UIColor.white
+        codeLabel.fontSize = 70
+        codeLabel.fontName = "AvenirNext-Bold"
         
-        playercountLabel.position = CGPoint(x: -480, y: frame.midY - 340)
+
+        lobbyLabelText.addChild(codeLabel)
+        codeLabel.position.y += 10
+        codeLabel.position.x += 400
+        
+        
         setupLabel(label: playercountLabel)
+        lobbyLabelText.addChild(playercountLabel)
+        playercountLabel.position.y = codeLabel.position.y
+        playercountLabel.position.x -= 450
+        playercountLabel.zPosition = 2
+        playercountLabel.fontColor = UIColor.white
+        playercountLabel.fontSize = 70
+        playercountLabel.fontName = "AvenirNext-Bold"
         
         setupLabel(label: lobbyLabelText)
+        
+        
+        lobbyLabel.addChild(lobbyLabelText)
+        lobbyLabelText.position.y -= 40
+        
 //
         
         
@@ -239,7 +260,7 @@ class LobbyMenu: SKScene {
         camera?.addChild(startButtonNode!)
         
         
-        startButtonNode.position = CGPoint(x: frame.midX + 400 , y: borderShape.position.y - 370)
+        startButtonNode.position = CGPoint(x: frame.midX + 440 - 16 , y: borderShape.position.y - 370)
         
         startButtonNode.selectedHandlers = {
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Game")
@@ -290,7 +311,7 @@ class LobbyMenu: SKScene {
         camera?.addChild(mapImageButtonNode!)
         
         
-        mapImageButtonNode.position = CGPoint(x: frame.midX + 90 , y: borderShape.position.y - 370)
+        mapImageButtonNode.position = CGPoint(x: frame.midX + 110 - 8 , y: borderShape.position.y - 370)
         self.mapImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.map)
         if Global.gameData.isHost {
             mapImageButtonNode.selectedHandlers = {
@@ -356,7 +377,7 @@ class LobbyMenu: SKScene {
                 }
                 userKick.position.x = frame.midX + 430
                 
-                userKick.position.y += newuser.position.y - 10 + 12
+                userKick.position.y += newuser.position.y - 10 + 10
             }
             let userColor = newuser.childNode(withName: "colorButtonNode") as! MSButtonNode
             if player == Global.playerData.playerID {
@@ -379,7 +400,7 @@ class LobbyMenu: SKScene {
             playerCell.path = UIBezierPath(roundedRect: CGRect(x: -playerCellwidth/2, y: -playerCellheight/2, width: playerCellwidth, height: playerCellheight), cornerRadius: 40).cgPath
             playerCell.position.x = frame.midX
             
-            playerCell.position.y += newuser.position.y + 20 + 12
+            playerCell.position.y += newuser.position.y + 20 + 10
             playerCell.fillColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha:1)
             playerCell.strokeColor = UIColor.clear
             playerCell.lineWidth = 14
@@ -461,7 +482,7 @@ class LobbyMenu: SKScene {
         label.fontColor = UIColor.white
         label.fontSize = 120
         label.fontName = "AvenirNext-Bold"
-        camera?.addChild(label)
+       // camera?.addChild(label)
     }
     
     func setUpColors(userColor: MSButtonNode, isPlayer: Bool, index: Int){
