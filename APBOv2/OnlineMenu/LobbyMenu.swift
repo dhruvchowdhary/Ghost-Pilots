@@ -143,9 +143,12 @@ class LobbyMenu: SKScene {
         
         effectBackground.addChild(backgroundSpace)
         
-        
-        let backgroundholewidth = 1150
-        let backgroundholeheight = 580
+        var backgroundholewidth = 1150
+        var backgroundholeheight = 580
+        if UIScreen.main.bounds.width < 779 {
+                backgroundholewidth = 1050
+                backgroundholeheight = 580
+        }
         let backgroundHole = SKShapeNode()
      
         backgroundHole.path = UIBezierPath(roundedRect: CGRect(x: -backgroundholewidth/2, y: -backgroundholeheight/2, width: backgroundholewidth, height: backgroundholeheight), cornerRadius: 40).cgPath
