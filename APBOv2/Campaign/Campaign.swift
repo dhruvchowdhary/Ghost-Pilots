@@ -74,7 +74,6 @@ class Campaign: SKScene {
         
         backButtonNode!.selectedHandlers = {
             self.view!.removeGestureRecognizer(self.panGesture)
-            //Global.loadScene(s: "MainMenu")
             Global.loadScene(s: "MainMenu")
         }
             

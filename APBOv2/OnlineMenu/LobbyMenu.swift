@@ -242,6 +242,7 @@ class LobbyMenu: SKScene {
         startButtonNode.position = CGPoint(x: frame.midX + 400 , y: borderShape.position.y - 370)
         
         startButtonNode.selectedHandlers = {
+            
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Game")
             //====================================
         }
@@ -261,6 +262,7 @@ class LobbyMenu: SKScene {
         self.modeImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.mode)
         if Global.gameData.isHost {
             modeImageButtonNode.selectedHandlers = {
+                self.view!.removeGestureRecognizer(self.panGesture)
                 if self.i == self.modeArray.endIndex - 1 {
                     self.i = 0
                 } else {
@@ -391,6 +393,7 @@ class LobbyMenu: SKScene {
     }
     
     func StartGame(){
+        self.view!.removeGestureRecognizer(self.panGesture)
         Global.multiplayerHandler.PullTrailChanges()
         Global.multiplayerHandler.PullSkinChanges()
         if list.count > 1 {

@@ -522,6 +522,7 @@ public class MultiplayerHandler{
                 if (snapshot.exists()){
                     if (snapshot.value as! String == "Game"){
                         if Global.gameData.gameState == GameStates.LobbyMenu {
+                            self.view!.removeGestureRecognizer(self.panGesture)
                             let lobbyScene = Global.gameData.skView.scene as! LobbyMenu
                             lobbyScene.StartGame()
                         }
