@@ -29,6 +29,10 @@ class LobbyMenu: SKScene {
     var list: [String] = []
     
     
+    private var astroWalkingFrames: [SKTexture] = []
+    private var infectionWalkingFrames: [SKTexture] = []
+    private var ffaWalkingFrames: [SKTexture] = []
+    
     let cameraNode =  SKCameraNode()
     var previousCameraPoint = CGPoint.zero
     let panGesture = UIPanGestureRecognizer()
@@ -279,6 +283,9 @@ class LobbyMenu: SKScene {
         
         
         modeImageButtonNode.position = CGPoint(x: frame.midX - 320 , y: borderShape.position.y - 370)
+        // build stuff
+        buildffa()
+        animateffa()
         
         self.modeImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.mode)
         if Global.gameData.isHost {
@@ -293,6 +300,23 @@ class LobbyMenu: SKScene {
                 Global.gameData.mode = self.modeArray[self.i]
                 Global.gameData.ModeChange()
                 self.modeImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.mode)
+                switch self.i {
+                case 0:
+                    self.removeAction(forKey: "mode")
+                    self.buildffa()
+                    self.animateffa()
+                case 1:
+                    self.removeAction(forKey: "mode")
+                    self.buildAstro()
+                    self.animateAstro()
+                case 2:
+                    self.removeAction(forKey: "mode")
+                    self.buildInfection()
+                    self.animateInfection()
+                    
+                default:
+                    print("no mode")
+                }
             }
         } else {
             modeImageButtonNode.selectedHandler = {
@@ -326,6 +350,7 @@ class LobbyMenu: SKScene {
                 Global.gameData.map = self.mapArray[self.j]
                 Global.gameData.MapChange()
                 self.mapImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.map)
+                
             }
         } else {
             mapImageButtonNode.selectedHandler = {
@@ -583,6 +608,76 @@ class LobbyMenu: SKScene {
         shakeAnimation.toValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x + intensity.dx, y: sceneView.center.y + intensity.dy))
         sceneView.layer.add(shakeAnimation, forKey: "position")
     }
+    
+    func buildffa() {
+      let ffaAnimatedAtlas = SKTextureAtlas(named: "ffaImages")
+      var walkFrames: [SKTexture] = []
+
+      let numImages = ffaAnimatedAtlas.textureNames.count
+      for i in 1...numImages {
+        let ffaTextureName = "ffa\(i)"
+        walkFrames.append(ffaAnimatedAtlas.textureNamed(ffaTextureName))
+      }
+      ffaWalkingFrames = walkFrames
+        
+ 
+    }
+      func animateffa() {
+        
+        modeImageButtonNode!.run(SKAction.repeatForever(
+          SKAction.animate(with: ffaWalkingFrames,
+                           timePerFrame: 0.3,
+                           resize: false,
+                           restore: true)),
+          withKey:"mode")
+      }
+    
+    func buildAstro() {
+      let astroAnimatedAtlas = SKTextureAtlas(named: "astroImages")
+      var walkFrames: [SKTexture] = []
+
+      let numImages = astroAnimatedAtlas.textureNames.count
+      for i in 1...numImages {
+        let astroTextureName = "astroball\(i)"
+        walkFrames.append(astroAnimatedAtlas.textureNamed(astroTextureName))
+      }
+      astroWalkingFrames = walkFrames
+        
+     
+        
+    }
+      func animateAstro() {
+        modeImageButtonNode!.run(SKAction.repeatForever(
+          SKAction.animate(with: astroWalkingFrames,
+                           timePerFrame: 0.05,
+                           resize: false,
+                           restore: true)),
+          withKey:"mode")
+      }
+    
+    func buildInfection() {
+      let infectionAnimatedAtlas = SKTextureAtlas(named: "infectionImages")
+      var walkFrames: [SKTexture] = []
+
+      let numImages = infectionAnimatedAtlas.textureNames.count
+      for i in 1...numImages {
+        let infectionTextureName = "infection\(i)"
+        walkFrames.append(infectionAnimatedAtlas.textureNamed(infectionTextureName))
+      }
+      infectionWalkingFrames = walkFrames
+        
+
+        
+    }
+      func animateInfection() {
+        modeImageButtonNode!.run(SKAction.repeatForever(
+          SKAction.animate(with: infectionWalkingFrames,
+                           timePerFrame: 0.05,
+                           resize: false,
+                           restore: true)),
+          withKey:"mode")
+      }
+    
     
     @objc func panGestureAction(_ sender: UIPanGestureRecognizer) {
         // The camera has a weak reference, so test it
