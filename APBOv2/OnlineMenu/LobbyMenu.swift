@@ -71,17 +71,14 @@ class LobbyMenu: SKScene {
             self.setPlayerList(playerList: playerList)
         }
         
-        
-        
+
         panGesture.addTarget(self, action: #selector(panGestureAction(_:)))
         view.addGestureRecognizer(panGesture)
         
-        
-        
+
         addChild(cameraNode)
         camera = cameraNode
         camera?.zPosition = 100
-        
         
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -110,20 +107,13 @@ class LobbyMenu: SKScene {
             }
         }
         
-        
-     
-        
         user1.position = CGPoint(x: frame.midX - 140 - 30, y: frame.midY)
         user1.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         setupLabel(label: user1)
         user1.fontSize = 90
         camera?.addChild(user1)
         
-        
-        
-        
-        
-        
+
         let effect = SKEffectNode()
         camera?.addChild(effect)
         
@@ -244,8 +234,6 @@ class LobbyMenu: SKScene {
         
         lobbyLabel.addChild(lobbyLabelText)
         lobbyLabelText.position.y -= 40
-        
-//
         
 
         colorButtonNode = self.childNode(withName: "redPlayer") as? MSButtonNode
