@@ -209,7 +209,7 @@ public class LocalSpaceship: SpaceshipBase {
         shootButtonNode.selectedHandler = {
             self.shootButtonNode.alpha = 0.6
             self.shootButtonNode.setScale(1.1)
-            if !Global.gameData.isPilot {
+            if !Global.gameData.isPilot  && Global.playerData.color != "apboWhite"{
                 if self.unfiredBullets.count > 0 {
                     Global.gameData.playerShip?.Shoot(shotType: 0)
                     self.shotsRef.child("shot " + String(self.currentShotCountBuddy)).setValue("e")
@@ -449,7 +449,17 @@ public class LocalSpaceship: SpaceshipBase {
                     velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 220, dy: sin(spaceShipNode.zRotation) * 220 * Global.gameData.speedMultiplier))
                 }
             } else if !Global.gameData.isPilot {
-                velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 260, dy: sin(spaceShipNode.zRotation) * 260 * Global.gameData.speedMultiplier))
+                if Global.gameData.gameState == GameStates.Infection {
+                    if Global.playerData.color == "apboGreen" {
+                        velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 240, dy: sin(spaceShipNode.zRotation) * 240 * Global.gameData.speedMultiplier))
+                    }
+                    else {
+                        velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 300, dy: sin(spaceShipNode.zRotation) * 300 * Global.gameData.speedMultiplier))
+                    }
+                }
+                else {
+                    velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 260, dy: sin(spaceShipNode.zRotation) * 260 * Global.gameData.speedMultiplier))
+                }
             } else if pilotForward {
                 velocity = (CGVector(dx: cos(self.spaceShipNode.zRotation + CGFloat(Double.pi/2)) * 260, dy: sin(self.spaceShipNode.zRotation + CGFloat(Double.pi/2)) * 260 * Global.gameData.speedMultiplier))
             }

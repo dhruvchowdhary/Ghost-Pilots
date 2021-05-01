@@ -34,7 +34,16 @@ class RemoteSpaceship: SpaceshipBase {
     
     override func UniqueUpdateShip(deltaTime: Double) {
         if !isPilot {
+            if Global.gameData.gameState == GameStates.Infection {
+                if Global.playerData.color == "apboGreen" {
+                    velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 240, dy: sin(spaceShipNode.zRotation) * 240 * Global.gameData.speedMultiplier))
+                }
+                else {
+                    velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 300, dy: sin(spaceShipNode.zRotation) * 300 * Global.gameData.speedMultiplier))
+                }
+            } else {
             velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 260, dy: sin(spaceShipNode.zRotation) * 260 * Global.gameData.speedMultiplier))
+            }
         } else {
             velocity = CGVector(dx: 0, dy: 0)
         }

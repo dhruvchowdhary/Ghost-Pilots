@@ -82,7 +82,6 @@ class Infection: GameSceneBase {
                    if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
                        BulletExplosion.position = secondNode.position
                        addChild(BulletExplosion)
-                  //  borderShape.strokeColor
                    }
             secondNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
