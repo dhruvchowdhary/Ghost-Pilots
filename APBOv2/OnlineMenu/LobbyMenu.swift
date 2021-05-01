@@ -344,6 +344,27 @@ class LobbyMenu: SKScene {
         
         mapImageButtonNode.position = CGPoint(x: frame.midX + 110 - 8 , y: borderShape.position.y - 370)
         self.mapImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.map)
+        
+        
+        switch self.i {
+        case 0:
+            self.removeAction(forKey: "mode")
+            self.buildffa()
+            self.animateffa()
+        case 1:
+            self.removeAction(forKey: "mode")
+            self.buildAstro()
+            self.animateAstro()
+        case 2:
+            self.removeAction(forKey: "mode")
+            self.buildInfection()
+            self.animateInfection()
+
+        default:
+            print("no mode")
+        }
+        
+        
         if Global.gameData.isHost {
             mapImageButtonNode.selectedHandlers = {
                 if self.j == self.mapArray.endIndex - 1 {
