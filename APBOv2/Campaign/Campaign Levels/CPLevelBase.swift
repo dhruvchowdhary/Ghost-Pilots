@@ -11,6 +11,14 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     var colHandle: CPCollisionHandler?
     var LITERALLYEVERYOBJECTINTEHSCENE: [AnyObject] = []
     
+    var zoomScale: CGFloat = CGFloat()
+    var zoomOrigin: CGPoint = CGPoint()
+    var freezeTime: TimeInterval = 00
+    
+    var isZoomin = false
+    var completedZoomPercent = 0.0
+    var zoomrate =  0.0
+    
     // this will be overriden in the levels and then callback manual setup
     override func didMove(to view: SKView) {
         walls = createBounds()
@@ -36,6 +44,14 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
             i.zPosition = 5
             
             addObjectToScene(node: i, nodeClass: CPObject(node: i, action: Actions.None))
+            
+            // Hide and zoom out
+            playerShip?.setHudHidden(isHidden: true)
+            togglePause()
+            camera?.setScale(zoomScale)
+            Timer.scheduledTimer(withTimeInterval: freezeTime, repeats: false) { (timer) in
+                self.handleCameraZoomIn()
+            }
         }
         
         for i in createGameObjects() {
@@ -62,9 +78,11 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
         addBackground()
         colHandle = CPCollisionHandler(sceneClass: self)
         
-        
-        isSetup = true
-        
+        handleCameraZoomIn()
+    }
+    
+    func setupCameraZoomIn(){
+        fatalError("Need to override setupCameraZoomIn")
     }
     
     func createGameObjects() -> [CPObject]{
@@ -95,6 +113,17 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     
     func createPlayerShip(){
         playerShip = CPPlayerShip(lvl: self)
+    }
+    
+    func handleCameraZoomIn() {
+        if isZoomin{
+            if (completedZoomPercent < 0.5){
+               // zo
+            } else {
+                
+            }
+        } else {
+        }
     }
     
     func addBackground() {
