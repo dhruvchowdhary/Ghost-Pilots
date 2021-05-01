@@ -292,11 +292,6 @@ class LobbyMenu: SKScene {
             modeImageButtonNode.selectedHandlers = {
               //  self.view!.removeGestureRecognizer(self.panGesture)
                 
-                if self.j == self.mapArray.endIndex - 1 {
-                    self.j = 0
-                } else {
-                    self.j = self.j+1
-                }
                 if self.i == self.modeArray.endIndex - 1 {
                     self.i = 0
                 } else {
