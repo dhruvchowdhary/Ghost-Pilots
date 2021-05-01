@@ -109,7 +109,7 @@ class LobbyMenu: SKScene {
         
      
         
-        user1.position = CGPoint(x: frame.midX - 140, y: frame.midY)
+        user1.position = CGPoint(x: frame.midX - 140 - 30, y: frame.midY)
         user1.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         setupLabel(label: user1)
         user1.fontSize = 90
@@ -377,7 +377,7 @@ class LobbyMenu: SKScene {
 
                     
                 }
-                userKick.position.x = frame.midX + 430
+                userKick.position.x = frame.midX + 430 + 40 + 50
                 
                 userKick.position.y += newuser.position.y - 10 + 10
             }
@@ -389,14 +389,14 @@ class LobbyMenu: SKScene {
             }
             
             
-            newuser.position.x = frame.midX - 100
+            newuser.position.x = frame.midX - 100 - 40
             newuser.position.y += CGFloat(80 - index*100)
             playerLabelParent.addChild(newuser)
             playercountLabel.text = "\(playerList.count)/6"
             
             let playerCell = SKShapeNode()
 
-            let playerCellwidth = 840
+            let playerCellwidth = 840 + 80
             let playerCellheight = 130
             
             playerCell.path = UIBezierPath(roundedRect: CGRect(x: -playerCellwidth/2, y: -playerCellheight/2, width: playerCellwidth, height: playerCellheight), cornerRadius: 40).cgPath
