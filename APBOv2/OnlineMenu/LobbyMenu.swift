@@ -345,26 +345,6 @@ class LobbyMenu: SKScene {
         mapImageButtonNode.position = CGPoint(x: frame.midX + 110 - 8 , y: borderShape.position.y - 370)
         self.mapImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.map)
         
-        
-        switch self.i {
-        case 0:
-            self.removeAction(forKey: "mode")
-            self.buildffa()
-            self.animateffa()
-        case 1:
-            self.removeAction(forKey: "mode")
-            self.buildAstro()
-            self.animateAstro()
-        case 2:
-            self.removeAction(forKey: "mode")
-            self.buildInfection()
-            self.animateInfection()
-
-        default:
-            print("no mode")
-        }
-        
-        
         if Global.gameData.isHost {
             mapImageButtonNode.selectedHandlers = {
                 if self.j == self.mapArray.endIndex - 1 {
@@ -607,6 +587,8 @@ class LobbyMenu: SKScene {
             if (snapshot.exists()) {
                 Global.gameData.map = snapshot.value as! String
                 self.mapImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.map)
+                
+                
                 self.mapImageButtonNode.alpha = 1
             }
         }
@@ -620,6 +602,26 @@ class LobbyMenu: SKScene {
                 Global.gameData.mode = snapshot.value as! String
                 self.modeImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.mode)
                 self.modeImageButtonNode.alpha = 1
+                
+                switch  Global.gameData.mode {
+                case "ffa":
+                    self.removeAction(forKey: "mode")
+                    self.buildffa()
+                    self.animateffa()
+                case "astroball:
+                    self.removeAction(forKey: "mode")
+                    self.buildAstro()
+                    self.animateAstro()
+                case "infection":
+                    self.removeAction(forKey: "mode")
+                    self.buildInfection()
+                    self.animateInfection()
+
+                default:
+                    print("no mode")
+                }
+                
+                
             }
         }
     }
