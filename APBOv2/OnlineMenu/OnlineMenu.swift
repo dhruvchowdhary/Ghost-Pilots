@@ -104,9 +104,9 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                     self.usernameBox.text?.removeAll()
                     self.hostButtonNode.alpha = 1
                 } else {
+                    Global.gameData.CreateNewGame()
                     self.usernameBox.removeFromSuperview()
                     self.codeBox.removeFromSuperview()
-                    Global.gameData.CreateNewGame()
              //       self.loadHostMenu()
                 }
             }
