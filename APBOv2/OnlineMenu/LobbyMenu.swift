@@ -390,7 +390,7 @@ class LobbyMenu: SKScene {
             
             
             newuser.position.x = frame.midX - 100 - 40
-            newuser.position.y += CGFloat(80 - index*100)
+            newuser.position.y += CGFloat(80 - index*150)
             playerLabelParent.addChild(newuser)
             playercountLabel.text = "\(playerList.count)/6"
             
