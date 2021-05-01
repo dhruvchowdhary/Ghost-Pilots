@@ -128,6 +128,13 @@ public class LocalSpaceship: SpaceshipBase {
             unfiredBullets[i].position.x = CGFloat(50 * cos(Double.pi * Double(i) * 0.6666666))
             unfiredBullets[i].position.y = CGFloat(50 * sin(Double.pi * Double(i) * 0.6666666))
             unfiredBulletRotator.addChild(unfiredBullets[i])
+            
+            if Global.gameData.gameState == GameStates.Infection {
+                if Global.playerData.color == "apboWhite" {
+                    unfiredBullets[i].alpha = 0
+                }
+            }
+            
         }
         unfiredBulletRotator.name = "bulletRotator"
         spaceShipParent.addChild(unfiredBulletRotator)
@@ -209,12 +216,24 @@ public class LocalSpaceship: SpaceshipBase {
         shootButtonNode.selectedHandler = {
             self.shootButtonNode.alpha = 0.6
             self.shootButtonNode.setScale(1.1)
-            if !Global.gameData.isPilot  && Global.playerData.color != "apboWhite"{
+            if !Global.gameData.isPilot {
+                if Global.gameData.gameState == GameStates.Infection {
+                    if Global.playerData.color == "apboGreen" {
+                        if self.unfiredBullets.count > 0 {
+                            Global.gameData.playerShip?.Shoot(shotType: 0)
+                            self.shotsRef.child("shot " + String(self.currentShotCountBuddy)).setValue("e")
+                            self.currentShotCountBuddy += 1;
+                            //   self.spaceShipNode.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
+                        }
+                    }
+                }
+                else {
                 if self.unfiredBullets.count > 0 {
                     Global.gameData.playerShip?.Shoot(shotType: 0)
                     self.shotsRef.child("shot " + String(self.currentShotCountBuddy)).setValue("e")
                     self.currentShotCountBuddy += 1;
                     //   self.spaceShipNode.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
+                }
                 }
             } else {
                 self.pilotForward = true
@@ -450,11 +469,11 @@ public class LocalSpaceship: SpaceshipBase {
                 }
             } else if !Global.gameData.isPilot {
                 if Global.gameData.gameState == GameStates.Infection {
-                    if Global.playerData.color == "apboGreen" {
+                    if Global.playerData.color == "apboGreen" { //infected boys
                         velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 240, dy: sin(spaceShipNode.zRotation) * 240 * Global.gameData.speedMultiplier))
                     }
-                    else {
-                        velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 300, dy: sin(spaceShipNode.zRotation) * 300 * Global.gameData.speedMultiplier))
+                    else { // white boys
+                        velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 320, dy: sin(spaceShipNode.zRotation) * 320 * Global.gameData.speedMultiplier))
                     }
                 }
                 else {

@@ -91,6 +91,10 @@ public class SpaceshipBase {
             unfiredBulletsCount += 1
             timeUntilNextBullet = 1.3
         }
+      
+        
+        
+        
     }
     // Only to be ovveridden
     func UniqueUpdateShip(deltaTime: Double){
