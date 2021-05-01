@@ -86,7 +86,7 @@ class LobbyMenu: SKScene {
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.position = CGPoint(x: frame.midX, y: frame.midY)
             //      particles.advanceSimulationTime(60)
-            particles.zPosition = 100
+            particles.zPosition = -1
             camera?.addChild(particles)
         }
         self.sceneShake(shakeCount: 4, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
@@ -244,11 +244,11 @@ class LobbyMenu: SKScene {
         
 //
         
-        
-        
-        
+
         colorButtonNode = self.childNode(withName: "redPlayer") as? MSButtonNode
         kickButtonNode = self.childNode(withName: "kickButton") as? MSButtonNode
+        colorButtonNode.zPosition = 101
+        kickButtonNode.zPosition = 101
         
         if Global.gameData.mode == modeArray[0] {
             i = 0
