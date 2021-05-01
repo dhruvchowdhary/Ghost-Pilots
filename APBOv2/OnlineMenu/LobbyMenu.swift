@@ -305,23 +305,23 @@ class LobbyMenu: SKScene {
                 Global.gameData.ModeChange()
                 
                 self.modeImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.mode)
-//                switch self.i {
-//                case 0:
-//                    self.removeAction(forKey: "mode")
-//                    self.buildffa()
-//                    self.animateffa()
-//                case 1:
-//                    self.removeAction(forKey: "mode")
-//                    self.buildAstro()
-//                    self.animateAstro()
-//                case 2:
-//                    self.removeAction(forKey: "mode")
-//                    self.buildInfection()
-//                    self.animateInfection()
-//
-//                default:
-//                    print("no mode")
-//                }
+                switch self.i {
+                case 0:
+                    self.removeAction(forKey: "mode")
+                    self.buildffa()
+                    self.animateffa()
+                case 1:
+                    self.removeAction(forKey: "mode")
+                    self.buildAstro()
+                    self.animateAstro()
+                case 2:
+                    self.removeAction(forKey: "mode")
+                    self.buildInfection()
+                    self.animateInfection()
+
+                default:
+                    print("no mode")
+                }
             }
         } else {
             modeImageButtonNode.selectedHandler = {
