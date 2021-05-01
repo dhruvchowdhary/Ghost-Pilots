@@ -21,6 +21,7 @@ class CPPlayerShip: CPSpaceshipBase {
         shipParent.addChild(hudNode)
         
         shipNode?.physicsBody?.contactTestBitMask = CPUInt.player
+        
     }
     
     override func playerShipUpdate() {
@@ -35,6 +36,15 @@ class CPPlayerShip: CPSpaceshipBase {
         ejectButton.zPosition = -100
         
         
+    }
+    
+    func setHudHidden(isHidden: Bool) {
+        hudNode.childNode(withName: "shootButton")!.isHidden = isHidden
+        hudNode.childNode(withName: "back")!.isHidden = isHidden
+        hudNode.childNode(withName: "turnButton")!.isHidden = isHidden
+        hudNode.childNode(withName: "phaseButton")?.isHidden = isHidden
+        hudNode.childNode(withName: "restart")?.isHidden = isHidden
+        hudNode.childNode(withName: "ejectButton")?.isHidden = isHidden
     }
     
     func enterSpaceship(){
