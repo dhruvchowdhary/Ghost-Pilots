@@ -293,7 +293,8 @@ class LobbyMenu: SKScene {
         self.modeImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.mode)
         if Global.gameData.isHost {
             modeImageButtonNode.selectedHandlers = {
-                self.view!.removeGestureRecognizer(self.panGesture)
+              //  self.view!.removeGestureRecognizer(self.panGesture)
+                
                 if self.i == self.modeArray.endIndex - 1 {
                     self.i = 0
                 } else {
@@ -302,24 +303,25 @@ class LobbyMenu: SKScene {
                 self.modeImageButtonNode.alpha = 1
                 Global.gameData.mode = self.modeArray[self.i]
                 Global.gameData.ModeChange()
+                
                 self.modeImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.mode)
-                switch self.i {
-                case 0:
-                    self.removeAction(forKey: "mode")
-                    self.buildffa()
-                    self.animateffa()
-                case 1:
-                    self.removeAction(forKey: "mode")
-                    self.buildAstro()
-                    self.animateAstro()
-                case 2:
-                    self.removeAction(forKey: "mode")
-                    self.buildInfection()
-                    self.animateInfection()
-                    
-                default:
-                    print("no mode")
-                }
+//                switch self.i {
+//                case 0:
+//                    self.removeAction(forKey: "mode")
+//                    self.buildffa()
+//                    self.animateffa()
+//                case 1:
+//                    self.removeAction(forKey: "mode")
+//                    self.buildAstro()
+//                    self.animateAstro()
+//                case 2:
+//                    self.removeAction(forKey: "mode")
+//                    self.buildInfection()
+//                    self.animateInfection()
+//
+//                default:
+//                    print("no mode")
+//                }
             }
         } else {
             modeImageButtonNode.selectedHandler = {
