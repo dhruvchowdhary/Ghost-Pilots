@@ -608,7 +608,7 @@ class LobbyMenu: SKScene {
                     self.removeAction(forKey: "mode")
                     self.buildffa()
                     self.animateffa()
-                case "astroball:
+                case "astroball":
                     self.removeAction(forKey: "mode")
                     self.buildAstro()
                     self.animateAstro()
