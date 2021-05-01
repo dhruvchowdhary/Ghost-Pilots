@@ -104,6 +104,8 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                     self.usernameBox.text?.removeAll()
                     self.hostButtonNode.alpha = 1
                 } else {
+                    self.usernameBox.removeFromSuperview()
+                    self.codeBox.removeFromSuperview()
                     Global.gameData.CreateNewGame()
              //       self.loadHostMenu()
                 }
@@ -259,7 +261,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         textBox.backgroundColor = SKColor.clear
         textBox.autocorrectionType = UITextAutocorrectionType.no
         
-        textBox.clearButtonMode = UITextField.ViewMode.always
+        codeBox.clearButtonMode = UITextField.ViewMode.always
         
         self.view!.addSubview(textBox)
     }
