@@ -419,8 +419,29 @@ public class MultiplayerHandler{
         })
     }
     
-    public func PullSkinChanges() {
-        print("pulled skin changes")
+    public func PullSkinChangesGame() {
+        print("pulled skin changes in game")
+        var pulledSkin = SKSpriteNode()
+        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Cosmetics/PlayerSkin").observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            for child in snapshot.children {
+                let e = child as! DataSnapshot
+                //    self.pullGameStatus()
+                // print(Global.gameData.status)
+                //  if Global.gameData.status == "Game" {
+                for i in 0..<Global.gameData.shipsToUpdate.count {
+                    if Global.gameData.shipsToUpdate[i].playerID == e.key && e.value as! String != "DEFAULTDECAL" {
+                        pulledSkin = SKSpriteNode(imageNamed: e.value as! String)
+                        pulledSkin.zPosition = 10
+                        Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(pulledSkin)
+                    }
+                }
+            }
+            
+        })
+    }
+    
+    public func PullSkinChangesLobby() {
+        print("pulled skin changes in lobby")
         var pulledSkin = SKSpriteNode()
         MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Cosmetics/PlayerSkin").observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             for child in snapshot.children {

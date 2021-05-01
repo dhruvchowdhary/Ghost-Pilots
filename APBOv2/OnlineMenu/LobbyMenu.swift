@@ -397,7 +397,6 @@ class LobbyMenu: SKScene {
                     
                 }
                 userKick.position.x = frame.midX + 430 + 40 + 50
-                
                 userKick.position.y += newuser.position.y - 10 + 10
             }
             let userColor = newuser.childNode(withName: "colorButtonNode") as! MSButtonNode
@@ -435,7 +434,7 @@ class LobbyMenu: SKScene {
     func StartGame(){
         self.view!.removeGestureRecognizer(self.panGesture)
         Global.multiplayerHandler.PullTrailChanges()
-        Global.multiplayerHandler.PullSkinChanges()
+        Global.multiplayerHandler.PullSkinChangesGame()
         if list.count > 1 {
             randInt = Global.gameData.gameID % (list.count)
         }
@@ -510,7 +509,10 @@ class LobbyMenu: SKScene {
     func setUpColors(userColor: MSButtonNode, isPlayer: Bool, index: Int){
         switch Global.gameData.mode {
         case "infection":
-            userColor.alpha = 0
+            userColor.texture = SKTexture(imageNamed: "apboWhite")
+            userColor.selectedHandler = {
+                userColor.alpha = 1
+            }
         case "ffa":
             userColor.texture = SKTexture(imageNamed: intToColor[index % 9]!)
             colorIndex = index
