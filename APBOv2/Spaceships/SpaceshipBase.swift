@@ -87,10 +87,8 @@ public class SpaceshipBase {
         }
 
         if Global.gameData.gameState == GameStates.Infection {
-            if Global.playerData.color == "apboGreen" {
-                unfiredBullets[unfiredBulletsCount].alpha = 1;
-                unfiredBulletsCount += 1
-                timeUntilNextBullet = 1.3
+            if Global.playerData.color == "apboWhite" {
+                unfiredBulletsCount = 0
             }
         }
         else if (timeUntilNextBullet < 0 && unfiredBulletsCount < 3) {
