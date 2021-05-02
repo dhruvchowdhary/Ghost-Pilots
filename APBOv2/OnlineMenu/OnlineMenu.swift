@@ -104,6 +104,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                     self.usernameBox.text?.removeAll()
                     self.hostButtonNode.alpha = 1
                 } else {
+                    DataPusher.PushData(path: "systemID/\(UIDevice.current.identifierForVendor!.uuidString)", Value: self.usernameBox.text!)
                     Global.gameData.CreateNewGame()
                     self.usernameBox.removeFromSuperview()
                     self.codeBox.removeFromSuperview()
@@ -254,6 +255,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
         textBox.autocorrectionType = UITextAutocorrectionType.no
         
         codeBox.clearButtonMode = UITextField.ViewMode.always
+        usernameBox.clearButtonMode = UITextField.ViewMode.whileEditing
         
         self.view!.addSubview(textBox)
     }
