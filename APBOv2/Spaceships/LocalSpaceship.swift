@@ -439,9 +439,7 @@ public class LocalSpaceship: SpaceshipBase {
                         self.gameOver.removeFromParent()
                         GameOverFX?.removeFromParent()
                           DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Lobby")
-                        
                       }
-                      
                   })
                 
             default:
