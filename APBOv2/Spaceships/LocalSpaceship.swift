@@ -129,11 +129,6 @@ public class LocalSpaceship: SpaceshipBase {
             unfiredBullets[i].position.y = CGFloat(50 * sin(Double.pi * Double(i) * 0.6666666))
             unfiredBulletRotator.addChild(unfiredBullets[i])
             
-            if Global.gameData.gameState == GameStates.Infection {
-                if Global.playerData.color == "apboWhite" {
-                    unfiredBullets[i].alpha = 0
-                }
-            }
             
         }
         unfiredBulletRotator.name = "bulletRotator"
