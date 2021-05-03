@@ -11,13 +11,16 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     var colHandle: CPCollisionHandler?
     var LITERALLYEVERYOBJECTINTEHSCENE: [AnyObject] = []
     
-    var zoomScale: CGFloat = CGFloat()
+    var zoomScale: CGFloat = 0.25
     var zoomOrigin: CGPoint = CGPoint()
-    var freezeTime: TimeInterval = 00
+    var freezeTime: TimeInterval = 5
     
-    var isZoomin = false
-    var completedZoomPercent = 0.0
-    var zoomrate =  0.0
+    var bulletsRegenTimers: [Timer] = []
+    
+    private var zoomUnitToPercent: CGFloat = 0
+    private var isZoomin = false
+    private var completedZoomPercent: CGFloat = 1.0
+    private var zoomrate: CGFloat =  0.0
     
     // this will be overriden in the levels and then callback manual setup
     override func didMove(to view: SKView) {
@@ -34,7 +37,7 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
             }
             
             if (i.physicsBody == nil){
-                fatalError("I Blame Vincent")
+                fatalError("Ion even know")
             }
             
             i.physicsBody!.categoryBitMask = CPUInt.walls
@@ -45,13 +48,6 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
             
             addObjectToScene(node: i, nodeClass: CPObject(node: i, action: Actions.None))
             
-            // Hide and zoom out
-            playerShip?.setHudHidden(isHidden: true)
-            togglePause()
-            camera?.setScale(zoomScale)
-            Timer.scheduledTimer(withTimeInterval: freezeTime, repeats: false) { (timer) in
-                self.handleCameraZoomIn()
-            }
         }
         
         for i in createGameObjects() {
@@ -70,6 +66,7 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.contactDelegate = self
         
         // Setup player ship
+        playerShip = CPPlayerShip(lvl: self)
         createPlayerShip()
         scene?.camera = playerShip?.camera
         addObjectToScene(node: (playerShip?.shipParent)!, nodeClass: playerShip!)
@@ -78,7 +75,16 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
         addBackground()
         colHandle = CPCollisionHandler(sceneClass: self)
         
-        handleCameraZoomIn()
+        // Hide and zoom out
+        setupCameraZoomIn()
+        playerShip?.setHudHidden(isHidden: true)
+        camera?.speed = 1
+        camera?.setScale(zoomScale)
+        camera?.position = zoomOrigin
+        zoomUnitToPercent = zoomScale - 1
+        let pepe = Timer.scheduledTimer(withTimeInterval: freezeTime, repeats: false) { (timer) in
+            self.isZoomin = true
+        }
     }
     
     func setupCameraZoomIn(){
@@ -98,8 +104,12 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     }
     
     func createBounds() -> [SKNode] {
-        //this must be ovveridden by ech level,can use some preset options
+        //this must be overridden by ech level,can use some preset options
         fatalError("Need to ovveride create bounds")
+    }
+    
+    func createPlayerShip(){
+        fatalError("Need to ovveride createPlayerShip")
     }
     
     func youLose(){
@@ -111,18 +121,31 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
         Global.loadScene(s: "MainMenu")
     }
     
-    func createPlayerShip(){
-        playerShip = CPPlayerShip(lvl: self)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        isZoomin = true
     }
-    
-    func handleCameraZoomIn() {
-        if isZoomin{
-            if (completedZoomPercent < 0.5){
-               // zo
+    // Need to take a serious deep dive into playership mechs
+    func handleCameraZoomIn(dTime: TimeInterval) {
+        completedZoomPercent = (zoomScale - 1) / zoomUnitToPercent
+        if isZoomin {
+            if completedZoomPercent < 0.65 {
+                zoomrate -= CGFloat(dTime)*2.05
             } else {
-                
+                zoomrate += CGFloat(dTime)*4
             }
-        } else {
+            
+            if (zoomScale - (zoomrate * CGFloat(dTime))) < 1{
+                completedZoomPercent = 0
+                camera?.setScale(1)
+                camera?.position = CGPoint()
+                
+                isSetup = true
+                playerShip?.setHudHidden(isHidden: false)
+            } else {
+                zoomScale -= zoomrate * CGFloat(dTime)
+                camera?.setScale(zoomScale)
+                camera?.position = CGPoint(x: (completedZoomPercent * zoomOrigin.x), y: completedZoomPercent * zoomOrigin.y )
+            }
         }
     }
     
@@ -146,10 +169,19 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
         
         // Handle all skactions
         if isGamePaused {
+            for timer in bulletsRegenTimers {
+                timer.invalidate()
+            }
+            bulletsRegenTimers = []
             speed = 0
             lastRecordedTime = 0
         } else {
             speed = 1
+            bulletsRegenTimers.append(Timer.scheduledTimer(withTimeInterval: TimeInterval(playerShip!.bulletRegenRate), repeats: false, block: {_ in
+                self.playerShip?.unfiredBullets[2].alpha = 100
+                self.playerShip!.isBulletRecharging = false
+                self.playerShip!.rechargeBullet()
+            }))
         }
         
         switchHud()
@@ -192,7 +224,12 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
             lastRecordedTime = currentTime
         }
         
-        if !isSetup{return}
+        if !isSetup{
+            handleCameraZoomIn(dTime: (currentTime - lastRecordedTime))
+            lastRecordedTime = currentTime
+            return
+        }
+        
         for ship in managedShips {
             ship.AiMovement(playerShip: playerShip!)
         }
@@ -209,27 +246,6 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     }
 }
 
-class CPCheckpoint {
-    var isCustomInteract = false
-    var isStartpoint = false
-    var isEndpoint = false
-    // 999 = all enemys on the scene
-    var kilsReqToUnlock = 999
-    var node: SKSpriteNode
-    
-    init(pos: CGPoint, texture: String) {
-        node = SKSpriteNode(imageNamed: texture)
-        node.position = pos
-        node.physicsBody = SKPhysicsBody(texture: node.texture!, size: node.size)
-        node.physicsBody?.affectedByGravity = false
-        
-        // ignore collisions with everything, only contacts with player
-        node.physicsBody!.contactTestBitMask = 100
-        node.physicsBody?.collisionBitMask = 0
-        node.physicsBody?.contactTestBitMask = 10
-        node.physicsBody?.isDynamic = false
-    }
-}
 
 public enum Actions{
     case HarmlessExplode, DamagingExplode, RewardObject, DirectDamage, None

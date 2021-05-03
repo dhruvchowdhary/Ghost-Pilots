@@ -122,6 +122,7 @@
 		81EA5C5C25F4416800A127A7 /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81EA5C5B25F4416800A127A7 /* Level3.sks */; };
 		CE42877D2637543F00D2776D /* Objects.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE42877C2637543F00D2776D /* Objects.swift */; };
 		CE4287812637547700D2776D /* Spaceships.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4287802637547700D2776D /* Spaceships.swift */; };
+		CE6E4D19263E0CAD003938EE /* Checkpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E4D18263E0CAD003938EE /* Checkpoints.swift */; };
 		CE9C6D9C25E8275800D47FCC /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9925E8275800D47FCC /* GameScene.sks */; };
 		CE9C6D9D25E8275800D47FCC /* GameSceneBase.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */; };
 		CE9C6D9E25E8275800D47FCC /* Hud.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9B25E8275800D47FCC /* Hud.sks */; };
@@ -270,6 +271,7 @@
 		BF55C5AA57697F270DE41606 /* Pods-APBOv2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APBOv2.debug.xcconfig"; path = "Target Support Files/Pods-APBOv2/Pods-APBOv2.debug.xcconfig"; sourceTree = "<group>"; };
 		CE42877C2637543F00D2776D /* Objects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Objects.swift; sourceTree = "<group>"; };
 		CE4287802637547700D2776D /* Spaceships.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spaceships.swift; sourceTree = "<group>"; };
+		CE6E4D18263E0CAD003938EE /* Checkpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkpoints.swift; sourceTree = "<group>"; };
 		CE9C6D9925E8275800D47FCC /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneBase.sks; sourceTree = "<group>"; };
 		CE9C6D9B25E8275800D47FCC /* Hud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Hud.sks; sourceTree = "<group>"; };
@@ -552,6 +554,7 @@
 			isa = PBXGroup;
 			children = (
 				CE42877C2637543F00D2776D /* Objects.swift */,
+				CE6E4D18263E0CAD003938EE /* Checkpoints.swift */,
 			);
 			path = "Campaign Objects";
 			sourceTree = "<group>";
@@ -874,6 +877,7 @@
 				028FEFE725F7EFC600D519A5 /* GameData.swift in Sources */,
 				74C3CFB8253F3BE900757586 /* GameViewController.swift in Sources */,
 				749EBC5C255AFA58003EA0B3 /* Bundle-Decoding.swift in Sources */,
+				CE6E4D19263E0CAD003938EE /* Checkpoints.swift in Sources */,
 				CEF309CF25C1E86D007B8B39 /* DataPusher.swift in Sources */,
 				74C3CFDB2553100200757586 /* EnemyNode.swift in Sources */,
 				CEB716E52624BE0A003FB440 /* CPLevel1.swift in Sources */,

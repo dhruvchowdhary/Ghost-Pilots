@@ -27,6 +27,7 @@ class CPSpaceshipBase {
     var isDead = false
     var isGhost = false
     var attackRange: CGFloat
+    var rotateAction: SKAction?
     
     var firedBullets: [SKNode] = []
     var firedBulletVelocites: [CGVector] = []
@@ -57,8 +58,8 @@ class CPSpaceshipBase {
                 bul.position.y = CGFloat(rotatingBulletOffset * sin(Double.pi * Double(i) * 0.6666666))
                 bulletRotater.addChild(bul)
             }
-            let rotate = SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1))
-            bulletRotater.run(rotate)
+            rotateAction = SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1))
+            bulletRotater.run(rotateAction!)
             hudNode.addChild(bulletRotater)
         }
     }
@@ -68,7 +69,7 @@ class CPSpaceshipBase {
     }
     
     func playerShipUpdate(){
-        
+        hudNode.position = shipNode!.position
     }
     
     // need to work on telling the ai to rotation lock itself
@@ -79,9 +80,18 @@ class CPSpaceshipBase {
     }
     
     func inRangeCheck(pos1: CGPoint,pos2: CGPoint, range: CGFloat) -> Bool{
-        let xDelta = ((pos1.x - pos2.x) * (pos1.x - pos2.y))
+        let x = (pos1.x - pos2.x)
+        let xDelta = (x * x)
         let yDelta = ((pos1.y - pos2.y) * (pos1.y - pos2.y))
-        if  xDelta + yDelta < (range * range){ return true }
+        //print(range)
+        if  xDelta + yDelta < (range * range){
+            print(xDelta)
+            print(yDelta)
+            print(range * range)
+            print("===========")
+            return true
+            
+        }
         
         return false
     }
@@ -167,11 +177,14 @@ class CPSpaceshipBase {
             for bul in unfiredBullets{
                 if bul.alpha == 0 {
                     isBulletRecharging = true
-                    Timer.scheduledTimer(withTimeInterval: TimeInterval(bulletRegenRate), repeats: false, block: {_ in
+                    let pepe2 = (Timer.scheduledTimer(withTimeInterval: TimeInterval(bulletRegenRate), repeats: false, block: {_ in
                         bul.alpha = 100
                         self.isBulletRecharging = false
                         self.rechargeBullet()
-                    })
+                    }))
+                    if self is CPPlayerShip{
+                        level.bulletsRegenTimers.append(pepe2)
+                    }
                     return
                 }
             }

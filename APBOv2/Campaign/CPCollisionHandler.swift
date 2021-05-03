@@ -27,13 +27,13 @@ class CPCollisionHandler {
         let classB = possibleNodes[Int(nodeB.name!)!]
         
         // Checkpoint testing
-        if let checkpoint = classA as? CPCheckpoint {
-            if let player = classB as? CPPlayerShip {
-                handleCheckpoint(cp: checkpoint)
+        if classA is CPCheckpoint {
+            if classB is CPPlayerShip {
+                handleCheckpoint(cp: classA as! CPCheckpoint)
             }
-        } else if let checkpoint = classB as? CPCheckpoint{
-            if let player = classA as? CPPlayerShip {
-                handleCheckpoint(cp: checkpoint)
+        } else if classB is CPCheckpoint{
+            if classA is CPPlayerShip {
+                handleCheckpoint(cp: classB as! CPCheckpoint)
             }
             
         // Obj testing
@@ -42,12 +42,24 @@ class CPCollisionHandler {
         }
         else if let obj = classB as? CPObject {
             ObjAndUnknown(obj: obj, unknown: classA)
+        
+        // ship and playership testing
+//        } else if let obj = classA as? SpaceshipBase {
+//            if !(o is CPPlayerShip) {
+//            }
+//        }
+//        else if let obj = classB as? CPObject {
+//            if !(obj is CPPlayerShip) {
+//                ObjAndUnknown(obj: obj, unknown: classB)
+//            } else {
+//
+//            }
+//        }
         }
         
     }
     
     func ObjAndUnknown(obj: CPObject, unknown: AnyObject){
-        print("ok")
         if let obj2 = unknown as? CPObject {
             objAndObj(obj1: obj, obj2: obj2)
         }
@@ -57,6 +69,10 @@ class CPCollisionHandler {
         if let ship = unknown as? CPSpaceshipBase {
             objAndEnemy(obj: obj, enemy: ship)
         }
+    }
+    
+    func shipAndUnknown(ship: CPSpaceshipBase, unknown: AnyObject){
+        
     }
     
     
@@ -90,7 +106,6 @@ class CPCollisionHandler {
     }
     
     func objAndEnemy(obj: CPObject, enemy: CPSpaceshipBase){
-        print("yeeeeeeeet")
         switch obj.action {
         case .DamagingExplode:
             sClass.triggerExplosion(origin: obj.node.position, radius: obj.blastRadius)
