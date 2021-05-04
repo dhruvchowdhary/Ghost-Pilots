@@ -24,9 +24,9 @@ class CPPlayerShip: CPSpaceshipBase {
         
     }
     
-    override func playerShipUpdate() {
-        hudNode.position = shipNode!.position
-    }
+//    override func playerShipUpdate() {
+//        hudNode.position = shipNode!.position
+//    }
     
     override func ghostMode(){
         // If triggered manully, wont make a diff
@@ -40,11 +40,12 @@ class CPPlayerShip: CPSpaceshipBase {
     
     func setHudHidden(isHidden: Bool) {
         hudNode.childNode(withName: "shootButton")!.isHidden = isHidden
-        hudNode.childNode(withName: "back")!.isHidden = isHidden
+        hudNode.childNode(withName: "back")!.isHidden = true
         hudNode.childNode(withName: "turnButton")!.isHidden = isHidden
-        hudNode.childNode(withName: "phaseButton")?.isHidden = isHidden
-        hudNode.childNode(withName: "restart")?.isHidden = isHidden
+        hudNode.childNode(withName: "phaseButton")?.isHidden = true
+        hudNode.childNode(withName: "restart")?.isHidden = true
         hudNode.childNode(withName: "ejectButton")?.isHidden = isHidden
+        hudNode.childNode(withName: "pause")?.isHidden = isHidden
     }
     
     func enterSpaceship(){
@@ -85,6 +86,9 @@ class CPPlayerShip: CPSpaceshipBase {
         backButton.position.y = 300
         backButton.size = CGSize(width: 140, height: 90)
         backButton.isHidden = true
+        backButton.selectedHandler = {
+            Global.loadScene(s: "MainMenu")
+        }
         hudNode.addChild(backButton)
         
         
@@ -138,7 +142,14 @@ class CPPlayerShip: CPSpaceshipBase {
         hudNode.addChild(phaseButton)
         phaseButton.position.x = 575
         phaseButton.position.y = -180
+        phaseButton.isHidden = true
         phaseButton.size = CGSize(width: 157, height: 150)
+        phaseButton.selectedHandler = {
+            
+        }
+        phaseButton.selectedHandlers = {
+            
+        }
 // Old implemetation
 // =============================================
 //        phaseButton.selectedHandler = {
@@ -162,6 +173,9 @@ class CPPlayerShip: CPSpaceshipBase {
         ejectButton.position.x = 575
         ejectButton.position.y = -180
         ejectButton.size = CGSize(width: 157, height: 150)
+        ejectButton.selectedHandler = {
+            self.ghostMode()
+        }
         
         
         let reviveButton = MSButtonNode(imageNamed: "reviveButton")

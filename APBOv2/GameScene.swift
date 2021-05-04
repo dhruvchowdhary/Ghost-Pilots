@@ -295,7 +295,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         backButtonNode.selectedHandlers = {
             Global.gameData.score = 0
             Global.gameData.revived = false
-            Global.loadScene(s: "SoloMenu")
+            Global.loadScene(s: "MainMenu")
         }
         
         restartButtonNode = self.childNode(withName: "restartButton") as? MSButtonNode
