@@ -39,13 +39,13 @@ class CPPlayerShip: CPSpaceshipBase {
         // If triggered manully, wont make a diff
         health = 0
         isGhost = true
-        
-        print("das")
+        isMoving = false
         phaseButton.zPosition = 100
         ejectButton.zPosition = -100
         
         ghostNode.position = shipNode!.position
         ghostNode.physicsBody!.affectedByGravity = false
+        ghostNode.physicsBody!.velocity = (shipNode?.physicsBody!.velocity)!
         
         bulletRotater.isHidden = true
         shipNodeOutScene = shipNode
@@ -98,7 +98,18 @@ class CPPlayerShip: CPSpaceshipBase {
         shootButton.size = CGSize(width: 213, height: 196)
         hudNode.addChild(shootButton)
         shootButton.selectedHandler = {
-            self.Shoot(shotType: .Bullet)
+            if self.isGhost {
+                self.isMoving = true
+            } else {
+                self.Shoot(shotType: .Bullet)
+            }
+        }
+        
+        shootButton.selectedHandlers = {
+            if self.isGhost {
+                self.isMoving = false
+                self.shipNode?.physicsBody!.velocity = CGVector(dx: (self.shipNode?.physicsBody!.velocity.dx)!*0.5, dy: (self.shipNode?.physicsBody!.velocity.dy)!*0.5)
+            }
         }
         
         
@@ -124,6 +135,7 @@ class CPPlayerShip: CPSpaceshipBase {
             self.currentRotate = .Clockwise
             turnButton.xScale = turnButton.xScale * 1.1
             turnButton.yScale = turnButton.yScale * 1.1
+            if isGhost {return}
             if possibleDash {
                 self.Dash(forwardMagnitude: 60, deltaRotation: CGFloat(-Double.pi/2), forwardDuration: 0.20, rotationDuration: 0.03)
             } else {

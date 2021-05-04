@@ -10,7 +10,6 @@ class CPLevel1 : CPLevelBase {
     
     override func createBounds() -> [SKNode] {
         let borderShape = SKShapeNode()
-        
         borderShape.path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 1000, height: 2000), cornerRadius: 40).cgPath
         borderShape.fillColor = .clear
         borderShape.strokeColor = UIColor(red: 0/255, green: 121/255, blue: 255/255, alpha:1)
