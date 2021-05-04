@@ -130,7 +130,6 @@ class LobbyMenu: SKScene {
         backgroundSpace.position = CGPoint(x: frame.midX, y: frame.midY)
         backgroundSpace.fillColor = UIColor.black
         backgroundSpace.zPosition = -420
-        
         effectBackground.addChild(backgroundSpace)
         
         var backgroundholewidth = 1150
@@ -162,8 +161,6 @@ class LobbyMenu: SKScene {
         borderShape.lineWidth = 14
         borderShape.name = "border"
         borderShape.zPosition = -100
-        
-        
         effect.addChild(borderShape)
         
 
@@ -224,14 +221,10 @@ class LobbyMenu: SKScene {
         lobbyLabelText.addChild(playercountLabel)
         playercountLabel.position.y = codeLabel.position.y
         playercountLabel.position.x -= 450
-        playercountLabel.zPosition = 2
-        playercountLabel.fontColor = UIColor.white
         playercountLabel.fontSize = 70
-        playercountLabel.fontName = "AvenirNext-Bold"
         
         setupLabel(label: lobbyLabelText)
-        
-        
+        lobbyLabelText.fontSize = 90
         lobbyLabel.addChild(lobbyLabelText)
         lobbyLabelText.position.y -= 40
         
@@ -256,7 +249,9 @@ class LobbyMenu: SKScene {
         
         
         startButtonNode.position = CGPoint(x: frame.midX + 440 - 16 , y: borderShape.position.y - 370)
-        
+        startButtonNode.selectedHandler = {
+            self.startButtonNode.alpha = 1
+        }
         startButtonNode.selectedHandlers = {
             
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Status", Value: "Game")
@@ -280,6 +275,9 @@ class LobbyMenu: SKScene {
         
         self.modeImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.mode)
         if Global.gameData.isHost {
+            modeImageButtonNode.selectedHandler = {
+                self.modeImageButtonNode.alpha = 1
+            }
             modeImageButtonNode.selectedHandlers = {
               //  self.view!.removeGestureRecognizer(self.panGesture)
                 
@@ -334,6 +332,9 @@ class LobbyMenu: SKScene {
         self.mapImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.map)
         
         if Global.gameData.isHost {
+            mapImageButtonNode.selectedHandler = {
+                self.mapImageButtonNode.alpha = 1
+            }
             mapImageButtonNode.selectedHandlers = {
                 if self.j == self.mapArray.endIndex - 1 {
                     self.j = 0
@@ -501,7 +502,6 @@ class LobbyMenu: SKScene {
     func setupLabel(label: SKLabelNode) {
         label.zPosition = 2
         label.fontColor = UIColor.white
-        label.fontSize = 120
         label.fontName = "AvenirNext-Bold"
        // camera?.addChild(label)
     }
@@ -516,6 +516,9 @@ class LobbyMenu: SKScene {
         case "ffa":
             userColor.texture = SKTexture(imageNamed: intToColor[index % 9]!)
             colorIndex = index
+            userColor.selectedHandler = {
+                userColor.alpha = 1
+            }
             if isPlayer {
                 DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex]!)
                 userColor.selectedHandlers = {
@@ -536,6 +539,9 @@ class LobbyMenu: SKScene {
         case "astroball":
             userColor.texture = SKTexture(imageNamed: intToColor[index % 2]!)
             colorIndex = index
+            userColor.selectedHandler = {
+                userColor.alpha = 1
+            }
             if isPlayer {
                 DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex%2]!)
                 userColor.selectedHandlers = {
