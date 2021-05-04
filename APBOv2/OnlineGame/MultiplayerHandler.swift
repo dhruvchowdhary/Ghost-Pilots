@@ -209,7 +209,7 @@ public class MultiplayerHandler{
                                                 if Global.gameData.shipsToUpdate[i].playerID == e.key {
                                                     let pulledTrail = SKEmitterNode(fileNamed: e.value as! String)!
                                                     pulledTrail.targetNode = Global.gameData.gameScene.scene
-                                                    Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(pulledTrail)
+                                              //      Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(pulledTrail)
                                                 }
                                             }
                                         }
