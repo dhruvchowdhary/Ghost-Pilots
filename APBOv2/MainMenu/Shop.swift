@@ -295,7 +295,7 @@ class Shop: SKScene {
         polyniteLabel.position = CGPoint(x: shopDisplay.position.x , y: shopDisplay.position.y - 50)
         polyniteLabel.fontName = "AvenirNext-Bold"
         polyniteLabel.fontColor = UIColor.black
-        polyniteLabel.zPosition = 10
+        polyniteLabel.zPosition = 1000
         polyniteLabel.fontSize = 80 / 1.5
         camera?.addChild(polyniteLabel)
         

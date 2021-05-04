@@ -18,6 +18,8 @@ let cannonCollisionRadius: CGFloat = 70
 let playerCollisionRadius: CGFloat = 10
 let shotCollisionRadius: CGFloat = 20
 
+
+
 enum CollisionType: UInt32 {
     case player = 1
     
@@ -93,6 +95,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var direction = 0.0
     let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 20000, height: 10000) )
     
+    
+   
     let points = SKLabelNode(text: "\(Global.gameData.score)")
     let pointsLabel = SKLabelNode(text: "Points")
     var enemyPoints = SKLabelNode(text: "+1")
@@ -106,12 +110,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var numAmmo = 3
     var regenAmmo = false
     
-    let scaleAction = SKAction.scale(to: 2.2, duration: 0.4)
+  //  let scaleAction = SKAction.scale(to: 0.2, duration: 0.4)
     
     let bullet1 = SKSpriteNode(imageNamed: "bullet")
     let bullet2 = SKSpriteNode(imageNamed: "bullet")
     let bullet3 = SKSpriteNode(imageNamed: "bullet")
     let shape = SKShapeNode()
+    
+    
+    let endlessLeaderboard = SKLabelNode(text: "Leaderboard")
+    let leaderboardButtonNode = MSButtonNode(imageNamed: "specialButton")
+   // let polyniteEarned = (numPoints / 100)
+    
     
     override func didMove(to view: SKView) {
         
@@ -135,6 +145,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         }
         */
+        
+
+        
+        
 
         shape.path = UIBezierPath(roundedRect: CGRect(x: -1792/2-1000, y: -828/2, width: 1792+2000, height: 828), cornerRadius: 40).cgPath
         shape.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -200,6 +214,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         points.fontSize = 65
         points.fontName = "AvenirNext-Bold"
         addChild(points)
+        
+        
         
         /*
         pointsLabel.position = CGPoint(x: frame.midX+130, y: frame.maxY-70)
@@ -295,7 +311,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         backButtonNode.selectedHandlers = {
             Global.gameData.score = 0
             Global.gameData.revived = false
+            print(self.numPoints)
+            Global.gameData.addPolyniteCount(delta: self.numPoints / 100)
             Global.loadScene(s: "MainMenu")
+            
+            
+            
         }
         
         restartButtonNode = self.childNode(withName: "restartButton") as? MSButtonNode
@@ -990,11 +1011,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             restartButtonNode.setScale(CGFloat(1.25 * scale))
             
             playAgainButtonNode.position.x = cameraNode.position.x
-            playAgainButtonNode.position.y = (cameraNode.position.y - 224) * CGFloat(scale)
+            playAgainButtonNode.position.y = (cameraNode.position.y - 224 - 121) * CGFloat(scale)
             playAgainButtonNode.setScale(CGFloat(1.25 * scale))
             
             reviveButtonNode.position.x = cameraNode.position.x + 340
-            reviveButtonNode.position.y = (cameraNode.position.y - 224) * CGFloat(scale)
+            reviveButtonNode.position.y = playAgainButtonNode.position.y
           //  reviveButtonNode.setScale(CGFloat(1.25 * scale))
             
             phaseButtonNode.position.x = turnButtonNode.position.x - 205
@@ -1048,10 +1069,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 restartButtonNode.position.y =  cameraNode.position.y + 300
                 
                 playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
-                playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
+                playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200 - 121
                 
                 reviveButtonNode.position.x = frame.midX + cameraNode.position.x + 340
-                reviveButtonNode.position.y = frame.midY + cameraNode.position.y - 200
+                reviveButtonNode.position.y = playAgainButtonNode.position.y
                 
                 phaseButtonNode.size = CGSize(width: 188.4, height: 180)
                 phaseButtonNode.position.x = turnButtonNode.position.x - 168
@@ -1106,10 +1127,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 restartButtonNode.position.y =  cameraNode.position.y + 330
                 
                 playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
-                playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
+                playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200 - 121
                 
                 reviveButtonNode.position.x = frame.midX + cameraNode.position.x + 340
-                reviveButtonNode.position.y = frame.midY + cameraNode.position.y - 200
+                reviveButtonNode.position.y = playAgainButtonNode.position.y
                 
                 phaseButtonNode.size = CGSize(width: 157, height: 150)
                 phaseButtonNode.position.x = turnButtonNode.position.x - 140
@@ -1163,10 +1184,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 restartButtonNode.position.y =  cameraNode.position.y + 330
                 
                 playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
-                playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200
+                playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200 - 121
                 
                 reviveButtonNode.position.x = frame.midX + cameraNode.position.x + 340
-                reviveButtonNode.position.y = frame.midY + cameraNode.position.y - 200
+                reviveButtonNode.position.y = playAgainButtonNode.position.y
                 
                 phaseButtonNode.size = CGSize(width: 157, height: 150)
                 phaseButtonNode.position.x = turnButtonNode.position.x - 140
@@ -1411,8 +1432,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let secondNode = sortedNodes[1]
         
         
-        print("first Node is   \(firstNode.name)")
-        print("second Node is  \(secondNode.name)")
+     //   print("first Node is   \(firstNode.name)")
+    //    print("second Node is  \(secondNode.name)")
         
         //print("player collided with \(firstNode.name)")
         
@@ -1871,6 +1892,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         isPlayerAlive = false
         isGameOver = true
         
+      
         self.playAgainButtonNode.alpha = 1
         if !Global.gameData.revived {
             self.reviveButtonNode.alpha = 1
@@ -1885,13 +1907,70 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.bullet2.alpha = 0
         self.bullet3.alpha = 0
         
-        let gameOver = SKSpriteNode(imageNamed: "gameOver")
+        let gameOver = SKSpriteNode(imageNamed: "gameOverScore")
         self.dimPanel.alpha = 0.3
+        gameOver.xScale = 0.2
+        gameOver.yScale = 0.2
         gameOver.zPosition = 100
-        gameOver.run(scaleAction)
-        gameOver.position = CGPoint(x: frame.midY, y: frame.midY)
-        gameOver.size = CGSize(width: 619, height: 118)
+     //   gameOver.run(scaleAction)
+        gameOver.position = CGPoint(x: frame.midY, y: frame.midY + 80)
+        
+      //  gameOver.size = CGSize(width: 619, height: 118)
         addChild(gameOver)
+        
+        leaderboardButtonNode.selectedHandlers = {
+            if GameCenter.shared.isAuthenticated {
+                NotificationCenter.default.post(name: Notification.Name("showLeaderboard"), object: nil)
+            } else {
+                let alert = UIAlertController(title: "Game Center Error", message: "You are currently not logged into Game Center! Log in to view the leaderboard." , preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
+            }
+            self.leaderboardButtonNode.alpha = 1
+        }
+        
+        
+        leaderboardButtonNode.position = CGPoint(x: frame.maxX - 280 , y: frame.minY + 175)
+        leaderboardButtonNode.zPosition = 200
+        leaderboardButtonNode.xScale = 0.18
+        leaderboardButtonNode.yScale = 0.18
+               endlessLeaderboard.fontName = "AvenirNext-Bold"
+               endlessLeaderboard.position = CGPoint(x: leaderboardButtonNode.position.x, y: leaderboardButtonNode.position.y - 125)
+                     endlessLeaderboard.fontColor = UIColor.white
+                     endlessLeaderboard.zPosition = 200
+                     endlessLeaderboard.fontSize = 40
+                     
+        leaderboardButtonNode.alpha = 1
+        endlessLeaderboard.alpha = 1
+        addChild(leaderboardButtonNode)
+        addChild(endlessLeaderboard)
+        
+        
+        
+        let scoreLabel = SKLabelNode(text: "\(numPoints)")
+      
+        scoreLabel.position = CGPoint(x: frame.midX, y: frame.midY+58)
+        scoreLabel.zPosition = 200
+        scoreLabel.fontColor = UIColor.blue
+        scoreLabel.fontSize = 65
+        scoreLabel.fontName = "AvenirNext-Bold"
+        addChild(scoreLabel)
+        
+        
+       
+        let polyniteEarnedLabel = SKLabelNode(text: "+\(numPoints / 100)")
+        
+      
+        polyniteEarnedLabel.position = CGPoint(x: frame.midX, y: frame.midY - 135)
+        polyniteEarnedLabel.zPosition = 200
+        polyniteEarnedLabel.fontColor = UIColor.blue
+        polyniteEarnedLabel.fontSize = 65
+        polyniteEarnedLabel.fontName = "AvenirNext-Bold"
+        addChild(polyniteEarnedLabel)
+        
+        
+        
+        
     }
     
 }
