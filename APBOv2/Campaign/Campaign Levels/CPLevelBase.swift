@@ -114,8 +114,8 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     
     func youLose(){
         // add a popup here
-        
         togglePause()
+//        playerShip?
     }
     
     func youWin(){

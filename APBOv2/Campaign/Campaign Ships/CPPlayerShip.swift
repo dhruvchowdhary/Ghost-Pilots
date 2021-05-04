@@ -10,6 +10,12 @@ class CPPlayerShip: CPSpaceshipBase {
     let phaseButton = MSButtonNode(imageNamed: "phaseButton")
     let ejectButton = MSButtonNode(imageNamed: "ejectButton")
     let reviveButton = MSButtonNode(imageNamed: "reviveButton")
+    let pauseButton = MSButtonNode(imageNamed: "pause")
+    let backButton = MSButtonNode(imageNamed: "back")
+    let shootButton = MSButtonNode(imageNamed: "shootButton")
+    let turnButton = MSButtonNode(imageNamed: "turnButton")
+    let restartButton = MSButtonNode(imageNamed: "restart")
+    let playAgainButton = MSButtonNode(imageNamed: "playAgainButton")
     
     init(lvl: CPLevelBase) {
         
@@ -39,6 +45,7 @@ class CPPlayerShip: CPSpaceshipBase {
         ejectButton.zPosition = -100
         
         ghostNode.position = shipNode!.position
+        ghostNode.physicsBody!.affectedByGravity = false
         
         bulletRotater.isHidden = true
         shipNodeOutScene = shipNode
@@ -49,6 +56,8 @@ class CPPlayerShip: CPSpaceshipBase {
     
     override func destroyShip() {
         // Epic explosion here
+        shipNode?.removeFromParent()
+        ghostNode.removeFromParent()
         reviveButton.isHidden = false
         level.youLose()
     }
@@ -71,7 +80,6 @@ class CPPlayerShip: CPSpaceshipBase {
         hudNode.zPosition = 1000
         hudNode.addChild(camera)
         
-        let pauseButton = MSButtonNode(imageNamed: "pause")
         pauseButton.name = "pause"
         pauseButton.isUserInteractionEnabled  = true
         pauseButton.position.x = 790
@@ -83,7 +91,6 @@ class CPPlayerShip: CPSpaceshipBase {
         }
         
         
-        let shootButton = MSButtonNode(imageNamed: "shootButton")
         shootButton.name = "shootButton"
         shootButton.isUserInteractionEnabled = true
         shootButton.position.x = -720
@@ -95,7 +102,6 @@ class CPPlayerShip: CPSpaceshipBase {
         }
         
         
-        let backButton = MSButtonNode(imageNamed: "back")
         backButton.name = "back"
         backButton.position.x = -790
         backButton.position.y = 300
@@ -107,7 +113,6 @@ class CPPlayerShip: CPSpaceshipBase {
         hudNode.addChild(backButton)
         
         
-        let turnButton = MSButtonNode(imageNamed: "turnButton")
         turnButton.name = "turnButton"
         turnButton.isUserInteractionEnabled  = true
         turnButton.position.x = 725
@@ -129,13 +134,12 @@ class CPPlayerShip: CPSpaceshipBase {
             }
         }
         turnButton.selectedHandlers = {
-            turnButton.xScale = turnButton.xScale / 1.1
-            turnButton.yScale = turnButton.yScale / 1.1
+            self.turnButton.xScale = self.turnButton.xScale / 1.1
+            self.turnButton.yScale = self.turnButton.yScale / 1.1
             self.currentRotate = .NoRotate
         }
         
         
-        let restartButton = MSButtonNode(imageNamed: "restart")
         restartButton.name = "restart"
         restartButton.position.x = 655
         restartButton.position.y = 300
@@ -147,7 +151,6 @@ class CPPlayerShip: CPSpaceshipBase {
         hudNode.addChild(restartButton)
         
         
-        let playAgainButton = MSButtonNode(imageNamed: "playAgainButton")
         playAgainButton.position.x = 0
         playAgainButton.position.y = -224.6
         playAgainButton.size = CGSize(width: 510, height: 149)
