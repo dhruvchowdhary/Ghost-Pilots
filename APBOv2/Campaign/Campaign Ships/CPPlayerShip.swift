@@ -9,6 +9,7 @@ class CPPlayerShip: CPSpaceshipBase {
     var possibleDash = false
     let phaseButton = MSButtonNode(imageNamed: "phaseButton")
     let ejectButton = MSButtonNode(imageNamed: "ejectButton")
+    let reviveButton = MSButtonNode(imageNamed: "reviveButton")
     
     init(lvl: CPLevelBase) {
         
@@ -31,11 +32,25 @@ class CPPlayerShip: CPSpaceshipBase {
     override func ghostMode(){
         // If triggered manully, wont make a diff
         health = 0
+        isGhost = true
         
+        print("das")
         phaseButton.zPosition = 100
         ejectButton.zPosition = -100
         
+        ghostNode.position = shipNode!.position
         
+        bulletRotater.isHidden = true
+        shipNodeOutScene = shipNode
+        shipParent.addChild(ghostNode)
+        shipNode?.removeFromParent()
+        shipNode = ghostNode
+    }
+    
+    override func destroyShip() {
+        // Epic explosion here
+        reviveButton.isHidden = false
+        level.youLose()
     }
     
     func setHudHidden(isHidden: Bool) {
@@ -126,6 +141,9 @@ class CPPlayerShip: CPSpaceshipBase {
         restartButton.position.y = 300
         restartButton.isHidden = true
         restartButton.size = CGSize(width: 93, height: 100)
+        restartButton.selectedHandler = {
+            Global.loadScene(s: Global.sceneString)
+        }
         hudNode.addChild(restartButton)
         
         
@@ -178,13 +196,12 @@ class CPPlayerShip: CPSpaceshipBase {
         }
         
         
-        let reviveButton = MSButtonNode(imageNamed: "reviveButton")
         hudNode.addChild(reviveButton)
         reviveButton.position.x = 334
         reviveButton.position.y = -226
         reviveButton.size = CGSize(width: 157, height: 150)
         reviveButton.name = "reviveButton"
-        reviveButton.alpha = 0
+        reviveButton.isHidden = true
         reviveButton.selectedHandler = {
         }
     }

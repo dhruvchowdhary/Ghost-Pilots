@@ -28,9 +28,11 @@ class CPSpaceshipBase {
     var isGhost = false
     var attackRange: CGFloat
     var rotateAction: SKAction?
-    
+    var ghostNode = SKSpriteNode(imageNamed: "apboWhitePilot")
+    var shipNodeOutScene: SKSpriteNode?
     var firedBullets: [SKNode] = []
     var firedBulletVelocites: [CGVector] = []
+    var hasGhostMode = false
     
     var health = 1
     var maxHealth = 1
@@ -50,6 +52,7 @@ class CPSpaceshipBase {
         bulletSpeeds = spaceshipSetup.bulletSpeeds
         level = lvl
         attackRange = spaceshipSetup.attackRange
+        hasGhostMode = spaceshipSetup.hasGhostMode
         
         if isBulletOrbitVisible{
             for i in 0..<unfiredBullets.count {
@@ -62,6 +65,12 @@ class CPSpaceshipBase {
             bulletRotater.run(rotateAction!)
             hudNode.addChild(bulletRotater)
         }
+        
+        ghostNode.scale(to: CGSize(width: 35, height: 35))
+        ghostNode.physicsBody = SKPhysicsBody(texture: ghostNode.texture!, size: ghostNode.size)
+        level.addObjectToScene(node: ghostNode, nodeClass: self)
+        ghostNode.removeFromParent()
+        
     }
     
     func AiMovement(playerShip: CPPlayerShip){
@@ -84,19 +93,15 @@ class CPSpaceshipBase {
         let xDelta = (x * x)
         let yDelta = ((pos1.y - pos2.y) * (pos1.y - pos2.y))
         //print(range)
-        if  xDelta + yDelta < (range * range){
-            print(xDelta)
-            print(yDelta)
-            print(range * range)
-            print("===========")
+        if  xDelta + yDelta < (range * range)
+        {
             return true
-            
         }
-        
         return false
     }
     
     public func Shoot(shotType: ShotType){
+        if isGhost {return}
         switch shotType {
         case .Bullet:
             for bul in unfiredBullets{
@@ -219,8 +224,13 @@ class CPSpaceshipBase {
     
     func movementUpdate(){
         if isMoving {
-            let velocity = CGVector(dx: cos(shipNode!.zRotation) * CGFloat(shipSpeed), dy: sin(shipNode!.zRotation) * CGFloat(shipSpeed))
-            shipNode!.physicsBody?.velocity = velocity
+            if isGhost {
+                let velocity = CGVector(dx: cos(shipNode!.zRotation - CGFloat.pi/2) * CGFloat(shipSpeed), dy: sin(shipNode!.zRotation) * CGFloat(shipSpeed))
+                shipNode!.physicsBody?.velocity = velocity
+            } else {
+                let velocity = CGVector(dx: cos(shipNode!.zRotation) * CGFloat(shipSpeed), dy: sin(shipNode!.zRotation) * CGFloat(shipSpeed))
+                shipNode!.physicsBody?.velocity = velocity
+            }
         } else {
             shipNode?.physicsBody?.velocity = CGVector()
         }
@@ -266,6 +276,7 @@ struct CPSpaceshipSetup {
     var rotatingBulletOffset: Double = 65
     var bulletSpeeds: Double = 450.0
     var attackRange: CGFloat = 450
+    var hasGhostMode = false
 }
 
 

@@ -44,17 +44,14 @@ class CPCollisionHandler {
             ObjAndUnknown(obj: obj, unknown: classA)
         
         // ship and playership testing
-//        } else if let obj = classA as? SpaceshipBase {
-//            if !(o is CPPlayerShip) {
-//            }
-//        }
-//        else if let obj = classB as? CPObject {
-//            if !(obj is CPPlayerShip) {
-//                ObjAndUnknown(obj: obj, unknown: classB)
-//            } else {
-//
-//            }
-//        }
+        } else if classA is CPPlayerShip {
+            if classB is CPSpaceshipBase {
+                playerAndEnemy(player: classA as! CPPlayerShip, enemy: classB as! CPSpaceshipBase)
+            }
+        } else if classB is CPPlayerShip {
+            if classB is CPSpaceshipBase {
+                playerAndEnemy(player: classB as! CPPlayerShip, enemy: classA as! CPSpaceshipBase)
+            }
         }
         
     }

@@ -22,11 +22,6 @@ class CPChaserSpaceship : CPSpaceshipBase {
             shipNode?.physicsBody?.velocity = CGVector(dx: x/2 + 200 * cos(shipNode!.zRotation), dy: y/2 + 200 * sin(shipNode!.zRotation))
         } else {
             if inRangeCheck(pos1: playerShip.shipNode!.position, pos2: shipNode!.position, range: attackRange){
-//                print("engaging player ship")
-//                print(((shipNode?.position.x)! - (playerShip.shipNode?.position.x)!) * ((shipNode?.position.x)! - (playerShip.shipNode?.position.x)!))
-//                print(((shipNode?.position.y)! - (playerShip.shipNode?.position.y)!) * ((shipNode?.position.y)! - (playerShip.shipNode?.position.y)!))
-//                print(450 * 450)
-//                print("===========")
                 isMoving = true
             }
         }

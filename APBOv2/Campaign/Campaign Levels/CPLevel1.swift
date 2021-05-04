@@ -5,7 +5,7 @@ class CPLevel1 : CPLevelBase {
     
     override func setupCameraZoomIn() {
         zoomScale = 3
-        zoomOrigin = CGPoint(x: 1000, y: 950)
+        zoomOrigin = CGPoint(x: 500, y: 1000)
     }
     
     override func createBounds() -> [SKNode] {

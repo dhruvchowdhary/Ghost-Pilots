@@ -8,8 +8,10 @@ public struct Global {
     public static let multiplayerHandler = MultiplayerHandler()
     public static var gameViewController: GameViewController?
     public static let adHandler = AdHandler()
+    public static var sceneString = ""
     
     static func loadScene(s: String) {
+        sceneString = s
         
         /* 2) Load Game scene */
         guard let scene = SKScene(fileNamed: s) else {
