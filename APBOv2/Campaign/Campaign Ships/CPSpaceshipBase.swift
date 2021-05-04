@@ -200,6 +200,8 @@ class CPSpaceshipBase {
         isMoving = false
         isDead = true
         shipNode?.removeFromParent()
+        ghostNode.removeFromParent()
+        
     }
     
     func ghostMode(){
@@ -225,14 +227,18 @@ class CPSpaceshipBase {
     func movementUpdate(){
         if isMoving {
             if isGhost {
-                let velocity = CGVector(dx: cos(shipNode!.zRotation - CGFloat.pi/2) * CGFloat(shipSpeed), dy: sin(shipNode!.zRotation) * CGFloat(shipSpeed))
-                shipNode!.physicsBody?.velocity = velocity
+                let velocity = (CGVector(dx: cos(shipNode!.zRotation + CGFloat(Double.pi/2)) * 260, dy: sin(shipNode!.zRotation + CGFloat(Double.pi/2)) * 260 * Global.gameData.speedMultiplier))
+                shipNode!.physicsBody?.velocity.dx = velocity.dx
+                shipNode!.physicsBody?.velocity.dy = velocity.dy
             } else {
                 let velocity = CGVector(dx: cos(shipNode!.zRotation) * CGFloat(shipSpeed), dy: sin(shipNode!.zRotation) * CGFloat(shipSpeed))
                 shipNode!.physicsBody?.velocity = velocity
             }
         } else {
-            shipNode?.physicsBody?.velocity = CGVector()
+            if isGhost {
+            } else {
+                shipNode?.physicsBody?.velocity = CGVector()
+            }
         }
     }
     
