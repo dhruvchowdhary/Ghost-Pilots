@@ -168,6 +168,10 @@ public class MultiplayerHandler{
                                     ship.spaceShipNode.addChild((Global.gameData.playerShip?.pilotThrust1!)!)
                                     
                                     ship.isPilot = true
+                                } else if let ship = Global.gameData.shipsToUpdate[i] as? LocalSpaceship {
+                                    ship.spaceShipNode.removeAllChildren()
+                                    Global.gameData.playerShip?.pilotThrust1?.removeFromParent()
+                                    ship.spaceShipNode.addChild((Global.gameData.playerShip?.pilotThrust1!)!)
                                 }
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.run(pilot)
                                 Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation = Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation - CGFloat(Double.pi/2)
@@ -197,7 +201,32 @@ public class MultiplayerHandler{
                                     let ship = SKAction.setTexture(SKTexture(imageNamed: snapshot.value as! String), resize: true)
                                     Global.gameData.shipsToUpdate[i].spaceShipNode.run(ship)
                                     Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation = Global.gameData.shipsToUpdate[i].spaceShipNode.zRotation + CGFloat(Double.pi/2)
-                                    print(Global.gameData.shipsToUpdate[i].playerID)
+                                    
+                                    MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Cosmetics/PlayerTrail").observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+                                        for child in snapshot.children {
+                                            let e = child as! DataSnapshot
+                                            for j in 0..<Global.gameData.shipsToUpdate.count {
+                                                if Global.gameData.shipsToUpdate[i].playerID == e.key {
+                                                    let pulledTrail = SKEmitterNode(fileNamed: e.value as! String)!
+                                                    pulledTrail.targetNode = Global.gameData.gameScene.scene
+                                                    Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(pulledTrail)
+                                                }
+                                            }
+                                        }
+                                    })
+                                    MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Cosmetics/PlayerSkin").observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+                                        for child in snapshot.children {
+                                            let e = child as! DataSnapshot
+                                            for j in 0..<Global.gameData.shipsToUpdate.count {
+                                                if Global.gameData.shipsToUpdate[i].playerID == e.key && e.value as! String != "DEFAULTDECAL" {
+                                                    let pulledSkin = SKSpriteNode(imageNamed: e.value as! String)
+                                                    pulledSkin.zPosition = 10
+                                                    Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(pulledSkin)
+                                                }
+                                            }
+                                        }
+                                    })
+                                    
                                     if Global.gameData.shipsToUpdate[i].playerID == Global.playerData.playerID {
                                         Global.gameData.isPilot = false
                                         Global.gameData.playerShip?.spaceShipParent.childNode(withName: "bulletRotator")?.isHidden = false
@@ -415,7 +444,6 @@ public class MultiplayerHandler{
                     }
                 }
             }
-            
         })
     }
     
