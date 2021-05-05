@@ -1899,8 +1899,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.playAgainButtonNode.alpha = 1
         if !Global.gameData.revived {
-          //  self.reviveButtonNode.alpha = 1
+            self.reviveButtonNode.alpha = 1
         }
+        
+//        
+//        let wait = SKAction.wait(forDuration:0.4)
+//        let action = SKAction.run {
+//            laserBody.removeFromParent()
+//        }
+//        self.run(SKAction.sequence([wait,action]))
+        
+        
         self.backButtonNode.alpha = 1
         self.pauseButtonNode.alpha = 0
         self.turnButtonNode.alpha = 0
