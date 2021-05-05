@@ -452,6 +452,7 @@ public class LocalSpaceship: SpaceshipBase {
             
         if Global.gameData.gameState == GameStates.Infection {
                 if Global.playerData.color == "apboWhite" {
+                    unfiredBullets[unfiredBulletsCount].alpha = 1
                     unfiredBulletsCount = 0
                 }
                 else if (timeUntilNextBullet < 0 && unfiredBulletsCount < 3) {
