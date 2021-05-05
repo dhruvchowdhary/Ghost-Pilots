@@ -77,15 +77,27 @@ class AstroBall: GameSceneBase {
         
         
         if (((firstNode.name == "border" || firstNode.name == "astroball" || firstNode.name == "blueGoal") && secondNode.name == "playerWeapon") || (firstNode.name == "playerWeapon" && secondNode.name == "redGoal")) {
-                   if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
-                       BulletExplosion.position = secondNode.position
-                       addChild(BulletExplosion)
-                  //  borderShape.strokeColor
-                   }
+                  
             if secondNode.name == "playerWeapon" {
+                
+                if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
+                    BulletExplosion.position = secondNode.position
+                    addChild(BulletExplosion)
+               //  borderShape.strokeColor
+                }
+                
                 secondNode.removeFromParent()
                 liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
+                
+                
             } else {
+                
+                if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
+                    BulletExplosion.position = firstNode.position
+                    addChild(BulletExplosion)
+               //  borderShape.strokeColor
+                }
+                
                 firstNode.removeFromParent()
                 liveBullets.remove(at: liveBullets.firstIndex(of: firstNode as! SKSpriteNode)!)
             }
