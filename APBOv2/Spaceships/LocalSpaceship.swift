@@ -451,16 +451,19 @@ public class LocalSpaceship: SpaceshipBase {
         
             
         if Global.gameData.gameState == GameStates.Infection {
-                if Global.playerData.color == "apboWhite" {
-                    unfiredBullets[unfiredBulletsCount].alpha = 1
-                    unfiredBulletsCount = 0
-                }
-                else if (timeUntilNextBullet < 0 && unfiredBulletsCount < 3) {
+            if Global.playerData.color != "apboWhite" {
+                if (timeUntilNextBullet < 0 && unfiredBulletsCount < 3) {
                     unfiredBullets[unfiredBulletsCount].alpha = 1
                     unfiredBulletsCount += 1
                     timeUntilNextBullet = 1.3
                 }
             }
+            else {
+                
+                unfiredBullets[unfiredBulletsCount].alpha = 1
+                unfiredBulletsCount = 0
+            }
+        }
         
             // Handle rotation and movement
             if (isRotating){
