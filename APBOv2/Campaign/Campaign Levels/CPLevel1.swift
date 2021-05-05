@@ -4,7 +4,7 @@ import SpriteKit
 class CPLevel1 : CPLevelBase {
     
     override func setupCameraZoomIn() {
-        zoomScale = 3
+        zoomScale = 2.6
         zoomOrigin = CGPoint(x: 0, y: 900)
     }
     

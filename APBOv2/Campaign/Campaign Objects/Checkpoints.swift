@@ -22,23 +22,29 @@ class CPCheckpoint {
         node.physicsBody?.affectedByGravity = false
         
         // ignore collisions with everything, only contacts with player
-        node.physicsBody!.contactTestBitMask = 100
-        node.physicsBody?.collisionBitMask = 0
-        node.physicsBody?.contactTestBitMask = 10
+        node.physicsBody!.contactTestBitMask = CPUInt.player
+        node.physicsBody?.collisionBitMask = CPUInt.empty
+        node.physicsBody?.categoryBitMask = CPUInt.checkpoint
         node.physicsBody?.isDynamic = false
     }
     
     func changeLock(lockedEhhh: Bool){
         if isLocked == lockedEhhh{return}
+        isLocked = lockedEhhh
         if lockedEhhh {
+            
             let lock = SKSpriteNode(imageNamed: "lock")
             lock.color = SKColor.white
             lock.colorBlendFactor = 1
             lock.alpha = 0.8
-            lock.zPosition += 5
             lock.name = "lock"
+            lock.scale(to: CGSize(width: 70, height: 70))
+            node.speed = 0
             node.addChild(lock)
+            lock.zRotation -= node.zRotation
+            lock.zPosition = 50
         } else {
+            node.speed = 1
             node.childNode(withName: "lock")?.removeFromParent()
         }
     }

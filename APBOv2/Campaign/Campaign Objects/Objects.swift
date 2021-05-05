@@ -21,6 +21,7 @@ public class CPObject {
     var instantKill = false
     var blastRadius: CGFloat = 100
     var damage = 1
+    var level: CPLevelBase?
     var customAction = {
         
     }
@@ -35,6 +36,9 @@ public class CPObject {
         node = pepenode
         nodePhysics = SKPhysicsBody(texture: pepenode.texture!, size: pepenode.size)
         node.physicsBody = nodePhysics
+        node.physicsBody?.categoryBitMask = CPUInt.object
+        node.physicsBody?.collisionBitMask = CPUInt.player | CPUInt.enemy | CPUInt.walls | CPUInt.immovableObject
+        node.physicsBody?.contactTestBitMask = CPUInt.player | CPUInt.enemy
         node.physicsBody?.isDynamic = false
     }
     
@@ -43,6 +47,7 @@ public class CPObject {
         if isBreakable {
             health += delta
             if health < 1 {
+                level?.collectedReward(id: id)
                 node.removeFromParent()
             }
         }
@@ -62,7 +67,7 @@ public class CPBullet: CPObject {
         
         nodePhysics?.isDynamic = true
         nodePhysics!.affectedByGravity = false
-        node.physicsBody?.contactTestBitMask = CPUInt.bullet | CPUInt.enemy | CPUInt.immovableObject | CPUInt.object
+        node.physicsBody?.contactTestBitMask = CPUInt.bullet | CPUInt.enemy | CPUInt.immovableObject
         // This object will only ever need to push movables
         node.physicsBody?.collisionBitMask = 0
         nodePhysics!.categoryBitMask = CPUInt.bullet

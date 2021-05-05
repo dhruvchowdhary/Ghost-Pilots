@@ -31,7 +31,7 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
             
             // Need to set the physics body here
             if let e = i as? SKShapeNode {
-                i.physicsBody = SKPhysicsBody(edgeChainFrom: e.path!)
+                i.physicsBody = SKPhysicsBody(edgeLoopFrom: e.path!)
             }
             
             if let e = i as? SKSpriteNode {
@@ -43,7 +43,7 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
             }
             
             i.physicsBody!.categoryBitMask = CPUInt.walls
-            i.physicsBody!.collisionBitMask = CPUInt
+            i.physicsBody!.collisionBitMask = CPUInt.empty
             i.physicsBody!.contactTestBitMask = CPUInt.empty
             
             i.zPosition = 5
@@ -87,6 +87,7 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
         
         for i in createGameObjects() {
             addObjectToScene(node: i.node, nodeClass: i)
+            i.level = self
         }
     }
     

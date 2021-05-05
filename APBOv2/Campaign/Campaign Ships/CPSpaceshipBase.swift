@@ -35,7 +35,7 @@ class CPSpaceshipBase {
     var hasGhostMode = false
     
     var health = 1
-    var maxHealth = 1
+    var maxHealth = 9999
     
     init (spaceshipSetup: CPSpaceshipSetup, lvl: CPLevelBase){
         shipNode = spaceshipSetup.shipNode
