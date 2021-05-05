@@ -265,6 +265,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         reviveButtonNode.position = CGPoint(x: frame.midX, y: frame.midY)
         
         addChild(reviveButtonNode)
+        reviveButtonNode.xScale = 0.5
+        reviveButtonNode.yScale = 0.5
         reviveButtonNode.alpha = 0
         reviveButtonNode.selectedHandler = {
             Global.gameData.score = self.numPoints

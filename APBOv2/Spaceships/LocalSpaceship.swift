@@ -456,21 +456,16 @@ public class LocalSpaceship: SpaceshipBase {
                     unfiredBullets[unfiredBulletsCount].alpha = 1
                     unfiredBulletsCount += 1
                     timeUntilNextBullet = 1.3
+                    print("tommy is lame")
                 }
             }
             else {
                 
-                unfiredBullets[unfiredBulletsCount].alpha = 1
+                unfiredBullets[unfiredBulletsCount].alpha = 0
                 unfiredBulletsCount = 0
             }
         }
-        else if (timeUntilNextBullet < 0 && unfiredBulletsCount < 3) {
-             unfiredBullets[unfiredBulletsCount].alpha = 1
-             unfiredBulletsCount += 1
-             timeUntilNextBullet = 1.3
-         
-         print("tommy is lame")
-         }
+        
         
             // Handle rotation and movement
             if (isRotating){
