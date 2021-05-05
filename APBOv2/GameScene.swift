@@ -1902,10 +1902,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.reviveButtonNode.alpha = 1
         }
         
-//        
-//        let wait = SKAction.wait(forDuration:0.4)
+//
+//        let wait = SKAction.wait(forDuration:5)
 //        let action = SKAction.run {
-//            laserBody.removeFromParent()
+//
 //        }
 //        self.run(SKAction.sequence([wait,action]))
         
