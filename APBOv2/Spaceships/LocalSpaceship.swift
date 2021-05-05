@@ -460,9 +460,9 @@ public class LocalSpaceship: SpaceshipBase {
                 }
             }
             else {
-                
-                unfiredBullets[unfiredBulletsCount].alpha = 0
                 unfiredBulletsCount = 0
+                unfiredBullets[unfiredBulletsCount].alpha = 0
+                
             }
         }
         
