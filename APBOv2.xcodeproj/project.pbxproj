@@ -123,6 +123,7 @@
 		CE42877D2637543F00D2776D /* Objects.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE42877C2637543F00D2776D /* Objects.swift */; };
 		CE4287812637547700D2776D /* Spaceships.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4287802637547700D2776D /* Spaceships.swift */; };
 		CE6E4D19263E0CAD003938EE /* Checkpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E4D18263E0CAD003938EE /* Checkpoints.swift */; };
+		CE6E4D1C2641C896003938EE /* CPLevel2.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E4D1B2641C896003938EE /* CPLevel2.swift */; };
 		CE9C6D9C25E8275800D47FCC /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9925E8275800D47FCC /* GameScene.sks */; };
 		CE9C6D9D25E8275800D47FCC /* GameSceneBase.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */; };
 		CE9C6D9E25E8275800D47FCC /* Hud.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9B25E8275800D47FCC /* Hud.sks */; };
@@ -272,6 +273,7 @@
 		CE42877C2637543F00D2776D /* Objects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Objects.swift; sourceTree = "<group>"; };
 		CE4287802637547700D2776D /* Spaceships.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spaceships.swift; sourceTree = "<group>"; };
 		CE6E4D18263E0CAD003938EE /* Checkpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkpoints.swift; sourceTree = "<group>"; };
+		CE6E4D1B2641C896003938EE /* CPLevel2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPLevel2.swift; sourceTree = "<group>"; };
 		CE9C6D9925E8275800D47FCC /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneBase.sks; sourceTree = "<group>"; };
 		CE9C6D9B25E8275800D47FCC /* Hud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Hud.sks; sourceTree = "<group>"; };
@@ -587,6 +589,7 @@
 			isa = PBXGroup;
 			children = (
 				CEB716E42624BE0A003FB440 /* CPLevel1.swift */,
+				CE6E4D1B2641C896003938EE /* CPLevel2.swift */,
 				CEC60768261F7127005F5538 /* CPLevelBase.swift */,
 				CEB716E82624C545003FB440 /* Campaign Blank SKS */,
 			);
@@ -880,6 +883,7 @@
 				CE6E4D19263E0CAD003938EE /* Checkpoints.swift in Sources */,
 				CEF309CF25C1E86D007B8B39 /* DataPusher.swift in Sources */,
 				74C3CFDB2553100200757586 /* EnemyNode.swift in Sources */,
+				CE6E4D1C2641C896003938EE /* CPLevel2.swift in Sources */,
 				CEB716E52624BE0A003FB440 /* CPLevel1.swift in Sources */,
 				CEC60769261F7127005F5538 /* CPLevelBase.swift in Sources */,
 				748CEDBE256D6EF8005DF246 /* TurretBoss.swift in Sources */,

@@ -13,6 +13,7 @@ public class CPObject {
     var preformActionOnContact = false
     var isBreakable = false
     var health = 1
+    var id = 0
     
     var action: Actions = .None
     
@@ -20,6 +21,9 @@ public class CPObject {
     var instantKill = false
     var blastRadius: CGFloat = 100
     var damage = 1
+    var customAction = {
+        
+    }
     
     var deathParticles = SKEmitterNode()
     

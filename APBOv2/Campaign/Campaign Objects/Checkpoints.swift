@@ -8,7 +8,9 @@ class CPCheckpoint {
     // 999 = all enemys on the scene
     var kilsReqToUnlock = 999
     var unlockedAction = {}
+    var isLocked = false
     var node: SKSpriteNode
+    var rewardId = 69
     
     init(pos: CGPoint) {
         node = SKSpriteNode(imageNamed: "BlackHole")
@@ -24,5 +26,20 @@ class CPCheckpoint {
         node.physicsBody?.collisionBitMask = 0
         node.physicsBody?.contactTestBitMask = 10
         node.physicsBody?.isDynamic = false
+    }
+    
+    func changeLock(lockedEhhh: Bool){
+        if isLocked == lockedEhhh{return}
+        if lockedEhhh {
+            let lock = SKSpriteNode(imageNamed: "lock")
+            lock.color = SKColor.white
+            lock.colorBlendFactor = 1
+            lock.alpha = 0.8
+            lock.zPosition += 5
+            lock.name = "lock"
+            node.addChild(lock)
+        } else {
+            node.childNode(withName: "lock")?.removeFromParent()
+        }
     }
 }

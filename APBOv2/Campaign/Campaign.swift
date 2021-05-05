@@ -49,7 +49,7 @@ class Campaign: SKScene {
             [
                 "GameScene",
                 "CPLevel1",
-                "Level2",
+                "CPLevel2",
                 "Level3",
                 "TurretBoss",
                 "TurretBoss",

@@ -77,6 +77,8 @@ class CPCollisionHandler {
     // The following funcs will handle all collsion
     //=========================================================
     
+    
+    
     func handleCheckpoint(cp: CPCheckpoint){
         Global.loadScene(s: "MainMenu")
     }
@@ -99,6 +101,8 @@ class CPCollisionHandler {
             
         case .RewardObject:
             break;
+        case .Custom:
+            break;
         }
     }
     
@@ -119,6 +123,9 @@ class CPCollisionHandler {
             return
             
         case .RewardObject:
+            break;
+        case .Custom:
+            break;
             return;
         }
         

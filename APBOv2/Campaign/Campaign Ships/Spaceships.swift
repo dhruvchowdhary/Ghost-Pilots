@@ -42,20 +42,20 @@ class CPTurret : CPSpaceshipBase {
         setup.shipPhisics.contactTestBitMask = 1
         setup.shipPhisics.collisionBitMask = 1
         setup.shipPhisics.categoryBitMask = 11
+        setup.isBulletOrbitVisible = false
         super.init(spaceshipSetup: setup, lvl: level)
+        
+        unfiredBullets = [SKSpriteNode(imageNamed: "bullet")]
     }
     
     override func AiMovement(playerShip: CPPlayerShip) {
         if isDead {return}
-        if isMoving{
+        rechargeBullet()
+        if inRangeCheck(pos1: playerShip.shipNode!.position, pos2: shipNode!.position, range: attackRange){
             let y = (playerShip.shipNode?.position.y)! - (shipNode?.position.y)!
             let x = (playerShip.shipNode?.position.x)! - (shipNode?.position.x)!
+            Shoot(shotType: .Bullet)
             shipNode?.zRotation = atan2(y,x ) - CGFloat.pi * 1 / 2
-            shipNode?.physicsBody?.velocity = CGVector(dx: (playerShip.shipNode?.position.x)! - (shipNode?.position.x)!, dy: (playerShip.shipNode?.position.y)! - (shipNode?.position.y)!)
-        } else {
-            if inRangeCheck(pos1: playerShip.shipNode!.position, pos2: shipNode!.position, range: attackRange){
-                isMoving = true
-            }
         }
     }
 }

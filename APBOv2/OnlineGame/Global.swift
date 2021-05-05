@@ -25,9 +25,9 @@ public struct Global {
             scene.scaleMode = .aspectFill
         }
         
-        gameData.skView.showsPhysics = false
-        gameData.skView.showsDrawCount = false
-        gameData.skView.showsFPS = false
+        gameData.skView.showsPhysics = true
+        gameData.skView.showsDrawCount = true
+        gameData.skView.showsFPS = true
         
         // Run in main thread
         /* 4) Start game scene */

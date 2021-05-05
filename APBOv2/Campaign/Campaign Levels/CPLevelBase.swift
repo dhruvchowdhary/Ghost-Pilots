@@ -10,6 +10,7 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     var isGamePaused = false
     var colHandle: CPCollisionHandler?
     var LITERALLYEVERYOBJECTINTEHSCENE: [AnyObject] = []
+    let save = UserDefaults.standard
     
     var zoomScale: CGFloat = 0.25
     var zoomOrigin: CGPoint = CGPoint()
@@ -21,6 +22,7 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     private var isZoomin = false
     private var completedZoomPercent: CGFloat = 1.0
     private var zoomrate: CGFloat =  0.0
+    private var checkpoints: [CPCheckpoint] = []
     
     // this will be overriden in the levels and then callback manual setup
     override func didMove(to view: SKView) {
@@ -41,17 +43,13 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
             }
             
             i.physicsBody!.categoryBitMask = CPUInt.walls
-            i.physicsBody!.collisionBitMask = CPUInt.empty
+            i.physicsBody!.collisionBitMask = CPUInt
             i.physicsBody!.contactTestBitMask = CPUInt.empty
             
             i.zPosition = 5
             
             addObjectToScene(node: i, nodeClass: CPObject(node: i, action: Actions.None))
             
-        }
-        
-        for i in createGameObjects() {
-            addObjectToScene(node: i.node, nodeClass: i)
         }
         
         for i in createEnemyShips() {
@@ -61,6 +59,7 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
         
         for i in createCheckpoints() {
             addObjectToScene(node: i.node, nodeClass: i)
+            checkpoints.append(i)
         }
         
         self.physicsWorld.contactDelegate = self
@@ -84,6 +83,18 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
         zoomUnitToPercent = zoomScale - 1
         let pepe = Timer.scheduledTimer(withTimeInterval: freezeTime, repeats: false) { (timer) in
             self.isZoomin = true
+        }
+        
+        for i in createGameObjects() {
+            addObjectToScene(node: i.node, nodeClass: i)
+        }
+    }
+    
+    func collectedReward(id:Int){
+        for cp in checkpoints {
+            if cp.rewardId == id {
+                cp.unlockedAction()
+            }
         }
     }
     
@@ -251,5 +262,5 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
 
 
 public enum Actions{
-    case HarmlessExplode, DamagingExplode, RewardObject, DirectDamage, None
+    case HarmlessExplode, DamagingExplode, RewardObject, DirectDamage, None, Custom
 }
