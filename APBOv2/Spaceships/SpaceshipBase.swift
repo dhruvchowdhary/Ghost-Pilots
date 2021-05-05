@@ -86,13 +86,7 @@ public class SpaceshipBase {
             timeUntilNextBullet -= deltaTime;
         }
 
-       if (timeUntilNextBullet < 0 && unfiredBulletsCount < 3) {
-            unfiredBullets[unfiredBulletsCount].alpha = 1
-            unfiredBulletsCount += 1
-            timeUntilNextBullet = 1.3
-        
-        print("tommy is lame")
-        }
+      
     }
     
     // Only to be ovveridden
