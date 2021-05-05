@@ -123,6 +123,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
    // let polyniteEarned = (numPoints / 100)
     
     let reviveButtonNode = MSButtonNode(imageNamed: "reviveButton")
+    let reviveTimer = SKSpriteNode(imageNamed: "reviveTimer")
+    let reviveTimerNumber = SKLabelNode(text: "5")
     
     
     override func didMove(to view: SKView) {
@@ -263,11 +265,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         reviveButtonNode.position = CGPoint(x: frame.midX, y: frame.midY)
+        reviveTimer.position = CGPoint(x:  reviveButtonNode.position.x + 120, y:  reviveButtonNode.position.y - 120)
+        reviveTimerNumber.position = CGPoint(x:  reviveTimer.position.x, y:  reviveTimer.position.y - 20)
+        scene?.addChild(reviveTimer)
+        scene?.addChild(reviveButtonNode)
+        scene?.addChild(reviveTimerNumber)
+        reviveButtonNode.xScale = 0.3
+        reviveButtonNode.yScale = 0.3
         
-        addChild(reviveButtonNode)
-        reviveButtonNode.xScale = 0.5
-        reviveButtonNode.yScale = 0.5
+        reviveTimer.xScale = 0.17
+        reviveTimer.yScale = 0.17
+        reviveTimer.alpha = 0
+        reviveTimer.zPosition = 400
+        
+        reviveTimerNumber.zPosition = 401
+        reviveTimerNumber.fontColor = UIColor.black
+        reviveTimerNumber.fontSize = 80
+        reviveTimerNumber.fontName = "AvenirNext-Bold"
+        reviveTimerNumber.alpha = 0
+        
         reviveButtonNode.alpha = 0
+        reviveButtonNode.zPosition = 300
         reviveButtonNode.selectedHandler = {
             Global.gameData.score = self.numPoints
             Global.gameData.revived = true
@@ -1900,7 +1918,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
       
         
-        
+      
     
         
         self.backButtonNode.alpha = 1
@@ -1913,19 +1931,53 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.bullet2.alpha = 0
         self.bullet3.alpha = 0
         
+        self.dimPanel.alpha = 0.3
+       
         
-        self.playAgainButtonNode.alpha = 1
+      //  self.scene?.view?.isPaused = true
+        
+        
+        
+        var reviveTime = 5
         if !Global.gameData.revived {
             self.reviveButtonNode.alpha = 1
+            reviveTime = 5
+            reviveTimerNumber.alpha = 1
+            reviveTimer.alpha = 1
+            
+            reviveTimerNumber.text = String(reviveTime)
+            
+           var waitTime = 1
+            let wait = SKAction.wait(forDuration: TimeInterval(waitTime))
+            let action = SKAction.run { [self] in
+                reviveTime -= 1
+                reviveTimerNumber.text = String(reviveTime)
+                waitTime += 1
+            }
+            
+           
+            self.run(SKAction.sequence([wait,action]))
+            self.run(SKAction.sequence([wait,action]))
+            self.run(SKAction.sequence([wait,action]))
+
+
+
+        }
+        else {
+            reviveTime = 0
         }
       
         
 
-        let wait = SKAction.wait(forDuration:5)
+        let wait = SKAction.wait(forDuration: TimeInterval(reviveTime))
         let action = SKAction.run { [self] in
-
+            self.reviveButtonNode.alpha = 0
+            self.playAgainButtonNode.alpha = 1
+            reviveTimerNumber.alpha = 0
+            reviveTimer.alpha = 0
+            
             let gameOver = SKSpriteNode(imageNamed: "gameOverScore")
-            self.dimPanel.alpha = 0.3
+            
             gameOver.xScale = 0.2
             gameOver.yScale = 0.2
             gameOver.zPosition = 100
