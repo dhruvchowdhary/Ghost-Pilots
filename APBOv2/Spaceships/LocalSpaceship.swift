@@ -447,7 +447,26 @@ public class LocalSpaceship: SpaceshipBase {
 
     override func UniqueUpdateShip(deltaTime: Double) {
         
-
+        
+        
+            
+        if Global.gameData.gameState == GameStates.Infection {
+            if Global.playerData.color != "apboWhite" {
+                if (timeUntilNextBullet < 0 && unfiredBulletsCount < 3) {
+                    unfiredBullets[unfiredBulletsCount].alpha = 1
+                    unfiredBulletsCount += 1
+                    timeUntilNextBullet = 1.3
+                    print("tommy is lame")
+                }
+            }
+            else {
+                unfiredBulletsCount = 0
+                unfiredBullets[unfiredBulletsCount].alpha = 0
+                
+            }
+        }
+        
+        
             // Handle rotation and movement
             if (isRotating){
                 spaceShipNode.zRotation -= CGFloat(Double.pi * 1.3 * deltaTime)

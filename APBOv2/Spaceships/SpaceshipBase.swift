@@ -85,22 +85,13 @@ public class SpaceshipBase {
         if unfiredBulletsCount < 3 {
             timeUntilNextBullet -= deltaTime;
         }
-        
-        if Global.gameData.gameState == GameStates.Infection {
-            if (timeUntilNextBullet < 0 && unfiredBulletsCount < 3) {
-                if Global.playerData.color == "apboGreen" {
-                    unfiredBullets[unfiredBulletsCount].alpha = 1
-                    unfiredBulletsCount += 1
-                    timeUntilNextBullet = 1.3
-                }
-                if Global.playerData.color == "apboWhite" {
-                    unfiredBulletsCount = 0
-                }
-            }
-        } else if (timeUntilNextBullet < 0 && unfiredBulletsCount < 3) {
+
+       if (timeUntilNextBullet < 0 && unfiredBulletsCount < 3) {
             unfiredBullets[unfiredBulletsCount].alpha = 1
             unfiredBulletsCount += 1
             timeUntilNextBullet = 1.3
+        
+       // print("tommy is lame")
         }
     }
     

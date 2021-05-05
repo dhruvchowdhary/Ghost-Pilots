@@ -122,7 +122,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let leaderboardButtonNode = MSButtonNode(imageNamed: "specialButton")
    // let polyniteEarned = (numPoints / 100)
     
-    let reviveButtonNode = MSButtonNode(imageNamed: "reviveButton")
+    let reviveButtonNode = MSButtonNode(imageNamed: "reviveButton-1")
+    let reviveTimer = SKSpriteNode(imageNamed: "reviveTimer")
+    let reviveTimerNumber = SKLabelNode(text: "5")
     
     
     override func didMove(to view: SKView) {
@@ -261,13 +263,50 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.isDynamic = false
         
         
-
-        addChild(reviveButtonNode)
+        
+        reviveButtonNode.position = CGPoint(x: frame.midX, y: frame.midY)
+        reviveTimer.position = CGPoint(x:  reviveButtonNode.position.x + 120, y:  reviveButtonNode.position.y - 120)
+        reviveTimerNumber.position = CGPoint(x:  reviveTimer.position.x, y:  reviveTimer.position.y - 30)
+        scene?.addChild(reviveTimer)
+        scene?.addChild(reviveButtonNode)
+        scene?.addChild(reviveTimerNumber)
+        reviveButtonNode.xScale = 0.2
+        reviveButtonNode.yScale = 0.2
+        
+        reviveTimer.xScale = 0.17
+        reviveTimer.yScale = 0.17
+        reviveTimer.alpha = 0
+        reviveTimer.zPosition = 400
+        
+        reviveTimerNumber.zPosition = 401
+        reviveTimerNumber.fontColor = UIColor.black
+        reviveTimerNumber.fontSize = 80
+        reviveTimerNumber.fontName = "AvenirNext-Bold"
+        reviveTimerNumber.alpha = 0
+        
         reviveButtonNode.alpha = 0
+        reviveButtonNode.zPosition = 300
         reviveButtonNode.selectedHandler = {
             Global.gameData.score = self.numPoints
             Global.gameData.revived = true
+            
+            
+            self.scene?.view?.isPaused = true
+            
             Global.adHandler.presentRewardedForRevive()
+            
+            print("HELLO")
+            
+            
+            let wait = SKAction.wait(forDuration: 10 )
+            let action = SKAction.run { [self] in
+             // sceneClear()
+                print("scene cleared")
+            }
+            self.run(SKAction.sequence([wait,action]))
+            
+            
+            
         }
         
         phaseButtonNode = self.childNode(withName: "phaseButton") as? MSButtonNode
@@ -393,6 +432,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.backButtonNode.alpha = 0
                     self.restartButtonNode.alpha = 0
                     self.dimPanel.alpha = 0
+                    
+                    
                 }
                 else {
                     self.backButtonNode.alpha = 1
@@ -1363,7 +1404,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func createWave() {
-        guard !isGameOver else { return }
+       // guard !isGameOver else { return }
         
         if waveNumber == waves.count {
             levelNumber += 1
@@ -1876,6 +1917,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
  */
     }
+    func sceneClear() {
+        let activeEnemies = children.compactMap { $0 as? EnemyNode }
+        for enemies in activeEnemies {
+          //  enemies.speed = 0
+            
+            let generator = UIImpactFeedbackGenerator(style: .heavy)
+            generator.impactOccurred()
+            self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
+            self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2.2, dy: 2.2), shakeDuration: 0.15)
+            if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+                explosion.position = enemies.position
+                addChild(explosion)
+            }
+            
+            switch enemies.name {
+            case "0":
+                enemyPoints.text = "+" + "100"
+                numPoints += 100
+            case "1":
+                enemyPoints.text = "+" + "200"
+                numPoints += 200
+            case "2":
+                enemyPoints.text = "+" + "300"
+                numPoints += 300
+                
+            default:
+                print("default enemy")
+            }
+
+            enemyPoints.position = enemies.position
+           
+            enemyPoints.alpha = 1
+            
+            points.text = "\(numPoints)"
+            enemies.removeFromParent()
+        }
+    }
     
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
         let sceneView = self.scene!.view! as UIView
@@ -1896,11 +1974,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
       
         
+      
+    
         
-        self.playAgainButtonNode.alpha = 1
-        if !Global.gameData.revived {
-          //  self.reviveButtonNode.alpha = 1
-        }
         self.backButtonNode.alpha = 1
         self.pauseButtonNode.alpha = 0
         self.turnButtonNode.alpha = 0
@@ -1911,68 +1987,117 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.bullet2.alpha = 0
         self.bullet3.alpha = 0
         
-        let gameOver = SKSpriteNode(imageNamed: "gameOverScore")
         self.dimPanel.alpha = 0.3
-        gameOver.xScale = 0.2
-        gameOver.yScale = 0.2
-        gameOver.zPosition = 100
-     //   gameOver.run(scaleAction)
-        gameOver.position = CGPoint(x: frame.midY, y: frame.midY + 80)
+       
         
-      //  gameOver.size = CGSize(width: 619, height: 118)
-        addChild(gameOver)
-        
-        leaderboardButtonNode.selectedHandlers = {
-            if GameCenter.shared.isAuthenticated {
-                NotificationCenter.default.post(name: Notification.Name("showLeaderboard"), object: nil)
-            } else {
-                let alert = UIAlertController(title: "Game Center Error", message: "You are currently not logged into Game Center! Log in to view the leaderboard." , preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
-            }
-            self.leaderboardButtonNode.alpha = 1
-        }
-        
-        
-        leaderboardButtonNode.position = CGPoint(x: frame.maxX - 280 , y: frame.minY + 175)
-        leaderboardButtonNode.zPosition = 200
-        leaderboardButtonNode.xScale = 0.18
-        leaderboardButtonNode.yScale = 0.18
-               endlessLeaderboard.fontName = "AvenirNext-Bold"
-               endlessLeaderboard.position = CGPoint(x: leaderboardButtonNode.position.x, y: leaderboardButtonNode.position.y - 125)
-                     endlessLeaderboard.fontColor = UIColor.white
-                     endlessLeaderboard.zPosition = 200
-                     endlessLeaderboard.fontSize = 40
-                     
-        leaderboardButtonNode.alpha = 1
-        endlessLeaderboard.alpha = 1
-        addChild(leaderboardButtonNode)
-        addChild(endlessLeaderboard)
+     //   self.scene?.view?.isPaused = true
         
         
         
-        let scoreLabel = SKLabelNode(text: "\(numPoints)")
-      
-        scoreLabel.position = CGPoint(x: frame.midX, y: frame.midY+58)
-        scoreLabel.zPosition = 200
-        scoreLabel.fontColor = UIColor.blue
-        scoreLabel.fontSize = 65
-        scoreLabel.fontName = "AvenirNext-Bold"
-        addChild(scoreLabel)
-        
+        var reviveTime = 5
         
        
-        let polyniteEarnedLabel = SKLabelNode(text: "+\(numPoints / 100)")
-        
+        if !Global.gameData.revived {
+            self.reviveButtonNode.alpha = 1
+            reviveTime = 5
+            reviveTimerNumber.alpha = 1
+            reviveTimer.alpha = 1
+            reviveTimerNumber.text = String(reviveTime)
+            
+
+            for i in 1..<5 {
+                let wait = SKAction.wait(forDuration: TimeInterval(i))
+                let action = SKAction.run { [self] in
+                    reviveTime -= 1
+                    reviveTimerNumber.text = String(reviveTime)
+                }
+                self.run(SKAction.sequence([wait,action]))
+            }
+            
+        }
+        else {
+            reviveTime = 0
+        }
       
-        polyniteEarnedLabel.position = CGPoint(x: frame.midX, y: frame.midY - 135)
-        polyniteEarnedLabel.zPosition = 200
-        polyniteEarnedLabel.fontColor = UIColor.blue
-        polyniteEarnedLabel.fontSize = 65
-        polyniteEarnedLabel.fontName = "AvenirNext-Bold"
-        addChild(polyniteEarnedLabel)
+        
+
+        let wait = SKAction.wait(forDuration: TimeInterval(reviveTime))
+        let action = SKAction.run { [self] in
+            self.reviveButtonNode.alpha = 0
+            self.playAgainButtonNode.alpha = 1
+            reviveTimerNumber.alpha = 0
+            reviveTimer.alpha = 0
+            
+            let gameOver = SKSpriteNode(imageNamed: "gameOverScore")
+            
+            gameOver.xScale = 0.2
+            gameOver.yScale = 0.2
+            gameOver.zPosition = 100
+         //   gameOver.run(scaleAction)
+            gameOver.position = CGPoint(x: frame.midY, y: frame.midY + 80)
+            
+          //  gameOver.size = CGSize(width: 619, height: 118)
+            addChild(gameOver)
+            
+            leaderboardButtonNode.selectedHandlers = {
+                if GameCenter.shared.isAuthenticated {
+                    NotificationCenter.default.post(name: Notification.Name("showLeaderboard"), object: nil)
+                } else {
+                    let alert = UIAlertController(title: "Game Center Error", message: "You are currently not logged into Game Center! Log in to view the leaderboard." , preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
+                }
+                self.leaderboardButtonNode.alpha = 1
+            }
+            
+            
+            leaderboardButtonNode.position = CGPoint(x: frame.maxX - 280 , y: frame.minY + 175)
+            leaderboardButtonNode.zPosition = 200
+            leaderboardButtonNode.xScale = 0.18
+            leaderboardButtonNode.yScale = 0.18
+                   endlessLeaderboard.fontName = "AvenirNext-Bold"
+                   endlessLeaderboard.position = CGPoint(x: leaderboardButtonNode.position.x, y: leaderboardButtonNode.position.y - 125)
+                         endlessLeaderboard.fontColor = UIColor.white
+                         endlessLeaderboard.zPosition = 200
+                         endlessLeaderboard.fontSize = 40
+                         
+            leaderboardButtonNode.alpha = 1
+            endlessLeaderboard.alpha = 1
+            addChild(leaderboardButtonNode)
+            addChild(endlessLeaderboard)
+            
+            
+            
+            let scoreLabel = SKLabelNode(text: "\(numPoints)")
+          
+            scoreLabel.position = CGPoint(x: frame.midX, y: frame.midY+58)
+            scoreLabel.zPosition = 200
+            scoreLabel.fontColor = UIColor.blue
+            scoreLabel.fontSize = 65
+            scoreLabel.fontName = "AvenirNext-Bold"
+            addChild(scoreLabel)
+            
+            
+           
+            let polyniteEarnedLabel = SKLabelNode(text: "+\(numPoints / 100)")
+            
+          
+            polyniteEarnedLabel.position = CGPoint(x: frame.midX, y: frame.midY - 135)
+            polyniteEarnedLabel.zPosition = 200
+            polyniteEarnedLabel.fontColor = UIColor.blue
+            polyniteEarnedLabel.fontSize = 65
+            polyniteEarnedLabel.fontName = "AvenirNext-Bold"
+            addChild(polyniteEarnedLabel)
+            
+            
+            
+            
+        }
+        self.run(SKAction.sequence([wait,action]))
         
         
+        
+   
         
         
     }
