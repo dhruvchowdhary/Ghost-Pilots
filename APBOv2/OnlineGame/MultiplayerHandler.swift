@@ -149,6 +149,12 @@ public class MultiplayerHandler{
         })
     }
     
+    public func PullRandInt() {
+        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/RandInt").observeSingleEvent(of: DataEventType.value, with: { snapshot in
+            Global.gameData.randInt = Int(snapshot.value as! String)!
+        })
+    }
+    
     public func ListenForPilotChanges() {
         self.pilotRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PilotList")
         pilotRef?.observe(DataEventType.value, with: { (snapshot) in
@@ -205,25 +211,21 @@ public class MultiplayerHandler{
                                     MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Cosmetics/PlayerTrail").observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
                                         for child in snapshot.children {
                                             let e = child as! DataSnapshot
-                                            for j in 0..<Global.gameData.shipsToUpdate.count {
                                                 if Global.gameData.shipsToUpdate[i].playerID == e.key {
                                                     let pulledTrail = SKEmitterNode(fileNamed: e.value as! String)!
                                                     pulledTrail.targetNode = Global.gameData.gameScene.scene
-                                              //      Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(pulledTrail)
+                                                    Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(pulledTrail)
                                                 }
-                                            }
                                         }
                                     })
                                     MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/Cosmetics/PlayerSkin").observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
                                         for child in snapshot.children {
                                             let e = child as! DataSnapshot
-                                            for j in 0..<Global.gameData.shipsToUpdate.count {
                                                 if Global.gameData.shipsToUpdate[i].playerID == e.key && e.value as! String != "DEFAULTDECAL" {
                                                     let pulledSkin = SKSpriteNode(imageNamed: e.value as! String)
                                                     pulledSkin.zPosition = 10
                                                     Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(pulledSkin)
                                                 }
-                                            }
                                         }
                                     })
                                     

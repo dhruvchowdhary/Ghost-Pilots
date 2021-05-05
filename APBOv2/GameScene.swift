@@ -53,7 +53,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playAgainButtonNode: MSButtonNode!
     var phaseButtonNode: MSButtonNode!
     var ejectButtonNode: MSButtonNode!
-    var reviveButtonNode: MSButtonNode!
+   // var reviveButtonNode: MSButtonNode!
     
     var poweruprandInt = 0
     var currentShip = "player1"
@@ -121,6 +121,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let endlessLeaderboard = SKLabelNode(text: "Leaderboard")
     let leaderboardButtonNode = MSButtonNode(imageNamed: "specialButton")
    // let polyniteEarned = (numPoints / 100)
+    
+    let reviveButtonNode = MSButtonNode(imageNamed: "reviveButton")
     
     
     override func didMove(to view: SKView) {
@@ -260,7 +262,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
 
-        reviveButtonNode = self.childNode(withName: "reviveButton") as? MSButtonNode
+        addChild(reviveButtonNode)
         reviveButtonNode.alpha = 0
         reviveButtonNode.selectedHandler = {
             Global.gameData.score = self.numPoints
@@ -1014,10 +1016,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             playAgainButtonNode.position.y = (cameraNode.position.y - 224 - 121) * CGFloat(scale)
             playAgainButtonNode.setScale(CGFloat(1.25 * scale))
             
-            reviveButtonNode.position.x = cameraNode.position.x + 340
-            reviveButtonNode.position.y = playAgainButtonNode.position.y
-          //  reviveButtonNode.setScale(CGFloat(1.25 * scale))
-            
+//            reviveButtonNode.position.x = cameraNode.position.x + 340
+//            reviveButtonNode.position.y = playAgainButtonNode.position.y
+//          //  reviveButtonNode.setScale(CGFloat(1.25 * scale))
+//
             phaseButtonNode.position.x = turnButtonNode.position.x - 205
             phaseButtonNode.position.y = turnButtonNode.position.y + 140
             phaseButtonNode.setScale(CGFloat(1.25 * scale))
@@ -1070,10 +1072,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
                 playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200 - 121
-                
-                reviveButtonNode.position.x = frame.midX + cameraNode.position.x + 340
-                reviveButtonNode.position.y = playAgainButtonNode.position.y
-                
+//
+//                reviveButtonNode.position.x = frame.midX + cameraNode.position.x + 340
+//                reviveButtonNode.position.y = playAgainButtonNode.position.y
+//
                 phaseButtonNode.size = CGSize(width: 188.4, height: 180)
                 phaseButtonNode.position.x = turnButtonNode.position.x - 168
                 phaseButtonNode.position.y = turnButtonNode.position.y + 108
@@ -1128,9 +1130,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
                 playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200 - 121
-                
-                reviveButtonNode.position.x = frame.midX + cameraNode.position.x + 340
-                reviveButtonNode.position.y = playAgainButtonNode.position.y
+//
+//                reviveButtonNode.position.x = frame.midX + cameraNode.position.x + 340
+//                reviveButtonNode.position.y = playAgainButtonNode.position.y
                 
                 phaseButtonNode.size = CGSize(width: 157, height: 150)
                 phaseButtonNode.position.x = turnButtonNode.position.x - 140
@@ -1186,8 +1188,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 playAgainButtonNode.position.x = frame.midX + cameraNode.position.x
                 playAgainButtonNode.position.y = frame.midY + cameraNode.position.y - 200 - 121
                 
-                reviveButtonNode.position.x = frame.midX + cameraNode.position.x + 340
-                reviveButtonNode.position.y = playAgainButtonNode.position.y
+//                reviveButtonNode.position.x = frame.midX + cameraNode.position.x + 340
+//                reviveButtonNode.position.y = playAgainButtonNode.position.y
                 
                 phaseButtonNode.size = CGSize(width: 157, height: 150)
                 phaseButtonNode.position.x = turnButtonNode.position.x - 140
@@ -1893,9 +1895,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         isGameOver = true
         
       
+        
+        
         self.playAgainButtonNode.alpha = 1
         if !Global.gameData.revived {
-            self.reviveButtonNode.alpha = 1
+          //  self.reviveButtonNode.alpha = 1
         }
         self.backButtonNode.alpha = 1
         self.pauseButtonNode.alpha = 0
