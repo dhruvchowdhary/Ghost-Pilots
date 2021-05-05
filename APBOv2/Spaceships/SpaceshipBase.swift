@@ -90,6 +90,8 @@ public class SpaceshipBase {
             unfiredBullets[unfiredBulletsCount].alpha = 1
             unfiredBulletsCount += 1
             timeUntilNextBullet = 1.3
+        
+        print("tommy is lame")
         }
     }
     

@@ -261,7 +261,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.isDynamic = false
         
         
-
+        
+        reviveButtonNode.position = CGPoint(x: frame.midX, y: frame.midY)
+        
         addChild(reviveButtonNode)
         reviveButtonNode.alpha = 0
         reviveButtonNode.selectedHandler = {
@@ -1914,6 +1916,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if !Global.gameData.revived {
             self.reviveButtonNode.alpha = 1
         }
+      
         
 
         let wait = SKAction.wait(forDuration:5)
