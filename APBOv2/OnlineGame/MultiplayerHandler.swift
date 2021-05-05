@@ -149,6 +149,12 @@ public class MultiplayerHandler{
         })
     }
     
+    public func PullRandInt() {
+        MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/RandInt").observeSingleEvent(of: DataEventType.value, with: { snapshot in
+            Global.gameData.randInt = Int(snapshot.value as! String)!
+        })
+    }
+    
     public func ListenForPilotChanges() {
         self.pilotRef = MultiplayerHandler.ref.child("Games/\(Global.gameData.gameID)/PilotList")
         pilotRef?.observe(DataEventType.value, with: { (snapshot) in

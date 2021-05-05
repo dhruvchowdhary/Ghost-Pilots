@@ -56,6 +56,9 @@ class LobbyMenu: SKScene {
     
     
     override func didMove(to view: SKView) {
+        if Global.gameData.isHost {
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/RandInt", Value: "\(Int.random(in: 1..<1000))")
+        }
         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerSkin/\(Global.playerData.playerID)", Value: Global.gameData.selectedSkin.rawValue)
         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerTrail/\(Global.playerData.playerID)", Value: Global.gameData.selectedTrail.rawValue)
         Global.gameData.gameState = GameStates.LobbyMenu
@@ -374,6 +377,7 @@ class LobbyMenu: SKScene {
         Global.multiplayerHandler.ListenForModeChanges()
         Global.multiplayerHandler.ListenForColorChanges()
         Global.multiplayerHandler.ListenForColorChangesLobby()
+        Global.multiplayerHandler.PullRandInt()
     }
     
     
@@ -436,22 +440,20 @@ class LobbyMenu: SKScene {
         self.view!.removeGestureRecognizer(self.panGesture)
         Global.multiplayerHandler.PullTrailChanges()
         Global.multiplayerHandler.PullSkinChangesGame()
-        if list.count > 1 {
-            randInt = Global.gameData.gameID % (list.count)
-        }
         for s in self.list {
             var spaceship: SpaceshipBase
             if s == Global.playerData.playerID {
                 switch Global.gameData.mode {
                 case "infection":
-                    if list.firstIndex(of: s) == randInt {
+                    print(Global.gameData.randInt%list.count)
+                    if list.firstIndex(of: s) == Global.gameData.randInt%list.count {
                         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/InfectedList/\(Global.playerData.playerID)", Value: "true")
                         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(Global.playerData.playerID)", Value: "apboGreen")
-                        spaceship = LocalSpaceship(imageTexture: intToColorInfection[0]!)
+                        spaceship = LocalSpaceship(imageTexture: self.intToColorInfection[0]!)
                         Global.playerData.color = "apboGreen"
                     } else {
                         DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(Global.playerData.playerID)", Value: "apboWhite")
-                        spaceship = LocalSpaceship(imageTexture: intToColorInfection[1]!)
+                        spaceship = LocalSpaceship(imageTexture: self.intToColorInfection[1]!)
                         Global.playerData.color = "apboWhite"
                     }
                 case "ffa":
