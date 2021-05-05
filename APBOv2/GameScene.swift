@@ -1944,24 +1944,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             reviveTime = 5
             reviveTimerNumber.alpha = 1
             reviveTimer.alpha = 1
-            
             reviveTimerNumber.text = String(reviveTime)
-            
-           var waitTime = 1
-            let wait = SKAction.wait(forDuration: TimeInterval(waitTime))
-            let action = SKAction.run { [self] in
-                reviveTime -= 1
-                reviveTimerNumber.text = String(reviveTime)
-                waitTime += 1
+
+            for i in 1..<5 {
+                let wait = SKAction.wait(forDuration: TimeInterval(i))
+                let action = SKAction.run { [self] in
+                    reviveTime -= 1
+                    reviveTimerNumber.text = String(reviveTime)
+                }
+                self.run(SKAction.sequence([wait,action]))
             }
-            
-           
-            self.run(SKAction.sequence([wait,action]))
-            self.run(SKAction.sequence([wait,action]))
-            self.run(SKAction.sequence([wait,action]))
-
-
-
         }
         else {
             reviveTime = 0
