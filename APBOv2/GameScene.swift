@@ -122,7 +122,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let leaderboardButtonNode = MSButtonNode(imageNamed: "specialButton")
    // let polyniteEarned = (numPoints / 100)
     
-    let reviveButtonNode = MSButtonNode(imageNamed: "reviveButton")
+    let reviveButtonNode = MSButtonNode(imageNamed: "reviveButton-1")
     let reviveTimer = SKSpriteNode(imageNamed: "reviveTimer")
     let reviveTimerNumber = SKLabelNode(text: "5")
     
@@ -266,12 +266,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         reviveButtonNode.position = CGPoint(x: frame.midX, y: frame.midY)
         reviveTimer.position = CGPoint(x:  reviveButtonNode.position.x + 120, y:  reviveButtonNode.position.y - 120)
-        reviveTimerNumber.position = CGPoint(x:  reviveTimer.position.x, y:  reviveTimer.position.y - 20)
+        reviveTimerNumber.position = CGPoint(x:  reviveTimer.position.x, y:  reviveTimer.position.y - 30)
         scene?.addChild(reviveTimer)
         scene?.addChild(reviveButtonNode)
         scene?.addChild(reviveTimerNumber)
-        reviveButtonNode.xScale = 0.3
-        reviveButtonNode.yScale = 0.3
+        reviveButtonNode.xScale = 0.2
+        reviveButtonNode.yScale = 0.2
         
         reviveTimer.xScale = 0.17
         reviveTimer.yScale = 0.17
@@ -289,7 +289,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         reviveButtonNode.selectedHandler = {
             Global.gameData.score = self.numPoints
             Global.gameData.revived = true
+            
+            
+            self.scene?.view?.isPaused = true
+            
             Global.adHandler.presentRewardedForRevive()
+            
+            print("HELLO")
+            
+            
+            let wait = SKAction.wait(forDuration: 10 )
+            let action = SKAction.run { [self] in
+             // sceneClear()
+                print("scene cleared")
+            }
+            self.run(SKAction.sequence([wait,action]))
+            
+            
+            
         }
         
         phaseButtonNode = self.childNode(withName: "phaseButton") as? MSButtonNode
@@ -415,6 +432,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.backButtonNode.alpha = 0
                     self.restartButtonNode.alpha = 0
                     self.dimPanel.alpha = 0
+                    
+                    
                 }
                 else {
                     self.backButtonNode.alpha = 1
@@ -1385,7 +1404,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func createWave() {
-        guard !isGameOver else { return }
+       // guard !isGameOver else { return }
         
         if waveNumber == waves.count {
             levelNumber += 1
@@ -1898,6 +1917,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
  */
     }
+    func sceneClear() {
+        let activeEnemies = children.compactMap { $0 as? EnemyNode }
+        for enemies in activeEnemies {
+          //  enemies.speed = 0
+            
+            let generator = UIImpactFeedbackGenerator(style: .heavy)
+            generator.impactOccurred()
+            self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
+            self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2.2, dy: 2.2), shakeDuration: 0.15)
+            if let explosion = SKEmitterNode(fileNamed: "Explosion") {
+                explosion.position = enemies.position
+                addChild(explosion)
+            }
+            
+            switch enemies.name {
+            case "0":
+                enemyPoints.text = "+" + "100"
+                numPoints += 100
+            case "1":
+                enemyPoints.text = "+" + "200"
+                numPoints += 200
+            case "2":
+                enemyPoints.text = "+" + "300"
+                numPoints += 300
+                
+            default:
+                print("default enemy")
+            }
+
+            enemyPoints.position = enemies.position
+           
+            enemyPoints.alpha = 1
+            
+            points.text = "\(numPoints)"
+            enemies.removeFromParent()
+        }
+    }
     
     func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
         let sceneView = self.scene!.view! as UIView
@@ -1934,17 +1990,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.dimPanel.alpha = 0.3
        
         
-      //  self.scene?.view?.isPaused = true
+     //   self.scene?.view?.isPaused = true
         
         
         
         var reviveTime = 5
+        
+       
         if !Global.gameData.revived {
             self.reviveButtonNode.alpha = 1
             reviveTime = 5
             reviveTimerNumber.alpha = 1
             reviveTimer.alpha = 1
             reviveTimerNumber.text = String(reviveTime)
+            
 
             for i in 1..<5 {
                 let wait = SKAction.wait(forDuration: TimeInterval(i))
@@ -1954,6 +2013,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 self.run(SKAction.sequence([wait,action]))
             }
+            
         }
         else {
             reviveTime = 0
