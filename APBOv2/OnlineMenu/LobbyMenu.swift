@@ -508,7 +508,7 @@ class LobbyMenu: SKScene {
         label.zPosition = 2
         label.fontColor = UIColor.white
         label.fontName = "AvenirNext-Bold"
-       // camera?.addChild(label)
+        // camera?.addChild(label)
     }
     
     func setUpColors(userColor: MSButtonNode, isPlayer: Bool, index: Int){
@@ -617,12 +617,10 @@ class LobbyMenu: SKScene {
                     self.removeAction(forKey: "mode")
                     self.buildInfection()
                     self.animateInfection()
-
+                    
                 default:
                     print("no mode")
                 }
-                
-                
             }
         }
     }
@@ -639,73 +637,64 @@ class LobbyMenu: SKScene {
     }
     
     func buildffa() {
-      let ffaAnimatedAtlas = SKTextureAtlas(named: "ffaImages")
-      var walkFrames: [SKTexture] = []
-
-      let numImages = ffaAnimatedAtlas.textureNames.count
-      for i in 1...numImages {
-        let ffaTextureName = "ffa\(i)"
-        walkFrames.append(ffaAnimatedAtlas.textureNamed(ffaTextureName))
-      }
-      ffaWalkingFrames = walkFrames
+        let ffaAnimatedAtlas = SKTextureAtlas(named: "ffaImages")
+        var walkFrames: [SKTexture] = []
         
- 
+        let numImages = ffaAnimatedAtlas.textureNames.count
+        for i in 1...numImages {
+            let ffaTextureName = "ffa\(i)"
+            walkFrames.append(ffaAnimatedAtlas.textureNamed(ffaTextureName))
+        }
+        ffaWalkingFrames = walkFrames
     }
-      func animateffa() {
+    func animateffa() {
         
         modeImageButtonNode!.run(SKAction.repeatForever(
-          SKAction.animate(with: ffaWalkingFrames,
-                           timePerFrame: 0.3,
-                           resize: false,
-                           restore: true)),
-          withKey:"mode")
-      }
-    
+                                    SKAction.animate(with: ffaWalkingFrames,
+                                                     timePerFrame: 0.3,
+                                                     resize: false,
+                                                     restore: true)),
+                                 withKey:"mode")
+    }
     func buildAstro() {
-      let astroAnimatedAtlas = SKTextureAtlas(named: "astroImages")
-      var walkFrames: [SKTexture] = []
-
-      let numImages = astroAnimatedAtlas.textureNames.count
-      for i in 1...numImages {
-        let astroTextureName = "astroball\(i)"
-        walkFrames.append(astroAnimatedAtlas.textureNamed(astroTextureName))
-      }
-      astroWalkingFrames = walkFrames
+        let astroAnimatedAtlas = SKTextureAtlas(named: "astroImages")
+        var walkFrames: [SKTexture] = []
         
-     
-        
+        let numImages = astroAnimatedAtlas.textureNames.count
+        for i in 1...numImages {
+            let astroTextureName = "astroball\(i)"
+            walkFrames.append(astroAnimatedAtlas.textureNamed(astroTextureName))
+        }
+        astroWalkingFrames = walkFrames
     }
-      func animateAstro() {
+    func animateAstro() {
         modeImageButtonNode!.run(SKAction.repeatForever(
-          SKAction.animate(with: astroWalkingFrames,
-                           timePerFrame: 0.05,
-                           resize: false,
-                           restore: true)),
-          withKey:"mode")
-      }
+                                    SKAction.animate(with: astroWalkingFrames,
+                                                     timePerFrame: 0.05,
+                                                     resize: false,
+                                                     restore: true)),
+                                 withKey:"mode")
+    }
     
     func buildInfection() {
-      let infectionAnimatedAtlas = SKTextureAtlas(named: "infectionImages")
-      var walkFrames: [SKTexture] = []
-
-      let numImages = infectionAnimatedAtlas.textureNames.count
-      for i in 1...numImages {
-        let infectionTextureName = "infection\(i)"
-        walkFrames.append(infectionAnimatedAtlas.textureNamed(infectionTextureName))
-      }
-      infectionWalkingFrames = walkFrames
+        let infectionAnimatedAtlas = SKTextureAtlas(named: "infectionImages")
+        var walkFrames: [SKTexture] = []
         
-
-        
+        let numImages = infectionAnimatedAtlas.textureNames.count
+        for i in 1...numImages {
+            let infectionTextureName = "infection\(i)"
+            walkFrames.append(infectionAnimatedAtlas.textureNamed(infectionTextureName))
+        }
+        infectionWalkingFrames = walkFrames
     }
-      func animateInfection() {
+    func animateInfection() {
         modeImageButtonNode!.run(SKAction.repeatForever(
-          SKAction.animate(with: infectionWalkingFrames,
-                           timePerFrame: 0.05,
-                           resize: false,
-                           restore: true)),
-          withKey:"mode")
-      }
+                                    SKAction.animate(with: infectionWalkingFrames,
+                                                     timePerFrame: 0.05,
+                                                     resize: false,
+                                                     restore: true)),
+                                 withKey:"mode")
+    }
     
     
     @objc func panGestureAction(_ sender: UIPanGestureRecognizer) {
