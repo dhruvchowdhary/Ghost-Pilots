@@ -118,6 +118,7 @@ public class AdHandler {
             fatalError("Why would you do that. Thats just a bad idea.")
         }
         rewarded!.present(fromRootViewController: controller!, userDidEarnRewardHandler: handler)
+        
 //        GADRewardedAdBeta.load(withAdUnitID: Global.adHandler.rewardedID!, request: GADRequest(), completionHandler: {
 //            ad, error in
 //            Global.adHandler.rewarded = ad
