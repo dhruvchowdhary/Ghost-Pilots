@@ -394,6 +394,7 @@ class LobbyMenu: SKScene {
 
             
             if Global.gameData.isHost {
+                
                 let userKick = newuser.childNode(withName: "kickButtonNode") as! MSButtonNode
                 userKick.selectedHandlers = {
                     //kick em
@@ -403,6 +404,7 @@ class LobbyMenu: SKScene {
                 }
                 userKick.position.x = frame.midX + 430 + 40 + 50
                 userKick.position.y += newuser.position.y - 10 + 10
+                userKick.zPosition = 2
             }
             let userColor = newuser.childNode(withName: "colorButtonNode") as! MSButtonNode
             userColor.zPosition = 1
