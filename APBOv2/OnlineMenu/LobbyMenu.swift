@@ -735,7 +735,7 @@ class LobbyMenu: SKScene {
      //   var bottomlimit = CGFloat(bottomLimit)
     
         
-        if newPosition.y < Global.gameData.bottomLimit {
+        if newPosition.y < CGFloat(Global.gameData.bottomLimit) {
             newPosition.y = CGFloat(Global.gameData.bottomLimit)
             
         }
