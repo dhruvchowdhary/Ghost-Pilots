@@ -54,8 +54,10 @@ class CPLevel2 : CPLevelBase {
         var pepe: [CPSpaceshipBase] = []
         
         for i in 0..<4{
-            pepe.append(CPTurret(level: self))
-            pepe[i].shipNode?.position = CGPoint(x: 500 + 300 * i, y: 1900)
+            let turr = CPTurret(level: self)
+            turr.shipNode!.position = CGPoint(x: 500 + 300 * i, y: 1900)
+            turr.base.position = turr.shipNode!.position
+            pepe.append(turr)
         }
 //        for i in 0..<10{
 //            pepe.append(CPChaserSpaceship(level: self))

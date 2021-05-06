@@ -42,6 +42,7 @@ class CPTurret : CPSpaceshipBase {
         var setup = CPSpaceshipSetup(imageNamed: "turretshooterhard")
         setup.isMoving = false
         setup.bulletRegenRate = 1.5
+        setup.bulletSpeeds = 200
         setup.attackRange = 350
         setup.canRotateBothDirections = true
         
@@ -49,16 +50,15 @@ class CPTurret : CPSpaceshipBase {
         setup.isBulletOrbitVisible = false
         super.init(spaceshipSetup: setup, lvl: level)
         
+        bulletTexString = "fireball"
         
         shipNode?.physicsBody = SKPhysicsBody(texture: activeBaseTex, size: CGSize(width: 100, height: 100))
         shipNode!.physicsBody?.contactTestBitMask = CPUInt.player
         shipNode!.physicsBody?.collisionBitMask = CPUInt.enemy
         shipNode!.physicsBody?.categoryBitMask = CPUInt.enemy
-        shipNode?.zRotation = CGFloat.pi/2
-        
         shipNode?.physicsBody?.isDynamic = false
         
-        base.size = CGSize(width: 200, height: 170)
+        base.size = CGSize(width: 100, height: 100)
         shipNode?.xScale = 0.7
         shipNode?.yScale = 0.7
         shipNode?.zPosition = 100
@@ -67,6 +67,7 @@ class CPTurret : CPSpaceshipBase {
         baseClass.health = 9999
         base.zPosition = 10
         level.addObjectToScene(node: base, nodeClass: baseClass)
+        base.physicsBody = nil
         
         shipNode?.physicsBody?.affectedByGravity = false
         
@@ -86,13 +87,15 @@ class CPTurret : CPSpaceshipBase {
             let y = (playerShip.shipNode?.position.y)! - (shipNode?.position.y)!
             let x = (playerShip.shipNode?.position.x)! - (shipNode?.position.x)!
             let targetRotation = atan2(y,x ) - CGFloat.pi * 1 / 2
-            if abs(shipNode!.zRotation) < abs(targetRotation) {
+            
+            let dRotation = shipNode!.zRotation.truncatingRemainder(dividingBy: CGFloat.pi) - targetRotation
+            print(targetRotation)
+            if dRotation > 0 {
                 shipNode!.zRotation += CGFloat.pi/130
-            } else if abs(shipNode!.zRotation) > abs(targetRotation) {
-                shipNode!.zRotation -= CGFloat.pi/100
             } else {
-                print("Your dead now")
+                shipNode!.zRotation -= CGFloat.pi/130
             }
+
             Shoot(shotType: .Bullet)
         } else {
             changeActivity(isActive: false)

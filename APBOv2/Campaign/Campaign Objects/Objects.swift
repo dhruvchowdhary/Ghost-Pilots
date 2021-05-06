@@ -59,8 +59,9 @@ public class CPObject {
 }
 
 public class CPBullet: CPObject {
-    init(){
+    init(tex: String){
         super.init(imageNamed: "bullet")
+        if tex == "fireball" { }
         isBreakable = true
         health = 1
         action = .DirectDamage

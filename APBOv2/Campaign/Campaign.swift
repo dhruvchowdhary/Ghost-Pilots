@@ -14,8 +14,6 @@ class Campaign: SKScene {
     var currentHandler = {}
     
     override func didMove(to view: SKView) {
-        
-        
         panGesture.addTarget(self, action: #selector(panGestureAction(_:)))
         view.addGestureRecognizer(panGesture)
     }

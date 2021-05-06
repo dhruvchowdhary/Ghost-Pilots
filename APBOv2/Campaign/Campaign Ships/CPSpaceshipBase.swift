@@ -33,6 +33,7 @@ class CPSpaceshipBase {
     var firedBullets: [SKNode] = []
     var firedBulletVelocites: [CGVector] = []
     var hasGhostMode = false
+    var bulletTexString: String?
     
     var health = 1
     var maxHealth = 9999
@@ -120,7 +121,7 @@ class CPSpaceshipBase {
     }
     
     func createFiringBullet() {
-        let bulClass = CPBullet()
+        let bulClass = CPBullet(tex: bulletTexString ?? "bullet")
         let newBul = bulClass.node as! SKSpriteNode
         
         newBul.position = shipNode!.position
