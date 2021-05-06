@@ -49,8 +49,10 @@ public class MultiplayerHandler{
                 if e.value as! String == "PePeKicked" || e.value as! String == "PePeGone"{
                     var indexesToRM: [Int] = []
                     // Haha somone left loser
+                    
                     for i in 0..<Global.gameData.shipsToUpdate.count {
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
+                            Global.gameData.bottomLimit += 200
                             Global.gameData.shipsToUpdate[i].spaceShipParent.removeFromParent()
                             indexesToRM.insert(i, at: 0)
                         }
@@ -59,6 +61,9 @@ public class MultiplayerHandler{
                         Global.gameData.shipsToUpdate.remove(at: i)
                     }
                 } else {
+                    
+                    Global.gameData.bottomLimit -= 200
+                    
                     playerList.append(e.key)
                     if playerList.count < 6 {
                         Global.gameData.isFull = false
