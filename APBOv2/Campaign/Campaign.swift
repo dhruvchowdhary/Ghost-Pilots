@@ -35,7 +35,7 @@ class Campaign: SKScene {
         
         levelNodes =
             [
-                MSButtonNode(imageNamed: "Mike"),
+                MSButtonNode(imageNamed: "levelInfinity"),
                 MSButtonNode(imageNamed: "lvl1"),
                 MSButtonNode(imageNamed: "lvl2"),
                 MSButtonNode(imageNamed: "lvl3"),
@@ -90,6 +90,8 @@ class Campaign: SKScene {
             node.state = .MSButtonStopAlphaChanges
             
             // Scale the node here
+            
+      
             node.xScale = 0.16
             node.yScale = 0.16
             
@@ -140,8 +142,8 @@ class Campaign: SKScene {
             case 0:
                 node.position.y = 0
                 node.position.x = -100
-                node.xScale = 1
-                node.yScale = 1
+                node.xScale = 0.3
+                node.yScale = 0.3
             case 1:
                 node.position.y -= 100
                 node.position.x += 150

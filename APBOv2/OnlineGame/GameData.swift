@@ -27,6 +27,8 @@ public class GameData{
     public var selectedTrail: SelectedTrail = SelectedTrail.trailDefault
     public var randInt = 0
     public var bottomLimit: CGFloat = -100
+    public var isReviveReady = false
+    public var isReviveReady2 = false
     
     
     init() {

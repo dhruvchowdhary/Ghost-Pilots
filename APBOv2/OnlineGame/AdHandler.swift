@@ -20,7 +20,7 @@ public class AdHandler {
     public var rewardedID: String?
     
     private let handler = {
-        print("loading old scene")
+        Global.gameData.isReviveReady = true
     }
     
     //========================= *** SUPER IMPORTANT ***
