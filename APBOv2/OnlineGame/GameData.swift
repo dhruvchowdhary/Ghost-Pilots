@@ -26,6 +26,7 @@ public class GameData{
     public var selectedSkin: SelectedSkin = SelectedSkin.DEFAULTDECAL
     public var selectedTrail: SelectedTrail = SelectedTrail.trailDefault
     public var randInt = 0
+    public var bottomLimit: CGFloat = -100
     
     
     init() {

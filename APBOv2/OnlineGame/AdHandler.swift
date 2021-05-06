@@ -20,7 +20,7 @@ public class AdHandler {
     public var rewardedID: String?
     
     private let handler = {
-        Global.loadSceneSolo(s: "GameScene")
+        print("loading old scene")
     }
     
     //========================= *** SUPER IMPORTANT ***
