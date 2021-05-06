@@ -14,8 +14,6 @@ class Campaign: SKScene {
     var currentHandler = {}
     
     override func didMove(to view: SKView) {
-        
-        
         panGesture.addTarget(self, action: #selector(panGestureAction(_:)))
         view.addGestureRecognizer(panGesture)
     }
@@ -49,7 +47,7 @@ class Campaign: SKScene {
             [
                 "GameScene",
                 "CPLevel1",
-                "Level2",
+                "CPLevel2",
                 "Level3",
                 "TurretBoss",
                 "TurretBoss",

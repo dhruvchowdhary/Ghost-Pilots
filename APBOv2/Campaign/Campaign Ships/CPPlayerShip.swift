@@ -26,8 +26,12 @@ class CPPlayerShip: CPSpaceshipBase {
         createHud()
         shipParent.addChild(shipNode!)
         shipParent.addChild(hudNode)
+        shipNode?.zPosition += 100
+        shipNode?.physicsBody?.allowsRotation = false
         
-        shipNode?.physicsBody?.contactTestBitMask = CPUInt.player
+        shipNode?.physicsBody?.contactTestBitMask = CPUInt.enemy | CPUInt.bullet | CPUInt.object | CPUInt.checkpoint
+        shipNode?.physicsBody?.collisionBitMask =  CPUInt.object | CPUInt.walls | CPUInt.immovableObject
+        shipNode?.physicsBody?.categoryBitMask = CPUInt.player
         
     }
     
@@ -43,6 +47,9 @@ class CPPlayerShip: CPSpaceshipBase {
         phaseButton.zPosition = 100
         ejectButton.zPosition = -100
         
+        ghostNode.physicsBody!.contactTestBitMask = CPUInt.player
+        ghostNode.zPosition += 100
+        ghostNode.physicsBody?.allowsRotation = false
         ghostNode.position = shipNode!.position
         ghostNode.physicsBody!.affectedByGravity = false
         ghostNode.physicsBody!.velocity = (shipNode?.physicsBody!.velocity)!

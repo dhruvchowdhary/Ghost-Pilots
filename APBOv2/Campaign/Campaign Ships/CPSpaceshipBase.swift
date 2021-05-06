@@ -33,9 +33,10 @@ class CPSpaceshipBase {
     var firedBullets: [SKNode] = []
     var firedBulletVelocites: [CGVector] = []
     var hasGhostMode = false
+    var bulletTexString: String?
     
     var health = 1
-    var maxHealth = 1
+    var maxHealth = 9999
     
     init (spaceshipSetup: CPSpaceshipSetup, lvl: CPLevelBase){
         shipNode = spaceshipSetup.shipNode
@@ -81,12 +82,6 @@ class CPSpaceshipBase {
         hudNode.position = shipNode!.position
     }
     
-    // need to work on telling the ai to rotation lock itself
-    func orientateShip(currentRotation: CGFloat, targetRotation: CGFloat){
-        if canRotateBothDirections {
-            
-        }
-    }
     
     func inRangeCheck(pos1: CGPoint,pos2: CGPoint, range: CGFloat) -> Bool{
         let x = (pos1.x - pos2.x)
@@ -126,7 +121,7 @@ class CPSpaceshipBase {
     }
     
     func createFiringBullet() {
-        let bulClass = CPBullet()
+        let bulClass = CPBullet(tex: bulletTexString ?? "bullet")
         let newBul = bulClass.node as! SKSpriteNode
         
         newBul.position = shipNode!.position
@@ -143,8 +138,8 @@ class CPSpaceshipBase {
         firedBullets.append(newBul)
         firedBulletVelocites.append(newBul.physicsBody!.velocity)
         
-        // There is no feasable way to have 10 sec bullet
-        Timer.scheduledTimer(withTimeInterval: TimeInterval(10), repeats: false) { (timer) in
+        // There is no feasable way to have 100 sec bullet
+        Timer.scheduledTimer(withTimeInterval: TimeInterval(100), repeats: false) { (timer) in
             self.firedBullets.removeFirst()
             self.firedBulletVelocites.removeFirst()
         }

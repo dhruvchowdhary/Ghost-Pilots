@@ -77,8 +77,11 @@ class CPCollisionHandler {
     // The following funcs will handle all collsion
     //=========================================================
     
+    
+    
     func handleCheckpoint(cp: CPCheckpoint){
-        Global.loadScene(s: "MainMenu")
+        if cp.isLocked {return}
+        if cp.isEndpoint {sClass.youWin()}
     }
     
     func objAndPlayer(obj: CPObject, player: CPPlayerShip){
@@ -98,6 +101,10 @@ class CPCollisionHandler {
             return
             
         case .RewardObject:
+            sClass.collectedReward(id: obj.id)
+            obj.node.removeFromParent()
+            break;
+        case .Custom:
             break;
         }
     }
@@ -119,6 +126,9 @@ class CPCollisionHandler {
             return
             
         case .RewardObject:
+            break;
+        case .Custom:
+            break;
             return;
         }
         
