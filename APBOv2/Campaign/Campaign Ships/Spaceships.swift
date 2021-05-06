@@ -8,7 +8,7 @@ class CPChaserSpaceship : CPSpaceshipBase {
         
         var setup = CPSpaceshipSetup(imageNamed: "enemy1")
         setup.isMoving = false
-        setup.shipPhisics.contactTestBitMask = CPUInt.bullet | CPUInt.immovableObject | CPUInt.walls | CPUInt.object
+        setup.shipPhisics.contactTestBitMask = CPUInt.bullet
         super.init(spaceshipSetup: setup, lvl: level)
     }
     
@@ -30,32 +30,85 @@ class CPChaserSpaceship : CPSpaceshipBase {
 
 
 class CPTurret : CPSpaceshipBase {
+    var base = SKSpriteNode(imageNamed: "pepeRed")
+    
+    let sleepCanonTex = SKTexture(imageNamed: "pepeGreen")
+    let activeCanonTex = SKTexture(imageNamed: "pepeRed")
+    let sleepBaseTex = SKTexture(imageNamed: "turretbaseeasy")
+    let activeBaseTex = SKTexture(imageNamed: "turretbasehard")
+    
     init(level: CPLevelBase){
         
-        var setup = CPSpaceshipSetup(imageNamed: "turretbasehard")
+        var setup = CPSpaceshipSetup(imageNamed: "turretshooterhard")
         setup.isMoving = false
         setup.bulletRegenRate = 1.5
-        setup.attackRange = 250
+        setup.bulletSpeeds = 200
+        setup.attackRange = 350
         setup.canRotateBothDirections = true
         
         setup.isMoving = false
-        setup.shipPhisics.contactTestBitMask = 1
-        setup.shipPhisics.collisionBitMask = 1
-        setup.shipPhisics.categoryBitMask = 11
+        setup.isBulletOrbitVisible = false
         super.init(spaceshipSetup: setup, lvl: level)
+        
+        bulletTexString = "fireball"
+        
+        shipNode?.physicsBody = SKPhysicsBody(texture: activeBaseTex, size: CGSize(width: 100, height: 100))
+        shipNode!.physicsBody?.contactTestBitMask = CPUInt.player
+        shipNode!.physicsBody?.collisionBitMask = CPUInt.enemy
+        shipNode!.physicsBody?.categoryBitMask = CPUInt.enemy
+        shipNode?.physicsBody?.isDynamic = false
+        
+        base.size = CGSize(width: 100, height: 100)
+        shipNode?.xScale = 0.7
+        shipNode?.yScale = 0.7
+        shipNode?.zPosition = 100
+        
+        var baseClass = CPObject(node: base, action: .None)
+        baseClass.health = 9999
+        base.zPosition = 10
+        level.addObjectToScene(node: base, nodeClass: baseClass)
+        base.physicsBody = nil
+        
+        shipNode?.physicsBody?.affectedByGravity = false
+        
+        health = 9999
+        
+        unfiredBullets = [SKSpriteNode(imageNamed: "bullet")]
     }
     
     override func AiMovement(playerShip: CPPlayerShip) {
         if isDead {return}
-        if isMoving{
+        
+        rechargeBullet()
+        
+        if inRangeCheck(pos1: playerShip.shipNode!.position, pos2: shipNode!.position, range: attackRange){
+            changeActivity(isActive: true)
+            
             let y = (playerShip.shipNode?.position.y)! - (shipNode?.position.y)!
             let x = (playerShip.shipNode?.position.x)! - (shipNode?.position.x)!
-            shipNode?.zRotation = atan2(y,x ) - CGFloat.pi * 1 / 2
-            shipNode?.physicsBody?.velocity = CGVector(dx: (playerShip.shipNode?.position.x)! - (shipNode?.position.x)!, dy: (playerShip.shipNode?.position.y)! - (shipNode?.position.y)!)
-        } else {
-            if inRangeCheck(pos1: playerShip.shipNode!.position, pos2: shipNode!.position, range: attackRange){
-                isMoving = true
+            let targetRotation = atan2(y,x ) - CGFloat.pi * 1 / 2
+            
+            let dRotation = shipNode!.zRotation.truncatingRemainder(dividingBy: CGFloat.pi) - targetRotation
+            print(targetRotation)
+            if dRotation > 0 {
+                shipNode!.zRotation += CGFloat.pi/130
+            } else {
+                shipNode!.zRotation -= CGFloat.pi/130
             }
+
+            Shoot(shotType: .Bullet)
+        } else {
+            changeActivity(isActive: false)
+        }
+    }
+    
+    func changeActivity(isActive: Bool){
+        if isActive{
+            shipNode!.texture = activeCanonTex
+            base.texture = activeBaseTex
+        } else {
+            shipNode!.texture = sleepCanonTex
+            base.texture = sleepBaseTex
         }
     }
 }
