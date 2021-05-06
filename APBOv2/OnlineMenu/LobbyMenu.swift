@@ -729,11 +729,11 @@ class LobbyMenu: SKScene {
             x: previousCameraPoint.x,
             y: previousCameraPoint.y + translation.y * 2
         )
-       // if newPosition.y > 0 { newPosition.y = 0}
-      //  var bottomlimit = CGFloat(-200)
+        if newPosition.y > 0 { newPosition.y = 0}
+        var bottomlimit = CGFloat(-200)
     
         
-       // if newPosition.y < bottomlimit { newPosition.y = CGFloat(bottomlimit)}
+        if newPosition.y < bottomlimit { newPosition.y = CGFloat(bottomlimit)}
         
         camera.position = newPosition
         
