@@ -52,7 +52,7 @@ public class MultiplayerHandler{
                     
                     for i in 0..<Global.gameData.shipsToUpdate.count {
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
-                            Global.gameData.bottomLimit += 200
+                            Global.gameData.bottomLimit += 100
                             Global.gameData.shipsToUpdate[i].spaceShipParent.removeFromParent()
                             indexesToRM.insert(i, at: 0)
                         }
@@ -62,7 +62,7 @@ public class MultiplayerHandler{
                     }
                 } else {
                     
-                    Global.gameData.bottomLimit -= 200
+                    Global.gameData.bottomLimit -= 100
                     
                     playerList.append(e.key)
                     if playerList.count < 6 {
