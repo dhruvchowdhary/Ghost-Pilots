@@ -11,6 +11,7 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     var colHandle: CPCollisionHandler?
     var LITERALLYEVERYOBJECTINTEHSCENE: [AnyObject] = []
     let save = UserDefaults.standard
+    var totalGameTime: Double = 0
     
     var zoomScale: CGFloat = 0.25
     var zoomOrigin: CGPoint = CGPoint()
@@ -26,6 +27,7 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     
     // this will be overriden in the levels and then callback manual setup
     override func didMove(to view: SKView) {
+        
         walls = createBounds()
         for i in walls! {
             
@@ -132,8 +134,8 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     }
     
     func youWin(){
-        Global.gameData.addPolyniteCount(delta: 1)
-        Global.loadScene(s: "MainMenu")
+        completeLevel()
+        Global.loadScene(s: "Campaign")
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -172,16 +174,23 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
             addChild(particles)
         }
     }
-    public func completeLevel(int: Int){
+    public func completeLevel(){
+        // grab the level's int
+        let str = String(describing: self.classForCoder)
+        let index = str.index(str.startIndex, offsetBy: 7)
+        let gg = Int(str[index...])
+        
         var completedLevels: [Int] = []
         if (save.value(forKey: "completedLevels") != nil) {
             completedLevels = save.value(forKey: "completedLevels") as! [Int]
         } else {
             fatalError("what the actual frick")
         }
-        if !completedLevels.contains(int) {
-            completedLevels.append(int)
+        // First completion
+        if !completedLevels.contains(gg!) {
+            completedLevels.append(gg!)
             save.setValue(completedLevels, forKey: "completedLevels")
+            Global.gameData.addPolyniteCount(delta: 50)
         }
     }
     
@@ -250,6 +259,9 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
         if lastRecordedTime == 0 {
             lastRecordedTime = currentTime
         }
+        
+        totalGameTime += Double(currentTime - lastRecordedTime)
+        print(totalGameTime)
         
         if !isSetup{
             handleCameraZoomIn(dTime: (currentTime - lastRecordedTime))
