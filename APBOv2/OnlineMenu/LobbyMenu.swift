@@ -463,8 +463,9 @@ class LobbyMenu: SKScene {
                     spaceship = LocalSpaceship(imageTexture: intToColor[colorIndex]!)
                     Global.playerData.color = intToColor[colorIndex]!
                 case "astroball":
-                    spaceship = LocalSpaceship(imageTexture: intToColor[colorIndex]!)
-                    Global.playerData.color = intToColor[colorIndex]!
+                    spaceship = LocalSpaceship(imageTexture: intToColor[colorIndex%2]!)
+                    print(intToColor[colorIndex%2])
+                    Global.playerData.color = intToColor[colorIndex%2]!
                 default:
                     spaceship = LocalSpaceship(imageTexture: intToColor[colorIndex]!)
                 }
