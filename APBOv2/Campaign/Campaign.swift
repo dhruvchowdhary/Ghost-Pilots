@@ -104,7 +104,7 @@ class Campaign: SKScene {
             node.position.x += CGFloat(400)
             node.zPosition = 5
             
-            node.color = UIColor.yellow
+            node.color = UIColor.black
             
             node.selectedHandler = {
                 node.colorBlendFactor += 0.2
@@ -121,7 +121,7 @@ class Campaign: SKScene {
                 }
             }
             
-            // ShadeNode and set handlers
+            // Shade Node and set handlers
             if completedLevels.contains(i-1){
                 levelNodes[i].selectedHandlers = {
                     self.view!.removeGestureRecognizer(self.panGesture)
@@ -132,7 +132,7 @@ class Campaign: SKScene {
                     print("This stall is occupied")
                     //Possible alert the player msg here later
                 }
-                node.alpha = 0.3
+                node.colorBlendFactor = 0.5
             }
             
             // Does this level have Unique Properties? - add it here in the case switch

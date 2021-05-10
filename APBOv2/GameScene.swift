@@ -2061,12 +2061,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         leaderboardButtonNode.zPosition = 200
         leaderboardButtonNode.xScale = 0.18
         leaderboardButtonNode.yScale = 0.18
-               endlessLeaderboard.fontName = "AvenirNext-Bold"
-               endlessLeaderboard.position = CGPoint(x: leaderboardButtonNode.position.x, y: leaderboardButtonNode.position.y - 125)
-                     endlessLeaderboard.fontColor = UIColor.white
-                     endlessLeaderboard.zPosition = 200
-                     endlessLeaderboard.fontSize = 40
-                     
+        endlessLeaderboard.fontName = "AvenirNext-Bold"
+        endlessLeaderboard.position = CGPoint(x: leaderboardButtonNode.position.x, y: leaderboardButtonNode.position.y - 125)
+        endlessLeaderboard.fontColor = UIColor.white
+        endlessLeaderboard.zPosition = 200
+        endlessLeaderboard.fontSize = 40
+        
         leaderboardButtonNode.alpha = 1
         endlessLeaderboard.alpha = 1
         addChild(leaderboardButtonNode)
@@ -2101,14 +2101,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func gameOver() {
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
+        
+        direction = 0
         isPlayerAlive = false
         isGameOver = true
         
-      
-        
         deathPosition = pilot.position
     
-        
+
         self.backButtonNode.alpha = 1
         self.pauseButtonNode.alpha = 0
         self.turnButtonNode.alpha = 0

@@ -148,11 +148,17 @@ public class AdHandler {
     
     public func loadRewardedForRevive(){
         GADRewardedAdBeta.load(withAdUnitID: self.rewardedReviveID!, request: GADRequest(), completionHandler: { [self] ad, error in
-            if error == nil {
-                rewardedRevive = ad
-                rewardedRevive?.fullScreenContentDelegate = controller
-                isReviveLoaded = true
-            } else {
+            rewardedRevive = ad
+            rewardedRevive?.fullScreenContentDelegate = controller
+            isReviveLoaded = true
+            if error != nil {
+                print("===================")
+                print("===================")
+                print("===================")
+                print(error)
+                print("===================")
+                print("===================")
+                print("===================")
                 return
             }
         })
@@ -160,13 +166,17 @@ public class AdHandler {
     
     public func loadPlayRevive(){
         GADRewardedAdBeta.load(withAdUnitID: self.rewardedReviveID!, request: GADRequest(), completionHandler: { [self] ad, error in
-            if error == nil {
-                
-                rewardedRevive = ad
-                rewardedRevive?.fullScreenContentDelegate = controller
-                rewardedRevive?.present(fromRootViewController: controller!, userDidEarnRewardHandler: handler)
-                loadRewardedForRevive()
-            } else {
+            rewardedRevive = ad
+            rewardedRevive?.fullScreenContentDelegate = controller
+            isReviveLoaded = true
+            if error != nil {
+                print("===================")
+                print("===================")
+                print("===================")
+                print(error)
+                print("===================")
+                print("===================")
+                print("===================")
                 return
             }
         })
