@@ -393,30 +393,63 @@ class LobbyMenu: SKScene {
             let index = playerList.firstIndex(of: player)!
 
             
+          
+            
             if Global.gameData.isHost {
                 
                 let userKick = newuser.childNode(withName: "kickButtonNode") as! MSButtonNode
-                userKick.selectedHandlers = {
+              
+                userKick.position.x = frame.midX + 430 + 40 + 50
+                userKick.position.y += newuser.position.y - 10 + 10
+                      userKick.zPosition = 1
+                
+                let userKickButtonNode = MSButtonNode(color: UIColor.blue, size: CGSize(width: 120, height: 120))
+                
+                userKickButtonNode.selectedHandlers = {
                     //kick em
                     DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(userKick.parent!.name!)", Value: "PePeKicked")
 
                     
                 }
-                userKick.position.x = frame.midX + 430 + 40 + 50
-                userKick.position.y += newuser.position.y - 10 + 10
-                userKick.zPosition = 2
+                
+                
+                addChild(userKickButtonNode)
+                userKickButtonNode.zPosition = 500
+                userKickButtonNode.position.x = newuser.position.x + 390
+                userKickButtonNode.position.y = newuser.position.y + 110
+                
             }
+            
+            
+            
+            
+            
+            let userColorButtonNode = MSButtonNode(color: UIColor.blue, size: CGSize(width: 120, height: 100))
+            
             let userColor = newuser.childNode(withName: "colorButtonNode") as! MSButtonNode
             userColor.zPosition = 1
             if player == Global.playerData.playerID {
-                setUpColors(userColor: userColor, isPlayer: true, index: index)
+                setUpColors(userColor: userColor, userColorButtonNode: userColorButtonNode, isPlayer: true, index: index)
             } else {
-                setUpColors(userColor: userColor, isPlayer: false, index: index)
+                setUpColors(userColor: userColor, userColorButtonNode: userColorButtonNode, isPlayer: false, index: index)
             }
-            
-            
+                
+         ///   userColor.zPosition = 1
             newuser.position.x = frame.midX - 100 - 40
             newuser.position.y += CGFloat(80 - index*150)
+            
+            
+       
+            
+            userColorButtonNode.zPosition = 500
+          
+            addChild(userColorButtonNode)
+            
+            
+        
+            userColorButtonNode.position.x = newuser.position.x - 240
+            userColorButtonNode.position.y = newuser.position.y + 30
+            
             playerLabelParent.addChild(newuser)
             playercountLabel.text = "\(playerList.count)/6"
             
@@ -511,22 +544,22 @@ class LobbyMenu: SKScene {
         // camera?.addChild(label)
     }
     
-    func setUpColors(userColor: MSButtonNode, isPlayer: Bool, index: Int){
+    func setUpColors(userColor: MSButtonNode, userColorButtonNode: MSButtonNode, isPlayer: Bool, index: Int){
         switch Global.gameData.mode {
         case "infection":
             userColor.texture = SKTexture(imageNamed: "apboWhite")
-            userColor.selectedHandler = {
+            userColorButtonNode.selectedHandler = {
                 userColor.alpha = 1
             }
         case "ffa":
             userColor.texture = SKTexture(imageNamed: intToColor[index % 9]!)
             colorIndex = index
-            userColor.selectedHandler = {
+            userColorButtonNode.selectedHandler = {
                 userColor.alpha = 1
             }
             if isPlayer {
                 DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex]!)
-                userColor.selectedHandlers = {
+                userColorButtonNode.selectedHandlers = {
                     if self.colorIndex == 8 {
                         self.colorIndex = 0
                     } else {
@@ -537,19 +570,19 @@ class LobbyMenu: SKScene {
                     userColor.alpha = 1
                 }
             } else {
-                userColor.selectedHandler = {
+                userColorButtonNode.selectedHandler = {
                     userColor.alpha = 1
                 }
             }
         case "astroball":
             userColor.texture = SKTexture(imageNamed: intToColor[index % 2]!)
             colorIndex = index
-            userColor.selectedHandler = {
+            userColorButtonNode.selectedHandler = {
                 userColor.alpha = 1
             }
             if isPlayer {
                 DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex%2]!)
-                userColor.selectedHandlers = {
+                userColorButtonNode.selectedHandlers = {
                     if self.colorIndex == 1 {
                         self.colorIndex = 0
                     } else {
@@ -560,7 +593,7 @@ class LobbyMenu: SKScene {
                     userColor.alpha = 1
                 }
             } else {
-                userColor.selectedHandler = {
+                userColorButtonNode.selectedHandler = {
                     userColor.alpha = 1
                 }
             }
@@ -568,7 +601,7 @@ class LobbyMenu: SKScene {
             userColor.texture = SKTexture(imageNamed: intToColor[index % 9]!)
             colorIndex = index
             DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex]!)
-            userColor.selectedHandlers = {
+            userColorButtonNode.selectedHandlers = {
                 if self.colorIndex == 8 {
                     self.colorIndex = 0
                 } else {
@@ -720,14 +753,14 @@ class LobbyMenu: SKScene {
             x: previousCameraPoint.x,
             y: previousCameraPoint.y + translation.y * 2
         )
-        if newPosition.y > 0 { newPosition.y = 0}
-     //   var bottomlimit = CGFloat(bottomLimit)
-    
-        
-        if newPosition.y < CGFloat(Global.gameData.bottomLimit) {
-            newPosition.y = CGFloat(Global.gameData.bottomLimit)
-            
-        }
+//        if newPosition.y > 0 { newPosition.y = 0}
+//     //   var bottomlimit = CGFloat(bottomLimit)
+//
+//
+//        if newPosition.y < CGFloat(Global.gameData.bottomLimit) {
+//            newPosition.y = CGFloat(Global.gameData.bottomLimit)
+//
+//        }
         
         camera.position = newPosition
         

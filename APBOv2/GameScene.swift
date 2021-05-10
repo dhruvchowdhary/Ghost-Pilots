@@ -129,6 +129,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
   //  public let gameScene = GameScene()
     
+    var reviveTime = 5
+    
     override func didMove(to view: SKView) {
         
       
@@ -290,14 +292,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         reviveButtonNode.alpha = 0
         reviveButtonNode.zPosition = 300
-        reviveButtonNode.selectedHandler = {
+        reviveButtonNode.selectedHandler = { [self] in
+            isPlayerAlive = true
+            isGameOver = false
+            self.reviveTime = 50
             Global.gameData.score = self.numPoints
             Global.gameData.revived = true
+            
+            Global.gameData.isReviveReady2 = true
+            Global.gameData.isReviveReady = true
             
             
          //   self.scene?.view?.isPaused = true
             
-            Global.adHandler.presentRewardedForRevive()
+         //   Global.adHandler.presentRewardedForRevive()
             
 //print("HELLO")
             
@@ -1934,6 +1942,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         addChild(player)
         
+        isPlayerAlive = true
+        isGameOver = false
+        
+        
         self.backButtonNode.alpha = 0
         self.pauseButtonNode.alpha = 1
         self.turnButtonNode.alpha = 1
@@ -2001,6 +2013,76 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         sceneView.layer.add(shakeAnimation, forKey: "position")
     }
     
+    func gameOverReal() {
+        self.reviveButtonNode.alpha = 0
+        self.playAgainButtonNode.alpha = 1
+        reviveTimerNumber.alpha = 0
+        reviveTimer.alpha = 0
+        
+        let gameOver = SKSpriteNode(imageNamed: "gameOverScore")
+        
+        gameOver.xScale = 0.2
+        gameOver.yScale = 0.2
+        gameOver.zPosition = 100
+     //   gameOver.run(scaleAction)
+        gameOver.position = CGPoint(x: frame.midY, y: frame.midY + 80)
+        
+      //  gameOver.size = CGSize(width: 619, height: 118)
+        addChild(gameOver)
+        
+        leaderboardButtonNode.selectedHandlers = {
+            if GameCenter.shared.isAuthenticated {
+                NotificationCenter.default.post(name: Notification.Name("showLeaderboard"), object: nil)
+            } else {
+                let alert = UIAlertController(title: "Game Center Error", message: "You are currently not logged into Game Center! Log in to view the leaderboard." , preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
+            }
+            self.leaderboardButtonNode.alpha = 1
+        }
+        
+        
+        leaderboardButtonNode.position = CGPoint(x: frame.maxX - 280 , y: frame.minY + 175)
+        leaderboardButtonNode.zPosition = 200
+        leaderboardButtonNode.xScale = 0.18
+        leaderboardButtonNode.yScale = 0.18
+               endlessLeaderboard.fontName = "AvenirNext-Bold"
+               endlessLeaderboard.position = CGPoint(x: leaderboardButtonNode.position.x, y: leaderboardButtonNode.position.y - 125)
+                     endlessLeaderboard.fontColor = UIColor.white
+                     endlessLeaderboard.zPosition = 200
+                     endlessLeaderboard.fontSize = 40
+                     
+        leaderboardButtonNode.alpha = 1
+        endlessLeaderboard.alpha = 1
+        addChild(leaderboardButtonNode)
+        addChild(endlessLeaderboard)
+        
+        
+        
+        let scoreLabel = SKLabelNode(text: "\(numPoints)")
+      
+        scoreLabel.position = CGPoint(x: frame.midX, y: frame.midY+58)
+        scoreLabel.zPosition = 200
+        scoreLabel.fontColor = UIColor.blue
+        scoreLabel.fontSize = 65
+        scoreLabel.fontName = "AvenirNext-Bold"
+        addChild(scoreLabel)
+        
+        
+       
+        let polyniteEarnedLabel = SKLabelNode(text: "+\(numPoints / 100)")
+        
+      
+        polyniteEarnedLabel.position = CGPoint(x: frame.midX, y: frame.midY - 135)
+        polyniteEarnedLabel.zPosition = 200
+        polyniteEarnedLabel.fontColor = UIColor.blue
+        polyniteEarnedLabel.fontSize = 65
+        polyniteEarnedLabel.fontName = "AvenirNext-Bold"
+        addChild(polyniteEarnedLabel)
+        
+        
+    }
+    
     func gameOver() {
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
@@ -2027,116 +2109,119 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
      //   self.scene?.view?.isPaused = true
         
-        
-        
-        var reviveTime = 5
-        
-       
         if !Global.gameData.revived {
             self.reviveButtonNode.alpha = 1
-            reviveTime = 5
+           // reviveTime = 5
             reviveTimerNumber.alpha = 1
             reviveTimer.alpha = 1
             reviveTimerNumber.text = String(reviveTime)
             
 
-            for i in 1..<5 {
+            for i in 1..<6 {
                 let wait = SKAction.wait(forDuration: TimeInterval(i))
                 let action = SKAction.run { [self] in
                     reviveTime -= 1
                     reviveTimerNumber.text = String(reviveTime)
+                    
+                    if reviveTime == 0 {
+                        gameOverReal()
+                    }
                 }
                 self.run(SKAction.sequence([wait,action]))
             }
             
         }
         else {
-            reviveTime = 0
+            //reviveTime = 0
+            
+        gameOverReal()
+            
+            
         }
       
-        
-
-        let wait = SKAction.wait(forDuration: 20)
-        let action = SKAction.run { [self] in
-            self.reviveButtonNode.alpha = 0
-            self.playAgainButtonNode.alpha = 1
-            reviveTimerNumber.alpha = 0
-            reviveTimer.alpha = 0
-            
-            let gameOver = SKSpriteNode(imageNamed: "gameOverScore")
-            
-            gameOver.xScale = 0.2
-            gameOver.yScale = 0.2
-            gameOver.zPosition = 100
-         //   gameOver.run(scaleAction)
-            gameOver.position = CGPoint(x: frame.midY, y: frame.midY + 80)
-            
-          //  gameOver.size = CGSize(width: 619, height: 118)
-            addChild(gameOver)
-            
-            leaderboardButtonNode.selectedHandlers = {
-                if GameCenter.shared.isAuthenticated {
-                    NotificationCenter.default.post(name: Notification.Name("showLeaderboard"), object: nil)
-                } else {
-                    let alert = UIAlertController(title: "Game Center Error", message: "You are currently not logged into Game Center! Log in to view the leaderboard." , preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
-                }
-                self.leaderboardButtonNode.alpha = 1
-            }
-            
-            
-            leaderboardButtonNode.position = CGPoint(x: frame.maxX - 280 , y: frame.minY + 175)
-            leaderboardButtonNode.zPosition = 200
-            leaderboardButtonNode.xScale = 0.18
-            leaderboardButtonNode.yScale = 0.18
-                   endlessLeaderboard.fontName = "AvenirNext-Bold"
-                   endlessLeaderboard.position = CGPoint(x: leaderboardButtonNode.position.x, y: leaderboardButtonNode.position.y - 125)
-                         endlessLeaderboard.fontColor = UIColor.white
-                         endlessLeaderboard.zPosition = 200
-                         endlessLeaderboard.fontSize = 40
-                         
-            leaderboardButtonNode.alpha = 1
-            endlessLeaderboard.alpha = 1
-            addChild(leaderboardButtonNode)
-            addChild(endlessLeaderboard)
-            
-            
-            
-            let scoreLabel = SKLabelNode(text: "\(numPoints)")
-          
-            scoreLabel.position = CGPoint(x: frame.midX, y: frame.midY+58)
-            scoreLabel.zPosition = 200
-            scoreLabel.fontColor = UIColor.blue
-            scoreLabel.fontSize = 65
-            scoreLabel.fontName = "AvenirNext-Bold"
-            addChild(scoreLabel)
-            
-            
-           
-            let polyniteEarnedLabel = SKLabelNode(text: "+\(numPoints / 100)")
-            
-          
-            polyniteEarnedLabel.position = CGPoint(x: frame.midX, y: frame.midY - 135)
-            polyniteEarnedLabel.zPosition = 200
-            polyniteEarnedLabel.fontColor = UIColor.blue
-            polyniteEarnedLabel.fontSize = 65
-            polyniteEarnedLabel.fontName = "AvenirNext-Bold"
-            addChild(polyniteEarnedLabel)
-            
-            
-            
-            
-        }
-        
-       
-            self.run(SKAction.sequence([wait,action]))
-        
-       
-        
-        
-        
-   
+//
+//
+//        let wait = SKAction.wait(forDuration: 20)
+//        let action = SKAction.run { [self] in
+//            self.reviveButtonNode.alpha = 0
+//            self.playAgainButtonNode.alpha = 1
+//            reviveTimerNumber.alpha = 0
+//            reviveTimer.alpha = 0
+//
+//            let gameOver = SKSpriteNode(imageNamed: "gameOverScore")
+//
+//            gameOver.xScale = 0.2
+//            gameOver.yScale = 0.2
+//            gameOver.zPosition = 100
+//         //   gameOver.run(scaleAction)
+//            gameOver.position = CGPoint(x: frame.midY, y: frame.midY + 80)
+//
+//          //  gameOver.size = CGSize(width: 619, height: 118)
+//            addChild(gameOver)
+//
+//            leaderboardButtonNode.selectedHandlers = {
+//                if GameCenter.shared.isAuthenticated {
+//                    NotificationCenter.default.post(name: Notification.Name("showLeaderboard"), object: nil)
+//                } else {
+//                    let alert = UIAlertController(title: "Game Center Error", message: "You are currently not logged into Game Center! Log in to view the leaderboard." , preferredStyle: .alert)
+//                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+//                    self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
+//                }
+//                self.leaderboardButtonNode.alpha = 1
+//            }
+//
+//
+//            leaderboardButtonNode.position = CGPoint(x: frame.maxX - 280 , y: frame.minY + 175)
+//            leaderboardButtonNode.zPosition = 200
+//            leaderboardButtonNode.xScale = 0.18
+//            leaderboardButtonNode.yScale = 0.18
+//                   endlessLeaderboard.fontName = "AvenirNext-Bold"
+//                   endlessLeaderboard.position = CGPoint(x: leaderboardButtonNode.position.x, y: leaderboardButtonNode.position.y - 125)
+//                         endlessLeaderboard.fontColor = UIColor.white
+//                         endlessLeaderboard.zPosition = 200
+//                         endlessLeaderboard.fontSize = 40
+//
+//            leaderboardButtonNode.alpha = 1
+//            endlessLeaderboard.alpha = 1
+//            addChild(leaderboardButtonNode)
+//            addChild(endlessLeaderboard)
+//
+//
+//
+//            let scoreLabel = SKLabelNode(text: "\(numPoints)")
+//
+//            scoreLabel.position = CGPoint(x: frame.midX, y: frame.midY+58)
+//            scoreLabel.zPosition = 200
+//            scoreLabel.fontColor = UIColor.blue
+//            scoreLabel.fontSize = 65
+//            scoreLabel.fontName = "AvenirNext-Bold"
+//            addChild(scoreLabel)
+//
+//
+//
+//            let polyniteEarnedLabel = SKLabelNode(text: "+\(numPoints / 100)")
+//
+//
+//            polyniteEarnedLabel.position = CGPoint(x: frame.midX, y: frame.midY - 135)
+//            polyniteEarnedLabel.zPosition = 200
+//            polyniteEarnedLabel.fontColor = UIColor.blue
+//            polyniteEarnedLabel.fontSize = 65
+//            polyniteEarnedLabel.fontName = "AvenirNext-Bold"
+//            addChild(polyniteEarnedLabel)
+//
+//
+//
+//
+//        }
+//
+//
+//            self.run(SKAction.sequence([wait,action]))
+//
+//
+//
+//
+//
+//
         
         
     }
