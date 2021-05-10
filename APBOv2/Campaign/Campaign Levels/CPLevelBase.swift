@@ -172,6 +172,18 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
             addChild(particles)
         }
     }
+    public func completeLevel(int: Int){
+        var completedLevels: [Int] = []
+        if (save.value(forKey: "completedLevels") != nil) {
+            completedLevels = save.value(forKey: "completedLevels") as! [Int]
+        } else {
+            fatalError("what the actual frick")
+        }
+        if !completedLevels.contains(int) {
+            completedLevels.append(int)
+            save.setValue(completedLevels, forKey: "completedLevels")
+        }
+    }
     
     public func togglePause(){
         isGamePaused = !isGamePaused
