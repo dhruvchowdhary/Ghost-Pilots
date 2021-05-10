@@ -1,5 +1,6 @@
 import Foundation
 import GoogleMobileAds
+import SystemConfiguration
 
 public class AdHandler {
     // Trach the ads preloaded
@@ -9,6 +10,7 @@ public class AdHandler {
     private var interstitialVideo: GADInterstitialAdBeta?
     private var rewardedInterstitial: GADRewardedInterstitialAd?
     public var rewarded: GADRewardedAdBeta?
+    public var rewardedRevive: GADRewardedAdBeta?
     
     // Track the AD IDs for each ad type
     private var bannerID: String?
@@ -18,6 +20,7 @@ public class AdHandler {
     private var interstitialGeneralID: String?
     private var rewardedInterstitialID: String?
     public var rewardedID: String?
+    public var rewardedReviveID: String?
     
     private let handler = {
         print("loading old scene")
@@ -32,6 +35,10 @@ public class AdHandler {
     
     func setup(){
         
+        if (!isConnectedToNetwork()) {
+            return
+        }
+        
         if inTestMode{
             bannerID = "ca-app-pub-3940256099942544/2934735716"
             appOpenID = "ca-app-pub-3940256099942544/5662855259"
@@ -40,11 +47,14 @@ public class AdHandler {
             rewardedInterstitialID = "ca-app-pub-3940256099942544/6978759866"
             rewardedID = "ca-app-pub-3940256099942544/1712485313"
             interstitialGeneralID = "ca-app-pub-3940256099942544/4411468910"
+            rewardedReviveID = "ca-app-pub-3940256099942544/1712485313"
+            
         } else {
             bannerID = "ca-app-pub-8214314705526801/1873169855"
             appOpenID = "ca-app-pub-8214314705526801/3440745853"
             interstitialImageID = "ca-app-pub-8214314705526801/5620843174"
             interstitialVideoID = "ca-app-pub-8214314705526801/5429271484"
+            rewardedReviveID = "ca-app-pub-8214314705526801/5645480637"
             
             // Rewarded videos need to have specific values to enter into adMob
             rewardedInterstitialID = ""
@@ -59,12 +69,11 @@ public class AdHandler {
                 appOpen = ad
             })
             
-            GADRewardedAdBeta.load(withAdUnitID: self.rewardedID!, request: GADRequest(), completionHandler: { [self] ad, error in
+            GADRewardedAdBeta.load(withAdUnitID: self.rewardedReviveID!, request: GADRequest(), completionHandler: { [self] ad, error in
                 if error == nil{
-                    rewarded = ad
-                    rewarded?.fullScreenContentDelegate = controller
+                    rewardedRevive = ad
+                    rewardedRevive?.fullScreenContentDelegate = controller
                 }
-                //rewarded!.present(fromRootViewController: controller!, userDidEarnRewardHandler: handler)
             })
             
             GADInterstitialAdBeta.load(withAdUnitID: self.interstitialVideoID!, request: GADRequest(), completionHandler: { [self] ad, error in
@@ -85,7 +94,11 @@ public class AdHandler {
     
     func presentInterstitialGeneral(){
         if !isReady{
-            fatalError("Why would you do that. Thats just a bad idea.")
+            if isConnectedToNetwork(){
+                setup()
+            } else {
+                return
+            }
         }
         interstitialGeneral!.present(fromRootViewController: controller!)
         GADInterstitialAdBeta.load(withAdUnitID: interstitialGeneralID!, request: GADRequest(), completionHandler: { [self] ad, error in
@@ -95,7 +108,11 @@ public class AdHandler {
     
     func presentInterstitialImage(){
         if !isReady{
-            fatalError("Why would you do that. Thats just a bad idea.")
+            if isConnectedToNetwork(){
+                setup()
+            } else {
+                return
+            }
         }
         interstitialImage!.present(fromRootViewController: controller!)
         GADInterstitialAdBeta.load(withAdUnitID: interstitialGeneralID!, request: GADRequest(), completionHandler: { [self] ad, error in
@@ -105,7 +122,11 @@ public class AdHandler {
     
     func presentInterstitialVideo(){
         if !isReady{
-            fatalError("Why would you do that. Thats just a bad idea.")
+            if isConnectedToNetwork(){
+                setup()
+            } else {
+                return
+            }
         }
         interstitialVideo!.present(fromRootViewController: controller!)
         GADInterstitialAdBeta.load(withAdUnitID: interstitialGeneralID!, request: GADRequest(), completionHandler: { [self] ad, error in
@@ -115,9 +136,13 @@ public class AdHandler {
     
     func presentRewardedForRevive(){
         if !isReady{
-            fatalError("Why would you do that. Thats just a bad idea.")
+            if isConnectedToNetwork(){
+                setup()
+            } else {
+                return
+            }
         }
-        rewarded!.present(fromRootViewController: controller!, userDidEarnRewardHandler: handler)
+        rewardedRevive!.present(fromRootViewController: controller!, userDidEarnRewardHandler: handler)
 //        GADRewardedAdBeta.load(withAdUnitID: Global.adHandler.rewardedID!, request: GADRequest(), completionHandler: {
 //            ad, error in
 //            Global.adHandler.rewarded = ad
@@ -126,7 +151,11 @@ public class AdHandler {
     
     func presentAppOpen(){
         if !isReady{
-            fatalError("Why would you do that. Thats just a bad idea.")
+            if isConnectedToNetwork(){
+                setup()
+            } else {
+                return
+            }
         }
         appOpen!.present(fromRootViewController: controller!)
         GADAppOpenAd.load(withAdUnitID: appOpenID!, request: GADRequest(), orientation: UIInterfaceOrientation.landscapeRight, completionHandler: { [self] ad, error in
@@ -139,6 +168,28 @@ public class AdHandler {
             return bannerID!
         }
         fatalError("pepe")
+    }
+    
+    
+    func isConnectedToNetwork() -> Bool {
+        
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+ 
+        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+            }
+        }
+ 
+        var flags = SCNetworkReachabilityFlags()
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
+            return false
+        }
+        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+        return (isReachable && !needsConnection)
     }
     
 }

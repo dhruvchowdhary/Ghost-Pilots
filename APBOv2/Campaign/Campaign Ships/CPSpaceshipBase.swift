@@ -111,6 +111,7 @@ class CPSpaceshipBase {
                     return
                 }
             }
+        
         case .Laser:
             print("Laser")
         case .Mine:
