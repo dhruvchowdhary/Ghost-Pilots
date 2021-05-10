@@ -19,7 +19,12 @@ public class GameViewController: UIViewController, GKGameCenterControllerDelegat
     public var fullScreenContentDelegate: GADFullScreenContentDelegate?
     
     public func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-        print("1")
+     //   print("1")
+            print("dismissing ad")
+        if Global.gameData.isReviveReady == true {
+            print("reviveready1")
+            Global.gameData.isReviveReady2 = true
+        }
         GADRewardedAdBeta.load(withAdUnitID: Global.adHandler.rewardedID!, request: GADRequest(), completionHandler: {
             ad, error in
             Global.adHandler.rewarded = ad

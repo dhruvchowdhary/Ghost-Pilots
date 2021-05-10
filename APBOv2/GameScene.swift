@@ -127,7 +127,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let reviveTimerNumber = SKLabelNode(text: "5")
     
     
+  //  public let gameScene = GameScene()
+    
     override func didMove(to view: SKView) {
+        
+      
         
         createPath()
         addChild(cameraNode)
@@ -291,19 +295,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             Global.gameData.revived = true
             
             
-            self.scene?.view?.isPaused = true
+         //   self.scene?.view?.isPaused = true
             
             Global.adHandler.presentRewardedForRevive()
             
-            print("HELLO")
+//print("HELLO")
             
-            
-            let wait = SKAction.wait(forDuration: 10 )
-            let action = SKAction.run { [self] in
-             // sceneClear()
-                print("scene cleared")
-            }
-            self.run(SKAction.sequence([wait,action]))
             
             
             
@@ -1401,6 +1398,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
+        if Global.gameData.isReviveReady == true && Global.gameData.isReviveReady2 == true {
+            print("reviveready2")
+            Global.gameData.isReviveReady = false
+            Global.gameData.isReviveReady2 = false
+            print("attmpeting to clear scene")
+            sceneClear()
+        }
+
+      
+        
+        
+
+        
     }
     
     func createWave() {
@@ -1918,6 +1928,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
  */
     }
     func sceneClear() {
+        
+        // add dim panel timer countdown
+        
+        
+        addChild(player)
+        
+        self.backButtonNode.alpha = 0
+        self.pauseButtonNode.alpha = 1
+        self.turnButtonNode.alpha = 1
+        self.shootButtonNode.alpha = 1
+        self.ejectButtonNode.alpha = 1
+        self.phaseButtonNode.alpha = 1
+        self.bullet1.alpha = 1
+        self.bullet2.alpha = 1
+        self.bullet3.alpha = 1
+        
+        self.dimPanel.alpha = 0
+        
+        
+        self.reviveButtonNode.alpha = 0
+      
+        reviveTimerNumber.alpha = 0
+        reviveTimer.alpha = 0
+        
+        
         let activeEnemies = children.compactMap { $0 as? EnemyNode }
         for enemies in activeEnemies {
           //  enemies.speed = 0
@@ -2021,7 +2056,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       
         
 
-        let wait = SKAction.wait(forDuration: TimeInterval(reviveTime))
+        let wait = SKAction.wait(forDuration: 20)
         let action = SKAction.run { [self] in
             self.reviveButtonNode.alpha = 0
             self.playAgainButtonNode.alpha = 1
@@ -2093,7 +2128,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             
         }
-        self.run(SKAction.sequence([wait,action]))
+        
+       
+            self.run(SKAction.sequence([wait,action]))
+        
+       
         
         
         
