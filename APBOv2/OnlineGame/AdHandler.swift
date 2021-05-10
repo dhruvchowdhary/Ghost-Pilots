@@ -22,6 +22,8 @@ public class AdHandler {
     public var rewardedID: String?
     public var rewardedReviveID: String?
     
+    var isReviveLoaded = false
+    
     private let handler = {
         Global.gameData.isReviveReady = true
     }
@@ -34,10 +36,6 @@ public class AdHandler {
     private weak var controller: GameViewController?
     
     func setup(){
-        
-        if (!isConnectedToNetwork()) {
-            return
-        }
         
         if inTestMode{
             bannerID = "ca-app-pub-3940256099942544/2934735716"
@@ -68,13 +66,14 @@ public class AdHandler {
             GADAppOpenAd.load(withAdUnitID: self.appOpenID!, request: GADRequest(), orientation: UIInterfaceOrientation.landscapeRight, completionHandler: { [self] ad, error in
                 appOpen = ad
             })
-            
-            GADRewardedAdBeta.load(withAdUnitID: self.rewardedReviveID!, request: GADRequest(), completionHandler: { [self] ad, error in
-                if error == nil{
-                    rewardedRevive = ad
-                    rewardedRevive?.fullScreenContentDelegate = controller
-                }
-            })
+            self.loadRewardedForRevive()
+//            GADRewardedAdBeta.load(withAdUnitID: self.rewardedReviveID!, request: GADRequest(), completionHandler: { [self] ad, error in
+//                if error == nil{
+//                    rewardedRevive = ad
+//                    rewardedRevive?.fullScreenContentDelegate = controller
+//                    isReviveLoaded = true
+//                }
+//            })
             
             GADInterstitialAdBeta.load(withAdUnitID: self.interstitialVideoID!, request: GADRequest(), completionHandler: { [self] ad, error in
                 interstitialVideo = ad
@@ -134,19 +133,43 @@ public class AdHandler {
         })
     }
     
-    func presentRewardedForRevive(){
-        if !isReady{
-            if isConnectedToNetwork(){
-                setup()
+    func presentRewardedForRevive() -> Bool{
+        
+        if (rewardedRevive == nil){
+            // try loading on the fly
+            loadPlayRevive()
+            return false
+        }
+        
+        rewardedRevive?.present(fromRootViewController: controller!, userDidEarnRewardHandler: handler)
+        loadRewardedForRevive()
+        return true
+    }
+    
+    public func loadRewardedForRevive(){
+        GADRewardedAdBeta.load(withAdUnitID: self.rewardedReviveID!, request: GADRequest(), completionHandler: { [self] ad, error in
+            if error == nil {
+                rewardedRevive = ad
+                rewardedRevive?.fullScreenContentDelegate = controller
+                isReviveLoaded = true
             } else {
                 return
             }
-        }
-        rewardedRevive!.present(fromRootViewController: controller!, userDidEarnRewardHandler: handler)
-//        GADRewardedAdBeta.load(withAdUnitID: Global.adHandler.rewardedID!, request: GADRequest(), completionHandler: {
-//            ad, error in
-//            Global.adHandler.rewarded = ad
-//        })
+        })
+    }
+    
+    public func loadPlayRevive(){
+        GADRewardedAdBeta.load(withAdUnitID: self.rewardedReviveID!, request: GADRequest(), completionHandler: { [self] ad, error in
+            if error == nil {
+                
+                rewardedRevive = ad
+                rewardedRevive?.fullScreenContentDelegate = controller
+                rewardedRevive?.present(fromRootViewController: controller!, userDidEarnRewardHandler: handler)
+                loadRewardedForRevive()
+            } else {
+                return
+            }
+        })
     }
     
     func presentAppOpen(){
