@@ -299,10 +299,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             Global.gameData.score = self.numPoints
             Global.gameData.revived = true
             
+            Global.gameData.isReviveReady2 = true
+            Global.gameData.isReviveReady = true
+            
             
          //   self.scene?.view?.isPaused = true
             
-            Global.adHandler.presentRewardedForRevive()
+         //   Global.adHandler.presentRewardedForRevive()
             
 //print("HELLO")
             
@@ -2106,11 +2109,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
      //   self.scene?.view?.isPaused = true
         
-        
-        
-       
-        
-       
         if !Global.gameData.revived {
             self.reviveButtonNode.alpha = 1
            // reviveTime = 5
