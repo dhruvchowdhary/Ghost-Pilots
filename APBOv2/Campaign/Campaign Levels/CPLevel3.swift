@@ -57,8 +57,6 @@ class CPLevel3 : CPLevelBase {
         for i in 0..<4{
             let turr = CPTurret(level: self)
             turr.shipNode!.position = CGPoint(x: 500 + 300 * i, y: 1900)
-            turr.base.position = CGPoint(x: 500 + 300 * i, y: 1900)
-//            turr.vanityNode.position = CGPoint(x: 500 + 300 * i, y: 1900)
             pepe.append(turr)
         }
         

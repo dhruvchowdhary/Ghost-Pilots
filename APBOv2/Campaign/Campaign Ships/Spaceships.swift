@@ -63,11 +63,10 @@ class CPTurret : CPSpaceshipBase {
         shipNode?.yScale = 0.7
         shipNode?.zPosition = 100
         
-        let baseClass = CPObject(node: base, action: .None)
-        baseClass.health = 9999
+        
+        shipNode?.addChild(base)
         base.zPosition = 10
-        vanityNode.addChild(base)
-        base.physicsBody = nil
+        base.physicsBody = SKPhysicsBody(texture: base.texture!, size: base.size)
         
         shipNode?.physicsBody?.affectedByGravity = false
         
