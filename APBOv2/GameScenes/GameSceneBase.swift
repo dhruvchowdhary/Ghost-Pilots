@@ -136,6 +136,10 @@ public class GameSceneBase: SKScene, SKPhysicsContactDelegate {
         self.dimPanel.alpha = 0;
         
         for ship in Global.gameData.shipsToUpdate{
+            ship.trailDefault?.targetNode = self.scene
+            ship.pilotThrust1?.targetNode = self.scene
+            ship.trailLightning?.targetNode = self.scene
+            
             
             if ship.playerID == "vincent" {
                 print("setting vincent face")
