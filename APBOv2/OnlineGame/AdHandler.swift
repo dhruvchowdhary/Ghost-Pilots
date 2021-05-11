@@ -50,6 +50,7 @@ public class AdHandler {
         } else {
             bannerID = "ca-app-pub-8214314705526801/1873169855"
             appOpenID = "ca-app-pub-8214314705526801/3440745853"
+            interstitialGeneralID = "ca-app-pub-8214314705526801/5429271484"
             interstitialImageID = "ca-app-pub-8214314705526801/5620843174"
             interstitialVideoID = "ca-app-pub-8214314705526801/5429271484"
             rewardedReviveID = "ca-app-pub-8214314705526801/5645480637"
