@@ -764,14 +764,14 @@ class LobbyMenu: SKScene {
         
        
     
-//        if newPosition.y > 0 { newPosition.y = 0}
-//     //   var bottomlimit = CGFloat(bottomLimit)
-//
-//
-//        if newPosition.y < CGFloat(Global.gameData.bottomLimit) {
-//            newPosition.y = CGFloat(Global.gameData.bottomLimit)
-//
-//        }
+        if newPosition.y > 0 { newPosition.y = 0}
+     //   var bottomlimit = CGFloat(bottomLimit)
+
+
+        if newPosition.y < CGFloat(Global.gameData.bottomLimit) {
+            newPosition.y = CGFloat(Global.gameData.bottomLimit)
+
+        }
         
         camera.position = newPosition
         
