@@ -64,6 +64,7 @@ public class SpaceshipBase {
         pilotThrust1?.alpha = 0
  */
         
+        
         posRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/MainGame/\(playerId)/Pos")
         shotsRef = Database.database().reference().child("Games/\(Global.gameData.gameID)/MainGame/\(playerId)/Shots")
         

@@ -12,6 +12,14 @@ class Campaign: SKScene {
     var backButtonNode: MSButtonNode?
     let panGesture = UIPanGestureRecognizer()
     var currentHandler = {}
+    let pulsedRed = SKAction.sequence([
+                                        SKAction.colorize(with: .red, colorBlendFactor: 1.0, duration: 0.15),
+                                        SKAction.wait(forDuration: 0.1),
+                                        SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.15)
+    ])
+    var currentSelectedNode: SKSpriteNode?
+    var levelsNoLines: [Int] = []
+    
     
     override func didMove(to view: SKView) {
         panGesture.addTarget(self, action: #selector(panGestureAction(_:)))
@@ -37,8 +45,8 @@ class Campaign: SKScene {
                 MSButtonNode(imageNamed: "lvl1"),
                 MSButtonNode(imageNamed: "lvl2"),
                 MSButtonNode(imageNamed: "lvl3"),
-                MSButtonNode(imageNamed: "easy"),
-                MSButtonNode(imageNamed: "medium"),
+                MSButtonNode(imageNamed: "lvl4"),
+                MSButtonNode(imageNamed: "lvl5"),
                 MSButtonNode(imageNamed: "hard"),
                 MSButtonNode(imageNamed: "expert")
             ]
@@ -48,9 +56,9 @@ class Campaign: SKScene {
                 "GameScene",
                 "CPLevel1",
                 "CPLevel2",
-                "Level3",
-                "TurretBoss",
-                "TurretBoss",
+                "CPLevel3",
+                "CPLevel4",
+                "CPLevel5",
                 "TurretBoss",
                 "TurretBoss"
             ]
@@ -68,7 +76,6 @@ class Campaign: SKScene {
             }
         }
         backButtonNode?.zPosition = -10
-        
         
         backButtonNode!.selectedHandlers = {
             self.view!.removeGestureRecognizer(self.panGesture)
@@ -89,7 +96,6 @@ class Campaign: SKScene {
             
             // Scale the node here
             
-      
             node.xScale = 0.16
             node.yScale = 0.16
             
@@ -106,8 +112,8 @@ class Campaign: SKScene {
             
             node.color = UIColor.black
             
-            node.selectedHandler = {
-                node.colorBlendFactor += 0.2
+            node.selectedHandlers = {
+                node.colorBlendFactor = 0
                 
                 // Set difficuties for turret bosses
                 switch i {
@@ -116,34 +122,34 @@ class Campaign: SKScene {
                 default:
                     print("ok")
                 }
-                self.currentHandler = {
-                    node.colorBlendFactor -= 0.2
-                }
             }
             
             // Shade Node and set handlers
             if completedLevels.contains(i-1){
-                levelNodes[i].selectedHandlers = {
+                node.selectedHandler = { [self] in
+                    node.color = UIColor.black
+                    node.colorBlendFactor = 0.4
+                    currentSelectedNode = node
+                }
+                node.selectedHandlers = {
                     self.view!.removeGestureRecognizer(self.panGesture)
                     Global.loadScene(s: self.levelStrings[i])
                 }
             } else {
-                node.selectedHandlers = {
-                    print("This stall is occupied")
-                    //Possible alert the player msg here later
-                }
                 node.colorBlendFactor = 0.5
+                node.selectedHandler = {
+                    node.run(self.pulsedRed)
+                }
             }
             
             // Does this level have Unique Properties? - add it here in the case switch
             switch i {
             case 0:
                 node.position.y = 0
-                node.position.x = -100
+                node.position.x = -300
                 node.xScale = 0.3
                 node.yScale = 0.3
             case 1:
-                node.position.y -= 100
                 node.position.x += 150
             case 4,5,6,7:
                 node.xScale = 1
@@ -195,6 +201,8 @@ class Campaign: SKScene {
         
         // If the movement just began, save the first camera position
         if sender.state == .began {
+            currentSelectedNode?.colorBlendFactor = 0
+            // If the 420 happens we in trouble
             previousCameraPoint = camera.position
             currentHandler()
             currentHandler = {}
