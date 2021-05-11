@@ -224,7 +224,7 @@ class CPSpaceshipBase {
     }
     
     func movementUpdate(){
-        vanityNode.position = shipNode?.position
+        vanityNode.position = shipNode!.position
         if isMoving {
             if isGhost {
                 let velocity = (CGVector(dx: cos(shipNode!.zRotation + CGFloat(Double.pi/2)) * 260, dy: sin(shipNode!.zRotation + CGFloat(Double.pi/2)) * 260 * Global.gameData.speedMultiplier))
