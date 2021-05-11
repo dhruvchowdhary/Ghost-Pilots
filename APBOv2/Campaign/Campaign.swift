@@ -133,7 +133,7 @@ class Campaign: SKScene {
                 }
                 node.selectedHandlers = {
                     self.view!.removeGestureRecognizer(self.panGesture)
-                    Global.loadScene(s: self.levelStrings[i])
+                    Global.loadSceneGame(s: self.levelStrings[i])
                 }
             } else {
                 node.colorBlendFactor = 0.5

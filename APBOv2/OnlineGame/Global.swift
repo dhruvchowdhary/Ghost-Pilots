@@ -35,7 +35,7 @@ public struct Global {
     
     }
     
-    static func loadSceneSolo(s: String) {
+    static func loadSceneGame(s: String) {
         
         /* 2) Load Game scene */
         guard let scene = SKScene(fileNamed: s) else {
