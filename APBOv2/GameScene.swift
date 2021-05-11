@@ -130,6 +130,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   //  public let gameScene = GameScene()
     
     var reviveTime = 5
+    var deathPosition = CGPoint()
+    
+    var pauseTime = 3
+    let pauseTimer = SKSpriteNode(imageNamed: "reviveTimer")
+    let pauseTimerNumber = SKLabelNode(text: "3")
     
     override func didMove(to view: SKView) {
         
@@ -213,6 +218,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         
+        
         addChild(scoreboardbackground)
         scoreboardbackground.size = CGSize(width: 300, height: 90)
         scoreboardbackground.alpha = 0.8
@@ -270,6 +276,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         
+        
+     
+        
+        
+        
         reviveButtonNode.position = CGPoint(x: frame.midX, y: frame.midY)
         reviveTimer.position = CGPoint(x:  reviveButtonNode.position.x + 120, y:  reviveButtonNode.position.y - 120)
         reviveTimerNumber.position = CGPoint(x:  reviveTimer.position.x, y:  reviveTimer.position.y - 30)
@@ -293,8 +304,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         reviveButtonNode.alpha = 0
         reviveButtonNode.zPosition = 300
         reviveButtonNode.selectedHandler = { [self] in
-            isPlayerAlive = true
-            isGameOver = false
+            playerShields = 1
             self.reviveTime = 50
             Global.gameData.score = self.numPoints
             Global.gameData.revived = true
@@ -305,7 +315,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
          //   self.scene?.view?.isPaused = true
             
-         //   Global.adHandler.presentRewardedForRevive()
+            Global.adHandler.presentRewardedForRevive()
             
 //print("HELLO")
             
@@ -427,8 +437,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         pauseButtonNode = self.childNode(withName: "pause") as? MSButtonNode
         pauseButtonNode.selectedHandler = {
             self.pauseButtonNode.alpha = 0.6
+            print("HIII THERE")
         }
-        pauseButtonNode.selectedHandlers = {
+        pauseButtonNode.selectedHandlers = { [self] in
             if !self.isGameOver {
                 if self.varisPaused == 0 {
                     self.varisPaused = 1
@@ -437,8 +448,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.backButtonNode.alpha = 0
                     self.restartButtonNode.alpha = 0
                     self.dimPanel.alpha = 0
-                    
-                    
+
                 }
                 else {
                     self.backButtonNode.alpha = 1
@@ -1939,19 +1949,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // add dim panel timer countdown
         
+        let playerShoot = SKAction.setTexture(SKTexture(imageNamed: "shootButton"))
+        shootButtonNode.run(playerShoot)
         
         addChild(player)
+        player.position = deathPosition
         
         isPlayerAlive = true
         isGameOver = false
         
         
         self.backButtonNode.alpha = 0
-        self.pauseButtonNode.alpha = 1
-        self.turnButtonNode.alpha = 1
-        self.shootButtonNode.alpha = 1
-        self.ejectButtonNode.alpha = 1
-        self.phaseButtonNode.alpha = 1
+        self.pauseButtonNode.alpha = 0.6
+        self.turnButtonNode.alpha = 0.6
+        self.shootButtonNode.alpha = 0.6
+        self.ejectButtonNode.alpha = 0.6
+        self.phaseButtonNode.alpha = 0
         self.bullet1.alpha = 1
         self.bullet2.alpha = 1
         self.bullet3.alpha = 1
@@ -1963,11 +1976,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       
         reviveTimerNumber.alpha = 0
         reviveTimer.alpha = 0
-        
-        
+    
         let activeEnemies = children.compactMap { $0 as? EnemyNode }
         for enemies in activeEnemies {
           //  enemies.speed = 0
+            enemies.childNode(withName: "enemyWeapon")?.removeFromParent()
+            
+         //   enemyWeapon
             
             let generator = UIImpactFeedbackGenerator(style: .heavy)
             generator.impactOccurred()
@@ -2091,6 +2106,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         isPlayerAlive = false
         isGameOver = true
         
+        deathPosition = pilot.position
+    
+
         self.backButtonNode.alpha = 1
         self.pauseButtonNode.alpha = 0
         self.turnButtonNode.alpha = 0

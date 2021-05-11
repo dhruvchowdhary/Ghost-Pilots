@@ -25,6 +25,12 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     private var zoomrate: CGFloat =  0.0
     private var checkpoints: [CPCheckpoint] = []
     
+    var pauseTime = 3
+    let pauseTimer = SKSpriteNode(imageNamed: "reviveTimer")
+    let pauseTimerNumber = SKLabelNode(text: "3")
+    
+    let dimPanel = SKSpriteNode(color: UIColor.black, size: CGSize(width: 20000, height: 10000) )
+    
     // this will be overriden in the levels and then callback manual setup
     override func didMove(to view: SKView) {
         
@@ -67,6 +73,7 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
         
         self.physicsWorld.contactDelegate = self
         
+        
         // Setup player ship
         playerShip = CPPlayerShip(lvl: self)
         createPlayerShip()
@@ -92,6 +99,32 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
             addObjectToScene(node: i.node, nodeClass: i)
             i.level = self
         }
+        
+        
+        
+        self.dimPanel.zPosition = 50
+        self.dimPanel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        self.addChild(self.dimPanel)
+        self.dimPanel.alpha = 0
+        
+        pauseTimer.position = CGPoint(x:  frame.midX, y: frame.midY)
+        pauseTimerNumber.position = CGPoint(x:  pauseTimer.position.x, y:  pauseTimer.position.y - 40)
+        camera?.addChild(pauseTimer)
+        camera?.addChild(pauseTimerNumber)
+        pauseTimer.xScale = 0.3
+        pauseTimer.yScale = 0.3
+        pauseTimer.alpha = 0
+        pauseTimer.zPosition = 400
+        
+        pauseTimerNumber.zPosition = 401
+        pauseTimerNumber.fontColor = UIColor.black
+        pauseTimerNumber.fontSize = 120
+        pauseTimerNumber.fontName = "AvenirNext-Bold"
+        pauseTimerNumber.alpha = 0
+        
+     
+        
+        
     }
     
     func collectedReward(id:Int){
@@ -196,32 +229,76 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
     }
     
     public func togglePause(){
-        isGamePaused = !isGamePaused
         
-        // All the ships and their sub bullets
-        for i in managedShips {
-            i.togglePause(isPaused: isGamePaused)
-        }
-        playerShip?.togglePause(isPaused: isGamePaused)
+        pauseTime = 3
+        
         
         // Handle all skactions
-        if isGamePaused {
+        if !isGamePaused {
+            isGamePaused = !isGamePaused
+            
+            dimPanel.alpha = 0.3
             for timer in bulletsRegenTimers {
                 timer.invalidate()
             }
             bulletsRegenTimers = []
             speed = 0
             lastRecordedTime = 0
+            
+            // All the ships and their sub bullets
+            for i in managedShips {
+                i.togglePause(isPaused: isGamePaused)
+            }
+            playerShip?.togglePause(isPaused: isGamePaused)
+            switchHud()
+            
         } else {
-            speed = 1
-            bulletsRegenTimers.append(Timer.scheduledTimer(withTimeInterval: TimeInterval(playerShip!.bulletRegenRate), repeats: false, block: {_ in
-                self.playerShip?.unfiredBullets[2].alpha = 100
-                self.playerShip!.isBulletRecharging = false
-                self.playerShip!.rechargeBullet()
-            }))
+          
+            
+            pauseTimerNumber.alpha = 1
+            pauseTimer.alpha = 1
+            pauseTimerNumber.text = String(pauseTime)
+            dimPanel.alpha = 0
+            
+            for i in 1..<4 {
+                let pauseTimerr = Timer.scheduledTimer(withTimeInterval: TimeInterval(i), repeats: false) { [self] (timer) in
+                    pauseTime -= 1
+                    pauseTimerNumber.text = String(pauseTime)
+                    print("HIIII")
+                    if pauseTime == 0 {
+                        isGamePaused = !isGamePaused
+                        print("HELLLLO")
+                        speed = 1
+                        bulletsRegenTimers.append(Timer.scheduledTimer(withTimeInterval: TimeInterval(playerShip!.bulletRegenRate), repeats: false, block: {_ in
+                            self.playerShip?.unfiredBullets[2].alpha = 100
+                            self.playerShip!.isBulletRecharging = false
+                            self.playerShip!.rechargeBullet()
+                            
+                        }))
+                        pauseTimerNumber.alpha = 0
+                        pauseTimer.alpha = 0
+                        // All the ships and their sub bullets
+                        for i in managedShips {
+                            i.togglePause(isPaused: isGamePaused)
+                        }
+                        playerShip?.togglePause(isPaused: isGamePaused)
+                        
+                        for timer in bulletsRegenTimers {
+                            timer.invalidate()
+                        }
+                        bulletsRegenTimers = []
+                        speed = 0
+                        lastRecordedTime = 0
+                        switchHud()
+                        
+                    }
+                }
+            }
+
+           
         }
         
-        switchHud()
+        
     }
     
     public func matrixMode(speed: CGFloat) {

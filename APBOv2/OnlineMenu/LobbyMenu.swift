@@ -403,8 +403,10 @@ class LobbyMenu: SKScene {
                 userKick.position.y += newuser.position.y - 10 + 10
                       userKick.zPosition = 1
                 
-                let userKickButtonNode = MSButtonNode(color: UIColor.blue, size: CGSize(width: 120, height: 120))
+                let userKickButtonNode = MSButtonNode(color: UIColor.blue, size: CGSize(width: 100, height: 100))
+                userKickButtonNode.alpha = 0.3
                 
+                userKickButtonNode.name = "userKickButtonNode"
                 userKickButtonNode.selectedHandlers = {
                     //kick em
                     DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(userKick.parent!.name!)", Value: "PePeKicked")
@@ -415,7 +417,7 @@ class LobbyMenu: SKScene {
                 
                 addChild(userKickButtonNode)
                 userKickButtonNode.zPosition = 500
-                userKickButtonNode.position.x = newuser.position.x + 390
+                userKickButtonNode.position.x = newuser.position.x + 382
                 userKickButtonNode.position.y = newuser.position.y + 110
                 
             }
@@ -426,6 +428,9 @@ class LobbyMenu: SKScene {
             
             let userColorButtonNode = MSButtonNode(color: UIColor.blue, size: CGSize(width: 120, height: 100))
             
+            userColorButtonNode.alpha = 0.3
+            userColorButtonNode.name = "userColorButtonNode"
+        
             let userColor = newuser.childNode(withName: "colorButtonNode") as! MSButtonNode
             userColor.zPosition = 1
             if player == Global.playerData.playerID {
@@ -754,6 +759,11 @@ class LobbyMenu: SKScene {
             x: previousCameraPoint.x,
             y: previousCameraPoint.y + translation.y * 2
         )
+        
+        let ButtonNodes = children.compactMap { $0 as? MSButtonNode }
+        
+       
+    
 //        if newPosition.y > 0 { newPosition.y = 0}
 //     //   var bottomlimit = CGFloat(bottomLimit)
 //
@@ -764,6 +774,21 @@ class LobbyMenu: SKScene {
 //        }
         
         camera.position = newPosition
+        
+        for x in ButtonNodes {
+            
+            if x.name == "userColorButtonNode" || x.name == "userKickButtonNode" {
+ 
+                if camera.position.y - x.position.y > 170 || -camera.position.y + x.position.y > 250 {
+                    print("alpha out")
+                    x.alpha = 0
+                } else {
+                    x.alpha = 0.3
+                }
+            }
+            
+          
+        }
         
         
     }
