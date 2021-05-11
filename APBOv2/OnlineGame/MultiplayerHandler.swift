@@ -227,7 +227,6 @@ public class MultiplayerHandler{
                                                         Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(vincentTexture)
                                                         vincentTexture.zPosition = 1000
                                                     }
-                                                    
                                                     if Global.gameData.shipsToUpdate[i].playerID == "dhruv" {
                                                         print("setting dhruv face")
                                                         
@@ -235,7 +234,6 @@ public class MultiplayerHandler{
                                                         Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(vincentTexture)
                                                         vincentTexture.zPosition = 1000
                                                     }
-                                                    
                                                     if Global.gameData.shipsToUpdate[i].playerID == "niraj" {
                                                         print("setting niraj face")
                                                         

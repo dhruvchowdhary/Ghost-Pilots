@@ -84,6 +84,8 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
             backButtonNode.selectedHandlers = {
                 self.loadMainMenu()
             //       skView.presentScene(scene)
+                self.usernameBox.removeFromSuperview()
+                self.codeBox.removeFromSuperview()
             }
             
             if UIDevice.current.userInterfaceIdiom != .pad {
