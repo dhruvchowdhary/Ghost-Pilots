@@ -226,6 +226,50 @@ class CPPlayerShip: CPSpaceshipBase {
         reviveButton.isHidden = true
         reviveButton.selectedHandler = {
         }
+        
+        if UIScreen.main.bounds.width < 779 {
+            if UIScreen.main.bounds.width > 567 {
+                turnButton.size = CGSize(width: 200, height: 184.038)
+                turnButton.position.x = hudNode.position.x + 620
+                turnButton.position.y = hudNode.position.y - 300
+                
+                shootButton.size = CGSize(width: 200, height: 184.038)
+                shootButton.position.x = hudNode.position.x - 620
+                shootButton.position.y =  hudNode.position.y - 300
+                
+                backButton.size = CGSize(width: 131.25, height: 93.75)
+                backButton.position.x = hudNode.position.x - 620
+                backButton.position.y =  hudNode.position.y + 330
+                
+                phaseButton.size = CGSize(width: 157, height: 150)
+                phaseButton.position.x = turnButton.position.x - 140
+                phaseButton.position.y = turnButton.position.y + 90
+                
+                ejectButton.size = CGSize(width: 157, height: 150)
+                ejectButton.position.x = turnButton.position.x - 140
+                ejectButton.position.y = turnButton.position.y + 90
+            } else {
+                turnButton.size = CGSize(width: 200, height: 184.038)
+                turnButton.position.x = hudNode.position.x + 620
+                turnButton.position.y = hudNode.position.y - 300
+                
+                shootButton.size = CGSize(width: 200, height: 184.038)
+                shootButton.position.x = hudNode.position.x - 620
+                shootButton.position.y =  hudNode.position.y - 300
+                
+                backButton.size = CGSize(width: 131.25, height: 93.75)
+                backButton.position.x = hudNode.position.x - 620
+                backButton.position.y =  hudNode.position.y + 330
+                
+                phaseButton.size = CGSize(width: 157, height: 150)
+                phaseButton.position.x = turnButton.position.x - 140
+                phaseButton.position.y = turnButton.position.y + 90
+                
+                ejectButton.size = CGSize(width: 157, height: 150)
+                ejectButton.position.x = turnButton.position.x - 140
+                ejectButton.position.y = turnButton.position.y + 90
+            }
+        }
     }
     
     func addSemiFocus(focusPoint: (SKNode, Float)){
