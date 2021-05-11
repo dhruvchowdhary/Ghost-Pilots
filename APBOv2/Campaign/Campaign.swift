@@ -13,9 +13,9 @@ class Campaign: SKScene {
     let panGesture = UIPanGestureRecognizer()
     var currentHandler = {}
     let pulsedRed = SKAction.sequence([
-                                        SKAction.colorize(with: .red, colorBlendFactor: 1.0, duration: 0.15),
-                                        SKAction.wait(forDuration: 0.1),
-                                        SKAction.colorize(withColorBlendFactor: 0.0, duration: 0.15)
+        SKAction.colorize(with: .red, colorBlendFactor: 1.0, duration: 0.15),
+        SKAction.wait(forDuration: 0.1),
+        SKAction.colorize(with: UIColor.black, colorBlendFactor: 0.5, duration: 0.15)
     ])
     var currentSelectedNode: SKSpriteNode?
     var levelsNoLines: [Int] = []
