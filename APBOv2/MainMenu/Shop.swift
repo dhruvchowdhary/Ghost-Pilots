@@ -272,7 +272,7 @@ class Shop: SKScene {
         shopEquipLabel.yScale = 0.3
         
         Global.gameData.skView = self.view!
-        Global.gameData.addPolyniteCount(delta: 100)
+        //Global.gameData.addPolyniteCount(delta: 100)
         
         if let particles = SKEmitterNode(fileNamed: "Starfield") {
             particles.targetNode = effectBackground
