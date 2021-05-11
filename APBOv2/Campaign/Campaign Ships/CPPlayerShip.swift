@@ -241,6 +241,14 @@ class CPPlayerShip: CPSpaceshipBase {
                 backButton.position.x = hudNode.position.x - 620
                 backButton.position.y =  hudNode.position.y + 330
                 
+                restartButton.size = CGSize(width: 87.188, height: 93.75)
+                restartButton.position.x = hudNode.position.x + 470
+                restartButton.position.y =  hudNode.position.y + 330
+                
+                pauseButton.size = CGSize(width: 75, height: 93.75)
+                pauseButton.position.x = hudNode.position.x + 620
+                pauseButton.position.y =  hudNode.position.y + 330
+                
                 phaseButton.size = CGSize(width: 157, height: 150)
                 phaseButton.position.x = turnButton.position.x - 140
                 phaseButton.position.y = turnButton.position.y + 90
@@ -260,6 +268,14 @@ class CPPlayerShip: CPSpaceshipBase {
                 backButton.size = CGSize(width: 131.25, height: 93.75)
                 backButton.position.x = hudNode.position.x - 620
                 backButton.position.y =  hudNode.position.y + 330
+                
+                restartButton.size = CGSize(width: 87.188, height: 93.75)
+                restartButton.position.x = hudNode.position.x + 470
+                restartButton.position.y =  hudNode.position.y + 330
+                
+                pauseButton.size = CGSize(width: 75, height: 93.75)
+                pauseButton.position.x = hudNode.position.x + 620
+                pauseButton.position.y =  hudNode.position.y + 330
                 
                 phaseButton.size = CGSize(width: 157, height: 150)
                 phaseButton.position.x = turnButton.position.x - 140
