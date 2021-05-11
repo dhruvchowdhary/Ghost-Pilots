@@ -403,7 +403,7 @@ class LobbyMenu: SKScene {
                 userKick.position.y += newuser.position.y - 10 + 10
                       userKick.zPosition = 1
                 
-                let userKickButtonNode = MSButtonNode(color: UIColor.blue, size: CGSize(width: 100, height: 100))
+                let userKickButtonNode = MSButtonNode(color: UIColor.clear, size: CGSize(width: 100, height: 100))
                 userKickButtonNode.alpha = 0.3
                 
                 userKickButtonNode.name = "userKickButtonNode"
@@ -426,7 +426,7 @@ class LobbyMenu: SKScene {
             
             
             
-            let userColorButtonNode = MSButtonNode(color: UIColor.blue, size: CGSize(width: 120, height: 100))
+            let userColorButtonNode = MSButtonNode(color: UIColor.clear, size: CGSize(width: 120, height: 100))
             
             userColorButtonNode.alpha = 0.3
             userColorButtonNode.name = "userColorButtonNode"
