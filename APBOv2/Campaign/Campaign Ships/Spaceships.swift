@@ -42,7 +42,7 @@ class CPTurret : CPSpaceshipBase {
         var setup = CPSpaceshipSetup(imageNamed: "turretshooterhard")
         setup.isMoving = false
         setup.bulletRegenRate = 1.5
-        setup.bulletSpeeds = 200
+        setup.bulletSpeeds = 150
         setup.attackRange = 350
         setup.canRotateBothDirections = true
         
@@ -58,15 +58,12 @@ class CPTurret : CPSpaceshipBase {
         shipNode!.physicsBody?.categoryBitMask = CPUInt.enemy
         shipNode?.physicsBody?.isDynamic = false
         
-        base.size = CGSize(width: 100, height: 100)
         shipNode?.xScale = 0.7
         shipNode?.yScale = 0.7
         shipNode?.zPosition = 100
         
-        
         shipNode?.addChild(base)
-        base.zPosition = 10
-        base.physicsBody = SKPhysicsBody(texture: base.texture!, size: base.size)
+        base.zPosition = -10
         
         shipNode?.physicsBody?.affectedByGravity = false
         
@@ -85,14 +82,14 @@ class CPTurret : CPSpaceshipBase {
             
             let y = (playerShip.shipNode?.position.y)! - (shipNode?.position.y)!
             let x = (playerShip.shipNode?.position.x)! - (shipNode?.position.x)!
-            let targetRotation = atan2(y,x ) - CGFloat.pi * 1 / 2
-            
-            let dRotation = shipNode!.zRotation.truncatingRemainder(dividingBy: CGFloat.pi) - targetRotation
-            print(targetRotation)
-            if dRotation > 0 {
-                shipNode!.zRotation += CGFloat.pi/130
+            let targetRotation = atan2(y,x )
+            let cRotation = (shipNode?.zRotation.truncatingRemainder(dividingBy: CGFloat.pi))!
+            if cRotation < targetRotation {
+                shipNode!.zRotation += CGFloat.pi/200
+                base.zRotation -= CGFloat.pi/200
             } else {
-                shipNode!.zRotation -= CGFloat.pi/130
+                shipNode!.zRotation -= CGFloat.pi/200
+                base.zRotation += CGFloat.pi/200
             }
 
             Shoot(shotType: .Bullet)
