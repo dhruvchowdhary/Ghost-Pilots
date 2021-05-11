@@ -45,10 +45,10 @@ class Campaign: SKScene {
                 MSButtonNode(imageNamed: "lvl1"),
                 MSButtonNode(imageNamed: "lvl2"),
                 MSButtonNode(imageNamed: "lvl3"),
-                MSButtonNode(imageNamed: "lvl4"),
-                MSButtonNode(imageNamed: "lvl5"),
-                MSButtonNode(imageNamed: "hard"),
-                MSButtonNode(imageNamed: "expert")
+//                MSButtonNode(imageNamed: "lvl4"),
+//                MSButtonNode(imageNamed: "lvl5"),
+//                MSButtonNode(imageNamed: "hard"),
+//                MSButtonNode(imageNamed: "expert")
             ]
         
         levelStrings =
