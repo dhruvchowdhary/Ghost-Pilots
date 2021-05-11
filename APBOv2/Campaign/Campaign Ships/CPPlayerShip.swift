@@ -227,63 +227,102 @@ class CPPlayerShip: CPSpaceshipBase {
         reviveButton.selectedHandler = {
         }
         
-        if UIScreen.main.bounds.width < 779 {
-            if UIScreen.main.bounds.width > 567 {
-                turnButton.size = CGSize(width: 200, height: 184.038)
-                turnButton.position.x = hudNode.position.x + 620
-                turnButton.position.y = hudNode.position.y - 300
-                
-                shootButton.size = CGSize(width: 200, height: 184.038)
-                shootButton.position.x = hudNode.position.x - 620
-                shootButton.position.y =  hudNode.position.y - 300
-                
-                backButton.size = CGSize(width: 131.25, height: 93.75)
-                backButton.position.x = hudNode.position.x - 620
-                backButton.position.y =  hudNode.position.y + 330
-                
-                restartButton.size = CGSize(width: 87.188, height: 93.75)
-                restartButton.position.x = hudNode.position.x + 470
-                restartButton.position.y =  hudNode.position.y + 330
-                
-                pauseButton.size = CGSize(width: 75, height: 93.75)
-                pauseButton.position.x = hudNode.position.x + 620
-                pauseButton.position.y =  hudNode.position.y + 330
-                
-                phaseButton.size = CGSize(width: 157, height: 150)
-                phaseButton.position.x = turnButton.position.x - 140
-                phaseButton.position.y = turnButton.position.y + 90
-                
-                ejectButton.size = CGSize(width: 157, height: 150)
-                ejectButton.position.x = turnButton.position.x - 140
-                ejectButton.position.y = turnButton.position.y + 90
-            } else {
-                turnButton.size = CGSize(width: 200, height: 184.038)
-                turnButton.position.x = hudNode.position.x + 620
-                turnButton.position.y = hudNode.position.y - 300
-                
-                shootButton.size = CGSize(width: 200, height: 184.038)
-                shootButton.position.x = hudNode.position.x - 620
-                shootButton.position.y =  hudNode.position.y - 300
-                
-                backButton.size = CGSize(width: 131.25, height: 93.75)
-                backButton.position.x = hudNode.position.x - 620
-                backButton.position.y =  hudNode.position.y + 330
-                
-                restartButton.size = CGSize(width: 87.188, height: 93.75)
-                restartButton.position.x = hudNode.position.x + 470
-                restartButton.position.y =  hudNode.position.y + 330
-                
-                pauseButton.size = CGSize(width: 75, height: 93.75)
-                pauseButton.position.x = hudNode.position.x + 620
-                pauseButton.position.y =  hudNode.position.y + 330
-                
-                phaseButton.size = CGSize(width: 157, height: 150)
-                phaseButton.position.x = turnButton.position.x - 140
-                phaseButton.position.y = turnButton.position.y + 90
-                
-                ejectButton.size = CGSize(width: 157, height: 150)
-                ejectButton.position.x = turnButton.position.x - 140
-                ejectButton.position.y = turnButton.position.y + 90
+        let scale = 1.2
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            turnButton.position.x = (hudNode.position.x + 640) * CGFloat(scale)
+            turnButton.position.y = (hudNode.position.y - 410) * CGFloat(scale)
+            turnButton.setScale(CGFloat(1.25 * scale))
+            
+            shootButton.position.x = (hudNode.position.x - 640) * CGFloat(scale)
+            shootButton.position.y =  (hudNode.position.y - 410) * CGFloat(scale)
+            shootButton.setScale(CGFloat(1.25 * scale))
+            
+            pauseButton.position.x = (hudNode.position.x + 640) * CGFloat(scale)
+            pauseButton.position.y =  (hudNode.position.y + 430) * CGFloat(scale)
+            pauseButton.setScale(CGFloat(1.25 * scale))
+            
+            backButton.position.x = (hudNode.position.x - 640) * CGFloat(scale)
+            backButton.position.y = (hudNode.position.y + 430) *  CGFloat(scale)
+            backButton.setScale(CGFloat(1.25 * scale))
+            
+            restartButton.position.x = (hudNode.position.x + 480) * CGFloat(scale)
+            restartButton.position.y =  (hudNode.position.y + 430) * CGFloat(scale)
+            restartButton.setScale(CGFloat(1.25 * scale))
+            
+            playAgainButton.position.x = hudNode.position.x
+            playAgainButton.position.y = (hudNode.position.y - 224 - 121) * CGFloat(scale)
+            playAgainButton.setScale(CGFloat(1.25 * scale))
+            
+//            reviveButtonNode.position.x = hudNode.position.x + 340
+//            reviveButtonNode.position.y = playAgainButtonNode.position.y
+//          //  reviveButtonNode.setScale(CGFloat(1.25 * scale))
+//
+            phaseButton.position.x = turnButton.position.x - 205
+            phaseButton.position.y = turnButton.position.y + 140
+            phaseButton.setScale(CGFloat(1.25 * scale))
+            
+            ejectButton.position.x = turnButton.position.x - 205
+            ejectButton.position.y = turnButton.position.y + 140
+            ejectButton.setScale(CGFloat(1.25 * scale))
+        } else { //is phone
+            if UIScreen.main.bounds.width < 779 {
+                if UIScreen.main.bounds.width > 567 {
+                    turnButton.size = CGSize(width: 200, height: 184.038)
+                    turnButton.position.x = hudNode.position.x + 620
+                    turnButton.position.y = hudNode.position.y - 300
+                    
+                    shootButton.size = CGSize(width: 200, height: 184.038)
+                    shootButton.position.x = hudNode.position.x - 620
+                    shootButton.position.y =  hudNode.position.y - 300
+                    
+                    backButton.size = CGSize(width: 131.25, height: 93.75)
+                    backButton.position.x = hudNode.position.x - 620
+                    backButton.position.y =  hudNode.position.y + 330
+                    
+                    restartButton.size = CGSize(width: 87.188, height: 93.75)
+                    restartButton.position.x = hudNode.position.x + 470
+                    restartButton.position.y =  hudNode.position.y + 330
+                    
+                    pauseButton.size = CGSize(width: 75, height: 93.75)
+                    pauseButton.position.x = hudNode.position.x + 620
+                    pauseButton.position.y =  hudNode.position.y + 330
+                    
+                    phaseButton.size = CGSize(width: 157, height: 150)
+                    phaseButton.position.x = turnButton.position.x - 140
+                    phaseButton.position.y = turnButton.position.y + 90
+                    
+                    ejectButton.size = CGSize(width: 157, height: 150)
+                    ejectButton.position.x = turnButton.position.x - 140
+                    ejectButton.position.y = turnButton.position.y + 90
+                } else {
+                    turnButton.size = CGSize(width: 200, height: 184.038)
+                    turnButton.position.x = hudNode.position.x + 620
+                    turnButton.position.y = hudNode.position.y - 300
+                    
+                    shootButton.size = CGSize(width: 200, height: 184.038)
+                    shootButton.position.x = hudNode.position.x - 620
+                    shootButton.position.y =  hudNode.position.y - 300
+                    
+                    backButton.size = CGSize(width: 131.25, height: 93.75)
+                    backButton.position.x = hudNode.position.x - 620
+                    backButton.position.y =  hudNode.position.y + 330
+                    
+                    restartButton.size = CGSize(width: 87.188, height: 93.75)
+                    restartButton.position.x = hudNode.position.x + 470
+                    restartButton.position.y =  hudNode.position.y + 330
+                    
+                    pauseButton.size = CGSize(width: 75, height: 93.75)
+                    pauseButton.position.x = hudNode.position.x + 620
+                    pauseButton.position.y =  hudNode.position.y + 330
+                    
+                    phaseButton.size = CGSize(width: 157, height: 150)
+                    phaseButton.position.x = turnButton.position.x - 140
+                    phaseButton.position.y = turnButton.position.y + 90
+                    
+                    ejectButton.size = CGSize(width: 157, height: 150)
+                    ejectButton.position.x = turnButton.position.x - 140
+                    ejectButton.position.y = turnButton.position.y + 90
+                }
             }
         }
     }
