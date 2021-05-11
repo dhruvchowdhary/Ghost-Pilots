@@ -32,7 +32,10 @@ class CPPlayerShip: CPSpaceshipBase {
         shipNode?.physicsBody?.contactTestBitMask = CPUInt.enemy | CPUInt.bullet | CPUInt.object | CPUInt.checkpoint
         shipNode?.physicsBody?.collisionBitMask =  CPUInt.object | CPUInt.walls | CPUInt.immovableObject
         shipNode?.physicsBody?.categoryBitMask = CPUInt.player
-        
+        let zoomInActionipad = SKAction.scale(to: 1.7, duration: 0.01)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+                        hudNode.run(zoomInActionipad)
+        }
     }
     
 //    override func playerShipUpdate() {
@@ -227,7 +230,7 @@ class CPPlayerShip: CPSpaceshipBase {
         reviveButton.selectedHandler = {
         }
         
-        let scale = 1.2
+        let scale = 0.7
         if UIDevice.current.userInterfaceIdiom == .pad {
             turnButton.position.x = (hudNode.position.x + 640) * CGFloat(scale)
             turnButton.position.y = (hudNode.position.y - 410) * CGFloat(scale)
@@ -257,12 +260,12 @@ class CPPlayerShip: CPSpaceshipBase {
 //            reviveButtonNode.position.y = playAgainButtonNode.position.y
 //          //  reviveButtonNode.setScale(CGFloat(1.25 * scale))
 //
-            phaseButton.position.x = turnButton.position.x - 205
-            phaseButton.position.y = turnButton.position.y + 140
+            phaseButton.position.x = (turnButton.position.x) * CGFloat(scale)
+            phaseButton.position.y = (turnButton.position.y) * CGFloat(scale)
             phaseButton.setScale(CGFloat(1.25 * scale))
             
-            ejectButton.position.x = turnButton.position.x - 205
-            ejectButton.position.y = turnButton.position.y + 140
+            ejectButton.position.x = (turnButton.position.x) * CGFloat(scale)
+            ejectButton.position.y = (turnButton.position.y) * CGFloat(scale)
             ejectButton.setScale(CGFloat(1.25 * scale))
         } else { //is phone
             if UIScreen.main.bounds.width < 779 {
