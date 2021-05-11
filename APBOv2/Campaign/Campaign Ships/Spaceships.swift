@@ -46,7 +46,7 @@ class CPTurret : CPSpaceshipBase {
         setup.attackRange = 350
         setup.canRotateBothDirections = true
         
-        setup.isMoving = false
+        
         setup.isBulletOrbitVisible = false
         super.init(spaceshipSetup: setup, lvl: level)
         
@@ -63,10 +63,10 @@ class CPTurret : CPSpaceshipBase {
         shipNode?.yScale = 0.7
         shipNode?.zPosition = 100
         
-        var baseClass = CPObject(node: base, action: .None)
+        let baseClass = CPObject(node: base, action: .None)
         baseClass.health = 9999
         base.zPosition = 10
-        level.addObjectToScene(node: base, nodeClass: baseClass)
+        vanityNode.addChild(base)
         base.physicsBody = nil
         
         shipNode?.physicsBody?.affectedByGravity = false

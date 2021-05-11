@@ -35,6 +35,9 @@ class CPSpaceshipBase {
     var hasGhostMode = false
     var bulletTexString: String?
     
+    // synced pos without rotation
+    let vanityNode = SKNode()
+    
     var health = 1
     var maxHealth = 9999
     
@@ -71,7 +74,7 @@ class CPSpaceshipBase {
         ghostNode.physicsBody = SKPhysicsBody(texture: ghostNode.texture!, size: ghostNode.size)
         level.addObjectToScene(node: ghostNode, nodeClass: self)
         ghostNode.removeFromParent()
-        
+        vanityNode.position = shipNode!.position
     }
     
     func AiMovement(playerShip: CPPlayerShip){
@@ -221,6 +224,7 @@ class CPSpaceshipBase {
     }
     
     func movementUpdate(){
+        vanityNode.position = shipNode!.position
         if isMoving {
             if isGhost {
                 let velocity = (CGVector(dx: cos(shipNode!.zRotation + CGFloat(Double.pi/2)) * 260, dy: sin(shipNode!.zRotation + CGFloat(Double.pi/2)) * 260 * Global.gameData.speedMultiplier))

@@ -62,6 +62,7 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
         
         for i in createEnemyShips() {
             addObjectToScene(node: i.shipNode!, nodeClass: i)
+            addChild(i.vanityNode)
             managedShips.append(i)
         }
         
