@@ -220,6 +220,29 @@ public class MultiplayerHandler{
                                                     let pulledTrail = SKEmitterNode(fileNamed: e.value as! String)!
                                                     pulledTrail.targetNode = Global.gameData.gameScene.scene
                                                     Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(pulledTrail)
+                                                    if Global.gameData.shipsToUpdate[i].playerID == "vincent" {
+                                                        print("setting vincent face")
+                                                        
+                                                        let vincentTexture = SKSpriteNode(imageNamed: "vincentFace")
+                                                        Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(vincentTexture)
+                                                        vincentTexture.zPosition = 1000
+                                                    }
+                                                    
+                                                    if Global.gameData.shipsToUpdate[i].playerID == "dhruv" {
+                                                        print("setting dhruv face")
+                                                        
+                                                        let vincentTexture = SKSpriteNode(imageNamed: "dhruvFace")
+                                                        Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(vincentTexture)
+                                                        vincentTexture.zPosition = 1000
+                                                    }
+                                                    
+                                                    if Global.gameData.shipsToUpdate[i].playerID == "niraj" {
+                                                        print("setting niraj face")
+                                                        
+                                                        let vincentTexture = SKSpriteNode(imageNamed: "nirajFace")
+                                                        Global.gameData.shipsToUpdate[i].spaceShipNode.addChild(vincentTexture)
+                                                        vincentTexture.zPosition = 1000
+                                                    }
                                                 }
                                         }
                                     })
