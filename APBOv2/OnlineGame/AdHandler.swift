@@ -108,13 +108,9 @@ public class AdHandler {
     
     func presentInterstitialImage(){
         if !isReady{
-            if isConnectedToNetwork(){
-                setup()
-            } else {
-                return
-            }
+            return
         }
-        interstitialImage!.present(fromRootViewController: controller!)
+        interstitialImage?.present(fromRootViewController: controller!)
         GADInterstitialAdBeta.load(withAdUnitID: interstitialGeneralID!, request: GADRequest(), completionHandler: { [self] ad, error in
             interstitialImage = ad
         })
