@@ -7,9 +7,10 @@ class LobbyMenu: SKScene {
     
     var lobbyLabelText = SKLabelNode(text: "Lobby")
     
-    
+    var codeWordLabel = SKLabelNode(text: "CODE:")
     var codeLabel = SKLabelNode(text: "00000")
     var playercountLabel = SKLabelNode(text: "1/6")
+    var lobbyShip = SKSpriteNode(imageNamed: "lobbyShip")
     var playerLabel = SKNode()
     var playerLabelParent = SKNode()
     var user1 = SKLabelNode(text: "user1")
@@ -219,12 +220,26 @@ class LobbyMenu: SKScene {
         codeLabel.position.y += 10
         codeLabel.position.x += 400
         
+        lobbyLabelText.addChild(codeWordLabel)
+        codeWordLabel.zPosition = 2
+        codeWordLabel.fontColor = UIColor.white
+        codeWordLabel.fontSize = 50
+        codeWordLabel.fontName = "AvenirNext-Bold"
+        codeWordLabel.position = CGPoint(x:  codeLabel.position.x, y:  codeLabel.position.y + 20)
+        
         
         setupLabel(label: playercountLabel)
         lobbyLabelText.addChild(playercountLabel)
         playercountLabel.position.y = codeLabel.position.y
         playercountLabel.position.x -= 450
         playercountLabel.fontSize = 70
+        
+        
+        lobbyShip.xScale = 0.2
+        lobbyShip.yScale = 0.2
+        lobbyShip.position = CGPoint(x: playercountLabel.position.x + 30, y: playercountLabel.position.y)
+        camera?.addChild(lobbyShip)
+        
         
         setupLabel(label: lobbyLabelText)
         lobbyLabelText.fontSize = 90
