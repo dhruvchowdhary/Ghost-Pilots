@@ -29,7 +29,6 @@ class LobbyMenu: SKScene {
     var kickButtonNode: MSButtonNode!
     var list: [String] = []
     
-    
     private var astroWalkingFrames: [SKTexture] = []
     private var infectionWalkingFrames: [SKTexture] = []
     private var ffaWalkingFrames: [SKTexture] = []
@@ -405,8 +404,10 @@ class LobbyMenu: SKScene {
             newuser.name = player
             let userLabel = newuser.childNode(withName: "user1") as! SKLabelNode
             userLabel.text = player
+            
             let index = playerList.firstIndex(of: player)!
-
+            
+            
             
           
             
@@ -516,9 +517,10 @@ class LobbyMenu: SKScene {
                     spaceship = LocalSpaceship(imageTexture: intToColor[colorIndex]!)
                     Global.playerData.color = intToColor[colorIndex]!
                 case "astroball":
-                    spaceship = LocalSpaceship(imageTexture: intToColor[colorIndex%2]!)
+                    spaceship = LocalSpaceship(imageTexture: intToColor[colorIndex%1]!)
                     print(intToColor[colorIndex%2])
-                    Global.playerData.color = intToColor[colorIndex%2]!
+                    print(colorIndex)
+               //     Global.playerData.color = intToColor[colorIndex%2]!
                 default:
                     spaceship = LocalSpaceship(imageTexture: intToColor[colorIndex]!)
                 }
@@ -598,6 +600,7 @@ class LobbyMenu: SKScene {
         case "astroball":
             userColor.texture = SKTexture(imageNamed: intToColor[index % 2]!)
             colorIndex = index
+            print(index)
             userColorButtonNode.selectedHandler = {
                 userColor.alpha = 1
             }
@@ -611,6 +614,7 @@ class LobbyMenu: SKScene {
                     }
                     userColor.texture = SKTexture(imageNamed: self.intToColor[self.colorIndex%2]!)
                     DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex%2]!)
+                    Global.playerData.color = self.intToColor[self.colorIndex%2]!
                     userColor.alpha = 1
                 }
             } else {

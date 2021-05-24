@@ -38,8 +38,8 @@ class AstroBall: GameSceneBase {
         addChild(blueHPLabel)
       
         if Global.gameData.isHost {
-        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: String(redHP))
-        DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: String(blueHP))
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: String(redHP))
+            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: String(blueHP))
         }
         
         Global.gameData.gameState = GameStates.AstroBall
@@ -50,6 +50,7 @@ class AstroBall: GameSceneBase {
         }
     }
     override func SetPosition() {
+        print(Global.playerData.color)
         if Global.playerData.color == "apboBlue" {
             Global.gameData.playerShip?.spaceShipParent.position = CGPoint(x: -800, y: 300)
         } else { //color should be "player"
