@@ -54,11 +54,16 @@ class CPLevel3 : CPLevelBase {
     override func createEnemyShips() -> [CPSpaceshipBase] {
         var pepe: [CPSpaceshipBase] = []
         
-        for i in 0..<4{
+        for i in 0..<5{
             let turr = CPTurret(level: self)
-            turr.shipNode!.position = CGPoint(x: 500 + 300 * i, y: 1900)
             pepe.append(turr)
         }
+        
+        pepe[0].shipNode!.position = CGPoint(x: 500, y: 1900)
+        pepe[1].shipNode!.position = CGPoint(x: 625, y: 1375)
+        pepe[2].shipNode!.position = CGPoint(x: 1075, y: 1900)
+        pepe[3].shipNode!.position = CGPoint(x: 1375, y: 1375)
+        pepe[4].shipNode!.position = CGPoint(x: 1650, y: 1900)
         
         
         return pepe

@@ -29,7 +29,7 @@ public class AdHandler {
     }
     
     //========================= *** SUPER IMPORTANT ***
-    private var inTestMode = true
+    private var inTestMode = false
     //========================= *** MUST BE ENABLED FOR TESTING ***
     
     private var isReady = false

@@ -28,6 +28,7 @@ class CPCheckpoint {
         node.physicsBody?.isDynamic = false
     }
     
+    
     func changeLock(lockedEhhh: Bool){
         if isLocked == lockedEhhh{return}
         isLocked = lockedEhhh

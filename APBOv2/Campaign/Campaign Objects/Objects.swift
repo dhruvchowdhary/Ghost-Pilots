@@ -58,6 +58,49 @@ public class CPObject {
     }
 }
 
+public class laserSpawn: CPObject {
+    
+}
+
+public class laserDrop: CPObject {
+    let obj = SKSpriteNode(imageNamed: "laser")
+    var isready = true
+    init() {
+        super.init(node: obj, action: .Custom)
+        node.physicsBody = SKPhysicsBody(texture: obj.texture!, size: obj.size)
+        node.physicsBody?.affectedByGravity = false
+        node.physicsBody?.contactTestBitMask = CPUInt.player
+        node.physicsBody?.collisionBitMask = CPUInt.empty
+        node.physicsBody?.categoryBitMask = CPUInt.Powerup
+        action = .Custom
+        customAction = { [self] in
+            print("feahkaghjkjhkegakjagskhjsgghjkajkhsgjhkasjkhdgjkhasdhjkgjkhdajklh")
+            if !isready {return}
+            if node.alpha == 0 {return}
+            Global.isPowered = true
+            node.alpha = 0
+            let act = SKAction.run {
+                self.spawnPowerup()
+            }
+            let wait = SKAction.wait(forDuration: 8)
+            obj.run(SKAction.sequence([wait,act]))
+        }
+    }
+    
+    func spawnPowerup(){
+        isready = true
+        node.alpha = 1
+    }
+}
+
+public class APRound: CPObject {
+    init(){
+        super.init(imageNamed: "bullet")
+        health = 500
+        action = .DirectDamage
+    }
+}
+
 public class CPBullet: CPObject {
     init(tex: String){
         super.init(imageNamed: "bullet")

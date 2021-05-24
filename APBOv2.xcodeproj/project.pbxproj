@@ -120,13 +120,13 @@
 		81E05861262E0F99000FE245 /* trailLightning.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81E05860262E0F99000FE245 /* trailLightning.sks */; };
 		81EA5C5925F4414200A127A7 /* Level3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EA5C5825F4414200A127A7 /* Level3.swift */; };
 		81EA5C5C25F4416800A127A7 /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 81EA5C5B25F4416800A127A7 /* Level3.sks */; };
+		CE1909F8265AF3EA00284B65 /* CPLevel4.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE1909F7265AF3EA00284B65 /* CPLevel4.sks */; };
 		CE42877D2637543F00D2776D /* Objects.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE42877C2637543F00D2776D /* Objects.swift */; };
 		CE4287812637547700D2776D /* Spaceships.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4287802637547700D2776D /* Spaceships.swift */; };
 		CE6E4D19263E0CAD003938EE /* Checkpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E4D18263E0CAD003938EE /* Checkpoints.swift */; };
 		CE6E4D1C2641C896003938EE /* CPLevel2.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E4D1B2641C896003938EE /* CPLevel2.swift */; };
 		CE6E4D2F26499C27003938EE /* CPLevel3.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E4D2E26499C26003938EE /* CPLevel3.swift */; };
 		CE6E4D3226499C33003938EE /* CPLevel4.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E4D3126499C33003938EE /* CPLevel4.swift */; };
-		CE6E4D3526499C4B003938EE /* CPLevel5.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6E4D3426499C4B003938EE /* CPLevel5.swift */; };
 		CE9C6D9C25E8275800D47FCC /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9925E8275800D47FCC /* GameScene.sks */; };
 		CE9C6D9D25E8275800D47FCC /* GameSceneBase.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */; };
 		CE9C6D9E25E8275800D47FCC /* Hud.sks in Resources */ = {isa = PBXBuildFile; fileRef = CE9C6D9B25E8275800D47FCC /* Hud.sks */; };
@@ -273,13 +273,13 @@
 		81EA5C5825F4414200A127A7 /* Level3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level3.swift; sourceTree = "<group>"; };
 		81EA5C5B25F4416800A127A7 /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
 		BF55C5AA57697F270DE41606 /* Pods-APBOv2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APBOv2.debug.xcconfig"; path = "Target Support Files/Pods-APBOv2/Pods-APBOv2.debug.xcconfig"; sourceTree = "<group>"; };
+		CE1909F7265AF3EA00284B65 /* CPLevel4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CPLevel4.sks; sourceTree = "<group>"; };
 		CE42877C2637543F00D2776D /* Objects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Objects.swift; sourceTree = "<group>"; };
 		CE4287802637547700D2776D /* Spaceships.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spaceships.swift; sourceTree = "<group>"; };
 		CE6E4D18263E0CAD003938EE /* Checkpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkpoints.swift; sourceTree = "<group>"; };
 		CE6E4D1B2641C896003938EE /* CPLevel2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPLevel2.swift; sourceTree = "<group>"; };
 		CE6E4D2E26499C26003938EE /* CPLevel3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPLevel3.swift; sourceTree = "<group>"; };
 		CE6E4D3126499C33003938EE /* CPLevel4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPLevel4.swift; sourceTree = "<group>"; };
-		CE6E4D3426499C4B003938EE /* CPLevel5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPLevel5.swift; sourceTree = "<group>"; };
 		CE9C6D9925E8275800D47FCC /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		CE9C6D9A25E8275800D47FCC /* GameSceneBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneBase.sks; sourceTree = "<group>"; };
 		CE9C6D9B25E8275800D47FCC /* Hud.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Hud.sks; sourceTree = "<group>"; };
@@ -575,6 +575,7 @@
 				CEB716F02624C61C003FB440 /* CPLevel1.sks */,
 				CEB716F12624C61C003FB440 /* CPLevel2.sks */,
 				CEB716F22624C61D003FB440 /* CPLevel3.sks */,
+				CE1909F7265AF3EA00284B65 /* CPLevel4.sks */,
 			);
 			path = "Campaign Blank SKS";
 			sourceTree = "<group>";
@@ -598,7 +599,6 @@
 				CE6E4D1B2641C896003938EE /* CPLevel2.swift */,
 				CE6E4D2E26499C26003938EE /* CPLevel3.swift */,
 				CE6E4D3126499C33003938EE /* CPLevel4.swift */,
-				CE6E4D3426499C4B003938EE /* CPLevel5.swift */,
 				CEC60768261F7127005F5538 /* CPLevelBase.swift */,
 				CEB716E82624C545003FB440 /* Campaign Blank SKS */,
 			);
@@ -811,6 +811,7 @@
 				74CF6842257C2EA8000C4E47 /* ShipExplosion.sks in Resources */,
 				81E05861262E0F99000FE245 /* trailLightning.sks in Resources */,
 				7451FF782576FE8F0074CC2E /* Spark.sks in Resources */,
+				CE1909F8265AF3EA00284B65 /* CPLevel4.sks in Resources */,
 				74CF686F25829A28000C4E47 /* Laser2new.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -894,7 +895,6 @@
 				74C3CFDB2553100200757586 /* EnemyNode.swift in Sources */,
 				CE6E4D1C2641C896003938EE /* CPLevel2.swift in Sources */,
 				CEB716E52624BE0A003FB440 /* CPLevel1.swift in Sources */,
-				CE6E4D3526499C4B003938EE /* CPLevel5.swift in Sources */,
 				CEC60769261F7127005F5538 /* CPLevelBase.swift in Sources */,
 				748CEDBE256D6EF8005DF246 /* TurretBoss.swift in Sources */,
 				CE4287812637547700D2776D /* Spaceships.swift in Sources */,
@@ -1070,14 +1070,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = 883DK65VTV;
 				INFOPLIST_FILE = APBOv2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.astroparty;
 				PRODUCT_NAME = "Ghost Pilots";
 				SWIFT_VERSION = 5.0;
@@ -1091,14 +1092,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = 883DK65VTV;
 				INFOPLIST_FILE = APBOv2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.7;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.astroparty;
 				PRODUCT_NAME = "Ghost Pilots";
 				SWIFT_VERSION = 5.0;

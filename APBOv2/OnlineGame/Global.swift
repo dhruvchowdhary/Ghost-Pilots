@@ -9,6 +9,18 @@ public struct Global {
     public static var gameViewController: GameViewController?
     public static let adHandler = AdHandler()
     public static var sceneString = ""
+    public static var isImm = false
+    public static var isPowered = true
+    
+    static func getImm () -> Bool{
+        if isImm {return true}
+        
+        isImm = true
+        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false, block: {_ in
+            self.isImm = false
+        })
+        return false
+    }
     
     static func loadScene(s: String) {
         sceneString = s
