@@ -16,6 +16,7 @@ class CPPlayerShip: CPSpaceshipBase {
     let turnButton = MSButtonNode(imageNamed: "turnButton")
     let restartButton = MSButtonNode(imageNamed: "restart")
     let playAgainButton = MSButtonNode(imageNamed: "playAgainButton")
+    var tempNode: SKSpriteNode?
     
     init(lvl: CPLevelBase) {
         
@@ -29,13 +30,14 @@ class CPPlayerShip: CPSpaceshipBase {
         shipNode?.zPosition += 100
         shipNode?.physicsBody?.allowsRotation = false
         
-        shipNode?.physicsBody?.contactTestBitMask = CPUInt.enemy | CPUInt.bullet | CPUInt.object | CPUInt.checkpoint
-        shipNode?.physicsBody?.collisionBitMask =  CPUInt.object | CPUInt.walls | CPUInt.immovableObject
+        shipNode?.physicsBody?.contactTestBitMask = CPUInt.enemy | CPUInt.bullet | CPUInt.object | CPUInt.checkpoint | CPUInt.Boss | CPUInt.Powerup
+        shipNode?.physicsBody?.collisionBitMask =  CPUInt.object | CPUInt.walls | CPUInt.immovableObject | CPUInt.Boss
         shipNode?.physicsBody?.categoryBitMask = CPUInt.player
         let zoomInActionipad = SKAction.scale(to: 1.7, duration: 0.01)
         if UIDevice.current.userInterfaceIdiom == .pad {
                         hudNode.run(zoomInActionipad)
         }
+        
     }
     
 //    override func playerShipUpdate() {
@@ -50,18 +52,47 @@ class CPPlayerShip: CPSpaceshipBase {
         phaseButton.zPosition = 100
         ejectButton.zPosition = -100
         
-        ghostNode.physicsBody!.contactTestBitMask = CPUInt.player
+        ghostNode.physicsBody!.categoryBitMask = (shipNode?.physicsBody!.categoryBitMask)!
+        ghostNode.physicsBody!.contactTestBitMask = (shipNode?.physicsBody!.contactTestBitMask)!
+        ghostNode.physicsBody!.collisionBitMask = (shipNode?.physicsBody!.collisionBitMask)!
+        ghostNode.zRotation = shipNode!.zRotation - CGFloat.pi/2
         ghostNode.zPosition += 100
         ghostNode.physicsBody?.allowsRotation = false
         ghostNode.position = shipNode!.position
         ghostNode.physicsBody!.affectedByGravity = false
         ghostNode.physicsBody!.velocity = (shipNode?.physicsBody!.velocity)!
+        ghostNode.name = shipNode?.name
         
         bulletRotater.isHidden = true
         shipNodeOutScene = shipNode
-        shipParent.addChild(ghostNode)
         shipNode?.removeFromParent()
+        shipParent.addChild(ghostNode)
         shipNode = ghostNode
+        
+        let wait = SKAction.wait(forDuration: 6)
+        let thing = SKAction.run { [self] in
+            health = 2
+            isGhost = false
+            isMoving = true
+            phaseButton.zPosition = -100
+            ejectButton.zPosition = 100
+            
+            
+            ghostNode.removeFromParent()
+            shipParent.addChild(shipNodeOutScene!)
+            
+            shipNodeOutScene?.position = ghostNode.position
+            shipNodeOutScene?.zRotation = ghostNode.zRotation + CGFloat.pi/2
+            shipNode = shipNodeOutScene
+            print("finishh")
+            
+        }
+        
+        self.shipNode!.run(SKAction.sequence([wait,thing]))
+    }
+    
+    func powerUp(){
+        
     }
     
     override func destroyShip() {
@@ -69,6 +100,7 @@ class CPPlayerShip: CPSpaceshipBase {
         shipNode?.removeFromParent()
         ghostNode.removeFromParent()
         reviveButton.isHidden = false
+        print("g;fdsgadsgjsaghsa;")
         level.youLose()
     }
     
@@ -78,7 +110,7 @@ class CPPlayerShip: CPSpaceshipBase {
         hudNode.childNode(withName: "turnButton")!.isHidden = isHidden
         hudNode.childNode(withName: "phaseButton")?.isHidden = true
         hudNode.childNode(withName: "restart")?.isHidden = true
-        hudNode.childNode(withName: "ejectButton")?.isHidden = isHidden
+        hudNode.childNode(withName: "ejectButton")?.isHidden = true
         hudNode.childNode(withName: "pause")?.isHidden = isHidden
     }
     
@@ -110,12 +142,47 @@ class CPPlayerShip: CPSpaceshipBase {
         shootButton.selectedHandler = {
             if self.isGhost {
                 self.isMoving = true
+            } else if Global.isPowered {
+                
+                let laserBody = SKSpriteNode(imageNamed: "laserbeampic")
+                laserBody.name = "laser"
+                laserBody.size = CGSize(width: 2000, height: 30)
+                laserBody.zRotation = self.shipNode!.zRotation //- CGFloat.pi/4
+                laserBody.position.y = self.shipNode!.position.y + 1000 * sin(self.shipNode!.zRotation)// - CGFloat.pi/4)
+                laserBody.position.x = self.shipNode!.position.x + 1000 * cos(self.shipNode!.zRotation)// - CGFloat.pi/4)
+                //laserBody.anchorPoint = CGPoint(x: 0, y: 0.5)
+                laserBody.physicsBody = SKPhysicsBody(texture: laserBody.texture!, size: laserBody.size)
+                
+                laserBody.physicsBody?.categoryBitMask = CPUInt.APRound
+                laserBody.physicsBody?.contactTestBitMask = CPUInt.enemy | CPUInt.bullet | CPUInt.Boss
+                laserBody.physicsBody?.collisionBitMask = CPUInt.empty
+                
+                
+                let joint = SKPhysicsJointPin.joint(withBodyA: laserBody.physicsBody!, bodyB: self.shipNode!.physicsBody!, anchor: self.shipNode!.position)
+                
+                self.level.addObjectToScene(node: laserBody, nodeClass: APRound())
+                
+                self.level.physicsWorld.add(joint)
+                
+                
+                
+                let shrink = SKAction.resize(toHeight: 0, duration: 0.4)
+                laserBody.run(shrink)
+                
+                let wait = SKAction.wait(forDuration:0.4)
+                let action = SKAction.run {
+                    laserBody.removeFromParent()
+                }
+                self.shipNode!.run(SKAction.sequence([wait,action]))
+                
+                Global.isPowered = false
             } else {
                 self.Shoot(shotType: .Bullet)
             }
         }
         
         shootButton.selectedHandlers = {
+            
             if self.isGhost {
                 self.isMoving = false
                 self.shipNode?.physicsBody!.velocity = CGVector(dx: (self.shipNode?.physicsBody!.velocity.dx)!*0.5, dy: (self.shipNode?.physicsBody!.velocity.dy)!*0.5)

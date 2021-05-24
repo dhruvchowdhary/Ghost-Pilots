@@ -45,10 +45,7 @@ class Campaign: SKScene {
                 MSButtonNode(imageNamed: "lvl1"),
                 MSButtonNode(imageNamed: "lvl2"),
                 MSButtonNode(imageNamed: "lvl3"),
-//                MSButtonNode(imageNamed: "lvl4"),
-//                MSButtonNode(imageNamed: "lvl5"),
-//                MSButtonNode(imageNamed: "hard"),
-//                MSButtonNode(imageNamed: "expert")
+                MSButtonNode(imageNamed: "lvl4"),
             ]
         
         levelStrings =
@@ -58,9 +55,6 @@ class Campaign: SKScene {
                 "CPLevel2",
                 "CPLevel3",
                 "CPLevel4",
-                "CPLevel5",
-                "TurretBoss",
-                "TurretBoss"
             ]
         
         
@@ -112,18 +106,6 @@ class Campaign: SKScene {
             
             node.color = UIColor.black
             
-            node.selectedHandlers = {
-                node.colorBlendFactor = 0
-                
-                // Set difficuties for turret bosses
-                switch i {
-                case 4,5,6,7:
-                    UserDefaults.standard.setValue(i-3, forKey: "difficulty")
-                default:
-                    print("ok")
-                }
-            }
-            
             // Shade Node and set handlers
             if completedLevels.contains(i-1){
                 node.selectedHandler = { [self] in
@@ -151,13 +133,9 @@ class Campaign: SKScene {
                 node.yScale = 0.3
             case 1:
                 node.position.x += 150
-            case 4,5,6,7:
-                node.xScale = 1
-                node.yScale = 1
             default:
                 print("should be a normal lvl")
             }
-            
             scene?.addChild(node)
         }
         drawLines()

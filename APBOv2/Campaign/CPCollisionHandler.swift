@@ -11,12 +11,18 @@ public struct CPUInt {
     static let object: UInt32 = (0x1 << 3)
     static let immovableObject: UInt32 = (0x1 << 4)
     static let walls: UInt32 = (0x1 << 5)
+    static let APRound: UInt32 = (0x1 << 6)
+    static let Boss: UInt32 = (0x1 << 7)
+    static let Powerup: UInt32 = (0x1 << 8)
     static let checkpoint: UInt32 = (0x1 << 31)
+    
 }
 
 class CPCollisionHandler {
     var ricoCount = 0
     var sClass: CPLevelBase
+    var isImmune = false
+    var playim = false
     
     init(sceneClass: CPLevelBase){
         sClass = sceneClass
@@ -36,14 +42,14 @@ class CPCollisionHandler {
                 handleCheckpoint(cp: classB as! CPCheckpoint)
             }
             
-        // Obj testing
+            // Obj testing
         } else if let obj = classA as? CPObject {
             ObjAndUnknown(obj: obj, unknown: classB)
         }
         else if let obj = classB as? CPObject {
             ObjAndUnknown(obj: obj, unknown: classA)
-        
-        // ship and playership testing
+            
+            // ship and playership testing
         } else if classA is CPPlayerShip {
             if classB is CPSpaceshipBase {
                 playerAndEnemy(player: classA as! CPPlayerShip, enemy: classB as! CPSpaceshipBase)
@@ -85,13 +91,17 @@ class CPCollisionHandler {
     }
     
     func objAndPlayer(obj: CPObject, player: CPPlayerShip){
+        print("yeeefhfhfhfhfhfhfet")
+        print(obj.action)
         switch obj.action {
         case .DamagingExplode:
             sClass.triggerExplosion(origin: obj.node.position, radius: obj.blastRadius)
             break;
             
         case .DirectDamage:
+            print("HITTT")
             player.changeHealth(delta: -1)
+            obj.node.removeFromParent()
             break;
             
         case .HarmlessExplode:
@@ -105,6 +115,8 @@ class CPCollisionHandler {
             obj.node.removeFromParent()
             break;
         case .Custom:
+            print("yeeeet")
+            obj.customAction()
             break;
         }
     }
@@ -116,7 +128,20 @@ class CPCollisionHandler {
             break;
             
         case .DirectDamage:
-            enemy.changeHealth(delta: -1)
+            if enemy is CPBoss{
+                if obj is APRound && !isImmune {
+                    enemy.changeHealth(delta: -1)
+                    isImmune = true
+                    let pepe = SKAction.run {
+                        self.isImmune = false
+                    }
+                    let wait = SKAction.wait(forDuration: 2)
+                    
+                    enemy.shipNode?.run(SKAction.sequence([wait,pepe]))
+                }
+            } else {
+                enemy.changeHealth(delta: -1)
+            }
             break;
             
         case .HarmlessExplode:
@@ -138,12 +163,19 @@ class CPCollisionHandler {
     }
     
     func objAndObj(obj1: CPObject, obj2: CPObject){
+        
         obj1.changeHealth(delta: -1)
         obj2.changeHealth(delta: -1)
     }
     
     func playerAndEnemy(player: CPPlayerShip, enemy: CPSpaceshipBase) {
-        enemy.destroyShip()
+        print("REEEEeeeeeee")
+        if enemy is CPBoss {
+            player.shipNode?.physicsBody?.velocity.dx += 1.5 * (enemy.shipNode?.physicsBody?.velocity.dx)!
+            player.shipNode?.physicsBody?.velocity.dy += 1.5 * (enemy.shipNode?.physicsBody?.velocity.dy)!
+        } else {
+            enemy.destroyShip()
+        }
         player.changeHealth(delta: -1)
     }
 }

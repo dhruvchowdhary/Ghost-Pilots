@@ -34,6 +34,7 @@ class CPSpaceshipBase {
     var firedBulletVelocites: [CGVector] = []
     var hasGhostMode = false
     var bulletTexString: String?
+    var playerimm = false
     
     // synced pos without rotation
     let vanityNode = SKNode()
@@ -137,7 +138,7 @@ class CPSpaceshipBase {
         newBul.physicsBody?.velocity = velocity
         
         newBul.physicsBody?.categoryBitMask = CPUInt.bullet
-        newBul.physicsBody?.contactTestBitMask = CPUInt.player | CPUInt.bullet | CPUInt.enemy | CPUInt.immovableObject | CPUInt.object | CPUInt.walls
+        newBul.physicsBody?.contactTestBitMask = CPUInt.player | CPUInt.bullet | CPUInt.immovableObject | CPUInt.object | CPUInt.walls
         
         firedBullets.append(newBul)
         firedBulletVelocites.append(newBul.physicsBody!.velocity)
@@ -224,6 +225,17 @@ class CPSpaceshipBase {
     }
     
     func movementUpdate(){
+        if Global.isPowered {
+            if self is CPPlayerShip {
+                let fd = self as! CPPlayerShip
+                fd.shootButton.texture = SKTexture(imageNamed: "laser")
+            }
+        } else {
+            if self is CPPlayerShip {
+                let fd = self as! CPPlayerShip
+                fd.shootButton.texture = SKTexture(imageNamed: "shootButton")
+            }
+        }
         vanityNode.position = shipNode!.position
         if isMoving {
             if isGhost {
@@ -243,15 +255,22 @@ class CPSpaceshipBase {
     }
     
     func changeHealth(delta: Int){
+        if Global.getImm() {
+            return
+        }
+        print(health)
         health += delta
+        print(health)
         resolveHealthDelta()
     }
     
     func resolveHealthDelta() {
         if health < 0 {
+            print("DEAD")
             destroyShip()
-        } else if health < 1 {
+        } else if health == 0 {
             ghostMode()
+            print("GHOST")
         } else if health > maxHealth {
             health = maxHealth
             // this is to prevent overheal, may be adjusted later
