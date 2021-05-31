@@ -52,5 +52,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 	</array>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Personal data will be collected for use in Online game modes and personalized ads.</string>
 </dict>
 </plist>

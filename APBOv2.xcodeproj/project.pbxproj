@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		022C0567261F9A0C00F811E5 /* CPLevelBase.sks in Resources */ = {isa = PBXBuildFile; fileRef = 022C0566261F9A0C00F811E5 /* CPLevelBase.sks */; };
+		0278F6592664A23B0073EF2F /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0278F6582664A23B0073EF2F /* AppTrackingTransparency.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		0278F65B2664A2480073EF2F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0278F65A2664A2480073EF2F /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		027E28F52639CBAA004EE539 /* trailDefault.sks in Resources */ = {isa = PBXBuildFile; fileRef = 027E28F42639CBAA004EE539 /* trailDefault.sks */; };
 		028FEFE725F7EFC600D519A5 /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028FEFE625F7EFC600D519A5 /* GameData.swift */; };
 		029A1ABC261CD00800AA0012 /* PopUpWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029A1ABB261CD00800AA0012 /* PopUpWindow.swift */; };
@@ -156,6 +158,8 @@
 
 /* Begin PBXFileReference section */
 		022C0566261F9A0C00F811E5 /* CPLevelBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CPLevelBase.sks; sourceTree = "<group>"; };
+		0278F6582664A23B0073EF2F /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
+		0278F65A2664A2480073EF2F /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		027E28F42639CBAA004EE539 /* trailDefault.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trailDefault.sks; sourceTree = "<group>"; };
 		028FEFE625F7EFC600D519A5 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		029A1ABB261CD00800AA0012 /* PopUpWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpWindow.swift; sourceTree = "<group>"; };
@@ -313,6 +317,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0278F65B2664A2480073EF2F /* AdSupport.framework in Frameworks */,
+				0278F6592664A23B0073EF2F /* AppTrackingTransparency.framework in Frameworks */,
 				74235B1E2590FCFC00AC4675 /* GameKit.framework in Frameworks */,
 				4334487CB521F6ACB8FA20C5 /* Pods_APBOv2.framework in Frameworks */,
 			);
@@ -513,6 +519,8 @@
 		74CF685A258289A0000C4E47 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0278F65A2664A2480073EF2F /* AdSupport.framework */,
+				0278F6582664A23B0073EF2F /* AppTrackingTransparency.framework */,
 				74235B1D2590FCFC00AC4675 /* GameKit.framework */,
 				74CF685B258289A0000C4E47 /* AVFoundation.framework */,
 				D4F8ACF3585F6FBBF6F50A6C /* Pods_APBOv2.framework */,
@@ -1073,7 +1081,7 @@
 				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = 883DK65VTV;
 				INFOPLIST_FILE = APBOv2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1095,7 +1103,7 @@
 				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = 883DK65VTV;
 				INFOPLIST_FILE = APBOv2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 import GoogleMobileAds
+import AppTrackingTransparency
+import AdSupport
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
       didFinishLaunchingWithOptions launchOptions:
         [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
       FirebaseApp.configure()
         
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ "kGADSimulatorID" ];
@@ -28,6 +31,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
       return true
     }
+    
+/*    @available(iOS 14, *)
+    func requestIDFA() {
+        print("hii")
+      ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+        // Tracking authorization completed. Start loading ads here.
+        // loadAd()
+      })
+        print("byee")
+    }*/
 
     
     func applicationWillResignActive(_ application: UIApplication) {

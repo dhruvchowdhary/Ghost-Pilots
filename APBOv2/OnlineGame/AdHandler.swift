@@ -1,6 +1,8 @@
 import Foundation
 import GoogleMobileAds
 import SystemConfiguration
+import AppTrackingTransparency
+import AdSupport
 
 public class AdHandler {
     // Trach the ads preloaded
@@ -91,43 +93,102 @@ public class AdHandler {
             
         })
     }
-    
+    /*
+     if #available(iOS 14, *) {
+         print("hii")
+         ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+             //stufffff
+         })
+     }
+     */
     func presentInterstitialGeneral(){
-        if !isReady{
-            if isConnectedToNetwork(){
-                setup()
-            } else {
-                return
+        
+        if #available(iOS 14, *) {
+            print("hii")
+            ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+                if !self.isReady{
+                    if self.isConnectedToNetwork(){
+                        self.setup()
+                    } else {
+                        return
+                    }
+                }
+                self.interstitialGeneral!.present(fromRootViewController: self.controller!)
+                GADInterstitialAdBeta.load(withAdUnitID: self.interstitialGeneralID!, request: GADRequest(), completionHandler: { [self] ad, error in
+                    interstitialGeneral = ad
+                })
+                print("middle")
+            })
+            print("byee")
+        } else {
+            if !self.isReady{
+                if self.isConnectedToNetwork(){
+                    self.setup()
+                } else {
+                    return
+                }
             }
+            self.interstitialGeneral!.present(fromRootViewController: self.controller!)
+            GADInterstitialAdBeta.load(withAdUnitID: self.interstitialGeneralID!, request: GADRequest(), completionHandler: { [self] ad, error in
+                interstitialGeneral = ad
+            })
+            print("middle")
         }
-        interstitialGeneral!.present(fromRootViewController: controller!)
-        GADInterstitialAdBeta.load(withAdUnitID: interstitialGeneralID!, request: GADRequest(), completionHandler: { [self] ad, error in
-            interstitialGeneral = ad
-        })
+        
     }
     
     func presentInterstitialImage(){
-        if !isReady{
-            return
+        if #available(iOS 14, *) {
+            print("hii")
+            ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+                if !self.isReady{
+                    return
+                }
+                self.interstitialImage?.present(fromRootViewController: self.controller!)
+                GADInterstitialAdBeta.load(withAdUnitID: self.interstitialGeneralID!, request: GADRequest(), completionHandler: { [self] ad, error in
+                    interstitialImage = ad
+                })
+            })
+        } else {
+            if !self.isReady{
+                return
+            }
+            self.interstitialImage?.present(fromRootViewController: self.controller!)
+            GADInterstitialAdBeta.load(withAdUnitID: self.interstitialGeneralID!, request: GADRequest(), completionHandler: { [self] ad, error in
+                interstitialImage = ad
+            })
         }
-        interstitialImage?.present(fromRootViewController: controller!)
-        GADInterstitialAdBeta.load(withAdUnitID: interstitialGeneralID!, request: GADRequest(), completionHandler: { [self] ad, error in
-            interstitialImage = ad
-        })
     }
     
     func presentInterstitialVideo(){
-        if !isReady{
-            if isConnectedToNetwork(){
-                setup()
-            } else {
-                return
+        if #available(iOS 14, *) {
+            print("hii")
+            ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+                if !self.isReady{
+                    if self.isConnectedToNetwork(){
+                        self.setup()
+                    } else {
+                        return
+                    }
+                }
+                self.interstitialVideo!.present(fromRootViewController: self.controller!)
+                GADInterstitialAdBeta.load(withAdUnitID: self.interstitialGeneralID!, request: GADRequest(), completionHandler: { [self] ad, error in
+                    interstitialVideo = ad
+                })
+            })
+        } else {
+            if !self.isReady{
+                if self.isConnectedToNetwork(){
+                    self.setup()
+                } else {
+                    return
+                }
             }
+            self.interstitialVideo!.present(fromRootViewController: self.controller!)
+            GADInterstitialAdBeta.load(withAdUnitID: self.interstitialGeneralID!, request: GADRequest(), completionHandler: { [self] ad, error in
+                interstitialVideo = ad
+            })
         }
-        interstitialVideo!.present(fromRootViewController: controller!)
-        GADInterstitialAdBeta.load(withAdUnitID: interstitialGeneralID!, request: GADRequest(), completionHandler: { [self] ad, error in
-            interstitialVideo = ad
-        })
     }
     
     func presentRewardedForRevive() -> Bool{
@@ -144,39 +205,81 @@ public class AdHandler {
     }
     
     public func loadRewardedForRevive(){
-        GADRewardedAdBeta.load(withAdUnitID: self.rewardedReviveID!, request: GADRequest(), completionHandler: { [self] ad, error in
-            rewardedRevive = ad
-            rewardedRevive?.fullScreenContentDelegate = controller
-            isReviveLoaded = true
-            if error != nil {
-                print("===================")
-                print("===================")
-                print("===================")
-                print(error)
-                print("===================")
-                print("===================")
-                print("===================")
-                return
-            }
-        })
+        if #available(iOS 14, *) {
+            print("hii")
+            ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+                GADRewardedAdBeta.load(withAdUnitID: self.rewardedReviveID!, request: GADRequest(), completionHandler: { [self] ad, error in
+                    rewardedRevive = ad
+                    rewardedRevive?.fullScreenContentDelegate = controller
+                    isReviveLoaded = true
+                    if error != nil {
+                        print("===================")
+                        print("===================")
+                        print("===================")
+                        print(error)
+                        print("===================")
+                        print("===================")
+                        print("===================")
+                        return
+                    }
+                })
+            })
+        } else {
+            GADRewardedAdBeta.load(withAdUnitID: self.rewardedReviveID!, request: GADRequest(), completionHandler: { [self] ad, error in
+                rewardedRevive = ad
+                rewardedRevive?.fullScreenContentDelegate = controller
+                isReviveLoaded = true
+                if error != nil {
+                    print("===================")
+                    print("===================")
+                    print("===================")
+                    print(error)
+                    print("===================")
+                    print("===================")
+                    print("===================")
+                    return
+                }
+            })
+        }
     }
     
     public func loadPlayRevive(){
-        GADRewardedAdBeta.load(withAdUnitID: self.rewardedReviveID!, request: GADRequest(), completionHandler: { [self] ad, error in
-            rewardedRevive = ad
-            rewardedRevive?.fullScreenContentDelegate = controller
-            isReviveLoaded = true
-            if error != nil {
-                print("===================")
-                print("===================")
-                print("===================")
-                print(error)
-                print("===================")
-                print("===================")
-                print("===================")
-                return
-            }
-        })
+        if #available(iOS 14, *) {
+            print("hii")
+            ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+                GADRewardedAdBeta.load(withAdUnitID: self.rewardedReviveID!, request: GADRequest(), completionHandler: { [self] ad, error in
+                    rewardedRevive = ad
+                    rewardedRevive?.fullScreenContentDelegate = controller
+                    isReviveLoaded = true
+                    if error != nil {
+                        print("===================")
+                        print("===================")
+                        print("===================")
+                        print(error)
+                        print("===================")
+                        print("===================")
+                        print("===================")
+                        return
+                    }
+                })
+            })
+        } else {
+            GADRewardedAdBeta.load(withAdUnitID: self.rewardedReviveID!, request: GADRequest(), completionHandler: { [self] ad, error in
+                rewardedRevive = ad
+                rewardedRevive?.fullScreenContentDelegate = controller
+                isReviveLoaded = true
+                if error != nil {
+                    print("===================")
+                    print("===================")
+                    print("===================")
+                    print(error)
+                    print("===================")
+                    print("===================")
+                    print("===================")
+                    return
+                }
+            })
+        }
     }
     
     func presentAppOpen(){
