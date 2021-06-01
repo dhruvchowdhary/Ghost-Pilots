@@ -406,42 +406,33 @@ class LobbyMenu: SKScene {
             userLabel.text = player
             
             let index = playerList.firstIndex(of: player)!
-            
-            
-            
-          
+            newuser.position.x = frame.midX - 100 - 40
+            newuser.position.y += CGFloat(80 - index*150)
             
             if Global.gameData.isHost {
                 
                 let userKick = newuser.childNode(withName: "kickButtonNode") as! MSButtonNode
-              
-                userKick.position.x = frame.midX + 430 + 40 + 50
-                userKick.position.y += newuser.position.y - 10 + 10
-                      userKick.zPosition = 1
                 
-                let userKickButtonNode = MSButtonNode(color: UIColor.clear, size: CGSize(width: 100, height: 100))
+                
+                userKick.position.x = frame.midX + 430 + 40 + 50
+                userKick.position.y = newuser.position.y - 50 + CGFloat(index*150)
+           //     userKick.position.y += newuser.position.y - 10 + 10
+                userKick.zPosition = 1
+                
+                let userKickButtonNode = MSButtonNode(color: UIColor.blue, size: CGSize(width: 100, height: 100))
                 userKickButtonNode.alpha = 0.3
                 
                 userKickButtonNode.name = "userKickButtonNode"
                 userKickButtonNode.selectedHandlers = {
                     //kick em
                     DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(userKick.parent!.name!)", Value: "PePeKicked")
-
-                    
                 }
                 
-                
-                addChild(userKickButtonNode)
+                newuser.addChild(userKickButtonNode)
                 userKickButtonNode.zPosition = 500
-                userKickButtonNode.position.x = newuser.position.x + 382
-                userKickButtonNode.position.y = newuser.position.y + 110
-                
+                userKickButtonNode.position = userKick.position
             }
-            
-            
-            
-            
-            
+
             let userColorButtonNode = MSButtonNode(color: UIColor.clear, size: CGSize(width: 120, height: 100))
             
             userColorButtonNode.alpha = 0.3
@@ -455,19 +446,9 @@ class LobbyMenu: SKScene {
                 setUpColors(userColor: userColor, userColorButtonNode: userColorButtonNode, isPlayer: false, index: index)
             }
                 
-         ///   userColor.zPosition = 1
-            newuser.position.x = frame.midX - 100 - 40
-            newuser.position.y += CGFloat(80 - index*150)
-            
-            
-       
-            
+
             userColorButtonNode.zPosition = 500
-          
             addChild(userColorButtonNode)
-            
-            
-        
             userColorButtonNode.position.x = newuser.position.x - 240
             userColorButtonNode.position.y = newuser.position.y + 30
             
@@ -568,6 +549,10 @@ class LobbyMenu: SKScene {
     }
     
     func setUpColors(userColor: MSButtonNode, userColorButtonNode: MSButtonNode, isPlayer: Bool, index: Int){
+        let wait1 = SKAction.wait(forDuration:0.2)
+        let action1 = SKAction.run { [self] in
+        print("hi \(Global.gameData.mode)")
+        
         switch Global.gameData.mode {
         case "infection":
             userColor.texture = SKTexture(imageNamed: "apboWhite")
@@ -638,6 +623,8 @@ class LobbyMenu: SKScene {
                 userColor.alpha = 1
             }
         }
+    }
+        self.run(SKAction.sequence([wait1,action1]))
     }
     
     func pullMap(){
