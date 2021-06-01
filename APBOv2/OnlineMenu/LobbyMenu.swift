@@ -222,9 +222,9 @@ class LobbyMenu: SKScene {
         lobbyLabelText.addChild(codeWordLabel)
         codeWordLabel.zPosition = 2
         codeWordLabel.fontColor = UIColor.white
-        codeWordLabel.fontSize = 50
+        codeWordLabel.fontSize = 35
         codeWordLabel.fontName = "AvenirNext-Bold"
-        codeWordLabel.position = CGPoint(x:  codeLabel.position.x, y:  codeLabel.position.y + 20)
+        codeWordLabel.position = CGPoint(x:  codeLabel.position.x, y:  codeLabel.position.y + 55)
         
         
         setupLabel(label: playercountLabel)
@@ -234,10 +234,10 @@ class LobbyMenu: SKScene {
         playercountLabel.fontSize = 70
         
         
-        lobbyShip.xScale = 0.2
-        lobbyShip.yScale = 0.2
-        lobbyShip.position = CGPoint(x: playercountLabel.position.x + 30, y: playercountLabel.position.y)
-        camera?.addChild(lobbyShip)
+        lobbyShip.xScale = 0.036
+        lobbyShip.yScale = 0.036
+        lobbyShip.position = CGPoint(x: playercountLabel.position.x + 110, y: lobbyLabelText.position.y - 5)
+        lobbyLabel.addChild(lobbyShip)
         
         
         setupLabel(label: lobbyLabelText)
@@ -606,6 +606,7 @@ class LobbyMenu: SKScene {
             }
             if isPlayer {
                 DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/Cosmetics/PlayerColor/\(Global.playerData.playerID)", Value: self.intToColor[self.colorIndex%2]!)
+                Global.playerData.color = self.intToColor[self.colorIndex%2]!
                 userColorButtonNode.selectedHandlers = {
                     if self.colorIndex == 1 {
                         self.colorIndex = 0

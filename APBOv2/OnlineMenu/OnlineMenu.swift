@@ -107,9 +107,9 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                     self.hostButtonNode.alpha = 1
                 } else {
                     DataPusher.PushData(path: "systemID/\(UIDevice.current.identifierForVendor!.uuidString)", Value: self.usernameBox.text!)
-                    Global.gameData.CreateNewGame()
                     self.usernameBox.removeFromSuperview()
                     self.codeBox.removeFromSuperview()
+                    Global.gameData.CreateNewGame()
              //       self.loadHostMenu()
                 }
             }
@@ -142,6 +142,8 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                                             DataPusher.PushData(path: "Games/\(self.codeBox.text!)/PlayerList/\(self.usernameBox.text!)", Value: "PePeNotGone")
                                             Global.gameData.gameID = Int(self.codeBox.text!)!
                                             Global.gameData.isHost = false
+                                            self.usernameBox.removeFromSuperview()
+                                            self.codeBox.removeFromSuperview()
                                             self.loadLobbyMenu()
                                         } else {
                                             print("lobby is full")
@@ -412,9 +414,10 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
     }
     
     func loadLobbyMenu() {
-        DataPusher.PushData(path: "systemID/\(UIDevice.current.identifierForVendor!.uuidString)", Value: usernameBox.text!)
+        usernameBox.alpha = 0
         usernameBox.removeFromSuperview()
         codeBox.removeFromSuperview()
+        DataPusher.PushData(path: "systemID/\(UIDevice.current.identifierForVendor!.uuidString)", Value: usernameBox.text!)
         /* 1) Grab reference to our SpriteKit view */
         guard let skView = self.view as SKView? else {
             print("Could not get Skview")

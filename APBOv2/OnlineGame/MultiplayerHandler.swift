@@ -42,6 +42,7 @@ public class MultiplayerHandler{
                 if e.value as! String == "PePeKicked"{
                     if (e.key == Global.playerData.playerID){
                         // Uh oh mario, we have been removed from the game
+                        Global.gameData.ResetGameData(toLobby: false)
                         Global.loadScene(s: "OnlineMenu")
                         Global.gameViewController!.doPopUp(popUpText: "The host has kicked you from the game.")
                     }

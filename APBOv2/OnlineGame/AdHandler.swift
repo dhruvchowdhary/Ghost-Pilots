@@ -28,10 +28,11 @@ public class AdHandler {
     
     private let handler = {
         Global.gameData.isReviveReady = true
+        print("handler called")
     }
     
     //========================= *** SUPER IMPORTANT ***
-    private var inTestMode = false
+    private var inTestMode = true
     //========================= *** MUST BE ENABLED FOR TESTING ***
     
     private var isReady = false
@@ -198,7 +199,6 @@ public class AdHandler {
             loadPlayRevive()
             return false
         }
-        
         rewardedRevive?.present(fromRootViewController: controller!, userDidEarnRewardHandler: handler)
         loadRewardedForRevive()
         return true

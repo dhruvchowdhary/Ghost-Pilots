@@ -309,19 +309,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             Global.gameData.score = self.numPoints
             Global.gameData.revived = true
             
-            Global.gameData.isReviveReady2 = true
-            Global.gameData.isReviveReady = true
+      //      Global.gameData.isReviveReady2 = true
+      //      Global.gameData.isReviveReady = true
             
             
-         //   self.scene?.view?.isPaused = true
+       //     self.scene?.view?.isPaused = true
             
             Global.adHandler.presentRewardedForRevive()
             
 //print("HELLO")
-            
-            
-            
-            
+ 
         }
         
         phaseButtonNode = self.childNode(withName: "phaseButton") as? MSButtonNode
@@ -919,6 +916,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
+        
         /*
         if powerSpawn == true {
             let rotateAction = SKAction.rotate(byAngle: 1, duration: 20)
@@ -1948,7 +1946,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func sceneClear() {
         
         // add dim panel timer countdown
-        
+        print("scene clear")
         let playerShoot = SKAction.setTexture(SKTexture(imageNamed: "shootButton"))
         shootButtonNode.run(playerShoot)
         
