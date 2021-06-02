@@ -274,12 +274,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
         player.physicsBody?.isDynamic = false
         
-        
-        
-        
-     
-        
-        
+
         
         reviveButtonNode.position = CGPoint(x: frame.midX, y: frame.midY)
         reviveTimer.position = CGPoint(x:  reviveButtonNode.position.x + 120, y:  reviveButtonNode.position.y - 120)
@@ -309,8 +304,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             Global.gameData.score = self.numPoints
             Global.gameData.revived = true
             
-      //      Global.gameData.isReviveReady2 = true
-      //      Global.gameData.isReviveReady = true
+       //     Global.gameData.isReviveReady2 = true
+       //     Global.gameData.isReviveReady = true
             
             
        //     self.scene?.view?.isPaused = true

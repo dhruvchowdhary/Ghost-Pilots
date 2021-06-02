@@ -36,7 +36,7 @@ public class AdHandler {
     //========================= *** MUST BE ENABLED FOR TESTING ***
     
     private var isReady = false
-    private weak var controller: GameViewController?
+    private var controller: GameViewController?
     
     func setup(){
         
@@ -200,7 +200,6 @@ public class AdHandler {
             return false
         }
         rewardedRevive?.present(fromRootViewController: controller!, userDidEarnRewardHandler: handler)
-        loadRewardedForRevive()
         return true
     }
     

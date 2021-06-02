@@ -29,6 +29,7 @@ public class GameViewController: UIViewController, GKGameCenterControllerDelegat
             ad, error in
             Global.adHandler.rewarded = ad
         })
+        Global.adHandler.loadRewardedForRevive()
     }
 
     
