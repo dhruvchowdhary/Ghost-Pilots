@@ -567,7 +567,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                              
                              */
                             
-                            self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.2*cos(self.player.zRotation), dy: 1.2*sin(self.player.zRotation)), shakeDuration: 0.04)
+                            Global.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.2*cos(self.player.zRotation), dy: 1.2*sin(self.player.zRotation)), shakeDuration: 0.04, sceneview: self.scene!)
                         }
                         
                         else if self.powerupMode == 1 {
@@ -644,7 +644,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             self.player.run(recoil)
                         
                             
-                            self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.2*cos(self.player.zRotation), dy: 1.2*sin(self.player.zRotation)), shakeDuration: 0.04)
+                                Global.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.2*cos(self.player.zRotation), dy: 1.2*sin(self.player.zRotation)), shakeDuration: 0.04, sceneview: self.scene!)
                             
                                 
                                 self.i -= 1
@@ -920,7 +920,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
  */
         if playerShields == -5 {
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
-                      self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
+            Global.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1, sceneview: self.scene!)
                       
             
             playerShields = 1
@@ -1550,7 +1550,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let generator = UIImpactFeedbackGenerator(style: .heavy)
                 generator.impactOccurred()
                 self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
-                self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2.2, dy: 2.2), shakeDuration: 0.15)
+                Global.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2.2, dy: 2.2), shakeDuration: 0.15, sceneview: self.scene!)
                 if let explosion = SKEmitterNode(fileNamed: "ShipExplosion") {
                     explosion.position = secondNode.position
                     addChild(explosion)
@@ -1805,7 +1805,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                  self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
                  let generator = UIImpactFeedbackGenerator(style: .heavy)
                  generator.impactOccurred()
-                 self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
+                Global.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1, sceneview: self.scene!)
                
                 if secondNode.name == "mine" {
                     print("mine exploded")
@@ -1980,7 +1980,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let generator = UIImpactFeedbackGenerator(style: .heavy)
             generator.impactOccurred()
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
-            self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2.2, dy: 2.2), shakeDuration: 0.15)
+            Global.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2.2, dy: 2.2), shakeDuration: 0.15, sceneview: self.scene!)
             if let explosion = SKEmitterNode(fileNamed: "Explosion") {
                 explosion.position = enemies.position
                 addChild(explosion)
@@ -2008,17 +2008,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             points.text = "\(numPoints)"
             enemies.removeFromParent()
         }
-    }
-    
-    func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
-        let sceneView = self.scene!.view! as UIView
-        let shakeAnimation = CABasicAnimation(keyPath: "position")
-        shakeAnimation.duration = shakeDuration / Double(shakeCount)
-        shakeAnimation.repeatCount = Float(shakeCount)
-        shakeAnimation.autoreverses = true
-        shakeAnimation.fromValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x - intensity.dx, y: sceneView.center.y - intensity.dy))
-        shakeAnimation.toValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x + intensity.dx, y: sceneView.center.y + intensity.dy))
-        sceneView.layer.add(shakeAnimation, forKey: "position")
     }
     
     func gameOverReal() {

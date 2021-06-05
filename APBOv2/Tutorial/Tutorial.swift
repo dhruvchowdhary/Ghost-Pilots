@@ -339,7 +339,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
                         self.player.run(recoil)
                         
                         
-                        self.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.2*cos(self.player.zRotation), dy: 1.2*sin(self.player.zRotation)), shakeDuration: 0.04)
+                        Global.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.2*cos(self.player.zRotation), dy: 1.2*sin(self.player.zRotation)), shakeDuration: 0.04, sceneview: self.scene!)
                     }
                 }
             } else {
@@ -662,7 +662,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
         }
         if secondNode.name == "player" {
             self.run(SKAction.playSoundFileNamed("explosionnew", waitForCompletion: false))
-            self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
+            Global.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1, sceneview: self.scene!)
             if let explosion = SKEmitterNode(fileNamed: "ShipExplosion") {
                 explosion.position = secondNode.position
                 addChild(explosion)
@@ -818,17 +818,6 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
         */
     }
     
-    func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
-        let sceneView = self.scene!.view! as UIView
-        let shakeAnimation = CABasicAnimation(keyPath: "position")
-        shakeAnimation.duration = shakeDuration / Double(shakeCount)
-        shakeAnimation.repeatCount = Float(shakeCount)
-        shakeAnimation.autoreverses = true
-        shakeAnimation.fromValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x - intensity.dx, y: sceneView.center.y - intensity.dy))
-        shakeAnimation.toValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x + intensity.dx, y: sceneView.center.y + intensity.dy))
-        sceneView.layer.add(shakeAnimation, forKey: "position")
-    }
-    
     func gameOverScreen() {
         isPlayerAlive = false
         isGameOver = true
@@ -857,7 +846,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
     func victoryScreen() {
    //     isPlayerAlive = false
         isGameOver = true
-        self.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
+        Global.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1, sceneview: self.scene!)
         
         self.pauseButtonNode.alpha = 0
         self.turnButtonNode.alpha = 0

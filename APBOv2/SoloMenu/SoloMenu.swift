@@ -29,7 +29,7 @@ class SoloMenu: SKScene {
                 particles.zPosition = -1
                 addChild(particles)
             }
-            self.sceneShake(shakeCount: 4, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1)
+            Global.sceneShake(shakeCount: 4, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1, sceneview: self.scene!)
             self.run(SKAction.playSoundFileNamed("menuThumpnew", waitForCompletion: false))
             /* Set UI connections */
             backButtonNode = self.childNode(withName: "back") as? MSButtonNode
@@ -85,17 +85,6 @@ class SoloMenu: SKScene {
                          endlessLeaderboard.fontSize = 40
                          addChild(endlessLeaderboard)
         }
-    }
-    
-    func sceneShake(shakeCount: Int, intensity: CGVector, shakeDuration: Double) {
-        let sceneView = self.scene!.view! as UIView
-        let shakeAnimation = CABasicAnimation(keyPath: "position")
-        shakeAnimation.duration = shakeDuration / Double(shakeCount)
-        shakeAnimation.repeatCount = Float(shakeCount)
-        shakeAnimation.autoreverses = true
-        shakeAnimation.fromValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x - intensity.dx, y: sceneView.center.y - intensity.dy))
-        shakeAnimation.toValue = NSValue(cgPoint: CGPoint(x: sceneView.center.x + intensity.dx, y: sceneView.center.y + intensity.dy))
-        sceneView.layer.add(shakeAnimation, forKey: "position")
     }
     
     func loadGame() {

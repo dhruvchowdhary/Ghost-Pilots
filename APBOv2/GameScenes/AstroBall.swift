@@ -13,6 +13,7 @@ class AstroBall: GameSceneBase {
     var blueHP = 9
     var redHPLabel = SKLabelNode(text: "9")
     var blueHPLabel = SKLabelNode(text: "9")
+    let generator = UIImpactFeedbackGenerator(style: .heavy)
   
     
     override func setUp() {
@@ -118,6 +119,8 @@ class AstroBall: GameSceneBase {
             }
             redHP = redHP - 1
             self.astroball?.run(SKAction.playSoundFileNamed("astroballGoalHit", waitForCompletion: false))
+            Global.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1, sceneview: self.scene!)
+            generator.impactOccurred()
             
         } else if firstNode.name == "astroball" && secondNode.name == "blueGoal" {
             if Global.gameData.isHost {
@@ -125,6 +128,8 @@ class AstroBall: GameSceneBase {
             }
             blueHP = blueHP - 1
             self.astroball?.run(SKAction.playSoundFileNamed("astroballGoalHit", waitForCompletion: false))
+            Global.sceneShake(shakeCount: 2, intensity: CGVector(dx: 2, dy: 2), shakeDuration: 0.1, sceneview: self.scene!)
+            generator.impactOccurred()
             
         }
 //        if firstNode.name == "astroball"{
