@@ -110,21 +110,22 @@ class AstroBall: GameSceneBase {
             secondNode.removeFromParent()
             liveBullets.remove(at: liveBullets.firstIndex(of: secondNode as! SKSpriteNode)!)
             
-
+            
         } else if firstNode.name == "astroball" && secondNode.name == "redGoal" {
-         
-           if Global.gameData.isHost {
+            
+            if Global.gameData.isHost {
                 DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/redHP", Value: String(redHP - 1))
             }
             redHP = redHP - 1
-        //
+            self.astroball?.run(SKAction.playSoundFileNamed("astroballGoalHit", waitForCompletion: false))
             
         } else if firstNode.name == "astroball" && secondNode.name == "blueGoal" {
-        if Global.gameData.isHost {
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: String(blueHP - 1))
-        }
-        blueHP = blueHP - 1
-
+            if Global.gameData.isHost {
+                DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/AstroBall/blueHP", Value: String(blueHP - 1))
+            }
+            blueHP = blueHP - 1
+            self.astroball?.run(SKAction.playSoundFileNamed("astroballGoalHit", waitForCompletion: false))
+            
         }
 //        if firstNode.name == "astroball"{
 //            if Global.gameData.isHost {

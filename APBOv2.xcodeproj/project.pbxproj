@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		020567FE266B4714006D209C /* astroballGoalHit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 020567FD266B4714006D209C /* astroballGoalHit.wav */; };
 		022C0567261F9A0C00F811E5 /* CPLevelBase.sks in Resources */ = {isa = PBXBuildFile; fileRef = 022C0566261F9A0C00F811E5 /* CPLevelBase.sks */; };
 		0278F6592664A23B0073EF2F /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0278F6582664A23B0073EF2F /* AppTrackingTransparency.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0278F65B2664A2480073EF2F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0278F65A2664A2480073EF2F /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -157,6 +158,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		020567FD266B4714006D209C /* astroballGoalHit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = astroballGoalHit.wav; sourceTree = "<group>"; };
 		022C0566261F9A0C00F811E5 /* CPLevelBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CPLevelBase.sks; sourceTree = "<group>"; };
 		0278F6582664A23B0073EF2F /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
 		0278F65A2664A2480073EF2F /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -504,6 +506,7 @@
 				74CF687225829F9C000C4E47 /* revivenew.wav */,
 				74CF686125829626000C4E47 /* miniLaser.aiff */,
 				74CF688B25843F26000C4E47 /* miniLasernew.wav */,
+				020567FD266B4714006D209C /* astroballGoalHit.wav */,
 				74CF6868258296F0000C4E47 /* miniLaser2.wav */,
 				74CF684B2581EF11000C4E47 /* Laser1.wav */,
 				74CF685D25828DB8000C4E47 /* Laser1new.wav */,
@@ -762,6 +765,7 @@
 				810C9334260130F100C298C8 /* InfectionGameOver.sks in Resources */,
 				74C3CFBD253F3BED00757586 /* Assets.xcassets in Resources */,
 				74CF68532581FE64000C4E47 /* pilotSquish.wav in Resources */,
+				020567FE266B4714006D209C /* astroballGoalHit.wav in Resources */,
 				74CF688625840398000C4E47 /* enemy2.sks in Resources */,
 				815AA69F25F998B500870CF9 /* infectionImages.atlas in Resources */,
 				CE9C6D9E25E8275800D47FCC /* Hud.sks in Resources */,
