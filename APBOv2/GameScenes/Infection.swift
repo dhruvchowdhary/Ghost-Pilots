@@ -27,6 +27,7 @@ class Infection: GameSceneBase {
     
     override func SetPosition() {
         if Global.playerData.color != "apboGreen" {
+            Global.gameData.playerShip?.shootButtonNode.alpha = 0
             for i in 0..<Global.gameData.shipsToUpdate.count {
                 if Global.gameData.shipsToUpdate[i].playerID == Global.playerData.playerID {
                     switch i {

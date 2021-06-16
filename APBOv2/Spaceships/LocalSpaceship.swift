@@ -208,9 +208,6 @@ public class LocalSpaceship: SpaceshipBase {
         pauseButtonNode.alpha = 0
         
         shootButtonNode = spaceShipHud.childNode(withName: "shootButton") as? MSButtonNode
-        if Global.gameData.gameState == GameStates.Infection {
-            self.shootButtonNode.alpha = 0
-        }
         shootButtonNode.selectedHandler = {
             self.shootButtonNode.alpha = 0.6
             self.shootButtonNode.setScale(1.1)
@@ -307,7 +304,7 @@ public class LocalSpaceship: SpaceshipBase {
                 if winner == Global.playerData.playerID {
                     let winnerImage = SKAction.setTexture(SKTexture(imageNamed: "winner"))
                     gameOver.run(winnerImage)
-                    gameOver.zPosition = 1000
+                    gameOver.zPosition = 100000
                     gameOver.size = CGSize(width: 1469 / 1.5, height: 311 / 1.5)
                     spaceShipHud.addChild(gameOver)
                     gameOver.alpha = 1
@@ -349,7 +346,7 @@ public class LocalSpaceship: SpaceshipBase {
  
                     gameOver.run(redWon)
                     
-                    gameOver.zPosition = 1000
+                    gameOver.zPosition = 100000
                     
                     gameOver.size = CGSize(width: 1469 / 1.5, height: 311 / 1.5)
                     spaceShipHud.addChild(gameOver)
@@ -415,7 +412,7 @@ public class LocalSpaceship: SpaceshipBase {
                 
             case "infection":
                 
-                  gameOver.zPosition = 1000
+                  gameOver.zPosition = 100000
                   gameOver.size = CGSize(width: 1469 / 1.5, height: 311 / 1.5)
                   spaceShipParent.addChild(gameOver)
                   //gameOver.run(scaleAction)
