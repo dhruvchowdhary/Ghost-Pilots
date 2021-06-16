@@ -208,6 +208,9 @@ public class LocalSpaceship: SpaceshipBase {
         pauseButtonNode.alpha = 0
         
         shootButtonNode = spaceShipHud.childNode(withName: "shootButton") as? MSButtonNode
+        if Global.gameData.gameState == GameStates.Infection {
+            self.shootButtonNode.alpha = 0
+        }
         shootButtonNode.selectedHandler = {
             self.shootButtonNode.alpha = 0.6
             self.shootButtonNode.setScale(1.1)

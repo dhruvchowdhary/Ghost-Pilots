@@ -39,7 +39,7 @@ class RemoteSpaceship: SpaceshipBase {
                     velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 240, dy: sin(spaceShipNode.zRotation) * 240 * Global.gameData.speedMultiplier))
                 }
                 else {
-                    velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 300, dy: sin(spaceShipNode.zRotation) * 300 * Global.gameData.speedMultiplier))
+                    velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 320, dy: sin(spaceShipNode.zRotation) * 320 * Global.gameData.speedMultiplier))
                 }
             } else {
             velocity = (CGVector(dx: cos(spaceShipNode.zRotation) * 260, dy: sin(spaceShipNode.zRotation) * 260 * Global.gameData.speedMultiplier))

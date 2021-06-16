@@ -23,12 +23,12 @@ public class MultiplayerHandler{
     
     /// The host will do this, then this will call ReccieveUniqueGameCode
     public static func GenerateUniqueGameCode(){
-        let code = Int.random(in: 100...999)
+        let code = Int.random(in: 00000...99999)
         ref.child("Games/\(code)").observeSingleEvent(of: .value) { snapshot in
             if (snapshot.exists()){
                 self.GenerateUniqueGameCode()
             } else {
-                Global.gameData.SetUniqueCode(code: Int(code * 100 + 69))
+                Global.gameData.SetUniqueCode(code: Int(code))
             }
         }
     }
@@ -138,6 +138,10 @@ public class MultiplayerHandler{
                         if Global.gameData.shipsToUpdate[i].playerID == e.key {
                             let infected = SKAction.setTexture(SKTexture(imageNamed: "apboGreen"))
                             Global.gameData.shipsToUpdate[i].spaceShipParent.childNode(withName: "shipnode")!.run(infected)
+                            if Global.gameData.shipsToUpdate[i].playerID == Global.playerData.playerID {
+                                Global.gameData.shipsToUpdate[i].spaceShipHud.childNode(withName: "shootButton")?.alpha = 0.8
+                                Global.playerData.color = "apboGreen"
+                            }
                             
                             infectedList.append(e.key)
                         }
