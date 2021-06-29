@@ -143,12 +143,12 @@ class MainMenu: SKScene {
         polyniteLabel.fontSize = 80 / 1.5
         addChild(polyniteLabel)
         
-        buttonPlay = self.childNode(withName: "soloButton") as? MSButtonNode
+        buttonPlay = self.childNode(withName: "soloButton2") as? MSButtonNode
         buttonPlay.selectedHandler = {
             self.buttonPlay.alpha = 0.7
         }
         buttonPlay.selectedHandlers = {
-            Global.loadScene(s: "Campaign")
+            Global.loadScene(s: "SoloMenu")
         }
         
         buttonOnline = self.childNode(withName: "onlineButton") as? MSButtonNode
