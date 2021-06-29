@@ -59,10 +59,10 @@ class SoloMenu: SKScene {
                 self.loadTurretBoss()
             }
             
-            levelsButtonNode = self.childNode(withName: "levelsButton") as? MSButtonNode
+    /*        levelsButtonNode = self.childNode(withName: "levelsButton") as? MSButtonNode
             levelsButtonNode.selectedHandlers = {
                 Global.loadScene(s: "LoadLevelsMenu")
-            }
+            }*/
          
             
             leaderboardButtonNode = self.childNode(withName: "leaderboardButton") as? MSButtonNode
