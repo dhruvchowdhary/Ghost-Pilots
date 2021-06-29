@@ -280,17 +280,24 @@ class LobbyMenu: SKScene {
         
         
         modeImageButtonNode = self.childNode(withName: "modeImage") as? MSButtonNode
-        
         modeImageButtonNode?.removeFromParent()
         camera?.addChild(modeImageButtonNode!)
         
         
         modeImageButtonNode.position = CGPoint(x: frame.midX - 320 , y: borderShape.position.y - 370)
         // build stuff
-        buildffa()
-        animateffa()
-        
+        if Global.gameData.mode == "ffa" {
+            self.buildffa()
+            self.animateffa()
+        } else if Global.gameData.mode == "astroball" {
+            self.buildAstro()
+            self.animateAstro()
+        } else {
+            self.buildInfection()
+            self.animateInfection()
+        }
         self.modeImageButtonNode.texture = SKTexture(imageNamed: Global.gameData.mode)
+        
         if Global.gameData.isHost {
             modeImageButtonNode.selectedHandler = {
                 self.modeImageButtonNode.alpha = 1
