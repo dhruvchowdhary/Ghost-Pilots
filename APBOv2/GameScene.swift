@@ -138,7 +138,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         
-      
+        Global.gameData.gameState = GameStates.Endless
         
         createPath()
         addChild(cameraNode)

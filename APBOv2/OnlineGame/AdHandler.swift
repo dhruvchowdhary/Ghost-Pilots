@@ -27,7 +27,9 @@ public class AdHandler {
     var isReviveLoaded = false
     
     private let handler = {
-        Global.gameData.isReviveReady = true
+        if Global.gameData.gameState == GameStates.Endless {
+            Global.gameData.isReviveReady = true
+        }
         print("handler called")
     }
     
