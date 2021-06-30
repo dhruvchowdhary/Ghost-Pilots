@@ -331,7 +331,7 @@ public class LocalSpaceship: SpaceshipBase {
                 let wait1 = SKAction.wait(forDuration: 5)
                 spaceShipParent.run(wait1, completion:  {
                     
-                    Global.adHandler.presentRewardedForRevive()
+                    Global.adHandler.presentInterstitialImage()
 //                    print(Global.gameData.isHost)
                     if Global.gameData.isHost {
                         self.gameOver.removeFromParent()

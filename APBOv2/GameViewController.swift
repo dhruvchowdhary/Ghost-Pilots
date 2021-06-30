@@ -17,6 +17,7 @@ var popUpWindow: PopUpWindow!
 
 public class GameViewController: UIViewController, GKGameCenterControllerDelegate, GADFullScreenContentDelegate {
     public var fullScreenContentDelegate: GADFullScreenContentDelegate?
+    public var interstitialConetentDelegate: GADFullScreenContentDelegate?
     
     public func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
      //   print("1")
@@ -32,6 +33,9 @@ public class GameViewController: UIViewController, GKGameCenterControllerDelegat
         Global.adHandler.loadRewardedForRevive()
     }
 
+    public func interstitialDidDismissScreen(_ ad: GADInterstitialAdBeta) {
+        print("dismissing interstitial image ad")
+    }
     
 //    var rewardedAd: GADRewardedAd?
 //    /// Tells the delegate that the user earned a reward.
