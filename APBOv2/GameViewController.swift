@@ -17,7 +17,6 @@ var popUpWindow: PopUpWindow!
 
 public class GameViewController: UIViewController, GKGameCenterControllerDelegate, GADFullScreenContentDelegate {
     public var fullScreenContentDelegate: GADFullScreenContentDelegate?
-    public var interstitialConetentDelegate: GADFullScreenContentDelegate?
     
     public func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
      //   print("1")
@@ -31,10 +30,6 @@ public class GameViewController: UIViewController, GKGameCenterControllerDelegat
             Global.adHandler.rewarded = ad
         })
         Global.adHandler.loadRewardedForRevive()
-    }
-
-    public func interstitialDidDismissScreen(_ ad: GADInterstitialAdBeta) {
-        print("dismissing interstitial image ad")
     }
     
 //    var rewardedAd: GADRewardedAd?
@@ -59,7 +54,7 @@ public class GameViewController: UIViewController, GKGameCenterControllerDelegat
     
     public override func viewDidLoad() {
         Global.gameViewController = self
-//        super.viewDidLoad()
+ //       super.viewDidLoad()
 //        rewardedAd = GADRewardedAd(adUnitID: "ca-app-pub-3940256099942544~1458002511")
 //        rewardedAd?.load(GADRequest()) { error in
 //          if let error = error {
@@ -68,7 +63,6 @@ public class GameViewController: UIViewController, GKGameCenterControllerDelegat
 //            print("Loading Succeeded")
 //          }
 //        }
-        
         GameCenter.shared.viewController = self
         NotificationCenter.default.addObserver(self, selector: #selector(showLeaderboard), name: NSNotification.Name(rawValue: "showLeaderboard"), object: nil)
         

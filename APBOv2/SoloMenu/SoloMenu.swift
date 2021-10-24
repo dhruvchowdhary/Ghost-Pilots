@@ -39,7 +39,7 @@ class SoloMenu: SKScene {
 //                Global.gameData.shipsToUpdate.append(e)
 //                self.loadScene(s: "GameSceneBase")
                 //Global.loadScene(s: "MainMenu")
-                Global.loadScene(s: "Campaign")
+                Global.loadScene(s: "MainMenu")
             }
             
             if UIDevice.current.userInterfaceIdiom != .pad {
@@ -77,7 +77,7 @@ class SoloMenu: SKScene {
                 self.leaderboardButtonNode.alpha = 1
             }
             
-            leaderboardButtonNode.position = CGPoint(x: frame.maxX - 280 , y: frame.minY + 175)
+            leaderboardButtonNode.position = CGPoint(x: frame.maxX - 275 , y: frame.minY + 175)
                    endlessLeaderboard.fontName = "AvenirNext-Bold"
                    endlessLeaderboard.position = CGPoint(x: leaderboardButtonNode.position.x, y: leaderboardButtonNode.position.y - 125)
                          endlessLeaderboard.fontColor = UIColor.white

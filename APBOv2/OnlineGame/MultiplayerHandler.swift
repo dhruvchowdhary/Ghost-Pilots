@@ -23,12 +23,12 @@ public class MultiplayerHandler{
     
     /// The host will do this, then this will call ReccieveUniqueGameCode
     public static func GenerateUniqueGameCode(){
-        let code = Int.random(in: 00000...99999)
+        let code = "\(Int.random(in: 0...9))" + "\(Int.random(in: 0000...9999))"
         ref.child("Games/\(code)").observeSingleEvent(of: .value) { snapshot in
             if (snapshot.exists()){
                 self.GenerateUniqueGameCode()
             } else {
-                Global.gameData.SetUniqueCode(code: Int(code))
+                Global.gameData.SetUniqueCode(code: Int(code)!)
             }
         }
     }

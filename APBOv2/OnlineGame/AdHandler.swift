@@ -202,6 +202,7 @@ public class AdHandler {
             return false
         }
         rewardedRevive?.present(fromRootViewController: controller!, userDidEarnRewardHandler: handler)
+
         return true
     }
     
