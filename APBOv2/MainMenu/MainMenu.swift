@@ -15,6 +15,7 @@ class MainMenu: SKScene {
     var buttonPlay: MSButtonNode!
     var buttonOnline: MSButtonNode!
     var tutorialButtonNode: MSButtonNode!
+    var blackButton: MSButtonNode!
     var scenesAreLoaded = false;
     
     let title = SKLabelNode(text: "GHOST PILOTS")
@@ -157,6 +158,11 @@ class MainMenu: SKScene {
         }
         buttonOnline.selectedHandlers = {
             Global.loadScene(s: "OnlineMenu")
+        }
+        
+        blackButton = self.childNode(withName: "blackButton") as? MSButtonNode
+        blackButton.selectedHandlers = {
+            Global.loadScene(s: "Campaign")
         }
         
         tutorialButtonNode = self.childNode(withName: "tutorial") as? MSButtonNode
