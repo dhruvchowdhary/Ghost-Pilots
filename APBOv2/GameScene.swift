@@ -60,6 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let playerHealthBar = SKSpriteNode()
     let cannonHealthBar = SKSpriteNode()
     let scoreboardbackground = SKSpriteNode(imageNamed: "scoreboard")
+    let skin = SKSpriteNode(imageNamed: Global.gameData.selectedSkin.rawValue)
     var playerHP = maxHealth
     var cannonHP = maxHealth
     var isPlayerAlive = true
@@ -204,6 +205,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             addChild(particles)
         }
         
+        thruster1?.position = CGPoint(x: -30, y: 0)
+        thruster1?.targetNode = self.scene
+        player.addChild(thruster1!)
+        
         bullet1.zPosition = 5
         bullet2.zPosition = 5
         bullet3.zPosition = 5
@@ -273,7 +278,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
         player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
         player.physicsBody?.isDynamic = false
-        
+        if (Global.gameData.selectedSkin.rawValue != "DEFAULTDECAL") {
+            skin.zPosition = 10
+            player.addChild(skin)
+        }
+        if (Global.gameData.selectedTrail.rawValue != "trailDefault") {
+            let trail = SKEmitterNode(fileNamed: Global.gameData.selectedTrail.rawValue)
+            trail?.targetNode = self.scene
+            player.addChild(trail!)
+            thruster1?.removeFromParent()
+        }
 
         
         reviveButtonNode.position = CGPoint(x: frame.midX, y: frame.midY)
@@ -803,9 +817,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        thruster1?.position = CGPoint(x: -30, y: 0)
-        thruster1?.targetNode = self.scene
-        player.addChild(thruster1!)
         
         
     
@@ -1613,7 +1624,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
               if isPhase == true { //takeOver
                           isPhase = false
-                
+                if (Global.gameData.selectedSkin.rawValue != "DEFAULTDECAL") {
+                    skin.removeFromParent()
+                }
                 self.run(SKAction.playSoundFileNamed("takeover", waitForCompletion: false))
                 
                 print("not phase")

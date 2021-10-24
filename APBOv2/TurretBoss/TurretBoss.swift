@@ -143,7 +143,17 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
         player.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
         player.physicsBody?.isDynamic = false
-        
+        if (Global.gameData.selectedSkin.rawValue != "DEFAULTDECAL") {
+            let skin = SKSpriteNode(imageNamed: Global.gameData.selectedSkin.rawValue)
+            skin.zPosition = 10
+            player.addChild(skin)
+        }
+        if (Global.gameData.selectedTrail.rawValue != "trailDefault") {
+            let trail = SKEmitterNode(fileNamed: Global.gameData.selectedTrail.rawValue)
+            trail?.targetNode = self.scene
+            player.addChild(trail!)
+            thruster1?.removeFromParent()
+        }
         
         cannonSprite.position = CGPoint(x: frame.midX, y: frame.midY)
         cannonSprite.zPosition = 3
