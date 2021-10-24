@@ -109,8 +109,8 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                     DataPusher.PushData(path: "systemID/\(UIDevice.current.identifierForVendor!.uuidString)", Value: self.usernameBox.text!)
                     self.usernameBox.removeFromSuperview()
                     self.codeBox.removeFromSuperview()
-         //           Global.gameData.CreateNewGame()
-                    self.loadHostMenu()
+                    Global.gameData.CreateNewGame()
+            //        self.loadLobbyMenu()
                 }
             }
             
