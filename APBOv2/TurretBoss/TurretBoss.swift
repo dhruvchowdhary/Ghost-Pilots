@@ -93,7 +93,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             cannonSprite.run(cannonspritecolor)
         }
         
-        shape.path = UIBezierPath(roundedRect: CGRect(x: -800 + 50, y: -800 + 160, width: 1792 - 100, height: 1600 - 320), cornerRadius: 40).cgPath
+        shape.path = UIBezierPath(roundedRect: CGRect(x: -800 + 45 , y: -800 + 160, width: 1792 - 270, height: 1600 - 320), cornerRadius: 40).cgPath
         shape.position = CGPoint(x: frame.midX, y: frame.midY)
         shape.fillColor = .clear
         shape.strokeColor = UIColor.white
@@ -371,8 +371,6 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
                         
                         Global.sceneShake(shakeCount: 1, intensity: CGVector(dx: 1.2*cos(self.player.zRotation), dy: 1.2*sin(self.player.zRotation)), shakeDuration: 0.04, sceneview: self.scene!)
                     }
-                    
-                    
                 }
             } else {
                 self.pilotForward = true
@@ -699,7 +697,6 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             }
             
             addChild(shot1)
-            
             let movement1 = SKAction.moveBy(x: 1024 * cos(turretSprite.zRotation-90 * degreesToRadians), y: 1024 * sin(turretSprite.zRotation-90 * degreesToRadians), duration: 3)
             let sequence1 = SKAction.sequence([movement1, .removeFromParent()])
             
@@ -1158,8 +1155,6 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
                 else if secondNode.position.y < frame.minY + 200 {
                     angle = CGFloat(3.14 / 2)
                 }
-                
-                
                 BulletExplosion.emissionAngle = angle
                 secondNode.removeFromParent()
                 addChild(BulletExplosion)
