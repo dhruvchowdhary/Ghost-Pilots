@@ -392,6 +392,9 @@ class LobbyMenu: SKScene {
         addChild(playerLabelParent)
         playerLabelParent.name = "pepe"
         
+        pullMap()
+        pullMode()
+        
         Global.multiplayerHandler.listenForGuestChanges()
         Global.multiplayerHandler.ListenForGameStatus()
         Global.multiplayerHandler.ListenForMapChanges()
