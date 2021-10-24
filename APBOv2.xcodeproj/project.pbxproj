@@ -154,7 +154,7 @@
 		CEF30A2525CA65EF007B8B39 /* LocalSpaceship.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF30A2425CA65EF007B8B39 /* LocalSpaceship.swift */; };
 		CEF30A2825CA65FD007B8B39 /* RemoteSpaceship.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF30A2725CA65FD007B8B39 /* RemoteSpaceship.swift */; };
 		CEF30A2B25CB0C39007B8B39 /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF30A2A25CB0C39007B8B39 /* Payload.swift */; };
-		E1291C6626819B2D001A5BB7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1291C6526819B2D001A5BB7 /* GoogleService-Info.plist */; };
+		E1B7B00F271D6C10001F1624 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1B7B00E271D6C10001F1624 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -311,7 +311,7 @@
 		CEF30A2725CA65FD007B8B39 /* RemoteSpaceship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSpaceship.swift; sourceTree = "<group>"; };
 		CEF30A2A25CB0C39007B8B39 /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		D4F8ACF3585F6FBBF6F50A6C /* Pods_APBOv2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APBOv2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E1291C6526819B2D001A5BB7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E1B7B00E271D6C10001F1624 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -451,13 +451,13 @@
 				029A1ABB261CD00800AA0012 /* PopUpWindow.swift */,
 				74C3CFB7253F3BE900757586 /* GameViewController.swift */,
 				74235B1F25A7724400AC4675 /* GameCenter.swift */,
+				E1B7B00E271D6C10001F1624 /* GoogleService-Info.plist */,
 				74C3CFB3253F3BE900757586 /* Actions.sks */,
 				74C3CFBC253F3BED00757586 /* Assets.xcassets */,
 				8186856125F9AD6C00B9CBF3 /* astroImages.atlas */,
 				8133262625F9A1CD00D857D7 /* ffaImages.atlas */,
 				815AA69E25F998B400870CF9 /* infectionImages.atlas */,
 				74C3CFC1253F3BED00757586 /* Info.plist */,
-				E1291C6526819B2D001A5BB7 /* GoogleService-Info.plist */,
 				749EBC5B255AFA58003EA0B3 /* Bundle-Decoding.swift */,
 				748CEDB2256701D0005DF246 /* Random Files idk */,
 			);
@@ -798,6 +798,7 @@
 				02E44886260CEDA20050E49D /* orangePlayer.sks in Resources */,
 				022C0567261F9A0C00F811E5 /* CPLevelBase.sks in Resources */,
 				748500B025E6C0910063F73B /* LobbyMenu.sks in Resources */,
+				E1B7B00F271D6C10001F1624 /* GoogleService-Info.plist in Resources */,
 				8157B31225F4681E005E59C5 /* PilotFX.sks in Resources */,
 				CE9C6D9C25E8275800D47FCC /* GameScene.sks in Resources */,
 				02E4488D260CF0500050E49D /* purplePlayer.sks in Resources */,
@@ -809,7 +810,6 @@
 				810C92FD25FB341F00C298C8 /* LoadIntro.sks in Resources */,
 				CEDECCD725F4C18E00C01A7D /* SoloMenu.sks in Resources */,
 				819810CB263BAA6D00417A6C /* trailHeart.sks in Resources */,
-				E1291C6626819B2D001A5BB7 /* GoogleService-Info.plist in Resources */,
 				74CF685525820076000C4E47 /* pilotSquish2.wav in Resources */,
 				815799E72591136900734A45 /* RespawnExplosion.sks in Resources */,
 				74CF68502581F781000C4E47 /* menuThump.wav in Resources */,

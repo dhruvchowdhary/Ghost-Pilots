@@ -75,12 +75,14 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         
-        shape.path = UIBezierPath(roundedRect: CGRect(x: -800 + 50, y: -800 + 160, width: 1600 - 100, height: 1600 - 320), cornerRadius: 40).cgPath
-           shape.position = CGPoint(x: frame.midX, y: frame.midY)
+        shape.path = UIBezierPath(roundedRect: CGRect(x: -800 + 45 , y: -800 + 160, width: 1792 - 270, height: 1600 - 320), cornerRadius: 40).cgPath
+        shape.position = CGPoint(x: frame.midX, y: frame.midY)
         shape.fillColor = .clear
-           shape.strokeColor = UIColor.white
-           shape.lineWidth = 10
-           addChild(shape)
+        shape.strokeColor = UIColor.white
+        shape.lineWidth = 10
+        shape.name = "border"
+        shape.physicsBody = SKPhysicsBody(edgeChainFrom: shape.path!)
+        addChild(shape)
            
         
         addChild(cameraNode)
@@ -300,14 +302,28 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
         }
         
         shootButtonNode = self.childNode(withName: "shootButton") as? MSButtonNode
+        
+        
+        
         shootButtonNode.selectedHandler = {
             self.shootButtonNode.alpha = 0.6
-             self.shootButtonNode.setScale(1.1)
+            self.shootButtonNode.setScale(1.1)
             if self.varisPaused==1 && self.isPlayerAlive {
                 if self.isPlayerAlive {
                     if self.numAmmo > 0 {
                         self.run(SKAction.playSoundFileNamed("Laser1new", waitForCompletion: false))
                         
+                        /*
+                         if let ShootingExplosion = SKEmitterNode(fileNamed: "ShootingExplosion") {
+                         ShootingExplosion.position.x = self.player.position.x + 60 * cos(self.player.zRotation)
+                         ShootingExplosion.position.y = self.player.position.y + 60 * sin(self.player.zRotation)
+                         
+                         
+                         ShootingExplosion.emissionAngle = self.player.zRotation
+                         
+                         self.addChild(ShootingExplosion)
+                         }
+                         */
                         if self.numAmmo == 3 {
                             self.bullet1.removeFromParent()
                         }
@@ -326,7 +342,6 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
                         shot.physicsBody?.categoryBitMask = CollisionType.bullet.rawValue
                         shot.physicsBody?.collisionBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
                         shot.physicsBody?.contactTestBitMask = CollisionType.enemy.rawValue | CollisionType.bullet.rawValue
-                        shot.zPosition = 200
                         self.addChild(shot)
                         
                         let movement = SKAction.moveBy(x: 1500 * cos(self.player.zRotation), y: 1500 * sin(self.player.zRotation), duration: 2.6)
@@ -348,7 +363,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
             }
         }
         shootButtonNode.selectedHandlers = {
-             self.shootButtonNode.setScale(1)
+            self.shootButtonNode.setScale(1)
             if !self.isGameOver {
                 self.pilotDirection = self.pilot.zRotation
                 self.shootButtonNode.alpha = 0.4
@@ -779,6 +794,38 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
             //print("hi")
             //gameOverScreen()
         }
+        
+        else if firstNode.name == "border" && secondNode.name == "playerWeapon" {
+            
+            
+            if let BulletExplosion = SKEmitterNode(fileNamed: "BulletExplosion") {
+                BulletExplosion.position = secondNode.position
+                
+                
+                var angle = CGFloat(3.14159)
+                
+                if secondNode.position.x > frame.maxX - 100 {
+                    angle = CGFloat(3.14159)
+                }
+                else if secondNode.position.x < frame.minX + 100 {
+                    angle = CGFloat(0)
+                }
+                else if secondNode.position.y > frame.maxY - 200 {
+                    angle = CGFloat(-3.14 / 2)
+                }
+                else if secondNode.position.y < frame.minY + 200 {
+                    angle = CGFloat(3.14 / 2)
+                }
+                
+                
+                BulletExplosion.emissionAngle = angle
+                secondNode.removeFromParent()
+                addChild(BulletExplosion)
+                print("bllet hit da wall")
+            }
+            
+        }
+            
         
 
         else if let enemy = firstNode as? EnemyNode {
