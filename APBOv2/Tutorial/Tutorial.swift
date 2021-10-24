@@ -75,7 +75,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         
-        shape.path = UIBezierPath(roundedRect: CGRect(x: -800 + 45 , y: -800 + 160, width: 1792 - 270, height: 1600 - 320), cornerRadius: 40).cgPath
+        shape.path = UIBezierPath(roundedRect: CGRect(x: -800 + 45 , y: -800 + 160, width: 1792 - 285, height: 1600 - 320), cornerRadius: 40).cgPath
         shape.position = CGPoint(x: frame.midX, y: frame.midY)
         shape.fillColor = .clear
         shape.strokeColor = UIColor.white
