@@ -54,7 +54,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
     var numAmmo = 3
     var regenAmmo = false
     
-    let scaleAction = SKAction.scale(to: 2.2, duration: 0.4)
+    let scaleAction = SKAction.scale(to: 2.1, duration: 0.4)
     
     let bullet1 = SKSpriteNode(imageNamed: "bullet")
     let bullet2 = SKSpriteNode(imageNamed: "bullet")
@@ -1256,6 +1256,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
         self.playAgainButtonNode.alpha = 1
         self.dimPanel.alpha = 0.3
         
+        Global.gameData.addPolyniteCount(delta: self.difficulty * 10)
         
         self.bullet1.alpha = 0
         self.bullet2.alpha = 0
