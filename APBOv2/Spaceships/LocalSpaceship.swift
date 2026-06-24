@@ -190,14 +190,14 @@ public class LocalSpaceship: SpaceshipBase {
                 self.rotation = 0
             } else {
                 self.doubleTap = 1
-                let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
+                _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
                     self.doubleTap = 0
                 }
             }
         }
         turnButtonNode.selectedHandlers = {
             
-            let timer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { (timer) in
+            _ = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { _ in
                 self.trailDefault?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
             }
             self.isRotating = false

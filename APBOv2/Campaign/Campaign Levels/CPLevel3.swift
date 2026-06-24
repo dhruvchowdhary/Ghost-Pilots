@@ -54,7 +54,7 @@ class CPLevel3 : CPLevelBase {
     override func createEnemyShips() -> [CPSpaceshipBase] {
         var pepe: [CPSpaceshipBase] = []
         
-        for i in 0..<5{
+        for _ in 0..<5{
             let turr = CPTurret(level: self)
             pepe.append(turr)
         }

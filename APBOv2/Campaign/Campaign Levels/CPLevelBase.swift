@@ -95,7 +95,7 @@ class CPLevelBase: SKScene, SKPhysicsContactDelegate {
         camera?.setScale(zoomScale)
         camera?.position = zoomOrigin
         zoomUnitToPercent = zoomScale - 1
-        let pepe = Timer.scheduledTimer(withTimeInterval: freezeTime, repeats: false) { (timer) in
+        _ = Timer.scheduledTimer(withTimeInterval: freezeTime, repeats: false) { _ in
             self.isZoomin = true
         }
         

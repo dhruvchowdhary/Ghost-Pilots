@@ -420,7 +420,7 @@ public class MultiplayerHandler{
                 if (snapshot.exists()) {
                     for var tup in self.currentBulletCounts{
                         if tup.0 == spaceShip.playerID{
-                            var e = snapshot.childSnapshot(forPath: "shot " + String(tup.1)).value as! String;
+                            _ = snapshot.childSnapshot(forPath: "shot " + String(tup.1)).value as! String;
                             //e.removeFirst(5)
                             //let i: Int = Int()!
                             spaceShip.Shoot(shotType: 0)
@@ -717,7 +717,7 @@ public class MultiplayerHandler{
                         astroballScene.geo[i].physicsBody?.velocity = payload.velocity!
                         astroballScene.geo[i].zRotation = payload.angleRad
                     } else {
-                        guard let pepe = astroballScene.geo[i].physicsBody?.velocity else {
+                        guard astroballScene.geo[i].physicsBody?.velocity != nil else {
                             return
                         }
                         astroballScene.geo[i].physicsBody?.velocity = payload.velocity!

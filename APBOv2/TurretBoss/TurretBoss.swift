@@ -303,7 +303,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
                     self.direction = -0.08
                     self.doubleTap = 1
                     //  self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
-                    let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
                         self.doubleTap = 0
                     }
                 }
@@ -315,7 +315,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             self.turnButtonNode.setScale(1)
             if !self.isGameOver {
                 self.turnButtonNode.alpha = 0.4
-                let timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { (timer) in
+                _ = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
                     self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
                 }
                 if self.varisPaused == 1 {
@@ -409,7 +409,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
         cannonHealthBar.zPosition = 4
         updateHealthBar(cannonHealthBar, withHealthPoints: cannonHP)
         
-        let turnTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
+        _ = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { _ in
             self.player.zRotation = self.player.zRotation + 1.2*CGFloat(self.direction)
             self.pilot.zRotation = self.pilot.zRotation + 1.2 * CGFloat(self.direction)
             if self.doubleTap == 1 {
@@ -557,7 +557,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             if self.numAmmo < 3 {
                 if !self.regenAmmo {
                     self.regenAmmo = true
-                    let ammoTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { (timer) in
+                    _ = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { _ in
                         self.numAmmo = self.numAmmo + 1
                         
                         if self.numAmmo == 1 {
@@ -889,7 +889,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
             
             self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
             
-            let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
+            _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
                 self.addChild(shot2)
                 self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
                 if let TurretShootingExplosion = SKEmitterNode(fileNamed: "TurretShootingExplosion") {
@@ -901,7 +901,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
                     
                     self.addChild(TurretShootingExplosion)
                 }
-                let timer1 = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
+                _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
                     self.addChild(shot3)
                     self.run(SKAction.playSoundFileNamed("Laser2new", waitForCompletion: false))
                     if let TurretShootingExplosion = SKEmitterNode(fileNamed: "TurretShootingExplosion") {
@@ -1014,7 +1014,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
                 if let shipExplosion = SKEmitterNode(fileNamed: "ShipExplosion") {
                     shipExplosion.position = secondNode.position
                     addChild(shipExplosion)
-                    let timer1 = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { (timer) in
+                    _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
                         shipExplosion.removeFromParent()
                     }
                 }

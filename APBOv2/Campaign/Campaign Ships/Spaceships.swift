@@ -69,7 +69,7 @@ class CPBoss : CPSpaceshipBase {
         }
         
         DispatchQueue.global(qos: .userInitiated).async { [self] in
-            for i in 0..<4 {
+            for _ in 0..<4 {
                 let bulClass = CPBullet(tex: "bullet")
                 let newBul = bulClass.node as! SKSpriteNode
                 newBul.physicsBody?.categoryBitMask = CPUInt.bullet

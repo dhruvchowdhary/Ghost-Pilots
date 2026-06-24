@@ -461,7 +461,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.restartButtonNode.alpha = 1
                     self.dimPanel.alpha = 0.3
                     self.varisPaused = 0
-                    let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
                         if self.backButtonNode.alpha == 1
                         {
                             self.scene?.view?.isPaused = true
@@ -500,7 +500,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.direction = -0.08
                     self.doubleTap = 1
                     //  self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
-                    let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
                         self.doubleTap = 0
                     }
                 }
@@ -513,7 +513,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.turnButtonNode.setScale(1)
             if !self.isGameOver {
                 self.turnButtonNode.alpha = 0.4
-                let timer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { (timer) in
+                _ = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { _ in
                     self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
                 }
                 if self.varisPaused == 1 {
@@ -916,8 +916,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let fadeAlpha = SKAction.fadeAlpha(to: 1.0 , duration: 0.1)
-        let squishNormal = SKAction.scale(to: 1.0, duration: 0.05)
      
     }
     
@@ -1317,7 +1315,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if self.numAmmo < 3 {
                 if !self.regenAmmo {
                     self.regenAmmo = true
-                    let ammoTimer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { (timer) in
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { _ in
                         self.numAmmo = self.numAmmo + 1
                         
                         if self.numAmmo == 1 {
@@ -1351,15 +1349,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if enemyPoints.alpha > 0 {
-            let timer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { (timer) in
+            _ = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { _ in
                 self.enemyPoints.alpha = self.enemyPoints.alpha - 0.016
             }
         }
         
-        for enemy in children {
-            
-
-        }
             /*
             if enemy.frame.maxX < 0 {
                 if !frame.intersects(enemy.frame) {

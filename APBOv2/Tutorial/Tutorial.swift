@@ -153,12 +153,12 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
         
         addChild(player)
         
-        let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in
+        _ = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in
          
             self.dashLabel.alpha = 1
             self.turnLabel.alpha = 0
             
-            let timer2 = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in
+            _ = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in
                 
                 
                 self.turnArrow.alpha = 0
@@ -169,7 +169,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
                 //self.shootButtonNode.zPosition = 100
                 self.shootArrow.alpha = 1
                 
-                let timer3 = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer) in
+                _ = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { _ in
                                self.shootLabel.alpha = 0
             //         self.turnButtonNode.zPosition = 100
                 //     self.shootButtonNode.zPosition = 100
@@ -290,7 +290,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
                     self.direction = -0.08
                     self.doubleTap = 1
                     //  self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
-                    let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
                         self.doubleTap = 0
                     }
                 }
@@ -302,7 +302,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
             self.turnButtonNode.setScale(1)
             if !self.isGameOver {
             self.turnButtonNode.alpha = 0.4
-            let timer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { (timer) in
+            _ = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { _ in
                 self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
             }
             if self.varisPaused == 1 {
@@ -387,7 +387,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
         }
         
         
-        let turnTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
+        _ = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { _ in
             self.player.zRotation = self.player.zRotation + 1.2*CGFloat(self.direction)
             self.pilot.zRotation = self.pilot.zRotation + 1.2 * CGFloat(self.direction)
             if self.doubleTap == 1 {
@@ -536,7 +536,6 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         
-        let deltaTime = max(1.0/30, currentTime - lastUpdateTime)
         lastUpdateTime = currentTime
         
         
@@ -580,7 +579,7 @@ class Tutorial: SKScene, SKPhysicsContactDelegate {
             if self.numAmmo < 3 {
                 if !self.regenAmmo {
                     self.regenAmmo = true
-                    let ammoTimer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { (timer) in
+                    _ = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { _ in
                         self.numAmmo = self.numAmmo + 1
                         
                         if self.numAmmo == 1 {
