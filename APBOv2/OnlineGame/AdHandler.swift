@@ -53,25 +53,25 @@ public class AdHandler {
             rewardedReviveID = "ca-app-pub-3940256099942544/1712485313"
             
         } else {
-            bannerID = "ca-app-pub-8214314705526801/1873169855"
-            appOpenID = "ca-app-pub-8214314705526801/3440745853"
-            interstitialGeneralID = "ca-app-pub-8214314705526801/5429271484"
-            interstitialImageID = "ca-app-pub-8214314705526801/5620843174"
-            interstitialVideoID = "ca-app-pub-8214314705526801/5429271484"
-            rewardedReviveID = "ca-app-pub-8214314705526801/5645480637"
-            
-            // Rewarded videos need to have specific values to enter into adMob
+            bannerID = ""
+            appOpenID = ""
+            interstitialGeneralID = "ca-app-pub-2911517749524187/8884298545"
+            interstitialImageID = "ca-app-pub-2911517749524187/8884298545"
+            interstitialVideoID = "ca-app-pub-2911517749524187/8884298545"
+            rewardedReviveID = "ca-app-pub-2911517749524187/1197380215"
             rewardedInterstitialID = ""
-            rewardedID = ""
+            rewardedID = "ca-app-pub-2911517749524187/1197380215"
         }
         
         GADMobileAds.sharedInstance().start(completionHandler: {_ in
             self.controller = Global.gameViewController
             self.isReady = true
             
-            GADAppOpenAd.load(withAdUnitID: self.appOpenID!, request: GADRequest(), orientation: UIInterfaceOrientation.landscapeRight, completionHandler: { [self] ad, error in
-                appOpen = ad
-            })
+            if let appOpenID = self.appOpenID, !appOpenID.isEmpty {
+                GADAppOpenAd.load(withAdUnitID: appOpenID, request: GADRequest(), orientation: UIInterfaceOrientation.landscapeRight, completionHandler: { [self] ad, error in
+                    appOpen = ad
+                })
+            }
             self.loadRewardedForRevive()
 //            GADRewardedAdBeta.load(withAdUnitID: self.rewardedReviveID!, request: GADRequest(), completionHandler: { [self] ad, error in
 //                if error == nil{
