@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -89,10 +89,7 @@
 		810C92F525FB2F9F00C298C8 /* LoadIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C92F325FB2F9F00C298C8 /* LoadIntro.swift */; };
 		810C92FD25FB341F00C298C8 /* LoadIntro.sks in Resources */ = {isa = PBXBuildFile; fileRef = 810C92FC25FB341F00C298C8 /* LoadIntro.sks */; };
 		810C930625FDEA0F00C298C8 /* infectionImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 810C930525FDEA0F00C298C8 /* infectionImages.atlas */; };
-		810C930925FDEA3200C298C8 /* astroImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 810C930825FDEA3100C298C8 /* astroImages.atlas */; };
-		810C930C25FDEA3800C298C8 /* ffaImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 810C930B25FDEA3800C298C8 /* ffaImages.atlas */; };
 		810C93102601137200C298C8 /* InfectionGameOver.sks in Resources */ = {isa = PBXBuildFile; fileRef = 810C930F2601137200C298C8 /* InfectionGameOver.sks */; };
-		810C9334260130F100C298C8 /* InfectionGameOver.sks in Resources */ = {isa = PBXBuildFile; fileRef = 810C9333260130F100C298C8 /* InfectionGameOver.sks */; };
 		810C933C2601319600C298C8 /* GameOverFX.sks in Resources */ = {isa = PBXBuildFile; fileRef = 810C933B2601319600C298C8 /* GameOverFX.sks */; };
 		810C935226085D3C00C298C8 /* GameSceneOnline.sks in Resources */ = {isa = PBXBuildFile; fileRef = 810C935126085D3C00C298C8 /* GameSceneOnline.sks */; };
 		810C935B260D305500C298C8 /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C9359260D305500C298C8 /* Shop.swift */; };
@@ -109,7 +106,6 @@
 		815799E72591136900734A45 /* RespawnExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 815799E62591136900734A45 /* RespawnExplosion.sks */; };
 		815799E925917EFD00734A45 /* BulletExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 815799E825917EFD00734A45 /* BulletExplosion.sks */; };
 		8157B31225F4681E005E59C5 /* PilotFX.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8157B31125F4681E005E59C5 /* PilotFX.sks */; };
-		815AA69F25F998B500870CF9 /* infectionImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 815AA69E25F998B400870CF9 /* infectionImages.atlas */; };
 		816EE129259265D10053AE35 /* ShootingExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 816EE127259265D10053AE35 /* ShootingExplosion.sks */; };
 		816EE12A259265D10053AE35 /* TurretShootingExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 816EE128259265D10053AE35 /* TurretShootingExplosion.sks */; };
 		81708DC425A376650030C2C4 /* TurretBossMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81708DC325A376650030C2C4 /* TurretBossMenu.swift */; };
@@ -159,13 +155,14 @@
 
 /* Begin PBXFileReference section */
 		020567FD266B4714006D209C /* astroballGoalHit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = astroballGoalHit.wav; sourceTree = "<group>"; };
-		0228B0372725110B00B69E4A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Ghost-Pilots2/APBOv2/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0228B0372725110B00B69E4A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GoogleService-Info.plist; sourceTree = "<group>"; };
 		022C0566261F9A0C00F811E5 /* CPLevelBase.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CPLevelBase.sks; sourceTree = "<group>"; };
 		0278F6582664A23B0073EF2F /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
 		0278F65A2664A2480073EF2F /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		027E28F42639CBAA004EE539 /* trailDefault.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = trailDefault.sks; sourceTree = "<group>"; };
 		028FEFE625F7EFC600D519A5 /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
 		029A1ABB261CD00800AA0012 /* PopUpWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpWindow.swift; sourceTree = "<group>"; };
+		02AA985F2FEBF73E00DD17ED /* APBOv2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = APBOv2.entitlements; sourceTree = "<group>"; };
 		02E4487C260C49910050E49D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		02E44885260CEDA20050E49D /* orangePlayer.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = orangePlayer.sks; sourceTree = "<group>"; };
 		02E44889260CEF770050E49D /* pinkPlayer.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = pinkPlayer.sks; sourceTree = "<group>"; };
@@ -428,6 +425,7 @@
 		74C3CFAE253F3BE900757586 /* APBOv2 */ = {
 			isa = PBXGroup;
 			children = (
+				02AA985F2FEBF73E00DD17ED /* APBOv2.entitlements */,
 				810C930B25FDEA3800C298C8 /* ffaImages.atlas */,
 				810C930825FDEA3100C298C8 /* astroImages.atlas */,
 				810C930525FDEA0F00C298C8 /* infectionImages.atlas */,
@@ -701,8 +699,9 @@
 		74C3CFA4253F3BE900757586 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 2650;
 				ORGANIZATIONNAME = "Dhruv Chowdhary";
 				TargetAttributes = {
 					74C3CFAB253F3BE900757586 = {
@@ -762,12 +761,10 @@
 				74CF686025828E80000C4E47 /* menuThumpnew.wav in Resources */,
 				74CF687325829F9C000C4E47 /* revivenew.wav in Resources */,
 				810C930625FDEA0F00C298C8 /* infectionImages.atlas in Resources */,
-				810C9334260130F100C298C8 /* InfectionGameOver.sks in Resources */,
 				74C3CFBD253F3BED00757586 /* Assets.xcassets in Resources */,
 				74CF68532581FE64000C4E47 /* pilotSquish.wav in Resources */,
 				020567FE266B4714006D209C /* astroballGoalHit.wav in Resources */,
 				74CF688625840398000C4E47 /* enemy2.sks in Resources */,
-				815AA69F25F998B500870CF9 /* infectionImages.atlas in Resources */,
 				CE9C6D9E25E8275800D47FCC /* Hud.sks in Resources */,
 				748CEDC6256D737B005DF246 /* OnlineMenu.sks in Resources */,
 				74CF684C2581EF11000C4E47 /* Laser1.wav in Resources */,
@@ -803,7 +800,6 @@
 				CE9C6D9C25E8275800D47FCC /* GameScene.sks in Resources */,
 				02E4488D260CF0500050E49D /* purplePlayer.sks in Resources */,
 				81708DC825A565C50030C2C4 /* TurretBossMenu.sks in Resources */,
-				810C930C25FDEA3800C298C8 /* ffaImages.atlas in Resources */,
 				749EBC0E25599D84003EA0B3 /* Explosion.sks in Resources */,
 				74CF68752582CF37000C4E47 /* EnemyThruster.sks in Resources */,
 				81135EF625F1514C00B0F59F /* Level2.sks in Resources */,
@@ -818,7 +814,6 @@
 				CEB716F32624C61D003FB440 /* CPLevel1.sks in Resources */,
 				810C933C2601319600C298C8 /* GameOverFX.sks in Resources */,
 				749EBC58255AF9E7003EA0B3 /* waves.json in Resources */,
-				810C930925FDEA3200C298C8 /* astroImages.atlas in Resources */,
 				816EE129259265D10053AE35 /* ShootingExplosion.sks in Resources */,
 				74CF6842257C2EA8000C4E47 /* ShipExplosion.sks in Resources */,
 				81E05861262E0F99000FE245 /* trailLightning.sks in Resources */,
@@ -861,9 +856,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-APBOv2/Pods-APBOv2-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-APBOv2/Pods-APBOv2-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -988,6 +987,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -996,8 +996,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 883DK65VTV;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1012,11 +1014,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1048,6 +1051,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1056,8 +1060,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 883DK65VTV;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1066,10 +1072,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
@@ -1081,11 +1088,11 @@
 			baseConfigurationReference = BF55C5AA57697F270DE41606 /* Pods-APBOv2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = APBOv2/APBOv2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 54;
-				DEVELOPMENT_TEAM = 883DK65VTV;
 				INFOPLIST_FILE = APBOv2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1103,11 +1110,11 @@
 			baseConfigurationReference = 6BEC5117A23B6C351E6D91CF /* Pods-APBOv2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = APBOv2/APBOv2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 54;
-				DEVELOPMENT_TEAM = 883DK65VTV;
 				INFOPLIST_FILE = APBOv2/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
