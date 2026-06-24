@@ -154,9 +154,6 @@ class LobbyMenu: SKScene {
         
         let borderShape = SKShapeNode()
 
-        let borderwidth = backgroundholewidth
-        let borderheight = backgroundholeheight
-        
         borderShape.path = UIBezierPath(roundedRect: CGRect(x: -backgroundholewidth/2, y: -backgroundholeheight/2, width: backgroundholewidth, height: backgroundholeheight), cornerRadius: 40).cgPath
         borderShape.position =  backgroundHole.position
         borderShape.fillColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha:1)
@@ -196,7 +193,7 @@ class LobbyMenu: SKScene {
         let lobbyLabelwidth = backgroundholewidth
         let lobbyLabelheight = 160
         
-        lobbyLabel.path = UIBezierPath(roundedRect: CGRect(x: -backgroundholewidth/2, y: -lobbyLabelheight/2, width: backgroundholewidth, height: lobbyLabelheight), cornerRadius: 40).cgPath
+        lobbyLabel.path = UIBezierPath(roundedRect: CGRect(x: -lobbyLabelwidth/2, y: -lobbyLabelheight/2, width: lobbyLabelwidth, height: lobbyLabelheight), cornerRadius: 40).cgPath
         lobbyLabel.position =  CGPoint(x: frame.midX, y: frame.midY + 280)
         lobbyLabel.fillColor = UIColor(red: 0/255, green: 0/255, blue: 128/255, alpha:1)
         lobbyLabel.strokeColor = UIColor.clear
@@ -509,7 +506,7 @@ class LobbyMenu: SKScene {
                     Global.playerData.color = intToColor[colorIndex]!
                 case "astroball":
                     spaceship = LocalSpaceship(imageTexture: intToColor[colorIndex%1]!)
-                    print(intToColor[colorIndex%2])
+                    print(intToColor[colorIndex % 2] ?? "")
                     print(colorIndex)
                //     Global.playerData.color = intToColor[colorIndex%2]!
                 default:

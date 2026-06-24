@@ -51,7 +51,7 @@ class LoadIntro: SKScene {
         
         let shopRef = MultiplayerHandler.ref.child("Users/\(UIDevice.current.identifierForVendor!)/ShopStuff")
        
-            shopRef.observeSingleEvent(of:.value, with: { [self] (Snapshot) in
+            shopRef.observeSingleEvent(of:.value, with: { (Snapshot) in
             if !Snapshot.exists(){
                 return
             }

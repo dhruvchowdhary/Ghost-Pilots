@@ -154,7 +154,6 @@ class CPCollisionHandler {
             break;
         case .Custom:
             break;
-            return;
         }
         
         if (obj.isBreakable) {

@@ -214,7 +214,7 @@ public class AdHandler {
                     rewardedRevive = ad
                     rewardedRevive?.fullScreenContentDelegate = controller
                     isReviveLoaded = true
-                    if error != nil {
+                    if let error = error {
                         print("===================")
                         print("===================")
                         print("===================")
@@ -231,7 +231,7 @@ public class AdHandler {
                 rewardedRevive = ad
                 rewardedRevive?.fullScreenContentDelegate = controller
                 isReviveLoaded = true
-                if error != nil {
+                if let error = error {
                     print("===================")
                     print("===================")
                     print("===================")
@@ -253,7 +253,7 @@ public class AdHandler {
                     rewardedRevive = ad
                     rewardedRevive?.fullScreenContentDelegate = controller
                     isReviveLoaded = true
-                    if error != nil {
+                    if let error = error {
                         print("===================")
                         print("===================")
                         print("===================")
@@ -270,7 +270,7 @@ public class AdHandler {
                 rewardedRevive = ad
                 rewardedRevive?.fullScreenContentDelegate = controller
                 isReviveLoaded = true
-                if error != nil {
+                if let error = error {
                     print("===================")
                     print("===================")
                     print("===================")

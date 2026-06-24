@@ -254,7 +254,7 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
                 if self.varisPaused == 0 {
                     self.varisPaused = 1
                     self.scene?.view?.isPaused = false
-                    self.children.map{($0 as SKNode).isPaused = false}
+                    self.children.forEach { ($0 as SKNode).isPaused = false }
                     self.pauseButtonNode.alpha = 1
                     self.backButtonNode.alpha = 0
                     self.restartButtonNode.alpha = 0
@@ -266,11 +266,11 @@ class TurretBoss: SKScene, SKPhysicsContactDelegate {
                     self.restartButtonNode.alpha = 1
                     self.dimPanel.alpha = 0.3
                     self.varisPaused = 0
-                    let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
                         if self.backButtonNode.alpha == 1
                         {
                             self.scene?.view?.isPaused = true
-                            self.children.map{($0 as SKNode).isPaused = true}
+                            self.children.forEach { ($0 as SKNode).isPaused = true }
                         }
                     }
                 }

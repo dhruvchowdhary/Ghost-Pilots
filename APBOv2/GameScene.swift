@@ -1896,7 +1896,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     if numPoints > highScore {
                         highScore = numPoints
                         highScorePoints.text = "\(highScore)"
-                        var highScoreDefaults = UserDefaults.standard
+                        let highScoreDefaults = UserDefaults.standard
                         highScoreDefaults.setValue(highScore, forKey: "highScore1")
                         highScoreDefaults.synchronize()
                         GameCenter.shared.updateScore(value: highScore)

@@ -110,7 +110,6 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         
         let zoomInActionipad = SKAction.scale(to: 1.7, duration: 0.01)
         
-        let zoomInActioniphone = SKAction.scale(to: 1.06, duration: 0.01)
         if UIDevice.current.userInterfaceIdiom == .pad {
             cameraNode.run(zoomInActionipad)
             
@@ -329,7 +328,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                     self.restartButtonNode.alpha = 1
                     self.dimPanel.alpha = 0.3
                     self.varisPaused = 0
-                    let timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
                         if self.backButtonNode.alpha == 1
                         {
                             self.scene?.view?.isPaused = true
@@ -368,7 +367,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                     self.direction = -0.08
                     self.doubleTap = 1
                     //  self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
-                    let timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (timer) in
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { _ in
                         self.doubleTap = 0
                     }
                 }
@@ -381,7 +380,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
             self.turnButtonNode.setScale(1)
             if !self.isGameOver {
                 self.turnButtonNode.alpha = 0.4
-                let timer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { (timer) in
+                _ = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { _ in
                     self.thruster1?.particleColor = UIColor(red: 67/255, green: 181/255, blue: 169/255, alpha:1)
                 }
                 if self.varisPaused == 1 {
@@ -743,7 +742,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         
         
         
-        let turnTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (timer) in
+        _ = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { _ in
             self.player.zRotation = self.player.zRotation + 1.2 * CGFloat(self.direction)
             self.pilot.zRotation = self.pilot.zRotation + 1.2 * CGFloat(self.direction)
             if self.doubleTap == 1 {
@@ -1305,7 +1304,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
             if self.numAmmo < 3 {
                 if !self.regenAmmo {
                     self.regenAmmo = true
-                    let ammoTimer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { (timer) in
+                    _ = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { _ in
                         self.numAmmo = self.numAmmo + 1
                         
                         if self.numAmmo == 1 {
@@ -1339,21 +1338,10 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         }
         
         if enemyPoints.alpha > 0 {
-            let timer = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { (timer) in
+            _ = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { _ in
                 self.enemyPoints.alpha = self.enemyPoints.alpha - 0.016
             }
         }
-        
-        for enemy in children {
-            
-            
-        }
-        /*
-         if enemy.frame.maxX < 0 {
-         if !frame.intersects(enemy.frame) {
-         enemy.removeFromParent()
-         }
-         */
         
         
         let activeEnemies = children.compactMap { $0 as? EnemyNode }
@@ -1529,8 +1517,8 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         let secondNode = sortedNodes[1]
         
         
-        print("first Node is   \(firstNode.name)")
-        print("second Node is  \(secondNode.name)")
+        print("first Node is   \(firstNode.name ?? "nil")")
+        print("second Node is  \(secondNode.name ?? "nil")")
         
         //print("player collided with \(firstNode.name)")
         
@@ -1552,7 +1540,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
         
         if secondNode.name == "player" {
             
-            print("player collided with \(firstNode.name)")
+            print("player collided with \(firstNode.name ?? "nil")")
             if firstNode.name == "1tripleshot" {
                 let triplePower = SKAction.setTexture(SKTexture(imageNamed: "tripleshot"))
                 shootButtonNode.run(triplePower)
@@ -1704,7 +1692,7 @@ class Level1: SKScene, SKPhysicsContactDelegate {
                 isPhase = false
                 print("not phase")
                 print("take over1")
-                print("\(firstNode.name)")
+                print("\(firstNode.name ?? "nil")")
                 
                 let playerShoot = SKAction.setTexture(SKTexture(imageNamed: "shootButton"))
                 shootButtonNode.run(playerShoot)

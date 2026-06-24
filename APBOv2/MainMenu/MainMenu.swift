@@ -77,7 +77,7 @@ class MainMenu: SKScene {
         addChild(orangeParticles!)
   //      addChild(pinkParticles!)
         addChild(purpleParticles!)
-        let timer = Timer.scheduledTimer(withTimeInterval: 31, repeats: true) { (timer) in
+        _ = Timer.scheduledTimer(withTimeInterval: 31, repeats: true) { _ in
             self.randomParticle(party: self.playerParticles!)
             self.randomParticle(party: self.ghostParticles!)
             self.randomParticle(party: self.enemyParticles!)

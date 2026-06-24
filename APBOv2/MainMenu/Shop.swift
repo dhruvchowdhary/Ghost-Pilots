@@ -122,10 +122,6 @@ class Shop: SKScene {
         
         
         Global.gameData.skView = self.view!
-        // EMOJI STUFF
-        let emojiImage = "🎂".emojiToImage()
-        let emojiTexture = SKTexture(image:emojiImage!)
-        
         
         //loading shop
         let shopRef = MultiplayerHandler.ref.child("Users/\(UIDevice.current.identifierForVendor!)/ShopStuff")
@@ -137,14 +133,12 @@ class Shop: SKScene {
             let jsonData = snapVal.data(using: .utf8)
             let payload = try! JSONDecoder().decode(ShopPayload.self, from: jsonData!)
             
-            if payload.equippedTrail != nil{
-                equippedDecal = payload.equippedDecal
-                equippedTrail = payload.equippedTrail
-                lockerTrails = payload.lockerTrails
-                lockerDecals = payload.lockerDecals
-                //   print(equippedDecal)
-                print(payload)
-            }
+            equippedDecal = payload.equippedDecal
+            equippedTrail = payload.equippedTrail
+            lockerTrails = payload.lockerTrails
+            lockerDecals = payload.lockerDecals
+            //   print(equippedDecal)
+            print(payload)
         })
         
         // setting up shop visual border
@@ -808,9 +802,8 @@ class Shop: SKScene {
             
             if type == "decal" {
                 
-                buyButtonNode.selectedHandlers = { [self] in
-                    buyingDecal(i: index, node: node)
-                    self.exitPopup()
+                buyButtonNode.selectedHandlers = {
+                    guard buyingDecal(i: index, node: node) else { return }
                     cancelButtonNode.removeFromParent()
                     buyButtonNode.removeFromParent()
                     cancelButtonNode.alpha = 0
@@ -827,9 +820,8 @@ class Shop: SKScene {
             else if type == "trail" {
                 
                 
-                buyButtonNode.selectedHandlers = { [self] in
-                    buyingTrail(i: index, node: node)
-                    self.exitPopup()
+                buyButtonNode.selectedHandlers = {
+                    guard buyingTrail(i: index, node: node) else { return }
                     cancelButtonNode.removeFromParent()
                     buyButtonNode.removeFromParent()
                     cancelButtonNode.alpha = 0
@@ -887,11 +879,12 @@ class Shop: SKScene {
         }
         
         
-        func buyingTrail(i: Int, node: MSButtonNode) {
+        func buyingTrail(i: Int, node: MSButtonNode) -> Bool {
+            guard Global.gameData.spendPolynite(amountToSpend: trailPrices[i]) else {
+                return false
+            }
             
             print("bought \(trailStrings[i])")
-            // subtract polynite according to price
-            Global.gameData.spendPolynite(amountToSpend: trailPrices[i])
             
             lockerTrails.append(trailStrings[i])
 
@@ -906,13 +899,15 @@ class Shop: SKScene {
             
             pushShopStuff()
             exitPopup()
+            return true
         }
         
-        func buyingDecal(i: Int, node: MSButtonNode) {
+        func buyingDecal(i: Int, node: MSButtonNode) -> Bool {
+            guard Global.gameData.spendPolynite(amountToSpend: decalPrices[i]) else {
+                return false
+            }
             
             print("bought \(decalStrings[i])")
-            // subtract polynite according to price
-            Global.gameData.spendPolynite(amountToSpend: decalPrices[i])
             
             lockerDecals.append(decalStrings[i])
 
@@ -927,6 +922,7 @@ class Shop: SKScene {
             
             pushShopStuff()
             exitPopup()
+            return true
         }
         
         // adjusting for devices
