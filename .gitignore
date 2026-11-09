@@ -1,0 +1,19 @@
+# Created by https://www.toptal.com/developers/gitignore/api/swift,xcode
+
+### Swift / Xcode ###
+# Xcode user settings and state — personal to whoever has the project open.
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+
+# Build products and archives. The .xcarchive bundles are the output of
+# archiving for the App Store; they do not belong in the repo.
+build/
+DerivedData/
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.xcarchive
+
+# macOS
+.DS_Store

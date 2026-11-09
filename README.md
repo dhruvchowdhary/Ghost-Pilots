@@ -1,6 +1,16 @@
 # Ghost Pilots
-[Download](https://apps.apple.com/us/app/ghost-pilots/id1538606743) in the Apple App Store!\
-[<img src="Images/Promotion.png" width="300">](https://apps.apple.com/us/app/ghost-pilots/id1538606743)\
+
+> Status: the game is being updated for the latest iOS (Firebase, ads, and
+> release automation live on the `firebase` branch). The App Store listing is
+> temporarily unavailable while that update ships — there is no download link
+> here until it is back. See [dhrooby.com/ghostpilots](https://www.dhrooby.com/ghostpilots/)
+> for the game's page.
+
+Ghost Pilots is an arcade space shooter for iPhone and iPad: turn, shoot,
+survive enemy waves, take on the Turret Boss, chase a high score in Endless
+mode, or battle friends online. Lose your ship? Keep fighting as a ghost.
+
+[<img src="Images/Promotion.png" width="300">](https://www.dhrooby.com/ghostpilots/)
 
 # Version History
 * **Version 2.4**
