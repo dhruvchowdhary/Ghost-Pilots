@@ -64,7 +64,7 @@ public class GameData{
         DataPusher.PushData(path: "Games/\(code)/Map", Value: map)
         DataPusher.PushData(path: "Games/\(code)/Mode", Value: mode)
         DataPusher.PushData(path: "Games/\(code)/Status", Value: "Lobby")
-        DataPusher.PushData(path: "Games/\(code)/PlayerList/\(Global.playerData.playerID)", Value: "PePeNotGone")
+        Seat.shared.take(game: "\(code)", name: Global.playerData.playerID)
         Global.gameData.host = Global.playerData.playerID
         
         //IGNORE THIS FAKE NEWS
@@ -111,7 +111,7 @@ public class GameData{
         MultiplayerHandler.ref.child("Games/\(gameID)/MainGame/\(Global.playerData.playerID)/Shots").removeValue()
         if !toLobby {
             //Global.adHandler.presentInterstitialImage()
-            DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/PlayerList/\(Global.playerData.playerID)", Value: "PePeGone")
+            Seat.shared.leave(game: "\(Global.gameData.gameID)", name: Global.playerData.playerID)
             host = ""
             map = "OnlineCubis"
             mode = "ffa"

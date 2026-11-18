@@ -16,6 +16,8 @@ import AdSupport
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    /// A few seconds of background time to get the goodbye out, see below.
+    var leavingTask: UIBackgroundTaskIdentifier = .invalid
     var gameCode: Int = 0
     var username: String = ""
 
@@ -51,8 +53,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
+        // Leaving an online game is a few writes (and, for the host, a read
+        // first), and iOS suspends the app within seconds of this. Ask for a
+        // little longer so they get out. If they still don't, the server marks
+        // the seat gone when the connection drops (Seat, in DataPusher.swift).
+        if leavingTask == .invalid {
+            leavingTask = application.beginBackgroundTask(withName: "Leave online game") { [weak self] in
+                self?.endLeavingTask(application)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
+                self?.endLeavingTask(application)
+            }
+        }
         Global.gameData.gameScene.lastUpdateTime = 42069.0
         Global.gameData.ResetGameData(toLobby: false)
+    }
+    
+    private func endLeavingTask(_ application: UIApplication) {
+        guard leavingTask != .invalid else { return }
+        application.endBackgroundTask(leavingTask)
+        leavingTask = .invalid
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

@@ -139,7 +139,7 @@ class OnlineMenu: SKScene, UITextFieldDelegate {
                                 if snapshot.value as! String == "Lobby" {
                                     self.ref.child("Games/\(self.codeBox.text!)/isFull").observeSingleEvent(of: .value){ snapshot in
                                         if snapshot.value as! String == "FALSE" {
-                                            DataPusher.PushData(path: "Games/\(self.codeBox.text!)/PlayerList/\(self.usernameBox.text!)", Value: "PePeNotGone")
+                                            Seat.shared.take(game: self.codeBox.text!, name: self.usernameBox.text!)
                                             Global.gameData.gameID = Int(self.codeBox.text!)!
                                             Global.gameData.isHost = false
                                             self.usernameBox.removeFromSuperview()

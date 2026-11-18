@@ -124,3 +124,69 @@ final class PlayTracker {
     }
 
 }
+
+/// A player's seat in an online game, `Games/<code>/PlayerList/<name>`, kept
+/// honest by the server.
+///
+/// The game says goodbye by writing "PePeGone" when it goes to the background
+/// or leaves, but iOS suspends it within seconds and a swiped-away app never
+/// sends what it had queued, so seats used to stay "PePeNotGone" for good and
+/// lobbies were never closed. Now taking a seat also leaves the server a
+/// standing order (`onDisconnect`) to mark it "PePeGone" the moment this
+/// phone's connection drops, however that happens.
+///
+/// A connection can drop and come back mid-game, and the server will have
+/// carried out the order by then, so on reconnecting the seat is taken again,
+/// unless the host kicked them in the meantime.
+final class Seat {
+    
+    static let shared = Seat()
+    
+    /// The seat held right now, if any.
+    private var path: String?
+    private var watchingConnection = false
+    
+    private init() {}
+    
+    private func ref(_ path: String) -> DatabaseReference {
+        Database.database().reference().child(path)
+    }
+    
+    func take(game: String, name: String) {
+        let path = "Games/\(game)/PlayerList/\(name)"
+        self.path = path
+        ref(path).onDisconnectSetValue("PePeGone")
+        ref(path).setValue("PePeNotGone")
+        watchConnection()
+    }
+    
+    /// Leaving the normal way. The goodbye goes out before the standing order
+    /// is cancelled, so if the app is suspended between the two, the server
+    /// still marks the seat gone.
+    ///
+    /// Only for the seat they hold. The game calls this every time it goes to
+    /// the background, online or not, and without this check it wrote
+    /// "PePeGone" into game 666 (its "no game" code) under whatever name, or
+    /// over a whole PlayerList when the name was blank.
+    func leave(game: String, name: String) {
+        let path = "Games/\(game)/PlayerList/\(name)"
+        guard self.path == path else { return }
+        self.path = nil
+        ref(path).setValue("PePeGone")
+        ref(path).cancelDisconnectOperations()
+    }
+    
+    private func watchConnection() {
+        guard !watchingConnection else { return }
+        watchingConnection = true
+        Database.database().reference(withPath: ".info/connected").observe(.value) { [weak self] snapshot in
+            guard snapshot.value as? Bool == true, let self = self, let path = self.path else { return }
+            self.ref(path).observeSingleEvent(of: .value) { seat in
+                guard self.path == path, seat.value as? String == "PePeGone" else { return }
+                self.ref(path).onDisconnectSetValue("PePeGone")
+                self.ref(path).setValue("PePeNotGone")
+            }
+        }
+    }
+    
+}

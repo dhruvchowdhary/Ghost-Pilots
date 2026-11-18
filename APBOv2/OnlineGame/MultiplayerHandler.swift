@@ -737,6 +737,8 @@ public class MultiplayerHandler{
             if Global.gameData.isHost {
                 DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/isPublic", Value: "TRUE")
                 DataPusher.PushData(path: "Games/LFG/\(Global.gameData.gameID)", Value: "PePeLonely")
+                // If the host's connection drops, the lobby stops being offered.
+                MultiplayerHandler.ref.child("Games/LFG/\(Global.gameData.gameID)").onDisconnectRemoveValue()
             }
         }
         
@@ -744,6 +746,7 @@ public class MultiplayerHandler{
             if Global.gameData.isHost {
                 DataPusher.PushData(path: "Games/\(Global.gameData.gameID)/isPublic", Value: "FALSE")
                 MultiplayerHandler.ref.child("Games/LFG/\(Global.gameData.gameID)").removeValue()
+                MultiplayerHandler.ref.child("Games/LFG/\(Global.gameData.gameID)").cancelDisconnectOperations()
             }
         }
         
@@ -754,23 +757,30 @@ public class MultiplayerHandler{
                     for c in Snapshot.children {
                         let lobby = c as! DataSnapshot
                         MultiplayerHandler.ref.child("Games/\(lobby.key)").observeSingleEvent(of: .value) { snapshot in
-                            if snapshot.exists(){
+                            if !snapshot.exists() {
+                                // The game is gone; so is its listing.
+                                MultiplayerHandler.ref.child("Games/LFG/\(lobby.key)").removeValue()
+                            } else {
                                 print("1")
-                                if snapshot.childSnapshot(forPath: "Status").value as! String == "Lobby"{
+                                if snapshot.childSnapshot(forPath: "Status").value as? String == "Lobby"{
                                     print("lobby status")
+                                    // Who's in this game. (This used to read the
+                                    // LFG list's PlayerList, which never exists, so
+                                    // every lobby looked empty and was deleted.)
                                     var isEmpty = true
-                                    for j in Snapshot.childSnapshot(forPath: "PlayerList").children{
-                                        if (j as! DataSnapshot).value as! String == "PePeNotGone" {
+                                    for j in snapshot.childSnapshot(forPath: "PlayerList").children{
+                                        if (j as? DataSnapshot)?.value as? String == "PePeNotGone" {
                                             isEmpty = false
                                         }
                                     }
                                     if isEmpty {
                                         MultiplayerHandler.ref.child("Games/\(lobby.key)").removeValue()
+                                        MultiplayerHandler.ref.child("Games/LFG/\(lobby.key)").removeValue()
                                     } else {
                                         if !self.hasFoundGame {
                                             print("3")
                                             // Add some sort of max player count check here
-                                            DataPusher.PushData(path: "Games/\(lobby.key)/PlayerList/\(Global.playerData.playerID)", Value: "PePeNotGone")
+                                            Seat.shared.take(game: lobby.key, name: Global.playerData.playerID)
                                             Global.gameData.gameID = Int(lobby.key)!
                                             Global.gameData.isHost = false
                                             self.hasFoundGame = true
