@@ -1,0 +1,53 @@
+{
+  "rules": {
+    "Users": {
+      "$device": {
+        ".read": "$device.length == 36 && $device.matches(/^[0-9A-F-]+$/)",
+        ".write": "$device.length == 36 && $device.matches(/^[0-9A-F-]+$/)",
+        "Polynite": {
+          ".validate": "newData.isString() && newData.val().length <= 10 && newData.val().matches(/^-?[0-9]+$/)"
+        },
+        "ShopStuff": {
+          ".validate": "newData.isString() && newData.val().length <= 2000"
+        },
+        "LastSeen": {
+          ".validate": "newData.isNumber() && newData.val() <= now"
+        },
+        "GameCenter": {
+          ".validate": "newData.isString() && newData.val().length <= 100"
+        },
+        "Play": {
+          "$scene": {
+            ".validate": "$scene.length <= 64 && $scene.matches(/^[A-Za-z0-9_]+$/)",
+            "plays": { ".validate": "newData.isNumber() && newData.val() >= 0" },
+            "seconds": { ".validate": "newData.isNumber() && newData.val() >= 0" },
+            "$other": { ".validate": false }
+          }
+        },
+        "Days": {
+          "$day": {
+            ".validate": "$day.matches(/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/) && newData.isNumber() && newData.val() >= 0"
+          }
+        },
+        "$other": { ".validate": false }
+      }
+    },
+    "systemID": {
+      "$device": {
+        ".read": "$device.length == 36 && $device.matches(/^[0-9A-F-]+$/)",
+        ".write": "$device.length == 36 && $device.matches(/^[0-9A-F-]+$/)",
+        ".validate": "newData.isString() && newData.val().length <= 100"
+      }
+    },
+    "Games": {
+      "LFG": {
+        ".read": true,
+        "$code": { ".write": true }
+      },
+      "$code": {
+        ".read": true,
+        ".write": true
+      }
+    }
+  }
+}

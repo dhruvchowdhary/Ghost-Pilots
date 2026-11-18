@@ -71,6 +71,46 @@ them say so. "In an online game" is as the database has it; someone whose app
 died mid-lobby still shows, since lobbies carry no times. Games nobody is left
 in are counted separately, as left behind.
 
+### The database's rules
+
+The game never signs in, so the database can't tell one player from another.
+What keeps the data private is that nobody gets a list: the rules
+(`database.rules.json` at the repo root) allow
+
+- `Users/<device>` and `systemID/<device>`, read and write, for a key that's a
+  device id. Those are random UUIDs nobody can guess, so in practice a phone
+  only ever reaches its own. Only the fields the game writes are allowed
+  (`Polynite` as a number in a string of at most 10 digits, `ShopStuff`,
+  `LastSeen`, `GameCenter`, `Play`, `Days`), each checked for shape.
+- `Games/<code>` and everything under it, read and write, so online play works
+  as it always has, plus reading `Games/LFG` and adding or removing a code in it.
+
+Everything else is refused: reading `Users`, `systemID` or `Games` as a
+whole, writing over any of them, and any other path. Every read and write in
+the current code is one of the above, and `database.rules.json` was run
+through the Firebase emulator against all of them. The git history has three
+accesses that aren't (a whole-`Games` read in February 2021, a
+`Users/<online name>` read and an `equippedDecal` write in March and April
+2021), each gone within weeks; no player record shows any trace of them. The
+dashboard isn't affected, since its service account goes past the rules.
+
+What it can't stop: someone who learns a device id can still change that
+player's record, and anyone can still create a game. Closing that means the
+game signing in (Firebase Anonymous Auth) and the rules tying each record to
+whoever made it, which can only be switched on once nearly everyone has a
+version that signs in.
+
+They were deployed on 2026-11-18. To change them, edit the file, then
+
+```bash
+npx firebase-tools login
+npx firebase-tools deploy --only database
+```
+
+(`firebase.json` and `.firebaserc` at the repo root point it at the live
+project). `npx firebase-tools emulators:start --only database` runs them
+locally first.
+
 ### Turning it on
 
 It stays off, saying so on `/admin/login`, until these are set on the Vercel
