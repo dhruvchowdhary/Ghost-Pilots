@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '13.0'
+platform :ios, '15.0'
 
 target 'APBOv2' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -11,8 +11,9 @@ target 'APBOv2' do
   # GoogleUtilities, GoogleDataTransport, nanopb, FBLPromises, etc.), which is
   # required to pass App Store submission check ITMS-91061.
   #
-  # The deployment target is iOS 13 because App Store Connect rejects uploads
-  # that target iOS 12 (error 90068).
+  # The deployment target is iOS 15 because Xcode 27 builds nothing older (it
+  # was 13 until then, the lowest App Store Connect accepted, error 90068).
+  # The app project's IPHONEOS_DEPLOYMENT_TARGET has to match.
   pod 'Firebase/Database', '~> 10.29'
   pod 'Firebase/Analytics', '~> 10.29'
   pod 'Google-Mobile-Ads-SDK', '~> 11.13'
@@ -26,7 +27,7 @@ post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
       config.build_settings['ENABLE_USER_SCRIPT_SANDBOXING'] = 'NO'
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
     end
   end
 end
