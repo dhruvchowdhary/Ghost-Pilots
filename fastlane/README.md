@@ -55,6 +55,20 @@ Build, upload, and submit the current version for App Review
 
 Push metadata and age rating, then resubmit a rejected version with its current build
 
+### ios privacy
+
+```sh
+[bundle exec] fastlane ios privacy
+```
+
+Publish the App Privacy answers in app_privacy_details.json, added to what's there
+
+Signs in with your Apple ID (FASTLANE_USER, or it asks): Apple doesn't let
+
+an API key change App Privacy. Nothing already there is removed, the change
+
+is shown before anything is sent, and it asks before publishing (yes:true skips that).
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.

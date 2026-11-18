@@ -8,6 +8,7 @@ AGE_RATING = File.expand_path("age_rating.json", __dir__)
 # The App Privacy answers ("nutrition label"). After each `privacy` run it holds
 # exactly what's published.
 PRIVACY = File.expand_path("app_privacy_details.json", __dir__)
+TRACK = "DATA_USED_TO_TRACK_YOU"
 
 platform :ios do
   # Uses an App Store Connect API key when ASC_KEY_ID, ASC_ISSUER_ID, and
@@ -121,39 +122,98 @@ platform :ios do
     UI.success("Resubmitted review submission #{submission.id} for App Review")
   end
 
-  desc "Publish the App Privacy answers in app_privacy_details.json, added to what's published"
+  desc "Publish the App Privacy answers in app_privacy_details.json, added to what's there"
   desc "Signs in with your Apple ID (FASTLANE_USER, or it asks): Apple doesn't let"
-  desc "an API key change App Privacy. Nothing already published is removed, the"
-  desc "change is shown before anything is sent, and it asks before publishing."
-  lane :privacy do
-    published_path = File.expand_path("../build/app_privacy_details.published.json", __dir__)
-    FileUtils.mkdir_p(File.dirname(published_path))
-    download_app_privacy_details_from_app_store(output_json_path: published_path)
+  desc "an API key change App Privacy. Nothing already there is removed, the change"
+  desc "is shown before anything is sent, and it asks before publishing (yes:true skips that)."
+  lane :privacy do |options|
+    # Not fastlane's upload_app_privacy_details_to_app_store: it deletes every
+    # answer before adding the new ones, and Apple refuses to delete the last
+    # "used to track you" while the app shows ads, so it stops with the answers
+    # half deleted. This adds what's missing first and removes what's stale
+    # after.
+    Spaceship::ConnectAPI.login(
+      ENV["FASTLANE_USER"] || CredentialsManager::AppfileConfig.try_fetch_value(:apple_id),
+      use_portal: false,
+      use_tunes: true
+    )
+    app = Spaceship::ConnectAPI::App.find("edu.astroparty")
+    usages = Spaceship::ConnectAPI::AppDataUsage.all(app_id: app.id, includes: "category,grouping,purpose,dataProtection", limit: 500)
+    have = usages.map { |usage| [usage.category&.id, usage.purpose&.id, usage.data_protection&.id] }
+    current = privacy_answers(have)
 
-    published = JSON.parse(File.read(published_path))
-    wanted = JSON.parse(File.read(PRIVACY))
-    merged = merge_privacy(published, wanted)
+    # What was there, in case it's ever wanted back.
+    backup = File.expand_path("../build/app_privacy_details.before.json", __dir__)
+    FileUtils.mkdir_p(File.dirname(backup))
+    File.write(backup, JSON.pretty_generate(current) + "\n")
+
+    merged = merge_privacy(current, JSON.parse(File.read(PRIVACY)))
+    want = privacy_rows(merged)
+    adding = want - have
+    removing = usages.reject.with_index { |_, i| want.include?(have[i]) }
+    state = Spaceship::ConnectAPI::AppDataUsagesPublishState.get(app_id: app.id)
+    if adding.empty? && removing.empty? && state.published
+      UI.success("App Privacy is already up to date")
+      next
+    end
 
     describe = lambda do |entry|
       return "not collected" unless entry
       "#{entry['purposes'].join(', ')} | #{entry['data_protections'].join(', ')}"
     end
-    before = published.select { |e| e["category"] }.to_h { |e| [e["category"], e] }
-    changes = merged.reject { |e| before[e["category"]] == e }
-    if changes.empty?
-      UI.success("App Privacy is already up to date")
-      next
-    end
+    before = current.to_h { |entry| [entry["category"], entry] }
     UI.header("App Privacy changes")
-    changes.each do |entry|
-      UI.message("#{entry['category']}")
+    merged.reject { |entry| before[entry["category"]] == entry }.each do |entry|
+      UI.message(entry["category"])
       UI.message("  now:   #{describe.call(before[entry['category']])}")
       UI.message("  after: #{describe.call(entry)}")
     end
-    UI.user_error!("Not published") unless UI.confirm("Publish these App Privacy answers?")
+    UI.user_error!("Not published") unless options[:yes] || UI.confirm("Publish these App Privacy answers?")
 
     File.write(PRIVACY, JSON.pretty_generate(merged) + "\n")
-    upload_app_privacy_details_to_app_store(json_path: PRIVACY)
+    # "Used to track you" goes in after the purposes it's for.
+    tracking, others = adding.partition { |row| row[2] == TRACK }
+    (others + tracking).each do |category, purpose, protection|
+      UI.message("Adding #{[category, purpose, protection].compact.join(' / ')}")
+      Spaceship::ConnectAPI::AppDataUsage.create(
+        app_id: app.id,
+        app_data_usage_category_id: category,
+        app_data_usage_purpose_id: purpose,
+        app_data_usage_protection_id: protection
+      )
+    end
+    removing.each do |usage|
+      UI.message("Removing #{[usage.category&.id, usage.purpose&.id, usage.data_protection&.id].compact.join(' / ')}")
+      usage.delete!
+    end
+
+    state = Spaceship::ConnectAPI::AppDataUsagesPublishState.get(app_id: app.id)
+    state.publish! unless state.published
+    UI.success("App Privacy published")
+  end
+
+  # App Store Connect keeps App Privacy as rows of [category, purpose,
+  # protection]: one per purpose for "linked to you" or "not linked to you",
+  # and "used to track you" once per category, with no purpose.
+  def privacy_rows(answers)
+    answers.flat_map do |entry|
+      protections = entry["data_protections"]
+      rows = entry["purposes"].product(protections - [TRACK]).map { |purpose, protection| [entry["category"], purpose, protection] }
+      rows << [entry["category"], nil, TRACK] if protections.include?(TRACK)
+      rows
+    end
+  end
+
+  # Those rows as answers, one per category, the way app_privacy_details.json
+  # has them.
+  def privacy_answers(rows)
+    rows.group_by(&:first).map do |category, group|
+      {
+        "category" => category,
+        "purposes" => group.map { |row| row[1] }.compact.uniq.sort,
+        "data_protections" => group.map { |row| row[2] }.compact.uniq.sort
+      }
+    end.sort_by { |entry| entry["category"].to_s }
   end
 
   # The union of two sets of App Privacy answers. A category gets every purpose
