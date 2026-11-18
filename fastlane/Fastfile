@@ -5,6 +5,9 @@ SCHEME = "APBOv2"
 # Only the keys in this file are changed; the rest of the age rating stays as set
 # in App Store Connect. Advertising must be true because the app shows AdMob ads.
 AGE_RATING = File.expand_path("age_rating.json", __dir__)
+# The App Privacy answers ("nutrition label"). After each `privacy` run it holds
+# exactly what's published.
+PRIVACY = File.expand_path("app_privacy_details.json", __dir__)
 
 platform :ios do
   # Uses an App Store Connect API key when ASC_KEY_ID, ASC_ISSUER_ID, and
@@ -116,5 +119,60 @@ platform :ios do
 
     submission.submit_for_review
     UI.success("Resubmitted review submission #{submission.id} for App Review")
+  end
+
+  desc "Publish the App Privacy answers in app_privacy_details.json, added to what's published"
+  desc "Signs in with your Apple ID (FASTLANE_USER, or it asks): Apple doesn't let"
+  desc "an API key change App Privacy. Nothing already published is removed, the"
+  desc "change is shown before anything is sent, and it asks before publishing."
+  lane :privacy do
+    published_path = File.expand_path("../build/app_privacy_details.published.json", __dir__)
+    FileUtils.mkdir_p(File.dirname(published_path))
+    download_app_privacy_details_from_app_store(output_json_path: published_path)
+
+    published = JSON.parse(File.read(published_path))
+    wanted = JSON.parse(File.read(PRIVACY))
+    merged = merge_privacy(published, wanted)
+
+    describe = lambda do |entry|
+      return "not collected" unless entry
+      "#{entry['purposes'].join(', ')} | #{entry['data_protections'].join(', ')}"
+    end
+    before = published.select { |e| e["category"] }.to_h { |e| [e["category"], e] }
+    changes = merged.reject { |e| before[e["category"]] == e }
+    if changes.empty?
+      UI.success("App Privacy is already up to date")
+      next
+    end
+    UI.header("App Privacy changes")
+    changes.each do |entry|
+      UI.message("#{entry['category']}")
+      UI.message("  now:   #{describe.call(before[entry['category']])}")
+      UI.message("  after: #{describe.call(entry)}")
+    end
+    UI.user_error!("Not published") unless UI.confirm("Publish these App Privacy answers?")
+
+    File.write(PRIVACY, JSON.pretty_generate(merged) + "\n")
+    upload_app_privacy_details_to_app_store(json_path: PRIVACY)
+  end
+
+  # The union of two sets of App Privacy answers. A category gets every purpose
+  # either has; it's linked to the user if either says so, and used for
+  # tracking if either says so. "Data not collected" gives way to anything that
+  # is.
+  def merge_privacy(published, wanted)
+    by_category = {}
+    (published + wanted).each do |entry|
+      next unless entry["category"]
+      merged = by_category[entry["category"]] ||= { "category" => entry["category"], "purposes" => [], "data_protections" => [] }
+      merged["purposes"] |= entry["purposes"] || []
+      merged["data_protections"] |= entry["data_protections"] || []
+    end
+    by_category.values.each do |entry|
+      entry["data_protections"].delete("DATA_NOT_LINKED_TO_YOU") if entry["data_protections"].include?("DATA_LINKED_TO_YOU")
+      entry["purposes"].sort!
+      entry["data_protections"].sort!
+    end
+    by_category.values.sort_by { |entry| entry["category"] }
   end
 end
