@@ -1,5 +1,1 @@
-Ghost Pilots is back and updated for the latest iOS.
-
-- Updated Firebase and Google Mobile Ads for current privacy requirements
-- Fixed the revive button
-- Stability and performance fixes
+Bug fixes and improvements.
