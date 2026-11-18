@@ -75,7 +75,8 @@ platform :ios do
       app_rating_config_path: AGE_RATING,
       precheck_include_in_app_purchases: false,
       submit_for_review: true,
-      automatic_release: false,
+      # Goes live as soon as Apple approves it.
+      automatic_release: true,
       force: true,
       submission_information: {
         # No encryption beyond Apple's exempt uses (ITSAppUsesNonExemptEncryption is false).
