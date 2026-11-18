@@ -6,14 +6,22 @@ import { read } from "./firebase";
 ///
 /// - `Users/<device>`: `Polynite`, the balance as a string, and `ShopStuff`,
 ///   the shop as a JSON string (ShopPayload.swift). Written for every install
-///   the first time it opens (LoadIntro.swift).
+///   the first time it opens (LoadIntro.swift). Versions after 3.4 also save
+///   (DataPusher.swift):
+///   - `LastSeen`, a server timestamp in milliseconds, every time the game
+///     opens or comes back to the front;
+///   - `GameCenter`, the name they go by in Game Center, once signed in;
+///   - `Play/<scene>/plays` and `/seconds`, how often each scene came on
+///     screen and for how long, `<scene>` being its class name (labels.ts);
+///   - `Days/<yyyy-MM-dd>`, seconds the game was open each UTC day.
 /// - `systemID/<device>`: the online name, once they've picked one
 ///   (OnlineMenu.swift).
 /// - `Games/<code>`: an online game or lobby, and `Games/LFG/<code>` for the
 ///   public ones looking for players (GameData.swift, MultiplayerHandler.swift).
 ///
 /// `<device>` is `identifierForVendor`, so a player is a device and a
-/// reinstall is a new player. Nothing anywhere carries a date.
+/// reinstall is a new player. `LastSeen` and `Days` are the only dates
+/// anywhere, and only players on a version that writes them have any.
 ///
 /// Every value was written by some version of the app, so none of it is
 /// trusted to have the shape the current one writes.
@@ -28,11 +36,22 @@ export class DashboardError extends Error {}
 export type Player = {
   id: string;
   name: string | null;
+  /// Their Game Center name, for anyone who never picked an online name.
+  gameCenter: string | null;
   polynite: number;
   decals: string[];
   trails: string[];
   wearingDecal: string | null;
   wearingTrail: string | null;
+  /// When the game was last open on this device, as an ISO instant, or null
+  /// for anyone who hasn't opened a version that saves it.
+  lastSeen: string | null;
+  /// Plays and seconds per scene, by class name. Empty before the update.
+  play: Record<string, { plays: number; seconds: number }>;
+  /// Seconds the game was open, per UTC day (`yyyy-MM-dd`).
+  days: Record<string, number>;
+  /// All their seconds in the game, from `days`.
+  seconds: number;
   /// Whether they've ever opened the shop. Until then there's no ShopStuff
   /// and they have the starters only.
   shop: boolean;
@@ -40,7 +59,14 @@ export type Player = {
   bought: number;
 };
 
-type RawUser = { Polynite?: unknown; ShopStuff?: unknown };
+type RawUser = {
+  Polynite?: unknown;
+  ShopStuff?: unknown;
+  LastSeen?: unknown;
+  GameCenter?: unknown;
+  Play?: unknown;
+  Days?: unknown;
+};
 type RawShop = { lockerDecals?: unknown; lockerTrails?: unknown; equippedDecal?: unknown; equippedTrail?: unknown };
 
 function toCount(value: unknown): number {
@@ -54,6 +80,35 @@ function strings(value: unknown): string[] {
 
 function text(value: unknown): string | null {
   return typeof value === "string" && value.trim() !== "" ? value : null;
+}
+
+/// A server timestamp, if it's one. Anything before the game existed or more
+/// than a day ahead is somebody's edit rather than the server's clock.
+function instant(value: unknown): string | null {
+  const ms = typeof value === "number" ? value : NaN;
+  if (!Number.isFinite(ms) || ms < Date.UTC(2020, 0, 1) || ms > Date.now() + 86_400_000) return null;
+  return new Date(ms).toISOString();
+}
+
+function readPlay(value: unknown): Player["play"] {
+  const play: Player["play"] = {};
+  if (!value || typeof value !== "object") return play;
+  for (const [scene, raw] of Object.entries(value as Record<string, unknown>)) {
+    const counts = raw && typeof raw === "object" ? (raw as { plays?: unknown; seconds?: unknown }) : {};
+    const plays = Math.max(toCount(counts.plays), 0);
+    const seconds = Math.max(toCount(counts.seconds), 0);
+    if (plays > 0 || seconds > 0) play[scene] = { plays, seconds };
+  }
+  return play;
+}
+
+function readDays(value: unknown): Player["days"] {
+  const days: Player["days"] = {};
+  if (!value || typeof value !== "object") return days;
+  for (const [day, raw] of Object.entries(value as Record<string, unknown>)) {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(day)) days[day] = Math.max(toCount(raw), 0);
+  }
+  return days;
 }
 
 function readShop(value: unknown): RawShop | null {
@@ -71,14 +126,20 @@ function toPlayer(id: string, raw: RawUser | null, name: string | null): Player 
   const shop = readShop(raw?.ShopStuff);
   const decals = shop ? strings(shop.lockerDecals) : [];
   const trails = shop ? strings(shop.lockerTrails) : [];
+  const days = readDays(raw?.Days);
   return {
     id,
     name,
+    gameCenter: text(raw?.GameCenter),
     polynite: toCount(raw?.Polynite),
     decals,
     trails,
     wearingDecal: shop ? text(shop.equippedDecal) : null,
     wearingTrail: shop ? text(shop.equippedTrail) : null,
+    lastSeen: instant(raw?.LastSeen),
+    play: readPlay(raw?.Play),
+    days,
+    seconds: Object.values(days).reduce((a, b) => a + b, 0),
     shop: shop !== null,
     bought: [...decals, ...trails].filter((item) => !STARTERS.has(item)).length,
   };
@@ -94,6 +155,14 @@ export async function getPlayers(): Promise<Player[]> {
   ]);
   const ids = new Set([...Object.keys(users ?? {}), ...Object.keys(names ?? {})]);
   return [...ids].map((id) => toPlayer(id, users?.[id] ?? null, text(names?.[id])));
+}
+
+/// What to call a player: the online name they picked, else their Game
+/// Center name, else nothing.
+export function displayName(player: Player): { name: string; from: "online" | "gameCenter" } | null {
+  if (player.name) return { name: player.name, from: "online" };
+  if (player.gameCenter) return { name: player.gameCenter, from: "gameCenter" };
+  return null;
 }
 
 /// Firebase keys can hold anything but these, and device ids are UUIDs, so

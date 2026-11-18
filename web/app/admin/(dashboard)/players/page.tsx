@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Problem } from "../../components/bits";
-import { attempt, getPlayers, type Player } from "../../lib/data";
-import { formatCount } from "../../lib/format";
+import { attempt, displayName, getPlayers, type Player } from "../../lib/data";
+import { formatAgo, formatCount, formatDuration } from "../../lib/format";
 import type { SearchParams } from "../../lib/params";
-import { requireAdmin } from "../../lib/session";
+import { adminTimeZone, requireAdmin } from "../../lib/session";
 import { itemName, STARTERS } from "../../labels";
 import { AdminStrings } from "../../strings";
 
@@ -19,7 +19,7 @@ const MAX = 2000;
 type Sort = keyof typeof AdminStrings.players.sorts;
 type Show = keyof typeof AdminStrings.players.shows;
 
-const SORTS: readonly Sort[] = ["polynite", "items", "name"];
+const SORTS: readonly Sort[] = ["active", "time", "polynite", "items", "name"];
 const SHOWS: readonly Show[] = ["all", "named", "buyers"];
 
 function one(value: string | string[] | undefined): string {
@@ -27,7 +27,7 @@ function one(value: string | string[] | undefined): string {
 }
 
 function readView(params: SearchParams) {
-  const sort = SORTS.find((s) => s === one(params.sort)) ?? "polynite";
+  const sort = SORTS.find((s) => s === one(params.sort)) ?? "active";
   const show = SHOWS.find((s) => s === one(params.show)) ?? "all";
   const requested = Number(one(params.more));
   const limit = Number.isFinite(requested) ? Math.min(Math.max(requested, PAGE), MAX) : PAGE;
@@ -41,7 +41,7 @@ function viewHref(view: View, change: Partial<View>): string {
   const next = { ...view, ...change };
   const query = new URLSearchParams();
   if (next.query) query.set("q", next.query);
-  if (next.sort !== "polynite") query.set("sort", next.sort);
+  if (next.sort !== "active") query.set("sort", next.sort);
   if (next.show !== "all") query.set("show", next.show);
   if (next.limit !== PAGE) query.set("more", String(next.limit));
   const text = query.toString();
@@ -51,6 +51,7 @@ function viewHref(view: View, change: Partial<View>): string {
 export default async function PlayersPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
   await requireAdmin();
   const view = readView(await searchParams);
+  const timeZone = await adminTimeZone();
   const t = AdminStrings.players;
   const result = await attempt(getPlayers());
 
@@ -68,38 +69,43 @@ export default async function PlayersPage({ searchParams }: { searchParams: Prom
       ) : result.data.length === 0 ? (
         <p className="a-card a-empty">{t.empty}</p>
       ) : (
-        <List players={result.data} view={view} />
+        <List players={result.data} view={view} timeZone={timeZone} />
       )}
     </>
   );
 }
 
 const BY: Record<Sort, (a: Player, b: Player) => number> = {
+  // Most recent first. Everyone without a time (anyone who hasn't opened a
+  // version that saves one) comes after, by balance, so until the update is
+  // out this reads the same as "Most Polynite".
+  active: (a, b) => (b.lastSeen ?? "").localeCompare(a.lastSeen ?? "") || b.polynite - a.polynite,
+  time: (a, b) => b.seconds - a.seconds || b.polynite - a.polynite,
   polynite: (a, b) => b.polynite - a.polynite || b.bought - a.bought,
   items: (a, b) => b.bought - a.bought || b.polynite - a.polynite,
-  // Named players first, A to Z, then the rest by balance.
-  name: (a, b) =>
-    a.name && b.name
-      ? a.name.localeCompare(b.name, "en", { sensitivity: "base" })
-      : a.name
-        ? -1
-        : b.name
-          ? 1
-          : b.polynite - a.polynite,
+  // Anyone with a name first, A to Z, whichever kind it is, then the rest by
+  // balance.
+  name: (a, b) => {
+    const x = displayName(a)?.name;
+    const y = displayName(b)?.name;
+    return x && y ? x.localeCompare(y, "en", { sensitivity: "base" }) : x ? -1 : y ? 1 : b.polynite - a.polynite;
+  },
 };
 
-function List({ players, view }: { players: Player[]; view: View }) {
+function List({ players, view, timeZone }: { players: Player[]; view: View; timeZone: string }) {
   const t = AdminStrings.players;
   const needle = view.query.toLowerCase();
-  const inShow = (p: Player) => view.show === "all" || (view.show === "named" ? p.name !== null : p.bought > 0);
+  const inShow = (p: Player) => view.show === "all" || (view.show === "named" ? displayName(p) !== null : p.bought > 0);
   const counts: Record<Show, number> = {
     all: players.length,
-    named: players.filter((p) => p.name !== null).length,
+    named: players.filter((p) => displayName(p) !== null).length,
     buyers: players.filter((p) => p.bought > 0).length,
   };
 
   const matching = players.filter(
-    (p) => inShow(p) && (!needle || p.id.toLowerCase().includes(needle) || (p.name?.toLowerCase().includes(needle) ?? false)),
+    (p) =>
+      inShow(p) &&
+      (!needle || [p.id, p.name, p.gameCenter].some((field) => field?.toLowerCase().includes(needle) ?? false)),
   );
   const shown = [...matching].sort(BY[view.sort]).slice(0, view.limit);
 
@@ -161,11 +167,17 @@ function List({ players, view }: { players: Player[]; view: View }) {
                   </th>
                   <th scope="col">{t.owns}</th>
                   <th scope="col">{t.wearing}</th>
+                  <th scope="col" className="is-num" title={t.timeHint}>
+                    {t.time}
+                  </th>
+                  <th scope="col" className="is-num" title={t.notRecordedHint}>
+                    {t.lastActive}
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {shown.map((player) => (
-                  <Row key={player.id} player={player} />
+                  <Row key={player.id} player={player} timeZone={timeZone} />
                 ))}
               </tbody>
             </table>
@@ -181,20 +193,30 @@ function List({ players, view }: { players: Player[]; view: View }) {
   );
 }
 
-function Row({ player }: { player: Player }) {
+function Row({ player, timeZone }: { player: Player; timeZone: string }) {
   const t = AdminStrings.players;
   const extras = [...player.decals, ...player.trails].filter((item) => !STARTERS.has(item));
   const wearing = [player.wearingDecal, player.wearingTrail].filter(
     (item): item is string => item !== null && !STARTERS.has(item),
   );
+  const called = displayName(player);
+  const recorded = Object.keys(player.days).length > 0;
   return (
     <tr>
       <td>
         <span className="a-person">
           <span className="a-person-name">
             <Link href={`/admin/players/${encodeURIComponent(player.id)}`}>
-              {player.name ?? <span className="a-muted">{t.noName}</span>}
+              {called?.name ?? <span className="a-muted">{t.noName}</span>}
             </Link>
+            {called?.from === "gameCenter" && (
+              <>
+                {" "}
+                <span className="a-tag" title={t.gameCenterHint}>
+                  {t.gameCenterTag}
+                </span>
+              </>
+            )}
             <span className="a-sub" title={player.id}>
               {player.id.slice(0, 8)}
             </span>
@@ -216,6 +238,18 @@ function Row({ player }: { player: Player }) {
         )}
       </td>
       <td>{wearing.length === 0 ? <span className="a-muted">{t.nothingExtra}</span> : wearing.map(itemName).join(", ")}</td>
+      <td className="is-num">
+        {recorded ? formatDuration(player.seconds * 1000) : <span className="a-muted">{t.notRecorded}</span>}
+      </td>
+      <td className="is-num">
+        {player.lastSeen ? (
+          <span title={player.lastSeen}>{formatAgo(player.lastSeen, timeZone)}</span>
+        ) : (
+          <span className="a-muted" title={t.notRecordedHint}>
+            {t.notRecorded}
+          </span>
+        )}
+      </td>
     </tr>
   );
 }

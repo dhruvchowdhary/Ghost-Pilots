@@ -25,13 +25,15 @@ lists all three, and its copies in the other two repos have to match it apart
 from `CURRENT`. Four tabs:
 
 - **Overview** - how many players there are and how many picked an online
-  name, who's in an online game, how much Polynite is out there, who owns
-  which shop item, and how balances spread out.
+  name, who's in an online game, how much Polynite is out there, players and
+  minutes a day, what people play and for how long, who owns which shop item,
+  and how balances spread out.
 - **App Store** - what Apple reports: downloads, where they came from and
   which countries, the store page, crashes, ratings and reviews. The same tab
   as the other two dashboards; see below.
-- **Players** - everyone, searchable by online name or device id, with a page
-  each for their balance, their shop and any online game they're in.
+- **Players** - everyone, most recently active first, searchable by online
+  name, Game Center name or device id, with a page each for their balance,
+  their shop, what they play and any online game they're in.
 - **Online games** - what's being played and waiting right now, which modes
   and maps people pick, and the games left behind in the database.
 
@@ -52,12 +54,22 @@ the detail):
   ones looking for players.
 
 So a player is a device (`identifierForVendor`), and a reinstall is a new,
-empty player. And nothing carries a date: there's no "joined", no "last
-seen", and no day-by-day chart from Firebase. The Overview says so and points
-at the App Store tab, whose numbers do go by day. "In an online game" is as
-the database has it; someone whose app died mid-lobby still shows, since
-there's no time to tell them apart. Games nobody is left in are counted
-separately, as left behind.
+empty player. Up to 3.4 nothing carried a date. Versions after it also write,
+under `Users/<device>` (`APBOv2/Firebase/DataPusher.swift`):
+
+- `LastSeen` - a server timestamp, each time the game opens or comes back to
+  the front. The Players tab sorts by it.
+- `GameCenter` - their Game Center name, once signed in, shown for anyone
+  without an online name and tagged as such.
+- `Play/<scene>/plays` and `/seconds` - how often each scene came on screen
+  and for how long, keyed by its class name (`labels.ts` names them).
+- `Days/<yyyy-MM-dd>` - seconds the game was open each UTC day, which the
+  Overview's "Day by day" charts.
+
+Until players update, those read "Not recorded" and the sections that need
+them say so. "In an online game" is as the database has it; someone whose app
+died mid-lobby still shows, since lobbies carry no times. Games nobody is left
+in are counted separately, as left behind.
 
 ### Turning it on
 

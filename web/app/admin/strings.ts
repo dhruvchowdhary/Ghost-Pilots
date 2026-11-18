@@ -37,7 +37,7 @@ export const AdminStrings = {
   overview: {
     heading: "Overview",
     caption:
-      "Everything the game keeps in Firebase, added up. It saves no dates, so these are totals as of now; downloads by day are on the App Store tab.",
+      "Everything the game keeps in Firebase, added up. Until 3.4 it saved no dates, so most of this is totals as of now; downloads by day are on the App Store tab.",
     players: "Players",
     playersSub: (named: number) => `${named.toLocaleString("en-US")} picked an online name`,
     playersHint:
@@ -62,6 +62,28 @@ export const AdminStrings = {
       `Every player, and how many own each item. A decal costs ${decal} Polynite and a trail ${trail}.`,
     wearing: (n: number) => `${n.toLocaleString("en-US")} wearing it`,
     shopOf: (n: number) => `of ${n.toLocaleString("en-US")} players`,
+    dailyHeading: "Day by day",
+    dailyCaption:
+      "From versions of the game after 3.4, which save the days they're opened and for how long. Days are UTC.",
+    dailyEmpty:
+      "Nothing yet. Versions of the game after 3.4 save this, so it fills in as players update.",
+    dailyActive: "Players who opened it",
+    dailyMinutes: "Minutes in the game",
+    today: (n: number) => `${n.toLocaleString("en-US")} today`,
+    inPeriod: (n: number, days: number) => `${n.toLocaleString("en-US")} in ${days} days`,
+    showTable: "Show the numbers",
+    tableDay: "Day",
+    describe: (name: string, days: number, peak: number, peakDay: string) =>
+      `${name} per day over ${days} days. Highest ${peak} on ${peakDay}. The table below has every day.`,
+    playHeading: "What people play",
+    playCaption:
+      "Every mode, how often it was started and how long people stayed, added up since each player updated to a version that records it.",
+    playEmpty: "Nothing yet. Versions of the game after 3.4 record this, so it fills in as players update.",
+    menusHeading: "Menus",
+    mode: "Mode",
+    plays: "Plays",
+    time: "Time",
+    perPlay: "Per play",
     balanceHeading: "How much Polynite players have",
     balanceCaption: "Every player's balance right now. Solo runs, the turret boss and campaign levels pay it out.",
     empty: "No players in the database yet.",
@@ -184,18 +206,26 @@ export const AdminStrings = {
   players: {
     heading: "Players",
     caption: "Everyone the game has saved. A player is a device: the game has no accounts, so a reinstall is a new player.",
-    search: "Search online name or device id",
+    search: "Search name, Game Center name or device id",
     searchButton: "Search",
     sort: "Sort",
-    sorts: { polynite: "Most Polynite", items: "Most items", name: "Online name" },
-    shows: { all: "All", named: "With an online name", buyers: "Bought something" },
+    sorts: { active: "Last active", time: "Most time", polynite: "Most Polynite", items: "Most items", name: "Name" },
+    shows: { all: "All", named: "With a name", buyers: "Bought something" },
     show: "Show",
     player: "Player",
     polynite: "Polynite",
     owns: "Owns",
     wearing: "Wearing",
+    lastActive: "Last active",
+    time: "Time in game",
+    timeHint: "Time with the game open, from versions after 3.4.",
+    gameCenterTag: "Game Center",
+    gameCenterHint: "No online name, so this is the name they go by in Game Center.",
+    notRecorded: "Not recorded",
+    notRecordedHint:
+      "Only versions of the game after 3.4 save when they were last open. Anyone without a time hasn't opened one yet, and sorts after everyone who has.",
     nothingExtra: "Defaults only",
-    noName: "No online name",
+    noName: "No name",
     count: (shown: number, matching: number, total: number) =>
       matching === total
         ? shown === total
@@ -212,7 +242,18 @@ export const AdminStrings = {
   player: {
     back: "All players",
     notFound: "There's no player saved under that device id.",
-    caption: "Everything the game keeps about this player. It saves no dates, so there's no history to show.",
+    caption:
+      "Everything the game keeps about this player. Apart from when they last had it open, nothing has a date, so there's no history to show.",
+    lastActive: "Last active",
+    lastActiveValue: (when: string, ago: string) => `${ago} · ${when}`,
+    notRecorded: "Not recorded. Only versions of the game after 3.4 save it.",
+    gameCenter: "Game Center name",
+    gameCenterNone: "None saved. They're not signed in, or haven't opened a version after 3.4.",
+    time: "Time in game",
+    timeValue: (time: string, days: number) => `${time} over ${days} ${days === 1 ? "day" : "days"}`,
+    playHeading: "What they play",
+    playCaption: "Every mode and menu, how often it came up and how long they stayed, since they updated to a version that records it.",
+    playEmpty: "Nothing recorded. Versions of the game after 3.4 save this.",
     name: "Online name",
     noName: "None. They haven't played online.",
     device: "Device id",

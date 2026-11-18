@@ -55,3 +55,39 @@ export const BALANCES: readonly { key: string; label: string; hint?: string; min
   { key: "everything", label: "1,400 to 9,999", hint: "Enough for the whole shop", min: 1400, max: 9999 },
   { key: "rich", label: "10,000 or more", min: 10_000, max: Number.POSITIVE_INFINITY },
 ];
+
+export type SceneKind = "play" | "menu";
+
+/// `Users/<device>/Play/<scene>`: each scene class the game shows, named the
+/// way a player would know it. `play` is a game being played; `menu` is
+/// everything around it. A scene missing here still shows, as its class name,
+/// counted as a menu.
+export const SCENES: Record<string, { name: string; kind: SceneKind; group: string }> = {
+  GameScene: { name: "Endless", kind: "play", group: "Solo" },
+  Level1: { name: "Level 1", kind: "play", group: "Solo" },
+  Level2: { name: "Level 2", kind: "play", group: "Solo" },
+  Level3: { name: "Level 3", kind: "play", group: "Solo" },
+  TurretBoss: { name: "Turret boss", kind: "play", group: "Solo" },
+  Tutorial: { name: "Tutorial", kind: "play", group: "Solo" },
+  CPLevel1: { name: "Campaign 1", kind: "play", group: "Campaign" },
+  CPLevel2: { name: "Campaign 2", kind: "play", group: "Campaign" },
+  CPLevel3: { name: "Campaign 3", kind: "play", group: "Campaign" },
+  CPLevel4: { name: "Campaign 4", kind: "play", group: "Campaign" },
+  GameSceneOnline: { name: "Free for all", kind: "play", group: "Online" },
+  AstroBall: { name: "Astroball", kind: "play", group: "Online" },
+  Infection: { name: "Infection", kind: "play", group: "Online" },
+  LoadIntro: { name: "Intro", kind: "menu", group: "Menus" },
+  MainMenu: { name: "Main menu", kind: "menu", group: "Menus" },
+  SoloMenu: { name: "Solo menu", kind: "menu", group: "Menus" },
+  LoadLevelsMenu: { name: "Levels menu", kind: "menu", group: "Menus" },
+  TurretBossMenu: { name: "Turret boss menu", kind: "menu", group: "Menus" },
+  Campaign: { name: "Campaign map", kind: "menu", group: "Menus" },
+  OnlineMenu: { name: "Online menu", kind: "menu", group: "Menus" },
+  HostMenu: { name: "Hosting a game", kind: "menu", group: "Menus" },
+  LobbyMenu: { name: "Lobby", kind: "menu", group: "Menus" },
+  Shop: { name: "Shop", kind: "menu", group: "Menus" },
+};
+
+export function scene(id: string) {
+  return SCENES[id] ?? { name: id, kind: "menu" as const, group: "Menus" };
+}

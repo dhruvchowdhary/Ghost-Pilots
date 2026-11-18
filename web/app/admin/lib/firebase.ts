@@ -4,9 +4,10 @@ import { DashboardError } from "./data";
 import { requireAdmin } from "./session";
 
 /// Reads from the game's Firebase Realtime Database, over its REST API, as a
-/// service account. The database's rules keep everyone else out (a plain read
-/// is a 401), and a service account's token goes past them, so this is the
-/// only door and it's read-only: nothing in the dashboard writes.
+/// service account. The game itself reads and writes without signing in, so
+/// the database's rules have to leave its nodes open; the service account goes
+/// past whatever the rules say, so the dashboard keeps working if they're ever
+/// locked down. It's read-only: nothing in the dashboard writes.
 ///
 /// The token is the standard Google one: a JWT signed with the account's
 /// private key, swapped at Google's token endpoint for an hour's access
