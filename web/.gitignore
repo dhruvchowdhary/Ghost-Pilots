@@ -1,0 +1,9 @@
+.vercel
+node_modules/
+.next/
+next-env.d.ts
+*.tsbuildinfo
+# Secrets: the service account key and the App Store Connect key, locally.
+.env
+.env.*
+!.env.example

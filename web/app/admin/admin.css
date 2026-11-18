@@ -1,0 +1,1629 @@
+/* The admin dashboard. Scoped under .admin so none of it reaches the public
+   page, and so the public page's styles (globals.css) are undone here rather
+   than fought everywhere.
+
+   Built from Whensday's dashboard stylesheet (the Whensday repo), which was
+   built from FitPals', so the three read as one tool with three palettes.
+   This palette is the app icon's: its starfield navy (#152044) is the dark
+   page and the light mode's ink, and --a-series is the ghost's visor cyan
+   (#00ffff) stepped down until it clears 3:1 on the card in each mode and
+   sits in the lightness band for marks: #1a86a8 on white is 4.2:1, #22a6bd
+   on the navy card 5.2:1 (checked with the dataviz validator, not by eye).
+   Status colours are the fixed good / warning / critical set and only ever
+   sit next to a word. */
+
+.admin {
+  --a-page: #f6f7fb;
+  --a-sidebar: #eef0f7;
+  --a-card: #ffffff;
+  --a-text: #152044;
+  --a-muted: #5a6283;
+  --a-border: #d9dcea;
+  --a-hairline: #e7e9f2;
+  --a-fill: #eceef6;
+  --a-series: #1a86a8;
+  --a-series-wash: rgba(26, 134, 168, 0.1);
+  --a-good: #0ca30c;
+  --a-warning: #fab219;
+  --a-critical: #d03b3b;
+  --a-up: #006300;
+  --a-down: #b03030;
+  --a-focus: #2a78d6;
+
+  min-height: 100dvh;
+  background: var(--a-page);
+  color: var(--a-text);
+  font-size: 15px;
+  text-align: left;
+}
+
+@media (prefers-color-scheme: dark) {
+  .admin {
+    --a-page: #152044;
+    --a-sidebar: #111a3a;
+    --a-card: #1b2547;
+    --a-text: #eef0f8;
+    --a-muted: #a3abc6;
+    --a-border: #2c3760;
+    --a-hairline: #253055;
+    --a-fill: #222c52;
+    --a-series: #22a6bd;
+    --a-series-wash: rgba(34, 166, 189, 0.14);
+    --a-up: #0ca30c;
+    --a-down: #e66767;
+    --a-focus: #6aa6ff;
+    color-scheme: dark;
+  }
+}
+
+.admin main {
+  display: block;
+  max-width: 1180px;
+  min-height: 0;
+  margin: 0 auto;
+  padding: 28px 32px 64px;
+  text-align: left;
+}
+
+.admin h1 {
+  font-size: 1.625rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.admin h2 {
+  font-size: 1.0625rem;
+  font-weight: 620;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.admin p {
+  margin: 0;
+  color: var(--a-muted);
+}
+
+.admin a {
+  color: inherit;
+}
+
+.admin :focus-visible {
+  outline: 2px solid var(--a-focus);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.a-muted {
+  color: var(--a-muted);
+}
+
+.a-num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Read out, not drawn. */
+.a-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- Shell and sidebar ------------------------------------------------- */
+
+/* The sidebar is the same in both apps' dashboards (this one and the twin in
+   the other repo), so the switcher at its top lands in the same place either
+   side of the jump. Only the palette above differs. */
+
+/* The sidebar's colour and rule are painted on the shell rather than the
+   sidebar, so the column runs the full height of a long page while the
+   sidebar itself stays put. */
+.a-shell {
+  display: grid;
+  grid-template-columns: 236px minmax(0, 1fr);
+  min-height: 100dvh;
+  background: linear-gradient(to right, var(--a-sidebar) 0 235px, var(--a-border) 235px 236px, transparent 236px);
+}
+
+/* A grid item with auto margins shrinks to its content, which would centre a
+   sparse page in a narrower column than a full one. */
+.a-shell > main {
+  width: 100%;
+}
+
+.a-sidebar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 14px 12px 16px;
+}
+
+/* The wordmark on the login page, and the Admin badge beside a name. */
+.a-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.a-badge {
+  font-size: 0.6875rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--a-muted);
+  border: 1px solid var(--a-border);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+.a-switcher {
+  position: relative;
+}
+
+.a-switcher summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.a-switcher summary::-webkit-details-marker {
+  display: none;
+}
+
+.a-switcher summary:hover,
+.a-switcher[open] summary {
+  background: var(--a-fill);
+}
+
+.a-switcher-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.a-chevron {
+  flex: none;
+  color: var(--a-muted);
+  transition: transform 0.15s ease;
+}
+
+.a-switcher[open] .a-chevron {
+  transform: rotate(180deg);
+}
+
+/* Each app's mark: its initial on its own colour, ringed faintly so a dark
+   mark still has an edge on a dark sidebar. */
+.a-app-mark {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+}
+
+.a-app-mark.is-small {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+}
+
+.a-switcher-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  padding: 6px;
+  background: var(--a-card);
+  border: 1px solid var(--a-border);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14);
+}
+
+.admin .a-switcher-label {
+  padding: 6px 8px 4px;
+  font-size: 0.6875rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.a-switcher-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.a-switcher-menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 8px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 550;
+}
+
+.a-switcher-menu a:hover {
+  background: var(--a-fill);
+}
+
+.a-switcher-item {
+  flex: 1;
+}
+
+.a-switcher-check {
+  color: var(--a-muted);
+  font-weight: 700;
+}
+
+.a-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.a-nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--a-muted);
+  font-weight: 550;
+  white-space: nowrap;
+}
+
+.a-nav a svg {
+  flex: none;
+}
+
+.a-nav a:hover {
+  color: var(--a-text);
+  background: var(--a-fill);
+}
+
+.a-nav a[aria-current="page"] {
+  color: var(--a-text);
+  background: var(--a-card);
+  box-shadow: inset 0 0 0 1px var(--a-border);
+}
+
+.a-sidebar-foot {
+  margin-top: auto;
+  padding: 0 6px;
+}
+
+.a-link-button {
+  font: inherit;
+  color: var(--a-muted);
+  background: none;
+  border: 0;
+  padding: 6px 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.a-link-button:hover {
+  color: var(--a-text);
+}
+
+/* A phone or a narrow window: the sidebar folds into a bar across the top,
+   switcher and sign out on one line, the tabs scrolling sideways under them. */
+@media (max-width: 860px) {
+  .a-shell {
+    display: block;
+    background: none;
+  }
+
+  .a-sidebar {
+    background: var(--a-sidebar);
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 12px;
+    padding: 8px 12px 0;
+    border-bottom: 1px solid var(--a-border);
+  }
+
+  .a-switcher-menu {
+    right: auto;
+    min-width: 220px;
+  }
+
+  .a-sidebar-foot {
+    margin: 0 0 0 auto;
+  }
+
+  .a-nav {
+    order: 3;
+    flex-direction: row;
+    flex-basis: 100%;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+}
+
+/* ---- Page frame ------------------------------------------------------- */
+
+.a-page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.a-page-head p {
+  margin-top: 4px;
+}
+
+.a-section {
+  margin-top: 28px;
+}
+
+.a-section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.a-section-head p {
+  font-size: 0.875rem;
+  max-width: 62ch;
+}
+
+.a-card {
+  background: var(--a-card);
+  border: 1px solid var(--a-border);
+  border-radius: 14px;
+  padding: 18px 20px;
+}
+
+/* Cards one above another. Grids (the tiles, the charts) space their own. */
+.a-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.a-empty {
+  padding: 28px 20px;
+  text-align: center;
+  color: var(--a-muted);
+}
+
+/* ---- Filters ----------------------------------------------------------- */
+
+.a-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.a-segmented {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  background: var(--a-fill);
+  border-radius: 10px;
+}
+
+.a-segmented a {
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 550;
+  text-decoration: none;
+  color: var(--a-muted);
+}
+
+.a-segmented a[aria-current="true"] {
+  background: var(--a-card);
+  color: var(--a-text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.a-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid var(--a-border);
+  border-radius: 10px;
+  font-size: 0.875rem;
+  text-decoration: none;
+  color: var(--a-muted);
+}
+
+.a-toggle[data-on="true"] {
+  color: var(--a-text);
+  background: var(--a-card);
+}
+
+.a-check {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1.5px solid var(--a-muted);
+  display: inline-grid;
+  place-items: center;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.a-toggle[data-on="true"] .a-check {
+  background: var(--a-series);
+  border-color: var(--a-series);
+  color: #ffffff;
+}
+
+/* ---- Stat tiles ----------------------------------------------------- */
+
+.a-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.a-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.a-kpi-label {
+  font-size: 0.875rem;
+  color: var(--a-muted);
+}
+
+/* Proportional figures: a big standalone number, not a column. */
+.a-kpi-value {
+  font-size: 2rem;
+  font-weight: 620;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.a-kpi-sub {
+  font-size: 0.8125rem;
+  color: var(--a-muted);
+}
+
+.a-delta {
+  font-size: 0.8125rem;
+  font-weight: 550;
+}
+
+.a-delta.is-up {
+  color: var(--a-up);
+}
+
+.a-delta.is-down {
+  color: var(--a-down);
+}
+
+.a-delta.is-flat {
+  color: var(--a-muted);
+}
+
+/* ---- Daily charts --------------------------------------------------- */
+
+.a-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.chart {
+  margin: 0;
+}
+
+.chart-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.chart-title {
+  font-weight: 600;
+}
+
+.chart-summary {
+  font-size: 0.8125rem;
+  color: var(--a-muted);
+}
+
+.chart-body {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 10px;
+  row-gap: 6px;
+}
+
+.chart-y {
+  position: relative;
+  min-width: 18px;
+  font-size: 0.6875rem;
+  color: var(--a-muted);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.chart-y span {
+  position: absolute;
+  right: 0;
+  transform: translateY(-50%);
+  line-height: 1;
+}
+
+.chart-plot {
+  position: relative;
+  height: 112px;
+  touch-action: pan-y;
+  cursor: crosshair;
+}
+
+.chart-plot svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chart-grid {
+  stroke: var(--a-hairline);
+  stroke-width: 1;
+}
+
+.chart-grid.is-base {
+  stroke: var(--a-border);
+}
+
+.chart-area {
+  fill: var(--a-series-wash);
+}
+
+.chart-line {
+  fill: none;
+  stroke: var(--a-series);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+/* 8px, ringed in the card colour so it reads where it sits on the line. */
+.chart-dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 50%;
+  background: var(--a-series);
+  border: 2px solid var(--a-card);
+  pointer-events: none;
+}
+
+.chart-crosshair {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--a-border);
+  pointer-events: none;
+}
+
+.chart-tip {
+  position: absolute;
+  top: 0;
+  transform: translate(10px, 0);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 6px 9px;
+  background: var(--a-card);
+  border: 1px solid var(--a-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.chart-tip.is-left {
+  transform: translate(calc(-100% - 10px), 0);
+}
+
+.chart-tip strong {
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-tip span {
+  color: var(--a-muted);
+}
+
+.chart-x {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6875rem;
+  color: var(--a-muted);
+}
+
+.a-details {
+  margin-top: 12px;
+}
+
+.a-details summary {
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--a-muted);
+  width: fit-content;
+}
+
+.a-details[open] summary {
+  margin-bottom: 10px;
+}
+
+/* ---- Funnel ---------------------------------------------------------- */
+
+.a-funnel {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.a-funnel-row {
+  display: grid;
+  grid-template-columns: minmax(120px, 170px) 1fr minmax(96px, auto);
+  align-items: center;
+  gap: 14px;
+  padding: 7px 0;
+}
+
+.a-funnel-label {
+  font-weight: 550;
+}
+
+.a-funnel-value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.a-funnel-value .a-muted {
+  font-size: 0.8125rem;
+  margin-left: 6px;
+}
+
+.a-funnel-drop {
+  margin: 0 0 0 calc(min(170px, 30%) + 14px);
+  padding: 2px 0 4px;
+  font-size: 0.8125rem;
+  color: var(--a-muted);
+}
+
+.a-funnel-drop.is-biggest {
+  color: var(--a-text);
+  font-weight: 600;
+}
+
+.a-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 8px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--a-border);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.a-flag::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--a-warning);
+}
+
+/* ---- Bars inside tables and lists ------------------------------------ */
+
+/* Thin, grown from one baseline, rounded only at the data end. */
+.a-track {
+  display: block;
+  width: 100%;
+  min-width: 60px;
+}
+
+.a-bar {
+  display: block;
+  height: 10px;
+  min-width: 2px;
+  border-radius: 0 4px 4px 0;
+  background: var(--a-series);
+}
+
+.a-funnel .a-bar {
+  height: 14px;
+}
+
+/* ---- Tables --------------------------------------------------------- */
+
+.a-table-wrap {
+  overflow-x: auto;
+  margin: 0 -20px;
+  padding: 0 20px;
+}
+
+.a-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.a-table th {
+  font-size: 0.8125rem;
+  font-weight: 550;
+  color: var(--a-muted);
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--a-border);
+  white-space: nowrap;
+}
+
+.a-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--a-hairline);
+  vertical-align: middle;
+}
+
+.a-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.a-table th:first-child,
+.a-table td:first-child {
+  padding-left: 0;
+}
+
+.a-table th:last-child,
+.a-table td:last-child {
+  padding-right: 0;
+}
+
+.a-table tbody th {
+  font-size: inherit;
+  font-weight: 550;
+  color: inherit;
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--a-hairline);
+  white-space: normal;
+}
+
+.a-table tbody tr:last-child th {
+  border-bottom: 0;
+}
+
+.a-table .is-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.a-table .is-bar {
+  width: 32%;
+  min-width: 120px;
+}
+
+/* Rows of prose rather than figures, which line up at the top. */
+.a-table.is-top td,
+.a-table.is-top tbody th {
+  vertical-align: top;
+}
+
+.a-table tbody tr.is-link {
+  cursor: pointer;
+}
+
+.a-table tbody tr.is-link:hover td {
+  background: var(--a-fill);
+}
+
+.a-sub {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--a-muted);
+}
+
+/* ---- People ---------------------------------------------------------- */
+
+.a-person {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.a-person a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.a-person a:hover {
+  text-decoration: underline;
+}
+
+.a-avatar {
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--a-fill);
+  display: inline-grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 650;
+  color: var(--a-muted);
+}
+
+.a-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px 2px 8px;
+  border: 1px solid var(--a-border);
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  white-space: nowrap;
+  background: var(--a-card);
+}
+
+.a-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.a-dot.is-good {
+  background: var(--a-good);
+}
+
+/* Half full: on its way to being subscribed. */
+.a-dot.is-trial {
+  background: linear-gradient(90deg, var(--a-good) 50%, transparent 50%);
+  box-shadow: inset 0 0 0 1.5px var(--a-good);
+}
+
+.a-dot.is-warning {
+  background: var(--a-warning);
+}
+
+.a-dot.is-critical {
+  background: var(--a-critical);
+}
+
+.a-dot.is-neutral {
+  box-shadow: inset 0 0 0 1.5px var(--a-muted);
+}
+
+.a-tag {
+  display: inline-block;
+  padding: 0 7px;
+  border-radius: 6px;
+  background: var(--a-fill);
+  color: var(--a-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* ---- Notifications ---------------------------------------------------- */
+
+.a-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 260px;
+}
+
+/* A notification as it lands: title over body, in a bubble. */
+.a-message {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 2px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: var(--a-fill);
+  font-size: 0.875rem;
+}
+
+.a-message strong {
+  font-weight: 620;
+}
+
+/* A placeholder, filled in per person. Marked by its shape as well as its
+   colour, so the braces are never the only cue. */
+.a-slot {
+  padding: 0 4px;
+  border-radius: 4px;
+  border: 1px dashed var(--a-border);
+  background: var(--a-card);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.875em;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ---- Users list ------------------------------------------------------ */
+
+.a-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.a-input,
+.a-select {
+  font: inherit;
+  font-size: 0.9375rem;
+  color: var(--a-text);
+  background: var(--a-card);
+  border: 1px solid var(--a-border);
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+
+.a-input {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.a-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.a-inline-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+}
+
+.a-person-name {
+  min-width: 0;
+}
+
+.a-small {
+  font-size: 0.8125rem;
+}
+
+.a-gap {
+  margin-left: 8px;
+}
+
+.a-footnote {
+  margin: 12px 0 0;
+}
+
+.a-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.a-chip {
+  font: inherit;
+  font-size: 0.8125rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--a-border);
+  background: transparent;
+  color: var(--a-muted);
+  cursor: pointer;
+}
+
+.a-chip[aria-pressed="true"] {
+  background: var(--a-card);
+  color: var(--a-text);
+  border-color: var(--a-muted);
+}
+
+.a-chip .a-num {
+  color: var(--a-muted);
+}
+
+.a-count {
+  font-size: 0.8125rem;
+  color: var(--a-muted);
+  margin-bottom: 8px;
+}
+
+/* ---- One person -------------------------------------------------------- */
+
+.a-back {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: var(--a-muted);
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.a-back:hover {
+  color: var(--a-text);
+}
+
+.a-profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.a-profile h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.a-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px 24px;
+  margin: 0;
+}
+
+.a-facts div {
+  min-width: 0;
+}
+
+.a-facts dt {
+  font-size: 0.8125rem;
+  color: var(--a-muted);
+}
+
+.a-facts dd {
+  margin: 2px 0 0;
+  overflow-wrap: anywhere;
+}
+
+/* Free for life: give it, or take it back. Under the facts, since it's about
+   this person and changes what they see in the app. */
+.a-grant {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--a-hairline);
+}
+
+.a-grant-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+}
+
+.a-grant-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 320px;
+  min-width: 0;
+  font-size: 0.875rem;
+  color: var(--a-muted);
+}
+
+.a-grant-text strong {
+  color: var(--a-text);
+  font-weight: 600;
+}
+
+.a-grant-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.a-grant-warning {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  font-size: 0.875rem;
+}
+
+.a-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 12px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .a-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.a-barlist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.a-barlist li {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.a-barlist-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.875rem;
+}
+
+/* ---- Session timeline --------------------------------------------------- */
+
+.a-session-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 12px;
+  margin-bottom: 10px;
+}
+
+.a-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 14px;
+  border-left: 1px solid var(--a-border);
+}
+
+.a-step {
+  position: relative;
+  padding: 4px 0 4px 10px;
+  font-size: 0.875rem;
+}
+
+.a-step.is-screen {
+  font-weight: 600;
+}
+
+.a-step.is-screen::before {
+  content: "";
+  position: absolute;
+  left: -19px;
+  top: 10px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--a-series);
+  border: 2px solid var(--a-card);
+}
+
+.a-step.is-tap {
+  color: var(--a-muted);
+  padding-left: 22px;
+}
+
+.a-step.is-start {
+  color: var(--a-muted);
+}
+
+.a-step .a-time {
+  font-weight: 400;
+  color: var(--a-muted);
+  margin-left: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.a-more {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.875rem;
+}
+
+/* ---- Problem, login, loading -------------------------------------------- */
+
+.a-problem {
+  border-color: var(--a-warning);
+}
+
+.a-problem h2 {
+  margin-bottom: 6px;
+}
+
+.a-login {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.a-login .a-card {
+  width: 100%;
+  max-width: 380px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.a-login label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.875rem;
+  font-weight: 550;
+}
+
+.a-button {
+  font: inherit;
+  font-weight: 600;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--a-text);
+  color: var(--a-card);
+  cursor: pointer;
+}
+
+.a-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.a-button.is-quiet {
+  background: transparent;
+  color: var(--a-text);
+  box-shadow: inset 0 0 0 1px var(--a-border);
+}
+
+.a-button.is-quiet:hover:not(:disabled) {
+  background: var(--a-fill);
+}
+
+/* Taking something away from a real person. White on this red is 4.8:1. */
+.a-button.is-danger {
+  background: var(--a-critical);
+  color: #ffffff;
+}
+
+.a-error {
+  color: var(--a-down);
+  font-size: 0.875rem;
+}
+
+.a-skel {
+  display: block;
+  border-radius: 10px;
+  background: var(--a-fill);
+  position: relative;
+  overflow: hidden;
+}
+
+.a-skel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  animation: a-sweep 1.5s ease-in-out infinite;
+}
+
+@media (prefers-color-scheme: dark) {
+  .a-skel::after {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .a-skel::after {
+    animation: none;
+  }
+}
+
+@keyframes a-sweep {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (max-width: 640px) {
+  .admin main {
+    padding: 20px 16px 48px;
+  }
+
+  .a-funnel-row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .a-funnel-row .a-track {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .a-funnel-drop {
+    margin-left: 0;
+  }
+}
+
+/* ---- Whensday's own pieces ------------------------------------------------ */
+
+/* An initial on the colour the person wears in the app, in place of a photo. */
+.a-avatar.is-initial {
+  color: #ffffff;
+}
+
+.a-charts.is-four {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.a-columns.is-even {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Two breakdowns side by side inside one card. */
+.a-columns.is-flush {
+  gap: 12px 32px;
+}
+
+@media (max-width: 860px) {
+  .a-columns.is-even {
+    grid-template-columns: 1fr;
+  }
+}
+
+.a-breakdown {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.a-funnel-label .a-sub {
+  font-weight: 400;
+}
+
+.a-people {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.a-facts.is-compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px 16px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--a-hairline);
+}
+
+/* A person's page: the side column holds bars, so it gets more than a third. */
+.a-columns.is-person {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+}
+
+@media (max-width: 860px) {
+  .a-columns.is-person {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Feature flags: one row each, ruled apart. */
+.a-flag-row + .a-flag-row {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--a-hairline);
+}
+
+.a-flag-row .a-grant-text strong {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.a-card-title {
+  margin: 0 0 8px;
+  font-size: 0.9375rem;
+  font-weight: 620;
+}
+
+.a-stack-gap {
+  margin-top: 12px;
+}
+
+/* An error message or a cron schedule, as the machine wrote it. */
+.a-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8125rem;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--a-fill);
+  overflow-wrap: anywhere;
+}
+
+.a-sync-error {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--a-hairline);
+}
+
+.a-sync-error code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8125rem;
+  overflow-wrap: anywhere;
+}
+
+/* A person's timeline: a dot per thing, filled in the series colour for
+   anything that made a plan, hollow for everything else. */
+.a-timeline .a-step {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 6px 0 6px 10px;
+}
+
+.a-timeline .a-step::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: 12px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--a-card);
+  box-shadow: 0 0 0 2px var(--a-card), inset 0 0 0 1.5px var(--a-muted);
+}
+
+.a-timeline .a-step.is-plan::before,
+.a-timeline .a-step.is-series::before,
+.a-timeline .a-step.is-poll::before {
+  background: var(--a-series);
+  box-shadow: 0 0 0 2px var(--a-card);
+}
+
+.a-step-text {
+  min-width: 0;
+}
+
+.a-step-text a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.a-step-text a:hover {
+  text-decoration: underline;
+}
+
+.a-timeline .a-time {
+  margin-left: auto;
+  white-space: nowrap;
+  font-size: 0.8125rem;
+}
+
+/* ---- App Store tab ---------------------------------------------------- */
+
+/* Written reviews, ruled apart. */
+.a-reviews {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.a-review {
+  padding: 14px 0;
+  border-top: 1px solid var(--a-hairline);
+}
+
+.a-review:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.a-review:last-child {
+  padding-bottom: 0;
+}
+
+.a-review-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+}
+
+.admin .a-review p {
+  margin: 4px 0 6px;
+  color: var(--a-text);
+  white-space: pre-line;
+}
+
+.a-stars {
+  color: var(--a-warning);
+  letter-spacing: 1px;
+}
+
+.a-stars-off {
+  color: var(--a-border);
+}
+
+/* ---- Ghost Pilots only ------------------------------------------------- */
+/* Everything above is the same as Whensday's apart from the palette. */
+
+/* The players list is filtered on the server, so its chips are links, and
+   the one you're on says so with aria-current rather than aria-pressed. */
+a.a-chip {
+  text-decoration: none;
+}
+
+.a-chip[aria-current="true"] {
+  background: var(--a-card);
+  color: var(--a-text);
+  border-color: var(--a-muted);
+}
+
+/* A row of tags: what a player owns, who's in a game. */
+.a-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}

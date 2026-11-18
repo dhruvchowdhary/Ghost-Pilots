@@ -1,0 +1,70 @@
+/* The public page. The dashboard undoes what it needs to under .admin. The
+   colours are the app icon's: starfield navy and the ghost's pink. */
+
+:root {
+  --bg: #ffffff;
+  --text: #152044;
+  --text-dim: #5a6283;
+  --accent: #152044;
+  --accent-text: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #152044;
+    --text: #eef0f8;
+    --text-dim: #a3abc6;
+    --accent: #ffaaaa;
+    --accent-text: #152044;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  min-height: 100dvh;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 0 0 8px;
+}
+
+p {
+  color: var(--text-dim);
+  margin: 0 0 24px;
+}
+
+.button {
+  display: inline-block;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+  text-decoration: none;
+}
