@@ -31,6 +31,11 @@ export default async function OverviewPage() {
   );
 }
 
+/// Balances above this aren't added to the total. A few devices hold numbers
+/// no amount of play would reach (one has 10^22), and a single one of them
+/// turns the sum into noise. The bands and the median still count them.
+const TOTAL_CAP = 1_000_000;
+
 function median(values: number[]): number {
   if (values.length === 0) return 0;
   const sorted = [...values].sort((a, b) => a - b);
@@ -45,7 +50,8 @@ function Body({ players, games }: { players: Player[]; games: Game[] }) {
 
   const named = players.filter((p) => p.name).length;
   const balances = players.map((p) => Math.max(p.polynite, 0));
-  const held = balances.reduce((a, b) => a + b, 0);
+  const counted = balances.filter((n) => n <= TOTAL_CAP);
+  const held = counted.reduce((a, b) => a + b, 0);
   const buyers = players.filter((p) => p.bought > 0).length;
 
   const live = games.filter(isLive);
@@ -66,7 +72,7 @@ function Body({ players, games }: { players: Player[]; games: Game[] }) {
           sub={t.onlineSub(playing, live.length - playing)}
           hint={t.onlineHint}
         />
-        <KpiTile label={t.polynite} value={formatCount(held)} sub={t.polyniteSub(median(balances))} hint={t.polyniteHint} />
+        <KpiTile label={t.polynite} value={formatCount(held)} sub={t.polyniteSub(median(balances), balances.length - counted.length)} hint={t.polyniteHint} />
         <KpiTile
           label={t.buyers}
           value={formatCount(buyers)}

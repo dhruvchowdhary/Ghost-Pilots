@@ -48,8 +48,12 @@ export const AdminStrings = {
     onlineHint:
       "Players the database has in a game or lobby. Someone who closed the app without leaving still counts, since there are no times to tell them apart.",
     polynite: "Polynite held",
-    polyniteSub: (median: number) => `Median ${median.toLocaleString("en-US")} a player`,
-    polyniteHint: "Every player's balance, added up. It's what they have now, not what they've earned.",
+    polyniteSub: (median: number, left: number) =>
+      left === 0
+        ? `Median ${median.toLocaleString("en-US")} a player`
+        : `Median ${median.toLocaleString("en-US")} a player · ${left} over a million left out`,
+    polyniteHint:
+      "Every player's balance, added up: what they have now, not what they've earned. Balances over a million are left out of the total, because a few run to 22 digits and would drown out everyone else. They still count everywhere else.",
     buyers: "Bought from the shop",
     buyersSub: (pct: string) => `${pct} of players`,
     buyersHint: "Players who own at least one decal or trail beyond the defaults everyone starts with.",
