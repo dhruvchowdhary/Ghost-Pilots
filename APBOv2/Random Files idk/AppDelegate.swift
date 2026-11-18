@@ -44,6 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     
     func applicationWillResignActive(_ application: UIApplication) {
+        PlayTracker.shared.stop()
         Global.gameData.gameScene.lastUpdateTime = 42069.0
         gameCode = Global.gameData.gameID
         username = Global.playerData.playerID
@@ -57,7 +58,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
     }
 
+    // Runs at launch and every time the game comes back to the front, after
+    // FirebaseApp.configure() above.
     func applicationDidBecomeActive(_ application: UIApplication) {
+        DataPusher.markSeen()
+        PlayTracker.shared.start()
     }
 
 }

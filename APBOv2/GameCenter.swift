@@ -19,6 +19,7 @@ class GameCenter {
         GKLocalPlayer.local.authenticateHandler = { gcAuthVC, error in
             if GKLocalPlayer.local.isAuthenticated {
                 self.isAuthenticated = true
+                DataPusher.saveGameCenterName(GKLocalPlayer.local.displayName)
                 print("Authenticated to Game Center")
             } else if let vc = gcAuthVC {
                 self.viewController?.present(vc, animated: true)
