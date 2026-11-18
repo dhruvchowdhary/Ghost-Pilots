@@ -67,9 +67,13 @@ under `Users/<device>` (`APBOv2/Firebase/DataPusher.swift`):
   Overview's "Day by day" charts.
 
 Until players update, those read "Not recorded" and the sections that need
-them say so. "In an online game" is as the database has it; someone whose app
-died mid-lobby still shows, since lobbies carry no times. Games nobody is left
-in are counted separately, as left behind.
+them say so. "In an online game" is as the database has it. Up to 3.4 a
+closed or killed app left its seat marked as in the game for good, because iOS
+suspends the app before its goodbye gets out; versions after it leave the
+server an `onDisconnect` order to mark the seat gone when the connection drops
+(`Seat` in `APBOv2/Firebase/DataPusher.swift`). The seats left behind before
+then were closed by hand on 2026-11-18. Games nobody is left in are counted
+separately, as left behind.
 
 ### The database's rules
 

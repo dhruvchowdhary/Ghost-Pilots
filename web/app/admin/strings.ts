@@ -46,7 +46,7 @@ export const AdminStrings = {
     onlineSub: (games: number, lobbies: number) =>
       `${games} ${games === 1 ? "game" : "games"} playing · ${lobbies} ${lobbies === 1 ? "lobby" : "lobbies"} open`,
     onlineHint:
-      "Players the database has in a game or lobby. Someone who closed the app without leaving still counts, since there are no times to tell them apart.",
+      "Players the database has in a game or lobby. From versions after 3.4 the server marks anyone gone the moment their app closes or drops offline; an older version can still leave a seat behind.",
     polynite: "Polynite held",
     polyniteSub: (median: number, left: number) =>
       left === 0
@@ -285,7 +285,7 @@ export const AdminStrings = {
     queue: (n: number) => `${n} public ${n === 1 ? "lobby" : "lobbies"} looking for players`,
     liveHeading: "Being played and waiting",
     liveCaption:
-      "Games with at least one player still in them. Someone who closed the app without leaving still counts, since the game saves no times.",
+      "Games with at least one player still in them. From versions after 3.4 the server marks a player gone the moment their app closes or drops offline; an older version can still leave a seat behind.",
     liveEmpty: "Nobody is in an online game right now.",
     code: "Code",
     status: "Status",
