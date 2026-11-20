@@ -30,8 +30,8 @@ import { requireAdmin } from "./session";
 /// only asks Apple for the newest day or two and anything it hasn't seen.
 /// Bump `VERSION` when a change here changes what a cached entry holds.
 ///
-/// This file is the same in every dashboard's repo (SweatHearts, Whensday and
-/// Ghost-Pilots). Which app it reads comes from `dashboards.ts`.
+/// This file is the same in every dashboard's repo (SweatHearts, Whensday,
+/// Ghost-Pilots and Chaos). Which app it reads comes from `dashboards.ts`.
 
 const VERSION = "v1";
 const APP = CURRENT_DASHBOARD.appStore;

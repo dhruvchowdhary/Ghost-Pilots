@@ -8,7 +8,7 @@ It's a small Next.js app on Vercel, built from Whensday's site (the Whensday
 repo, `w.dhrooby.com`), which was built from FitPals' (the SweatHearts repo,
 `fitpals.dhrooby.com`). Like them it lives on its own subdomain of
 `dhrooby.com`, as its own Vercel project, so it can't break the personal site
-on the apex or either of the other two.
+on the apex or any of the other dashboards'.
 
 ## Routes
 
@@ -18,11 +18,11 @@ on the apex or either of the other two.
 ## The admin dashboard
 
 `/admin` is where the game's Firebase data and Apple's numbers are read back.
-It's the third of three: FitPals' at `fitpals.dhrooby.com/admin` and
-Whensday's at `w.dhrooby.com/admin` have the same layout and sidebar, and the
-switcher at the top of each jumps between them. `app/admin/dashboards.ts`
-lists all three, and its copies in the other two repos have to match it apart
-from `CURRENT`. Four tabs:
+It's one of four: FitPals' at `fitpals.dhrooby.com/admin`, Whensday's at
+`w.dhrooby.com/admin` and Chaos' at `chaos.dhrooby.com/admin` have the same
+layout and sidebar, and the switcher at the top of each jumps between them.
+`app/admin/dashboards.ts` lists all four, and its copies in the other three
+repos have to match it apart from `CURRENT`. Four tabs:
 
 - **Overview** - how many players there are and how many picked an online
   name, who's in an online game, how much Polynite is out there, players and
@@ -30,7 +30,7 @@ from `CURRENT`. Four tabs:
   and how balances spread out.
 - **App Store** - what Apple reports: downloads, where they came from and
   which countries, the store page, crashes, ratings and reviews. The same tab
-  as the other two dashboards; see below.
+  as the other dashboards; see below.
 - **Players** - everyone, most recently active first, searchable by online
   name, Game Center name or device id, with a page each for their balance,
   their shop, what they play and any online game they're in.
@@ -123,7 +123,7 @@ Sensitive):
 
 | Variable | What |
 | --- | --- |
-| `ADMIN_PASSWORD` | The one password. At least 12 characters, or the dashboard stays off. `openssl rand -base64 24` makes a good one. Use a different one from the other two dashboards'. |
+| `ADMIN_PASSWORD` | The one password. At least 12 characters, or the dashboard stays off. `openssl rand -base64 24` makes a good one. Use a different one from the other dashboards'. |
 | `FIREBASE_SERVICE_ACCOUNT` | A service account key: the whole JSON file Google downloads, braces included (base64 of it works too). |
 | `FIREBASE_DATABASE_URL` | Optional. Defaults to the live database. |
 
@@ -151,7 +151,7 @@ Four things about it are worth knowing:
   `/admin`, holding an expiry and an HMAC keyed off the password, so changing
   `ADMIN_PASSWORD` signs every browser out. Every read checks the session
   itself (`read` in `app/admin/lib/firebase.ts`), not just the page around it.
-  It's a separate password and cookie from the other two dashboards', so the
+  It's a separate password and cookie from the other dashboards', so the
   switcher asks you to sign in on each once.
 - **It reads the whole player list.** Every install is a player, so the list
   can be long. It's downloaded once a minute at most, shared between tabs, and
@@ -207,9 +207,10 @@ Worth knowing:
   ends on the day before yesterday.
 - **Proceeds are never converted.** Apple pays out in each storefront's own
   currency. The tab leads with dollars and lists the rest beside them.
-- **App Analytics has to be asked for**, once per app, by an Admin key. All
-  three apps were asked on 2026-11-17, with a one-time snapshot of their
-  history.
+- **App Analytics has to be asked for**, once per app, by an Admin key.
+  FitPals, Whensday and Ghost Pilots were asked on 2026-11-17, with a one-time
+  snapshot of their history. Chaos, still in review then, is asked for in its
+  own repo's README.
   Apple keeps each delivery for 35 days, so the store page and crashes go back
   about five weeks while sales go back a year. Apple also stops a request that
   nothing collects for a long while. The tab says so if it happens, and this
@@ -263,8 +264,8 @@ CNAME   ghostpilots   ->   b3c455362ac57b9a.vercel-dns-017.com.
 ```
 
 `npx vercel domains verify ghostpilots.dhrooby.com` prints the record again if
-it ever needs re-adding. Leave the apex, `www`, `w` and `fitpals` records
-alone.
+it ever needs re-adding. Leave the apex, `www`, `w`, `fitpals` and `chaos`
+records alone.
 
-Moving to another domain means changing `url` in all three copies of
+Moving to another domain means changing `url` in all four copies of
 `dashboards.ts`, this project's Vercel domain, and this file.

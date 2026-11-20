@@ -2,17 +2,18 @@
 ///
 /// Each app keeps its own dashboard in its own repo and on its own domain:
 /// FitPals' at fitpals.dhrooby.com/admin (the SweatHearts repo), Whensday's
-/// at w.dhrooby.com/admin (the Whensday repo), and Ghost Pilots' at
-/// ghostpilots.dhrooby.com/admin (the Ghost-Pilots repo). Each repo holds a
-/// copy of this file at `web/app/admin/dashboards.ts`. None holds another's
-/// database key, so switching is a plain link and each asks for its own
-/// password the first time.
+/// at w.dhrooby.com/admin (the Whensday repo), Ghost Pilots' at
+/// ghostpilots.dhrooby.com/admin (the Ghost-Pilots repo), and Chaos' at
+/// chaos.dhrooby.com/admin (the Chaos repo). Each repo holds a copy of this
+/// file at `web/app/admin/dashboards.ts`. None holds another's database key,
+/// so switching is a plain link and each asks for its own password the first
+/// time.
 ///
-/// Keep the three copies in step: same entries, same order, only `CURRENT`
+/// Keep the four copies in step: same entries, same order, only `CURRENT`
 /// differs. The current one links to `/admin` rather than its domain, so the
 /// switcher stays put on a local `npm run dev`.
 
-export type DashboardKey = "fitpals" | "whensday" | "ghostpilots";
+export type DashboardKey = "fitpals" | "whensday" | "ghostpilots" | "chaos";
 
 /// The app as App Store Connect knows it, for the App Store tab
 /// (`lib/appstore.ts`, also the same in every repo).
@@ -58,6 +59,16 @@ export const DASHBOARDS: readonly {
     mark: "#152044",
     initial: "G",
     appStore: { id: "1538606743", sku: "vincentanddhruv", sells: false },
+  },
+  {
+    // The iPhone app. The website and the browser extension have no store
+    // listing of their own, so the App Store tab is about this one.
+    key: "chaos",
+    name: "Chaos",
+    url: "https://chaos.dhrooby.com/admin",
+    mark: "#b45309",
+    initial: "C",
+    appStore: { id: "6837133712", sku: "chaos-ios", sells: false },
   },
 ];
 
